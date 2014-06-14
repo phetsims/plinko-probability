@@ -1,0 +1,15 @@
+{
+  "ball": "knikker",
+  "number": "aantal",
+  "simTitle": "Knikkerspel en waarschijnlijkheidsverdeling",
+  "continuous": "veel",
+  "histogramDisplay": "Beeld\nhistogram: ",
+  "none": "geen",
+  "oneBall": "1 knikker",
+  "show": "Toon:",
+  "sound": "Geluid",
+  "fraction": "fractie",
+  "autoScale": "pas aan",
+  "path": "spoor",
+  "rows": "rijen"
+}

@@ -1,0 +1,22 @@
+{
+  "none": "sakrij!",
+  "number": "N",
+  "start": "Počni",
+  "continuous": "neprekidno",
+  "simTitle": "Pascalov trokut",
+  "fraction": "%",
+  "NEquals": "N = ",
+  "rows": "#redova",
+  "sEquals": "s = ",
+  "sound": "Zvuk",
+  "oneBall": "pojedinačo",
+  "path": "stazu",
+  "histogramDisplay": "Histogram:",
+  "p": "vjerojatnost",
+  "stop": "Zaustavi",
+  "ball": "lopticu",
+  "help": "Pomoć",
+  "reset": "Ponovo",
+  "show": "Pokaži:",
+  "autoScale": "skala"
+}

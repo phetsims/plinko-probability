@@ -1,0 +1,19 @@
+{
+  "translation.credits": "Anders Gölstam",
+  "ball": "kula",
+  "number": "antal",
+  "simTitle": "Plinko sannolikhet",
+  "help": "Hjälp",
+  "continuous": "kontinuerlig",
+  "reset": "Återställ",
+  "stop": "Stopp",
+  "none": "ingen",
+  "histogramDisplay": "Histogram \nvisa:",
+  "oneBall": "1 kula",
+  "show": "Visa:",
+  "sound": "Ljud",
+  "fraction": "bråkdel",
+  "autoScale": "autoskalning",
+  "path": "bana",
+  "rows": "rader"
+}

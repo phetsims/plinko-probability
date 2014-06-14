@@ -1,0 +1,19 @@
+{
+  "start": "Inicie",
+  "ball": "bola",
+  "number": "número",
+  "simTitle": "Probabilidade Plinko",
+  "help": "Ajuda",
+  "continuous": "contínuo",
+  "reset": "Reinicie",
+  "stop": "Pare",
+  "none": "nada",
+  "histogramDisplay": "Exibir \nHistograma:",
+  "oneBall": "1 bola",
+  "show": "Ver:",
+  "sound": "Som",
+  "fraction": "fração",
+  "autoScale": "autoajuste",
+  "path": "trajeto",
+  "rows": "linhas"
+}

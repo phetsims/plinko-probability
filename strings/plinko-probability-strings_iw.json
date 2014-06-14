@@ -1,0 +1,21 @@
+{
+  "none": "אף אחד",
+  "number": "מספר",
+  "start": "התחל",
+  "continuous": "רציף",
+  "simTitle": "ההתפלגות סטנדרטית",
+  "fraction": "שבר",
+  "rows": "שורות",
+  "sound": "קול",
+  "oneBall": "כדור 1",
+  "path": "דרך",
+  "histogramDisplay": "תצוגת \nהיסטוגרמה:",
+  "p": "הסתברות",
+  "stop": "עצור",
+  "ball": "כדור",
+  "help": "עזרה",
+  "translation.credits": "<html><center>דוידסון אונליין - למידה מתוקשבת <Br>http://davidson.weizmann.ac.il/online/tikshuv </center></html>",
+  "reset": "התחל מחדש",
+  "show": ":הצג",
+  "autoScale": "התאמה אוטומטית"
+}

@@ -1,0 +1,23 @@
+{
+  "none": "هیچ کدام",
+  "number": "تعداد",
+  "start": "شروع",
+  "continuous": "مداوم",
+  "simTitle": "احتمال بازش پلینکو",
+  "fraction": "کسر",
+  "NEquals": "N=",
+  "rows": "ردیف",
+  "sEquals": "s =",
+  "sound": "صدا",
+  "oneBall": "1 توپ",
+  "path": "راه",
+  "histogramDisplay": "هیستوگرام \ ndisplay",
+  "p": "p",
+  "stop": "توقف",
+  "ball": "توپ",
+  "help": "راهنما",
+  "translation.credits": "<html>خليلي بروجني<br> وب سايت www.avang.org <br></html>",
+  "reset": "بازنشانی",
+  "show": "نشان بده",
+  "autoScale": "مقیاس اتوماتیک"
+}

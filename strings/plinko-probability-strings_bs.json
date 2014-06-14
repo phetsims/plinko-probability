@@ -1,0 +1,21 @@
+{
+  "none": "BEZ",
+  "number": "PO BROJU",
+  "start": "START",
+  "continuous": "Neprekidno",
+  "simTitle": "RASPODJELA VJEROVATNOĆE",
+  "fraction": "PO UDJELU",
+  "rows": "REDOVA",
+  "sound": "ZVUK",
+  "oneBall": "1Lopticu",
+  "path": "PUTANJU",
+  "histogramDisplay": "POKAŽI \nHISTOGRAM",
+  "p": "P \nVJEROVATNOĆA",
+  "stop": "STOP",
+  "ball": "LOPTICU",
+  "help": "POMOĆ",
+  "translation.credits": "<html> Mr.sc. Dino Ćorović, dipl.fizičar <br> dino_corovic@hotmail.com </html>",
+  "reset": "NA POČETAK",
+  "show": "POKAŽI:",
+  "autoScale": "Auto-skala"
+}

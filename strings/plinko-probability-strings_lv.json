@@ -1,0 +1,23 @@
+{
+  "none": "nevienu",
+  "number": "skaits",
+  "start": "Sākt",
+  "continuous": "patst. plūsma",
+  "simTitle": "Plinko varbūtība",
+  "fraction": "daļa",
+  "NEquals": "n = ",
+  "rows": "rindas",
+  "sEquals": "s = ",
+  "sound": "Skaņa",
+  "oneBall": "1 bumbiņa",
+  "path": "ceļu",
+  "histogramDisplay": "Histogram. \nattēlojums:",
+  "p": "p",
+  "stop": "Pārtraukt",
+  "ball": "bumbiņu",
+  "help": "Palīdzība",
+  "translation.credits": "Arvis Lācis (@arvislacis)",
+  "reset": "Atiestatīt",
+  "show": "Rādīt:",
+  "autoScale": "pielāgots"
+}

@@ -1,0 +1,19 @@
+{
+  "start": "Štart",
+  "ball": "guľôčku",
+  "number": "počet",
+  "simTitle": "Pravdepodobnosť",
+  "help": "Pomocník",
+  "continuous": "plynulo",
+  "reset": "Obnoviť",
+  "stop": "Stop",
+  "none": "nič",
+  "histogramDisplay": "Histogram:",
+  "oneBall": "1guľôčka ",
+  "show": "Zobraziť:",
+  "sound": "zvuk",
+  "fraction": "podiel",
+  "autoScale": "auto-rozsah",
+  "path": "cestu",
+  "rows": "riadky"
+}

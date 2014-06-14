@@ -1,0 +1,22 @@
+{
+  "none": "nic",
+  "number": "ilość",
+  "start": "Start",
+  "continuous": "dużo kulek",
+  "simTitle": "Deska Galtona -prawdopodobieństwo",
+  "fraction": "ułamek",
+  "NEquals": "N=",
+  "rows": "rzędy",
+  "sEquals": "s =",
+  "sound": "Dźwięk",
+  "oneBall": "1 kulka",
+  "path": "ścieżka",
+  "histogramDisplay": "Histogram\n rodzaj",
+  "p": "p",
+  "stop": "Stop",
+  "ball": "kulka",
+  "help": "Pomoc",
+  "reset": "Zresetuj",
+  "show": "Pkaż:",
+  "autoScale": "auto"
+}

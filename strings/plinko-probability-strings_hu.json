@@ -1,0 +1,18 @@
+{
+  "translation.credits": "<html><a href=\"http://nasa.web.elte.hu/defhu.htm\">Nagy Sándor</a><br>ELTE, <a href=\"http://www.chem.elte.hu/pr/\">Kémiai Intézet</a>, Budapest</html>",
+  "ball": "golyó",
+  "number": "darab",
+  "simTitle": "Galton-deszka",
+  "help": "Súgó",
+  "continuous": "folyamatos",
+  "reset": "Újrakezd",
+  "none": "semmi",
+  "histogramDisplay": "Hisztogram \ntípusa",
+  "oneBall": "1 golyó",
+  "show": "Látszik",
+  "sound": "Hang",
+  "fraction": "hányad",
+  "autoScale": "önigazító",
+  "path": "útvonal",
+  "rows": "sorok"
+}

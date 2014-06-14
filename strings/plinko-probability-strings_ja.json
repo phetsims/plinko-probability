@@ -1,0 +1,20 @@
+{
+  "none": "なし",
+  "number": "個数",
+  "start": "開始",
+  "continuous": "連続",
+  "simTitle": "パチンコ玉の落下分布",
+  "fraction": "割合",
+  "rows": "場所の数",
+  "sound": "音",
+  "oneBall": "1個",
+  "path": "経路",
+  "histogramDisplay": "ヒストグラム \n表示",
+  "stop": "停止",
+  "ball": "ボール",
+  "help": "ヘルプ",
+  "translation.credits": "高知工科大学",
+  "show": "表示 :",
+  "reset": "リセット",
+  "autoScale": "自動スケール"
+}

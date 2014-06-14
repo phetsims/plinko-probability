@@ -1,0 +1,19 @@
+{
+  "start": "via",
+  "translation.credits": "<html>Vito Garganese<br>vito.garganese@alice.it<br><html>",
+  "ball": "palline",
+  "number": "numero",
+  "simTitle": "Il gioco di Plinko: probabilità",
+  "help": "Aiuto",
+  "continuous": "continuo",
+  "reset": "ricomincia",
+  "none": "niente",
+  "histogramDisplay": "Visualizza istogramma",
+  "oneBall": "1 pallina",
+  "show": "mostra:",
+  "sound": "Suono",
+  "fraction": "frazione",
+  "autoScale": "adatta scala",
+  "path": "percorso",
+  "rows": "righe"
+}
