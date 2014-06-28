@@ -7,12 +7,12 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var PlinkoProbabilityScreen = require( 'PLINKO_PROBABILITY/view/PlinkoProbabilityScreen' );
+  var PlinkoProbabilityScreen = require( 'PLINKO/view/PlinkoProbabilityScreen' );
   var Sim = require( 'JOIST/Sim' );
   var SimLauncher = require( 'JOIST/SimLauncher' );
 
   // strings
-  var simTitle = require( 'string!PLINKO_PROBABILITY/simTitle' );
+  var simTitle = require( 'string!PLINKO/simTitle' );
 
   var simOptions = {
     credits: {

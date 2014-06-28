@@ -31,7 +31,7 @@ require.config( {
     SUN: '../../sun/js',
 
     // sim code
-    PLINKO_PROBABILITY: '.'
+    PLINKO: '.'
   },
 
   urlArgs: new Date().getTime()  // cache buster to make browser refresh load all included scripts

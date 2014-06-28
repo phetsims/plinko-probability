@@ -11,6 +11,9 @@ define( function( require ) {
   var Bounds2 = require( 'DOT/Bounds2' );
   var ResetAllButton = require( 'SCENERY_PHET/ResetAllButton' );
   var ScreenView = require( 'JOIST/ScreenView' );
+  var ControlPanel = require( 'PLINKO/view/ControlPanel' );
+  var PropertySet = require( 'AXON/PropertySet' );
+
 
   // strings
   // TODO: place used strings here
@@ -22,16 +25,16 @@ define( function( require ) {
   function PlinkoProbabilityView( model ) {
     ScreenView.call( this, { renderer: 'svg' } );
 
-    // Reset All button
-    var resetAllButton = new ResetAllButton( {
-      listener: function() {
-        model.reset();
-      }
+    var histogramProperties = new PropertySet( {
+      fraction: true,
+      number: false,
+      autoScale: false,
+      positionMarkerState: 'fraction' // Valid values are 'fraction', 'number', and 'autoScale'.
     } );
 
-    this.addChild( resetAllButton );
+    this.addChild( new ControlPanel( model, this, histogramProperties.positionMarkerStateProperty, { top: 10, right: this.layoutBounds.right - 10 } ) );
 
-    resetAllButton.center = this.layoutBounds.center;
+    // resetAllButton.center = this.layoutBounds.center;
   }
 
   return inherit( ScreenView, PlinkoProbabilityView, {

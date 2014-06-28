@@ -8,12 +8,12 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var PlinkoProbabilityModel = require( 'PLINKO_PROBABILITY/model/PlinkoProbabilityModel' );
-  var PlinkoProbabilityView = require( 'PLINKO_PROBABILITY/view/PlinkoProbabilityView' );
+  var PlinkoProbabilityModel = require( 'PLINKO/model/PlinkoProbabilityModel' );
+  var PlinkoProbabilityView = require( 'PLINKO/view/PlinkoProbabilityView' );
   var Screen = require( 'JOIST/Screen' );
 
   // strings
-  var plinkoProbabilityScreenString = require( 'string!PLINKO_PROBABILITY/plinkoProbabilityScreen' );
+  var plinkoProbabilityScreenString = require( 'string!PLINKO/plinkoProbabilityScreen' );
 
   function PlinkoProbabilityScreen() {
     Screen.call( this,
