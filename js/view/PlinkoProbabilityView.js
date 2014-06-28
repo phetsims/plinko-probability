@@ -32,7 +32,16 @@ define( function( require ) {
       positionMarkerState: 'fraction' // Valid values are 'fraction', 'number', and 'autoScale'.
     } );
 
-    this.addChild( new ControlPanel( model, this, histogramProperties.positionMarkerStateProperty, { top: 10, right: this.layoutBounds.right - 10 } ) );
+    var showProperties = new PropertySet( {
+      ball: true,
+      path: false,
+      none: false,
+      positionMarkerState: 'ball' // Valid values are 'ball', 'path', and 'none'.
+    } );
+
+    this.addChild( new ControlPanel( model, this, histogramProperties.positionMarkerStateProperty,
+     showProperties.positionMarkerStateProperty, 
+     { top: 10, right: this.layoutBounds.right - 10 } ) );
 
     // resetAllButton.center = this.layoutBounds.center;
   }

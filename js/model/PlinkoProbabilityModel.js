@@ -9,7 +9,7 @@ define( function( require ) {
 
   var Property = require( 'AXON/Property' );
   var ObservableArray = require( 'AXON/ObservableArray' );
-  var BallModel = require ( 'PLINKO/model/BallModel' );
+  var Ball = require ( 'PLINKO/model/Ball' );
 
 
   function PlinkoProbabilityModel() {
@@ -51,7 +51,7 @@ define( function( require ) {
     pegInterval: new Property(.05),
 
     addNewBall: function () {
-      this.balls.push(new BallModel())
+      this.balls.push(new Ball())
     }
 
   };
