@@ -10,20 +10,20 @@ define( function( require ) {
   'use strict';
 
   // imports
-  var Color = require( 'SCENERY/util/Color' );
-  var Font = require( 'SCENERY/util/Font' );
+  // var Color = require( 'SCENERY/util/Color' );
+  // var Font = require( 'SCENERY/util/Font' );
   var HStrut = require( 'SUN/HStrut' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Panel = require( 'SUN/Panel' );
-  var ResetAllButton = require( 'SCENERY_PHET/ResetAllButton' );
+  // var ResetAllButton = require( 'SCENERY_PHET/ResetAllButton' );
   var VBox = require( 'SCENERY/nodes/VBox' );
-  var Vector2 = require( 'DOT/Vector2');
-  var RadioButton = require( 'SUN/RadioButton' );
+  // var Vector2 = require( 'DOT/Vector2');
+  // var RadioButton = require( 'SUN/RadioButton' );
   var Text = require( 'SCENERY/nodes/Text' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  var Property = require( 'AXON/Property' );
-  var ButtonListener = require( 'SCENERY/input/ButtonListener' );
+  // var Property = require( 'AXON/Property' );
+  // var ButtonListener = require( 'SCENERY/input/ButtonListener' );
   var VerticalAquaRadioButtonGroup = require( 'SUN/VerticalAquaRadioButtonGroup' );
   var VStrut = require( 'SUN/VStrut' );
 

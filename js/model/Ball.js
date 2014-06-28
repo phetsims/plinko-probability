@@ -8,7 +8,7 @@
 define( function( require ) {
   'use strict';
 
-  var Property = require( 'AXON/Property' );
+  // var Property = require( 'AXON/Property' );
   var Poolable = require( 'PHET_CORE/Poolable' );
   var inherit = require( 'PHET_CORE/inherit' );
 
@@ -47,13 +47,13 @@ define( function( require ) {
     step: function( dt, probability, maxRows ) {
       if (this.phase === Ball.PHASE_INITIAL) {
         if (dt + this.fallenRatio >= 1) {
-          this.phase = Ball.PHASE_FALLING
+          this.phase = Ball.PHASE_FALLING;
           dt -= 1 - this.fallenRatio;
           this.fallenRatio = 0;
         }
         else {
           this.fallenRatio += dt;
-        } 
+        }
       }
 
       if (this.phase === Ball.PHASE_FALLING) {
@@ -80,7 +80,7 @@ define( function( require ) {
 
       if (this.phase === Ball.PHASE_EXIT) {
         if (dt + this.fallenRatio >= 1) {
-          this.phase = Ball.PHASE_COLLECTED
+          this.phase = Ball.PHASE_COLLECTED;
           dt -= 1 - this.fallenRatio;
           this.fallenRatio = 0;
         }
@@ -89,7 +89,7 @@ define( function( require ) {
         }
       }
 
-      console.log(this.phase, this.row, dt, fallenRatio);
+      console.log(this.phase, this.row, dt, this.fallenRatio);
 
     },
 
@@ -102,6 +102,7 @@ define( function( require ) {
     }
   });
 
+  /* jshint -W064 */
   Poolable( Ball, {
     defaultFactory: function() { return new Ball(); }
   } );

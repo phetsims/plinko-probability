@@ -48,10 +48,10 @@ define( function( require ) {
     maxNumOfRows: 40,
     pegHorizontalDistance: new Property(1),
     pegDiagonalDistance: new Property(1 / Math.sqrt(2)),
-    pegInterval: new Property(.05),
+    pegInterval: new Property(0.05),
 
     addNewBall: function () {
-      this.balls.push(new Ball())
+      this.balls.push(new Ball());
     }
 
   };
