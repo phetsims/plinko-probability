@@ -11,6 +11,8 @@ define( function( require ) {
   // var Property = require( 'AXON/Property' );
   var Poolable = require( 'PHET_CORE/Poolable' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var Vector2 = require( 'DOT/Vector2' );
+  var Peg = require( 'PLINKO/utils/Peg' );
 
   function Ball() {
     // 0 -> Initially falling
@@ -64,9 +66,11 @@ define( function( require ) {
 
           if (dt + this.fallenRatio >= 1) {
             dt -= 1 - this.fallenRatio;
+            this.column += (this.direction === 1 ? 1 : 0);
+            this.row += 1;
+
             this.fallenRatio = 0;
             this.direction = 0;
-            this.row += 1;
             if (this.row >= maxRows) {
               this.phase = Ball.PHASE_EXIT;
             }
@@ -98,7 +102,15 @@ define( function( require ) {
     },
 
     getPosition: function() {
-
+      switch (this.phase) {
+        case Ball.PHASE_INITIAL: 
+          return new Vector2(0, 1 - this.fallenRatio);
+        case Ball.PHASE_FALLING:
+          return new Vector2(Peg.getPositionX(this.row, this.column) + this.direction * this.fallenRatio, 
+            Peg.getPositionY(this.row, this.column) - this.fallenRatio * this.fallenRatio);
+        case Ball.PHASE_EXIT:
+          return new Vector2(0, Peg.getPositionY(this.row, this.column) + this.fallenRatio);
+      }
     }
   });
 

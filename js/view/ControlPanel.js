@@ -13,6 +13,7 @@ define( function( require ) {
   // var Color = require( 'SCENERY/util/Color' );
   // var Font = require( 'SCENERY/util/Font' );
   var HStrut = require( 'SUN/HStrut' );
+  var HSlider = require( 'SUN/HSlider' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Panel = require( 'SUN/Panel' );
@@ -33,6 +34,34 @@ define( function( require ) {
 
 
   // strings
+
+  /**
+  * @param {Property<Number>} valueProperty
+  * @param { {min:Number, max:Number} } range
+  * @param {string} title
+  * @param {bool} isInteger
+  *
+  */
+
+  function createSliderVBox(property, range, title, isInteger) {
+
+    var rowsSlider = new HSlider(property, range);
+    rowsSlider.rotate(-Math.PI / 2);
+
+    var rowsSliderLabel = new Text('');
+
+    property.link( function( num ) {
+      rowsSliderLabel.setText(isInteger ? Math.floor(num) : num.toFixed(2));
+    } );
+
+    return new VBox( { 
+      children: [
+        rowsSlider,
+        rowsSliderLabel
+      ]
+    } );
+
+  }
 
   /**
    * @param {PlinkoProbabilityModel} model
@@ -83,11 +112,18 @@ define( function( require ) {
       align: 'left'
     } );
 
-
-
+    var sliderHBox = new HBox( {
+      children: [
+        createSliderVBox(model.numberOfRows, {min: 3, max: 40}, 'rows', true),
+        createSliderVBox(model.probability, {min: 0, max: 1}, 'p', false)
+      ],
+      align: 'top',
+      spacing: 50
+    } );
 
     // The contents of the control panel
-    var content = new VBox( {align: 'left', spacing: 10, children: [histogramDisplayMarkerVBox, showMarkerVBox] } );
+    var content = new VBox( {align: 'left', spacing: 10, 
+    children: [histogramDisplayMarkerVBox, showMarkerVBox, sliderHBox] } );
 
     Panel.call( this, content, options );
   }

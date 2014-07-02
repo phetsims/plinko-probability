@@ -25,7 +25,6 @@ define( function( require ) {
     this.ball = new Property(false);
     this.path = new Property(false);
     this.none = new Property(false);
-
   }
 
   PlinkoProbabilityModel.prototype = {
