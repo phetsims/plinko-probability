@@ -17,7 +17,7 @@ define( function( require ) {
     this.probability = new Property(0.5);
 
     this.balls = new ObservableArray([]);
-
+    
     this.fraction = new Property(false);
     this.number = new Property(false);
     this.autoScale = new Property(false);
@@ -34,6 +34,11 @@ define( function( require ) {
       if (dt > 1000) {
         dt = 1000;
       }
+
+      for(var i = 0; i < this.balls.length; i++) {
+        // this.balls.get(i).step(dt, this.probability.get(), this.numberOfRows.get());
+      }
+
 
     },
 

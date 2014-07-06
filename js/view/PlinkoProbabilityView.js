@@ -39,8 +39,20 @@ define( function( require ) {
       positionMarkerState: 'ball' // Valid values are 'ball', 'path', and 'none'.
     } );
 
+    var ballModeProperties = new PropertySet( {
+      oneBall: true,
+      continous: false,
+      positionMarkerState: 'oneBall' // Valid values are 'oneBall' and 'continous'.
+    } );
+
+    ballModeProperties.positionMarkerStateProperty.link( function( positionMarkerState ) {
+      ballModeProperties.oneBall.value = positionMarkerState === 'oneBall';
+      ballModeProperties.continous.value = positionMarkerState === 'continous';
+    } );
+
+
     this.addChild( new ControlPanel( model, this, histogramProperties.positionMarkerStateProperty,
-     showProperties.positionMarkerStateProperty,
+     showProperties.positionMarkerStateProperty, ballModeProperties.positionMarkerStateProperty,
      { top: 10, right: this.layoutBounds.right - 10 } ) );
 
     // resetAllButton.center = this.layoutBounds.center;

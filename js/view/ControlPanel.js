@@ -12,6 +12,8 @@ define( function( require ) {
   // imports
   // var Color = require( 'SCENERY/util/Color' );
   // var Font = require( 'SCENERY/util/Font' );
+  var Color = require( 'SCENERY/util/Color' );
+  var Dimension2 = require( 'DOT/Dimension2' );
   var HStrut = require( 'SUN/HStrut' );
   var HSlider = require( 'SUN/HSlider' );
   var HBox = require( 'SCENERY/nodes/HBox' );
@@ -21,7 +23,11 @@ define( function( require ) {
   var VBox = require( 'SCENERY/nodes/VBox' );
   // var Vector2 = require( 'DOT/Vector2');
   // var RadioButton = require( 'SUN/RadioButton' );
+  var TextPushButton = require( 'SUN/buttons/TextPushButton' );
+
   var Text = require( 'SCENERY/nodes/Text' );
+  var Font = require( 'SCENERY/util/Font' );
+
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   // var Property = require( 'AXON/Property' );
   // var ButtonListener = require( 'SCENERY/input/ButtonListener' );
@@ -34,6 +40,27 @@ define( function( require ) {
 
 
   // strings
+  var startString = require( 'string!PLINKO/start' );
+
+
+   /**
+   * Creates a TextPushButton with the given text and options
+   *
+   * @param {string} text
+   * @param {*} options
+   * @return {TextPushButton} The created button
+   */
+
+  function createButton(text, options) {
+    options = _.extend({
+      font: new Font( '20px Arial' ),
+      rectangleXMargin: 10,
+      rectangleFillUp: new Color( 255, 255, 0 )
+    }, options);
+
+    return new TextPushButton(text, options);
+  }
+
 
   /**
   * @param {Property<Number>} valueProperty
@@ -45,7 +72,11 @@ define( function( require ) {
 
   function createSliderVBox(property, range, title, isInteger) {
 
-    var rowsSlider = new HSlider(property, range);
+    var rowsSlider = new HSlider(property, range, {
+        thumbSize: new Dimension2( 15, 30 ),
+        majorTickLength: 15,
+        tickLabelSpacing: 2
+      } );
     rowsSlider.rotate(-Math.PI / 2);
 
     var rowsSliderLabel = new Text('');
@@ -68,7 +99,7 @@ define( function( require ) {
    * @param {*} options
    * @constructor
    */
-  function ControlPanel( model, view, histogramIndicatorStateProperty, showIndicatorStateProperty, options ) {
+  function ControlPanel( model, view, histogramIndicatorStateProperty, showIndicatorStateProperty, ballModeIndicatorStateProperty, options ) {
 
     // Demonstrate a common pattern for specifying options and providing default values.
     options = _.extend( {
@@ -121,9 +152,36 @@ define( function( require ) {
       spacing: 50
     } );
 
+    var startButton = createButton(startString, {
+      listener: function() { //do stuff
+      }
+    });
+
+    var ballModeRadioButtons = new VerticalAquaRadioButtonGroup( [
+      { node: new Text( '1 Ball', PANEL_OPTION_FONT ), property: ballModeIndicatorStateProperty, value: 'oneBall', label: '1 Ball' },
+      { node: new Text( 'Continuous', PANEL_OPTION_FONT ), property: ballModeIndicatorStateProperty, value: 'continous', label: 'Continuous' }
+    ], { radius: 8 } );
+
+    var ballModeMarkerVBox = new VBox( {
+      children: [
+        new VStrut( options.titleToControlsVerticalSpace ),
+        new HStrut( Math.max( 0.1, options.minWidth - 2 * options.xMargin ) ),
+        new HBox( { children: [ new HStrut( 10 ), ballModeRadioButtons ] } )
+      ],
+      align: 'left'
+    } );
+
+
+    var startVBox = new VBox({
+      children: [
+        startButton,
+        ballModeMarkerVBox
+      ]
+    })
+
     // The contents of the control panel
     var content = new VBox( {align: 'left', spacing: 10, 
-    children: [histogramDisplayMarkerVBox, showMarkerVBox, sliderHBox] } );
+    children: [histogramDisplayMarkerVBox, showMarkerVBox, sliderHBox, startVBox] } );
 
     Panel.call( this, content, options );
   }
