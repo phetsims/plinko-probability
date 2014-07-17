@@ -13,6 +13,8 @@ define( function( require ) {
   var ScreenView = require( 'JOIST/ScreenView' );
   var ControlPanel = require( 'PLINKO/view/ControlPanel' );
   var PropertySet = require( 'AXON/PropertySet' );
+  var Property = require( 'AXON/Property' );
+
 
 
   // strings
@@ -25,34 +27,18 @@ define( function( require ) {
   function PlinkoProbabilityView( model ) {
     ScreenView.call( this, { renderer: 'svg' } );
 
-    var histogramProperties = new PropertySet( {
-      fraction: true,
-      number: false,
-      autoScale: false,
-      positionMarkerState: 'fraction' // Valid values are 'fraction', 'number', and 'autoScale'.
+    var histogramRadioProperty = new Property( 'fraction' ); //Valid values are 'fraction', 'number', and 'autoScale'.
+
+    var showRadioProperty = new Property( 'ball' ); // Valid values are 'ball', 'path', and 'none'.
+
+    var ballRadioProperty = new Property( 'oneBall' ) // Valid values are 'oneBall' and 'continous'.
+
+    ballRadioProperty.link( function( value ) {
+      //do stuff
     } );
 
-    var showProperties = new PropertySet( {
-      ball: true,
-      path: false,
-      none: false,
-      positionMarkerState: 'ball' // Valid values are 'ball', 'path', and 'none'.
-    } );
-
-    var ballModeProperties = new PropertySet( {
-      oneBall: true,
-      continous: false,
-      positionMarkerState: 'oneBall' // Valid values are 'oneBall' and 'continous'.
-    } );
-
-    ballModeProperties.positionMarkerStateProperty.link( function( positionMarkerState ) {
-      ballModeProperties.oneBall.value = positionMarkerState === 'oneBall';
-      ballModeProperties.continous.value = positionMarkerState === 'continous';
-    } );
-
-
-    this.addChild( new ControlPanel( model, this, histogramProperties.positionMarkerStateProperty,
-     showProperties.positionMarkerStateProperty, ballModeProperties.positionMarkerStateProperty,
+    this.addChild( new ControlPanel( model, this, histogramRadioProperty,
+     showRadioProperty, ballRadioProperty,
      { top: 10, right: this.layoutBounds.right - 10 } ) );
 
     // resetAllButton.center = this.layoutBounds.center;

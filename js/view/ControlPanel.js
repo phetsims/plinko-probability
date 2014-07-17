@@ -99,7 +99,7 @@ define( function( require ) {
    * @param {*} options
    * @constructor
    */
-  function ControlPanel( model, view, histogramIndicatorStateProperty, showIndicatorStateProperty, ballModeIndicatorStateProperty, options ) {
+  function ControlPanel( model, view, histogramRadioProperty, showRadioProperty, ballRadioProperty, options ) {
 
     // Demonstrate a common pattern for specifying options and providing default values.
     options = _.extend( {
@@ -110,11 +110,10 @@ define( function( require ) {
         minWidth: 0.1,
         titleToControlsVerticalSpace: 5 },
       options );
-
     var histogramDisplayRadioButtons = new VerticalAquaRadioButtonGroup( [
-      { node: new Text( 'Fraction', PANEL_OPTION_FONT ), property: histogramIndicatorStateProperty, value: 'fraction', label: 'Fraction' },
-      { node: new Text( 'Number', PANEL_OPTION_FONT ), property: histogramIndicatorStateProperty, value: 'number', label: 'Number' },
-      { node: new Text( 'auto-scale', PANEL_OPTION_FONT ), property: histogramIndicatorStateProperty, value: 'autoScale', label: 'auto-scale' }
+      { node: new Text( 'Fraction', PANEL_OPTION_FONT ), property: histogramRadioProperty, value: 'fraction' },
+      { node: new Text( 'Number', PANEL_OPTION_FONT ), property: histogramRadioProperty, value: 'number' },
+      { node: new Text( 'Auto-Scale', PANEL_OPTION_FONT ), property: histogramRadioProperty, value: 'autoScale' }
     ], { radius: 8 } );
 
     var histogramDisplayMarkerVBox = new VBox( {
@@ -128,9 +127,9 @@ define( function( require ) {
     } );
 
     var showRadioButtons = new VerticalAquaRadioButtonGroup( [
-      { node: new Text( 'Ball', PANEL_OPTION_FONT ), property: showIndicatorStateProperty, value: 'ball', label: 'ball' },
-      { node: new Text( 'Path', PANEL_OPTION_FONT ), property: showIndicatorStateProperty, value: 'path', label: 'path' },
-      { node: new Text( 'None', PANEL_OPTION_FONT ), property: showIndicatorStateProperty, value: 'none', label: 'none' }
+      { node: new Text( 'Ball', PANEL_OPTION_FONT ), property: showRadioProperty, value: 'ball' },
+      { node: new Text( 'Path', PANEL_OPTION_FONT ), property: showRadioProperty, value: 'path' },
+      { node: new Text( 'None', PANEL_OPTION_FONT ), property: showRadioProperty, value: 'none' }
     ], { radius: 8 } );
 
     var showMarkerVBox = new VBox( {
@@ -158,8 +157,8 @@ define( function( require ) {
     });
 
     var ballModeRadioButtons = new VerticalAquaRadioButtonGroup( [
-      { node: new Text( '1 Ball', PANEL_OPTION_FONT ), property: ballModeIndicatorStateProperty, value: 'oneBall', label: '1 Ball' },
-      { node: new Text( 'Continuous', PANEL_OPTION_FONT ), property: ballModeIndicatorStateProperty, value: 'continous', label: 'Continuous' }
+      { node: new Text( '1 Ball', PANEL_OPTION_FONT ), property: ballRadioProperty, value: 'oneBall' },
+      { node: new Text( 'Continuous', PANEL_OPTION_FONT ), property: ballRadioProperty, value: 'continous'}
     ], { radius: 8 } );
 
     var ballModeMarkerVBox = new VBox( {
