@@ -96,7 +96,7 @@ define( function( require ) {
 
   /**
    * @param {PlinkoProbabilityModel} model
-   * @param {*} options
+   * @param {Object} options
    * @constructor
    */
   function ControlPanel( model, view, histogramRadioProperty, showRadioProperty, ballRadioProperty, options ) {
