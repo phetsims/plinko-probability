@@ -47,7 +47,7 @@ define( function( require ) {
    * Creates a TextPushButton with the given text and options
    *
    * @param {string} text
-   * @param {*} options
+   * @param {Object} options
    * @return {TextPushButton} The created button
    */
 
