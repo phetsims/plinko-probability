@@ -47,7 +47,7 @@ define( function( require ) {
    * Creates a TextPushButton with the given text and options
    *
    * @param {string} text
-   * @param {Object} options
+   * @param {Object} [options]
    * @return {TextPushButton} The created button
    */
 
@@ -96,7 +96,7 @@ define( function( require ) {
 
   /**
    * @param {PlinkoProbabilityModel} model
-   * @param {Object} options
+   * @param {Object} [options]
    * @constructor
    */
   function ControlPanel( model, view, histogramRadioProperty, showRadioProperty, ballRadioProperty, options ) {
