@@ -16,10 +16,13 @@ define( function( require ) {
 
   var simOptions = {
     credits: {
-      // TODO: fill this in once the design is done
-      leadDesign: 'La\'lead Designere',
-      softwareDevelopment: 'Sof Tware De\'Veloper',
-      designTeam: 'De\'zine Teem'
+      // TODO: fill in credits
+      leadDesign: '',
+      softwareDevelopment: '',
+      team: '',
+      qualityAssurance: '',
+      graphicArts: '',
+      thanks: ''
     }
   };
 
