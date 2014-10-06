@@ -19,7 +19,7 @@ define( function( require ) {
   var HBox = require( 'SCENERY/nodes/HBox' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Panel = require( 'SUN/Panel' );
-  // var ResetAllButton = require( 'SCENERY_PHET/ResetAllButton' );
+  // var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var VBox = require( 'SCENERY/nodes/VBox' );
   // var Vector2 = require( 'DOT/Vector2');
   // var RadioButton = require( 'SUN/RadioButton' );

@@ -9,7 +9,7 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var Bounds2 = require( 'DOT/Bounds2' );
-  // var ResetAllButton = require( 'SCENERY_PHET/ResetAllButton' );
+  // var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var ControlPanel = require( 'PLINKO/view/ControlPanel' );
   var PropertySet = require( 'AXON/PropertySet' );
