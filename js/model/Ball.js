@@ -9,7 +9,7 @@ define( function( require ) {
   'use strict';
 
   // var Property = require( 'AXON/Property' );
-  var Poolable = require( 'PHET_CORE/Poolable' );
+  var PoolableMixin = require( 'PHET_CORE/PoolableMixin' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Vector2 = require( 'DOT/Vector2' );
   var Peg = require( 'PLINKO/utils/Peg' );
@@ -113,7 +113,7 @@ define( function( require ) {
   });
 
   /* jshint -W064 */
-  Poolable( Ball, {
+  PoolableMixin( Ball, {
     defaultFactory: function() { return new Ball(); }
   } );
 
