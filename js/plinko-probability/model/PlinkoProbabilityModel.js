@@ -26,7 +26,8 @@ define( function( require ) {
       none: false,
       pegHorizontalDistance: 1,
       pegDiagonalDistance: 1 / Math.sqrt( 2 ),
-      pegInterval: 0.05
+      pegInterval: 0.05,
+      histogramVisible: false
     } );
 
     this.balls = new ObservableArray();
@@ -80,7 +81,7 @@ define( function( require ) {
     },
 
 
-    getTheoreticalMean: function() {
+    getTheoreticalAverage: function() {
       return this.numberOfRows * this.probability;
     },
 
@@ -138,16 +139,16 @@ define( function( require ) {
 
     getUpdateStatistics: function( binIndex ) {
       var N = this.trialNumber;
-      this.mean = ((N - 1) * this.mean + binIndex) / N;
+      this.average = ((N - 1) * this.average + binIndex) / N;
       this.sumOfSquares += binIndex * binIndex;
-      this.variance = (this.sumOfSquares - N * this.mean * this.mean) / (N - 1);
+      this.variance = (this.sumOfSquares - N * this.average * this.average) / (N - 1);
       this.standardDeviation = Math.sqrt( this.variance );
       this.standardDeviationOfMean = this.standardDeviation / Math.sqrt( N );
     },
 
     resetStatistics: function() {
       this.trialNumber = 0;
-      this.mean = 0;
+      this.average = 0;
       this.sumOfSquares = 0;
       this.variance = 0;
       this.standardDeviation = 0;

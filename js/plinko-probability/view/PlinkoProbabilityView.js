@@ -14,6 +14,7 @@ define( function( require ) {
   var PropertySet = require( 'AXON/PropertySet' );
   var Property = require( 'AXON/Property' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
+  var StatisticsDisplayNode = require( 'PLINKO/plinko-probability/view/StatisticsDisplayNode' );
   var ScreenView = require( 'JOIST/ScreenView' );
 
 
@@ -46,6 +47,8 @@ define( function( require ) {
       showRadioProperty, ballRadioProperty,
       {top: 10, right: this.layoutBounds.right - 10} ) );
 
+    var statisticsDisplayNode = new StatisticsDisplayNode( model );
+    this.addChild( statisticsDisplayNode );
 
     // Create and add the Reset All Button in the bottom right, which resets the model
     var resetAllButton = new ResetAllButton( {
