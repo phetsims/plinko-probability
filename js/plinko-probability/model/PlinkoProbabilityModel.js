@@ -27,7 +27,8 @@ define( function( require ) {
       pegHorizontalDistance: 1,
       pegDiagonalDistance: 1 / Math.sqrt( 2 ),
       pegInterval: 0.05,
-      histogramVisible: false
+      histogramVisible: false,
+      isPlaying: false
     } );
 
     this.balls = new ObservableArray();

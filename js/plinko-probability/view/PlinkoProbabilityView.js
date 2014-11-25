@@ -10,7 +10,9 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Bounds2 = require( 'DOT/Bounds2' );
   var ControlPanel = require( 'PLINKO/plinko-probability/view/ControlPanel' );
+  var EraserButton = require( 'PLINKO/plinko-probability/view/EraserButton' );
   var GaltonBoardNode = require( 'PLINKO/plinko-probability/view/GaltonBoardNode' );
+  var PlayPauseButton = require( 'SCENERY_PHET/buttons/PlayPauseButton' );
   var PropertySet = require( 'AXON/PropertySet' );
   var Property = require( 'AXON/Property' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
@@ -42,6 +44,39 @@ define( function( require ) {
     ballRadioProperty.link( function( value ) {
       //do stuff
     } );
+
+
+    // Add the button that allows the graph to be cleared of all dataPoints.
+    var eraserButton = new EraserButton( {
+      right: thisView.layoutBounds.maxX / 2,
+      top: 20,
+      listener: function() {
+        // TODO hooked the listener;
+      }
+    } );
+    this.addChild( eraserButton );
+
+
+// play button
+    var playPauseButtonOptions = {
+      //upFill: Constants.blueUpColor,
+      //overFill: Constants.blueOverColor,
+      //disabledFill: Constants.blueDisabledColor,
+      //downFill: Constants.blueDownColor,
+      //backgroundGradientColorStop0: Constants.buttonBorder0,
+      //backgroundGradientColorStop1: Constants.buttonBorder1,
+      innerButtonLineWidth: 1
+    };
+    var playPauseButton = new PlayPauseButton( model.isPlayingProperty, {
+      x:       thisView.layoutBounds.maxX / 2 - 10,
+      centerY: thisView.layoutBounds.maxY - 30,
+      scale: 1.0,
+      touchExpansion: 12,
+      pauseOptions: playPauseButtonOptions,
+      playOptions: playPauseButtonOptions
+    } );
+    this.addChild( playPauseButton );
+
 
     this.addChild( new ControlPanel( model, histogramRadioProperty,
       showRadioProperty, ballRadioProperty,
