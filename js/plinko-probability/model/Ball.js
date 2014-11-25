@@ -1,4 +1,4 @@
-// Copyright 2002-2013, University of Colorado Boulder
+// Copyright 2002-2014, University of Colorado Boulder
 
 /**
  * Model for Ball in Plinko Probability
@@ -12,7 +12,7 @@ define( function( require ) {
   var PoolableMixin = require( 'PHET_CORE/PoolableMixin' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Vector2 = require( 'DOT/Vector2' );
-  var Peg = require( 'PLINKO/utils/Peg' );
+  var Peg = require( 'PLINKO/plinko-probability/utils/Peg' );
 
   function Ball() {
     // 0 -> Initially falling

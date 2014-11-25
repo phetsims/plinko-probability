@@ -1,4 +1,4 @@
-// Copyright 2002-2013, University of Colorado Boulder
+// Copyright 2002-2014, University of Colorado Boulder
 
 /**
  * Main entry point for the 'Plinko Probability' sim.
@@ -7,7 +7,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var PlinkoProbabilityScreen = require( 'PLINKO/view/PlinkoProbabilityScreen' );
+  var PlinkoProbabilityScreen = require( 'PLINKO/plinko-probability/PlinkoProbabilityScreen' );
   var Sim = require( 'JOIST/Sim' );
   var SimLauncher = require( 'JOIST/SimLauncher' );
 

@@ -79,6 +79,7 @@ define( function( require ) {
       } );
     rowsSlider.rotate(-Math.PI / 2);
 
+    var rowsSliderTitle = new Text( title );
     var rowsSliderLabel = new Text('');
 
     property.link( function( num ) {
@@ -87,6 +88,7 @@ define( function( require ) {
 
     return new VBox( { 
       children: [
+        rowsSliderTitle,
         rowsSlider,
         rowsSliderLabel
       ]
@@ -95,11 +97,15 @@ define( function( require ) {
   }
 
   /**
+   *
    * @param {PlinkoProbabilityModel} model
-   * @param {Object} [options]
+   * @param histogramRadioProperty
+   * @param showRadioProperty
+   * @param ballRadioProperty
+   * @param options
    * @constructor
    */
-  function ControlPanel( model, view, histogramRadioProperty, showRadioProperty, ballRadioProperty, options ) {
+  function ControlPanel( model, histogramRadioProperty, showRadioProperty, ballRadioProperty, options ) {
 
     // Demonstrate a common pattern for specifying options and providing default values.
     options = _.extend( {
@@ -144,8 +150,8 @@ define( function( require ) {
 
     var sliderHBox = new HBox( {
       children: [
-        createSliderVBox(model.numberOfRows, {min: 3, max: 40}, 'rows', true),
-        createSliderVBox(model.probability, {min: 0, max: 1}, 'p', false)
+        createSliderVBox( model.numberOfRowsProperty, {min: model.minNumberOfRows, max: model.maxNumberOfRows}, 'rows', true ),
+        createSliderVBox( model.probabilityProperty, {min: 0, max: 1}, 'p', false )
       ],
       align: 'top',
       spacing: 50
@@ -158,7 +164,7 @@ define( function( require ) {
 
     var ballModeRadioButtons = new VerticalAquaRadioButtonGroup( [
       { node: new Text( '1 Ball', PANEL_OPTION_FONT ), property: ballRadioProperty, value: 'oneBall' },
-      { node: new Text( 'Continuous', PANEL_OPTION_FONT ), property: ballRadioProperty, value: 'continous'}
+      {node: new Text( 'Continuous', PANEL_OPTION_FONT ), property: ballRadioProperty, value: 'continuous'}
     ], { radius: 8 } );
 
     var ballModeMarkerVBox = new VBox( {
@@ -176,7 +182,7 @@ define( function( require ) {
         startButton,
         ballModeMarkerVBox
       ]
-    })
+    } );
 
     // The contents of the control panel
     var content = new VBox( {align: 'left', spacing: 10, 
