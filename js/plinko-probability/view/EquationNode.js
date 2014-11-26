@@ -17,8 +17,8 @@ define( function( require ) {
 
   // strings
 
-  var plusString = '\u002B'; // we want a large + sign
-  var minusString = '\u2212';
+//  var plusString = '\u002B'; // we want a large + sign
+//  var minusString = '\u2212';
 
   //constants
   /**
@@ -63,8 +63,8 @@ define( function( require ) {
       ]
     } );
 
-    this.equalSignText.left = 10;
-    this.rightHandSideOfEquationText.left = 30;
+    this.equalSignText.left = 30;
+    this.rightHandSideOfEquationText.left = 50;
     this.addChild( mutableEquationText );
   }
 

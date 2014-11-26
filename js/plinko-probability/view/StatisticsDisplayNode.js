@@ -27,6 +27,15 @@ define( function( require ) {
   //var residualsString = require( 'string!PLINKO_PROBABILITY/residuals' );
   //var squaredResidualsString = require( 'string!PLINKO_PROBABILITY/squaredResiduals' );
 
+
+  // strings
+
+  var muGreekString = '\u03BC';
+  var sigmaGreekString = '\u03C3';
+  var overlineString = '\u0305';
+  var xOverlineString = '\u0078\u0305';
+  // TODO use subsupText;
+  var sMeanString = '\u0073\u2098\u2091\u2090\u2099';
   // constants
 //  var FONT = new PhetFont( 11 );
   var PANEL_BACKGROUND_COLOR = 'white';
@@ -41,12 +50,12 @@ define( function( require ) {
     // property of the accordion Box that control its expansion
     this.expandedProperty = new Property( false );
 
-    var sampleAverageText = new EquationNode( 'mu', 0, {fill: SAMPLE_FONT_COLOR} );
+    var sampleAverageText = new EquationNode( xOverlineString, 0, {fill: SAMPLE_FONT_COLOR} );
     var sampleStandardDeviationText = new EquationNode( 's', 0, {fill: SAMPLE_FONT_COLOR} );
-    var sampleStandardDeviationOfMeanText = new EquationNode( 's_', 0, {fill: SAMPLE_FONT_COLOR} );
+    var sampleStandardDeviationOfMeanText = new EquationNode( sMeanString, 0, {fill: SAMPLE_FONT_COLOR} );
 
-    var theoreticalAverageText = new EquationNode( 'mu', 0, {fill: THEORETICAL_FONT_COLOR} );
-    var theoreticalStandardDeviationText = new EquationNode( 's', 0, {fill: THEORETICAL_FONT_COLOR} );
+    var theoreticalAverageText = new EquationNode( muGreekString, 0, {fill: THEORETICAL_FONT_COLOR} );
+    var theoreticalStandardDeviationText = new EquationNode( sigmaGreekString, 0, {fill: THEORETICAL_FONT_COLOR} );
     var theoreticalStandardDeviationOfMeanText = new EquationNode( 's_', {fill: THEORETICAL_FONT_COLOR} );
 
     Property.multilink( [model.numberOfRowsProperty, model.probabilityProperty], function( numberOfRows, probability ) {
