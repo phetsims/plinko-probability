@@ -11,11 +11,11 @@ define( function( require ) {
     // modules
 
     var Bounds2 = require( 'DOT/Bounds2' );
-    var Circle = require( 'SCENERY/nodes/Circle' );
+    //   var Circle = require( 'SCENERY/nodes/Circle' );
     var inherit = require( 'PHET_CORE/inherit' );
     var Node = require( 'SCENERY/nodes/Node' );
     var Path = require( 'SCENERY/nodes/Path' );
-    var RadialGradient = require( 'SCENERY/util/RadialGradient' );
+//    var RadialGradient = require( 'SCENERY/util/RadialGradient' );
     var Shape = require( 'KITE/Shape' );
 
 
@@ -64,7 +64,7 @@ define( function( require ) {
           x = i * horizontalSpacing;
           y = rowNumber * verticalSpacing;
           //     console.log( 'i=',i, 'x=', x, 'y=', y );
-          pegPath = new Path( pegShape, {fill: 'red', centerX: x, centerY: y} );
+          pegPath = new Path( pegShape, {fill: PEG_COLOR, centerX: x, centerY: y} );
           this.pegPathArray.push( pegPath );
         }
       }
