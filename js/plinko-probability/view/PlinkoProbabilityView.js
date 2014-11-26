@@ -8,12 +8,14 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
+  var BallNode = require( 'PLINKO/plinko-probability/view/BallNode' );
   var Bounds2 = require( 'DOT/Bounds2' );
   var ControlPanel = require( 'PLINKO/plinko-probability/view/ControlPanel' );
   var EraserButton = require( 'PLINKO/plinko-probability/view/EraserButton' );
   var GaltonBoardNode = require( 'PLINKO/plinko-probability/view/GaltonBoardNode' );
   var HistogramNode = require( 'PLINKO/plinko-probability/view/HistogramNode' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
+  var Node = require( 'SCENERY/nodes/Node' );
   var PlayPauseButton = require( 'SCENERY_PHET/buttons/PlayPauseButton' );
   var PropertySet = require( 'AXON/PropertySet' );
   var Property = require( 'AXON/Property' );
@@ -21,6 +23,7 @@ define( function( require ) {
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var StatisticsDisplayNode = require( 'PLINKO/plinko-probability/view/StatisticsDisplayNode' );
   var ScreenView = require( 'JOIST/ScreenView' );
+  var Vector2 = require( 'DOT/Vector2' );
 
 
   // strings
@@ -91,6 +94,28 @@ define( function( require ) {
     this.addChild( playPauseButton );
 
 
+    // Handle the comings and goings of balls
+    this.ballsLayer = new Node();
+    this.addChild( this.ballsLayer );
+
+    model.balls.addItemAddedListener( function( addedBall ) {
+
+      var mvt = ModelViewTransform2.createSinglePointXYScaleMapping( new Vector2( 0, 0 ), new Vector2( 300, 100 ), 10, -10 );
+
+      // Create and add the view representation for this dataBall.
+      var addedBallNode = new BallNode( addedBall, mvt );
+      thisView.ballsLayer.addChild( addedBallNode );
+
+      // Add the removal listener for if and when this dataPoint is removed from the model.
+      model.balls.addItemRemovedListener( function removalListener( removedBall ) {
+        if ( removedBall === addedBall ) {
+          thisView.ballsLayer.removeChild( addedBallNode );
+          model.balls.removeItemRemovedListener( removalListener );
+        }
+      } );
+    } );
+
+
     this.addChild( new ControlPanel( model, histogramRadioProperty,
       showRadioProperty, ballRadioProperty,
       {top: 10, right: this.layoutBounds.right - 10} ) );
@@ -112,6 +137,9 @@ define( function( require ) {
   }
 
   return inherit( ScreenView, PlinkoProbabilityView, {
+    step: function( dt ) {
+    },
+
     layoutBounds: new Bounds2( 0, 0, 834, 504 )
   } );
 } );

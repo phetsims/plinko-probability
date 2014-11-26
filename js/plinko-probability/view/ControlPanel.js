@@ -157,10 +157,6 @@ define( function( require ) {
       spacing: 50
     } );
 
-    var startButton = createButton(startString, {
-      listener: function() { //do stuff
-      }
-    });
 
     var ballModeRadioButtons = new VerticalAquaRadioButtonGroup( [
       { node: new Text( '1 Ball', PANEL_OPTION_FONT ), property: ballRadioProperty, value: 'oneBall' },
@@ -179,7 +175,7 @@ define( function( require ) {
 
     var startVBox = new VBox({
       children: [
-        startButton,
+        //     startButton,
         ballModeMarkerVBox
       ]
     } );

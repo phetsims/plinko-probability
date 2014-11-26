@@ -27,7 +27,6 @@ define( function( require ) {
   //var residualsString = require( 'string!PLINKO_PROBABILITY/residuals' );
   //var squaredResidualsString = require( 'string!PLINKO_PROBABILITY/squaredResiduals' );
 
-
   // strings
 
   var muGreekString = '\u03BC';

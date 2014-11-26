@@ -9,10 +9,20 @@ define( function( require ) {
   'use strict';
 
   // var Property = require( 'AXON/Property' );
-  var PoolableMixin = require( 'PHET_CORE/PoolableMixin' );
+
   var inherit = require( 'PHET_CORE/inherit' );
-  var Vector2 = require( 'DOT/Vector2' );
   var Peg = require( 'PLINKO/plinko-probability/utils/Peg' );
+  var PoolableMixin = require( 'PHET_CORE/PoolableMixin' );
+  var PropertySet = require( 'AXON/PropertySet' );
+  var Vector2 = require( 'DOT/Vector2' );
+
+
+  Ball.PHASE_INITIAL = 0;
+  Ball.PHASE_FALLING = 1;
+  Ball.PHASE_EXIT = 2;
+  Ball.PHASE_COLLECTED = 3;
+
+  window.Ball = Ball;
 
   function Ball() {
     // 0 -> Initially falling
@@ -20,6 +30,18 @@ define( function( require ) {
     // 2 -> Out of pegs
     // 3 -> Collected
     this.phase = Ball.PHASE_INITIAL;
+
+    // rows and column
+    /*
+     the pegs are assigned a row and column ( the columns are left aligned)
+     the row and column numbers start at zero
+     they are arranged in the following manner
+
+     X
+     X X
+     X X X
+     X X X X
+     */
 
     //0 is the topmost
     this.row = 0;
@@ -34,21 +56,21 @@ define( function( require ) {
     this.fallenRatio = 0;
 
     this.path = []; //TODO: calculate directions based on p
+
+    this.position = new Vector2( 0, 0 );
+
+    PropertySet.call( this, {
+      position: new Vector2( 0, 0 )
+    } );
   }
 
-  Ball.PHASE_INITIAL = 0;
-  Ball.PHASE_FALLING = 1;
-  Ball.PHASE_EXIT = 2;
-  Ball.PHASE_COLLECTED = 3;
 
-  window.Ball = Ball;
-
-  inherit(Object, Ball, {
+  inherit( PropertySet, Ball, {
     // dt {Number} is normalized in plinkoProbabilityModel
     // probability {Number}
     step: function( dt, probability, maxRows ) {
-      if (this.phase === Ball.PHASE_INITIAL) {
-        if (dt + this.fallenRatio >= 1) {
+      if ( this.phase === Ball.PHASE_INITIAL ) {
+        if ( dt + this.fallenRatio >= 1 ) {
           this.phase = Ball.PHASE_FALLING;
           dt -= 1 - this.fallenRatio;
           this.fallenRatio = 0;
@@ -58,20 +80,20 @@ define( function( require ) {
         }
       }
 
-      if (this.phase === Ball.PHASE_FALLING) {
-        while (true) {
-          if (this.direction === 0) {
+      if ( this.phase === Ball.PHASE_FALLING ) {
+        while ( true ) {
+          if ( this.direction === 0 ) {
             this.direction = Math.random() < probability ? 1 : -1;
           }
 
-          if (dt + this.fallenRatio >= 1) {
+          if ( dt + this.fallenRatio >= 1 ) {
             dt -= 1 - this.fallenRatio;
             this.column += (this.direction === 1 ? 1 : 0);
             this.row += 1;
 
             this.fallenRatio = 0;
             this.direction = 0;
-            if (this.row >= maxRows) {
+            if ( this.row >= maxRows ) {
               this.phase = Ball.PHASE_EXIT;
             }
           }
@@ -82,8 +104,8 @@ define( function( require ) {
         }
       }
 
-      if (this.phase === Ball.PHASE_EXIT) {
-        if (dt + this.fallenRatio >= 1) {
+      if ( this.phase === Ball.PHASE_EXIT ) {
+        if ( dt + this.fallenRatio >= 1 ) {
           this.phase = Ball.PHASE_COLLECTED;
           dt -= 1 - this.fallenRatio;
           this.fallenRatio = 0;
@@ -92,7 +114,7 @@ define( function( require ) {
           this.fallenRatio += dt;
         }
       }
-
+      this.position = this.getPosition();
     },
 
     reset: function() {
@@ -100,17 +122,28 @@ define( function( require ) {
     },
 
     getPosition: function() {
-      switch (this.phase) {
-        case Ball.PHASE_INITIAL: 
-          return new Vector2(0, 1 - this.fallenRatio);
+      switch( this.phase ) {
+        case Ball.PHASE_INITIAL:
+          return new Vector2( 0, 1 - this.fallenRatio );
         case Ball.PHASE_FALLING:
-          return new Vector2(Peg.getPositionX(this.row, this.column) + this.direction * this.fallenRatio, 
-            Peg.getPositionY(this.row, this.column) - this.fallenRatio * this.fallenRatio);
+          return new Vector2( this.getPositionX( this.row, this.column ) + 0.5 * (this.direction) * this.fallenRatio,
+            -1 * this.getPositionY( this.row, this.column ) - this.fallenRatio * this.fallenRatio );
         case Ball.PHASE_EXIT:
-          return new Vector2(0, Peg.getPositionY(this.row, this.column) + this.fallenRatio);
+          return new Vector2( this.getPositionX( this.row, this.column ), -1 * this.getPositionY( this.row, this.column ) - this.fallenRatio );
+        case Ball.COLLECTED:
+          return new Vector2( this.getPositionX( this.row, this.column ), -1 * this.getPositionY( this.row, this.column ) );
       }
+    },
+
+    getPositionX: function( row, column ) {
+      return column - 0.5 * row;
+    },
+
+    getPositionY: function( row, column ) {
+      return row;
     }
-  });
+
+  } );
 
   /* jshint -W064 */
   PoolableMixin( Ball, {
@@ -118,4 +151,5 @@ define( function( require ) {
   } );
 
   return Ball;
-} );
+} )
+;

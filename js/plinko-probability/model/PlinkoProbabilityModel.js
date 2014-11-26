@@ -15,6 +15,8 @@ define( function( require ) {
 
   function PlinkoProbabilityModel() {
 
+    var thisModel = this;
+
     PropertySet.call( this, {
       numberOfRows: 23,
       probability: 0.5,
@@ -45,7 +47,11 @@ define( function( require ) {
     //Maximum Number of Rows
     this.maxNumberOfRows = 40;
 
-    this.addNewBall();
+    this.isPlayingProperty.link( function( isPlaying ) {
+      if ( isPlaying ) {
+        thisModel.addNewBall();
+      }
+    } );
   }
 
   return inherit( PropertySet, PlinkoProbabilityModel, {
