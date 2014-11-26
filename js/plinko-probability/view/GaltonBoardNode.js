@@ -22,13 +22,10 @@ define( function( require ) {
     // constants
     var PEG_RADIUS = 5; // radius of the Ball.
     var PEG_COLOR = 'blue';
-    var BOARD_BOUNDS = new Bounds2( 100, 100, 600, 600 );
+    var BOARD_BOUNDS = new Bounds2( 100, 100, 500, 500 );
 
     /**
-     * Constructor for the ChargedParticleNode which renders the charge as a scenery node.
      * @param {model} model of the simulation
-     * @param {} chargedParticle : the model of the charged particle
-     * @param {ModelViewTransform2} modelViewTransform the coordinate transform between model coordinates and view coordinates
      * @constructor
      */
     function GaltonBoardNode( model ) {
@@ -58,13 +55,16 @@ define( function( require ) {
       this.pegPathArray = [];
       var pegShape;
       var pegPath;
+
+      pegShape = new Shape();
+      pegShape.arc( 0, 0, PEG_RADIUS, 1 / 2 * Math.PI, 3 / 2 * Math.PI, true );
+
       for ( rowNumber = 0; rowNumber < maxNumberOfRows; rowNumber++ ) {
-        for ( i = -rowNumber; i < rowNumber; i += 2 ) {
+        for ( i = -rowNumber; i <= rowNumber; i += 2 ) {
           x = i * horizontalSpacing;
           y = rowNumber * verticalSpacing;
-          pegShape = new Shape();
-          pegShape.arc( x, y, PEG_RADIUS, 1 / 2 * Math.PI, 3 / 2 * Math.PI, true );
-          pegPath = new Path( pegShape, {fill: 'red'} );
+          //     console.log( 'i=',i, 'x=', x, 'y=', y );
+          pegPath = new Path( pegShape, {fill: 'red', centerX: x, centerY: y} );
           this.pegPathArray.push( pegPath );
         }
       }
@@ -86,19 +86,12 @@ define( function( require ) {
       model.numberOfRowsProperty.link( function( numberOfRows ) {
         var visibleNumberOfRows = Math.floor( numberOfRows ); // rows must be an integer;
         var visibleNumberOfPegs = (visibleNumberOfRows) * (visibleNumberOfRows + 1) / 2;
-        var totalNumberOfPegs = galtonBoardNode.pegPathArray.length;
         var i;
-        for ( i = 0; i < totalNumberOfPegs; i++ ) {
-          if ( i < visibleNumberOfPegs ) {
-            galtonBoardNode.pegPathArray[i].visible = true;
-            //  galtonBoardNode.scale( 1.1 );
+        galtonBoardNode.pegPathArray.forEach( function( pegPath, index ) {
+          pegPath.visible = (index < visibleNumberOfPegs) ? true : false;
+        } );
 
-          }
-          else {
-            galtonBoardNode.pegPathArray[i].visible = false;
-          }
-        }
-        pegBoard.setScaleMagnitude( 20 / numberOfRows );
+        pegBoard.setScaleMagnitude( 20 / visibleNumberOfRows );
       } );
 
     }

@@ -12,9 +12,12 @@ define( function( require ) {
   var ControlPanel = require( 'PLINKO/plinko-probability/view/ControlPanel' );
   var EraserButton = require( 'PLINKO/plinko-probability/view/EraserButton' );
   var GaltonBoardNode = require( 'PLINKO/plinko-probability/view/GaltonBoardNode' );
+  var HistogramNode = require( 'PLINKO/plinko-probability/view/HistogramNode' );
+  var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   var PlayPauseButton = require( 'SCENERY_PHET/buttons/PlayPauseButton' );
   var PropertySet = require( 'AXON/PropertySet' );
   var Property = require( 'AXON/Property' );
+  var Range = require( 'DOT/Range' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var StatisticsDisplayNode = require( 'PLINKO/plinko-probability/view/StatisticsDisplayNode' );
   var ScreenView = require( 'JOIST/ScreenView' );
@@ -31,6 +34,16 @@ define( function( require ) {
 
     var thisView = this;
     ScreenView.call( this, {renderer: 'svg'} );
+
+    var viewGraphBounds = new Bounds2( 100, 350, 300, 410 );
+    var modelGraphBounds = new Bounds2( 0, 0, 20, 20 );
+    var modelViewTransform = ModelViewTransform2.createRectangleInvertedYMapping( modelGraphBounds, viewGraphBounds );
+
+    thisView.modelViewTransform = modelViewTransform; // Make the modelViewTransform available to descendant types.
+
+
+    var histogramNode = new HistogramNode( {xRange: new Range( 0, 20 ), yRange: new Range( 0, 20 )}, modelViewTransform );
+    this.addChild( histogramNode );
 
     var galtonBoardNode = new GaltonBoardNode( model );
     this.addChild( galtonBoardNode );
