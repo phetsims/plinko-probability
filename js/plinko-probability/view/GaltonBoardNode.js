@@ -33,15 +33,10 @@ define( function( require ) {
       var galtonBoardNode = this;
       Node.call( this );
 
-
       var pegBoard = new Node();
       this.addChild( pegBoard );
-      //var maxNumberOfRows = model.numberOfRows;
-      model.galtonBoard;
 
       var maxNumberOfRows = model.maxNumberOfRows;
-
-      //var angle = model.probability * Math.PI / 2 + 0 * Math.PI / 2;
 
       var boardWidth = BOARD_BOUNDS.width;
       var boardHeight = BOARD_BOUNDS.height;
@@ -49,27 +44,11 @@ define( function( require ) {
       var horizontalSpacing = boardWidth / maxNumberOfRows;
       var verticalSpacing = boardWidth / maxNumberOfRows;
 
-      var x;
-      var y;
-      var i;
-      var rowNumber;
       this.pegPathArray = [];
-      var pegShape;
       var pegPath;
 
-      pegShape = new Shape();
+      var pegShape = new Shape();
       pegShape.arc( 0, 0, PEG_RADIUS, 1 / 2 * Math.PI, 3 / 2 * Math.PI, true );
-
-      //for ( rowNumber = 0; rowNumber < maxNumberOfRows; rowNumber++ ) {
-      //  for ( i = -rowNumber; i <= rowNumber; i += 2 ) {
-      //    x = i * horizontalSpacing;
-      //    y = rowNumber * verticalSpacing;
-      //    //     console.log( 'i=',i, 'x=', x, 'y=', y );
-      //    pegPath = new Path( pegShape, {fill: PEG_COLOR, centerX: x, centerY: y} );
-      //    this.pegPathArray.push( pegPath );
-      //  }
-      //}
-
 
       model.galtonBoard.pegs.forEach( function( peg ) {
         pegPath = new Path( pegShape, {fill: PEG_COLOR, center: mvt.modelToViewPosition( peg.position )} );

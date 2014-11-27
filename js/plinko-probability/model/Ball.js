@@ -11,25 +11,23 @@ define( function( require ) {
   // var Property = require( 'AXON/Property' );
 
   var inherit = require( 'PHET_CORE/inherit' );
-  var GaltonBoard = require( 'PLINKO/plinko-probability/model/GaltonBoard' );
-  var PoolableMixin = require( 'PHET_CORE/PoolableMixin' );
+  //var GaltonBoard = require( 'PLINKO/plinko-probability/model/GaltonBoard' );
+  //var PoolableMixin = require( 'PHET_CORE/PoolableMixin' );
   var PropertySet = require( 'AXON/PropertySet' );
   var Vector2 = require( 'DOT/Vector2' );
 
 
-  Ball.PHASE_INITIAL = 0;
-  Ball.PHASE_FALLING = 1;
-  Ball.PHASE_EXIT = 2;
-  Ball.PHASE_COLLECTED = 3;
-
-  window.Ball = Ball;
+  var PHASE_INITIAL = 0;
+  var PHASE_FALLING = 1;
+  var PHASE_EXIT = 2;
+  var PHASE_COLLECTED = 3;
 
   function Ball() {
     // 0 -> Initially falling
     // 1 -> Falling between pegs
     // 2 -> Out of pegs
     // 3 -> Collected
-    this.phase = Ball.PHASE_INITIAL;
+    this.phase = PHASE_INITIAL;
 
     // rows and column
     /*
@@ -57,21 +55,20 @@ define( function( require ) {
 
     this.path = []; //TODO: calculate directions based on p
 
-    this.position = new Vector2( 0, 0 );
-
     PropertySet.call( this, {
-      position: new Vector2( 0, 0 )
+      position: new Vector2( 0, 0 ),
+      index: 'empty'
     } );
   }
 
 
-  inherit( PropertySet, Ball, {
+  return inherit( PropertySet, Ball, {
     // dt {Number} is normalized in plinkoProbabilityModel
     // probability {Number}
     step: function( dt, probability, maxRows ) {
-      if ( this.phase === Ball.PHASE_INITIAL ) {
+      if ( this.phase === PHASE_INITIAL ) {
         if ( dt + this.fallenRatio >= 1 ) {
-          this.phase = Ball.PHASE_FALLING;
+          this.phase = PHASE_FALLING;
           dt -= 1 - this.fallenRatio;
           this.fallenRatio = 0;
         }
@@ -80,7 +77,7 @@ define( function( require ) {
         }
       }
 
-      if ( this.phase === Ball.PHASE_FALLING ) {
+      if ( this.phase === PHASE_FALLING ) {
         while ( true ) {
           if ( this.direction === 0 ) {
             this.direction = Math.random() < probability ? 1 : -1;
@@ -94,7 +91,7 @@ define( function( require ) {
             this.fallenRatio = 0;
             this.direction = 0;
             if ( this.row >= maxRows ) {
-              this.phase = Ball.PHASE_EXIT;
+              this.phase = PHASE_EXIT;
             }
           }
           else {
@@ -104,11 +101,12 @@ define( function( require ) {
         }
       }
 
-      if ( this.phase === Ball.PHASE_EXIT ) {
+      if ( this.phase === PHASE_EXIT ) {
         if ( dt + this.fallenRatio >= 1 ) {
-          this.phase = Ball.PHASE_COLLECTED;
-          dt -= 1 - this.fallenRatio;
-          this.fallenRatio = 0;
+          this.phase = PHASE_COLLECTED;
+          // dt -= 1 - this.fallenRatio;
+          this.index = this.column;
+          //this.fallenRatio = 0;
         }
         else {
           this.fallenRatio += dt;
@@ -123,14 +121,14 @@ define( function( require ) {
 
     getPosition: function() {
       switch( this.phase ) {
-        case Ball.PHASE_INITIAL:
+        case PHASE_INITIAL:
           return new Vector2( 0, 1 - this.fallenRatio );
-        case Ball.PHASE_FALLING:
+        case PHASE_FALLING:
           return new Vector2( this.getPositionX( this.row, this.column ) + 0.5 * (this.direction) * this.fallenRatio,
             this.getPositionY( this.row, this.column ) + this.fallenRatio * this.fallenRatio );
-        case Ball.PHASE_EXIT:
+        case PHASE_EXIT:
           return new Vector2( this.getPositionX( this.row, this.column ), this.getPositionY( this.row, this.column ) + this.fallenRatio );
-        case Ball.PHASE_COLLECTED:
+        case PHASE_COLLECTED:
           return new Vector2( this.getPositionX( this.row, this.column ), this.getPositionY( this.row, this.column ) + this.fallenRatio );
       }
     },
@@ -147,11 +145,13 @@ define( function( require ) {
 
   } );
 
-  /* jshint -W064 */
-  PoolableMixin( Ball, {
-    defaultFactory: function() { return new Ball(); }
-  } );
+  //Ball.x =0;
+  //window.Ball=Ball;
+  /////* jshint -W064 */
+  //PoolableMixin( Ball, {
+  //  defaultFactory: function() { return new Ball(); }
+  //} );
+  //
+  // return Ball;
+} );
 
-  return Ball;
-} )
-;

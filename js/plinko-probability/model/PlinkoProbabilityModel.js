@@ -19,7 +19,7 @@ define( function( require ) {
       var thisModel = this;
 
       PropertySet.call( this, {
-        numberOfRows: 23,
+        numberOfRows: 8,
         probability: 0.5,
         fraction: false,
         number: false,
@@ -35,8 +35,6 @@ define( function( require ) {
       } );
 
 
-      this.balls = new ObservableArray();
-
       this.trialNumber = 0; //number of current trial (current ball drop)
       this.mean = 0;  ///mean of the sample (near zero for p = 0.5)
       this.sumOfSquares = 0; //sum of squares of trials, used to compute the variance
@@ -50,11 +48,46 @@ define( function( require ) {
       this.maxNumberOfRows = 40;
 
       this.galtonBoard = new GaltonBoard( this.maxNumberOfRows );
+      this.balls = new ObservableArray();
+      //    this.histogram = new Array( this.maxNumberOfRows ).map( Number.prototype.valueOf, 0 );  //
+      this.histogram = [];
+      // there are one more bin than the maxNumber of Rows
+      for ( var i = 0; i < this.maxNumberOfRows + 1; i++ ) {
+        this.histogram.push( 0 );
+      }
 
+      this.numberOfRowsProperty.link( function( numberOfRows ) {
+        thisModel.balls.clear();
+        thisModel.histogram = [];
+        //  thisModel.histogram.map( Number.prototype.valueOf, 0 );  //
+        for ( var i = 0; i < thisModel.maxNumberOfRows + 1; i++ ) {
+          thisModel.histogram.push( 0 );
+        }
+      } );
+
+
+      this.balls.addItemAddedListener( function( addedBall ) {
+        addedBall.indexProperty.link( function( index ) {
+          thisModel.histogram[index]++;
+          console.log( thisModel.histogram );
+          // Add the removal listener for if and when this ball is removed from the model.
+          thisModel.balls.addItemRemovedListener( function removalListener( removedBall ) {
+            if ( removedBall === addedBall ) {
+              thisModel.balls.removeItemRemovedListener( removalListener );
+            }
+          } );
+        } );
+      } );
+      //this.balls.forEach( function( ball ) {
+      //  ball.indexProperty.link( function( index ) {
+      //    thisModel.histogram[index]++;
+      //    console.log( thisModel.histogram );
+      //  } );
+      //} );
 
       this.isPlayingProperty.link( function( isPlaying ) {
         if ( isPlaying ) {
-          for ( var i = 0; i < 400; i++ ) {
+          for ( var i = 0; i < 100; i++ ) {
             thisModel.addNewBall();
           }
         }
@@ -69,7 +102,7 @@ define( function( require ) {
           dt = 1000;
         }
         for ( var i = 0; i < this.balls.length; i++ ) {
-          this.balls.get( i ).step( dt, this.probability, this.numberOfRows );
+          this.balls.get( i ).step( 2 * dt, this.probability, Math.floor( this.numberOfRows ) );
         }
       },
 

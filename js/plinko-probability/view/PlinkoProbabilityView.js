@@ -134,6 +134,7 @@ define( function( require ) {
 
     thisView.addChild( resetAllButton );
 
+
   }
 
   return inherit( ScreenView, PlinkoProbabilityView, {

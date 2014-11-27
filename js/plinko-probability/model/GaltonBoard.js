@@ -20,7 +20,7 @@ define( function( require ) {
      */
     function GaltonBoard( maxNumberOfRows ) {
 
-      var galtonBoard = this;
+      // var galtonBoard = this;
       var rowNumber;
       var columnNumber;
       this.pegs = [];

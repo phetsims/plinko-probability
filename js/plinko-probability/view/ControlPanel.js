@@ -12,7 +12,7 @@ define( function( require ) {
   // imports
   // var Color = require( 'SCENERY/util/Color' );
   // var Font = require( 'SCENERY/util/Font' );
-  var Color = require( 'SCENERY/util/Color' );
+  //var Color = require( 'SCENERY/util/Color' );
   var Dimension2 = require( 'DOT/Dimension2' );
   var HStrut = require( 'SUN/HStrut' );
   var HSlider = require( 'SUN/HSlider' );
@@ -23,10 +23,10 @@ define( function( require ) {
   var VBox = require( 'SCENERY/nodes/VBox' );
   // var Vector2 = require( 'DOT/Vector2');
   // var RadioButton = require( 'SUN/RadioButton' );
-  var TextPushButton = require( 'SUN/buttons/TextPushButton' );
+  // var TextPushButton = require( 'SUN/buttons/TextPushButton' );
 
   var Text = require( 'SCENERY/nodes/Text' );
-  var Font = require( 'SCENERY/util/Font' );
+  //var Font = require( 'SCENERY/util/Font' );
 
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   // var Property = require( 'AXON/Property' );
@@ -40,7 +40,7 @@ define( function( require ) {
 
 
   // strings
-  var startString = require( 'string!PLINKO/start' );
+//  var startString = require( 'string!PLINKO/start' );
 
 
    /**
@@ -51,15 +51,15 @@ define( function( require ) {
    * @return {TextPushButton} The created button
    */
 
-  function createButton(text, options) {
-    options = _.extend({
-      font: new Font( '20px Arial' ),
-      rectangleXMargin: 10,
-      rectangleFillUp: new Color( 255, 255, 0 )
-    }, options);
+  //function createButton(text, options) {
+  //  options = _.extend({
+  //    font: new Font( '20px Arial' ),
+  //    rectangleXMargin: 10,
+  //    rectangleFillUp: new Color( 255, 255, 0 )
+  //  }, options);
 
-    return new TextPushButton(text, options);
-  }
+  //   return new TextPushButton(text, options);
+  // }
 
 
   /**
@@ -71,7 +71,7 @@ define( function( require ) {
   */
 
   function createSliderVBox(property, range, title, isInteger) {
-
+// TODO ask JB how to ensure property value remains an integer;
     var rowsSlider = new HSlider(property, range, {
         thumbSize: new Dimension2( 15, 30 ),
         majorTickLength: 15,
