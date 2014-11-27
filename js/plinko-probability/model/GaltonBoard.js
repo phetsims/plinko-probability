@@ -12,7 +12,7 @@ define( function( require ) {
 
     //var Bounds2 = require( 'DOT/Bounds2' );
     var inherit = require( 'PHET_CORE/inherit' );
-    //var Vector2 = require( 'DOT/Vector2' );
+    var Vector2 = require( 'DOT/Vector2' );
 
     /**
      * @param {number} maxNumberOfRows
@@ -21,24 +21,22 @@ define( function( require ) {
     function GaltonBoard( maxNumberOfRows ) {
 
       var galtonBoard = this;
-
       var rowNumber;
       var columnNumber;
-      this.pegPositionArray = [];
+      this.pegs = [];
 
       var index = 0;
       for ( rowNumber = 0; rowNumber < maxNumberOfRows; rowNumber++ ) {
-        for ( columnNumber = 0; i <= rowNumber; columnNumber++ ) {
+        for ( columnNumber = 0; columnNumber <= rowNumber; columnNumber++ ) {
 
           var peg = {
             rowNumber: rowNumber,
             columnNumber: columnNumber,
-            positionX: columnNumber - rowNumber * 0.5,
-            positionY: rowNumber,
+            position: new Vector2( columnNumber - rowNumber * 0.5, rowNumber ),
             index: index
           };
           index++;
-          this.pegPositionArray.push( peg );
+          this.pegs.push( peg );
         }
       }
     }
@@ -47,7 +45,7 @@ define( function( require ) {
       {
         getPegFromRowColumn: function( row, column ) {
           var index = this.getIndexArray( row, column );
-          return this.pegPositionArray[index];
+          return this.pegs[index];
         },
 
         getIndexArray: function( row, column ) {

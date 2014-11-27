@@ -127,21 +127,21 @@ define( function( require ) {
           return new Vector2( 0, 1 - this.fallenRatio );
         case Ball.PHASE_FALLING:
           return new Vector2( this.getPositionX( this.row, this.column ) + 0.5 * (this.direction) * this.fallenRatio,
-            -1 * this.getPositionY( this.row, this.column ) - this.fallenRatio * this.fallenRatio );
+            this.getPositionY( this.row, this.column ) + this.fallenRatio * this.fallenRatio );
         case Ball.PHASE_EXIT:
-          return new Vector2( this.getPositionX( this.row, this.column ), -1 * this.getPositionY( this.row, this.column ) - this.fallenRatio );
-        case Ball.COLLECTED:
-          return new Vector2( this.getPositionX( this.row, this.column ), -1 * this.getPositionY( this.row, this.column ) );
+          return new Vector2( this.getPositionX( this.row, this.column ), this.getPositionY( this.row, this.column ) + this.fallenRatio );
+        case Ball.PHASE_COLLECTED:
+          return new Vector2( this.getPositionX( this.row, this.column ), this.getPositionY( this.row, this.column ) + this.fallenRatio );
       }
     },
 
     getPositionX: function( row, column ) {
-      //return new GaltonBoard.getPegFromRowColumn( row, column ).positionX;
+      //return new GaltonBoard.getPegFromRowColumn( row, column ).position.x;
       return column - row * 0.5;
     },
 
     getPositionY: function( row, column ) {
-      //return new GaltonBoard.getPegFromRowColumn( row, column ).positionX;
+      //return new GaltonBoard.getPegFromRowColumn( row, column ).position.y;
       return row;
     }
 

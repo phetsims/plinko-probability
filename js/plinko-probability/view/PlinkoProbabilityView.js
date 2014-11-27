@@ -41,14 +41,14 @@ define( function( require ) {
     var viewGraphBounds = new Bounds2( 100, 350, 300, 410 );
     var modelGraphBounds = new Bounds2( 0, 0, 20, 20 );
     var modelViewTransform = ModelViewTransform2.createRectangleInvertedYMapping( modelGraphBounds, viewGraphBounds );
-
+    var mvt = ModelViewTransform2.createSinglePointXYScaleMapping( new Vector2( 0, 0 ), new Vector2( 300, 100 ), 20, 10 );
     thisView.modelViewTransform = modelViewTransform; // Make the modelViewTransform available to descendant types.
 
 
     var histogramNode = new HistogramNode( {xRange: new Range( 0, 20 ), yRange: new Range( 0, 20 )}, modelViewTransform );
     this.addChild( histogramNode );
 
-    var galtonBoardNode = new GaltonBoardNode( model );
+    var galtonBoardNode = new GaltonBoardNode( model, mvt );
     this.addChild( galtonBoardNode );
 
     var histogramRadioProperty = new Property( 'fraction' ); //Valid values are 'fraction', 'number', and 'autoScale'.
@@ -100,7 +100,7 @@ define( function( require ) {
 
     model.balls.addItemAddedListener( function( addedBall ) {
 
-      var mvt = ModelViewTransform2.createSinglePointXYScaleMapping( new Vector2( 0, 0 ), new Vector2( 300, 100 ), 10, -10 );
+      //   var mvt = ModelViewTransform2.createSinglePointXYScaleMapping( new Vector2( 0, 0 ), new Vector2( 300, 100 ), 10, -10 );
 
       // Create and add the view representation for this dataBall.
       var addedBallNode = new BallNode( addedBall, mvt );

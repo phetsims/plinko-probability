@@ -28,7 +28,7 @@ define( function( require ) {
      * @param {model} model of the simulation
      * @constructor
      */
-    function GaltonBoardNode( model ) {
+    function GaltonBoardNode( model, mvt ) {
 
       var galtonBoardNode = this;
       Node.call( this );
@@ -37,6 +37,7 @@ define( function( require ) {
       var pegBoard = new Node();
       this.addChild( pegBoard );
       //var maxNumberOfRows = model.numberOfRows;
+      model.galtonBoard;
 
       var maxNumberOfRows = model.maxNumberOfRows;
 
@@ -59,23 +60,23 @@ define( function( require ) {
       pegShape = new Shape();
       pegShape.arc( 0, 0, PEG_RADIUS, 1 / 2 * Math.PI, 3 / 2 * Math.PI, true );
 
-      for ( rowNumber = 0; rowNumber < maxNumberOfRows; rowNumber++ ) {
-        for ( i = -rowNumber; i <= rowNumber; i += 2 ) {
-          x = i * horizontalSpacing;
-          y = rowNumber * verticalSpacing;
-          //     console.log( 'i=',i, 'x=', x, 'y=', y );
-          pegPath = new Path( pegShape, {fill: PEG_COLOR, centerX: x, centerY: y} );
-          this.pegPathArray.push( pegPath );
-        }
-      }
+      //for ( rowNumber = 0; rowNumber < maxNumberOfRows; rowNumber++ ) {
+      //  for ( i = -rowNumber; i <= rowNumber; i += 2 ) {
+      //    x = i * horizontalSpacing;
+      //    y = rowNumber * verticalSpacing;
+      //    //     console.log( 'i=',i, 'x=', x, 'y=', y );
+      //    pegPath = new Path( pegShape, {fill: PEG_COLOR, centerX: x, centerY: y} );
+      //    this.pegPathArray.push( pegPath );
+      //  }
+      //}
 
 
-      this.pegPathArray.forEach( function( pegPath ) {
-        //    pegPath = new Path( pegShape, {fill: PEG_COLOR, centerX: x, centerY: y} );
-        pegBoard.addChild( pegPath );
+      model.galtonBoard.pegs.forEach( function( peg ) {
+        pegPath = new Path( pegShape, {fill: PEG_COLOR, center: mvt.modelToViewPosition( peg.position )} );
+        galtonBoardNode.pegPathArray.push( pegPath );
       } );
 
-      galtonBoardNode.translate( boardCenterTop.x, boardCenterTop.y );
+      pegBoard.setChildren( this.pegPathArray );
 
       model.probabilityProperty.link( function( newProbability, oldProbability ) {
         var newAngle = newProbability * Math.PI;
@@ -94,7 +95,7 @@ define( function( require ) {
           pegPath.visible = (index < visibleNumberOfPegs) ? true : false;
         } );
 
-        pegBoard.setScaleMagnitude( 20 / visibleNumberOfRows );
+        //     pegBoard.setScaleMagnitude( 20 / visibleNumberOfRows );
       } );
 
     }
