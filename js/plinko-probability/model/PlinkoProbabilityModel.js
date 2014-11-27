@@ -8,6 +8,7 @@ define( function( require ) {
   'use strict';
 
   var Ball = require( 'PLINKO/plinko-probability/model/Ball' );
+  var GaltonBoard = require( 'PLINKO/plinko-probability/model/Ball' );
   var inherit = require( 'PHET_CORE/inherit' );
   var PropertySet = require( 'AXON/PropertySet' );
   var ObservableArray = require( 'AXON/ObservableArray' );
@@ -33,6 +34,7 @@ define( function( require ) {
       isPlaying: false
     } );
 
+
     this.balls = new ObservableArray();
 
     this.trialNumber = 0; //number of current trial (current ball drop)
@@ -46,6 +48,9 @@ define( function( require ) {
     this.minNumberOfRows = 1;
     //Maximum Number of Rows
     this.maxNumberOfRows = 40;
+
+    this.galtonBoard = new GaltonBoard( this.maxNumberOfRows );
+
 
     this.isPlayingProperty.link( function( isPlaying ) {
       if ( isPlaying ) {

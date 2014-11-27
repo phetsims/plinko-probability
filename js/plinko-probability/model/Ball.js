@@ -11,7 +11,7 @@ define( function( require ) {
   // var Property = require( 'AXON/Property' );
 
   var inherit = require( 'PHET_CORE/inherit' );
-  var Peg = require( 'PLINKO/plinko-probability/utils/Peg' );
+  var GaltonBoard = require( 'PLINKO/plinko-probability/model/GaltonBoard' );
   var PoolableMixin = require( 'PHET_CORE/PoolableMixin' );
   var PropertySet = require( 'AXON/PropertySet' );
   var Vector2 = require( 'DOT/Vector2' );
@@ -136,10 +136,12 @@ define( function( require ) {
     },
 
     getPositionX: function( row, column ) {
-      return column - 0.5 * row;
+      //return new GaltonBoard.getPegFromRowColumn( row, column ).positionX;
+      return column - row * 0.5;
     },
 
     getPositionY: function( row, column ) {
+      //return new GaltonBoard.getPegFromRowColumn( row, column ).positionX;
       return row;
     }
 

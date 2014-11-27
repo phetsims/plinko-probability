@@ -68,7 +68,10 @@ define( function( require ) {
           this.pegPathArray.push( pegPath );
         }
       }
+
+
       this.pegPathArray.forEach( function( pegPath ) {
+        //    pegPath = new Path( pegShape, {fill: PEG_COLOR, centerX: x, centerY: y} );
         pegBoard.addChild( pegPath );
       } );
 
