@@ -17,7 +17,7 @@ define( function( require ) {
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   var Node = require( 'SCENERY/nodes/Node' );
   var PlayPauseButton = require( 'SCENERY_PHET/buttons/PlayPauseButton' );
-  var PropertySet = require( 'AXON/PropertySet' );
+  //var PropertySet = require( 'AXON/PropertySet' );
   var Property = require( 'AXON/Property' );
   var Range = require( 'DOT/Range' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );

@@ -13,12 +13,12 @@ define( function( require ) {
   var CheckBox = require( 'SUN/CheckBox' );
   var EquationNode = require( 'PLINKO/plinko-probability/view/EquationNode' );
   var HBox = require( 'SCENERY/nodes/HBox' );
-  var HStrut = require( 'SUN/HStrut' );
+//  var HStrut = require( 'SUN/HStrut' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Panel = require( 'SUN/Panel' );
+  // var Panel = require( 'SUN/Panel' );
   var Property = require( 'AXON/Property' );
   // var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  var SubSupText = require( 'SCENERY_PHET/SubSupText' );
+  // var SubSupText = require( 'SCENERY_PHET/SubSupText' );
   var Text = require( 'SCENERY/nodes/Text' );
   var VBox = require( 'SCENERY/nodes/VBox' );
 
@@ -31,7 +31,7 @@ define( function( require ) {
 
   var muGreekString = '\u03BC';
   var sigmaGreekString = '\u03C3';
-  var overlineString = '\u0305';
+//  var overlineString = '\u0305';
   var xOverlineString = '\u0078\u0305';
   // TODO use subsupText;
   var sMeanString = '\u0073\u2098\u2091\u2090\u2099';
@@ -44,7 +44,7 @@ define( function( require ) {
   function StatisticsDisplayPanel( model, options ) {
 
     this.model = model;
-    var thisPanel = this;
+    // var thisPanel = this;
 
     // property of the accordion Box that control its expansion
     this.expandedProperty = new Property( false );
@@ -55,7 +55,7 @@ define( function( require ) {
 
     var theoreticalAverageText = new EquationNode( muGreekString, 0, {fill: THEORETICAL_FONT_COLOR} );
     var theoreticalStandardDeviationText = new EquationNode( sigmaGreekString, 0, {fill: THEORETICAL_FONT_COLOR} );
-    var theoreticalStandardDeviationOfMeanText = new EquationNode( 's_', {fill: THEORETICAL_FONT_COLOR} );
+    //var theoreticalStandardDeviationOfMeanText = new EquationNode( 's_', {fill: THEORETICAL_FONT_COLOR} );
 
     Property.multilink( [model.numberOfRowsProperty, model.probabilityProperty], function( numberOfRows, probability ) {
       theoreticalAverageText.setRightHandSideOfEquation( model.getTheoreticalAverage() );

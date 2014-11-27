@@ -10,7 +10,7 @@ define( function( require ) {
 
     // modules
 
-    var Bounds2 = require( 'DOT/Bounds2' );
+    //  var Bounds2 = require( 'DOT/Bounds2' );
     //   var Circle = require( 'SCENERY/nodes/Circle' );
     var inherit = require( 'PHET_CORE/inherit' );
     var Node = require( 'SCENERY/nodes/Node' );
@@ -22,7 +22,7 @@ define( function( require ) {
     // constants
     var PEG_RADIUS = 5; // radius of the Ball.
     var PEG_COLOR = 'blue';
-    var BOARD_BOUNDS = new Bounds2( 100, 100, 500, 500 );
+    //var BOARD_BOUNDS = new Bounds2( 100, 100, 500, 500 );
 
     /**
      * @param {model} model of the simulation
@@ -36,13 +36,13 @@ define( function( require ) {
       var pegBoard = new Node();
       this.addChild( pegBoard );
 
-      var maxNumberOfRows = model.maxNumberOfRows;
+      //var maxNumberOfRows = model.maxNumberOfRows;
 
-      var boardWidth = BOARD_BOUNDS.width;
-      var boardHeight = BOARD_BOUNDS.height;
-      var boardCenterTop = BOARD_BOUNDS.centerTop;
-      var horizontalSpacing = boardWidth / maxNumberOfRows;
-      var verticalSpacing = boardWidth / maxNumberOfRows;
+      //var boardWidth = BOARD_BOUNDS.width;
+      //var boardHeight = BOARD_BOUNDS.height;
+      //var boardCenterTop = BOARD_BOUNDS.centerTop;
+      //var horizontalSpacing = boardWidth / maxNumberOfRows;
+      //var verticalSpacing = boardWidth / maxNumberOfRows;
 
       this.pegPathArray = [];
       var pegPath;
@@ -69,7 +69,7 @@ define( function( require ) {
       model.numberOfRowsProperty.link( function( numberOfRows ) {
         var visibleNumberOfRows = Math.floor( numberOfRows ); // rows must be an integer;
         var visibleNumberOfPegs = (visibleNumberOfRows) * (visibleNumberOfRows + 1) / 2;
-        var i;
+        //var i;
         galtonBoardNode.pegPathArray.forEach( function( pegPath, index ) {
           pegPath.visible = (index < visibleNumberOfPegs) ? true : false;
         } );
