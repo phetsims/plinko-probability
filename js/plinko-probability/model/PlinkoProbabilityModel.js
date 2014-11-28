@@ -32,15 +32,18 @@ define( function( require ) {
         pegInterval: 0.05,
         histogramVisible: false,
         isPlaying: false
+
       } );
 
 
       this.trialNumber = 0; //number of current trial (current ball drop)
-      this.mean = 0;  ///mean of the sample (near zero for p = 0.5)
+      this.landedBallsNumber = 0; //number of balls in the histogram
+      this.average = 0;  ///average of the sample (near zero for p = 0.5)
       this.sumOfSquares = 0; //sum of squares of trials, used to compute the variance
       this.variance = 0; // (unbiased) sample variance
       this.standardDeviation = 0; //standard deviation (a.k.a. sigma) the square root of the variance
       this.standardDeviationOfMean = 0; ////standard deviation of the mean
+
 
       //Minimum Number of Rows
       this.minNumberOfRows = 1;
@@ -59,6 +62,7 @@ define( function( require ) {
       this.numberOfRowsProperty.link( function( numberOfRows ) {
         thisModel.balls.clear();
         thisModel.histogram = [];
+        thisModel.histogramTotalNumber = 0;
         //  thisModel.histogram.map( Number.prototype.valueOf, 0 );  //
         for ( var i = 0; i < thisModel.maxNumberOfRows + 1; i++ ) {
           thisModel.histogram.push( 0 );
@@ -66,18 +70,21 @@ define( function( require ) {
       } );
 
 
-      this.balls.addItemAddedListener( function( addedBall ) {
-        addedBall.indexProperty.link( function( index ) {
-          thisModel.histogram[index]++;
-          console.log( thisModel.histogram );
-          // Add the removal listener for if and when this ball is removed from the model.
-          thisModel.balls.addItemRemovedListener( function removalListener( removedBall ) {
-            if ( removedBall === addedBall ) {
-              thisModel.balls.removeItemRemovedListener( removalListener );
-            }
-          } );
-        } );
-      } );
+      //this.balls.addItemAddedListener( function( addedBall ) {
+      //  addedBall.indexProperty.link( function( binIndex ) {
+      //    thisModel.histogram[binIndex]++;
+      //    thisModel.histogramTotalNumber++;
+      //    thisModel.updateStatistics[binIndex];
+      //    console.log( thisModel.histogram );
+      //    // Add the removal listener for if and when this ball is removed from the model.
+      //    thisModel.balls.addItemRemovedListener( function removalListener( removedBall ) {
+      //      if ( removedBall === addedBall ) {
+      //        thisModel.balls.removeItemRemovedListener( removalListener );
+      //      }
+      //    } );
+      //  } );
+      //} );
+
       //this.balls.forEach( function( ball ) {
       //  ball.indexProperty.link( function( index ) {
       //    thisModel.histogram[index]++;
@@ -91,9 +98,7 @@ define( function( require ) {
             thisModel.addNewBall();
           }
         }
-
       } );
-
     }
 
     return inherit( PropertySet, PlinkoProbabilityModel, {
@@ -112,7 +117,13 @@ define( function( require ) {
 
 
       addNewBall: function() {
-        this.balls.push( new Ball() );
+        var self = this;
+        var addedBall = new Ball();
+        this.balls.push( addedBall );
+        addedBall.on( 'landed', function() {
+          self.addBallToHistogram( addedBall.binIndex );
+          self.balls.remove( addedBall );
+        } );
       },
 
       //choose a random step direction: +1 with prob p or -1 with prob q = 1-p
@@ -137,6 +148,15 @@ define( function( require ) {
         return Math.sqrt( this.numberOfRows * this.probability * (1 - this.probability) );
       },
 
+      getTheoreticalStandardDeviationOfMean: function() {
+        if ( this.landedBallsNumber > 0 ) {
+          return Math.sqrt( this.numberOfRows * this.probability * (1 - this.probability ) / this.landedBallsNumber );
+        }
+        else {
+          return 'Not A Number';
+        }
+
+      },
       /**
        * http://en.wikipedia.org/wiki/Binomial_coefficient
        *
@@ -155,7 +175,8 @@ define( function( require ) {
           coefficient /= i;
         }
         return coefficient;
-      },
+      }
+      ,
       /**
        *http://en.wikipedia.org/wiki/Binomial_distribution
        *
@@ -168,7 +189,8 @@ define( function( require ) {
         var binomialCoefficient = this.getBinomialCoefficient( n, k );
         var statisticalWeight = Math.pow( p, k ) * Math.pow( 1 - p, n - k );
         return binomialCoefficient * statisticalWeight;
-      },
+      }
+      ,
 
       /**
        * http://en.wikipedia.org/wiki/Binomial_distribution
@@ -183,27 +205,45 @@ define( function( require ) {
           binomialCoefficientsArray.push( this.getBinomialProbability( this.numberOfRows, k, this.probability ) );
         }
         return binomialCoefficientsArray;
-      },
+      }
+      ,
 
-      getUpdateStatistics: function( binIndex ) {
-        var N = this.trialNumber;
+      updateStatistics: function( binIndex ) {
+        var N = this.landedBallsNumber;
         this.average = ((N - 1) * this.average + binIndex) / N;
         this.sumOfSquares += binIndex * binIndex;
         this.variance = (this.sumOfSquares - N * this.average * this.average) / (N - 1);
         this.standardDeviation = Math.sqrt( this.variance );
         this.standardDeviationOfMean = this.standardDeviation / Math.sqrt( N );
-      },
+
+        console.log(
+          'N=', N,
+          'mu=', this.average.toFixed( 3 ),
+          'sd=', this.standardDeviation.toFixed( 3 ),
+          'sdm=', this.standardDeviationOfMean.toFixed( 3 )
+        );
+      }
+      ,
 
       resetStatistics: function() {
         this.trialNumber = 0;
+        this.landedBallsNumber = 0;
         this.average = 0;
         this.sumOfSquares = 0;
         this.variance = 0;
         this.standardDeviation = 0;
         this.standardDeviationOfMean = 0;
       }
+      ,
 
-    } );
+      addBallToHistogram: function( binIndex ) {
+        this.landedBallsNumber++;
+        this.updateStatistics( binIndex );
+      }
+
+
+    } )
+      ;
 
   }
 )

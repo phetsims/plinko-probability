@@ -79,7 +79,6 @@ define( function( require ) {
 
     }
 
-
     return inherit( Node, GaltonBoardNode,
       {
         rotatePegs: function( angle ) {

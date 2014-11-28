@@ -49,18 +49,38 @@ define( function( require ) {
     // property of the accordion Box that control its expansion
     this.expandedProperty = new Property( false );
 
+    var numberLandedBallsText = new EquationNode( 'N', 0, {fill: SAMPLE_FONT_COLOR} );
     var sampleAverageText = new EquationNode( xOverlineString, 0, {fill: SAMPLE_FONT_COLOR} );
     var sampleStandardDeviationText = new EquationNode( 's', 0, {fill: SAMPLE_FONT_COLOR} );
     var sampleStandardDeviationOfMeanText = new EquationNode( sMeanString, 0, {fill: SAMPLE_FONT_COLOR} );
 
     var theoreticalAverageText = new EquationNode( muGreekString, 0, {fill: THEORETICAL_FONT_COLOR} );
     var theoreticalStandardDeviationText = new EquationNode( sigmaGreekString, 0, {fill: THEORETICAL_FONT_COLOR} );
-    //var theoreticalStandardDeviationOfMeanText = new EquationNode( 's_', {fill: THEORETICAL_FONT_COLOR} );
+    var theoreticalStandardDeviationOfMeanText = new EquationNode( 'sd', 0, {fill: THEORETICAL_FONT_COLOR} );
 
     Property.multilink( [model.numberOfRowsProperty, model.probabilityProperty], function( numberOfRows, probability ) {
       theoreticalAverageText.setRightHandSideOfEquation( model.getTheoreticalAverage() );
       theoreticalStandardDeviationText.setRightHandSideOfEquation( model.getTheoreticalStandardDeviation() );
     } );
+
+
+    model.balls.addItemAddedListener( function( addedBall ) {
+
+      addedBall.on( 'landed', function() {
+        numberLandedBallsText.setRightHandSideOfEquation( model.landedBallsNumber );
+        sampleAverageText.setRightHandSideOfEquation( model.average );
+        sampleStandardDeviationText.setRightHandSideOfEquation( model.standardDeviation );
+        sampleStandardDeviationOfMeanText.setRightHandSideOfEquation( model.standardDeviationOfMean );
+      } );
+
+      // Add the removal listener for if and when this dataPoint is removed from the model.
+      model.balls.addItemRemovedListener( function removalListener( removedBall ) {
+        if ( removedBall === addedBall ) {
+          model.balls.removeItemRemovedListener( removalListener );
+        }
+      } );
+    } );
+
 
     var histogramCheckBox = new CheckBox( new Text( 'histo' ), model.histogramVisibleProperty );
 
@@ -69,6 +89,7 @@ define( function( require ) {
           children: [
             new VBox( {
               spacing: 5, children: [
+                numberLandedBallsText,
                 sampleAverageText,
                 sampleStandardDeviationText,
                 sampleStandardDeviationOfMeanText
@@ -79,6 +100,7 @@ define( function( require ) {
               spacing: 5, children: [
                 theoreticalAverageText,
                 theoreticalStandardDeviationText,
+                //             theoreticalStandardDeviationOfMeanText,
                 histogramCheckBox
               ],
               align: 'left'

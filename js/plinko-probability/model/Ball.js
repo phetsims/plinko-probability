@@ -23,6 +23,13 @@ define( function( require ) {
   var PHASE_COLLECTED = 3;
 
   function Ball() {
+
+
+    PropertySet.call( this, {
+      position: new Vector2( 0, 0 ),
+      //   index: 'empty'
+    } );
+
     // 0 -> Initially falling
     // 1 -> Falling between pegs
     // 2 -> Out of pegs
@@ -55,10 +62,7 @@ define( function( require ) {
 
     this.path = []; //TODO: calculate directions based on p
 
-    PropertySet.call( this, {
-      position: new Vector2( 0, 0 ),
-      index: 'empty'
-    } );
+    this.binIndex = -1;
   }
 
 
@@ -87,6 +91,7 @@ define( function( require ) {
             dt -= 1 - this.fallenRatio;
             this.column += (this.direction === 1 ? 1 : 0);
             this.row += 1;
+            this.path.push( {column: this.column, row: this.row} );
 
             this.fallenRatio = 0;
             this.direction = 0;
@@ -105,7 +110,8 @@ define( function( require ) {
         if ( dt + this.fallenRatio >= 1 ) {
           this.phase = PHASE_COLLECTED;
           // dt -= 1 - this.fallenRatio;
-          this.index = this.column;
+          this.binIndex = this.column;
+          this.trigger( 'landed' );
           //this.fallenRatio = 0;
         }
         else {
