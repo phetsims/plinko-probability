@@ -11,7 +11,7 @@ define( function( require ) {
   var BallNode = require( 'PLINKO/plinko-probability/view/BallNode' );
   var Bounds2 = require( 'DOT/Bounds2' );
   var ControlPanel = require( 'PLINKO/plinko-probability/view/ControlPanel' );
-  var EraserButton = require( 'PLINKO/plinko-probability/view/EraserButton' );
+  var EraserButton = require( 'SCENERY_PHET/buttons/EraserButton' );
   var GaltonBoardNode = require( 'PLINKO/plinko-probability/view/GaltonBoardNode' );
   var HistogramNode = require( 'PLINKO/plinko-probability/view/HistogramNode' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
