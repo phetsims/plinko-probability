@@ -13,6 +13,7 @@ define( function( require ) {
   var CheckBox = require( 'SUN/CheckBox' );
   var EquationNode = require( 'PLINKO/plinko-probability/view/EquationNode' );
   var HBox = require( 'SCENERY/nodes/HBox' );
+  var HistogramIcon = require( 'PLINKO/plinko-probability/view/HistogramIcon' );
 //  var HStrut = require( 'SUN/HStrut' );
   var inherit = require( 'PHET_CORE/inherit' );
   // var Panel = require( 'SUN/Panel' );
@@ -83,7 +84,7 @@ define( function( require ) {
     } );
 
 
-    var histogramCheckBox = new CheckBox( new Text( 'histo' ), model.histogramVisibleProperty );
+    var histogramCheckBox = new CheckBox( new HistogramIcon(), model.histogramVisibleProperty );
 
     AccordionBox.call( this, new HBox( {
           spacing: 30,
