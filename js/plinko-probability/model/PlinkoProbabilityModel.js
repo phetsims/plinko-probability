@@ -176,8 +176,8 @@ define( function( require ) {
           coefficient /= i;
         }
         return coefficient;
-      }
-      ,
+      },
+
       /**
        *http://en.wikipedia.org/wiki/Binomial_distribution
        *
@@ -190,8 +190,8 @@ define( function( require ) {
         var binomialCoefficient = this.getBinomialCoefficient( n, k );
         var statisticalWeight = Math.pow( p, k ) * Math.pow( 1 - p, n - k );
         return binomialCoefficient * statisticalWeight;
-      }
-      ,
+      },
+
 
       /**
        * http://en.wikipedia.org/wiki/Binomial_distribution
@@ -206,8 +206,7 @@ define( function( require ) {
           binomialCoefficientsArray.push( this.getBinomialProbability( this.numberOfRows, k, this.probability ) );
         }
         return binomialCoefficientsArray;
-      }
-      ,
+      },
 
       updateStatistics: function( binIndex ) {
         var N = this.landedBallsNumber;
@@ -223,8 +222,7 @@ define( function( require ) {
           'sd=', this.standardDeviation.toFixed( 3 ),
           'sdm=', this.standardDeviationOfMean.toFixed( 3 )
         );
-      }
-      ,
+      },
 
       resetStatistics: function() {
         this.trialNumber = 0;
@@ -234,8 +232,8 @@ define( function( require ) {
         this.variance = 0;
         this.standardDeviation = 0;
         this.standardDeviationOfMean = 0;
-      }
-      ,
+      },
+
 
       addBallToHistogram: function( binIndex ) {
         this.landedBallsNumber++;
