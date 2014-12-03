@@ -35,11 +35,6 @@ define( function( require ) {
       binFill: null
     }, options );
 
-    //  var bounds = new Bounds2( 0, 0, options.binNumber * options.width, options.binHeightMax );
-
-
-    var histogramShape = new Shape();
-
     // Add the bins
     for ( var i = 0; i < options.binNumber; i++ ) {
 
@@ -52,12 +47,6 @@ define( function( require ) {
         } );
       this.addChild( rectangle );
     }
-
-    // Add the horizontal line
-//    histogramShape.moveTo( bounds.minX, 0 ).lineTo( bounds.maxX, 0 );
-
-
-//    this.addChild( gridPath );
 
     // Pass options through to the parent class.
     this.mutate( options );
