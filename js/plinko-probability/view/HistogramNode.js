@@ -389,12 +389,64 @@ define( function( require ) {
   inherit( Node, GridNode );
 //----------------------------------------------------------------------------------------
 
+
+//
+//  //----------------------------------------------------------------------------------------
+//// 2D grid
+////----------------------------------------------------------------------------------------
+//
+//  /**
+//   * @param {Graph} graph
+//   * @param {ModelViewTransform2} modelViewTransform
+//   * @constructor
+//   */
+//  function HistogramBarNode( histogram ) {
+//    Node.call( this );
+//
+//    // horizontal grid lines, one line for each unit of grid spacing
+//    var horizontalGridLinesNode = new Node();
+//    this.addChild( horizontalGridLinesNode );
+//    var tickYSeparation = tickSpacing( graph.yRange );
+//    var numberOfHorizontalGridLines = tickYSeparation.numberOfTicks;
+//
+//    var minX = modelViewTransform.modelToViewX( graph.xRange.min );
+//    var maxX = modelViewTransform.modelToViewX( graph.xRange.max );
+//    for ( var i = 0; i < numberOfHorizontalGridLines; i++ ) {
+//      var modelY = tickYSeparation.startPositionTick + tickYSeparation.minorTickSpacing * i;
+//      if ( modelY !== graph.yRange.min ) { // skip origin, x axis will live here
+//        var yOffset = modelViewTransform.modelToViewY( modelY );
+//        var isMajorX = Math.abs( modelY / tickYSeparation.minorTickSpacing ) % (tickYSeparation.minorTicksPerMajor) < SMALL_EPSILON;
+//        horizontalGridLinesNode.addChild( new GridLineNode( minX, yOffset, maxX, yOffset, isMajorX ) );
+//      }
+//    }
+//
+//    // vertical grid lines, one line for each unit of grid spacing
+//    var verticalGridLinesNode = new Node();
+//    this.addChild( verticalGridLinesNode );
+//    var tickXSeparation = tickSpacing( graph.xRange );
+//    var numberOfVerticalGridLines = tickXSeparation.numberOfTicks;
+//    var minY = modelViewTransform.modelToViewY( graph.yRange.max ); // yes, swap min and max
+//    var maxY = modelViewTransform.modelToViewY( graph.yRange.min );
+//    for ( var j = 0; j < numberOfVerticalGridLines; j++ ) {
+//      var modelX = tickXSeparation.startPositionTick + tickXSeparation.minorTickSpacing * j;
+//      //TODO decide if we want to skip origin or implement a more roust version using small epsilon
+//      if ( modelX !== graph.xRange.min ) { // skip origin, y axis will live here
+//        var xOffset = modelViewTransform.modelToViewX( modelX );
+//        var isMajorY = Math.abs( modelX / tickXSeparation.minorTickSpacing ) % (tickXSeparation.minorTicksPerMajor) < SMALL_EPSILON;
+//        verticalGridLinesNode.addChild( new GridLineNode( xOffset, minY, xOffset, maxY, isMajorY ) );
+//      }
+//    }
+//  }
+//
+//  inherit( Node, GridNode );
+//----------------------------------------------------------------------------------------
+
   /**
    * @param {Graph} graph
    * @param {ModelViewTransform2} modelViewTransform
    * @constructor
    */
-  function GraphAxesNode( graph, modelViewTransform ) {
+  function GraphAxesNode( graph, histogram, modelViewTransform ) {
 
 
     Node.call( this, {
@@ -404,7 +456,8 @@ define( function( require ) {
           new XAxisNode( graph, modelViewTransform ),
           new YAxisNode( graph, modelViewTransform ),
           new XLabelNode( graph, modelViewTransform ),
-          new YLabelNode( graph, modelViewTransform )
+          new YLabelNode( graph, modelViewTransform ),
+          //     new HistogramBarNode( histogram, modelViewTransform )
         ]
       }
     );

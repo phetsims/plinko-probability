@@ -26,7 +26,7 @@ define( function( require ) {
 
 
     PropertySet.call( this, {
-      position: new Vector2( 0, 0 ),
+      position: new Vector2( 0, 0 )
       //   index: 'empty'
     } );
 
@@ -60,7 +60,7 @@ define( function( require ) {
     //0 is the top of the current peg, 1 is the top of the next peg
     this.fallenRatio = 0;
 
-    this.path = []; //TODO: calculate directions based on p
+    this.pegHistory = []; //TODO: calculate directions based on p
 
     this.binIndex = -1;
   }
@@ -91,7 +91,7 @@ define( function( require ) {
             dt -= 1 - this.fallenRatio;
             this.column += (this.direction === 1 ? 1 : 0);
             this.row += 1;
-            this.path.push( {column: this.column, row: this.row} );
+            this.pegHistory.push( {column: this.column, row: this.row} );
 
             this.fallenRatio = 0;
             this.direction = 0;
@@ -128,7 +128,7 @@ define( function( require ) {
     getPosition: function() {
       switch( this.phase ) {
         case PHASE_INITIAL:
-          return new Vector2( 0, 1 - this.fallenRatio );
+          return new Vector2( 0, -1 + this.fallenRatio );
         case PHASE_FALLING:
           return new Vector2( this.getPositionX( this.row, this.column ) + 0.5 * (this.direction) * this.fallenRatio,
             this.getPositionY( this.row, this.column ) + this.fallenRatio * this.fallenRatio );

@@ -94,7 +94,7 @@ define( function( require ) {
 
       this.isPlayingProperty.link( function( isPlaying ) {
         if ( isPlaying ) {
-          for ( var i = 0; i < 100; i++ ) {
+          for ( var i = 0; i < 1; i++ ) {
             thisModel.addNewBall();
           }
         }
@@ -104,6 +104,7 @@ define( function( require ) {
     return inherit( PropertySet, PlinkoProbabilityModel, {
       step: function( dt ) {
         if ( dt > 1000 ) {
+          //TODO why do we need this condition
           dt = 1000;
         }
         for ( var i = 0; i < this.balls.length; i++ ) {

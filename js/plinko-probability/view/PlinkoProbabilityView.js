@@ -45,7 +45,7 @@ define( function( require ) {
     thisView.modelViewTransform = modelViewTransform; // Make the modelViewTransform available to descendant types.
 
 
-    var histogramNode = new HistogramNode( {xRange: new Range( 0, 20 ), yRange: new Range( 0, 20 )}, modelViewTransform );
+    var histogramNode = new HistogramNode( {xRange: new Range( 0, 20 ), yRange: new Range( 0, 20 )}, model.histogram, modelViewTransform );
     this.addChild( histogramNode );
 
     var galtonBoardNode = new GaltonBoardNode( model, mvt );
