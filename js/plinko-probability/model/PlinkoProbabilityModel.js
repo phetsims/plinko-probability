@@ -108,14 +108,13 @@ define( function( require ) {
           dt = 1000;
         }
         for ( var i = 0; i < this.balls.length; i++ ) {
-          this.balls.get( i ).step( 2 * dt, this.probability, Math.floor( this.numberOfRows ) );
+          this.balls.get( i ).step( 20 * dt, this.probability, Math.floor( this.numberOfRows ) );
         }
       },
 
       reset: function() {
         PropertySet.prototype.reset.call( this );
       },
-
 
       addNewBall: function() {
         var self = this;
@@ -216,6 +215,7 @@ define( function( require ) {
         this.standardDeviation = Math.sqrt( this.variance );
         this.standardDeviationOfMean = this.standardDeviation / Math.sqrt( N );
 
+
         console.log(
           'N=', N,
           'mu=', this.average.toFixed( 3 ),
@@ -237,6 +237,8 @@ define( function( require ) {
 
       addBallToHistogram: function( binIndex ) {
         this.landedBallsNumber++;
+        this.histogram[binIndex]++;
+        console.log( 'histogram', this.histogram );
         this.updateStatistics( binIndex );
       }
 
