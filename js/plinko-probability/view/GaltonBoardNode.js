@@ -67,8 +67,7 @@ define( function( require ) {
       } );
 
       model.numberOfRowsProperty.link( function( numberOfRows ) {
-        var visibleNumberOfRows = Math.floor( numberOfRows ); // rows must be an integer;
-        var visibleNumberOfPegs = (visibleNumberOfRows) * (visibleNumberOfRows + 1) / 2;
+        var visibleNumberOfPegs = (numberOfRows) * (numberOfRows + 1) / 2;
         //var i;
         galtonBoardNode.pegPathArray.forEach( function( pegPath, index ) {
           pegPath.visible = (index < visibleNumberOfPegs) ? true : false;

@@ -46,9 +46,9 @@ define( function( require ) {
 
 
       //Minimum Number of Rows
-      this.minNumberOfRows = 1;
+      this.minNumberOfRows = 5;
       //Maximum Number of Rows
-      this.maxNumberOfRows = 40;
+      this.maxNumberOfRows = 10;
 
       this.galtonBoard = new GaltonBoard( this.maxNumberOfRows );
       this.balls = new ObservableArray();
@@ -108,7 +108,7 @@ define( function( require ) {
           dt = 1000;
         }
         for ( var i = 0; i < this.balls.length; i++ ) {
-          this.balls.get( i ).step( 20 * dt, this.probability, Math.floor( this.numberOfRows ) );
+          this.balls.get( i ).step( 20 * dt, this.probability, this.numberOfRows );
         }
       },
 

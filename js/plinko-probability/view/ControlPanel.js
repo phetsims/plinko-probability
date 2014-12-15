@@ -35,7 +35,7 @@ define( function( require ) {
   var VStrut = require( 'SUN/VStrut' );
 
 
-  var PANEL_OPTION_FONT = { font: new PhetFont( 14 ) };
+  var PANEL_OPTION_FONT = {font: new PhetFont( 14 )};
   var PANEL_TITLE_FONT = new PhetFont( 16 );
 
 
@@ -43,7 +43,7 @@ define( function( require ) {
 //  var startString = require( 'string!PLINKO/start' );
 
 
-   /**
+  /**
    * Creates a TextPushButton with the given text and options
    *
    * @param {string} text
@@ -63,30 +63,29 @@ define( function( require ) {
 
 
   /**
-  * @param {Property<Number>} valueProperty
-  * @param { {min:Number, max:Number} } range
-  * @param {string} title
-  * @param {bool} isInteger
-  *
-  */
+   * @param {Property<Number>} valueProperty
+   * @param { {min:Number, max:Number} } range
+   * @param {string} title
+   * @param {bool} isInteger
+   *
+   */
 
-  function createSliderVBox(property, range, title, isInteger) {
-// TODO ask JB how to ensure property value remains an integer;
-    var rowsSlider = new HSlider(property, range, {
-        thumbSize: new Dimension2( 15, 30 ),
-        majorTickLength: 15,
-        tickLabelSpacing: 2
-      } );
-    rowsSlider.rotate(-Math.PI / 2);
+  function createSliderVBox( property, range, title, isInteger ) {
+    var rowsSlider = new HSlider( property, range, {
+      thumbSize: new Dimension2( 15, 30 ),
+      majorTickLength: 15,
+      tickLabelSpacing: 2
+    } );
+    rowsSlider.rotate( -Math.PI / 2 );
 
     var rowsSliderTitle = new Text( title );
-    var rowsSliderLabel = new Text('');
+    var rowsSliderLabel = new Text( '' );
 
     property.link( function( num ) {
-      rowsSliderLabel.setText(isInteger ? Math.floor(num) : num.toFixed(2));
+      rowsSliderLabel.setText( isInteger ? num.toFixed( 0 ) : num.toFixed( 2 ) );
     } );
 
-    return new VBox( { 
+    return new VBox( {
       children: [
         rowsSliderTitle,
         rowsSlider,
@@ -114,36 +113,37 @@ define( function( require ) {
         stroke: 'orange',
         lineWidth: 3,
         minWidth: 0.1,
-        titleToControlsVerticalSpace: 5 },
+        titleToControlsVerticalSpace: 5
+      },
       options );
     var histogramDisplayRadioButtons = new VerticalAquaRadioButtonGroup( [
-      { node: new Text( 'Fraction', PANEL_OPTION_FONT ), property: histogramRadioProperty, value: 'fraction' },
-      { node: new Text( 'Number', PANEL_OPTION_FONT ), property: histogramRadioProperty, value: 'number' },
-      { node: new Text( 'Auto-Scale', PANEL_OPTION_FONT ), property: histogramRadioProperty, value: 'autoScale' }
-    ], { radius: 8 } );
+      {node: new Text( 'Fraction', PANEL_OPTION_FONT ), property: histogramRadioProperty, value: 'fraction'},
+      {node: new Text( 'Number', PANEL_OPTION_FONT ), property: histogramRadioProperty, value: 'number'},
+      {node: new Text( 'Auto-Scale', PANEL_OPTION_FONT ), property: histogramRadioProperty, value: 'autoScale'}
+    ], {radius: 8} );
 
     var histogramDisplayMarkerVBox = new VBox( {
       children: [
         new Text( 'Histogram display: ', PANEL_TITLE_FONT ),
         new VStrut( options.titleToControlsVerticalSpace ),
         new HStrut( Math.max( 0.1, options.minWidth - 2 * options.xMargin ) ),
-        new HBox( { children: [ new HStrut( 10 ), histogramDisplayRadioButtons ] } )
+        new HBox( {children: [new HStrut( 10 ), histogramDisplayRadioButtons]} )
       ],
       align: 'left'
     } );
 
     var showRadioButtons = new VerticalAquaRadioButtonGroup( [
-      { node: new Text( 'Ball', PANEL_OPTION_FONT ), property: showRadioProperty, value: 'ball' },
-      { node: new Text( 'Path', PANEL_OPTION_FONT ), property: showRadioProperty, value: 'path' },
-      { node: new Text( 'None', PANEL_OPTION_FONT ), property: showRadioProperty, value: 'none' }
-    ], { radius: 8 } );
+      {node: new Text( 'Ball', PANEL_OPTION_FONT ), property: showRadioProperty, value: 'ball'},
+      {node: new Text( 'Path', PANEL_OPTION_FONT ), property: showRadioProperty, value: 'path'},
+      {node: new Text( 'None', PANEL_OPTION_FONT ), property: showRadioProperty, value: 'none'}
+    ], {radius: 8} );
 
     var showMarkerVBox = new VBox( {
       children: [
         new Text( 'Show: ', PANEL_TITLE_FONT ),
         new VStrut( options.titleToControlsVerticalSpace ),
         new HStrut( Math.max( 0.1, options.minWidth - 2 * options.xMargin ) ),
-        new HBox( { children: [ new HStrut( 10 ), showRadioButtons ] } )
+        new HBox( {children: [new HStrut( 10 ), showRadioButtons]} )
       ],
       align: 'left'
     } );
@@ -157,23 +157,29 @@ define( function( require ) {
       spacing: 50
     } );
 
+    // the number of Rows must be an integer
+    // TODO: ask JB why this doesnt work if you put it directly in the model
+    model.numberOfRowsProperty.link( function( numberOfRows ) {
+      model.numberOfRowsProperty.value = Math.round( numberOfRows );
+    } );
+
 
     var ballModeRadioButtons = new VerticalAquaRadioButtonGroup( [
-      { node: new Text( '1 Ball', PANEL_OPTION_FONT ), property: ballRadioProperty, value: 'oneBall' },
+      {node: new Text( '1 Ball', PANEL_OPTION_FONT ), property: ballRadioProperty, value: 'oneBall'},
       {node: new Text( 'Continuous', PANEL_OPTION_FONT ), property: ballRadioProperty, value: 'continuous'}
-    ], { radius: 8 } );
+    ], {radius: 8} );
 
     var ballModeMarkerVBox = new VBox( {
       children: [
         new VStrut( options.titleToControlsVerticalSpace ),
         new HStrut( Math.max( 0.1, options.minWidth - 2 * options.xMargin ) ),
-        new HBox( { children: [ new HStrut( 10 ), ballModeRadioButtons ] } )
+        new HBox( {children: [new HStrut( 10 ), ballModeRadioButtons]} )
       ],
       align: 'left'
     } );
 
 
-    var startVBox = new VBox({
+    var startVBox = new VBox( {
       children: [
         //     startButton,
         ballModeMarkerVBox
@@ -181,8 +187,10 @@ define( function( require ) {
     } );
 
     // The contents of the control panel
-    var content = new VBox( {align: 'left', spacing: 10, 
-    children: [histogramDisplayMarkerVBox, showMarkerVBox, sliderHBox, startVBox] } );
+    var content = new VBox( {
+      align: 'left', spacing: 10,
+      children: [histogramDisplayMarkerVBox, showMarkerVBox, sliderHBox, startVBox]
+    } );
 
     Panel.call( this, content, options );
   }
