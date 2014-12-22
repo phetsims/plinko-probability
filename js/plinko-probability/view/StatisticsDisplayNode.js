@@ -20,7 +20,7 @@ define( function( require ) {
   var Property = require( 'AXON/Property' );
   // var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   // var SubSupText = require( 'SCENERY_PHET/SubSupText' );
-  var Text = require( 'SCENERY/nodes/Text' );
+  //var Text = require( 'SCENERY/nodes/Text' );
   var VBox = require( 'SCENERY/nodes/VBox' );
 
   // strings
@@ -57,7 +57,7 @@ define( function( require ) {
 
     var theoreticalAverageText = new EquationNode( muGreekString, 0, {fill: THEORETICAL_FONT_COLOR} );
     var theoreticalStandardDeviationText = new EquationNode( sigmaGreekString, 0, {fill: THEORETICAL_FONT_COLOR} );
-    var theoreticalStandardDeviationOfMeanText = new EquationNode( 'sd', 0, {fill: THEORETICAL_FONT_COLOR} );
+    //var theoreticalStandardDeviationOfMeanText = new EquationNode( 'sd', 0, {fill: THEORETICAL_FONT_COLOR} );
 
     Property.multilink( [model.numberOfRowsProperty, model.probabilityProperty], function( numberOfRows, probability ) {
       theoreticalAverageText.setRightHandSideOfEquation( model.getTheoreticalAverage() );
