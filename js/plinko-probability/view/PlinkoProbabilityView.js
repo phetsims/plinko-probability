@@ -24,6 +24,7 @@ define( function( require ) {
   var StatisticsDisplayNode = require( 'PLINKO/plinko-probability/view/StatisticsDisplayNode' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var Vector2 = require( 'DOT/Vector2' );
+  var Bounds2 = require( 'DOT/Bounds2' );
 
 
   // strings
@@ -36,7 +37,7 @@ define( function( require ) {
   function PlinkoProbabilityView( model ) {
 
     var thisView = this;
-    ScreenView.call( this, {renderer: 'svg'} );
+    ScreenView.call( this, {renderer: 'svg', layoutBounds: new Bounds2( 0, 0, 768, 504 )} );
 
     var viewGraphBounds = new Bounds2( 100, 350, 300, 410 );
     var modelGraphBounds = new Bounds2( 0, 0, 20, 20 );
