@@ -170,8 +170,8 @@ define( function( require ) {
     this.addChild( image01 );
     this.addChild( image02 );
 
-    this.addChild( new HSlider( mockup02OpacityProperty, {min: 0, max: 1}, {top: 100, left: -150} ) );
-    this.addChild( new HSlider( mockup01OpacityProperty, {min: 0, max: 1}, {top: 10, left: -150} ) );
+    this.addChild( new HSlider( mockup02OpacityProperty, {min: 0, max: 1}, {top: 100, left: 20} ) );
+    this.addChild( new HSlider( mockup01OpacityProperty, {min: 0, max: 1}, {top: 10, left: 20} ) );
   }
 
   return inherit( ScreenView, PlinkoProbabilityView, {
