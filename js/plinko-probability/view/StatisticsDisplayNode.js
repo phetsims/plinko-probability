@@ -16,17 +16,15 @@ define( function( require ) {
   var HistogramIcon = require( 'PLINKO/plinko-probability/view/HistogramIcon' );
 //  var HStrut = require( 'SUN/HStrut' );
   var inherit = require( 'PHET_CORE/inherit' );
-  // var Panel = require( 'SUN/Panel' );
+  var PlinkoConstants = require( 'PLINKO/common/PlinkoConstants' );
   var Property = require( 'AXON/Property' );
-  // var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   // var SubSupText = require( 'SCENERY_PHET/SubSupText' );
   //var Text = require( 'SCENERY/nodes/Text' );
   var VBox = require( 'SCENERY/nodes/VBox' );
 
   // strings
-  //var bestFitLineString = require( 'string!PLINKO_PROBABILITY/bestFitLine' );
-  //var residualsString = require( 'string!PLINKO_PROBABILITY/residuals' );
-  //var squaredResidualsString = require( 'string!PLINKO_PROBABILITY/squaredResiduals' );
+  //var bestFitLineString = require( 'string!PLINKO/bestFitLine' );
+
 
   // strings
 
@@ -37,10 +35,7 @@ define( function( require ) {
   // TODO use subsupText;
   var sMeanString = '\u0073\u2098\u2091\u2090\u2099';
   // constants
-//  var FONT = new PhetFont( 11 );
-  var PANEL_BACKGROUND_COLOR = 'white';
-  var SAMPLE_FONT_COLOR = 'blue';
-  var THEORETICAL_FONT_COLOR = 'red';
+
 
   function StatisticsDisplayPanel( model, options ) {
 
@@ -50,14 +45,29 @@ define( function( require ) {
     // property of the accordion Box that control its expansion
     this.expandedProperty = new Property( false );
 
-    var numberLandedBallsText = new EquationNode( 'N', 0, {fill: SAMPLE_FONT_COLOR} );
-    var sampleAverageText = new EquationNode( xOverlineString, 0, {fill: SAMPLE_FONT_COLOR} );
-    var sampleStandardDeviationText = new EquationNode( 's', 0, {fill: SAMPLE_FONT_COLOR} );
-    var sampleStandardDeviationOfMeanText = new EquationNode( sMeanString, 0, {fill: SAMPLE_FONT_COLOR} );
+    var optionsSample = {
+      leftHandSideFont: PlinkoConstants.TEXT_FONT,
+      leftHandSideFill: PlinkoConstants.SAMPLE_FONT_COLOR,
+      rightHandSideFont: PlinkoConstants.TEXT_FONT,
+      rightHandSideFill: PlinkoConstants.SAMPLE_FONT_COLOR
+    };
 
-    var theoreticalAverageText = new EquationNode( muGreekString, 0, {fill: THEORETICAL_FONT_COLOR} );
-    var theoreticalStandardDeviationText = new EquationNode( sigmaGreekString, 0, {fill: THEORETICAL_FONT_COLOR} );
-    //var theoreticalStandardDeviationOfMeanText = new EquationNode( 'sd', 0, {fill: THEORETICAL_FONT_COLOR} );
+
+    var optionsTheoretical = {
+      leftHandSideFont: PlinkoConstants.TEXT_FONT,
+      leftHandSideFill: PlinkoConstants.THEORETICAL_FONT_COLOR,
+      rightHandSideFont: PlinkoConstants.TEXT_FONT,
+      rightHandSideFill: PlinkoConstants.THEORETICAL_FONT_COLOR
+    };
+
+    var numberLandedBallsText = new EquationNode( 'N', 0, optionsSample );
+    var sampleAverageText = new EquationNode( xOverlineString, 0, optionsSample );
+    var sampleStandardDeviationText = new EquationNode( 's', 0, optionsSample );
+    var sampleStandardDeviationOfMeanText = new EquationNode( sMeanString, 0, optionsSample );
+
+    var theoreticalAverageText = new EquationNode( muGreekString, 0, optionsTheoretical );
+    var theoreticalStandardDeviationText = new EquationNode( sigmaGreekString, 0, optionsTheoretical );
+    //var theoreticalStandardDeviationOfMeanText = new EquationNode( 'sd', 0, optionsTheoretical );
 
     Property.multilink( [model.numberOfRowsProperty, model.probabilityProperty], function( numberOfRows, probability ) {
       theoreticalAverageText.setRightHandSideOfEquation( model.getTheoreticalAverage() );
@@ -91,7 +101,6 @@ define( function( require ) {
           children: [
             new VBox( {
               spacing: 5, children: [
-                numberLandedBallsText,
                 sampleAverageText,
                 sampleStandardDeviationText,
                 sampleStandardDeviationOfMeanText
@@ -113,12 +122,13 @@ define( function( require ) {
 
       _.extend( {
         cornerRadius: 10,
-        fill: PANEL_BACKGROUND_COLOR,
+        fill: PlinkoConstants.PANEL_BACKGROUND_COLOR,
         buttonXMargin: 10,
         buttonYMargin: 6,
         expandedProperty: this.expandedProperty,
         resize: false,
-        //    titleNode:  ,
+        buttonAlign: 'right',
+        titleNode: numberLandedBallsText,
         titleXMargin: 0,
         contentXMargin: 8,
         contentYMargin: 5
