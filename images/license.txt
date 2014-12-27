@@ -1,0 +1,2 @@
+board.svg source=PhET author=Amanda M
+hopper.svg source=PhET author=Amanda M

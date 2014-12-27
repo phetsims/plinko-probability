@@ -14,6 +14,8 @@ define( function( require ) {
   var EraserButton = require( 'SCENERY_PHET/buttons/EraserButton' );
   var GaltonBoardNode = require( 'PLINKO/plinko-probability/view/GaltonBoardNode' );
   var HistogramNode = require( 'PLINKO/plinko-probability/view/HistogramNode' );
+  var HSlider = require( 'SUN/HSlider' );
+  var Image = require( 'SCENERY/nodes/Image' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   var Node = require( 'SCENERY/nodes/Node' );
   var PlayPauseButton = require( 'SCENERY_PHET/buttons/PlayPauseButton' );
@@ -29,6 +31,9 @@ define( function( require ) {
   // strings
   // TODO: place used strings here
 
+  // images
+  var mockup01Image = require( 'image!PLINKO/mockup01.png' );
+  var mockup02Image = require( 'image!PLINKO/mockup02.png' );
   /**
    * @param {PlinkoProbabilityModel} model
    * @constructor
@@ -36,7 +41,8 @@ define( function( require ) {
   function PlinkoProbabilityView( model ) {
 
     var thisView = this;
-    ScreenView.call( this, {renderer: 'svg', layoutBounds: new Bounds2( 0, 0, 768, 504 )} );
+    ScreenView.call( this, {renderer: 'svg', layoutBounds: new Bounds2( 0, 0, 1024, 618 )} );
+    //ScreenView.call( this, {renderer: 'svg', layoutBounds: new Bounds2( 0, 0, 768, 504 )} );
 
     var viewGraphBounds = new Bounds2( 100, 350, 300, 410 );
     var modelGraphBounds = new Bounds2( 0, 0, 20, 20 );
@@ -134,6 +140,22 @@ define( function( require ) {
 
     thisView.addChild( resetAllButton );
 
+
+    //Show the mock-up and a slider to change its transparency
+    var mockup01OpacityProperty = new Property( 0.02 );
+    var mockup02OpacityProperty = new Property( 0.02 );
+    var image01 = new Image( mockup01Image, {pickable: false} );
+    var image02 = new Image( mockup02Image, {pickable: false} );
+    image01.scale( this.layoutBounds.height / image01.height );
+//    image.scale( this.layoutBounds.width / image.width, this.layoutBounds.height / image.height );
+    mockup01OpacityProperty.linkAttribute( image01, 'opacity' );
+    mockup02OpacityProperty.linkAttribute( image02, 'opacity' );
+    this.addChild( image01 );
+    this.addChild( new HSlider( mockup01OpacityProperty, {min: 0, max: 1}, {top: 10, left: -150} ) );
+
+    image02.scale( this.layoutBounds.height / image02.height );
+    this.addChild( image02 );
+    this.addChild( new HSlider( mockup02OpacityProperty, {min: 0, max: 1}, {top: 100, left: -150} ) );
 
   }
 
