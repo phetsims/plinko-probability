@@ -23,6 +23,7 @@ define( function( require ) {
   var Property = require( 'AXON/Property' );
   var Range = require( 'DOT/Range' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
+  var SoundToggleButton = require( 'SCENERY_PHET/buttons/SoundToggleButton' );
   var StatisticsDisplayNode = require( 'PLINKO/plinko-probability/view/StatisticsDisplayNode' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var Vector2 = require( 'DOT/Vector2' );
@@ -129,6 +130,7 @@ define( function( require ) {
     var statisticsDisplayNode = new StatisticsDisplayNode( model );
     this.addChild( statisticsDisplayNode );
 
+
     // Create and add the Reset All Button in the bottom right, which resets the model
     var resetAllButton = new ResetAllButton( {
       listener: function() {
@@ -138,25 +140,38 @@ define( function( require ) {
       bottom: thisView.layoutBounds.maxY - 10
     } );
 
+
     thisView.addChild( resetAllButton );
 
+    // Create and add the Sound Toggle Button in the bottom right
+    var soundToggleButton = new SoundToggleButton( model.isSoundEnabledProperty, {
+      right: resetAllButton.left - 20,
+      centerY: resetAllButton.centerY
+    } );
+
+    thisView.addChild( soundToggleButton );
+
+
+    statisticsDisplayNode.right = thisView.layoutBounds.maxX - 30;
+    statisticsDisplayNode.bottom = thisView.layoutBounds.maxY - 100;
 
     //Show the mock-up and a slider to change its transparency
     var mockup01OpacityProperty = new Property( 0.02 );
     var mockup02OpacityProperty = new Property( 0.02 );
+
     var image01 = new Image( mockup01Image, {pickable: false} );
     var image02 = new Image( mockup02Image, {pickable: false} );
+
     image01.scale( this.layoutBounds.height / image01.height );
-//    image.scale( this.layoutBounds.width / image.width, this.layoutBounds.height / image.height );
+    image02.scale( this.layoutBounds.height / image02.height );
+
     mockup01OpacityProperty.linkAttribute( image01, 'opacity' );
     mockup02OpacityProperty.linkAttribute( image02, 'opacity' );
     this.addChild( image01 );
-    this.addChild( new HSlider( mockup01OpacityProperty, {min: 0, max: 1}, {top: 10, left: -150} ) );
-
-    image02.scale( this.layoutBounds.height / image02.height );
     this.addChild( image02 );
-    this.addChild( new HSlider( mockup02OpacityProperty, {min: 0, max: 1}, {top: 100, left: -150} ) );
 
+    this.addChild( new HSlider( mockup02OpacityProperty, {min: 0, max: 1}, {top: 100, left: -150} ) );
+    this.addChild( new HSlider( mockup01OpacityProperty, {min: 0, max: 1}, {top: 10, left: -150} ) );
   }
 
   return inherit( ScreenView, PlinkoProbabilityView, {

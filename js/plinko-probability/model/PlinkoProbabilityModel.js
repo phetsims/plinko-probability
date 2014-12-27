@@ -31,7 +31,8 @@ define( function( require ) {
         pegDiagonalDistance: 1 / Math.sqrt( 2 ),
         pegInterval: 0.05,
         histogramVisible: false,
-        isPlaying: false
+        isPlaying: false,
+        isSoundEnabled: true
 
       } );
 
