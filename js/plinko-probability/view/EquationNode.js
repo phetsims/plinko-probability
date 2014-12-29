@@ -12,6 +12,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  var SubSupText = require( 'SCENERY_PHET/SubSupText' );
   var Text = require( 'SCENERY/nodes/Text' );
   var Util = require( 'DOT/Util' );
 
@@ -39,7 +40,7 @@ define( function( require ) {
 
     Node.call( this );
 
-    this.leftHandSideOfEquationText = new Text( leftHandSideOfEquation,
+    this.leftHandSideOfEquationText = new SubSupText( leftHandSideOfEquation,
       {
         font: options.leftHandSideFont,
         fill: options.leftHandSideFill

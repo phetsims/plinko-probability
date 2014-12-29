@@ -26,6 +26,7 @@ define( function( require ) {
   var SoundToggleButton = require( 'SCENERY_PHET/buttons/SoundToggleButton' );
   var StatisticsDisplayNode = require( 'PLINKO/plinko-probability/view/StatisticsDisplayNode' );
   var ScreenView = require( 'JOIST/ScreenView' );
+  var SliderControlPanel = require( 'PLINKO/plinko-probability/view/SliderControlPanel' );
   var Vector2 = require( 'DOT/Vector2' );
 
 
@@ -35,6 +36,7 @@ define( function( require ) {
   // images
   var mockup01Image = require( 'image!PLINKO/mockup01.png' );
   var mockup02Image = require( 'image!PLINKO/mockup02.png' );
+
   /**
    * @param {PlinkoProbabilityModel} model
    * @constructor
@@ -51,6 +53,10 @@ define( function( require ) {
     var mvt = ModelViewTransform2.createSinglePointXYScaleMapping( new Vector2( 0, 0 ), new Vector2( 300, 100 ), 20, 10 );
     thisView.modelViewTransform = modelViewTransform; // Make the modelViewTransform available to descendant types.
 
+
+    var sliderControlPanel = new SliderControlPanel( new Property( 5 ), new Property( 0.2 ) );
+    this.addChild( sliderControlPanel );
+    sliderControlPanel.right = thisView.layoutBounds.maxX - 200;
 
     var histogramNode = new HistogramNode( {xRange: new Range( 0, 20 ), yRange: new Range( 0, 20 )}, model.histogram, modelViewTransform );
     this.addChild( histogramNode );

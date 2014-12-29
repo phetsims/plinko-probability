@@ -18,13 +18,10 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var PlinkoConstants = require( 'PLINKO/common/PlinkoConstants' );
   var Property = require( 'AXON/Property' );
-  // var SubSupText = require( 'SCENERY_PHET/SubSupText' );
-  //var Text = require( 'SCENERY/nodes/Text' );
   var VBox = require( 'SCENERY/nodes/VBox' );
 
   // strings
   //var bestFitLineString = require( 'string!PLINKO/bestFitLine' );
-
 
   // strings
 
@@ -32,9 +29,7 @@ define( function( require ) {
   var sigmaGreekString = '\u03C3';
 //  var overlineString = '\u0305';
   var xOverlineString = '\u0078\u0305';
-  // TODO use subsupText;
-  var sMeanString = '\u0073\u2098\u2091\u2090\u2099';
-  // constants
+  var sMeanString = '\u0073<sub>mean</sub>';
 
 
   function StatisticsDisplayPanel( model, options ) {
@@ -44,6 +39,13 @@ define( function( require ) {
 
     // property of the accordion Box that control its expansion
     this.expandedProperty = new Property( false );
+
+    var optionsTitle = {
+      leftHandSideFont: PlinkoConstants.TEXT_FONT_BOLD,
+      leftHandSideFill: PlinkoConstants.SAMPLE_FONT_COLOR,
+      rightHandSideFont: PlinkoConstants.TEXT_FONT_BOLD,
+      rightHandSideFill: PlinkoConstants.SAMPLE_FONT_COLOR
+    };
 
     var optionsSample = {
       leftHandSideFont: PlinkoConstants.TEXT_FONT,
@@ -60,7 +62,7 @@ define( function( require ) {
       rightHandSideFill: PlinkoConstants.THEORETICAL_FONT_COLOR
     };
 
-    var numberLandedBallsText = new EquationNode( 'N', 0, optionsSample );
+    var numberLandedBallsText = new EquationNode( 'N', 0, optionsTitle );
     var sampleAverageText = new EquationNode( xOverlineString, 0, optionsSample );
     var sampleStandardDeviationText = new EquationNode( 's', 0, optionsSample );
     var sampleStandardDeviationOfMeanText = new EquationNode( sMeanString, 0, optionsSample );
@@ -129,7 +131,8 @@ define( function( require ) {
         resize: false,
         buttonAlign: 'right',
         titleNode: numberLandedBallsText,
-        titleXMargin: 0,
+        titleAlign: 'left',
+        titleXMargin: 10,
         contentXMargin: 8,
         contentYMargin: 5
       }, options )
