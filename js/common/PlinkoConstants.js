@@ -12,7 +12,7 @@ define( function( require ) {
   //var Bounds2 = require( 'DOT/Bounds2' );
   //var Dimension2 = require( 'DOT/Dimension2' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  //var Range = require( 'DOT/Range' );
+  var Range = require( 'DOT/Range' );
 
   var PlinkoConstants = {
 
@@ -31,8 +31,10 @@ define( function( require ) {
 
     PANEL_BACKGROUND_COLOR: 'white',
     SAMPLE_FONT_COLOR: 'red',
-    THEORETICAL_FONT_COLOR: 'blue'
+    THEORETICAL_FONT_COLOR: 'blue',
 
+    BINARY_PROBABILITY_RANGE: new Range( 0, 1 ),
+    ROWS_RANGE: new Range( 0, 30 )
   };
 
   return PlinkoConstants;
