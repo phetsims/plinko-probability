@@ -70,7 +70,7 @@ define( function( require ) {
     if ( options.tick && options.tick.step ) {
       var i = options.range.min;
 
-      for ( ; i <= options.range.max; i += options.tick.step ) {
+      for ( i; i <= options.range.max; i += options.tick.step ) {
 
         if ( i === options.range.max ) {
           hSlider.addMajorTick( i, new Text( options.tick.maxText, {font: new PhetFont( 15 )} ) );
