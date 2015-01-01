@@ -29,17 +29,19 @@ define( function( require ) {
     Node.call( this, {scale: 0.7} );
 
     var rowsSlider = new Slider( {
-      type: 'button',
       buttonStep: 1,
       title: rowsString,
       property: rowsProperty,
       range: PlinkoConstants.ROWS_RANGE,
       rounding: 0,
-      tick: {step: PlinkoConstants.ROWS_RANGE.getLength(), minText: PlinkoConstants.ROWS_RANGE.min, maxText: PlinkoConstants.ROWS_RANGE.max},
+      tick: {
+        step: PlinkoConstants.ROWS_RANGE.getLength(),
+        minText: PlinkoConstants.ROWS_RANGE.min,
+        maxText: PlinkoConstants.ROWS_RANGE.max
+      },
       patternValueUnit: '{0}'
     } );
     var binaryProbabilitySlider = new Slider( {
-      type: 'button',
       buttonStep: 0.01,
       range: PlinkoConstants.BINARY_PROBABILITY_RANGE,
       rounding: 2,
