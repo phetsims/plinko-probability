@@ -148,22 +148,6 @@ define( function( require ) {
       align: 'left'
     } );
 
-    var sliderHBox = new HBox( {
-      children: [
-        createSliderVBox( model.numberOfRowsProperty, {min: model.minNumberOfRows, max: model.maxNumberOfRows}, 'rows', true ),
-        createSliderVBox( model.probabilityProperty, {min: 0, max: 1}, 'p', false )
-      ],
-      align: 'top',
-      spacing: 50
-    } );
-
-    // the number of Rows must be an integer
-    // TODO: ask JB why this doesnt work if you put it directly in the model
-    model.numberOfRowsProperty.link( function( numberOfRows ) {
-      model.numberOfRowsProperty.value = Math.round( numberOfRows );
-    } );
-
-
     var ballModeRadioButtons = new VerticalAquaRadioButtonGroup( [
       {node: new Text( '1 Ball', PANEL_OPTION_FONT ), property: ballRadioProperty, value: 'oneBall'},
       {node: new Text( 'Continuous', PANEL_OPTION_FONT ), property: ballRadioProperty, value: 'continuous'}
@@ -189,7 +173,7 @@ define( function( require ) {
     // The contents of the control panel
     var content = new VBox( {
       align: 'left', spacing: 10,
-      children: [histogramDisplayMarkerVBox, showMarkerVBox, sliderHBox, startVBox]
+      children: [histogramDisplayMarkerVBox, showMarkerVBox, startVBox]
     } );
 
     Panel.call( this, content, options );

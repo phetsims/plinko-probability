@@ -55,6 +55,11 @@ define( function( require ) {
       patternValueUnit: '{0}'
     } );
 
+
+    rowsProperty.link( function( numberOfRows ) {
+      rowsProperty.value = Math.round( numberOfRows );
+    } );
+
     rowsSlider.x = 200;
     binaryProbabilitySlider.x = 200;
     rowsSlider.y = 10;

@@ -54,7 +54,7 @@ define( function( require ) {
     thisView.modelViewTransform = modelViewTransform; // Make the modelViewTransform available to descendant types.
 
 
-    var sliderControlPanel = new SliderControlPanel( new Property( 5 ), new Property( 0.2 ) );
+    var sliderControlPanel = new SliderControlPanel( model.numberOfRowsProperty, model.probabilityProperty );
     this.addChild( sliderControlPanel );
     sliderControlPanel.right = thisView.layoutBounds.maxX - 200;
 
