@@ -35,13 +35,13 @@ define( function( require ) {
         rounding: false,
         // custom track
         trackSize: new Dimension2( 140, 2 ),
-        trackFill: 'red',
+        trackFill: 'black',
         // custom thumb
         thumbSize: new Dimension2( 22, 38 ),
 
-        //TODO change to more appropriate colors
-        thumbFillEnabled: 'red',
-        thumbFillHighlighted: 'green',
+
+        thumbFillEnabled: 'rgb(50,145,184)',
+        thumbFillHighlighted: 'rgb(71,207,255)',
         // custom ticks
         tickLabelSpacing: 1,
         majorTickLength: 20,
@@ -68,7 +68,7 @@ define( function( require ) {
     var hSliderNode = new Node( {children: [hSlider], x: (thisNode.width - options.trackSize.width) / 2, bottom: thisNode.height - 0} );
     thisNode.addChild( hSliderNode );
 
-    if ( options.type === 'simple' && options.tick && options.tick.step ) {
+    if ( options.type === 'button' && options.tick && options.tick.step ) {
       var i = options.range.min;
 
       for ( ; i <= options.range.max; i += options.tick.step ) {
@@ -114,6 +114,7 @@ define( function( require ) {
           text = options.property.get().toFixed( options.rounding );
         }
         valueLabel.text = StringUtils.format( options.patternValueUnit, text );
+        valueLabel.text = text;
         valueLabel.centerX = thisNode.width / 2;
         plusButton.enabled = ( value < options.range.max );
         minusButton.enabled = ( value > options.range.min );

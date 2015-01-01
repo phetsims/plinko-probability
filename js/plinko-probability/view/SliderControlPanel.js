@@ -26,30 +26,38 @@ define( function( require ) {
    */
   function SliderControlPanel( rowsProperty, binaryProbabilityProperty ) {
 
-    Node.call( this, {x: 5, scale: 0.7} );
+    Node.call( this, {scale: 0.7} );
 
     var rowsSlider = new Slider( {
       type: 'button',
-      buttonStep: 0.1,
+      buttonStep: 1,
       title: rowsString,
       property: rowsProperty,
-      rounding: 2,
-      range: PlinkoConstants.ROWS_RANGE
+      range: PlinkoConstants.ROWS_RANGE,
+      rounding: 0,
+      tick: {step: PlinkoConstants.ROWS_RANGE.getLength(), minText: PlinkoConstants.ROWS_RANGE.min, maxText: PlinkoConstants.ROWS_RANGE.max},
+      patternValueUnit: '{0}'
     } );
     var binaryProbabilitySlider = new Slider( {
       type: 'button',
       buttonStep: 0.01,
+      range: PlinkoConstants.BINARY_PROBABILITY_RANGE,
+      rounding: 2,
+      tick: {
+        step: PlinkoConstants.BINARY_PROBABILITY_RANGE.getLength(),
+        minText: PlinkoConstants.BINARY_PROBABILITY_RANGE.min,
+        maxText: PlinkoConstants.BINARY_PROBABILITY_RANGE.max
+      },
       title: binaryProbabilityString,
       property: binaryProbabilityProperty,
-      rounding: 2,
-      range: PlinkoConstants.BINARY_PROBABILITY_RANGE
+      patternValueUnit: '{0}'
     } );
 
     rowsSlider.x = 200;
     binaryProbabilitySlider.x = 200;
+    rowsSlider.y = 10;
+    binaryProbabilitySlider.y = 200;
 
-    binaryProbabilitySlider.y = 10;
-    rowsSlider.y = 200;
     var panel = new Panel( new Node( {
       children: [rowsSlider, binaryProbabilitySlider]
     } ), {

@@ -34,7 +34,7 @@ define( function( require ) {
     THEORETICAL_FONT_COLOR: 'blue',
 
     BINARY_PROBABILITY_RANGE: new Range( 0, 1 ),
-    ROWS_RANGE: new Range( 0, 30 )
+    ROWS_RANGE: new Range( 5, 26 )
   };
 
   return PlinkoConstants;
