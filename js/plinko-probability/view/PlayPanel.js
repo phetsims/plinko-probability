@@ -9,22 +9,24 @@ define( function( require ) {
 
   // imports
 
+  var Circle = require( 'SCENERY/nodes/Circle' );
   var HStrut = require( 'SUN/HStrut' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Panel = require( 'SUN/Panel' );
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  //var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var PlayPauseButton = require( 'SCENERY_PHET/buttons/PlayPauseButton' );
   //var PlinkoConstants = require( 'PLINKO/common/PlinkoConstants' );
-  var Text = require( 'SCENERY/nodes/Text' );
+  var RadialGradient = require( 'SCENERY/util/RadialGradient' );
+  //var Text = require( 'SCENERY/nodes/Text' );
   var VBox = require( 'SCENERY/nodes/VBox' );
   var VerticalAquaRadioButtonGroup = require( 'SUN/VerticalAquaRadioButtonGroup' );
   var VStrut = require( 'SUN/VStrut' );
 
 
-  var PANEL_OPTION_FONT = {font: new PhetFont( 14 )};
+  //var PANEL_OPTION_FONT = {font: new PhetFont( 14 )};
 
-
+  var CIRCLE_RADIUS = 10;
   /**
    *
    * @param {Property.<boolean>} isPlayingProperty
@@ -45,10 +47,32 @@ define( function( require ) {
       },
       options );
 
+    var chargeColor = 'red';
+
+    var oneBall = new Circle( CIRCLE_RADIUS, {
+      fill: new RadialGradient( -CIRCLE_RADIUS * 0.4, -CIRCLE_RADIUS * 0.4, 0, -CIRCLE_RADIUS * 0.4, -CIRCLE_RADIUS * 0.4, CIRCLE_RADIUS * 1.6 )
+        .addColorStop( 0, 'white' )
+        .addColorStop( 1, chargeColor ), centerX: 0, centerY: 0
+    } );
+
+    var continuous = new HBox( {
+      //align: 'left',
+      spacing: -5,
+      children: [new Circle( CIRCLE_RADIUS, {
+        fill: new RadialGradient( -CIRCLE_RADIUS * 0.4, -CIRCLE_RADIUS * 0.4, 0, -CIRCLE_RADIUS * 0.4, -CIRCLE_RADIUS * 0.4, CIRCLE_RADIUS * 1.6 )
+          .addColorStop( 0, 'white' )
+          .addColorStop( 1, chargeColor ), centerX: 0, centerY: 0
+      } ),
+        new Circle( CIRCLE_RADIUS, {
+          fill: new RadialGradient( -CIRCLE_RADIUS * 0.4, -CIRCLE_RADIUS * 0.4, 0, -CIRCLE_RADIUS * 0.4, -CIRCLE_RADIUS * 0.4, CIRCLE_RADIUS * 1.6 )
+            .addColorStop( 0, 'white' )
+            .addColorStop( 1, chargeColor ), centerX: 0, centerY: 0
+        } )]
+    } );
 
     var ballModeRadioButtons = new VerticalAquaRadioButtonGroup( [
-      {node: new Text( '1 Ball', PANEL_OPTION_FONT ), property: ballRadioProperty, value: 'oneBall'},
-      {node: new Text( 'Continuous', PANEL_OPTION_FONT ), property: ballRadioProperty, value: 'continuous'}
+      {node: oneBall, property: ballRadioProperty, value: 'oneBall'},
+      {node: continuous, property: ballRadioProperty, value: 'continuous'}
     ], {radius: 8} );
 
     var ballModeMarkerVBox = new VBox( {
