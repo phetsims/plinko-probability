@@ -62,9 +62,9 @@ define( function( require ) {
     var galtonBoardNode = new GaltonBoardNode( model, mvt );
     this.addChild( galtonBoardNode );
 
-    var histogramRadioProperty = new Property( 'fraction' ); //Valid values are 'fraction', 'number', and 'autoScale'.
+    //var histogramRadioProperty = new Property( 'fraction' ); //Valid values are 'fraction', 'number', and 'autoScale'.
 
-    var showRadioProperty = new Property( 'ball' ); // Valid values are 'ball', 'path', and 'none'.
+    //var showRadioProperty = new Property( 'ball' ); // Valid values are 'ball', 'path', and 'none'.
 
     var ballRadioProperty = new Property( 'oneBall' ); // Valid values are 'oneBall' and 'continuous'.
 

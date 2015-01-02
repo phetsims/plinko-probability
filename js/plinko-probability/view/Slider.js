@@ -19,7 +19,7 @@ define( function( require ) {
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var HSlider = require( 'SUN/HSlider' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
-  var PlinkoConstants = require( 'PLINKO/common/PlinkoConstants' );
+  //var PlinkoConstants = require( 'PLINKO/common/PlinkoConstants' );
 
   function Slider( options ) {
     var thisNode = this,

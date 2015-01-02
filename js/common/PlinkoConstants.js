@@ -29,6 +29,8 @@ define( function( require ) {
     SMALL_PANEL_CORNER_RADIUS: 5,
     CONTROL_PANEL_BACKGROUND_COLOR: 'rgb(255, 245, 238)',
 
+    PANEL_FONT: new PhetFont( 14 ),
+
     PANEL_BACKGROUND_COLOR: 'white',
     SAMPLE_FONT_COLOR: 'red',
     THEORETICAL_FONT_COLOR: 'blue',

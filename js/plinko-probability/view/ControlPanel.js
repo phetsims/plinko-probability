@@ -13,9 +13,9 @@ define( function( require ) {
   // var Color = require( 'SCENERY/util/Color' );
   // var Font = require( 'SCENERY/util/Font' );
   //var Color = require( 'SCENERY/util/Color' );
-  var Dimension2 = require( 'DOT/Dimension2' );
+
   var HStrut = require( 'SUN/HStrut' );
-  var HSlider = require( 'SUN/HSlider' );
+
   var HBox = require( 'SCENERY/nodes/HBox' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Panel = require( 'SUN/Panel' );
@@ -62,38 +62,6 @@ define( function( require ) {
   // }
 
 
-  /**
-   * @param {Property<Number>} valueProperty
-   * @param { {min:Number, max:Number} } range
-   * @param {string} title
-   * @param {bool} isInteger
-   *
-   */
-
-  function createSliderVBox( property, range, title, isInteger ) {
-    var rowsSlider = new HSlider( property, range, {
-      thumbSize: new Dimension2( 15, 30 ),
-      majorTickLength: 15,
-      tickLabelSpacing: 2
-    } );
-    rowsSlider.rotate( -Math.PI / 2 );
-
-    var rowsSliderTitle = new Text( title );
-    var rowsSliderLabel = new Text( '' );
-
-    property.link( function( num ) {
-      rowsSliderLabel.setText( isInteger ? num.toFixed( 0 ) : num.toFixed( 2 ) );
-    } );
-
-    return new VBox( {
-      children: [
-        rowsSliderTitle,
-        rowsSlider,
-        rowsSliderLabel
-      ]
-    } );
-
-  }
 
   /**
    *

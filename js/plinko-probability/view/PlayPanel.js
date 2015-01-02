@@ -8,27 +8,21 @@ define( function( require ) {
   'use strict';
 
   // imports
-  var Dimension2 = require( 'DOT/Dimension2' );
+
   var HStrut = require( 'SUN/HStrut' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Panel = require( 'SUN/Panel' );
-  var PlayPauseButton = require( 'SCENERY_PHET/buttons/PlayPauseButton' );
-  var VBox = require( 'SCENERY/nodes/VBox' );
-  // var Vector2 = require( 'DOT/Vector2');
-  // var RadioButton = require( 'SUN/RadioButton' );
-  // var TextPushButton = require( 'SUN/buttons/TextPushButton' );
-
-  var Text = require( 'SCENERY/nodes/Text' );
-  //var Font = require( 'SCENERY/util/Font' );
-
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  var PlayPauseButton = require( 'SCENERY_PHET/buttons/PlayPauseButton' );
+  //var PlinkoConstants = require( 'PLINKO/common/PlinkoConstants' );
+  var Text = require( 'SCENERY/nodes/Text' );
+  var VBox = require( 'SCENERY/nodes/VBox' );
   var VerticalAquaRadioButtonGroup = require( 'SUN/VerticalAquaRadioButtonGroup' );
   var VStrut = require( 'SUN/VStrut' );
 
 
   var PANEL_OPTION_FONT = {font: new PhetFont( 14 )};
-  var PANEL_TITLE_FONT = new PhetFont( 16 );
 
 
   /**
