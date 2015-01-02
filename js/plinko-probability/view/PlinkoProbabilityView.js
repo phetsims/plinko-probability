@@ -9,6 +9,7 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var BallNode = require( 'PLINKO/plinko-probability/view/BallNode' );
+  var BallRadioButtonsControl = require( 'PLINKO/plinko-probability/view/BallRadioButtonsControl' );
   var Bounds2 = require( 'DOT/Bounds2' );
   var PlayPanel = require( 'PLINKO/plinko-probability/view/PlayPanel' );
   var EraserButton = require( 'SCENERY_PHET/buttons/EraserButton' );
@@ -54,23 +55,23 @@ define( function( require ) {
     thisView.modelViewTransform = modelViewTransform; // Make the modelViewTransform available to descendant types.
 
 
-
-
     var histogramNode = new HistogramNode( {xRange: new Range( 0, 20 ), yRange: new Range( 0, 20 )}, model.histogram, modelViewTransform );
-    this.addChild( histogramNode );
+
 
     var galtonBoardNode = new GaltonBoardNode( model, mvt );
-    this.addChild( galtonBoardNode );
+
 
     //var histogramRadioProperty = new Property( 'fraction' ); //Valid values are 'fraction', 'number', and 'autoScale'.
 
-    //var showRadioProperty = new Property( 'ball' ); // Valid values are 'ball', 'path', and 'none'.
+    var showRadioProperty = new Property( 'ball' ); // Valid values are 'ball', 'path', and 'none'.
 
     var ballRadioProperty = new Property( 'oneBall' ); // Valid values are 'oneBall' and 'continuous'.
 
     ballRadioProperty.link( function( value ) {
       //do stuff
     } );
+
+    var ballRadioButtonsControl = new BallRadioButtonsControl( showRadioProperty );
 
 
     // Add the button that allows the graph to be cleared of all dataPoints.
@@ -81,7 +82,7 @@ define( function( require ) {
         // TODO hooked the listener;
       }
     } );
-    this.addChild( eraserButton );
+
 
 
     // Handle the comings and goings of balls
@@ -115,17 +116,6 @@ define( function( require ) {
     var statisticsDisplayNode = new StatisticsDisplayNode( model );
 
 
-    this.addChild( playPanel );
-    this.addChild( sliderControlPanel );
-    this.addChild( statisticsDisplayNode );
-    playPanel.right = this.layoutBounds.maxX - 30;
-    playPanel.top = 10;
-    sliderControlPanel.top = playPanel.bottom + 10;
-    sliderControlPanel.right = playPanel.right;
-    statisticsDisplayNode.top = sliderControlPanel.bottom + 10;
-    statisticsDisplayNode.right = playPanel.right;
-
-
     // Create and add the Reset All Button in the bottom right, which resets the model
     var resetAllButton = new ResetAllButton( {
       listener: function() {
@@ -135,22 +125,36 @@ define( function( require ) {
       bottom: thisView.layoutBounds.maxY - 10
     } );
 
-
-    thisView.addChild( resetAllButton );
-
     // Create and add the Sound Toggle Button in the bottom right
     var soundToggleButton = new SoundToggleButton( model.isSoundEnabledProperty, {
       right: resetAllButton.left - 20,
       centerY: resetAllButton.centerY
     } );
 
-    thisView.addChild( soundToggleButton );
+    this.addChild( eraserButton );
+    this.addChild( ballRadioButtonsControl );
+    this.addChild( soundToggleButton );
+    this.addChild( resetAllButton );
+    this.addChild( playPanel );
+    this.addChild( sliderControlPanel );
+    this.addChild( statisticsDisplayNode );
+    this.addChild( galtonBoardNode );
+    this.addChild( histogramNode );
+
+    ballRadioButtonsControl.left = this.layoutBounds.maxX / 2;
+    ballRadioButtonsControl.top = 20;
+    playPanel.right = this.layoutBounds.maxX - 30;
+    playPanel.top = 10;
+    sliderControlPanel.top = playPanel.bottom + 10;
+    sliderControlPanel.right = playPanel.right;
+    statisticsDisplayNode.top = sliderControlPanel.bottom + 10;
+    statisticsDisplayNode.right = playPanel.right;
 
 
-    statisticsDisplayNode.right = thisView.layoutBounds.maxX - 30;
-    statisticsDisplayNode.bottom = thisView.layoutBounds.maxY - 100;
-
+    //TODO to erase
+    ////////////////////////////////////////////////////////////////
     //Show the mock-up and a slider to change its transparency
+    //////////////////////////////////////////////////////////////
     var mockup01OpacityProperty = new Property( 0.02 );
     var mockup02OpacityProperty = new Property( 0.02 );
 
@@ -167,6 +171,7 @@ define( function( require ) {
 
     this.addChild( new HSlider( mockup02OpacityProperty, {min: 0, max: 1}, {top: 100, left: 20} ) );
     this.addChild( new HSlider( mockup01OpacityProperty, {min: 0, max: 1}, {top: 10, left: 20} ) );
+    /////////////////////////////////////////////////////////////////////////
   }
 
   return inherit( ScreenView, PlinkoProbabilityView, {
