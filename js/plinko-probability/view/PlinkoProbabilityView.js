@@ -10,7 +10,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var BallNode = require( 'PLINKO/plinko-probability/view/BallNode' );
   var Bounds2 = require( 'DOT/Bounds2' );
-  var ControlPanel = require( 'PLINKO/plinko-probability/view/ControlPanel' );
+  var PlayPanel = require( 'PLINKO/plinko-probability/view/PlayPanel' );
   var EraserButton = require( 'SCENERY_PHET/buttons/EraserButton' );
   var GaltonBoardNode = require( 'PLINKO/plinko-probability/view/GaltonBoardNode' );
   var HistogramNode = require( 'PLINKO/plinko-probability/view/HistogramNode' );
@@ -18,7 +18,7 @@ define( function( require ) {
   var Image = require( 'SCENERY/nodes/Image' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var PlayPauseButton = require( 'SCENERY_PHET/buttons/PlayPauseButton' );
+
   //var PropertySet = require( 'AXON/PropertySet' );
   var Property = require( 'AXON/Property' );
   var Range = require( 'DOT/Range' );
@@ -54,9 +54,7 @@ define( function( require ) {
     thisView.modelViewTransform = modelViewTransform; // Make the modelViewTransform available to descendant types.
 
 
-    var sliderControlPanel = new SliderControlPanel( model.numberOfRowsProperty, model.probabilityProperty );
-    this.addChild( sliderControlPanel );
-    sliderControlPanel.right = thisView.layoutBounds.maxX - 200;
+
 
     var histogramNode = new HistogramNode( {xRange: new Range( 0, 20 ), yRange: new Range( 0, 20 )}, model.histogram, modelViewTransform );
     this.addChild( histogramNode );
@@ -86,27 +84,6 @@ define( function( require ) {
     this.addChild( eraserButton );
 
 
-// play button
-    var playPauseButtonOptions = {
-      //upFill: Constants.blueUpColor,
-      //overFill: Constants.blueOverColor,
-      //disabledFill: Constants.blueDisabledColor,
-      //downFill: Constants.blueDownColor,
-      //backgroundGradientColorStop0: Constants.buttonBorder0,
-      //backgroundGradientColorStop1: Constants.buttonBorder1,
-      innerButtonLineWidth: 1
-    };
-    var playPauseButton = new PlayPauseButton( model.isPlayingProperty, {
-      x:       thisView.layoutBounds.maxX / 2 - 10,
-      centerY: thisView.layoutBounds.maxY - 30,
-      scale: 1.0,
-      touchExpansion: 12,
-      pauseOptions: playPauseButtonOptions,
-      playOptions: playPauseButtonOptions
-    } );
-    this.addChild( playPauseButton );
-
-
     // Handle the comings and goings of balls
     this.ballsLayer = new Node();
     this.addChild( this.ballsLayer );
@@ -128,13 +105,25 @@ define( function( require ) {
       } );
     } );
 
+    // create play Panel
+    var playPanel = new PlayPanel( model.isPlayingProperty, ballRadioProperty );
 
-    this.addChild( new ControlPanel( model, histogramRadioProperty,
-      showRadioProperty, ballRadioProperty,
-      {top: 10, right: this.layoutBounds.right - 10} ) );
+    // create slider Panel
+    var sliderControlPanel = new SliderControlPanel( model.numberOfRowsProperty, model.probabilityProperty );
 
+    // create Panel that displays sample and theoretical statistics
     var statisticsDisplayNode = new StatisticsDisplayNode( model );
+
+
+    this.addChild( playPanel );
+    this.addChild( sliderControlPanel );
     this.addChild( statisticsDisplayNode );
+    playPanel.right = this.layoutBounds.maxX - 30;
+    playPanel.top = 10;
+    sliderControlPanel.top = playPanel.bottom + 10;
+    sliderControlPanel.right = playPanel.right;
+    statisticsDisplayNode.top = sliderControlPanel.bottom + 10;
+    statisticsDisplayNode.right = playPanel.right;
 
 
     // Create and add the Reset All Button in the bottom right, which resets the model
@@ -182,8 +171,8 @@ define( function( require ) {
 
   return inherit( ScreenView, PlinkoProbabilityView, {
     step: function( dt ) {
-    },
+    }
 
-    layoutBounds: new Bounds2( 0, 0, 834, 504 )
+    //layoutBounds: new Bounds2( 0, 0, 834, 504 )
   } );
 } );
