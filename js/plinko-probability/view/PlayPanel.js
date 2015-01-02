@@ -76,18 +76,29 @@ define( function( require ) {
       //backgroundGradientColorStop1: Constants.buttonBorder1,
       innerButtonLineWidth: 1
     };
+
+    //// prefer 200 hue
+    //blueUpColor: new Color( 'hsl(210,70%,75%)' ),
+    //  blueOverColor: new Color( 'hsl(210,90%,80%)' ),
+    //  blueDisabledColor: new Color( 'rgb(180,180,180)' ),
+    //  blueDownColor: new Color( 'hsl(210,80%,70%)' ),
+    //  radioColor: new Color( 'hsl(210,90%,77%)' ),
+    //  sliderUp: new Color( 'hsl(210,50%,63%)' ),
+    //  sliderOver: new Color( 'hsl(210,70%,73%)' ),
+    //  buttonBorder0: new Color( 'transparent' ),
+    //  buttonBorder1: new Color( 'transparent' ),
+
     var playPauseButton = new PlayPauseButton( isPlayingProperty, {
-      //scale: 1.0,
-      //touchExpansion: 12,
-      //pauseOptions: playPauseButtonOptions,
-      //playOptions: playPauseButtonOptions
+      scale: 1.0,
+      touchExpansion: 12,
+      pauseOptions: playPauseButtonOptions,
+      playOptions: playPauseButtonOptions
     } );
-    //this.addChild( playPauseButton );
 
 
-    var startVBox = new VBox( {
+    var startVBox = new HBox( {
       children: [
-        //     startButton,
+        playPauseButton,
         ballModeMarkerVBox
       ]
     } );
