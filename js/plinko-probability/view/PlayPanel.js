@@ -26,7 +26,8 @@ define( function( require ) {
 
   //var PANEL_OPTION_FONT = {font: new PhetFont( 14 )};
 
-  var CIRCLE_RADIUS = 10;
+  var CIRCLE_RADIUS = 8;
+
   /**
    *
    * @param {Property.<boolean>} isPlayingProperty
@@ -47,27 +48,23 @@ define( function( require ) {
       },
       options );
 
-    var chargeColor = 'red';
 
-    var oneBall = new Circle( CIRCLE_RADIUS, {
-      fill: new RadialGradient( -CIRCLE_RADIUS * 0.4, -CIRCLE_RADIUS * 0.4, 0, -CIRCLE_RADIUS * 0.4, -CIRCLE_RADIUS * 0.4, CIRCLE_RADIUS * 1.6 )
-        .addColorStop( 0, 'white' )
-        .addColorStop( 1, chargeColor ), centerX: 0, centerY: 0
-    } );
+    function createCircle() {
+      return new Circle( CIRCLE_RADIUS, {
+        stroke: 'red',
+        lineWidth: 2,
+        fill: new RadialGradient( -CIRCLE_RADIUS * 0.4, -CIRCLE_RADIUS * 0.4, 0, -CIRCLE_RADIUS * 0.1, -CIRCLE_RADIUS * 0.3, CIRCLE_RADIUS * 0.6 )
+          .addColorStop( 0, 'white' )
+          .addColorStop( 1, 'rgb(255,0,0)' ), centerX: 0, centerY: 0
+      } );
+    }
+
+    var oneBall = createCircle();
 
     var continuous = new HBox( {
       //align: 'left',
-      spacing: -5,
-      children: [new Circle( CIRCLE_RADIUS, {
-        fill: new RadialGradient( -CIRCLE_RADIUS * 0.4, -CIRCLE_RADIUS * 0.4, 0, -CIRCLE_RADIUS * 0.4, -CIRCLE_RADIUS * 0.4, CIRCLE_RADIUS * 1.6 )
-          .addColorStop( 0, 'white' )
-          .addColorStop( 1, chargeColor ), centerX: 0, centerY: 0
-      } ),
-        new Circle( CIRCLE_RADIUS, {
-          fill: new RadialGradient( -CIRCLE_RADIUS * 0.4, -CIRCLE_RADIUS * 0.4, 0, -CIRCLE_RADIUS * 0.4, -CIRCLE_RADIUS * 0.4, CIRCLE_RADIUS * 1.6 )
-            .addColorStop( 0, 'white' )
-            .addColorStop( 1, chargeColor ), centerX: 0, centerY: 0
-        } )]
+      spacing: -CIRCLE_RADIUS * 1.2,
+      children: [createCircle(), createCircle(), createCircle(), createCircle(), createCircle()]
     } );
 
     var ballModeRadioButtons = new VerticalAquaRadioButtonGroup( [
