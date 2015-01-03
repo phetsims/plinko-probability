@@ -11,19 +11,11 @@ define( function( require ) {
 
   // imports
   // var Color = require( 'SCENERY/util/Color' );
-  var HStrut = require( 'SUN/HStrut' );
-  var HBox = require( 'SCENERY/nodes/HBox' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var Panel = require( 'SUN/Panel' );
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  var PlinkoConstants = require( 'PLINKO/common/PlinkoConstants' );
   var Text = require( 'SCENERY/nodes/Text' );
-  var VBox = require( 'SCENERY/nodes/VBox' );
   var VerticalAquaRadioButtonGroup = require( 'SUN/VerticalAquaRadioButtonGroup' );
-  var VStrut = require( 'SUN/VStrut' );
-
-  var PANEL_OPTION_FONT = {font: new PhetFont( 14 )};
-  var PANEL_TITLE_FONT = new PhetFont( 16 );
 
   // strings
   var ballString = require( 'string!PLINKO/ball' );
@@ -41,29 +33,19 @@ define( function( require ) {
     Node.call( this );
     // Demonstrate a common pattern for specifying options and providing default values.
     options = _.extend( {
-        xMargin: 10,
-        yMargin: 10,
-        radius: 8,
-        lineWidth: 3,
-        minWidth: 0.1
+        spacing: 10, // vertical separation of the buttons
+        padding: 3, // horizontal padding
+        radius: 8 //radius of the circle of the Radio Button
       },
       options );
 
     var showRadioButtons = new VerticalAquaRadioButtonGroup( [
-      {node: new Text( ballString, PANEL_OPTION_FONT ), property: showRadioProperty, value: 'ball'},
-      {node: new Text( pathString, PANEL_OPTION_FONT ), property: showRadioProperty, value: 'path'},
-      {node: new Text( noneString, PANEL_OPTION_FONT ), property: showRadioProperty, value: 'none'}
-    ], {radius: options.radius} );
+      {node: new Text( ballString, {font: PlinkoConstants.TEXT_FONT} ), property: showRadioProperty, value: 'ball'},
+      {node: new Text( pathString, {font: PlinkoConstants.TEXT_FONT} ), property: showRadioProperty, value: 'path'},
+      {node: new Text( noneString, {font: PlinkoConstants.TEXT_FONT} ), property: showRadioProperty, value: 'none'}
+    ], options );
 
-    var showMarkerVBox = new VBox( {
-      children: [
-        new HStrut( Math.max( 0.1, options.minWidth - 2 * options.xMargin ) ),
-        new HBox( {children: [new HStrut( 10 ), showRadioButtons]} )
-      ],
-      align: 'left'
-    } );
-
-    this.addChild( showMarkerVBox );
+    this.addChild( showRadioButtons );
   }
 
   return inherit( Node, BallRadioButtonsControl );
