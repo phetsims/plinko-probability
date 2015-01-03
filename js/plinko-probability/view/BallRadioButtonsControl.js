@@ -1,10 +1,9 @@
-// Copyright 2002-2013, University of Colorado Boulder
+// Copyright 2002-2014, University of Colorado Boulder
 
 /**
- * Control panel.
+ *  Scenery Node that displays three Radio Buttons that control the flow of Balls
  *
- * @author Chris Malley (PixelZoom, Inc.)
- * @author Sam Reid (PhET Interactive Simulations)
+ * @author Martin Veillette (Berea College)
  */
 define( function( require ) {
   'use strict';
@@ -24,8 +23,8 @@ define( function( require ) {
 
   /**
    *
-   * @param showRadioProperty
-   * @param options
+   * @param {Property.<String>} showRadioProperty - Valid values are 'ball', 'path', and 'none'.
+   * @param {Object} [options]
    * @constructor
    */
   function BallRadioButtonsControl( showRadioProperty, options ) {
