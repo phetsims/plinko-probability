@@ -37,8 +37,6 @@ define( function( require ) {
         trackFill: 'black',
         // custom thumb
         thumbSize: new Dimension2( 22, 38 ),
-
-
         thumbFillEnabled: 'rgb(50,145,184)',
         thumbFillHighlighted: 'rgb(71,207,255)',
         // custom ticks

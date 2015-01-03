@@ -110,7 +110,7 @@ define( function( require ) {
     var playPanel = new PlayPanel( model.isPlayingProperty, ballRadioProperty );
 
     // create slider Panel
-    var sliderControlPanel = new SliderControlPanel( model.numberOfRowsProperty, model.probabilityProperty );
+    var sliderControlPanel = new SliderControlPanel( model.numberOfRowsForSliderProperty, model.probabilityProperty );
 
     // create Panel that displays sample and theoretical statistics
     var statisticsDisplayNode = new StatisticsDisplayNode( model );

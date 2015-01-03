@@ -8,8 +8,10 @@ define( function( require ) {
     'use strict';
 
     var Ball = require( 'PLINKO/plinko-probability/model/Ball' );
+    var DerivedProperty = require( 'AXON/DerivedProperty' );
     var GaltonBoard = require( 'PLINKO/plinko-probability/model/GaltonBoard' );
     var inherit = require( 'PHET_CORE/inherit' );
+    var PlinkoConstants = require( 'PLINKO/common/PlinkoConstants' );
     var PropertySet = require( 'AXON/PropertySet' );
     var ObservableArray = require( 'AXON/ObservableArray' );
 
@@ -19,7 +21,7 @@ define( function( require ) {
       var thisModel = this;
 
       PropertySet.call( this, {
-        numberOfRows: 8,
+        numberOfRowsForSlider: 12, ///  may not always be an integer
         probability: 0.5,
         fraction: false,
         number: false,
@@ -37,6 +39,13 @@ define( function( require ) {
       } );
 
 
+      this.numberOfRowsProperty = new DerivedProperty( [this.numberOfRowsForSliderProperty],
+        function( numberOfRowsForSlider ) {
+          return Math.round( numberOfRowsForSlider );
+        } );
+
+
+
       this.trialNumber = 0; //number of current trial (current ball drop)
       this.landedBallsNumber = 0; //number of balls in the histogram
       this.average = 0;  ///average of the sample (near zero for p = 0.5)
@@ -46,17 +55,12 @@ define( function( require ) {
       this.standardDeviationOfMean = 0; ////standard deviation of the mean
 
 
-      //Minimum Number of Rows
-      this.minNumberOfRows = 5;
-      //Maximum Number of Rows
-      this.maxNumberOfRows = 10;
-
-      this.galtonBoard = new GaltonBoard( this.maxNumberOfRows );
+      this.galtonBoard = new GaltonBoard( PlinkoConstants.ROWS_RANGE.max );
       this.balls = new ObservableArray();
       //    this.histogram = new Array( this.maxNumberOfRows ).map( Number.prototype.valueOf, 0 );  //
       this.histogram = [];
       // there are one more bin than the maxNumber of Rows
-      for ( var i = 0; i < this.maxNumberOfRows + 1; i++ ) {
+      for ( var i = 0; i < PlinkoConstants.ROWS_RANGE.max + 1; i++ ) {
         this.histogram.push( 0 );
       }
 
@@ -65,7 +69,7 @@ define( function( require ) {
         thisModel.histogram = [];
         thisModel.histogramTotalNumber = 0;
         //  thisModel.histogram.map( Number.prototype.valueOf, 0 );  //
-        for ( var i = 0; i < thisModel.maxNumberOfRows + 1; i++ ) {
+        for ( var i = 0; i < PlinkoConstants.ROWS_RANGE.max + 1; i++ ) {
           thisModel.histogram.push( 0 );
         }
       } );
@@ -109,7 +113,7 @@ define( function( require ) {
           dt = 1000;
         }
         for ( var i = 0; i < this.balls.length; i++ ) {
-          this.balls.get( i ).step( 20 * dt, this.probability, this.numberOfRows );
+          this.balls.get( i ).step( 20 * dt, this.probability, this.numberOfRowsProperty.value );
         }
       },
 
@@ -142,16 +146,16 @@ define( function( require ) {
 
 
       getTheoreticalAverage: function() {
-        return this.numberOfRows * this.probability;
+        return this.numberOfRowsProperty.value * this.probability;
       },
 
       getTheoreticalStandardDeviation: function() {
-        return Math.sqrt( this.numberOfRows * this.probability * (1 - this.probability) );
+        return Math.sqrt( this.numberOfRowsProperty.value * this.probability * (1 - this.probability) );
       },
 
       getTheoreticalStandardDeviationOfMean: function() {
         if ( this.landedBallsNumber > 0 ) {
-          return Math.sqrt( this.numberOfRows * this.probability * (1 - this.probability ) / this.landedBallsNumber );
+          return Math.sqrt( this.numberOfRowsProperty.value * this.probability * (1 - this.probability ) / this.landedBallsNumber );
         }
         else {
           return 'Not A Number';
@@ -202,8 +206,8 @@ define( function( require ) {
         var binomialCoefficientsArray = [];
         var k;
         // let's not try to be clever and let's go forward with the brute force approach
-        for ( k = 0; k < this.numberOfRows; k++ ) {
-          binomialCoefficientsArray.push( this.getBinomialProbability( this.numberOfRows, k, this.probability ) );
+        for ( k = 0; k < this.numberOfRowsProperty.value; k++ ) {
+          binomialCoefficientsArray.push( this.getBinomialProbability( this.numberOfRowsProperty.value, k, this.probability ) );
         }
         return binomialCoefficientsArray;
       },

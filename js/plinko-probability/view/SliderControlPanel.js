@@ -8,11 +8,13 @@
 
 define( function( require ) {
   'use strict';
+  var Dimension2 = require( 'DOT/Dimension2' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Panel = require( 'SUN/Panel' );
-  var Slider = require( 'PLINKO/plinko-probability/view/Slider' );
   var PlinkoConstants = require( 'PLINKO/common/PlinkoConstants' );
+  var Slider = require( 'PLINKO/plinko-probability/view/Slider' );
+
 
   // strings
   var rowsString = require( 'string!PLINKO/rows' );
@@ -39,6 +41,7 @@ define( function( require ) {
         minText: PlinkoConstants.ROWS_RANGE.min,
         maxText: PlinkoConstants.ROWS_RANGE.max
       },
+      trackSize: new Dimension2( 180, 4 ),
       patternValueUnit: '{0}'
     } );
     var binaryProbabilitySlider = new Slider( {
@@ -52,13 +55,10 @@ define( function( require ) {
       },
       title: binaryProbabilityString,
       property: binaryProbabilityProperty,
+      trackSize: new Dimension2( 180, 4 ),
       patternValueUnit: '{0}'
     } );
 
-
-    rowsProperty.link( function( numberOfRows ) {
-      rowsProperty.value = Math.round( numberOfRows );
-    } );
 
     rowsSlider.x = 200;
     binaryProbabilitySlider.x = 200;
