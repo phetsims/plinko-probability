@@ -32,7 +32,7 @@ define( function( require ) {
    *
    * @param {Property.<boolean>} isPlayingProperty
    * @param {Property.<String>} ballRadioProperty
-   * @param options
+   * @param {Object} [options]
    * @constructor
    */
   function PlayPanel( isPlayingProperty, ballRadioProperty, options ) {

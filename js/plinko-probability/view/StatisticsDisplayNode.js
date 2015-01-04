@@ -31,7 +31,12 @@ define( function( require ) {
   var xOverlineString = '\u0078\u0305';
   var sMeanString = '\u0073<sub>mean</sub>';
 
-
+  /**
+   *
+   * @param {PlinkoProbabilityModel} model
+   * @param {Object} options
+   * @constructor
+   */
   function StatisticsDisplayPanel( model, options ) {
 
     this.model = model;
