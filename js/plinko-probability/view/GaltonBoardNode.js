@@ -25,10 +25,11 @@ define( function( require ) {
     //var BOARD_BOUNDS = new Bounds2( 100, 100, 500, 500 );
 
     /**
-     * @param {model} model of the simulation
+     * @param {PlinkoProbabilityModel} model
+     * @param {ModelViewTransform2} modelViewTransform
      * @constructor
      */
-    function GaltonBoardNode( model, mvt ) {
+    function GaltonBoardNode( model, modelViewTransform ) {
 
       var galtonBoardNode = this;
       Node.call( this );
@@ -51,7 +52,7 @@ define( function( require ) {
       pegShape.arc( 0, 0, PEG_RADIUS, 1 / 2 * Math.PI, 3 / 2 * Math.PI, true );
 
       model.galtonBoard.pegs.forEach( function( peg ) {
-        pegPath = new Path( pegShape, {fill: PEG_COLOR, center: mvt.modelToViewPosition( peg.position )} );
+        pegPath = new Path( pegShape, {fill: PEG_COLOR, center: modelViewTransform.modelToViewPosition( peg.position )} );
         galtonBoardNode.pegPathArray.push( pegPath );
       } );
 

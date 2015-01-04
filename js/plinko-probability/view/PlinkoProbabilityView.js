@@ -61,7 +61,7 @@ define( function( require ) {
     board.centerX = hopper.centerX;
     board.top = hopper.bottom + 10;
     var viewGraphBounds = new Bounds2( 100, 350, 300, 410 );
-    var modelGraphBounds = new Bounds2( 0, 0, 20, 20 );
+    var modelGraphBounds = new Bounds2( 0, 0, 10, 10 );
     var modelViewTransform = ModelViewTransform2.createRectangleInvertedYMapping( modelGraphBounds, viewGraphBounds );
     var mvt = ModelViewTransform2.createSinglePointXYScaleMapping( new Vector2( 0, 0 ), new Vector2( 300, 100 ), 20, 10 );
     thisView.modelViewTransform = modelViewTransform; // Make the modelViewTransform available to descendant types.
