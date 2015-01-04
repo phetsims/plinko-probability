@@ -16,6 +16,7 @@ define( function( require ) {
   var GaltonBoardNode = require( 'PLINKO/plinko-probability/view/GaltonBoardNode' );
   var HistogramNode = require( 'PLINKO/plinko-probability/view/HistogramNode' );
   var HSlider = require( 'SUN/HSlider' );
+  var Hopper = require( 'PLINKO/plinko-probability/view/Hopper' );
   var Image = require( 'SCENERY/nodes/Image' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   var Node = require( 'SCENERY/nodes/Node' );
@@ -48,6 +49,11 @@ define( function( require ) {
     ScreenView.call( this, {renderer: 'svg', layoutBounds: new Bounds2( 0, 0, 1024, 618 )} );
     //ScreenView.call( this, {renderer: 'svg', layoutBounds: new Bounds2( 0, 0, 768, 504 )} );
 
+
+    var hopper = new Hopper();
+    this.addChild( hopper );
+    hopper.centerX = this.layoutBounds.maxX / 2 - 70;
+    hopper.top = 10;
     var viewGraphBounds = new Bounds2( 100, 350, 300, 410 );
     var modelGraphBounds = new Bounds2( 0, 0, 20, 20 );
     var modelViewTransform = ModelViewTransform2.createRectangleInvertedYMapping( modelGraphBounds, viewGraphBounds );
@@ -82,7 +88,6 @@ define( function( require ) {
         // TODO hooked the listener;
       }
     } );
-
 
 
     // Handle the comings and goings of balls
