@@ -88,8 +88,9 @@ define( function( require ) {
 
     // Add the button that allows the graph to be cleared of all dataPoints.
     var eraserButton = new EraserButton( {
-      right: thisView.layoutBounds.maxX / 2,
-      top: 20,
+      left: 20,
+      top: this.layoutBounds.maxY - 70,
+      scale: 1.4,
       listener: function() {
         // TODO hooked the listener;
       }
