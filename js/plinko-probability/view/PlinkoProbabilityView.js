@@ -17,6 +17,7 @@ define( function( require ) {
   var HistogramNode = require( 'PLINKO/plinko-probability/view/HistogramNode' );
   var HSlider = require( 'SUN/HSlider' );
   var Hopper = require( 'PLINKO/plinko-probability/view/Hopper' );
+  var Board = require( 'PLINKO/plinko-probability/view/Board' );
   var Image = require( 'SCENERY/nodes/Image' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   var Node = require( 'SCENERY/nodes/Node' );
@@ -52,8 +53,13 @@ define( function( require ) {
 
     var hopper = new Hopper();
     this.addChild( hopper );
-    hopper.centerX = this.layoutBounds.maxX / 2 - 70;
+    var board = new Board();
+    this.addChild( board );
+
+    hopper.centerX = this.layoutBounds.maxX / 2 - 80;
     hopper.top = 10;
+    board.centerX = hopper.centerX;
+    board.top = hopper.bottom + 10;
     var viewGraphBounds = new Bounds2( 100, 350, 300, 410 );
     var modelGraphBounds = new Bounds2( 0, 0, 20, 20 );
     var modelViewTransform = ModelViewTransform2.createRectangleInvertedYMapping( modelGraphBounds, viewGraphBounds );
