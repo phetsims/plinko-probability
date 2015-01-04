@@ -50,16 +50,8 @@ define( function( require ) {
     ScreenView.call( this, {renderer: 'svg', layoutBounds: new Bounds2( 0, 0, 1024, 618 )} );
     //ScreenView.call( this, {renderer: 'svg', layoutBounds: new Bounds2( 0, 0, 768, 504 )} );
 
+    var galtonBoardTopPosition = 150;
 
-    var hopper = new Hopper();
-    this.addChild( hopper );
-    var board = new Board();
-    this.addChild( board );
-
-    hopper.centerX = this.layoutBounds.maxX / 2 - 80;
-    hopper.top = 10;
-    board.centerX = hopper.centerX;
-    board.top = hopper.bottom + 10;
     var viewGraphBounds = new Bounds2( 100, 350, 300, 410 );
     var modelGraphBounds = new Bounds2( 0, 0, 10, 10 );
     var modelViewTransform = ModelViewTransform2.createRectangleInvertedYMapping( modelGraphBounds, viewGraphBounds );
@@ -69,9 +61,7 @@ define( function( require ) {
 
     var histogramNode = new HistogramNode( {xRange: new Range( 0, 20 ), yRange: new Range( 0, 20 )}, model.histogram, modelViewTransform );
 
-
     var galtonBoardNode = new GaltonBoardNode( model, mvt );
-
 
     //var histogramRadioProperty = new Property( 'fraction' ); //Valid values are 'fraction', 'number', and 'autoScale'.
 
@@ -103,8 +93,6 @@ define( function( require ) {
 
     model.balls.addItemAddedListener( function( addedBall ) {
 
-      //   var mvt = ModelViewTransform2.createSinglePointXYScaleMapping( new Vector2( 0, 0 ), new Vector2( 300, 100 ), 10, -10 );
-
       // Create and add the view representation for this dataBall.
       var addedBallNode = new BallNode( addedBall, mvt );
       thisView.ballsLayer.addChild( addedBallNode );
@@ -128,7 +116,7 @@ define( function( require ) {
     var statisticsDisplayNode = new StatisticsDisplayNode( model );
 
 
-    // Create and add the Reset All Button in the bottom right, which resets the model
+    // create the Reset All Button in the bottom right, which resets the model
     var resetAllButton = new ResetAllButton( {
       listener: function() {
         model.reset();
@@ -137,12 +125,18 @@ define( function( require ) {
       bottom: thisView.layoutBounds.maxY - 10
     } );
 
-    // Create and add the Sound Toggle Button in the bottom right
+    // Create the Sound Toggle Button in the bottom right
     var soundToggleButton = new SoundToggleButton( model.isSoundEnabledProperty, {
       right: resetAllButton.left - 20,
       centerY: resetAllButton.centerY
     } );
 
+    // create the hopper and the wooden Board
+    var hopper = new Hopper();
+    var board = new Board();
+
+    this.addChild( hopper );
+    this.addChild( board );
     this.addChild( eraserButton );
     this.addChild( ballRadioButtonsControl );
     this.addChild( soundToggleButton );
@@ -153,8 +147,13 @@ define( function( require ) {
     this.addChild( galtonBoardNode );
     this.addChild( histogramNode );
 
-    ballRadioButtonsControl.left = this.layoutBounds.maxX / 2;
-    ballRadioButtonsControl.top = 20;
+
+    hopper.centerX = this.layoutBounds.maxX / 2 - 80;
+    hopper.top = 10;
+    board.centerX = hopper.centerX;
+    board.top = hopper.bottom + 10;
+    ballRadioButtonsControl.left = hopper.right + 20;
+    ballRadioButtonsControl.top = hopper.top;
     playPanel.right = this.layoutBounds.maxX - 30;
     playPanel.top = 10;
     sliderControlPanel.top = playPanel.bottom + 10;
@@ -163,7 +162,7 @@ define( function( require ) {
     statisticsDisplayNode.right = playPanel.right;
 
 
-    //TODO to erase
+    //TODO: Delete when done with the layout
     ////////////////////////////////////////////////////////////////
     //Show the mock-up and a slider to change its transparency
     //////////////////////////////////////////////////////////////
@@ -189,7 +188,5 @@ define( function( require ) {
   return inherit( ScreenView, PlinkoProbabilityView, {
     step: function( dt ) {
     }
-
-    //layoutBounds: new Bounds2( 0, 0, 834, 504 )
   } );
 } );
