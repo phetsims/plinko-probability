@@ -22,7 +22,7 @@ define( function( require ) {
       null, // no icon, single-screen sim
       function() { return new PlinkoProbabilityModel(); },
       function( model ) { return new PlinkoProbabilityView( model ); }, {
-        backgroundColor: 'rgb(255,255,255)'
+        backgroundColor: 'rgb(170,220,255)'
       }
     );
   }
