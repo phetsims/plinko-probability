@@ -26,8 +26,8 @@ define( function( require ) {
       // defaults
 
       topWidth: 70,
-      bottomWidth: 30,
-      hopperThickness: 30,
+      bottomWidth: 28,
+      hopperThickness: 28,
       rimThickness: 3,
       hopperFill: 'black',
       hopperHighLightFill: 'rgb(136,136,136)',
@@ -35,22 +35,19 @@ define( function( require ) {
       rimHighLightFill: 'rgb(255,255,255)'
     }, options );
 
-    // Add the bins
-
     var hopperShape = new Shape();
-
     hopperShape.moveTo( -options.bottomWidth / 2, 0 )
       .lineTo( -options.topWidth / 2, -options.hopperThickness )
       .lineTo( options.topWidth / 2, -options.hopperThickness )
       .lineTo( options.bottomWidth / 2, 0 )
-      .lineTo( -options.bottomWidth / 2, 0 );
+      .close();
 
     var rimShape = new Shape();
     rimShape.moveTo( -options.bottomWidth / 2, 0 )
       .lineTo( -options.bottomWidth / 2, options.rimThickness )
       .lineTo( options.bottomWidth / 2, options.rimThickness )
       .lineTo( options.bottomWidth / 2, 0 )
-      .lineTo( -options.bottomWidth / 2, 0 );
+      .close();
 
 
     var hopperRectangleGradient = new LinearGradient( -options.topWidth / 2, 0, options.topWidth / 2, 0 ).
