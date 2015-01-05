@@ -16,6 +16,8 @@ define( function( require ) {
 
   var PlinkoConstants = {
 
+    BACKGROUND_COLOR: 'rgb(170,220,255)',
+
     RESET_ALL_BUTTON_SCALE: 0.75,
 
     // font sizes and weight

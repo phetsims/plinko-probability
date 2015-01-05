@@ -8,7 +8,7 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-
+  var PlinkoConstants = require( 'PLINKO/common/PlinkoConstants' );
   var PlinkoProbabilityModel = require( 'PLINKO/plinko-probability/model/PlinkoProbabilityModel' );
   var PlinkoProbabilityView = require( 'PLINKO/plinko-probability/view/PlinkoProbabilityView' );
   var Screen = require( 'JOIST/Screen' );
@@ -22,7 +22,7 @@ define( function( require ) {
       null, // no icon, single-screen sim
       function() { return new PlinkoProbabilityModel(); },
       function( model ) { return new PlinkoProbabilityView( model ); }, {
-        backgroundColor: 'rgb(170,220,255)'
+        backgroundColor: PlinkoConstants.BACKGROUND_COLOR
       }
     );
   }

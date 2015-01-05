@@ -10,7 +10,7 @@ define( function( require ) {
   // imports
 
   var Circle = require( 'SCENERY/nodes/Circle' );
-  var HStrut = require( 'SUN/HStrut' );
+  //var HStrut = require( 'SUN/HStrut' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Panel = require( 'SUN/Panel' );
@@ -19,9 +19,9 @@ define( function( require ) {
   var PlinkoConstants = require( 'PLINKO/common/PlinkoConstants' );
   var RadialGradient = require( 'SCENERY/util/RadialGradient' );
   //var Text = require( 'SCENERY/nodes/Text' );
-  var VBox = require( 'SCENERY/nodes/VBox' );
+  //var VBox = require( 'SCENERY/nodes/VBox' );
   var VerticalAquaRadioButtonGroup = require( 'SUN/VerticalAquaRadioButtonGroup' );
-  var VStrut = require( 'SUN/VStrut' );
+  //var VStrut = require( 'SUN/VStrut' );
 
 
   //var PANEL_OPTION_FONT = {font: new PhetFont( 14 )};
