@@ -43,7 +43,7 @@ define( function( require ) {
         -PlinkoConstants.BALL_RADIUS * 0.3,
         PlinkoConstants.BALL_RADIUS * 0.6 )
         .addColorStop( 0, PlinkoConstants.BALL_HIGHLIGHT_COLOR )
-        .addColorStop( 1, PlinkoConstants.BALL_COLOR ), centerX: 0, centerY: 0
+        .addColorStop( 1, PlinkoConstants.BALL_COLOR )
     } );
 
     ballNode.addChild( ballRepresentation );

@@ -53,7 +53,7 @@ define( function( require ) {
         lineWidth: 2,
         fill: new RadialGradient( -PlinkoConstants.BALL_RADIUS * 0.4, -PlinkoConstants.BALL_RADIUS * 0.4, 0, PlinkoConstants.BALL_RADIUS * 0.1, -PlinkoConstants.BALL_RADIUS * 0.3, PlinkoConstants.BALL_RADIUS * 0.6 )
           .addColorStop( 0, PlinkoConstants.BALL_HIGHLIGHT_COLOR )
-          .addColorStop( 1, PlinkoConstants.BALL_COLOR ), centerX: 0, centerY: 0
+          .addColorStop( 1, PlinkoConstants.BALL_COLOR )
       } );
     }
 
@@ -70,14 +70,14 @@ define( function( require ) {
       {node: continuous, property: ballRadioProperty, value: 'continuous'}
     ], {radius: 8} );
 
-    var ballModeMarkerVBox = new VBox( {
-      children: [
-        new VStrut( options.titleToControlsVerticalSpace ),
-        new HStrut( Math.max( 0.1, options.minWidth - 2 * options.xMargin ) ),
-        new HBox( {children: [new HStrut( 10 ), ballModeRadioButtons]} )
-      ],
-      align: 'left'
-    } );
+    //var ballModeMarkerVBox = new VBox( {
+    //  children: [
+    //    new VStrut( options.titleToControlsVerticalSpace ),
+    //    new HStrut( Math.max( 0.1, options.minWidth - 2 * options.xMargin ) ),
+    //    new HBox( {children: [new HStrut( 10 ), ballModeRadioButtons]} )
+    //  ],
+    //  align: 'left'
+    //} );
 
     // play button
     var playPauseButtonOptions = {
@@ -112,17 +112,17 @@ define( function( require ) {
     var startVBox = new HBox( {
       children: [
         playPauseButton,
-        ballModeMarkerVBox
+        ballModeRadioButtons
       ]
     } );
 
-    // The contents of the control panel
-    var content = new VBox( {
-      align: 'left', spacing: 10,
-      children: [startVBox]
-    } );
+    //// The contents of the control panel
+    //var content = new VBox( {
+    //  align: 'left', spacing: 10,
+    //  children: [startVBox]
+    //} );
 
-    Panel.call( this, content, options );
+    Panel.call( this, startVBox, options );
   }
 
   return inherit( Panel, PlayPanel );
