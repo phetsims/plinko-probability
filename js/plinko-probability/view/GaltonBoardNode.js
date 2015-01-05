@@ -13,6 +13,7 @@ define( function( require ) {
     //  var Bounds2 = require( 'DOT/Bounds2' );
     //   var Circle = require( 'SCENERY/nodes/Circle' );
     var inherit = require( 'PHET_CORE/inherit' );
+    var PlinkoConstants = require( 'PLINKO/common/PlinkoConstants' );
     var Node = require( 'SCENERY/nodes/Node' );
     var Path = require( 'SCENERY/nodes/Path' );
 //    var RadialGradient = require( 'SCENERY/util/RadialGradient' );
@@ -20,9 +21,6 @@ define( function( require ) {
 
 
     // constants
-    var PEG_RADIUS = 5; // radius of the Ball.
-    var PEG_COLOR = 'blue';
-    //var BOARD_BOUNDS = new Bounds2( 100, 100, 500, 500 );
 
     /**
      * @param {PlinkoProbabilityModel} model
@@ -49,10 +47,10 @@ define( function( require ) {
       var pegPath;
 
       var pegShape = new Shape();
-      pegShape.arc( 0, 0, PEG_RADIUS, 1 / 2 * Math.PI, 3 / 2 * Math.PI, true );
+      pegShape.arc( 0, 0, PlinkoConstants.PEG_RADIUS, 2 / 8 * Math.PI + Math.PI / 2, 6 / 8 * Math.PI + Math.PI / 2, true );
 
       model.galtonBoard.pegs.forEach( function( peg ) {
-        pegPath = new Path( pegShape, {fill: PEG_COLOR, center: modelViewTransform.modelToViewPosition( peg.position )} );
+        pegPath = new Path( pegShape, {fill: PlinkoConstants.PEG_COLOR, center: modelViewTransform.modelToViewPosition( peg.position )} );
         galtonBoardNode.pegPathArray.push( pegPath );
       } );
 

@@ -16,7 +16,7 @@ define( function( require ) {
   var Panel = require( 'SUN/Panel' );
   //var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var PlayPauseButton = require( 'SCENERY_PHET/buttons/PlayPauseButton' );
-  //var PlinkoConstants = require( 'PLINKO/common/PlinkoConstants' );
+  var PlinkoConstants = require( 'PLINKO/common/PlinkoConstants' );
   var RadialGradient = require( 'SCENERY/util/RadialGradient' );
   //var Text = require( 'SCENERY/nodes/Text' );
   var VBox = require( 'SCENERY/nodes/VBox' );
@@ -25,8 +25,6 @@ define( function( require ) {
 
 
   //var PANEL_OPTION_FONT = {font: new PhetFont( 14 )};
-
-  var CIRCLE_RADIUS = 8;
 
   /**
    *
@@ -50,12 +48,12 @@ define( function( require ) {
 
 
     function createCircle() {
-      return new Circle( CIRCLE_RADIUS, {
-        stroke: 'red',
+      return new Circle( PlinkoConstants.BALL_RADIUS, {
+        stroke: PlinkoConstants.BALL_COLOR,
         lineWidth: 2,
-        fill: new RadialGradient( -CIRCLE_RADIUS * 0.4, -CIRCLE_RADIUS * 0.4, 0, -CIRCLE_RADIUS * 0.1, -CIRCLE_RADIUS * 0.3, CIRCLE_RADIUS * 0.6 )
-          .addColorStop( 0, 'white' )
-          .addColorStop( 1, 'rgb(255,0,0)' ), centerX: 0, centerY: 0
+        fill: new RadialGradient( -PlinkoConstants.BALL_RADIUS * 0.4, -PlinkoConstants.BALL_RADIUS * 0.4, 0, PlinkoConstants.BALL_RADIUS * 0.1, -PlinkoConstants.BALL_RADIUS * 0.3, PlinkoConstants.BALL_RADIUS * 0.6 )
+          .addColorStop( 0, PlinkoConstants.BALL_HIGHLIGHT_COLOR )
+          .addColorStop( 1, PlinkoConstants.BALL_COLOR ), centerX: 0, centerY: 0
       } );
     }
 
@@ -63,7 +61,7 @@ define( function( require ) {
 
     var continuous = new HBox( {
       //align: 'left',
-      spacing: -CIRCLE_RADIUS * 1.2,
+      spacing: -PlinkoConstants.BALL_RADIUS * 1.2,
       children: [createCircle(), createCircle(), createCircle(), createCircle(), createCircle()]
     } );
 

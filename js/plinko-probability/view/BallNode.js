@@ -14,19 +14,14 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
 //  var Path = require( 'SCENERY/nodes/Path' );
+  var PlinkoConstants = require( 'PLINKO/common/PlinkoConstants' );
   var RadialGradient = require( 'SCENERY/util/RadialGradient' );
   // var Shape = require( 'KITE/Shape' );
 
-
-  // constants
-  var BALL_RADIUS = 4; // radius of the Ball.
-  var BALL_COLOR = 'red';
-
-
   /**
-   * Constructor for the ChargedParticleNode which renders the charge as a scenery node.
-   * @param {ball} model of the simulation
-   * @param {ModelViewTransform2} modelViewTransform the coordinate transform between model coordinates and view coordinates
+   * Constructor for the which renders the charge as a scenery node.
+   * @param {Ball} ball - model of the ball
+   * @param {ModelViewTransform2} modelViewTransform - the coordinate transform between model coordinates and view coordinates
    * @constructor
    */
   function BallNode( ball, modelViewTransform ) {
@@ -36,21 +31,26 @@ define( function( require ) {
     this.modelViewTransform = modelViewTransform;
 
     Node.call( this, {renderer: 'svg', rendererOptions: {cssTransform: true}} );
-    // Add the centered circle
 
-    this.circle = new Circle( BALL_RADIUS, {
-      stroke: 'black',
-      fill: new RadialGradient( -BALL_RADIUS * 0.4, -BALL_RADIUS * 0.4, 0, -BALL_RADIUS * 0.4, -BALL_RADIUS * 0.4, BALL_RADIUS * 1.6 )
-        .addColorStop( 0, 'white' )
-        .addColorStop( 1, BALL_COLOR ), centerX: 0, centerY: 0
+    //  create the representation for a ball
+    var ballRepresentation = new Circle( PlinkoConstants.BALL_RADIUS, {
+      stroke: PlinkoConstants.BALL_COLOR,
+      lineWidth: 2,
+      fill: new RadialGradient( -PlinkoConstants.BALL_RADIUS * 0.4,
+        -PlinkoConstants.BALL_RADIUS * 0.4,
+        0,
+        PlinkoConstants.BALL_RADIUS * 0.1,
+        -PlinkoConstants.BALL_RADIUS * 0.3,
+        PlinkoConstants.BALL_RADIUS * 0.6 )
+        .addColorStop( 0, PlinkoConstants.BALL_HIGHLIGHT_COLOR )
+        .addColorStop( 1, PlinkoConstants.BALL_COLOR ), centerX: 0, centerY: 0
     } );
 
-    ballNode.addChild( this.circle );
+    ballNode.addChild( ballRepresentation );
 
     ball.positionProperty.link( function( position ) {
       ballNode.center = modelViewTransform.modelToViewPosition( position );
     } );
-
 
   }
 

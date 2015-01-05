@@ -36,7 +36,17 @@ define( function( require ) {
     THEORETICAL_FONT_COLOR: 'blue',
 
     BINARY_PROBABILITY_RANGE: new Range( 0, 1 ),
-    ROWS_RANGE: new Range( 5, 26 )
+    ROWS_RANGE: new Range( 5, 26 ),
+
+    // constants
+    BALL_RADIUS: 4, // radius of the Ball.
+    BALL_COLOR: 'red',
+    BALL_HIGHLIGHT_COLOR: 'white',
+
+    PEG_RADIUS: 5, // radius of the peg.
+    PEG_COLOR: 'rgb(139,125,107)' //brown
+
+
   };
 
   return PlinkoConstants;
