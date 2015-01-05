@@ -50,12 +50,16 @@ define( function( require ) {
     ScreenView.call( this, {renderer: 'svg', layoutBounds: new Bounds2( 0, 0, 1024, 618 )} );
     //ScreenView.call( this, {renderer: 'svg', layoutBounds: new Bounds2( 0, 0, 768, 504 )} );
 
-    var galtonBoardTopPosition = 150;
+    var galtonBoardCenterPosition = this.layoutBounds.maxX / 2 - 80;
 
-    var viewGraphBounds = new Bounds2( 100, 350, 300, 410 );
-    var modelGraphBounds = new Bounds2( 0, 0, 10, 10 );
+
+    var mvt = ModelViewTransform2.createSinglePointXYScaleMapping( new Vector2( 0, 0 ), new Vector2( galtonBoardCenterPosition, 70 ), 20, 10 );
+
+
+    var viewGraphBounds = new Bounds2( galtonBoardCenterPosition - 200, 360, galtonBoardCenterPosition + 200, 510 );
+    var modelGraphBounds = new Bounds2( 0, 0, 20, 20 );
     var modelViewTransform = ModelViewTransform2.createRectangleInvertedYMapping( modelGraphBounds, viewGraphBounds );
-    var mvt = ModelViewTransform2.createSinglePointXYScaleMapping( new Vector2( 0, 0 ), new Vector2( 300, 100 ), 20, 10 );
+
     thisView.modelViewTransform = modelViewTransform; // Make the modelViewTransform available to descendant types.
 
 
@@ -89,7 +93,7 @@ define( function( require ) {
 
     // Handle the comings and goings of balls
     this.ballsLayer = new Node();
-    this.addChild( this.ballsLayer );
+
 
     model.balls.addItemAddedListener( function( addedBall ) {
 
@@ -146,6 +150,7 @@ define( function( require ) {
     this.addChild( statisticsDisplayNode );
     this.addChild( galtonBoardNode );
     this.addChild( histogramNode );
+    this.addChild( this.ballsLayer );
 
 
     hopper.centerX = this.layoutBounds.maxX / 2 - 80;

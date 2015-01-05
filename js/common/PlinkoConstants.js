@@ -39,7 +39,7 @@ define( function( require ) {
     ROWS_RANGE: new Range( 5, 26 ),
 
     // constants
-    BALL_RADIUS: 4, // radius of the Ball.
+    BALL_RADIUS: 6, // radius of the Ball.
     BALL_COLOR: 'red',
     BALL_HIGHLIGHT_COLOR: 'white',
 
