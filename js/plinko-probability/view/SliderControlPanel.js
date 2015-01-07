@@ -35,7 +35,7 @@ define( function( require ) {
       title: rowsString,
       property: rowsProperty,
       range: PlinkoConstants.ROWS_RANGE,
-      rounding: 0,
+      decimalPlaces: 0,
       tick: {
         step: PlinkoConstants.ROWS_RANGE.getLength(),
         minText: PlinkoConstants.ROWS_RANGE.min,
@@ -47,7 +47,7 @@ define( function( require ) {
     var binaryProbabilitySlider = new Slider( {
       buttonStep: 0.01,
       range: PlinkoConstants.BINARY_PROBABILITY_RANGE,
-      rounding: 2,
+      decimalPlaces: 2,
       tick: {
         step: PlinkoConstants.BINARY_PROBABILITY_RANGE.getLength(),
         minText: PlinkoConstants.BINARY_PROBABILITY_RANGE.min,
