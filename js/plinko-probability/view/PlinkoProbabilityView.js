@@ -11,20 +11,21 @@ define( function( require ) {
   var BallNode = require( 'PLINKO/plinko-probability/view/BallNode' );
   var BallRadioButtonsControl = require( 'PLINKO/plinko-probability/view/BallRadioButtonsControl' );
   var Bounds2 = require( 'DOT/Bounds2' );
-  var PlayPanel = require( 'PLINKO/plinko-probability/view/PlayPanel' );
+  //var DerivedProperty = require( 'AXON/DerivedProperty' );
+
   var EraserButton = require( 'SCENERY_PHET/buttons/EraserButton' );
   var GaltonBoardNode = require( 'PLINKO/plinko-probability/view/GaltonBoardNode' );
-  var HistogramNode = require( 'PLINKO/plinko-probability/view/HistogramNode' );
+  //var HistogramNode = require( 'PLINKO/plinko-probability/view/HistogramNode' );
   var HSlider = require( 'SUN/HSlider' );
   var Hopper = require( 'PLINKO/plinko-probability/view/Hopper' );
   var Board = require( 'PLINKO/plinko-probability/view/Board' );
   var Image = require( 'SCENERY/nodes/Image' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   var Node = require( 'SCENERY/nodes/Node' );
-
+  var PlayPanel = require( 'PLINKO/plinko-probability/view/PlayPanel' );
   //var PropertySet = require( 'AXON/PropertySet' );
   var Property = require( 'AXON/Property' );
-  var Range = require( 'DOT/Range' );
+  //var Range = require( 'DOT/Range' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var SoundToggleButton = require( 'SCENERY_PHET/buttons/SoundToggleButton' );
   var StatisticsDisplayNode = require( 'PLINKO/plinko-probability/view/StatisticsDisplayNode' );
@@ -48,24 +49,27 @@ define( function( require ) {
 
     var thisView = this;
     ScreenView.call( this, {renderer: 'svg', layoutBounds: new Bounds2( 0, 0, 1024, 618 )} );
-    //ScreenView.call( this, {renderer: 'svg', layoutBounds: new Bounds2( 0, 0, 768, 504 )} );
 
-    var galtonBoardCenterPosition = this.layoutBounds.maxX / 2 - 80;
+    var galtonBoardApexPosition = new Vector2( this.layoutBounds.maxX / 2 - 80, 70 );
 
+    // create the hopper and the wooden Board
+    var hopper = new Hopper();
+    var board = new Board();
 
-    var mvt = ModelViewTransform2.createSinglePointXYScaleMapping( new Vector2( 0, 0 ), new Vector2( galtonBoardCenterPosition, 70 ), 20, 10 );
+    hopper.centerX = galtonBoardApexPosition.x;
+    hopper.top = 10;
+    // TODO: find a way to take care of the shadow offset in a less ad hoc way
+    board.centerX = hopper.centerX + 10;
+    board.top = hopper.bottom + 10;
 
-
-    var viewGraphBounds = new Bounds2( galtonBoardCenterPosition - 200, 360, galtonBoardCenterPosition + 200, 510 );
-    var modelGraphBounds = new Bounds2( 0, 0, 20, 20 );
+    var viewGraphBounds = board.getBounds();
+    var modelGraphBounds = model.galtonBoard.bounds;
     var modelViewTransform = ModelViewTransform2.createRectangleInvertedYMapping( modelGraphBounds, viewGraphBounds );
 
-    thisView.modelViewTransform = modelViewTransform; // Make the modelViewTransform available to descendant types.
+    //  var histogramNode = new HistogramNode( {xRange: new Range( 0, 20 ), yRange: new Range( 0, 20 )}, model.histogram, modelViewTransform );
 
+    var galtonBoardNode = new GaltonBoardNode( model, modelViewTransform );
 
-    var histogramNode = new HistogramNode( {xRange: new Range( 0, 20 ), yRange: new Range( 0, 20 )}, model.histogram, modelViewTransform );
-
-    var galtonBoardNode = new GaltonBoardNode( model, mvt );
 
     //var histogramRadioProperty = new Property( 'fraction' ); //Valid values are 'fraction', 'number', and 'autoScale'.
 
@@ -98,7 +102,7 @@ define( function( require ) {
     model.balls.addItemAddedListener( function( addedBall ) {
 
       // Create and add the view representation for this dataBall.
-      var addedBallNode = new BallNode( addedBall, mvt );
+      var addedBallNode = new BallNode( addedBall, model, modelViewTransform );
       thisView.ballsLayer.addChild( addedBallNode );
 
       // Add the removal listener for if and when this dataPoint is removed from the model.
@@ -135,9 +139,9 @@ define( function( require ) {
       centerY: resetAllButton.centerY
     } );
 
-    // create the hopper and the wooden Board
-    var hopper = new Hopper();
-    var board = new Board();
+    //// create the hopper and the wooden Board
+    //var hopper = new Hopper();
+    //var board = new Board();
 
     this.addChild( hopper );
     this.addChild( board );
@@ -149,15 +153,10 @@ define( function( require ) {
     this.addChild( sliderControlPanel );
     this.addChild( statisticsDisplayNode );
     this.addChild( galtonBoardNode );
-    this.addChild( histogramNode );
+    // this.addChild( histogramNode );
     this.addChild( this.ballsLayer );
 
 
-    hopper.centerX = this.layoutBounds.maxX / 2 - 80;
-    hopper.top = 10;
-    // TODO: find a way to take care of the shadow offset in a less ad hoc way
-    board.centerX = hopper.centerX + 10;
-    board.top = hopper.bottom + 10;
     ballRadioButtonsControl.left = hopper.right + 20;
     ballRadioButtonsControl.top = hopper.top;
     playPanel.right = this.layoutBounds.maxX - 30;
@@ -166,6 +165,8 @@ define( function( require ) {
     sliderControlPanel.right = playPanel.right;
     statisticsDisplayNode.top = sliderControlPanel.bottom + 10;
     statisticsDisplayNode.right = playPanel.right;
+    // galtonBoardNode.centerX=hopper.centerX;
+    //   galtonBoardNode.top=board.top+20;
 
 
     //TODO: Delete when done with the layout

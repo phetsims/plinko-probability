@@ -35,14 +35,6 @@ define( function( require ) {
       var pegBoard = new Node();
       this.addChild( pegBoard );
 
-      //var maxNumberOfRows = model.maxNumberOfRows;
-
-      //var boardWidth = BOARD_BOUNDS.width;
-      //var boardHeight = BOARD_BOUNDS.height;
-      //var boardCenterTop = BOARD_BOUNDS.centerTop;
-      //var horizontalSpacing = boardWidth / maxNumberOfRows;
-      //var verticalSpacing = boardWidth / maxNumberOfRows;
-
       this.pegPathArray = [];
       var pegPath;
 
@@ -50,7 +42,8 @@ define( function( require ) {
       pegShape.arc( 0, 0, PlinkoConstants.PEG_RADIUS, 2 / 8 * Math.PI + Math.PI / 2, 6 / 8 * Math.PI + Math.PI / 2, true );
 
       model.galtonBoard.pegs.forEach( function( peg ) {
-        pegPath = new Path( pegShape, {fill: PlinkoConstants.PEG_COLOR, center: modelViewTransform.modelToViewPosition( peg.position )} );
+        pegPath = new Path( pegShape, {fill: PlinkoConstants.PEG_COLOR} );
+        pegPath.pegPosition = peg.position;
         galtonBoardNode.pegPathArray.push( pegPath );
       } );
 
@@ -67,12 +60,14 @@ define( function( require ) {
 
       model.numberOfRowsProperty.link( function( numberOfRows ) {
         var visibleNumberOfPegs = (numberOfRows) * (numberOfRows + 1) / 2;
-        //var i;
         galtonBoardNode.pegPathArray.forEach( function( pegPath, index ) {
           pegPath.visible = (index < visibleNumberOfPegs) ? true : false;
+          pegPath.center = modelViewTransform.modelToViewPosition( pegPath.pegPosition.componentTimes( {
+            x: 2 / numberOfRows,
+            y: -1 / numberOfRows
+          } ) );
+          pegPath.setScaleMagnitude( 26 / numberOfRows );
         } );
-
-        //     pegBoard.setScaleMagnitude( 20 / visibleNumberOfRows );
       } );
 
     }

@@ -21,10 +21,11 @@ define( function( require ) {
   /**
    * Constructor for the which renders the charge as a scenery node.
    * @param {Ball} ball - model of the ball
+   * @param {PlinkoProbabilityModel} model
    * @param {ModelViewTransform2} modelViewTransform - the coordinate transform between model coordinates and view coordinates
    * @constructor
    */
-  function BallNode( ball, modelViewTransform ) {
+  function BallNode( ball, model, modelViewTransform ) {
 
     var ballNode = this;
     this.ball = ball;
@@ -49,8 +50,20 @@ define( function( require ) {
     ballNode.addChild( ballRepresentation );
 
     ball.positionProperty.link( function( position ) {
-      ballNode.center = modelViewTransform.modelToViewPosition( position );
+      ballNode.center = modelViewTransform.modelToViewPosition(
+        position.componentTimes( {
+          x: 2 / model.numberOfRowsProperty.value,
+          y: -1 / model.numberOfRowsProperty.value
+        } ) );
+      console.log( position );
+
     } );
+
+
+    model.numberOfRowsProperty.link( function( numberOfRows ) {
+      ballNode.setScaleMagnitude( 26 / numberOfRows );
+    } );
+
 
   }
 
