@@ -151,13 +151,5 @@ define( function( require ) {
 
   } );
 
-  //Ball.x =0;
-  //window.Ball=Ball;
-  /////* jshint -W064 */
-  //PoolableMixin( Ball, {
-  //  defaultFactory: function() { return new Ball(); }
-  //} );
-  //
-  // return Ball;
 } );
 

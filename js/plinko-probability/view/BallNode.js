@@ -1,7 +1,7 @@
 // Copyright 2002-2015, University of Colorado Boulder
 
 /**
- * View for the falling ball.
+ * Scenery node for ball falling through the Galton board.
  *
  * @author Martin Veillette (Berea College)
  */
@@ -28,8 +28,6 @@ define( function( require ) {
   function BallNode( ball, model, modelViewTransform ) {
 
     var ballNode = this;
-    this.ball = ball;
-    this.modelViewTransform = modelViewTransform;
 
     Node.call( this, {renderer: 'svg', rendererOptions: {cssTransform: true}} );
 
@@ -55,8 +53,6 @@ define( function( require ) {
           x: 2 / model.numberOfRowsProperty.value,
           y: -1 / model.numberOfRowsProperty.value
         } ) );
-      console.log( position );
-
     } );
 
 
@@ -67,9 +63,5 @@ define( function( require ) {
 
   }
 
-  return inherit( Node, BallNode, {
-    update: function() {
-      this.circle.center = this.modelViewTransform.modelToViewPosition( this.ball.position );
-    }
-  } );
+  return inherit( Node, BallNode );
 } );
