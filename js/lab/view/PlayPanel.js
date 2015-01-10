@@ -23,7 +23,6 @@ define( function( require ) {
   var VerticalAquaRadioButtonGroup = require( 'SUN/VerticalAquaRadioButtonGroup' );
   //var VStrut = require( 'SUN/VStrut' );
 
-
   //var PANEL_OPTION_FONT = {font: new PhetFont( 14 )};
 
   /**
@@ -45,7 +44,6 @@ define( function( require ) {
         titleToControlsVerticalSpace: 5
       },
       options );
-
 
     function createCircle() {
       return new Circle( PlinkoConstants.BALL_RADIUS, {
@@ -107,7 +105,6 @@ define( function( require ) {
       pauseOptions: playPauseButtonOptions,
       playOptions: playPauseButtonOptions
     } );
-
 
     var startVBox = new HBox( {
       children: [

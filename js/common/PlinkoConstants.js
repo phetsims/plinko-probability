@@ -31,7 +31,8 @@ define( function( require ) {
     SMALL_PANEL_CORNER_RADIUS: 5,
     CONTROL_PANEL_BACKGROUND_COLOR: 'rgb(255, 245, 238)',
 
-    PANEL_FONT: new PhetFont( 14 ),
+    PANEL_FONT: new PhetFont( 16 ),
+    PANEL_FONT_BOLD: new PhetFont( {size: 18, weight: 'bold'} ),
 
     PANEL_BACKGROUND_COLOR: 'white',
     SAMPLE_FONT_COLOR: 'red',
@@ -47,7 +48,6 @@ define( function( require ) {
 
     PEG_RADIUS: 5, // radius of the peg.
     PEG_COLOR: 'rgb(139,125,107)' //brown
-
 
   };
 

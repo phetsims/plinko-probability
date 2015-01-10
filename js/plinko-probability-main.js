@@ -7,7 +7,9 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var PlinkoProbabilityScreen = require( 'PLINKO/plinko-probability/PlinkoProbabilityScreen' );
+  //var PlinkoProbabilityScreen = require( 'PLINKO/plinko-probability/PlinkoProbabilityScreen' );
+  var PlinkoProbabilityIntroScreen = require( 'PLINKO/intro/PlinkoProbabilityIntroScreen' );
+  var PlinkoProbabilityLabScreen = require( 'PLINKO/lab/PlinkoProbabilityLabScreen' );
   var Sim = require( 'JOIST/Sim' );
   var SimLauncher = require( 'JOIST/SimLauncher' );
 
@@ -33,8 +35,13 @@ define( function( require ) {
     }, simOptions );
   }
 
+  //SimLauncher.launch( function() {
+  //var sim = new Sim( simTitle, [ new PlinkoProbabilityScreen() ], simOptions );
+  //sim.start();
   SimLauncher.launch( function() {
-    var sim = new Sim( simTitle, [ new PlinkoProbabilityScreen() ], simOptions );
+    var sim = new Sim( simTitle, [new PlinkoProbabilityIntroScreen(),
+      new PlinkoProbabilityLabScreen()], simOptions );
     sim.start();
+
   } );
 } );

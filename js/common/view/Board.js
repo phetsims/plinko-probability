@@ -3,6 +3,7 @@
 /**
  * A Scenery node that depicts a wooden triangular board.
  *
+ * @author Martin Veillette (Berea College)
  */
 define( function( require ) {
   'use strict';
@@ -54,10 +55,8 @@ define( function( require ) {
     //  addColorStop( 0.00, options.shadowFill ).
     //  addColorStop( 1.00, PlinkoConstants.BACKGROUND_COLOR );
 
-
     //this.addChild( new Path( boardShadowShape, {fill: boardShadowRectangleGradient} ) );
     this.addChild( new Path( boardShape, {fill: boardRectangleGradient, centerX: 0, top: 0} ) );
-
 
     // Pass options through to the parent class.
     this.mutate( options );

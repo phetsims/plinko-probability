@@ -3,6 +3,7 @@
 /**
  * Equation Node that renders a text node of an equation of the form  'text' = 'number'
  *
+ * Martin Veillette (Berea College)
  */
 
 define( function( require ) {

@@ -389,7 +389,6 @@ define( function( require ) {
   inherit( Node, GridNode );
 //----------------------------------------------------------------------------------------
 
-
 //
 //  //----------------------------------------------------------------------------------------
 //// 2D grid
@@ -447,7 +446,6 @@ define( function( require ) {
    * @constructor
    */
   function GraphAxesNode( graph, histogram, modelViewTransform ) {
-
 
     Node.call( this, {
         children: [

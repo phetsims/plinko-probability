@@ -2,8 +2,9 @@
 
 /**
  * Model for Ball in Plinko Probability
+ *
+ * @author Martin Veillette (Berea College)
  */
-
 
 define( function( require ) {
   'use strict';
@@ -11,11 +12,8 @@ define( function( require ) {
   // var Property = require( 'AXON/Property' );
 
   var inherit = require( 'PHET_CORE/inherit' );
-  //var GaltonBoard = require( 'PLINKO/plinko-probability/model/GaltonBoard' );
-  //var PoolableMixin = require( 'PHET_CORE/PoolableMixin' );
   var PropertySet = require( 'AXON/PropertySet' );
   var Vector2 = require( 'DOT/Vector2' );
-
 
   var PHASE_INITIAL = 0;
   var PHASE_FALLING = 1;
@@ -23,7 +21,6 @@ define( function( require ) {
   var PHASE_COLLECTED = 3;
 
   function Ball() {
-
 
     PropertySet.call( this, {
       position: new Vector2( 0, 0 )
@@ -64,7 +61,6 @@ define( function( require ) {
 
     this.binIndex = -1;
   }
-
 
   return inherit( PropertySet, Ball, {
     // dt {Number} is normalized in plinkoProbabilityModel

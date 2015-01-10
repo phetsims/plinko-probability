@@ -5,6 +5,8 @@
   "continuous": "continuous",
   "simTitle": "Plinko Probability",
   "plinkoProbabilityScreen": "Plinko Probability",
+  "plinkoProbabilityLabTitleScreen": "Lab",
+  "plinkoProbabilityIntroTitleScreen": "Intro",
   "fraction": "fraction",
   "NEquals": "N =",
   "rows": "Rows",

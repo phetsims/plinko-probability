@@ -55,11 +55,9 @@ define( function( require ) {
         } ) );
     } );
 
-
     model.numberOfRowsProperty.link( function( numberOfRows ) {
       ballNode.setScaleMagnitude( 26 / numberOfRows );
     } );
-
 
   }
 

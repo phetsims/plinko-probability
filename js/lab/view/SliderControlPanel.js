@@ -13,8 +13,8 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var Panel = require( 'SUN/Panel' );
   var PlinkoConstants = require( 'PLINKO/common/PlinkoConstants' );
-  var Slider = require( 'PLINKO/plinko-probability/view/Slider' );
-
+  var SliderWithReadout = require( 'PLINKO/lab/view/SliderWithReadout' );
+  var Util = require( 'DOT/Util' );
 
   // strings
   var rowsString = require( 'string!PLINKO/rows' );
@@ -28,49 +28,54 @@ define( function( require ) {
    */
   function SliderControlPanel( rowsProperty, binaryProbabilityProperty ) {
 
-    Node.call( this, {scale: 0.7} );
+    Node.call( this );
 
-    var rowsSlider = new Slider( {
+    var rowsSlider = new SliderWithReadout( {
       buttonStep: 1,
       title: rowsString,
+      titleFont: PlinkoConstants.PANEL_FONT_BOLD,
+      displayFont: PlinkoConstants.PANEL_FONT, // font for the numerical display
+
       property: rowsProperty,
       range: PlinkoConstants.ROWS_RANGE,
       decimalPlaces: 0,
-      tick: {
-        step: PlinkoConstants.ROWS_RANGE.getLength(),
-        minText: PlinkoConstants.ROWS_RANGE.min,
-        maxText: PlinkoConstants.ROWS_RANGE.max
-      },
-      trackSize: new Dimension2( 180, 4 ),
-      patternValueUnit: '{0}'
+      slider: {
+        trackSize: new Dimension2( 170, 2 ),
+        tick: {
+          step: PlinkoConstants.ROWS_RANGE.getLength(),
+          minText: Util.toFixed( PlinkoConstants.ROWS_RANGE.min, 0 ),
+          maxText: Util.toFixed( PlinkoConstants.ROWS_RANGE.max, 0 )
+        }
+      }
     } );
-    var binaryProbabilitySlider = new Slider( {
+    var binaryProbabilitySlider = new SliderWithReadout( {
       buttonStep: 0.01,
       range: PlinkoConstants.BINARY_PROBABILITY_RANGE,
       decimalPlaces: 2,
-      tick: {
-        step: PlinkoConstants.BINARY_PROBABILITY_RANGE.getLength(),
-        minText: PlinkoConstants.BINARY_PROBABILITY_RANGE.min,
-        maxText: PlinkoConstants.BINARY_PROBABILITY_RANGE.max
-      },
+
       title: binaryProbabilityString,
       property: binaryProbabilityProperty,
-      trackSize: new Dimension2( 180, 4 ),
-      patternValueUnit: '{0}'
+      slider: {
+        trackSize: new Dimension2( 170, 2 ),
+        tick: {
+          step: PlinkoConstants.BINARY_PROBABILITY_RANGE.getLength(),
+          minText: Util.toFixed( PlinkoConstants.BINARY_PROBABILITY_RANGE.min, 0 ),
+          maxText: Util.toFixed( PlinkoConstants.BINARY_PROBABILITY_RANGE.max, 0 )
+        }
+      }
     } );
 
-
     rowsSlider.x = 200;
-    binaryProbabilitySlider.x = 200;
-    rowsSlider.y = 10;
-    binaryProbabilitySlider.y = 200;
+    binaryProbabilitySlider.centerX = rowsSlider.centerX;
+    binaryProbabilitySlider.top = rowsSlider.bottom + 30;
 
-    var panel = new Panel( new Node( {
+    var contentPanel = new Node( {
       children: [rowsSlider, binaryProbabilitySlider]
-    } ), {
+    } );
+    var panel = new Panel( contentPanel, {
       fill: 'white',
       xMargin: 10,
-      yMargin: 5
+      yMargin: 10
     } );
     this.addChild( panel );
   }

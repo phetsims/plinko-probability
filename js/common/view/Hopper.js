@@ -3,6 +3,7 @@
 /**
  * A Scenery node that depicts a hopper.
  *
+ * @author Martin Veillette (Berea College)
  */
 define( function( require ) {
   'use strict';
@@ -49,7 +50,6 @@ define( function( require ) {
       .lineTo( options.bottomWidth / 2, 0 )
       .close();
 
-
     var hopperRectangleGradient = new LinearGradient( -options.topWidth / 2, 0, options.topWidth / 2, 0 ).
       addColorStop( 0, options.hopperFill ).
       addColorStop( 0.47, options.hopperHighLightFill ).
@@ -60,10 +60,8 @@ define( function( require ) {
       addColorStop( 0.47, options.rimHighLightFill ).
       addColorStop( 1, options.rimFill );
 
-
     this.addChild( new Path( hopperShape, {fill: hopperRectangleGradient} ) );
     this.addChild( new Path( rimShape, {fill: rimRectangleGradient} ) );
-
 
     // Pass options through to the parent class.
     this.mutate( options );

@@ -1,51 +1,48 @@
 // Copyright 2002-2015, University of Colorado Boulder
 
 /**
- * View for the 'Plinko Probability' screen.
+ * View for the 'Plinko Probability' Intro screen.
  */
 define( function( require ) {
   'use strict';
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var BallNode = require( 'PLINKO/plinko-probability/view/BallNode' );
-  var BallRadioButtonsControl = require( 'PLINKO/plinko-probability/view/BallRadioButtonsControl' );
+  var BallNode = require( 'PLINKO/common/view/BallNode' );
+
   var Bounds2 = require( 'DOT/Bounds2' );
   //var DerivedProperty = require( 'AXON/DerivedProperty' );
 
   var EraserButton = require( 'SCENERY_PHET/buttons/EraserButton' );
-  var GaltonBoardNode = require( 'PLINKO/plinko-probability/view/GaltonBoardNode' );
+  var GaltonBoardNode = require( 'PLINKO/common/view/GaltonBoardNode' );
   //var HistogramNode = require( 'PLINKO/plinko-probability/view/HistogramNode' );
   var HSlider = require( 'SUN/HSlider' );
-  var Hopper = require( 'PLINKO/plinko-probability/view/Hopper' );
-  var Board = require( 'PLINKO/plinko-probability/view/Board' );
+  var Hopper = require( 'PLINKO/common/view/Hopper' );
+  var Board = require( 'PLINKO/common/view/Board' );
   var Image = require( 'SCENERY/nodes/Image' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var PlayPanel = require( 'PLINKO/plinko-probability/view/PlayPanel' );
+  var PlayPanel = require( 'PLINKO/lab/view/PlayPanel' );
   //var PropertySet = require( 'AXON/PropertySet' );
   var Property = require( 'AXON/Property' );
   //var Range = require( 'DOT/Range' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var SoundToggleButton = require( 'SCENERY_PHET/buttons/SoundToggleButton' );
-  var StatisticsDisplayNode = require( 'PLINKO/plinko-probability/view/StatisticsDisplayNode' );
+  var StatisticsDisplayNode = require( 'PLINKO/lab/view/StatisticsDisplayNode' );
   var ScreenView = require( 'JOIST/ScreenView' );
-  var SliderControlPanel = require( 'PLINKO/plinko-probability/view/SliderControlPanel' );
   var Vector2 = require( 'DOT/Vector2' );
-
 
   // strings
   // TODO: place used strings here
 
   // images
-  var mockup01Image = require( 'image!PLINKO/mockup01.png' );
-  var mockup02Image = require( 'image!PLINKO/mockup02.png' );
+  var mockup01Image = require( 'image!PLINKO/mockupCropped01.png' );
 
   /**
-   * @param {PlinkoProbabilityModel} model
+   * @param {PlinkoProbabilityIntroModel} model
    * @constructor
    */
-  function PlinkoProbabilityView( model ) {
+  function PlinkoProbabilityIntroView( model ) {
 
     var thisView = this;
     ScreenView.call( this, {renderer: 'svg', layoutBounds: new Bounds2( 0, 0, 1024, 618 )} );
@@ -70,19 +67,13 @@ define( function( require ) {
 
     var galtonBoardNode = new GaltonBoardNode( model, modelViewTransform );
 
-
     //var histogramRadioProperty = new Property( 'fraction' ); //Valid values are 'fraction', 'number', and 'autoScale'.
-
-    var showRadioProperty = new Property( 'ball' ); // Valid values are 'ball', 'path', and 'none'.
 
     var ballRadioProperty = new Property( 'oneBall' ); // Valid values are 'oneBall' and 'continuous'.
 
     ballRadioProperty.link( function( value ) {
       //do stuff
     } );
-
-    var ballRadioButtonsControl = new BallRadioButtonsControl( showRadioProperty );
-
 
     // Add the button that allows the graph to be cleared of all dataPoints.
     var eraserButton = new EraserButton( {
@@ -94,21 +85,19 @@ define( function( require ) {
       }
     } );
 
-
     // Handle the comings and goings of balls
-    this.ballsLayer = new Node();
-
+    var ballsLayer = new Node();
 
     model.balls.addItemAddedListener( function( addedBall ) {
 
       // Create and add the view representation for this dataBall.
       var addedBallNode = new BallNode( addedBall, model, modelViewTransform );
-      thisView.ballsLayer.addChild( addedBallNode );
+      ballsLayer.addChild( addedBallNode );
 
       // Add the removal listener for if and when this dataPoint is removed from the model.
       model.balls.addItemRemovedListener( function removalListener( removedBall ) {
         if ( removedBall === addedBall ) {
-          thisView.ballsLayer.removeChild( addedBallNode );
+          ballsLayer.removeChild( addedBallNode );
           model.balls.removeItemRemovedListener( removalListener );
         }
       } );
@@ -117,12 +106,8 @@ define( function( require ) {
     // create play Panel
     var playPanel = new PlayPanel( model.isPlayingProperty, ballRadioProperty );
 
-    // create slider Panel
-    var sliderControlPanel = new SliderControlPanel( model.numberOfRowsForSliderProperty, model.probabilityProperty );
-
     // create Panel that displays sample and theoretical statistics
     var statisticsDisplayNode = new StatisticsDisplayNode( model );
-
 
     // create the Reset All Button in the bottom right, which resets the model
     var resetAllButton = new ResetAllButton( {
@@ -146,53 +131,41 @@ define( function( require ) {
     this.addChild( hopper );
     this.addChild( board );
     this.addChild( eraserButton );
-    this.addChild( ballRadioButtonsControl );
     this.addChild( soundToggleButton );
     this.addChild( resetAllButton );
     this.addChild( playPanel );
-    this.addChild( sliderControlPanel );
     this.addChild( statisticsDisplayNode );
     this.addChild( galtonBoardNode );
     // this.addChild( histogramNode );
-    this.addChild( this.ballsLayer );
+    this.addChild( ballsLayer );
 
-
-    ballRadioButtonsControl.left = hopper.right + 20;
-    ballRadioButtonsControl.top = hopper.top;
-    playPanel.right = this.layoutBounds.maxX - 30;
+    playPanel.right = this.layoutBounds.maxX - 40;
     playPanel.top = 10;
-    sliderControlPanel.top = playPanel.bottom + 10;
-    sliderControlPanel.right = playPanel.right;
-    statisticsDisplayNode.top = sliderControlPanel.bottom + 10;
+
+    statisticsDisplayNode.top = 310;
     statisticsDisplayNode.right = playPanel.right;
     // galtonBoardNode.centerX=hopper.centerX;
     //   galtonBoardNode.top=board.top+20;
-
 
     //TODO: Delete when done with the layout
     ////////////////////////////////////////////////////////////////
     //Show the mock-up and a slider to change its transparency
     //////////////////////////////////////////////////////////////
     var mockup01OpacityProperty = new Property( 0.02 );
-    var mockup02OpacityProperty = new Property( 0.02 );
 
     var image01 = new Image( mockup01Image, {pickable: false} );
-    var image02 = new Image( mockup02Image, {pickable: false} );
 
     image01.scale( this.layoutBounds.height / image01.height );
-    image02.scale( this.layoutBounds.height / image02.height );
 
     mockup01OpacityProperty.linkAttribute( image01, 'opacity' );
-    mockup02OpacityProperty.linkAttribute( image02, 'opacity' );
-    this.addChild( image01 );
-    this.addChild( image02 );
 
-    this.addChild( new HSlider( mockup02OpacityProperty, {min: 0, max: 1}, {top: 100, left: 20} ) );
-    this.addChild( new HSlider( mockup01OpacityProperty, {min: 0, max: 1}, {top: 10, left: 20} ) );
+    this.addChild( image01 );
+
+    this.addChild( new HSlider( mockup01OpacityProperty, {min: 0, max: 1}, {top: 100, left: 20} ) );
     /////////////////////////////////////////////////////////////////////////
   }
 
-  return inherit( ScreenView, PlinkoProbabilityView, {
+  return inherit( ScreenView, PlinkoProbabilityIntroView, {
     step: function( dt ) {
     }
   } );

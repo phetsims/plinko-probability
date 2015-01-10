@@ -3,6 +3,7 @@
 /**
  * Accordion Box Node in That Display Statistics in Plinko Probability Simulation
  *
+ * @author Martin Veillette (Berea College)
  */
 
 define( function( require ) {
@@ -11,9 +12,9 @@ define( function( require ) {
   // modules
   var AccordionBox = require( 'SUN/AccordionBox' );
   var CheckBox = require( 'SUN/CheckBox' );
-  var EquationNode = require( 'PLINKO/plinko-probability/view/EquationNode' );
+  var EquationNode = require( 'PLINKO/lab/view/EquationNode' );
   var HBox = require( 'SCENERY/nodes/HBox' );
-  var HistogramIcon = require( 'PLINKO/plinko-probability/view/HistogramIcon' );
+  var HistogramIcon = require( 'PLINKO/lab/view/HistogramIcon' );
 //  var HStrut = require( 'SUN/HStrut' );
   var inherit = require( 'PHET_CORE/inherit' );
   var PlinkoConstants = require( 'PLINKO/common/PlinkoConstants' );
@@ -33,7 +34,7 @@ define( function( require ) {
 
   /**
    *
-   * @param {PlinkoProbabilityModel} model
+   * @param {PlinkoProbabilityLabModel} model
    * @param {Object} options
    * @constructor
    */
@@ -59,7 +60,6 @@ define( function( require ) {
       rightHandSideFill: PlinkoConstants.SAMPLE_FONT_COLOR
     };
 
-
     var optionsTheoretical = {
       leftHandSideFont: PlinkoConstants.TEXT_FONT,
       leftHandSideFill: PlinkoConstants.THEORETICAL_FONT_COLOR,
@@ -81,7 +81,6 @@ define( function( require ) {
       theoreticalStandardDeviationText.setRightHandSideOfEquation( model.getTheoreticalStandardDeviation() );
     } );
 
-
     model.balls.addItemAddedListener( function( addedBall ) {
 
       //TODO: fix since it set the text before the ball is added
@@ -99,7 +98,6 @@ define( function( require ) {
         }
       } );
     } );
-
 
     var histogramCheckBox = new CheckBox( new HistogramIcon(), model.histogramVisibleProperty );
 
@@ -142,7 +140,6 @@ define( function( require ) {
         contentYMargin: 5
       }, options )
     );
-
 
   }
 

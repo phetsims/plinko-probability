@@ -19,7 +19,6 @@ define( function( require ) {
 //    var RadialGradient = require( 'SCENERY/util/RadialGradient' );
     var Shape = require( 'KITE/Shape' );
 
-
     // constants
 
     /**

@@ -2,21 +2,22 @@
 
 /**
  * Model for Plinko Probability
+ *
+ * @author Martin Veillette (Berea College)
  */
 
 define( function( require ) {
     'use strict';
 
-    var Ball = require( 'PLINKO/plinko-probability/model/Ball' );
+    var Ball = require( 'PLINKO/common/model/Ball' );
     var DerivedProperty = require( 'AXON/DerivedProperty' );
-    var GaltonBoard = require( 'PLINKO/plinko-probability/model/GaltonBoard' );
+    var GaltonBoard = require( 'PLINKO/common/model/GaltonBoard' );
     var inherit = require( 'PHET_CORE/inherit' );
     var PlinkoConstants = require( 'PLINKO/common/PlinkoConstants' );
     var PropertySet = require( 'AXON/PropertySet' );
     var ObservableArray = require( 'AXON/ObservableArray' );
 
-
-    function PlinkoProbabilityModel() {
+    function PlinkoProbabilityLabModel() {
 
       var thisModel = this;
 
@@ -38,13 +39,10 @@ define( function( require ) {
 
       } );
 
-
       this.numberOfRowsProperty = new DerivedProperty( [this.numberOfRowsForSliderProperty],
         function( numberOfRowsForSlider ) {
           return Math.round( numberOfRowsForSlider );
         } );
-
-
 
       this.trialNumber = 0; //number of current trial (current ball drop)
       this.landedBallsNumber = 0; //number of balls in the histogram
@@ -53,7 +51,6 @@ define( function( require ) {
       this.variance = 0; // (unbiased) sample variance
       this.standardDeviation = 0; //standard deviation (a.k.a. sigma) the square root of the variance
       this.standardDeviationOfMean = 0; ////standard deviation of the mean
-
 
       this.galtonBoard = new GaltonBoard( PlinkoConstants.ROWS_RANGE.max );
       this.balls = new ObservableArray();
@@ -73,7 +70,6 @@ define( function( require ) {
           thisModel.histogram.push( 0 );
         }
       } );
-
 
       //this.balls.addItemAddedListener( function( addedBall ) {
       //  addedBall.indexProperty.link( function( binIndex ) {
@@ -106,7 +102,7 @@ define( function( require ) {
       } );
     }
 
-    return inherit( PropertySet, PlinkoProbabilityModel, {
+    return inherit( PropertySet, PlinkoProbabilityLabModel, {
       step: function( dt ) {
         if ( dt > 1000 ) {
           //TODO why do we need this condition
@@ -143,7 +139,6 @@ define( function( require ) {
         }
         return step;
       },
-
 
       getTheoreticalAverage: function() {
         return this.numberOfRowsProperty.value * this.probability;
@@ -196,7 +191,6 @@ define( function( require ) {
         return binomialCoefficient * statisticalWeight;
       },
 
-
       /**
        * http://en.wikipedia.org/wiki/Binomial_distribution
        *
@@ -220,7 +214,6 @@ define( function( require ) {
         this.standardDeviation = Math.sqrt( this.variance );
         this.standardDeviationOfMean = this.standardDeviation / Math.sqrt( N );
 
-
         console.log(
           'N=', N,
           'mu=', this.average.toFixed( 3 ),
@@ -239,14 +232,12 @@ define( function( require ) {
         this.standardDeviationOfMean = 0;
       },
 
-
       addBallToHistogram: function( binIndex ) {
         this.landedBallsNumber++;
         this.histogram[binIndex]++;
         console.log( 'histogram', this.histogram );
         this.updateStatistics( binIndex );
       }
-
 
     } )
       ;
