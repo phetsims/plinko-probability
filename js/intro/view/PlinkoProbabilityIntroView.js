@@ -22,7 +22,7 @@ define( function( require ) {
   var Image = require( 'SCENERY/nodes/Image' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var PlayPanel = require( 'PLINKO/lab/view/PlayPanel' );
+  var PlayPanel = require( 'PLINKO/intro/view/PlayPanel' );
   //var PropertySet = require( 'AXON/PropertySet' );
   var Property = require( 'AXON/Property' );
   //var Range = require( 'DOT/Range' );
