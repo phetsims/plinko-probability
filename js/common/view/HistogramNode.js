@@ -58,19 +58,7 @@ define( function( require ) {
   var MINUS_SIGN_WIDTH = new Text( '\u2212', {font: MAJOR_TICK_FONT} ).width;
 
   var SMALL_EPSILON = 0.0000001; // for equalEpsilon check
-  //----------------------------------------------------------------------------------------
-  // A major or minor line in the grid
-  //----------------------------------------------------------------------------------------
 
-  // Line goes from (x1,y1) to (x2,y2), and is either a major or minor grid line.
-  function GridLineNode( x1, y1, x2, y2, isMajor ) {
-    Line.call( this, x1, y1, x2, y2, {
-      lineWidth: isMajor ? MAJOR_GRID_LINE_WIDTH : MINOR_GRID_LINE_WIDTH,
-      stroke: isMajor ? MAJOR_GRID_LINE_COLOR : MINOR_GRID_LINE_COLOR
-    } );
-  }
-
-  inherit( Line, GridLineNode );
 
   //----------------------------------------------------------------------------------------
   // major tick with label, orientation is vertical or horizontal
@@ -125,56 +113,6 @@ define( function( require ) {
   }
 
   inherit( Path, MinorTickNode );
-
-  //--------------
-  // Tick Spacing for major and minor ticks
-  //--------------
-
-  function tickSpacing( range ) {
-    var width = range.max - range.min;
-    var logOfWidth = Math.log10( width );
-    var exponent = Math.floor( logOfWidth ); // width = mantissa*10^exponent
-    var mantissa = Math.pow( 10, logOfWidth - exponent );// mantissa  ranges from 1 to 10;
-
-    var majorBaseMultiple;
-    var minorTicksPerMajor;
-
-    // on a graph there should be minimum of 4 major ticks mark and a maximum of 8.
-    if ( mantissa >= 6.5 ) {
-      majorBaseMultiple = 2;
-      minorTicksPerMajor = 4;
-    }
-    else if ( mantissa >= 3.2 ) {
-      majorBaseMultiple = 1;
-      minorTicksPerMajor = 5;
-    }
-    else if ( mantissa >= 1.55 ) {
-      majorBaseMultiple = 0.5;
-      minorTicksPerMajor = 5;
-    }
-    else {
-      majorBaseMultiple = 0.2;
-      minorTicksPerMajor = 4;
-    }
-
-    var majorTickSpacing = majorBaseMultiple * Math.pow( 10, exponent );
-    var minorTickSpacing = majorBaseMultiple * Math.pow( 10, exponent ) / minorTicksPerMajor;
-    var startPositionTick = Math.ceil( range.min / minorTickSpacing ) * minorTickSpacing;
-    var stopPositionTick = Math.floor( range.max / minorTickSpacing ) * minorTickSpacing;
-    var numberOfTicks = (stopPositionTick - startPositionTick) / minorTickSpacing + 1;
-    var decimalPlaces = majorTickSpacing > 1 ? 0 : -1 * Math.log10( majorTickSpacing ) + 1;
-
-    var tickSeparation = {
-      majorTickSpacing: majorTickSpacing,
-      minorTickSpacing: minorTickSpacing,
-      minorTicksPerMajor: minorTicksPerMajor,
-      startPositionTick: startPositionTick,
-      stopPositionTick: stopPositionTick,
-      numberOfTicks: numberOfTicks,
-      decimalPlaces: decimalPlaces
-    };
-    return tickSeparation;
-  }
 
   //----------------------------------------------------------------------------------------
   // x-axis (horizontal)
@@ -289,7 +227,7 @@ define( function( require ) {
   inherit( Node, XLabelNode );
 
   //----------------------------------------------------------------------------------------
-//  X label
+//  Y label
 //----------------------------------------------------------------------------------------
 
   /**
@@ -339,128 +277,31 @@ define( function( require ) {
 
   inherit( Node, BackgroundNode );
 
-//----------------------------------------------------------------------------------------
-// 2D grid
-//----------------------------------------------------------------------------------------
 
   /**
-   * @param {Graph} graph
-   * @param {ModelViewTransform2} modelViewTransform
+   *
+   * @param numberOfRowsProperty
+   * @param verticalScaleProperty
+   * @param histogram
+   * @param modelViewTransform
+   * @param histogramVisibleProperty
    * @constructor
    */
-  function GridNode( graph, modelViewTransform ) {
-    Node.call( this );
-
-    // horizontal grid lines, one line for each unit of grid spacing
-    var horizontalGridLinesNode = new Node();
-    this.addChild( horizontalGridLinesNode );
-    var tickYSeparation = tickSpacing( graph.yRange );
-    var numberOfHorizontalGridLines = tickYSeparation.numberOfTicks;
-
-    var minX = modelViewTransform.modelToViewX( graph.xRange.min );
-    var maxX = modelViewTransform.modelToViewX( graph.xRange.max );
-    for ( var i = 0; i < numberOfHorizontalGridLines; i++ ) {
-      var modelY = tickYSeparation.startPositionTick + tickYSeparation.minorTickSpacing * i;
-      if ( modelY !== graph.yRange.min ) { // skip origin, x axis will live here
-        var yOffset = modelViewTransform.modelToViewY( modelY );
-        var isMajorX = Math.abs( modelY / tickYSeparation.minorTickSpacing ) % (tickYSeparation.minorTicksPerMajor) < SMALL_EPSILON;
-        horizontalGridLinesNode.addChild( new GridLineNode( minX, yOffset, maxX, yOffset, isMajorX ) );
-      }
-    }
-
-    // vertical grid lines, one line for each unit of grid spacing
-    var verticalGridLinesNode = new Node();
-    this.addChild( verticalGridLinesNode );
-    var tickXSeparation = tickSpacing( graph.xRange );
-    var numberOfVerticalGridLines = tickXSeparation.numberOfTicks;
-    var minY = modelViewTransform.modelToViewY( graph.yRange.max ); // yes, swap min and max
-    var maxY = modelViewTransform.modelToViewY( graph.yRange.min );
-    for ( var j = 0; j < numberOfVerticalGridLines; j++ ) {
-      var modelX = tickXSeparation.startPositionTick + tickXSeparation.minorTickSpacing * j;
-      //TODO decide if we want to skip origin or implement a more roust version using small epsilon
-      if ( modelX !== graph.xRange.min ) { // skip origin, y axis will live here
-        var xOffset = modelViewTransform.modelToViewX( modelX );
-        var isMajorY = Math.abs( modelX / tickXSeparation.minorTickSpacing ) % (tickXSeparation.minorTicksPerMajor) < SMALL_EPSILON;
-        verticalGridLinesNode.addChild( new GridLineNode( xOffset, minY, xOffset, maxY, isMajorY ) );
-      }
-    }
-  }
-
-  inherit( Node, GridNode );
-//----------------------------------------------------------------------------------------
-
-//
-//  //----------------------------------------------------------------------------------------
-//// 2D grid
-////----------------------------------------------------------------------------------------
-//
-//  /**
-//   * @param {Graph} graph
-//   * @param {ModelViewTransform2} modelViewTransform
-//   * @constructor
-//   */
-//  function HistogramBarNode( histogram ) {
-//    Node.call( this );
-//
-//    // horizontal grid lines, one line for each unit of grid spacing
-//    var horizontalGridLinesNode = new Node();
-//    this.addChild( horizontalGridLinesNode );
-//    var tickYSeparation = tickSpacing( graph.yRange );
-//    var numberOfHorizontalGridLines = tickYSeparation.numberOfTicks;
-//
-//    var minX = modelViewTransform.modelToViewX( graph.xRange.min );
-//    var maxX = modelViewTransform.modelToViewX( graph.xRange.max );
-//    for ( var i = 0; i < numberOfHorizontalGridLines; i++ ) {
-//      var modelY = tickYSeparation.startPositionTick + tickYSeparation.minorTickSpacing * i;
-//      if ( modelY !== graph.yRange.min ) { // skip origin, x axis will live here
-//        var yOffset = modelViewTransform.modelToViewY( modelY );
-//        var isMajorX = Math.abs( modelY / tickYSeparation.minorTickSpacing ) % (tickYSeparation.minorTicksPerMajor) < SMALL_EPSILON;
-//        horizontalGridLinesNode.addChild( new GridLineNode( minX, yOffset, maxX, yOffset, isMajorX ) );
-//      }
-//    }
-//
-//    // vertical grid lines, one line for each unit of grid spacing
-//    var verticalGridLinesNode = new Node();
-//    this.addChild( verticalGridLinesNode );
-//    var tickXSeparation = tickSpacing( graph.xRange );
-//    var numberOfVerticalGridLines = tickXSeparation.numberOfTicks;
-//    var minY = modelViewTransform.modelToViewY( graph.yRange.max ); // yes, swap min and max
-//    var maxY = modelViewTransform.modelToViewY( graph.yRange.min );
-//    for ( var j = 0; j < numberOfVerticalGridLines; j++ ) {
-//      var modelX = tickXSeparation.startPositionTick + tickXSeparation.minorTickSpacing * j;
-//      //TODO decide if we want to skip origin or implement a more roust version using small epsilon
-//      if ( modelX !== graph.xRange.min ) { // skip origin, y axis will live here
-//        var xOffset = modelViewTransform.modelToViewX( modelX );
-//        var isMajorY = Math.abs( modelX / tickXSeparation.minorTickSpacing ) % (tickXSeparation.minorTicksPerMajor) < SMALL_EPSILON;
-//        verticalGridLinesNode.addChild( new GridLineNode( xOffset, minY, xOffset, maxY, isMajorY ) );
-//      }
-//    }
-//  }
-//
-//  inherit( Node, GridNode );
-//----------------------------------------------------------------------------------------
-
-  /**
-   * @param {Graph} graph
-   * @param {ModelViewTransform2} modelViewTransform
-   * @constructor
-   */
-  function GraphAxesNode( graph, histogram, modelViewTransform ) {
+  function HistogramNode( numberOfRowsProperty, verticalScaleProperty, histogram, modelViewTransform, histogramVisibleProperty ) {
 
     Node.call( this, {
         children: [
-          new BackgroundNode( graph, modelViewTransform ),
-          new GridNode( graph, modelViewTransform ),
-          new XAxisNode( graph, modelViewTransform ),
-          new YAxisNode( graph, modelViewTransform ),
-          new XLabelNode( graph, modelViewTransform ),
+          new BackgroundNode( modelViewTransform ),
+          new XAxisNode( numberOfRowsProperty, modelViewTransform ),
+          new YAxisNode( verticalScaleProperty, modelViewTransform ),
+          new XLabelNode( numberOfRowsProperty, modelViewTransform ),
           new YLabelNode( graph, modelViewTransform ),
-          //     new HistogramBarNode( histogram, modelViewTransform )
+          new HistogramBarNode( histogram, modelViewTransform )
         ]
       }
     );
   }
 
-  return inherit( Node, GraphAxesNode );
+  return inherit( Node, HistogramNode );
 } )
 ;
