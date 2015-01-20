@@ -87,7 +87,7 @@ define( function( require ) {
       {
         getPegFromRowColumn: function( row, column ) {
           var index = this.getIndexArray( row, column );
-          return this.pegs[index];
+          return this.pegs[ index ];
         },
 
         getIndexArray: function( row, column ) {

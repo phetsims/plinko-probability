@@ -72,7 +72,7 @@ define( function( require ) {
 
   return inherit( Node, EquationNode, {
     setRightHandSideOfEquation: function( number ) {
-      this.rightHandSideOfEquationText.text = this.roundNumber( number, {maxSigFigs: 2} );
+      this.rightHandSideOfEquationText.text = this.roundNumber( number, { maxSigFigs: 2 } );
     },
 
     roundNumber: function( number, options ) {

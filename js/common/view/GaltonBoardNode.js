@@ -41,7 +41,7 @@ define( function( require ) {
       pegShape.arc( 0, 0, PlinkoConstants.PEG_RADIUS, 2 / 8 * Math.PI + Math.PI / 2, 6 / 8 * Math.PI + Math.PI / 2, true );
 
       model.galtonBoard.pegs.forEach( function( peg ) {
-        pegPath = new Path( pegShape, {fill: PlinkoConstants.PEG_COLOR} );
+        pegPath = new Path( pegShape, { fill: PlinkoConstants.PEG_COLOR } );
         pegPath.pegPosition = peg.position;
         galtonBoardNode.pegPathArray.push( pegPath );
       } );

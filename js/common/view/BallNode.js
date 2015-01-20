@@ -29,7 +29,7 @@ define( function( require ) {
 
     var ballNode = this;
 
-    Node.call( this, {renderer: 'svg', rendererOptions: {cssTransform: true}} );
+    Node.call( this, { renderer: 'svg', rendererOptions: { cssTransform: true } } );
 
     //  create the representation for a ball
     var ballRepresentation = new Circle( PlinkoConstants.BALL_RADIUS, {

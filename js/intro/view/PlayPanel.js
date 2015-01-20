@@ -59,26 +59,26 @@ define( function( require ) {
       } );
     }
 
-    var fontOptions = {font: PlinkoConstants.PANEL_FONT};
+    var fontOptions = { font: PlinkoConstants.PANEL_FONT };
     var oneBall = new HBox( {
       spacing: PlinkoConstants.BALL_RADIUS,
-      children: [createCircle(), new Text( timesString + '1', fontOptions )]
+      children: [ createCircle(), new Text( timesString + '1', fontOptions ) ]
     } );
 
     var tenBall = new HBox( {
       spacing: PlinkoConstants.BALL_RADIUS,
-      children: [createCircle(), new Text( timesString + '10', fontOptions )]
+      children: [ createCircle(), new Text( timesString + '10', fontOptions ) ]
     } );
     var allBall = new HBox( {
       spacing: PlinkoConstants.BALL_RADIUS,
-      children: [createCircle(), new Text( timesString + allString, fontOptions )]
+      children: [ createCircle(), new Text( timesString + allString, fontOptions ) ]
     } );
 
     var ballModeRadioButtons = new VerticalAquaRadioButtonGroup( [
-      {node: oneBall, property: ballRadioProperty, value: 'oneBall'},
-      {node: tenBall, property: ballRadioProperty, value: 'tenBall'},
-      {node: allBall, property: ballRadioProperty, value: 'allBall'}
-    ], {radius: 8} );
+      { node: oneBall, property: ballRadioProperty, value: 'oneBall' },
+      { node: tenBall, property: ballRadioProperty, value: 'tenBall' },
+      { node: allBall, property: ballRadioProperty, value: 'allBall' }
+    ], { radius: 8 } );
 
 
     // play button

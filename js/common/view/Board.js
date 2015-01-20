@@ -50,13 +50,13 @@ define( function( require ) {
 
     // create a shadow of the wooden board
     var boardShadowShape = boardShape.copy().transformed( Matrix3.translation( 20, 10 ) );
-    this.addChild( new Path( boardShadowShape, {fill: options.shadowFill, centerX: 20, top: 10} ) );
+    this.addChild( new Path( boardShadowShape, { fill: options.shadowFill, centerX: 20, top: 10 } ) );
     //var boardShadowRectangleGradient = new LinearGradient( options.bottomWidth/2, options.height, options.bottomWidth/2+20, options.height ).
     //  addColorStop( 0.00, options.shadowFill ).
     //  addColorStop( 1.00, PlinkoConstants.BACKGROUND_COLOR );
 
     //this.addChild( new Path( boardShadowShape, {fill: boardShadowRectangleGradient} ) );
-    this.addChild( new Path( boardShape, {fill: boardRectangleGradient, centerX: 0, top: 0} ) );
+    this.addChild( new Path( boardShape, { fill: boardRectangleGradient, centerX: 0, top: 0 } ) );
 
     // Pass options through to the parent class.
     this.mutate( options );

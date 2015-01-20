@@ -87,7 +87,7 @@ define( function( require ) {
             dt -= 1 - this.fallenRatio;
             this.column += (this.direction === 1 ? 1 : 0);
             this.row += 1;
-            this.pegHistory.push( {column: this.column, row: this.row} );
+            this.pegHistory.push( { column: this.column, row: this.row } );
 
             this.fallenRatio = 0;
             this.direction = 0;

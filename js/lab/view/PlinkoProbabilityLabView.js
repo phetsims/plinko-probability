@@ -46,7 +46,7 @@ define( function( require ) {
   function PlinkoProbabilityLabView( model ) {
 
     var thisView = this;
-    ScreenView.call( this, {renderer: 'svg', layoutBounds: new Bounds2( 0, 0, 1024, 618 )} );
+    ScreenView.call( this, { renderer: 'svg', layoutBounds: new Bounds2( 0, 0, 1024, 618 ) } );
 
     var galtonBoardApexPosition = new Vector2( this.layoutBounds.maxX / 2 - 80, 70 );
 
@@ -167,7 +167,7 @@ define( function( require ) {
 
     var mockup02OpacityProperty = new Property( 0.02 );
 
-    var image02 = new Image( mockup02Image, {pickable: false} );
+    var image02 = new Image( mockup02Image, { pickable: false } );
 
     image02.scale( this.layoutBounds.height / image02.height );
 
@@ -175,7 +175,7 @@ define( function( require ) {
 
     this.addChild( image02 );
 
-    this.addChild( new HSlider( mockup02OpacityProperty, {min: 0, max: 1}, {top: 100, left: 20} ) );
+    this.addChild( new HSlider( mockup02OpacityProperty, { min: 0, max: 1 }, { top: 100, left: 20 } ) );
 
     /////////////////////////////////////////////////////////////////////////
   }

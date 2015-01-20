@@ -70,7 +70,7 @@ define( function( require ) {
     binaryProbabilitySlider.top = rowsSlider.bottom + 30;
 
     var contentPanel = new Node( {
-      children: [rowsSlider, binaryProbabilitySlider]
+      children: [ rowsSlider, binaryProbabilitySlider ]
     } );
     var panel = new Panel( contentPanel, {
       fill: 'white',

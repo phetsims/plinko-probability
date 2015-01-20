@@ -76,7 +76,7 @@ define( function( require ) {
     var theoreticalStandardDeviationText = new EquationNode( sigmaGreekString, 0, optionsTheoretical );
     //var theoreticalStandardDeviationOfMeanText = new EquationNode( 'sd', 0, optionsTheoretical );
 
-    Property.multilink( [model.numberOfRowsProperty, model.probabilityProperty], function( numberOfRows, probability ) {
+    Property.multilink( [ model.numberOfRowsProperty, model.probabilityProperty ], function( numberOfRows, probability ) {
       theoreticalAverageText.setRightHandSideOfEquation( model.getTheoreticalAverage() );
       theoreticalStandardDeviationText.setRightHandSideOfEquation( model.getTheoreticalStandardDeviation() );
     } );

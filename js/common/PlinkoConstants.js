@@ -21,10 +21,10 @@ define( function( require ) {
     RESET_ALL_BUTTON_SCALE: 0.75,
 
     // font sizes and weight
-    TEXT_FONT: new PhetFont( {size: 18} ), // default font for text
-    TEXT_FONT_BOLD: new PhetFont( {size: 18, weight: 'bold'} ), // default font for bold font
-    CHECK_BOX_TEXT_FONT: new PhetFont( {size: 16} ),
-    MAJOR_TICK_FONT: new PhetFont( {size: 16} ),
+    TEXT_FONT: new PhetFont( { size: 18 } ), // default font for text
+    TEXT_FONT_BOLD: new PhetFont( { size: 18, weight: 'bold' } ), // default font for bold font
+    CHECK_BOX_TEXT_FONT: new PhetFont( { size: 16 } ),
+    MAJOR_TICK_FONT: new PhetFont( { size: 16 } ),
 
     // panels
     CONTROL_PANEL_CORNER_RADIUS: 10,
@@ -32,7 +32,7 @@ define( function( require ) {
     CONTROL_PANEL_BACKGROUND_COLOR: 'rgb(255, 245, 238)',
 
     PANEL_FONT: new PhetFont( 16 ),
-    PANEL_FONT_BOLD: new PhetFont( {size: 18, weight: 'bold'} ),
+    PANEL_FONT_BOLD: new PhetFont( { size: 18, weight: 'bold' } ),
 
     PANEL_BACKGROUND_COLOR: 'white',
     SAMPLE_FONT_COLOR: 'red',

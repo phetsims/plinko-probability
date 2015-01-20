@@ -60,13 +60,13 @@ define( function( require ) {
     var continuous = new HBox( {
       //align: 'left',
       spacing: -PlinkoConstants.BALL_RADIUS * 1.2,
-      children: [createCircle(), createCircle(), createCircle(), createCircle(), createCircle()]
+      children: [ createCircle(), createCircle(), createCircle(), createCircle(), createCircle() ]
     } );
 
     var ballModeRadioButtons = new VerticalAquaRadioButtonGroup( [
-      {node: oneBall, property: ballRadioProperty, value: 'oneBall'},
-      {node: continuous, property: ballRadioProperty, value: 'continuous'}
-    ], {radius: 8} );
+      { node: oneBall, property: ballRadioProperty, value: 'oneBall' },
+      { node: continuous, property: ballRadioProperty, value: 'continuous' }
+    ], { radius: 8 } );
 
     //var ballModeMarkerVBox = new VBox( {
     //  children: [

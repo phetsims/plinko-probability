@@ -39,7 +39,7 @@ define( function( require ) {
 
       } );
 
-      this.numberOfRowsProperty = new DerivedProperty( [this.numberOfRowsForSliderProperty],
+      this.numberOfRowsProperty = new DerivedProperty( [ this.numberOfRowsForSliderProperty ],
         function( numberOfRowsForSlider ) {
           return Math.round( numberOfRowsForSlider );
         } );
@@ -234,7 +234,7 @@ define( function( require ) {
 
       addBallToHistogram: function( binIndex ) {
         this.landedBallsNumber++;
-        this.histogram[binIndex]++;
+        this.histogram[ binIndex ]++;
         console.log( 'histogram', this.histogram );
         this.updateStatistics( binIndex );
       }

@@ -48,8 +48,8 @@ define( function( require ) {
 
         verticalSpacing: 8, // control vertical spacing between scenery nodes
         horizontalSpacing: 10, // control spacing between horizontal scenery nodes
-        titleFont: new PhetFont( {size: 16, weight: 'bold'} ),
-        displayFont: new PhetFont( {size: 14} ), // font for the numerical display
+        titleFont: new PhetFont( { size: 16, weight: 'bold' } ),
+        displayFont: new PhetFont( { size: 14 } ), // font for the numerical display
 
         // options for the left and right push buttons
         arrowHeight: 15,
@@ -67,7 +67,7 @@ define( function( require ) {
         thumbFillEnabled: 'rgb(50,145,184)',
         thumbFillHighlighted: 'rgb(71,207,255)',
         // custom ticks
-        tickFont: new PhetFont( {size: 12} ),
+        tickFont: new PhetFont( { size: 12 } ),
         majorTickLength: 10,
         minorTickLength: 5,
         majorTickLineWidth: 1.5,
@@ -91,7 +91,7 @@ define( function( require ) {
     }
 
     // create label title
-    var labelTitle = new Text( options.title, {font: options.titleFont} );
+    var labelTitle = new Text( options.title, { font: options.titleFont } );
 
     // @public create slider
     this.hSlider = new HSlider( options.property, options.range, options.slider );
@@ -108,10 +108,10 @@ define( function( require ) {
       for ( tickValue; tickValue <= options.range.max; tickValue += options.slider.tick.step ) {
 
         if ( tickValue === options.range.max ) {
-          sliderWithReadout.hSlider.addMajorTick( tickValue, new Text( options.slider.tick.maxText, {font: options.slider.tickFont} ) );
+          sliderWithReadout.hSlider.addMajorTick( tickValue, new Text( options.slider.tick.maxText, { font: options.slider.tickFont } ) );
         }
         else if ( tickValue === options.range.min ) {
-          sliderWithReadout.hSlider.addMajorTick( tickValue, new Text( options.slider.tick.minText, {font: options.slider.tickFont} ) );
+          sliderWithReadout.hSlider.addMajorTick( tickValue, new Text( options.slider.tick.minText, { font: options.slider.tickFont } ) );
         }
         else if ( tickValue === (options.range.min + options.range.max) / 2 ) {
           sliderWithReadout.hSlider.addMajorTick( tickValue );
@@ -134,7 +134,7 @@ define( function( require ) {
     }
 
     // define arrow Button Options
-    var arrowButtonOptions = {arrowHeight: options.arrowHeight, arrowWidth: options.arrowHeight * options.arrowAspectRatio};
+    var arrowButtonOptions = { arrowHeight: options.arrowHeight, arrowWidth: options.arrowHeight * options.arrowAspectRatio };
 
     // create plus button to the right of the value
     var rightArrowButton = new ArrowButton( 'right', buttonPropertyUpdate( options.buttonStep ), arrowButtonOptions );
@@ -143,7 +143,7 @@ define( function( require ) {
     var leftArrowButton = new ArrowButton( 'left', buttonPropertyUpdate( -options.buttonStep ), arrowButtonOptions );
 
     // Create and add the readout, including the background.
-    var readoutText = new Text( '', {font: options.displayFont} );
+    var readoutText = new Text( '', { font: options.displayFont } );
     var readoutBackground = new Rectangle( 0, 0, options.readoutBackgroundWidth, options.readoutBackgroundHeight, 4, 4,
       {
         fill: options.readOutFill,

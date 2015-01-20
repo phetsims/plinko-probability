@@ -55,7 +55,7 @@ define( function( require ) {
   var MAJOR_TICK_COLOR = 'black';
   var MAJOR_TICK_FONT = new PhetFont( 16 );
   var TICK_LABEL_SPACING = 2;
-  var MINUS_SIGN_WIDTH = new Text( '\u2212', {font: MAJOR_TICK_FONT} ).width;
+  var MINUS_SIGN_WIDTH = new Text( '\u2212', { font: MAJOR_TICK_FONT } ).width;
 
   var SMALL_EPSILON = 0.0000001; // for equalEpsilon check
 
@@ -79,7 +79,7 @@ define( function( require ) {
     this.addChild( tickLineNode );
 
     // tick label
-    var tickLabelNode = new Text( value, {font: MAJOR_TICK_FONT, fill: MAJOR_TICK_COLOR} );
+    var tickLabelNode = new Text( value, { font: MAJOR_TICK_FONT, fill: MAJOR_TICK_COLOR } );
     this.addChild( tickLabelNode );
 
     // label position
@@ -137,7 +137,7 @@ define( function( require ) {
     this.addChild( lineNode );
 
     // ticks
-    var tickSeparation = tickSpacing( graph.xRange );
+    var tickSeparation = 1;
     var numberOfTicks = tickSeparation.numberOfTicks;
 
     for ( var i = 0; i < numberOfTicks; i++ ) {
@@ -220,7 +220,7 @@ define( function( require ) {
 
     var centerX = modelViewTransform.modelToViewX( (graph.xRange.min + graph.xRange.max) / 2 );
     var bottom = modelViewTransform.modelToViewY( graph.yRange.min );
-    var xLabelNode = new Text( graph.xAxisTitle, {font: AXIS_LABEL_FONT, fill: AXIS_LABEL_COLOR, centerX: centerX, bottom: bottom + 50} );
+    var xLabelNode = new Text( graph.xAxisTitle, { font: AXIS_LABEL_FONT, fill: AXIS_LABEL_COLOR, centerX: centerX, bottom: bottom + 50 } );
     this.addChild( xLabelNode );
   }
 
@@ -270,7 +270,7 @@ define( function( require ) {
       modelViewTransform.modelToViewY( graph.yRange.max ),
       modelViewTransform.modelToViewDeltaX( graph.xRange.getLength() ),
       modelViewTransform.modelToViewDeltaY( -graph.yRange.getLength() ),
-      {fill: GRID_BACKGROUND_FILL, lineWidth: GRID_BACKGROUND_LINE_WIDTH, stroke: GRID_BACKGROUND_STROKE} );
+      { fill: GRID_BACKGROUND_FILL, lineWidth: GRID_BACKGROUND_LINE_WIDTH, stroke: GRID_BACKGROUND_STROKE } );
     this.addChild( backgroundNode );
 
   }
@@ -295,7 +295,7 @@ define( function( require ) {
           new XAxisNode( numberOfRowsProperty, modelViewTransform ),
           new YAxisNode( verticalScaleProperty, modelViewTransform ),
           new XLabelNode( numberOfRowsProperty, modelViewTransform ),
-          new YLabelNode( graph, modelViewTransform ),
+          new YLabelNode( verticalScaleProperty, modelViewTransform ),
           new HistogramBarNode( histogram, modelViewTransform )
         ]
       }

@@ -28,8 +28,8 @@ define( function( require ) {
     var height = Screen.HOME_SCREEN_ICON_SIZE.height;
 
     //TODO Lab Icon
-    var background = new Rectangle( 0, 0, width, height, {fill: 'white'} );
-    return new Node( {children: [background]} );
+    var background = new Rectangle( 0, 0, width, height, { fill: 'white' } );
+    return new Node( { children: [ background ] } );
 
   };
 

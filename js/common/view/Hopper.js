@@ -60,8 +60,8 @@ define( function( require ) {
       addColorStop( 0.47, options.rimHighLightFill ).
       addColorStop( 1, options.rimFill );
 
-    this.addChild( new Path( hopperShape, {fill: hopperRectangleGradient} ) );
-    this.addChild( new Path( rimShape, {fill: rimRectangleGradient} ) );
+    this.addChild( new Path( hopperShape, { fill: hopperRectangleGradient } ) );
+    this.addChild( new Path( rimShape, { fill: rimRectangleGradient } ) );
 
     // Pass options through to the parent class.
     this.mutate( options );

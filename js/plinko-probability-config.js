@@ -6,7 +6,7 @@
  */
 require.config( {
 
-  deps: ['plinko-probability-main'],
+  deps: [ 'plinko-probability-main' ],
 
   paths: {
 
