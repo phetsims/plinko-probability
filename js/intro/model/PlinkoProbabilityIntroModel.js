@@ -140,14 +140,27 @@ define( function( require ) {
         return step;
       },
 
+      /**
+       * Function that returns the thoertical average of the binomial distribution
+       * @returns {number}
+       */
       getTheoreticalAverage: function() {
         return this.numberOfRowsProperty.value * this.probability;
       },
 
+      /**
+       * Function that calculates the theoretical standard deviation of the binomial distribution
+       * @returns {number}
+       */
       getTheoreticalStandardDeviation: function() {
         return Math.sqrt( this.numberOfRowsProperty.value * this.probability * (1 - this.probability) );
       },
 
+      /**
+       * Function that calculates the theoretical standard deviation of the mean for the current value of number of balls
+       * It returns a string if there is not a single particle on the board
+       * @returns {number||string}
+       */
       getTheoreticalStandardDeviationOfMean: function() {
         if ( this.landedBallsNumber > 0 ) {
           return Math.sqrt( this.numberOfRowsProperty.value * this.probability * (1 - this.probability ) / this.landedBallsNumber );
@@ -155,13 +168,13 @@ define( function( require ) {
         else {
           return 'Not A Number';
         }
-
       },
+
       /**
        * http://en.wikipedia.org/wiki/Binomial_coefficient
        *
-       * @param {number} n, the number of rows of pegs
-       * @param {number} k, the bin number
+       * @param {number} n - the number of rows of pegs
+       * @param {number} k - the bin number
        * @returns {number}  "n choose k"= n!/( k! (n-k)!)
        */
       getBinomialCoefficient: function( n, k ) {
@@ -180,9 +193,9 @@ define( function( require ) {
       /**
        *http://en.wikipedia.org/wiki/Binomial_distribution
        *
-       * @param {number} n , the number of rows of pegs
-       * @param {number} k , the bin number
-       * @param {number} p, probability of getting k
+       * @param {number} n - the number of rows of pegs
+       * @param {number} k - the bin number
+       * @param {number} p - probability of getting k
        * @returns {number} P(n,k,p)= ("n choose k") * p^k * p^(n-k)
        */
       getBinomialProbability: function( n, k, p ) {
@@ -192,9 +205,10 @@ define( function( require ) {
       },
 
       /**
-       * http://en.wikipedia.org/wiki/Binomial_distribution
+       *  Function that returns the theoretical probabilities i.e. P(n,k,p) of a binomial distribution in arraw form
+       *  http://en.wikipedia.org/wiki/Binomial_distribution
        *
-       * @returns {number}
+       * @returns {Array}
        */
       getBinomialDistribution: function() {
         var binomialCoefficientsArray = [];
@@ -206,6 +220,10 @@ define( function( require ) {
         return binomialCoefficientsArray;
       },
 
+      /**
+       * Update the histogram statistic
+       * @param {number} binIndex
+       */
       updateStatistics: function( binIndex ) {
         var N = this.landedBallsNumber;
         this.average = ((N - 1) * this.average + binIndex) / N;
@@ -222,6 +240,9 @@ define( function( require ) {
         );
       },
 
+      /**
+       *  Reset all the statistics to zero
+       */
       resetStatistics: function() {
         this.trialNumber = 0;
         this.landedBallsNumber = 0;
@@ -232,6 +253,10 @@ define( function( require ) {
         this.standardDeviationOfMean = 0;
       },
 
+      /**
+       * Add an additional ball to the histogram and update all the relevant statitics
+       * @param {number} binIndex
+       */
       addBallToHistogram: function( binIndex ) {
         this.landedBallsNumber++;
         this.histogram[ binIndex ]++;
