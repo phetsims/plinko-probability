@@ -32,10 +32,10 @@ define( function( require ) {
 
   // grid
 
-  var MINOR_GRID_LINE_WIDTH = 0.5;
-  var MINOR_GRID_LINE_COLOR = 'rgb( 240, 240, 240 )';
-  var MAJOR_GRID_LINE_WIDTH = 1.0;
-  var MAJOR_GRID_LINE_COLOR = 'rgb( 192, 192, 192 )';
+  //var MINOR_GRID_LINE_WIDTH = 0.5;
+  //var MINOR_GRID_LINE_COLOR = 'rgb( 240, 240, 240 )';
+  //var MAJOR_GRID_LINE_WIDTH = 1.0;
+  //var MAJOR_GRID_LINE_COLOR = 'rgb( 192, 192, 192 )';
 
   // axes
 
@@ -183,7 +183,7 @@ define( function( require ) {
 
     // ticks
 
-    var tickSeparation = tickSpacing( graph.yRange );
+    var tickSeparation = 1;
     var numberOfTicks = tickSeparation.numberOfTicks;
 
     for ( var i = 0; i < numberOfTicks; i++ ) {
@@ -296,7 +296,7 @@ define( function( require ) {
           new YAxisNode( verticalScaleProperty, modelViewTransform ),
           new XLabelNode( numberOfRowsProperty, modelViewTransform ),
           new YLabelNode( verticalScaleProperty, modelViewTransform ),
-          new HistogramBarNode( histogram, modelViewTransform )
+          //new HistogramBarNode( histogram, modelViewTransform )
         ]
       }
     );
