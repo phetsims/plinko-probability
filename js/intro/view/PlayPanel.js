@@ -32,11 +32,11 @@ define( function( require ) {
   /**
    *
    * @param {Property.<boolean>} isPlayingProperty
-   * @param {Property.<String>} ballRadioProperty
+   * @param {Property.<String>} ballModeProperty
    * @param {Object} [options]
    * @constructor
    */
-  function PlayPanel( isPlayingProperty, ballRadioProperty, options ) {
+  function PlayPanel( isPlayingProperty, ballModeProperty, options ) {
 
     // Demonstrate a common pattern for specifying options and providing default values.
     options = _.extend( {
@@ -75,9 +75,9 @@ define( function( require ) {
     } );
 
     var ballModeRadioButtons = new VerticalAquaRadioButtonGroup( [
-      { node: oneBall, property: ballRadioProperty, value: 'oneBall' },
-      { node: tenBall, property: ballRadioProperty, value: 'tenBall' },
-      { node: allBall, property: ballRadioProperty, value: 'allBall' }
+      { node: oneBall, property: ballModeProperty, value: 'oneBall' },
+      { node: tenBall, property: ballModeProperty, value: 'tenBalls' },
+      { node: allBall, property: ballModeProperty, value: 'allBalls' }
     ], { radius: 8 } );
 
 

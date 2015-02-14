@@ -86,7 +86,7 @@ define( function( require ) {
     } );
 
     // Handle the comings and goings of balls
-    var ballsLayer = new Node();
+    var ballsLayer = new Node( { layerSplit: true } );
 
     model.balls.addItemAddedListener( function( addedBall ) {
 
@@ -104,7 +104,7 @@ define( function( require ) {
     } );
 
     // create play Panel
-    var playPanel = new PlayPanel( model.isPlayingProperty, ballRadioProperty );
+    var playPanel = new PlayPanel( model.isPlayingProperty, model.ballModeProperty );
 
     // create Panel that displays sample and theoretical statistics
     var statisticsDisplayNode = new StatisticsDisplayNode( model );

@@ -24,15 +24,8 @@ define( function( require ) {
     PropertySet.call( this, {
       numberOfRowsForSlider: 12, ///  may not always be an integer
       probability: 0.5,
-      fraction: false,
-      number: false,
-      autoScale: false,
-      ball: false,
-      path: false,
-      none: false,
-      pegHorizontalDistance: 1,
-      pegDiagonalDistance: 1 / Math.sqrt( 2 ),
-      pegInterval: 0.05,
+      histogramMode: 'count', // acceptable values are 'count' and 'fraction'
+      ballMode: 'oneBall', // acceptable values are 'oneBall', 'tenBalls' and 'allBalls'
       histogramVisible: false,
       isPlaying: false,
       isSoundEnabled: true
@@ -43,13 +36,13 @@ define( function( require ) {
         return Math.round( numberOfRowsForSlider );
       } );
 
-    this.trialNumber = 0; //number of current trial (current ball drop)
+    this.trialNumber = 0; // number of current trial (current ball drop)
     this.landedBallsNumber = 0; //number of balls in the histogram
-    this.average = 0;  ///average of the sample (near zero for p = 0.5)
-    this.sumOfSquares = 0; //sum of squares of trials, used to compute the variance
+    this.average = 0;  // average of the sample (near zero for p = 0.5)
+    this.sumOfSquares = 0; // sum of squares of trials, used to compute the variance
     this.variance = 0; // (unbiased) sample variance
-    this.standardDeviation = 0; //standard deviation (a.k.a. sigma) the square root of the variance
-    this.standardDeviationOfMean = 0; ////standard deviation of the mean
+    this.standardDeviation = 0; // standard deviation (a.k.a. sigma) the square root of the variance
+    this.standardDeviationOfMean = 0; // standard deviation of the mean
 
     this.galtonBoard = new GaltonBoard( PlinkoConstants.ROWS_RANGE.max );
     this.balls = new ObservableArray();
@@ -96,7 +89,7 @@ define( function( require ) {
 
     this.isPlayingProperty.link( function( isPlaying ) {
       if ( isPlaying ) {
-        for ( var i = 0; i < 1; i++ ) {
+        for ( var i = 0; i < 10; i++ ) {
           thisModel.addNewBall();
         }
       }
@@ -105,13 +98,10 @@ define( function( require ) {
 
   return inherit( PropertySet, PlinkoProbabilityIntroModel, {
     step: function( dt ) {
-      if ( dt > 1000 ) {
-        //TODO why do we need this condition
-        dt = 1000;
-      }
-      for ( var i = 0; i < this.balls.length; i++ ) {
-        this.balls.get( i ).step( dt, this.probability, this.numberOfRowsProperty.value );
-      }
+      this.balls.forEach( function( ball ) {
+        ball.step( dt );
+      } );
+
     },
 
     reset: function() {
@@ -129,18 +119,6 @@ define( function( require ) {
       } );
     },
 
-    //choose a random step direction: +1 with prob p or -1 with prob q = 1-p
-    nextStep: function() {
-      var step;
-      var randNbr = Math.random();
-      if ( randNbr < this.probability ) {
-        step = 1;
-      }
-      else {
-        step = -1;
-      }
-      return step;
-    },
 
     /**
      * Function that returns the theoretical average of the binomial distribution

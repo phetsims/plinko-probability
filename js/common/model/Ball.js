@@ -45,19 +45,19 @@ define( function( require ) {
      X X X X
      */
 
-    //0 is the topmost
+    // 0 is the topmost
     this.row = 0;
 
-    //0 is the leftmost
+    // 0 is the leftmost
     this.column = 0;
 
-    //-1 is left, 0 is down, 1 is right
+    // 0 is left, 1 is right
     this.direction = 0;
 
-    //0 is the top of the current peg, 1 is the top of the next peg
+    // 0 is the top of the current peg, 1 is the top of the next peg
     this.fallenRatio = 0;
 
-    this.pegHistory = []; //TODO: calculate directions based on p
+    this.pegHistory = [];
 
     this.binIndex = -1;
   }
@@ -95,49 +95,55 @@ define( function( require ) {
      * @param {number} dt - time interval
      */
     step: function( dt ) {
-      var df = dt;
-
-      // Initially falling
-      if ( this.phase === PHASE_INITIAL ) {
-        if ( df + this.fallenRatio >= 1 ) {
-          this.phase = PHASE_FALLING;
-          this.fallenRatio = 0;
-        }
-        else {
-          this.fallenRatio += df;
-        }
-      }
-
-      // Falling between pegs
-      if ( this.phase === PHASE_FALLING ) {
-        if ( df + this.fallenRatio >= 1 ) {
-          var peg = this.pegHistory.shift();
-          this.column = peg.columnNumber;
-          this.row = peg.rowNumber;
-          this.direction = peg.direction;
-          this.fallenRatio = 0;
-          if ( this.pegHistory.length === 0 ) {
-            this.phase = PHASE_EXIT;
-          }
-        }
-        else {
-          this.fallenRatio += df;
-        }
-      }
-
-      // Out of pegs
-      if ( this.phase === PHASE_EXIT ) {
-        if ( df + this.fallenRatio >= 1 ) {
-          this.phase = PHASE_COLLECTED;
-          this.binIndex = this.columnNumber;
-          this.trigger( 'landed' );
-        }
-        else {
-          this.fallenRatio += dt;
-        }
-      }
-      this.position = this.getPosition();
+      this.ballStep( dt );
     },
+
+    ballStep: function( dt );
+  {
+    var df = dt;
+    // Initially falling
+    if ( this.phase === PHASE_INITIAL ) {
+      if ( df + this.fallenRatio >= 1 ) {
+        this.phase = PHASE_FALLING;
+        this.fallenRatio = 0;
+      }
+      else {
+        this.fallenRatio += df;
+      }
+    }
+
+    // Falling between pegs
+    if ( this.phase === PHASE_FALLING ) {
+      if ( df + this.fallenRatio >= 1 ) {
+        var peg = this.pegHistory.shift();
+        this.column = peg.columnNumber;
+        this.row = peg.rowNumber;
+        this.direction = peg.direction;
+        this.fallenRatio = 0;
+        if ( this.pegHistory.length === 0 ) {
+          this.phase = PHASE_EXIT;
+        }
+      }
+      else {
+        this.fallenRatio += df;
+      }
+    }
+
+    // Out of pegs
+    if ( this.phase === PHASE_EXIT ) {
+      if ( df + this.fallenRatio >= 1 ) {
+        this.phase = PHASE_COLLECTED;
+        this.binIndex = this.column;
+        this.trigger( 'landed' );
+      }
+      else {
+        this.fallenRatio += dt;
+      }
+    }
+    this.position = this.getPosition();
+  }
+  ,
+
 
     /**
      *
@@ -181,5 +187,5 @@ define( function( require ) {
 
   } );
 
-} );
+} )
 
