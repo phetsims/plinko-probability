@@ -80,7 +80,7 @@ define( function( require ) {
 
     play: function() {
       var i = 0;
-
+      var thisModel = this;
       switch( this.ballMode ) {
         case 'oneBall':
           this.trialNumber++;
@@ -89,9 +89,9 @@ define( function( require ) {
         case 'tenBalls':
           for ( i; (i < 10) && (this.trialNumber < 100); i++ ) {
             this.trialNumber++;
-            var thisModel = this;
 
-            setTimeout( function() {
+
+            window.setTimeout( function() {
               thisModel.addNewBall();
             }, (i * 100) ); /// measure in milliseconds
 
@@ -100,8 +100,7 @@ define( function( require ) {
         case 'allBalls':
           for ( i; this.trialNumber < 100; i++ ) {
             this.trialNumber++;
-            var thisModel = this;
-            setTimeout( function() {
+            window.setTimeout( function() {
               thisModel.addNewBall();
             }, (i * 100) );
           }
