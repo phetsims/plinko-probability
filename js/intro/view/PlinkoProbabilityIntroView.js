@@ -104,7 +104,7 @@ define( function( require ) {
     } );
 
     // create play Panel
-    var playPanel = new PlayPanel( model.isPlayingProperty, model.ballModeProperty );
+    var playPanel = new PlayPanel( model.play.bind( model ), model.ballModeProperty );
 
     // create Panel that displays sample and theoretical statistics
     var statisticsDisplayNode = new StatisticsDisplayNode( model );

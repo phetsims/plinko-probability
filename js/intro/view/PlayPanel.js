@@ -14,7 +14,8 @@ define( function( require ) {
   var HBox = require( 'SCENERY/nodes/HBox' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Panel = require( 'SUN/Panel' );
-  var PlayPauseButton = require( 'SCENERY_PHET/buttons/PlayPauseButton' );
+  //var PlayPauseButton = require( 'SCENERY_PHET/buttons/PlayPauseButton' );
+  var PlayButton = require( 'PLINKO/intro/view/PlayButton' );
   var PlinkoConstants = require( 'PLINKO/common/PlinkoConstants' );
   var RadialGradient = require( 'SCENERY/util/RadialGradient' );
   var Text = require( 'SCENERY/nodes/Text' );
@@ -31,12 +32,12 @@ define( function( require ) {
 
   /**
    *
-   * @param {Property.<boolean>} isPlayingProperty
+   * @param {Function} listener
    * @param {Property.<String>} ballModeProperty
    * @param {Object} [options]
    * @constructor
    */
-  function PlayPanel( isPlayingProperty, ballModeProperty, options ) {
+  function PlayPanel( listener, ballModeProperty, options ) {
 
     // Demonstrate a common pattern for specifying options and providing default values.
     options = _.extend( {
@@ -103,17 +104,20 @@ define( function( require ) {
     //  buttonBorder0: new Color( 'transparent' ),
     //  buttonBorder1: new Color( 'transparent' ),
 
-    var playPauseButton = new PlayPauseButton( isPlayingProperty, {
+
+    var playButton = new PlayButton( {
       scale: 1.0,
       touchExpansion: 12,
-      pauseOptions: playPauseButtonOptions,
-      playOptions: playPauseButtonOptions
+      playOptions: playPauseButtonOptions,
+      listener: function() {
+        listener();
+      }
     } );
 
     var startVBox = new HBox( {
       spacing: 10,
       children: [
-        playPauseButton,
+        playButton,
         ballModeRadioButtons
       ]
     } );

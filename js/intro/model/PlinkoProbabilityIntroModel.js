@@ -27,7 +27,6 @@ define( function( require ) {
       histogramMode: 'count', // acceptable values are 'count' and 'fraction'
       ballMode: 'oneBall', // acceptable values are 'oneBall', 'tenBalls' and 'allBalls'
       histogramVisible: false,
-      isPlaying: false,
       isSoundEnabled: true
     } );
 
@@ -64,36 +63,6 @@ define( function( require ) {
         thisModel.histogram.push( 0 );
       }
     } );
-
-    //this.balls.addItemAddedListener( function( addedBall ) {
-    //  addedBall.indexProperty.link( function( binIndex ) {
-    //    thisModel.histogram[binIndex]++;
-    //    thisModel.histogramTotalNumber++;
-    //    thisModel.updateStatistics[binIndex];
-    //    console.log( thisModel.histogram );
-    //    // Add the removal listener for if and when this ball is removed from the model.
-    //    thisModel.balls.addItemRemovedListener( function removalListener( removedBall ) {
-    //      if ( removedBall === addedBall ) {
-    //        thisModel.balls.removeItemRemovedListener( removalListener );
-    //      }
-    //    } );
-    //  } );
-    //} );
-
-    //this.balls.forEach( function( ball ) {
-    //  ball.indexProperty.link( function( index ) {
-    //    thisModel.histogram[index]++;
-    //    console.log( thisModel.histogram );
-    //  } );
-    //} );
-
-    this.isPlayingProperty.link( function( isPlaying ) {
-      if ( isPlaying ) {
-        for ( var i = 0; i < 10; i++ ) {
-          thisModel.addNewBall();
-        }
-      }
-    } );
   }
 
   return inherit( PropertySet, PlinkoProbabilityIntroModel, {
@@ -106,8 +75,31 @@ define( function( require ) {
 
     reset: function() {
       PropertySet.prototype.reset.call( this );
+      this.trialNumber = 0;
     },
 
+    play: function() {
+      var i = 0;
+
+      switch( this.ballMode ) {
+        case 'oneBall':
+          this.trialNumber++;
+          this.addNewBall();
+          break;
+        case 'tenBalls':
+          for ( i; (i < 10) && (this.trialNumber < 100); i++ ) {
+            this.trialNumber++;
+            this.addNewBall();
+          }
+          break;
+        case 'allBalls':
+          for ( i; this.trialNumber < 100; i++ ) {
+            this.trialNumber++;
+            this.addNewBall();
+          }
+          break;
+      }
+    },
     addNewBall: function() {
       var self = this;
       var addedBall = new Ball();
