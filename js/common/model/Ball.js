@@ -98,7 +98,7 @@ define( function( require ) {
       this.ballStep( dt );
     },
 
-    ballStep: function( dt );
+    ballStep: function( dt )
   {
     var df = dt;
     // Initially falling
@@ -187,5 +187,5 @@ define( function( require ) {
 
   } );
 
-} )
+} );
 
