@@ -36,7 +36,12 @@ define( function( require ) {
     var triangleHeight = options.radius;
     var triangleWidth = options.radius * 0.8;
 
-    var playPath = new Path( new Shape().moveTo( 0, triangleHeight / 2 ).lineTo( triangleWidth, 0 ).lineTo( 0, -triangleHeight / 2 ).close(), { fill: 'black' } );
+    var playPath = new Path( new Shape().
+        moveTo( 0, triangleHeight / 2 ).
+        lineTo( triangleWidth, 0 ).
+        lineTo( 0, -triangleHeight / 2 ).
+        close(),
+      { fill: 'black' } );
 
     var playCircle = new Circle( options.radius );
     playPath.centerX = options.radius * 0.05; // move to right slightly since we don't want it exactly centered
