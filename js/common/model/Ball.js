@@ -98,51 +98,50 @@ define( function( require ) {
       this.ballStep( dt );
     },
 
-    ballStep: function( dt )
-  {
-    var df = dt;
-    // Initially falling
-    if ( this.phase === PHASE_INITIAL ) {
-      if ( df + this.fallenRatio >= 1 ) {
-        this.phase = PHASE_FALLING;
-        this.fallenRatio = 0;
-      }
-      else {
-        this.fallenRatio += df;
-      }
-    }
-
-    // Falling between pegs
-    if ( this.phase === PHASE_FALLING ) {
-      if ( df + this.fallenRatio >= 1 ) {
-        var peg = this.pegHistory.shift();
-        this.column = peg.columnNumber;
-        this.row = peg.rowNumber;
-        this.direction = peg.direction;
-        this.fallenRatio = 0;
-        if ( this.pegHistory.length === 0 ) {
-          this.phase = PHASE_EXIT;
+    ballStep: function( dt ) {
+      var df = dt;
+      // Initially falling
+      if ( this.phase === PHASE_INITIAL ) {
+        if ( df + this.fallenRatio >= 1 ) {
+          this.phase = PHASE_FALLING;
+          this.fallenRatio = 0;
+        }
+        else {
+          this.fallenRatio += df;
         }
       }
-      else {
-        this.fallenRatio += df;
-      }
-    }
 
-    // Out of pegs
-    if ( this.phase === PHASE_EXIT ) {
-      if ( df + this.fallenRatio >= 1 ) {
-        this.phase = PHASE_COLLECTED;
-        this.binIndex = this.column;
-        this.trigger( 'landed' );
+      // Falling between pegs
+      if ( this.phase === PHASE_FALLING ) {
+        if ( df + this.fallenRatio >= 1 ) {
+          var peg = this.pegHistory.shift();
+          this.column = peg.columnNumber;
+          this.row = peg.rowNumber;
+          this.direction = peg.direction;
+          this.fallenRatio = 0;
+          if ( this.pegHistory.length === 0 ) {
+            this.phase = PHASE_EXIT;
+          }
+        }
+        else {
+          this.fallenRatio += df;
+        }
       }
-      else {
-        this.fallenRatio += dt;
+
+      // Out of pegs
+      if ( this.phase === PHASE_EXIT ) {
+        if ( df + this.fallenRatio >= 1 ) {
+          this.phase = PHASE_COLLECTED;
+          this.binIndex = this.column;
+          this.trigger( 'landed' );
+        }
+        else {
+          this.fallenRatio += dt;
+        }
       }
+      this.position = this.getPosition();
     }
-    this.position = this.getPosition();
-  }
-  ,
+    ,
 
 
     /**
