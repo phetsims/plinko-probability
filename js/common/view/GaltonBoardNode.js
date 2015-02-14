@@ -10,7 +10,7 @@ define( function( require ) {
 
     // modules
 
-    //  var Bounds2 = require( 'DOT/Bounds2' );
+    //var Bounds2 = require( 'DOT/Bounds2' );
     //   var Circle = require( 'SCENERY/nodes/Circle' );
     var inherit = require( 'PHET_CORE/inherit' );
     var PlinkoConstants = require( 'PLINKO/common/PlinkoConstants' );
@@ -42,7 +42,7 @@ define( function( require ) {
 
       model.galtonBoard.pegs.forEach( function( peg ) {
         pegPath = new Path( pegShape, { fill: PlinkoConstants.PEG_COLOR } );
-        pegPath.pegPosition = peg.position;
+        pegPath.pegPosition = peg.unnormalizedPosition;
         galtonBoardNode.pegPathArray.push( pegPath );
       } );
 

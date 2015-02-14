@@ -8,7 +8,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-
+  var Bounds2 = require( 'DOT/Bounds2' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Line = require( 'SCENERY/nodes/Line' );
   var Node = require( 'SCENERY/nodes/Node' );
@@ -119,7 +119,8 @@ define( function( require ) {
   //----------------------------------------------------------------------------------------
 
   /**
-   * @param {Graph} graph
+   * @param {Property.<number>} numberOfRowsProperty
+   * @param {Bounds2} bounds
    * @param {ModelViewTransform2} modelViewTransform
    * @constructor
    */
@@ -136,7 +137,7 @@ define( function( require ) {
     } );
     this.addChild( lineNode );
 
-    // ticks
+    // label
     var tickSeparation = 1;
     var numberOfTicks = tickSeparation.numberOfTicks;
 
@@ -216,12 +217,6 @@ define( function( require ) {
    */
   function XLabelNode( graph, modelViewTransform ) {
 
-    Node.call( this );
-
-    var centerX = modelViewTransform.modelToViewX( (graph.xRange.min + graph.xRange.max) / 2 );
-    var bottom = modelViewTransform.modelToViewY( graph.yRange.min );
-    var xLabelNode = new Text( graph.xAxisTitle, { font: AXIS_LABEL_FONT, fill: AXIS_LABEL_COLOR, centerX: centerX, bottom: bottom + 50 } );
-    this.addChild( xLabelNode );
   }
 
   inherit( Node, XLabelNode );
@@ -258,37 +253,35 @@ define( function( require ) {
 //----------------------------------------------------------------------------------------
 
   /**
-   * @param {Graph} graph
+   * @param {Bounds2} bounds
    * @param {ModelViewTransform2} modelViewTransform
    * @constructor
    */
-  function BackgroundNode( graph, modelViewTransform ) {
+  function BackgroundNode( bounds, modelViewTransform ) {
     Node.call( this );
 
-    var backgroundNode = new Rectangle(
-      modelViewTransform.modelToViewX( graph.xRange.min ),
-      modelViewTransform.modelToViewY( graph.yRange.max ),
-      modelViewTransform.modelToViewDeltaX( graph.xRange.getLength() ),
-      modelViewTransform.modelToViewDeltaY( -graph.yRange.getLength() ),
+    // TODO get the bounds form the model instead
+    var backgroundNode = new Rectangle( bounds,
       { fill: GRID_BACKGROUND_FILL, lineWidth: GRID_BACKGROUND_LINE_WIDTH, stroke: GRID_BACKGROUND_STROKE } );
     this.addChild( backgroundNode );
-
   }
 
   inherit( Node, BackgroundNode );
 
-
   /**
    *
-   * @param numberOfRowsProperty
-   * @param verticalScaleProperty
+   * @param {Property.<number>} numberOfRowsProperty
+   * @param {Property.<number>} verticalScaleProperty
    * @param histogram
-   * @param modelViewTransform
-   * @param histogramVisibleProperty
+   * @param {ModelViewTransform2} modelViewTransform
+   * @param {Property.<boolean>} histogramVisibleProperty
    * @constructor
    */
   function HistogramNode( numberOfRowsProperty, verticalScaleProperty, histogram, modelViewTransform, histogramVisibleProperty ) {
 
+    var minY = -1.5;
+    var bounds = new Bounds2( -1, minY, 1, -1 );
+    console.log( bounds );
     Node.call( this, {
         children: [
           new BackgroundNode( modelViewTransform ),
@@ -303,5 +296,4 @@ define( function( require ) {
   }
 
   return inherit( Node, HistogramNode );
-} )
-;
+} );

@@ -23,11 +23,8 @@ define( function( require ) {
       /*
 
        The pegs are labeled in terms of their row and columns;
+       The leftmost column of every row is column 0
 
-       column=   -3/2 -1 -1/2  0  1/2  1  3/2
-       *   *   *   *   *   *   *
-
-       column=   -3/2 -1 -1/2  0  1/2  1  3/2
        row = 0                          *
 
        row = 1                      *       *
@@ -38,7 +35,8 @@ define( function( require ) {
 
        bucket=4         0       0       0       0       0
 
-       The galton board has bounds
+       The galton board has bounds given as bounds2( -1,-1,1,0)
+
        (-1,0)   (0,0)    (1,0)
        ---------*---------
        |      *   *      |
@@ -56,15 +54,15 @@ define( function( require ) {
        Defining the maximum number of rows as N, the vertical separation of the pegs is given by 1/(N)
        The horizontal separation between pegs is 1/(N)
        The vertical position of the peg is given by    y = -row/(N)
-       whereas its horizontal position is given by     x = 2*column/(N)
-       The bucket collector are located at  y =-1 and x = 2*column/(N)
+       whereas its horizontal position is given by     x = (2*column-rowNumber)/(N)
+       The bucket collector are located at  y =-1 and x = (2*column/N) - 1
        */
 
       //var galtonBoard = this;
       this.bounds = new Bounds2( -1, -1, 1, 0 );
 
-      var rowNumber;
-      var columnNumber;
+      var rowNumber; // {number} a non negative integer
+      var columnNumber; // {number} a non negative  integer
       this.pegs = [];
 
       var index = 0;
@@ -72,9 +70,9 @@ define( function( require ) {
         for ( columnNumber = 0; columnNumber <= rowNumber; columnNumber++ ) {
 
           var peg = {
-            rowNumber: rowNumber,
-            columnNumber: columnNumber,
-            position: new Vector2( columnNumber - rowNumber * 0.5, rowNumber ),
+            rowNumber: rowNumber, // an integer starting at zero
+            columnNumber: columnNumber, // an integer starting at zero
+            unnormalizedPosition: new Vector2( columnNumber - rowNumber * 0.5, rowNumber ), //
             index: index
           };
           index++;
@@ -85,20 +83,53 @@ define( function( require ) {
 
     return inherit( Object, GaltonBoard,
       {
+        /**
+         *
+         * @param {number} row - a non negative integer
+         * @param {number} column - an integer or half integer
+         * @returns {Object} peg
+         */
         getPegFromRowColumn: function( row, column ) {
           var index = this.getIndexArray( row, column );
           return this.pegs[ index ];
         },
 
+        /**
+         * Function that returns the index of a peg (in the array pegs) from its row and column position
+         * @param {number} row - a non negative  integer
+         * @param {number} column - an integer
+         * @returns {number} index
+         */
         getIndexArray: function( row, column ) {
           return column + row * (row + 1) / 2;
         },
 
-        getPositionOnBoard: function( row, column, numberOfRows ) {
-          return this.getPegFromRowColumn( row, column ).componentTimes( {
+        /**
+         * Function that returns the x and y coordinates of an peg in reference to the galtonBoard bounds
+         * The position is normalized
+         * @param {number} row
+         * @param {number} column
+         * @param {number} numberOfRows - the number of rows on the screen
+         * @returns {Vector2}
+         */
+        getOnBoardPosition: function( row, column, numberOfRows ) {
+          return this.getPegFromRowColumn( row, column ).unnormalizedPosition.componentTimes( {
             x: 2 / numberOfRows,
             y: -1 / numberOfRows
           } );
+        },
+
+        /**
+         * Function that returns the position of a bucket
+         * The x position is defined as the center X of the bucket
+         * whereas the y-position is the top position
+         * The position is normalized.
+         * @param {number} column
+         * @param {number} numberOfRows - the number of rows on the screen
+         * @returns {Vector2}
+         */
+        getBucketPosition: function( column, numberOfRows ) {
+          return this.getOnBoardPosition( numberOfRows, column, numberOfRows );
         }
       } );
 

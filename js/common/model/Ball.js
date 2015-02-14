@@ -63,52 +63,74 @@ define( function( require ) {
   }
 
   return inherit( PropertySet, Ball, {
-    // dt {Number} is normalized in plinkoProbabilityModel
-    // probability {Number}
-    step: function( dt, probability, maxRows ) {
+    reset: function() {
+    },
+
+    /**
+     *
+     * @param {number} binaryProbability - a number between 0 and 1, the average probability of the ball to fall to the right
+     * @param {number} maxRows - an integer
+     */
+    pegPath: function( binaryProbability, maxRows ) {
+
+      var direction;  // 0 is left, 1 is right
+      var rowNumber;
+      var columnNumber = 0;
+      for ( rowNumber = 0; rowNumber <= maxRows; rowNumber++ ) {
+        direction = (Math.random() < binaryProbability) ? 1 : 0;
+        var peg = {
+          rowNumber: rowNumber, // an integer starting at zero
+          columnNumber: columnNumber, // an integer starting at zero
+          direction: direction, // direction to the next peg
+          unnormalizedPosition: new Vector2( columnNumber - rowNumber * 0.5, rowNumber ) //
+        };
+        this.pegHistory.push( peg );
+
+        columnNumber += direction;
+      }
+    },
+
+    /**
+     *
+     * @param {number} dt - time interval
+     */
+    step: function( dt ) {
+      var df = dt;
+
+      // Initially falling
       if ( this.phase === PHASE_INITIAL ) {
-        if ( dt + this.fallenRatio >= 1 ) {
+        if ( df + this.fallenRatio >= 1 ) {
           this.phase = PHASE_FALLING;
-          dt -= 1 - this.fallenRatio;
           this.fallenRatio = 0;
         }
         else {
-          this.fallenRatio += dt;
+          this.fallenRatio += df;
         }
       }
 
+      // Falling between pegs
       if ( this.phase === PHASE_FALLING ) {
-        while ( true ) {
-          if ( this.direction === 0 ) {
-            this.direction = Math.random() < probability ? 1 : -1;
+        if ( df + this.fallenRatio >= 1 ) {
+          var peg = this.pegHistory.shift();
+          this.column = peg.columnNumber;
+          this.row = peg.rowNumber;
+          this.direction = peg.direction;
+          this.fallenRatio = 0;
+          if ( this.pegHistory.length === 0 ) {
+            this.phase = PHASE_EXIT;
           }
-
-          if ( dt + this.fallenRatio >= 1 ) {
-            dt -= 1 - this.fallenRatio;
-            this.column += (this.direction === 1 ? 1 : 0);
-            this.row += 1;
-            this.pegHistory.push( { column: this.column, row: this.row } );
-
-            this.fallenRatio = 0;
-            this.direction = 0;
-            if ( this.row >= maxRows ) {
-              this.phase = PHASE_EXIT;
-            }
-          }
-          else {
-            this.fallenRatio += dt;
-            break;
-          }
+        }
+        else {
+          this.fallenRatio += df;
         }
       }
 
+      // Out of pegs
       if ( this.phase === PHASE_EXIT ) {
-        if ( dt + this.fallenRatio >= 1 ) {
+        if ( df + this.fallenRatio >= 1 ) {
           this.phase = PHASE_COLLECTED;
-          // dt -= 1 - this.fallenRatio;
-          this.binIndex = this.column;
+          this.binIndex = this.columnNumber;
           this.trigger( 'landed' );
-          //this.fallenRatio = 0;
         }
         else {
           this.fallenRatio += dt;
@@ -117,16 +139,16 @@ define( function( require ) {
       this.position = this.getPosition();
     },
 
-    reset: function() {
-
-    },
-
+    /**
+     *
+     * @returns {Vector2}
+     */
     getPosition: function() {
       switch( this.phase ) {
         case PHASE_INITIAL:
           return new Vector2( 0, -1 + this.fallenRatio );
         case PHASE_FALLING:
-          return new Vector2( this.getPositionX( this.row, this.column ) + 0.5 * (this.direction) * this.fallenRatio,
+          return new Vector2( this.getPositionX( this.row, this.column ) + (this.direction - 0.5) * this.fallenRatio,
             this.getPositionY( this.row, this.column ) + this.fallenRatio * this.fallenRatio );
         case PHASE_EXIT:
           return new Vector2( this.getPositionX( this.row, this.column ), this.getPositionY( this.row, this.column ) + this.fallenRatio );
@@ -135,11 +157,23 @@ define( function( require ) {
       }
     },
 
+    /**
+     *
+     * @param {number}  row
+     * @param {number} column
+     * @returns {number}
+     */
     getPositionX: function( row, column ) {
       //return new GaltonBoard.getPegFromRowColumn( row, column ).position.x;
       return column - row * 0.5;
     },
 
+    /**
+     *
+     * @param {number} row
+     * @param {number} column
+     * @returns {number}
+     */
     getPositionY: function( row, column ) {
       //return new GaltonBoard.getPegFromRowColumn( row, column ).position.y;
       return row;

@@ -109,7 +109,7 @@ define( function( require ) {
           dt = 1000;
         }
         for ( var i = 0; i < this.balls.length; i++ ) {
-          this.balls.get( i ).step( 20 * dt, this.probability, this.numberOfRowsProperty.value );
+          this.balls.get( i ).step( dt, this.probability, this.numberOfRowsProperty.value );
         }
       },
 
@@ -120,6 +120,7 @@ define( function( require ) {
       addNewBall: function() {
         var self = this;
         var addedBall = new Ball();
+        addedBall.pegPath( this.probability, this.numberOfRowsProperty.value );
         this.balls.push( addedBall );
         addedBall.on( 'landed', function() {
           self.addBallToHistogram( addedBall.binIndex );
