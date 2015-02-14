@@ -143,7 +143,7 @@ define( function( require ) {
     },
 
     /**
-     * Function that returns the thoertical average of the binomial distribution
+     * Function that returns the theoretical average of the binomial distribution
      * @returns {number}
      */
     getTheoreticalAverage: function() {
@@ -207,7 +207,7 @@ define( function( require ) {
     },
 
     /**
-     *  Function that returns the theoretical probabilities i.e. P(n,k,p) of a binomial distribution in arraw form
+     *  Function that returns the theoretical probabilities i.e. P(n,k,p) of a binomial distribution in array form
      *  http://en.wikipedia.org/wiki/Binomial_distribution
      *
      * @returns {Array}
@@ -256,7 +256,7 @@ define( function( require ) {
     },
 
     /**
-     * Add an additional ball to the histogram and update all the relevant statitics
+     * Add an additional ball to the histogram and update all the relevant statistics
      * @param {number} binIndex
      */
     addBallToHistogram: function( binIndex ) {

@@ -60,7 +60,7 @@ define( function( require ) {
       model.numberOfRowsProperty.link( function( numberOfRows ) {
         var visibleNumberOfPegs = (numberOfRows) * (numberOfRows + 1) / 2;
         galtonBoardNode.pegPathArray.forEach( function( pegPath, index ) {
-          pegPath.visible = (index < visibleNumberOfPegs) ? true : false;
+          pegPath.visible = (index < visibleNumberOfPegs);
           pegPath.center = modelViewTransform.modelToViewPosition( pegPath.pegPosition.componentTimes( {
             x: 2 / numberOfRows,
             y: -1 / numberOfRows

@@ -151,7 +151,7 @@ define( function( require ) {
       }
     );
 
-    //TODO: add labelTitle only if non null: otherwise it will add unneccessary white space at the top
+    //TODO: add labelTitle only if non null: otherwise it will add unnecessary white space at the top
     this.addChild( labelTitle );
     this.addChild( leftArrowButton );
     this.addChild( rightArrowButton );
