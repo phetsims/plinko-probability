@@ -89,13 +89,21 @@ define( function( require ) {
         case 'tenBalls':
           for ( i; (i < 10) && (this.trialNumber < 100); i++ ) {
             this.trialNumber++;
-            this.addNewBall();
+            var thisModel = this;
+
+            setTimeout( function() {
+              thisModel.addNewBall();
+            }, (i * 100) ); /// measure in milliseconds
+
           }
           break;
         case 'allBalls':
           for ( i; this.trialNumber < 100; i++ ) {
             this.trialNumber++;
-            this.addNewBall();
+            var thisModel = this;
+            setTimeout( function() {
+              thisModel.addNewBall();
+            }, (i * 100) );
           }
           break;
       }
