@@ -140,8 +140,7 @@ define( function( require ) {
         }
       }
       this.position = this.getPosition();
-    }
-    ,
+    },
 
 
     /**
