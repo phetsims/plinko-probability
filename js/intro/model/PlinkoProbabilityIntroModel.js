@@ -159,8 +159,7 @@ define( function( require ) {
     getTheoreticalAverage: function( numberOfRows, probability ) {
       assert && assert( numberOfRows % 1 === 0, 'number of rows should be an integer' );
       return numberOfRows * probability;
-    }
-    ,
+    },
 
     /**
      * Function that calculates the theoretical standard deviation of the binomial distribution
@@ -171,8 +170,7 @@ define( function( require ) {
     getTheoreticalStandardDeviation: function( numberOfRows, probability ) {
       assert && assert( numberOfRows % 1 === 0, 'number of rows should be an integer' );
       return Math.sqrt( numberOfRows * probability * (1 - probability) );
-    }
-    ,
+    },
 
     /**
      * Function that calculates the theoretical standard deviation of the mean for the current value of number of balls
@@ -190,8 +188,7 @@ define( function( require ) {
       else {
         return 'Not A Number';
       }
-    }
-    ,
+    },
 
     /**
      * http://en.wikipedia.org/wiki/Binomial_coefficient
@@ -211,8 +208,7 @@ define( function( require ) {
         coefficient /= i;
       }
       return coefficient;
-    }
-    ,
+    },
 
     /**
      *http://en.wikipedia.org/wiki/Binomial_distribution
@@ -226,8 +222,7 @@ define( function( require ) {
       var binomialCoefficient = this.getBinomialCoefficient( n, k );
       var statisticalWeight = Math.pow( p, k ) * Math.pow( 1 - p, n - k );
       return binomialCoefficient * statisticalWeight;
-    }
-    ,
+    },
 
     /**
      *  Function that returns the theoretical probabilities i.e. P(n,k,p) of a binomial distribution in array form
@@ -243,8 +238,7 @@ define( function( require ) {
         binomialCoefficientsArray.push( this.getBinomialProbability( this.numberOfRowsProperty.value, k, this.probability ) );
       }
       return binomialCoefficientsArray;
-    }
-    ,
+    },
 
     /**
      * Update the histogram statistic
@@ -276,8 +270,7 @@ define( function( require ) {
         'sd=', this.standardDeviation.toFixed( 3 ),
         'sdm=', this.standardDeviationOfMean.toFixed( 3 )
       );
-    }
-    ,
+    },
 
     /**
      *  Reset all the statistics to zero
@@ -291,8 +284,7 @@ define( function( require ) {
       this.standardDeviation = 0;
       this.standardDeviationOfMean = 0;
       this.trigger( 'statsUpdated' );
-    }
-    ,
+    },
 
     /**
      * Add an additional ball to the histogram and update all the relevant statistics
