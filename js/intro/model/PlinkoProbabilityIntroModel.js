@@ -75,7 +75,7 @@ define( function( require ) {
 
     reset: function() {
       PropertySet.prototype.reset.call( this );
-      this.trialNumber = 0;
+      this.resetStatistics();
     },
 
     play: function() {
@@ -112,7 +112,6 @@ define( function( require ) {
       this.balls.push( addedBall );
       addedBall.on( 'landed', function() {
         thisModel.addBallToHistogram( addedBall.binIndex );
-        addedBall.trigger( 'removed' );
         thisModel.balls.remove( addedBall );
       } );
     },
@@ -216,9 +215,17 @@ define( function( require ) {
       var N = this.landedBallsNumber;
       this.average = ((N - 1) * this.average + binIndex) / N;
       this.sumOfSquares += binIndex * binIndex;
-      this.variance = (this.sumOfSquares - N * this.average * this.average) / (N - 1);
-      this.standardDeviation = Math.sqrt( this.variance );
-      this.standardDeviationOfMean = this.standardDeviation / Math.sqrt( N );
+      // the variance and standard deviations exist only when the number of ball is larger than 1
+      if ( N > 1 ) {
+        this.variance = (this.sumOfSquares - N * this.average * this.average) / (N - 1);
+        this.standardDeviation = Math.sqrt( this.variance );
+        this.standardDeviationOfMean = this.standardDeviation / Math.sqrt( N );
+      }
+      else {
+        this.variance = 0;
+        this.standardDeviation = 0;
+        this.standardDeviationOfMean = 0;
+      }
 
       console.log(
         'N=', N,
@@ -239,6 +246,7 @@ define( function( require ) {
       this.variance = 0;
       this.standardDeviation = 0;
       this.standardDeviationOfMean = 0;
+      this.trigger( 'statsUpdated' )
     },
 
     /**
@@ -249,6 +257,7 @@ define( function( require ) {
       this.landedBallsNumber++;
       this.histogram[ binIndex ]++;
       this.updateStatistics( binIndex );
+      this.trigger( 'statsUpdated' );
     }
 
   } );

@@ -82,22 +82,13 @@ define( function( require ) {
       theoreticalStandardDeviationText.setRightHandSideOfEquation( model.getTheoreticalStandardDeviation( integerNumberOfRows, probability ) );
     } );
 
-    model.balls.addItemAddedListener( function( addedBall ) {
-
-      addedBall.on( 'removed', function() {
-        numberLandedBallsText.setRightHandSideOfEquation( model.landedBallsNumber );
-        sampleAverageText.setRightHandSideOfEquation( model.average );
-        sampleStandardDeviationText.setRightHandSideOfEquation( model.standardDeviation );
-        sampleStandardDeviationOfMeanText.setRightHandSideOfEquation( model.standardDeviationOfMean );
-      } );
-
-      // Add the removal listener for if and when this dataPoint is removed from the model.
-      model.balls.addItemRemovedListener( function removalListener( removedBall ) {
-        if ( removedBall === addedBall ) {
-          model.balls.removeItemRemovedListener( removalListener );
-        }
-      } );
+    model.on( 'statsUpdated', function() {
+      numberLandedBallsText.setRightHandSideOfEquation( model.landedBallsNumber );
+      sampleAverageText.setRightHandSideOfEquation( model.average );
+      sampleStandardDeviationText.setRightHandSideOfEquation( model.standardDeviation );
+      sampleStandardDeviationOfMeanText.setRightHandSideOfEquation( model.standardDeviationOfMean );
     } );
+
 
     var histogramCheckBox = new CheckBox( new HistogramIcon(), model.histogramVisibleProperty );
 
