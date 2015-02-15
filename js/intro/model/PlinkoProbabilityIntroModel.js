@@ -209,7 +209,9 @@ define( function( require ) {
 
     /**
      * Update the histogram statistic
-     * @param {number} binIndex
+     * The number of balls has already been updated
+     *
+     * @param {number} binIndex - the bin index of the Nth Ball
      */
     updateStatistics: function( binIndex ) {
       var N = this.landedBallsNumber;
