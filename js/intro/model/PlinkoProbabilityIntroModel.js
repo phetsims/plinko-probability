@@ -227,6 +227,8 @@ define( function( require ) {
         this.standardDeviationOfMean = 0;
       }
 
+      this.trigger( 'statsUpdated' );
+
       console.log(
         'N=', N,
         'mu=', this.average.toFixed( 3 ),
@@ -246,7 +248,7 @@ define( function( require ) {
       this.variance = 0;
       this.standardDeviation = 0;
       this.standardDeviationOfMean = 0;
-      this.trigger( 'statsUpdated' )
+      this.trigger( 'statsUpdated' );
     },
 
     /**
@@ -257,7 +259,6 @@ define( function( require ) {
       this.landedBallsNumber++;
       this.histogram[ binIndex ]++;
       this.updateStatistics( binIndex );
-      this.trigger( 'statsUpdated' );
     }
 
   } );
