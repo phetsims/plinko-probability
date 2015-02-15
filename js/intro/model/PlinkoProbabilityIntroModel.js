@@ -89,8 +89,6 @@ define( function( require ) {
         case 'tenBalls':
           for ( i; (i < 10) && (this.trialNumber < 100); i++ ) {
             this.trialNumber++;
-
-
             window.setTimeout( function() {
               thisModel.addNewBall();
             }, (i * 100) ); /// measure in milliseconds
@@ -122,28 +120,38 @@ define( function( require ) {
 
     /**
      * Function that returns the theoretical average of the binomial distribution
+     * @param {number} numberOfRows - an integer
+     * @param {number} probability - ranges from 0 to 1
      * @returns {number}
      */
-    getTheoreticalAverage: function() {
-      return this.numberOfRowsProperty.value * this.probability;
+    getTheoreticalAverage: function( numberOfRows, probability ) {
+      assert && assert( numberOfRows % 1 === 0, 'number of rows should be an integer' );
+      return numberOfRows * probability;
     },
 
     /**
      * Function that calculates the theoretical standard deviation of the binomial distribution
+     * @param {number} numberOfRows - an integer
+     * @param {number} probability - ranges from 0 to 1
      * @returns {number}
      */
-    getTheoreticalStandardDeviation: function() {
-      return Math.sqrt( this.numberOfRowsProperty.value * this.probability * (1 - this.probability) );
+    getTheoreticalStandardDeviation: function( numberOfRows, probability ) {
+      assert && assert( numberOfRows % 1 === 0, 'number of rows should be an integer' );
+      return Math.sqrt( numberOfRows * probability * (1 - probability) );
     },
 
     /**
      * Function that calculates the theoretical standard deviation of the mean for the current value of number of balls
      * It returns a string if there is not a single particle on the board
+     * @param {number} numberOfRows - an integer
+     * @param {number} probability - ranges from 0 to 1
      * @returns {number||string}
      */
-    getTheoreticalStandardDeviationOfMean: function() {
+    getTheoreticalStandardDeviationOfMean: function( numberOfRows, probability ) {
+      assert && assert( numberOfRows % 1 === 0, 'number of rows should be an integer' );
+
       if ( this.landedBallsNumber > 0 ) {
-        return Math.sqrt( this.numberOfRowsProperty.value * this.probability * (1 - this.probability ) / this.landedBallsNumber );
+        return Math.sqrt( numberOfRows * probability * (1 - probability ) / this.landedBallsNumber );
       }
       else {
         return 'Not A Number';

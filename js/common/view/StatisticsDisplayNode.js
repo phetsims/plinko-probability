@@ -77,13 +77,13 @@ define( function( require ) {
     //var theoreticalStandardDeviationOfMeanText = new EquationNode( 'sd', 0, optionsTheoretical );
 
     Property.multilink( [ model.numberOfRowsProperty, model.probabilityProperty ], function( numberOfRows, probability ) {
-      theoreticalAverageText.setRightHandSideOfEquation( model.getTheoreticalAverage() );
-      theoreticalStandardDeviationText.setRightHandSideOfEquation( model.getTheoreticalStandardDeviation() );
+      var integerNumberOfRows = numberOfRows;
+      theoreticalAverageText.setRightHandSideOfEquation( model.getTheoreticalAverage( integerNumberOfRows, probability ) );
+      theoreticalStandardDeviationText.setRightHandSideOfEquation( model.getTheoreticalStandardDeviation( integerNumberOfRows, probability ) );
     } );
 
     model.balls.addItemAddedListener( function( addedBall ) {
 
-      //TODO: fix since it set the text before the ball is added
       addedBall.on( 'removed', function() {
         numberLandedBallsText.setRightHandSideOfEquation( model.landedBallsNumber );
         sampleAverageText.setRightHandSideOfEquation( model.average );
