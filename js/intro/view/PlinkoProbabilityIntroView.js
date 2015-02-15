@@ -28,7 +28,7 @@ define( function( require ) {
   //var Range = require( 'DOT/Range' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var SoundToggleButton = require( 'SCENERY_PHET/buttons/SoundToggleButton' );
-  var StatisticsDisplayNode = require( 'PLINKO/lab/view/StatisticsDisplayNode' );
+  var StatisticsDisplayNode = require( 'PLINKO/common/view/StatisticsDisplayNode' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var Vector2 = require( 'DOT/Vector2' );
 

@@ -84,7 +84,7 @@ define( function( require ) {
     model.balls.addItemAddedListener( function( addedBall ) {
 
       //TODO: fix since it set the text before the ball is added
-      addedBall.on( 'landed', function() {
+      addedBall.on( 'removed', function() {
         numberLandedBallsText.setRightHandSideOfEquation( model.landedBallsNumber );
         sampleAverageText.setRightHandSideOfEquation( model.average );
         sampleStandardDeviationText.setRightHandSideOfEquation( model.standardDeviation );

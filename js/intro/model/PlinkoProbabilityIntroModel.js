@@ -68,7 +68,7 @@ define( function( require ) {
   return inherit( PropertySet, PlinkoProbabilityIntroModel, {
     step: function( dt ) {
       this.balls.forEach( function( ball ) {
-        ball.step( dt );
+        ball.step( 20 * dt );
       } );
 
     },
@@ -108,13 +108,14 @@ define( function( require ) {
       }
     },
     addNewBall: function() {
-      var self = this;
+      var thisModel = this;
       var addedBall = new Ball();
       addedBall.pegPath( this.probability, this.numberOfRowsProperty.value );
       this.balls.push( addedBall );
       addedBall.on( 'landed', function() {
-        self.addBallToHistogram( addedBall.binIndex );
-        self.balls.remove( addedBall );
+        thisModel.addBallToHistogram( addedBall.binIndex );
+        addedBall.trigger( 'removed' );
+        thisModel.balls.remove( addedBall );
       } );
     },
 
