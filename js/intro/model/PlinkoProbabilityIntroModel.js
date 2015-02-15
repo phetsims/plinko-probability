@@ -27,6 +27,7 @@ define( function( require ) {
       histogramMode: 'count', // acceptable values are 'count' and 'fraction'
       ballMode: 'oneBall', // acceptable values are 'oneBall', 'tenBalls' and 'allBalls'
       histogramVisible: false,
+      isBallCapReached: false, // is the maximum of balls reached?
       isSoundEnabled: true
     } );
 
@@ -35,7 +36,7 @@ define( function( require ) {
         return Math.round( numberOfRowsForSlider );
       } );
 
-    this.trialNumber = 0; // number of current trial (current ball drop)
+    this.launchedBallsNumber = 0; // number of current trial (current ball drop)
     this.landedBallsNumber = 0; //number of balls in the histogram
     this.average = 0;  // average of the sample (near zero for p = 0.5)
     this.sumOfSquares = 0; // sum of squares of trials, used to compute the variance
@@ -70,7 +71,6 @@ define( function( require ) {
       this.balls.forEach( function( ball ) {
         ball.step( 20 * dt );
       } );
-
     },
 
     reset: function() {
@@ -83,12 +83,12 @@ define( function( require ) {
       var thisModel = this;
       switch( this.ballMode ) {
         case 'oneBall':
-          this.trialNumber++;
+          this.launchedBallsNumber++;
           this.addNewBall();
           break;
         case 'tenBalls':
-          for ( i; (i < 10) && (this.trialNumber < 100); i++ ) {
-            this.trialNumber++;
+          for ( i; (i < 10) && (this.launchedBallsNumber < 100); i++ ) {
+            this.launchedBallsNumber++;
             window.setTimeout( function() {
               thisModel.addNewBall();
             }, (i * 100) ); /// measure in milliseconds
@@ -96,8 +96,8 @@ define( function( require ) {
           }
           break;
         case 'allBalls':
-          for ( i; this.trialNumber < 100; i++ ) {
-            this.trialNumber++;
+          for ( i; this.launchedBallsNumber < 100; i++ ) {
+            this.launchedBallsNumber++;
             window.setTimeout( function() {
               thisModel.addNewBall();
             }, (i * 100) );
@@ -105,6 +105,10 @@ define( function( require ) {
           break;
       }
     },
+
+    /**
+     * Add a new Ball to the model
+     */
     addNewBall: function() {
       var thisModel = this;
       var addedBall = new Ball();
@@ -114,6 +118,35 @@ define( function( require ) {
         thisModel.addBallToHistogram( addedBall.binIndex );
         thisModel.balls.remove( addedBall );
       } );
+    },
+
+    /**
+     * Function that add some number of new balls to the model.
+     * The balls can be added sequentially and the number can be capped to some max number of balls
+     *
+     * @param {number} numberOfBallsAdded
+     * @param {Object} [options]
+     */
+    addNewBalls: function( numberOfBallsAdded, options ) {
+
+      options = {
+        timeSeparation: 0.1, // (in seconds) time interval between the launch of two balls
+        isCapped: true // is the number of balls (on board) capped to a maximum number
+      };
+
+      var thisModel = this;
+
+      for ( var count = 0; count < numberOfBallsAdded; count++ ) {
+        this.launchedBallsNumber++;
+
+        window.setTimeout( function() {
+          thisModel.addNewBall();
+        }, count * options.timeSeparation * 1000 );
+
+        if ( options.isCapped && this.launchedBallsNumber > 100 ) {
+          break;
+        }
+      }
     },
 
 
@@ -126,7 +159,8 @@ define( function( require ) {
     getTheoreticalAverage: function( numberOfRows, probability ) {
       assert && assert( numberOfRows % 1 === 0, 'number of rows should be an integer' );
       return numberOfRows * probability;
-    },
+    }
+    ,
 
     /**
      * Function that calculates the theoretical standard deviation of the binomial distribution
@@ -137,7 +171,8 @@ define( function( require ) {
     getTheoreticalStandardDeviation: function( numberOfRows, probability ) {
       assert && assert( numberOfRows % 1 === 0, 'number of rows should be an integer' );
       return Math.sqrt( numberOfRows * probability * (1 - probability) );
-    },
+    }
+    ,
 
     /**
      * Function that calculates the theoretical standard deviation of the mean for the current value of number of balls
@@ -155,7 +190,8 @@ define( function( require ) {
       else {
         return 'Not A Number';
       }
-    },
+    }
+    ,
 
     /**
      * http://en.wikipedia.org/wiki/Binomial_coefficient
@@ -175,7 +211,8 @@ define( function( require ) {
         coefficient /= i;
       }
       return coefficient;
-    },
+    }
+    ,
 
     /**
      *http://en.wikipedia.org/wiki/Binomial_distribution
@@ -189,7 +226,8 @@ define( function( require ) {
       var binomialCoefficient = this.getBinomialCoefficient( n, k );
       var statisticalWeight = Math.pow( p, k ) * Math.pow( 1 - p, n - k );
       return binomialCoefficient * statisticalWeight;
-    },
+    }
+    ,
 
     /**
      *  Function that returns the theoretical probabilities i.e. P(n,k,p) of a binomial distribution in array form
@@ -205,7 +243,8 @@ define( function( require ) {
         binomialCoefficientsArray.push( this.getBinomialProbability( this.numberOfRowsProperty.value, k, this.probability ) );
       }
       return binomialCoefficientsArray;
-    },
+    }
+    ,
 
     /**
      * Update the histogram statistic
@@ -237,13 +276,14 @@ define( function( require ) {
         'sd=', this.standardDeviation.toFixed( 3 ),
         'sdm=', this.standardDeviationOfMean.toFixed( 3 )
       );
-    },
+    }
+    ,
 
     /**
      *  Reset all the statistics to zero
      */
     resetStatistics: function() {
-      this.trialNumber = 0;
+      this.launchedBallsNumber = 0;
       this.landedBallsNumber = 0;
       this.average = 0;
       this.sumOfSquares = 0;
@@ -251,7 +291,8 @@ define( function( require ) {
       this.standardDeviation = 0;
       this.standardDeviationOfMean = 0;
       this.trigger( 'statsUpdated' );
-    },
+    }
+    ,
 
     /**
      * Add an additional ball to the histogram and update all the relevant statistics
@@ -263,7 +304,9 @@ define( function( require ) {
       this.updateStatistics( binIndex );
     }
 
-  } );
-} );
+  } )
+    ;
+} )
+;
 
 
