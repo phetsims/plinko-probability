@@ -14,6 +14,7 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var Path = require( 'SCENERY/nodes/Path' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  var Property = require( 'AXON/Property' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Shape = require( 'KITE/Shape' );
   var Text = require( 'SCENERY/nodes/Text' );
@@ -297,8 +298,7 @@ define( function( require ) {
       { fill: 'blue', lineWidth: GRID_BACKGROUND_LINE_WIDTH, stroke: GRID_BACKGROUND_STROKE } );
     this.addChild( bannerBackgroundNode );
 
-    var verticalStrokes = new Shape().moveTo( 0, 0 );
-
+    var verticalStrokes = new Shape();
 
     numberOfRowsProperty.link( function( numberOfRows ) {
       updateBanner( numberOfRows );
@@ -323,6 +323,65 @@ define( function( require ) {
   }
 
   inherit( Node, XBannerNode );
+
+
+//----------------------------------------------------------------------------------------
+//  Histogram Bars
+//----------------------------------------------------------------------------------------
+
+  /**
+   * @param {Property.<number>} numberOfRowsProperty
+   * @param {Bounds2} bounds
+   * @param {ModelViewTransform2} modelViewTransform
+   * @constructor
+   */
+  function HistogramBarNode( model, numberOfRowsProperty, bounds, modelViewTransform ) {
+
+    Node.call( this );
+
+    var self = this;
+    var bannerHeight = 20;
+    var minX = modelViewTransform.modelToViewX( bounds.minX );
+    var minY = modelViewTransform.modelToViewY( bounds.maxY );
+    var maxX = modelViewTransform.modelToViewX( bounds.maxX );
+    var maxY = modelViewTransform.modelToViewY( bounds.minY );
+
+    var bannerWidth = maxX - minX;
+
+    var verticalStrokes = new Shape();
+    var verticalPaths = new Path( verticalStrokes, { fill: 'green', stroke: 'red', lineWidth: 2 } );
+    this.addChild( verticalPaths );
+    //
+    //Property.multilink( [ histogramProperty, numberOfRowsProperty ], function( histogram, numberOfRows ) {
+    //  updateHistogram( histogram, numberOfRows );
+    //} );
+
+
+    model.on( 'statsUpdated', function() {updateHistogram()} );
+    /**
+     * #param {Array} histogram
+     * @param {number} numberOfRows
+     */
+    function updateHistogram() {
+      var i;
+      var xSpacing = bannerWidth / (model.numberOfRowsProperty.value);
+      for ( i = 0; i < model.numberOfRowsProperty.value; i++ ) {
+        verticalStrokes.
+          moveTo( minX + (i - 1 / 2) * xSpacing, maxY ).
+          verticalLineToRelative( -20 * model.histogram[ i ] ).
+          horizontalLineToRelative( xSpacing ).
+          verticalLineToRelative( +20 * model.histogram[ i ] ).
+          close();
+      }
+
+      self.addChild( new Path( verticalStrokes, { fill: 'green', stroke: 'red', lineWidth: 2 } ) );
+    }
+
+  }
+
+  inherit( Node, HistogramBarNode );
+
+
   /**
    *
    * @param {Property.<number>} numberOfRowsProperty
@@ -332,19 +391,19 @@ define( function( require ) {
    * @param {Property.<boolean>} histogramVisibleProperty
    * @constructor
    */
-  function HistogramNode( numberOfRowsProperty, verticalScaleProperty, histogram, modelViewTransform, histogramVisibleProperty ) {
+  function HistogramNode( numberOfRowsProperty, verticalScaleProperty, model, modelViewTransform, histogramVisibleProperty ) {
 
     var minY = -1.5;
     var bounds = new Bounds2( -1, minY, 1, -1 );
     Node.call( this, {
         children: [
-          new BackgroundNode( bounds, modelViewTransform ),
+          //     new BackgroundNode( bounds, modelViewTransform ),
           //new XAxisNode( bounds, modelViewTransform ),
           //new YAxisNode( bounds, modelViewTransform ),
-          new XBannerNode( numberOfRowsProperty, bounds, modelViewTransform ),
-          new XLabelNode( bounds, modelViewTransform ),
-          new YLabelNode( bounds, modelViewTransform ),
-          //new HistogramBarNode( histogram, modelViewTransform )
+          //   new XBannerNode( numberOfRowsProperty, bounds, modelViewTransform ),
+          // new XLabelNode( bounds, modelViewTransform ),
+          // new YLabelNode( bounds, modelViewTransform ),
+          new HistogramBarNode( model, numberOfRowsProperty, bounds, modelViewTransform )
         ]
       }
     );

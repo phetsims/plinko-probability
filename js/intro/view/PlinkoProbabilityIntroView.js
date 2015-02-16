@@ -66,7 +66,7 @@ define( function( require ) {
     var histogramNode = new HistogramNode(
       model.numberOfRowsProperty,
       new Property( false ),
-      model.histogram,
+      model,
       modelViewTransform );
 
     var galtonBoardNode = new GaltonBoardNode( model, modelViewTransform );

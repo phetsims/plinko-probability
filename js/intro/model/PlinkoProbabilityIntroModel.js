@@ -14,6 +14,7 @@ define( function( require ) {
   var GaltonBoard = require( 'PLINKO/common/model/GaltonBoard' );
   var inherit = require( 'PHET_CORE/inherit' );
   var PlinkoConstants = require( 'PLINKO/common/PlinkoConstants' );
+  var Property = require( 'AXON/Property' );
   var PropertySet = require( 'AXON/PropertySet' );
   var ObservableArray = require( 'AXON/ObservableArray' );
 
@@ -28,7 +29,8 @@ define( function( require ) {
       ballMode: 'oneBall', // acceptable values are 'oneBall', 'tenBalls' and 'allBalls'
       histogramVisible: false,
       isBallCapReached: false, // is the maximum of balls reached?
-      isSoundEnabled: true
+      isSoundEnabled: true,
+      histogram: [],
     } );
 
     this.numberOfRowsProperty = new DerivedProperty( [ this.numberOfRowsForSliderProperty ],
@@ -49,11 +51,12 @@ define( function( require ) {
     //    this.histogram = new Array( this.maxNumberOfRows ).map( Number.prototype.valueOf, 0 );  //
 
     //TODO histogram should
-    this.histogram = [];
+    //this.histogram = [];
     // there are one more bin than the maxNumber of Rows
     for ( var i = 0; i < PlinkoConstants.ROWS_RANGE.max + 1; i++ ) {
       this.histogram.push( 0 );
     }
+    //this.histogramProperty = new Property( this.histogram );
 
     this.numberOfRowsProperty.link( function( numberOfRows ) {
       thisModel.balls.clear();
@@ -211,7 +214,7 @@ define( function( require ) {
     },
 
     /**
-     *http://en.wikipedia.org/wiki/Binomial_distribution
+     * http://en.wikipedia.org/wiki/Binomial_distribution
      *
      * @param {number} n - the number of rows of pegs
      * @param {number} k - the bin number
@@ -263,13 +266,13 @@ define( function( require ) {
       }
 
       this.trigger( 'statsUpdated' );
-
-      console.log(
-        'N=', N,
-        'mu=', this.average.toFixed( 3 ),
-        'sd=', this.standardDeviation.toFixed( 3 ),
-        'sdm=', this.standardDeviationOfMean.toFixed( 3 )
-      );
+      //
+      //console.log(
+      //  'N=', N,
+      //  'mu=', this.average.toFixed( 3 ),
+      //  'sd=', this.standardDeviation.toFixed( 3 ),
+      //  'sdm=', this.standardDeviationOfMean.toFixed( 3 )
+      //);
     },
 
     /**
