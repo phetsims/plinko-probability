@@ -69,7 +69,7 @@ define( function( require ) {
   return inherit( PropertySet, PlinkoProbabilityIntroModel, {
     step: function( dt ) {
       this.balls.forEach( function( ball ) {
-        ball.step( 20 * dt );
+        ball.step( 10 * dt );
       } );
     },
 

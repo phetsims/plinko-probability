@@ -27,15 +27,8 @@ define( function( require ) {
   // background
 
   var GRID_BACKGROUND_FILL = 'white';
-  var GRID_BACKGROUND_LINE_WIDTH = '0.5';
+  var GRID_BACKGROUND_LINE_WIDTH = 0.5;
   var GRID_BACKGROUND_STROKE = 'gray';
-
-  // grid
-
-  //var MINOR_GRID_LINE_WIDTH = 0.5;
-  //var MINOR_GRID_LINE_COLOR = 'rgb( 240, 240, 240 )';
-  //var MAJOR_GRID_LINE_WIDTH = 1.0;
-  //var MAJOR_GRID_LINE_COLOR = 'rgb( 192, 192, 192 )';
 
   // axes
 
@@ -51,6 +44,7 @@ define( function( require ) {
   var MINOR_TICK_LINE_WIDTH = 0.5;
   var MINOR_TICK_COLOR = 'black';
   var MAJOR_TICK_LENGTH = 6; // how far a major tick extends from the axis
+  var MAJOR_TICK_SPACING = 1;
   var MAJOR_TICK_LINE_WIDTH = 1;
   var MAJOR_TICK_COLOR = 'black';
   var MAJOR_TICK_FONT = new PhetFont( 16 );
@@ -124,38 +118,38 @@ define( function( require ) {
    * @param {ModelViewTransform2} modelViewTransform
    * @constructor
    */
-  function XAxisNode( graph, modelViewTransform ) {
+  function XAxisNode( bounds, modelViewTransform ) {
 
     Node.call( this );
 
     // horizontal line
-    var tailLocation = new Vector2( modelViewTransform.modelToViewX( graph.xRange.min - AXIS_EXTENT ), modelViewTransform.modelToViewY( graph.yRange.min ) );
-    var tipLocation = new Vector2( modelViewTransform.modelToViewX( graph.xRange.max + AXIS_EXTENT ), modelViewTransform.modelToViewY( graph.yRange.min ) );
+    var tailLocation = new Vector2( modelViewTransform.modelToViewX( bounds.minX - AXIS_EXTENT ), modelViewTransform.modelToViewY( bounds.minY ) );
+    var tipLocation = new Vector2( modelViewTransform.modelToViewX( bounds.maxX + AXIS_EXTENT ), modelViewTransform.modelToViewY( bounds.minY ) );
     var lineNode = new Line( tailLocation.x, tailLocation.y, tipLocation.x, tipLocation.y, {
       fill: AXIS_COLOR,
       stroke: 'black'
     } );
     this.addChild( lineNode );
 
-    // label
-    var tickSeparation = 1;
-    var numberOfTicks = tickSeparation.numberOfTicks;
 
+    // ticks
+    var numberOfTicks = bounds.width + 1;
     for ( var i = 0; i < numberOfTicks; i++ ) {
-      var modelX = tickSeparation.startPositionTick + tickSeparation.minorTickSpacing * i;
-      var x = modelViewTransform.modelToViewX( modelX );
-      var y = modelViewTransform.modelToViewY( graph.yRange.min );
-
-      if ( Math.abs( modelX / tickSeparation.minorTickSpacing ) % (tickSeparation.minorTicksPerMajor) < SMALL_EPSILON ) {
-        // major tick
-        this.addChild( new MajorTickNode( x, y, Util.toFixed( modelX, tickSeparation.decimalPlaces ), true ) );
+      var modelX = bounds.minX + i;
+      if ( modelX !== 0 ) { // skip the origin
+        var x = modelViewTransform.modelToViewX( modelX );
+        var y = modelViewTransform.modelToViewY( 0 );
+        if ( Math.abs( modelX ) % MAJOR_TICK_SPACING === 0 ) {
+          // major tick
+          this.addChild( new MajorTickNode( x, y, modelX, true ) );
+        }
+        else {
+          // minor tick
+          this.addChild( new MinorTickNode( x, y, true ) );
+        }
       }
-      else {
-        // minor tick
-        this.addChild( new MinorTickNode( x, y, true ) );
-      }
-
     }
+
   }
 
   inherit( Node, XAxisNode );
@@ -165,17 +159,17 @@ define( function( require ) {
   //----------------------------------------------------------------------------------------
 
   /**
-   * @param {Graph} graph
+   * @param {Bounds2} bounds
    * @param {ModelViewTransform2} modelViewTransform
    * @constructor
    */
-  function YAxisNode( graph, modelViewTransform ) {
+  function YAxisNode( bounds, modelViewTransform ) {
 
     Node.call( this );
 
     // vertical line
-    var tailLocation = new Vector2( modelViewTransform.modelToViewX( graph.xRange.min ), modelViewTransform.modelToViewY( graph.yRange.min - AXIS_EXTENT ) );
-    var tipLocation = new Vector2( modelViewTransform.modelToViewX( graph.xRange.min ), modelViewTransform.modelToViewY( graph.yRange.max + AXIS_EXTENT ) );
+    var tailLocation = new Vector2( modelViewTransform.modelToViewX( bounds.minX ), modelViewTransform.modelToViewY( bounds.minY - AXIS_EXTENT ) );
+    var tipLocation = new Vector2( modelViewTransform.modelToViewX( bounds.minX ), modelViewTransform.modelToViewY( bounds.maxY + AXIS_EXTENT ) );
     var lineNode = new Line( tailLocation.x, tailLocation.y, tipLocation.x, tipLocation.y, {
       fill: AXIS_COLOR,
       stroke: 'black'
@@ -190,7 +184,7 @@ define( function( require ) {
     for ( var i = 0; i < numberOfTicks; i++ ) {
       var modelY = tickSeparation.startPositionTick + tickSeparation.minorTickSpacing * i;
 
-      var x = modelViewTransform.modelToViewX( graph.xRange.min );
+      var x = modelViewTransform.modelToViewX( bounds.minX );
       var y = modelViewTransform.modelToViewY( modelY );
       if ( Math.abs( modelY / tickSeparation.minorTickSpacing ) % (tickSeparation.minorTicksPerMajor) < SMALL_EPSILON ) {
         // major tick
@@ -211,12 +205,23 @@ define( function( require ) {
 //----------------------------------------------------------------------------------------
 
   /**
-   * @param {Graph} graph
+   * @param {Bounds2} bounds
    * @param {ModelViewTransform2} modelViewTransform
    * @constructor
    */
-  function XLabelNode( graph, modelViewTransform ) {
+  function XLabelNode( bounds, modelViewTransform ) {
 
+    Node.call( this );
+
+    var centerX = modelViewTransform.modelToViewX( (bounds.minX + bounds.maxX) / 2 );
+    var bottom = modelViewTransform.modelToViewY( bounds.minY );
+    var xLabelNode = new Text( 'Bin', {
+      font: AXIS_LABEL_FONT,
+      fill: AXIS_LABEL_COLOR,
+      centerX: centerX,
+      bottom: bottom + 20
+    } );
+    this.addChild( xLabelNode );
   }
 
   inherit( Node, XLabelNode );
@@ -226,21 +231,21 @@ define( function( require ) {
 //----------------------------------------------------------------------------------------
 
   /**
-   * @param {Graph} graph
+   * @param {Bounds2} bounds
    * @param {ModelViewTransform2} modelViewTransform
    * @constructor
    */
-  function YLabelNode( graph, modelViewTransform ) {
+  function YLabelNode( bounds, modelViewTransform ) {
 
     Node.call( this );
 
-    var centerY = modelViewTransform.modelToViewY( (graph.yRange.min + graph.yRange.max) / 2 );
-    var left = modelViewTransform.modelToViewX( graph.xRange.min );
-    var yLabelNode = new Text( graph.yAxisTitle, {
+    var centerY = modelViewTransform.modelToViewY( (bounds.minY + bounds.maxY) / 2 );
+    var left = modelViewTransform.modelToViewX( bounds.minX );
+    var yLabelNode = new Text( 'STUFF', {
       font: AXIS_LABEL_FONT,
       fill: AXIS_LABEL_COLOR,
       centerY: centerY,
-      left:     left - 50,
+      left: left - 20,
       rotation: -Math.PI / 2   //remember down is positive in the view
     } );
     this.addChild( yLabelNode );
@@ -260,14 +265,64 @@ define( function( require ) {
   function BackgroundNode( bounds, modelViewTransform ) {
     Node.call( this );
 
-    // TODO get the bounds form the model instead
-    var backgroundNode = new Rectangle( bounds,
+    var backgroundNode = new Rectangle( modelViewTransform.modelToViewBounds( bounds ),
       { fill: GRID_BACKGROUND_FILL, lineWidth: GRID_BACKGROUND_LINE_WIDTH, stroke: GRID_BACKGROUND_STROKE } );
     this.addChild( backgroundNode );
   }
 
   inherit( Node, BackgroundNode );
 
+  //----------------------------------------------------------------------------------------
+//  X Banner
+//----------------------------------------------------------------------------------------
+
+  /**
+   * @param {Property.<number>} numberOfRowsProperty
+   * @param {Bounds2} bounds
+   * @param {ModelViewTransform2} modelViewTransform
+   * @constructor
+   */
+  function XBannerNode( numberOfRowsProperty, bounds, modelViewTransform ) {
+
+    Node.call( this );
+
+    var bannerHeight = 20;
+    var minX = modelViewTransform.modelToViewX( bounds.minX );
+    var minY = modelViewTransform.modelToViewY( bounds.maxY );
+    var maxX = modelViewTransform.modelToViewX( bounds.maxX );
+    var maxY = modelViewTransform.modelToViewY( bounds.maxY ) + bannerHeight;
+
+    var bannerWidth = maxX - minX;
+    var bannerBackgroundNode = new Rectangle( minX, minY, bannerWidth, bannerHeight,
+      { fill: 'blue', lineWidth: GRID_BACKGROUND_LINE_WIDTH, stroke: GRID_BACKGROUND_STROKE } );
+    this.addChild( bannerBackgroundNode );
+
+    var verticalStrokes = new Shape().moveTo( 0, 0 );
+
+
+    numberOfRowsProperty.link( function( numberOfRows ) {
+      updateBanner( numberOfRows );
+    } );
+
+
+    /**
+     *
+     * @param {number} numberOfRows
+     */
+    function updateBanner( numberOfRows ) {
+      var i;
+      var xSpacing = bannerWidth / (numberOfRows);
+      for ( i = 0; i < numberOfRows; i++ ) {
+        verticalStrokes.moveTo( minX + (i + 1 / 2) * xSpacing, minY ).verticalLineTo( maxY );
+      }
+    }
+
+    var verticalPaths = new Path( verticalStrokes, { stroke: 'red', lineWidth: 2 } );
+    this.addChild( verticalPaths );
+
+  }
+
+  inherit( Node, XBannerNode );
   /**
    *
    * @param {Property.<number>} numberOfRowsProperty
@@ -281,14 +336,14 @@ define( function( require ) {
 
     var minY = -1.5;
     var bounds = new Bounds2( -1, minY, 1, -1 );
-    console.log( bounds );
     Node.call( this, {
         children: [
-          new BackgroundNode( modelViewTransform ),
-          new XAxisNode( numberOfRowsProperty, modelViewTransform ),
-          new YAxisNode( verticalScaleProperty, modelViewTransform ),
-          new XLabelNode( numberOfRowsProperty, modelViewTransform ),
-          new YLabelNode( verticalScaleProperty, modelViewTransform ),
+          new BackgroundNode( bounds, modelViewTransform ),
+          //new XAxisNode( bounds, modelViewTransform ),
+          //new YAxisNode( bounds, modelViewTransform ),
+          new XBannerNode( numberOfRowsProperty, bounds, modelViewTransform ),
+          new XLabelNode( bounds, modelViewTransform ),
+          new YLabelNode( bounds, modelViewTransform ),
           //new HistogramBarNode( histogram, modelViewTransform )
         ]
       }

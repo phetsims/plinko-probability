@@ -15,7 +15,7 @@ define( function( require ) {
 
   var EraserButton = require( 'SCENERY_PHET/buttons/EraserButton' );
   var GaltonBoardNode = require( 'PLINKO/common/view/GaltonBoardNode' );
-  //var HistogramNode = require( 'PLINKO/plinko-probability/view/HistogramNode' );
+  var HistogramNode = require( 'PLINKO/common/view/HistogramNode' );
   var HSlider = require( 'SUN/HSlider' );
   var Hopper = require( 'PLINKO/common/view/Hopper' );
   var Board = require( 'PLINKO/common/view/Board' );
@@ -63,7 +63,11 @@ define( function( require ) {
     var modelGraphBounds = model.galtonBoard.bounds;
     var modelViewTransform = ModelViewTransform2.createRectangleInvertedYMapping( modelGraphBounds, viewGraphBounds );
 
-    //  var histogramNode = new HistogramNode( {xRange: new Range( 0, 20 ), yRange: new Range( 0, 20 )}, model.histogram, modelViewTransform );
+    var histogramNode = new HistogramNode(
+      model.numberOfRowsProperty,
+      new Property( false ),
+      model.histogram,
+      modelViewTransform );
 
     var galtonBoardNode = new GaltonBoardNode( model, modelViewTransform );
 
@@ -136,7 +140,7 @@ define( function( require ) {
     this.addChild( playPanel );
     this.addChild( statisticsDisplayNode );
     this.addChild( galtonBoardNode );
-    // this.addChild( histogramNode );
+    this.addChild( histogramNode );
     this.addChild( ballsLayer );
 
     playPanel.right = this.layoutBounds.maxX - 40;

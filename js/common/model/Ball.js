@@ -76,7 +76,7 @@ define( function( require ) {
       var direction;  // 0 is left, 1 is right
       var rowNumber;
       var columnNumber = 0;
-      for ( rowNumber = 0; rowNumber <= maxRows; rowNumber++ ) {
+      for ( rowNumber = 0; rowNumber < maxRows; rowNumber++ ) {
         direction = (Math.random() < binaryProbability) ? 1 : 0;
         var peg = {
           rowNumber: rowNumber, // an integer starting at zero
@@ -100,43 +100,55 @@ define( function( require ) {
 
     ballStep: function( dt ) {
       var df = dt;
+      var peg;
       // Initially falling
       if ( this.phase === PHASE_INITIAL ) {
-        if ( df + this.fallenRatio >= 1 ) {
-          this.phase = PHASE_FALLING;
-          this.fallenRatio = 0;
+        if ( df + this.fallenRatio < 1 ) {
+          this.fallenRatio += df;
         }
         else {
-          this.fallenRatio += df;
+          this.phase = PHASE_FALLING;
+          this.fallenRatio = 0;
+          peg = this.pegHistory.shift();
+          this.column = peg.columnNumber;
+          this.row = peg.rowNumber;
+          this.direction = peg.direction;
         }
       }
 
       // Falling between pegs
       if ( this.phase === PHASE_FALLING ) {
-        if ( df + this.fallenRatio >= 1 ) {
-          var peg = this.pegHistory.shift();
-          this.column = peg.columnNumber;
-          this.row = peg.rowNumber;
-          this.direction = peg.direction;
-          this.fallenRatio = 0;
-          if ( this.pegHistory.length === 0 ) {
-            this.phase = PHASE_EXIT;
-          }
+        if ( df + this.fallenRatio < 1 ) {
+          this.fallenRatio += df;
         }
         else {
-          this.fallenRatio += df;
+          this.fallenRatio = 0;
+
+          if ( this.pegHistory.length > 0 ) {
+            peg = this.pegHistory.shift();
+            this.column = peg.columnNumber;
+            this.row = peg.rowNumber;
+            this.direction = peg.direction;
+
+          }
+          else {
+            this.phase = PHASE_EXIT;
+            this.column += this.direction;
+            this.row++;
+          }
+
         }
       }
 
       // Out of pegs
       if ( this.phase === PHASE_EXIT ) {
-        if ( df + this.fallenRatio >= 1 ) {
+        if ( df + this.fallenRatio < 1 ) {
+          this.fallenRatio += dt;
+        }
+        else {
           this.phase = PHASE_COLLECTED;
           this.binIndex = this.column;
           this.trigger( 'landed' );
-        }
-        else {
-          this.fallenRatio += dt;
         }
       }
       this.position = this.getPosition();
