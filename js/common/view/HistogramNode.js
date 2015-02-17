@@ -45,7 +45,7 @@ define( function( require ) {
   var MINOR_TICK_LINE_WIDTH = 0.5;
   var MINOR_TICK_COLOR = 'black';
   var MAJOR_TICK_LENGTH = 6; // how far a major tick extends from the axis
-  var MAJOR_TICK_SPACING = 1;
+  //var MAJOR_TICK_SPACING = 1;
   var MAJOR_TICK_LINE_WIDTH = 1;
   var MAJOR_TICK_COLOR = 'black';
   var MAJOR_TICK_FONT = new PhetFont( 16 );
@@ -119,13 +119,17 @@ define( function( require ) {
    * @param {ModelViewTransform2} modelViewTransform
    * @constructor
    */
-  function XAxisNode( bounds, modelViewTransform ) {
+  function XAxisNode( numberOfRowsProperty, bounds, modelViewTransform ) {
 
     Node.call( this );
 
     // horizontal line
-    var tailLocation = new Vector2( modelViewTransform.modelToViewX( bounds.minX - AXIS_EXTENT ), modelViewTransform.modelToViewY( bounds.minY ) );
-    var tipLocation = new Vector2( modelViewTransform.modelToViewX( bounds.maxX + AXIS_EXTENT ), modelViewTransform.modelToViewY( bounds.minY ) );
+    var tailLocation = new Vector2(
+      modelViewTransform.modelToViewX( bounds.minX - AXIS_EXTENT ),
+      modelViewTransform.modelToViewY( bounds.minY ) );
+    var tipLocation = new Vector2(
+      modelViewTransform.modelToViewX( bounds.maxX + AXIS_EXTENT ),
+      modelViewTransform.modelToViewY( bounds.minY ) );
     var lineNode = new Line( tailLocation.x, tailLocation.y, tipLocation.x, tipLocation.y, {
       fill: AXIS_COLOR,
       stroke: 'black'
@@ -134,21 +138,14 @@ define( function( require ) {
 
 
     // ticks
-    var numberOfTicks = bounds.width + 1;
+    var numberOfTicks = numberOfRowsProperty.value + 1;
     for ( var i = 0; i < numberOfTicks; i++ ) {
-      var modelX = bounds.minX + i;
-      if ( modelX !== 0 ) { // skip the origin
+      var modelX = bounds.minX + 2 * i / (numberOfTicks - 1);
         var x = modelViewTransform.modelToViewX( modelX );
-        var y = modelViewTransform.modelToViewY( 0 );
-        if ( Math.abs( modelX ) % MAJOR_TICK_SPACING === 0 ) {
-          // major tick
-          this.addChild( new MajorTickNode( x, y, modelX, true ) );
-        }
-        else {
-          // minor tick
-          this.addChild( new MinorTickNode( x, y, true ) );
-        }
-      }
+      var y = modelViewTransform.modelToViewY( bounds.minY );
+      // major tick
+      this.addChild( new MajorTickNode( x, y, i, true ) );
+
     }
 
   }
@@ -220,7 +217,7 @@ define( function( require ) {
       font: AXIS_LABEL_FONT,
       fill: AXIS_LABEL_COLOR,
       centerX: centerX,
-      bottom: bottom + 20
+      bottom: bottom + 40
     } );
     this.addChild( xLabelNode );
   }
@@ -403,7 +400,7 @@ define( function( require ) {
     Node.call( this, {
         children: [
           new BackgroundNode( bounds, modelViewTransform ),
-          //new XAxisNode( bounds, modelViewTransform ),
+          new XAxisNode( numberOfRowsProperty, bounds, modelViewTransform ),
           //new YAxisNode( bounds, modelViewTransform ),
           new XBannerNode( numberOfRowsProperty, bounds, modelViewTransform ),
           new XLabelNode( bounds, modelViewTransform ),
