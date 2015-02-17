@@ -11,13 +11,14 @@ define( function( require ) {
     // modules
 
     //var Bounds2 = require( 'DOT/Bounds2' );
-    //   var Circle = require( 'SCENERY/nodes/Circle' );
+    var Circle = require( 'SCENERY/nodes/Circle' );
     var inherit = require( 'PHET_CORE/inherit' );
     var PlinkoConstants = require( 'PLINKO/common/PlinkoConstants' );
     var Node = require( 'SCENERY/nodes/Node' );
     var Path = require( 'SCENERY/nodes/Path' );
-//    var RadialGradient = require( 'SCENERY/util/RadialGradient' );
+    var RadialGradient = require( 'SCENERY/util/RadialGradient' );
     var Shape = require( 'KITE/Shape' );
+    var Vector2 = require( 'DOT/Vector2' );
 
     // constants
 
@@ -35,18 +36,43 @@ define( function( require ) {
       this.addChild( pegBoard );
 
       this.pegPathArray = [];
+      this.pegShadowArray = [];
       var pegPath;
 
       var pegShape = new Shape();
       pegShape.arc( 0, 0, PlinkoConstants.PEG_RADIUS, 2 / 8 * Math.PI + Math.PI / 2, 6 / 8 * Math.PI + Math.PI / 2, true );
 
+
       model.galtonBoard.pegs.forEach( function( peg ) {
         pegPath = new Path( pegShape, { fill: PlinkoConstants.PEG_COLOR } );
+        var pegShadow = new Circle( 3 * PlinkoConstants.PEG_RADIUS, {
+          fill: new RadialGradient(
+            -PlinkoConstants.PEG_RADIUS * 0.2,
+            -PlinkoConstants.PEG_RADIUS * 0.2,
+            0,
+            PlinkoConstants.PEG_RADIUS * 0.1,
+            -PlinkoConstants.PEG_RADIUS * 0.3,
+            PlinkoConstants.PEG_RADIUS * 1.8
+          )
+            .addColorStop( 0, PlinkoConstants.PEG_COLOR )
+            .addColorStop( 0.2, PlinkoConstants.PEG_COLOR )
+            .addColorStop( 1, 'rgba(232, 207, 161, 0 )' )
+        } );
         pegPath.pegPosition = peg.unnormalizedPosition;
+        pegShadow.pegPosition = peg.unnormalizedPosition.plus( new Vector2( 0.125, 0.25 ) );
         galtonBoardNode.pegPathArray.push( pegPath );
+        galtonBoardNode.pegShadowArray.push( pegShadow );
       } );
+      //pegBoard.setChildren( this.pegShadowArray );
+      //   pegBoard.setChildren( this.pegPathArray );
 
-      pegBoard.setChildren( this.pegPathArray );
+
+      var len = this.pegShadowArray.length;
+      for ( var i = 0; i < len; i++ ) {
+        this.addChild( this.pegShadowArray[ i ] );
+        this.addChild( this.pegPathArray[ i ] );
+      }
+
 
       model.probabilityProperty.link( function( newProbability, oldProbability ) {
         var newAngle = newProbability * Math.PI;
@@ -66,6 +92,15 @@ define( function( require ) {
             y: -1 / numberOfRows
           } ) );
           pegPath.setScaleMagnitude( 26 / numberOfRows );
+        } );
+        galtonBoardNode.pegShadowArray.forEach( function( pegPath, index ) {
+          pegPath.visible = (index < visibleNumberOfPegs);
+          pegPath.center = modelViewTransform.modelToViewPosition( pegPath.pegPosition.componentTimes( {
+            x: 2 / numberOfRows,
+            y: -1 / numberOfRows
+          } ) );
+          pegPath.setScaleMagnitude( 26 / numberOfRows );
+
         } );
       } );
 
