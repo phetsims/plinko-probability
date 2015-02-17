@@ -14,7 +14,7 @@ define( function( require ) {
   var GaltonBoard = require( 'PLINKO/common/model/GaltonBoard' );
   var inherit = require( 'PHET_CORE/inherit' );
   var PlinkoConstants = require( 'PLINKO/common/PlinkoConstants' );
-  var Property = require( 'AXON/Property' );
+  //var Property = require( 'AXON/Property' );
   var PropertySet = require( 'AXON/PropertySet' );
   var ObservableArray = require( 'AXON/ObservableArray' );
 

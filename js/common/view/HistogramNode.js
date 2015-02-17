@@ -14,7 +14,7 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var Path = require( 'SCENERY/nodes/Path' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  var Property = require( 'AXON/Property' );
+  //var Property = require( 'AXON/Property' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Shape = require( 'KITE/Shape' );
   var Text = require( 'SCENERY/nodes/Text' );
@@ -340,24 +340,31 @@ define( function( require ) {
     Node.call( this );
 
     var self = this;
-    var bannerHeight = 20;
+    //var bannerHeight = 20;
     var minX = modelViewTransform.modelToViewX( bounds.minX );
-    var minY = modelViewTransform.modelToViewY( bounds.maxY );
+    //var minY = modelViewTransform.modelToViewY( bounds.maxY );
     var maxX = modelViewTransform.modelToViewX( bounds.maxX );
     var maxY = modelViewTransform.modelToViewY( bounds.minY );
 
     var bannerWidth = maxX - minX;
 
-    var verticalStrokes = new Shape();
-    var verticalPaths = new Path( verticalStrokes, { fill: 'green', stroke: 'red', lineWidth: 2 } );
-    this.addChild( verticalPaths );
+    var histogramRectangleArray = [];
+    var arrayLength = model.histogram.length;
+    for ( var i = 0; i < arrayLength; i++ ) {
+      histogramRectangleArray[ i ] = new Rectangle( 0, 0, bannerWidth, 1, {
+        fill: 'green',
+        stroke: 'red',
+        lineWidth: 2
+      } );
+      self.addChild( histogramRectangleArray[ i ] );
+    }
     //
     //Property.multilink( [ histogramProperty, numberOfRowsProperty ], function( histogram, numberOfRows ) {
     //  updateHistogram( histogram, numberOfRows );
     //} );
 
 
-    model.on( 'statsUpdated', function() {updateHistogram()} );
+    model.on( 'statsUpdated', function() {updateHistogram();} );
     /**
      * #param {Array} histogram
      * @param {number} numberOfRows
@@ -366,15 +373,13 @@ define( function( require ) {
       var i;
       var xSpacing = bannerWidth / (model.numberOfRowsProperty.value);
       for ( i = 0; i < model.numberOfRowsProperty.value; i++ ) {
-        verticalStrokes.
-          moveTo( minX + (i - 1 / 2) * xSpacing, maxY ).
-          verticalLineToRelative( -20 * model.histogram[ i ] ).
-          horizontalLineToRelative( xSpacing ).
-          verticalLineToRelative( +20 * model.histogram[ i ] ).
-          close();
+        histogramRectangleArray[ i ].setRect(
+          minX + (i - 1 / 2) * xSpacing,
+          maxY - 5 * model.histogram[ i ],
+          xSpacing,
+          5 * model.histogram[ i ] );
       }
 
-      self.addChild( new Path( verticalStrokes, { fill: 'green', stroke: 'red', lineWidth: 2 } ) );
     }
 
   }
@@ -397,12 +402,12 @@ define( function( require ) {
     var bounds = new Bounds2( -1, minY, 1, -1 );
     Node.call( this, {
         children: [
-          //     new BackgroundNode( bounds, modelViewTransform ),
+          new BackgroundNode( bounds, modelViewTransform ),
           //new XAxisNode( bounds, modelViewTransform ),
           //new YAxisNode( bounds, modelViewTransform ),
-          //   new XBannerNode( numberOfRowsProperty, bounds, modelViewTransform ),
-          // new XLabelNode( bounds, modelViewTransform ),
-          // new YLabelNode( bounds, modelViewTransform ),
+          new XBannerNode( numberOfRowsProperty, bounds, modelViewTransform ),
+          new XLabelNode( bounds, modelViewTransform ),
+          new YLabelNode( bounds, modelViewTransform ),
           new HistogramBarNode( model, numberOfRowsProperty, bounds, modelViewTransform )
         ]
       }
