@@ -35,7 +35,7 @@ define( function( require ) {
 
         title: '', // (string) title above the numerical display
         patternValueUnit: '{0}', // eg. '{0}  {1}'  {0} is the value and {1} is the unitString
-        unitString: 'm',  // will not be used if patterValueUnit doesnt make use of the {1} element
+        unitString: 'm',  // will not be used if patterValueUnit does not make use of the {1} element
 
         readOutFill: 'white', // color of the background rectangular readout fill
         readOutStroke: 'black', // color of the stroke around the background rectangle readout
@@ -98,7 +98,7 @@ define( function( require ) {
 
     // create an invisible rectangle that encompasses the slider (and its thumb) such that this node has a width that exceeds
     // the dynamical width of the slider
-    // TODO: does it need to be 2* width of thumbsize, why 1 is not enough
+    // TODO: does it need to be 2* width of thumbSize, why 1 is not enough
     var rectangleSlider = new Rectangle( 0, 0, 2 * options.slider.thumbSize.width + options.slider.trackSize.width, this.hSlider.height );
 
     // create ticks on slider
@@ -188,8 +188,8 @@ define( function( require ) {
       var text = Util.toFixed( value, options.decimalPlaces );
       readoutText.text = StringUtils.format( options.patternValueUnit, text, options.unitString );
       readoutText.centerX = centerX;
-      leftArrowButton.enabled = ( value <= options.range.max );
-      rightArrowButton.enabled = ( value >= options.range.min );
+      rightArrowButton.enabled = ( value < options.range.max );
+      leftArrowButton.enabled = ( value > options.range.min );
     }
 
     options.property.link( updatePropertyObserver );

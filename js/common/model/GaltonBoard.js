@@ -27,35 +27,34 @@ define( function( require ) {
 
        row = 0                          *
 
-       row = 1                      *       *
+       row = 1                      *        *
 
-       row = 2                  *       *       *
+       row = 2                  *       *        *
 
-       row = 3              *       *        *      *
+       row = 3              *       *        *        *
 
-       bucket=4         0       0       0       0       0
+       bucket=4     |       |       |        |        |       |  (edges)
 
        The galton board has bounds given as bounds2( -1,-1,1,0)
 
        (-1,0)   (0,0)    (1,0)
-       ---------*---------
-       |      *   *      |
-       |    *       *    |
-       |  *           *  |
-       |*               *|
-       0-----------------0
+       ----------*----------
+       |       *   *       |
+       |     *       *     |
+       |   *           *   |
+       |-------------------|
        (-1,-1)           (1,-1)
 
        The location of the pegs can be determined in terms of the rows and column allocation:
 
        The center of the top peg, ( with rowNumber =0 and columnNumber =0)  is located a (0,0);
-       The horizontal y=-1, is the position of the bucket collectors. No pegs lies on this line.
+       The horizontal y=-1, is the position of edges of the bucket collectors. No pegs lies on this line.
 
        Defining the maximum number of rows as N, the vertical separation of the pegs is given by 1/(N)
-       The horizontal separation between pegs is 1/(N)
+       The horizontal separation between pegs is 1/(N+1)
        The vertical position of the peg is given by    y = -row/(N)
-       whereas its horizontal position is given by     x = (2*column-rowNumber)/(N)
-       The bucket collector are located at  y =-1 and x = (2*column/N) - 1
+       whereas its horizontal position is given by     x = (2*column-rowNumber)/(N+1)
+       The bucket collector are located at  y =-1 and x = (2*column/(N+1) - 1
        */
 
       //var galtonBoard = this;

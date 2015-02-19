@@ -29,8 +29,7 @@ define( function( require ) {
       ballMode: 'oneBall', // acceptable values are 'oneBall', 'tenBalls' and 'allBalls'
       histogramVisible: false,
       isBallCapReached: false, // is the maximum of balls reached?
-      isSoundEnabled: true,
-      histogram: [],
+      isSoundEnabled: true
     } );
 
     this.numberOfRowsProperty = new DerivedProperty( [ this.numberOfRowsForSliderProperty ],
@@ -51,12 +50,11 @@ define( function( require ) {
     //    this.histogram = new Array( this.maxNumberOfRows ).map( Number.prototype.valueOf, 0 );  //
 
     //TODO histogram should
-    //this.histogram = [];
+    this.histogram = [];
     // there are one more bin than the maxNumber of Rows
     for ( var i = 0; i < PlinkoConstants.ROWS_RANGE.max + 1; i++ ) {
       this.histogram.push( 0 );
     }
-    //this.histogramProperty = new Property( this.histogram );
 
     this.numberOfRowsProperty.link( function( numberOfRows ) {
       thisModel.balls.clear();
@@ -72,7 +70,7 @@ define( function( require ) {
   return inherit( PropertySet, PlinkoProbabilityIntroModel, {
     step: function( dt ) {
       this.balls.forEach( function( ball ) {
-        ball.step( dt );
+        ball.step( 5 * dt );
       } );
     },
 

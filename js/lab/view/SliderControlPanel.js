@@ -50,11 +50,13 @@ define( function( require ) {
     } );
     var binaryProbabilitySlider = new SliderWithReadout( {
       buttonStep: 0.01,
+      title: binaryProbabilityString,
+      titleFont: PlinkoConstants.PANEL_FONT_BOLD,
+      displayFont: PlinkoConstants.PANEL_FONT, // font for the numerical display
+
+      property: binaryProbabilityProperty,
       range: PlinkoConstants.BINARY_PROBABILITY_RANGE,
       decimalPlaces: 2,
-
-      title: binaryProbabilityString,
-      property: binaryProbabilityProperty,
       slider: {
         trackSize: new Dimension2( 170, 2 ),
         tick: {

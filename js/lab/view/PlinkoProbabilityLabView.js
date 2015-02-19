@@ -12,10 +12,12 @@ define( function( require ) {
   var BallRadioButtonsControl = require( 'PLINKO/lab/view/BallRadioButtonsControl' );
   var Bounds2 = require( 'DOT/Bounds2' );
   //var DerivedProperty = require( 'AXON/DerivedProperty' );
-
+  var Color = require( 'SCENERY/util/Color' );
+  var CounterButton = require( 'PLINKO/common/view/CounterButton' );
   var EraserButton = require( 'SCENERY_PHET/buttons/EraserButton' );
+  var FractionButton = require( 'PLINKO/common/view/FractionButton' );
   var GaltonBoardNode = require( 'PLINKO/common/view/GaltonBoardNode' );
-  //var HistogramNode = require( 'PLINKO/common/view/HistogramNode' );
+  var HistogramNode = require( 'PLINKO/common/view/HistogramNode' );
   var HSlider = require( 'SUN/HSlider' );
   var Hopper = require( 'PLINKO/common/view/Hopper' );
   var Board = require( 'PLINKO/common/view/Board' );
@@ -64,7 +66,11 @@ define( function( require ) {
     var modelGraphBounds = model.galtonBoard.bounds;
     var modelViewTransform = ModelViewTransform2.createRectangleInvertedYMapping( modelGraphBounds, viewGraphBounds );
 
-    //  var histogramNode = new HistogramNode(  model.numberOfRows, model.histogram, modelViewTransform );
+    var histogramNode = new HistogramNode(
+      model.numberOfRowsProperty,
+      new Property( false ),
+      model,
+      modelViewTransform );
 
     var galtonBoardNode = new GaltonBoardNode( model, modelViewTransform );
 
@@ -80,10 +86,35 @@ define( function( require ) {
 
     var ballRadioButtonsControl = new BallRadioButtonsControl( showRadioProperty );
 
-    // Add the button that allows the graph to be cleared of all dataPoints.
+    // Add the counter button that allows the histogram
+    var counterButton = new CounterButton( {
+      minHeight: 40,
+      minWidth: 40,
+      iconWidth: 35,
+      lineWidth: 2,
+      stroke: new Color( 0, 255, 255, 1 ),
+      cornerRadius: 10,
+      listener: function() {
+        // TODO hooked the listener;
+      }
+    } );
+
+    // Add the fraction button that allows the histogram
+    var fractionButton = new FractionButton( {
+      minHeight: 40,
+      xMargin: 3,
+      minWidth: 40,
+      iconWidth: 35,
+      lineWidth: 3,
+      cornerRadius: 10,
+      //    stroke: new Color(255,0,255,1),
+      listener: function() {
+        // TODO hooked the listener;
+      }
+    } );
+
+    // Add the eraser button that allows the
     var eraserButton = new EraserButton( {
-      left: 20,
-      top: this.layoutBounds.maxY - 70,
       scale: 1.4,
       listener: function() {
         // TODO hooked the listener;
@@ -112,7 +143,13 @@ define( function( require ) {
     var playPanel = new PlayPanel( model.isPlayingProperty, ballRadioProperty );
 
     // create slider Panel
-    var sliderControlPanel = new SliderControlPanel( model.numberOfRowsForSliderProperty, model.probabilityProperty );
+
+    var numberOfRowsForSliderProperty = new Property( 12 );
+    // numberOfRows
+    numberOfRowsForSliderProperty.link( function( numberOfRowsForSlider ) {
+      model.numberOfRows = Math.round( numberOfRowsForSlider );
+    } );
+    var sliderControlPanel = new SliderControlPanel( numberOfRowsForSliderProperty, model.probabilityProperty );
 
     // create Panel that displays sample and theoretical statistics
     var statisticsDisplayNode = new StatisticsDisplayNode( model );
@@ -139,6 +176,8 @@ define( function( require ) {
     this.addChild( hopper );
     this.addChild( board );
     this.addChild( eraserButton );
+    this.addChild( fractionButton );
+    this.addChild( counterButton );
     this.addChild( ballRadioButtonsControl );
     this.addChild( soundToggleButton );
     this.addChild( resetAllButton );
@@ -146,9 +185,15 @@ define( function( require ) {
     this.addChild( sliderControlPanel );
     this.addChild( statisticsDisplayNode );
     this.addChild( galtonBoardNode );
-    // this.addChild( histogramNode );
+    this.addChild( histogramNode );
     this.addChild( ballsLayer );
 
+    eraserButton.bottom = this.layoutBounds.maxY - 40;
+    eraserButton.left = 40;
+    fractionButton.bottom = eraserButton.top - 10;
+    fractionButton.left = eraserButton.left;
+    counterButton.bottom = fractionButton.top - 10;
+    counterButton.left = eraserButton.left;
     ballRadioButtonsControl.left = hopper.right + 20;
     ballRadioButtonsControl.top = hopper.top;
     playPanel.right = this.layoutBounds.maxX - 40;

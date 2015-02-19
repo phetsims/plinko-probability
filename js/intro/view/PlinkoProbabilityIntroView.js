@@ -85,8 +85,9 @@ define( function( require ) {
       top: this.layoutBounds.maxY - 70,
       scale: 1.4,
       listener: function() {
-        // TODO hooked the listener;
+        model.resetStatistics();
       }
+
     } );
 
     // Handle the comings and goings of balls
@@ -104,7 +105,7 @@ define( function( require ) {
           ballsLayer.removeChild( addedBallNode );
           model.balls.removeItemRemovedListener( removalListener );
         }
-      } );
+    } );
     } );
 
     // create play Panel
@@ -155,7 +156,7 @@ define( function( require ) {
     ////////////////////////////////////////////////////////////////
     //Show the mock-up and a slider to change its transparency
     //////////////////////////////////////////////////////////////
-    var mockup01OpacityProperty = new Property( 0.02 );
+    var mockup01OpacityProperty = new Property( 0.00 );
 
     var image01 = new Image( mockup01Image, { pickable: false } );
 
@@ -172,5 +173,6 @@ define( function( require ) {
   return inherit( ScreenView, PlinkoProbabilityIntroView, {
     step: function( dt ) {
     }
-  } );
 } );
+} )
+;

@@ -49,7 +49,12 @@ define( function( require ) {
       return new Circle( PlinkoConstants.BALL_RADIUS, {
         stroke: PlinkoConstants.BALL_COLOR,
         lineWidth: 2,
-        fill: new RadialGradient( -PlinkoConstants.BALL_RADIUS * 0.4, -PlinkoConstants.BALL_RADIUS * 0.4, 0, PlinkoConstants.BALL_RADIUS * 0.1, -PlinkoConstants.BALL_RADIUS * 0.3, PlinkoConstants.BALL_RADIUS * 0.6 )
+        fill: new RadialGradient( -PlinkoConstants.BALL_RADIUS * 0.4,
+          -PlinkoConstants.BALL_RADIUS * 0.4,
+          0,
+          PlinkoConstants.BALL_RADIUS * 0.1,
+          -PlinkoConstants.BALL_RADIUS * 0.3,
+          PlinkoConstants.BALL_RADIUS * 0.6 )
           .addColorStop( 0, PlinkoConstants.BALL_HIGHLIGHT_COLOR )
           .addColorStop( 1, PlinkoConstants.BALL_COLOR )
       } );

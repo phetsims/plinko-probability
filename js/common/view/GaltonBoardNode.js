@@ -54,9 +54,20 @@ define( function( require ) {
             -PlinkoConstants.PEG_RADIUS * 0.3,
             PlinkoConstants.PEG_RADIUS * 1.8
           )
-            .addColorStop( 0, PlinkoConstants.PEG_COLOR )
-            .addColorStop( 0.2, PlinkoConstants.PEG_COLOR )
-            .addColorStop( 1, 'rgba(232, 207, 161, 0 )' )
+            //.addColorStop( 0, PlinkoConstants.PEG_COLOR )
+            //.addColorStop( 0.2, PlinkoConstants.PEG_COLOR )
+            //.addColorStop( 1, 'rgba(232, 207, 161, 0 )' )
+
+            .addColorStop( 0, 'rgba(0,0,0,1)' )
+            .addColorStop( 0.1809, 'rgba(3,3,3, 0.8191)' )
+            .addColorStop( 0.3135, 'rgba(12,12,12, 0.6865)' )
+            .addColorStop( 0.4307, 'rgba(28,28,28, 0.5693)' )
+            .addColorStop( 0.539, 'rgba(48,48,48, 0.461)' )
+            .addColorStop( 0.6412, 'rgba(80,80,80, 0.3588)' )
+            .addColorStop( 0.7388, 'rgba(116,116,116, 0.2612)' )
+            .addColorStop( 0.8328, 'rgba(158,158,158, 0.1672)' )
+            .addColorStop( 0.9217, 'rgba(206,206,206, 0.0783)' )
+            .addColorStop( 1, 'rgba(255,255,255, 0.00)' )
         } );
         pegPath.pegPosition = peg.unnormalizedPosition;
         pegShadow.pegPosition = peg.unnormalizedPosition.plus( new Vector2( 0.125, 0.25 ) );
@@ -88,16 +99,16 @@ define( function( require ) {
         galtonBoardNode.pegPathArray.forEach( function( pegPath, index ) {
           pegPath.visible = (index < visibleNumberOfPegs);
           pegPath.center = modelViewTransform.modelToViewPosition( pegPath.pegPosition.componentTimes( {
-            x: 2 / numberOfRows,
-            y: -1 / numberOfRows
+            x: 2 / (numberOfRows + 1),
+            y: -1 / (numberOfRows)
           } ) );
           pegPath.setScaleMagnitude( 26 / numberOfRows );
         } );
         galtonBoardNode.pegShadowArray.forEach( function( pegPath, index ) {
           pegPath.visible = (index < visibleNumberOfPegs);
           pegPath.center = modelViewTransform.modelToViewPosition( pegPath.pegPosition.componentTimes( {
-            x: 2 / numberOfRows,
-            y: -1 / numberOfRows
+            x: 2 / (numberOfRows + 1),
+            y: -1 / (numberOfRows)
           } ) );
           pegPath.setScaleMagnitude( 26 / numberOfRows );
 

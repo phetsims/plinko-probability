@@ -50,8 +50,8 @@ define( function( require ) {
     ball.positionProperty.link( function( position ) {
       ballNode.center = modelViewTransform.modelToViewPosition(
         position.componentTimes( {
-          x: 2 / model.numberOfRowsProperty.value,
-          y: -1 / model.numberOfRowsProperty.value
+          x: 2 / (model.numberOfRowsProperty.value + 1),
+          y: -1 / (model.numberOfRowsProperty.value)
         } ) );
     } );
 
