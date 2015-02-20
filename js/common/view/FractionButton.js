@@ -25,7 +25,7 @@ define( function( require ) {
 
     options = _.extend( {
       baseColor: 'white',
-      iconWidth: 20 // width of fraction icon, used for scaling, the aspect ratio will determine height
+      iconWidth: 20 // width of the fraction icon, used for scaling, the aspect ratio will determine height
     }, options );
 
     // eraser icon
