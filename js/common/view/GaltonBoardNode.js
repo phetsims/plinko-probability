@@ -9,7 +9,6 @@ define( function( require ) {
     'use strict';
 
     // modules
-
     //var Bounds2 = require( 'DOT/Bounds2' );
     var Circle = require( 'SCENERY/nodes/Circle' );
     var inherit = require( 'PHET_CORE/inherit' );
@@ -19,8 +18,6 @@ define( function( require ) {
     var RadialGradient = require( 'SCENERY/util/RadialGradient' );
     var Shape = require( 'KITE/Shape' );
     var Vector2 = require( 'DOT/Vector2' );
-
-    // constants
 
     /**
      * @param {PlinkoProbabilityModel} model
