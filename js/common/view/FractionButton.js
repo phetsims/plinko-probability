@@ -1,7 +1,7 @@
 // Copyright 2002-2015, University of Colorado Boulder
 
 /**
- * Button with a fraction icon.
+ * Button with a fraction icon for plinko probability
  *
  * @author John Blanco
  * @author Martin Veillette (Berea College)
