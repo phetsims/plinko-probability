@@ -7,9 +7,10 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var inherit = require( 'PHET_CORE/inherit' );
+
   var BallNode = require( 'PLINKO/common/view/BallNode' );
   var BallRadioButtonsControl = require( 'PLINKO/lab/view/BallRadioButtonsControl' );
+  var Board = require( 'PLINKO/common/view/Board' );
   var Bounds2 = require( 'DOT/Bounds2' );
   //var DerivedProperty = require( 'AXON/DerivedProperty' );
   var Color = require( 'SCENERY/util/Color' );
@@ -18,10 +19,10 @@ define( function( require ) {
   var FractionButton = require( 'PLINKO/common/view/FractionButton' );
   var GaltonBoardNode = require( 'PLINKO/common/view/GaltonBoardNode' );
   var HistogramNode = require( 'PLINKO/common/view/HistogramNode' );
-  var HSlider = require( 'SUN/HSlider' );
   var Hopper = require( 'PLINKO/common/view/Hopper' );
-  var Board = require( 'PLINKO/common/view/Board' );
+  var HSlider = require( 'SUN/HSlider' );
   var Image = require( 'SCENERY/nodes/Image' );
+  var inherit = require( 'PHET_CORE/inherit' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   var Node = require( 'SCENERY/nodes/Node' );
   var PlayPanel = require( 'PLINKO/lab/view/PlayPanel' );
@@ -29,10 +30,10 @@ define( function( require ) {
   var Property = require( 'AXON/Property' );
   //var Range = require( 'DOT/Range' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
-  var SoundToggleButton = require( 'SCENERY_PHET/buttons/SoundToggleButton' );
-  var StatisticsDisplayNode = require( 'PLINKO/common/view/StatisticsDisplayNode' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var SliderControlPanel = require( 'PLINKO/lab/view/SliderControlPanel' );
+  var SoundToggleButton = require( 'SCENERY_PHET/buttons/SoundToggleButton' );
+  var StatisticsDisplayNode = require( 'PLINKO/common/view/StatisticsDisplayNode' );
   var Vector2 = require( 'DOT/Vector2' );
 
   // strings
@@ -89,10 +90,11 @@ define( function( require ) {
     // Add the counter button that allows the histogram
     var counterButton = new CounterButton( {
       minHeight: 40,
+      xMargin: 3,
       minWidth: 40,
       iconWidth: 35,
       lineWidth: 2,
-      stroke: new Color( 0, 255, 255, 1 ),
+      stroke: 'black',
       cornerRadius: 10,
       listener: function() {
         // TODO hooked the listener;
@@ -105,9 +107,9 @@ define( function( require ) {
       xMargin: 3,
       minWidth: 40,
       iconWidth: 35,
-      lineWidth: 3,
+      lineWidth: 2,
+      stroke: 'black',
       cornerRadius: 10,
-      //    stroke: new Color(255,0,255,1),
       listener: function() {
         // TODO hooked the listener;
       }
@@ -143,10 +145,10 @@ define( function( require ) {
     var playPanel = new PlayPanel( model.isPlayingProperty, ballRadioProperty );
 
     // create slider Panel
-
     var numberOfRowsForSliderProperty = new Property( 12 );
-    // numberOfRows
+
     numberOfRowsForSliderProperty.link( function( numberOfRowsForSlider ) {
+      // ensure that the numberOfRows in the model is always an integer
       model.numberOfRows = Math.round( numberOfRowsForSlider );
     } );
     var sliderControlPanel = new SliderControlPanel( numberOfRowsForSliderProperty, model.probabilityProperty );
@@ -203,7 +205,7 @@ define( function( require ) {
     statisticsDisplayNode.top = sliderControlPanel.bottom + 10;
     statisticsDisplayNode.right = playPanel.right;
     // galtonBoardNode.centerX=hopper.centerX;
-    //   galtonBoardNode.top=board.top+20;
+    // altonBoardNode.top=board.top+20;
 
     //TODO: Delete when done with the layout
     ////////////////////////////////////////////////////////////////
