@@ -13,7 +13,7 @@ define( function( require ) {
   var Board = require( 'PLINKO/common/view/Board' );
   var Bounds2 = require( 'DOT/Bounds2' );
   //var DerivedProperty = require( 'AXON/DerivedProperty' );
-  var Color = require( 'SCENERY/util/Color' );
+  //var Color = require( 'SCENERY/util/Color' );
   var CounterButton = require( 'PLINKO/common/view/CounterButton' );
   var EraserButton = require( 'SCENERY_PHET/buttons/EraserButton' );
   var FractionButton = require( 'PLINKO/common/view/FractionButton' );
