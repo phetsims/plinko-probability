@@ -7,7 +7,6 @@ define( function( require ) {
   'use strict';
 
   // modules
-
   var BallNode = require( 'PLINKO/common/view/BallNode' );
   var BallRadioButtonsControl = require( 'PLINKO/lab/view/BallRadioButtonsControl' );
   var Board = require( 'PLINKO/common/view/Board' );
@@ -142,7 +141,7 @@ define( function( require ) {
     } );
 
     // create play Panel
-    var playPanel = new PlayPanel( model.isPlayingProperty, ballRadioProperty );
+    var playPanel = new PlayPanel( model.isPlayingProperty, model.ballModeProperty );
 
     // create slider Panel
     var numberOfRowsForSliderProperty = new Property( 12 );
