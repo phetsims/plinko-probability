@@ -125,7 +125,7 @@ define( function( require ) {
         resize: false,
         buttonAlign: 'right',
         titleNode: numberLandedBallsText,
-        titleAlign: 'left',
+        titleAlignX: 'left',
         titleXMargin: 10,
         contentXMargin: 8,
         contentYMargin: 5
