@@ -15,7 +15,7 @@ define( function( require ) {
   var RectangularPushButton = require( 'SUN/buttons/RectangularPushButton' );
 
   // images
-  var fractionImage = require( 'image!PLINKO/fraction.png' );
+  var fractionImage = require( 'image!PLINKO_PROBABILITY/fraction.png' );
 
   /**
    * @param {Object} [options]
