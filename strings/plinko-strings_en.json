@@ -3,7 +3,7 @@
   "number": "number",
   "start": "Start",
   "continuous": "continuous",
-  "simTitle": "Plinko Probability",
+  "plinko-probability.name": "Plinko Probability",
   "plinkoProbabilityScreen": "Plinko Probability",
   "plinkoProbabilityLabTitleScreen": "Lab",
   "plinkoProbabilityIntroTitleScreen": "Intro",
