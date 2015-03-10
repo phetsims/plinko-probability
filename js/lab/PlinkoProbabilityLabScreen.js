@@ -9,14 +9,14 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var PlinkoConstants = require( 'PLINKO/common/PlinkoConstants' );
-  var PlinkoProbabilityLabModel = require( 'PLINKO/lab/model/PlinkoProbabilityLabModel' );
-  var PlinkoProbabilityLabView = require( 'PLINKO/lab/view/PlinkoProbabilityLabView' );
+  var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
+  var PlinkoProbabilityLabModel = require( 'PLINKO_PROBABILITY/lab/model/PlinkoProbabilityLabModel' );
+  var PlinkoProbabilityLabView = require( 'PLINKO_PROBABILITY/lab/view/PlinkoProbabilityLabView' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Screen = require( 'JOIST/Screen' );
 
   // strings
-  var plinkoProbabilityLabTitleString = require( 'string!PLINKO/plinkoProbabilityLabTitleScreen' );
+  var plinkoProbabilityLabTitleString = require( 'string!PLINKO_PROBABILITY/plinkoProbabilityLabTitleScreen' );
 
   /**
    * Creates the icon for this screen.

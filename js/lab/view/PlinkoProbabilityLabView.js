@@ -7,39 +7,39 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var BallNode = require( 'PLINKO/common/view/BallNode' );
-  var BallRadioButtonsControl = require( 'PLINKO/lab/view/BallRadioButtonsControl' );
-  var Board = require( 'PLINKO/common/view/Board' );
+  var BallNode = require( 'PLINKO_PROBABILITY/common/view/BallNode' );
+  var BallRadioButtonsControl = require( 'PLINKO_PROBABILITY/lab/view/BallRadioButtonsControl' );
+  var Board = require( 'PLINKO_PROBABILITY/common/view/Board' );
   var Bounds2 = require( 'DOT/Bounds2' );
   //var DerivedProperty = require( 'AXON/DerivedProperty' );
   //var Color = require( 'SCENERY/util/Color' );
-  var CounterButton = require( 'PLINKO/common/view/CounterButton' );
+  var CounterButton = require( 'PLINKO_PROBABILITY/common/view/CounterButton' );
   var EraserButton = require( 'SCENERY_PHET/buttons/EraserButton' );
-  var FractionButton = require( 'PLINKO/common/view/FractionButton' );
-  var GaltonBoardNode = require( 'PLINKO/common/view/GaltonBoardNode' );
-  var HistogramNode = require( 'PLINKO/common/view/HistogramNode' );
-  var Hopper = require( 'PLINKO/common/view/Hopper' );
+  var FractionButton = require( 'PLINKO_PROBABILITY/common/view/FractionButton' );
+  var GaltonBoardNode = require( 'PLINKO_PROBABILITY/common/view/GaltonBoardNode' );
+  var HistogramNode = require( 'PLINKO_PROBABILITY/common/view/HistogramNode' );
+  var Hopper = require( 'PLINKO_PROBABILITY/common/view/Hopper' );
   var HSlider = require( 'SUN/HSlider' );
   var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var PlayPanel = require( 'PLINKO/lab/view/PlayPanel' );
+  var PlayPanel = require( 'PLINKO_PROBABILITY/lab/view/PlayPanel' );
   //var PropertySet = require( 'AXON/PropertySet' );
   var Property = require( 'AXON/Property' );
   //var Range = require( 'DOT/Range' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var ScreenView = require( 'JOIST/ScreenView' );
-  var SliderControlPanel = require( 'PLINKO/lab/view/SliderControlPanel' );
+  var SliderControlPanel = require( 'PLINKO_PROBABILITY/lab/view/SliderControlPanel' );
   var SoundToggleButton = require( 'SCENERY_PHET/buttons/SoundToggleButton' );
-  var StatisticsDisplayNode = require( 'PLINKO/common/view/StatisticsDisplayNode' );
+  var StatisticsDisplayNode = require( 'PLINKO_PROBABILITY/common/view/StatisticsDisplayNode' );
   var Vector2 = require( 'DOT/Vector2' );
 
   // strings
   // TODO: place used strings here
 
   // images
-  var mockup02Image = require( 'image!PLINKO/mockupCropped02.png' );
+  var mockup02Image = require( 'image!PLINKO_PROBABILITY/mockupCropped02.png' );
 
   /**
    * @param {PlinkoProbabilityLabModel} model

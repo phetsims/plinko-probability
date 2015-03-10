@@ -8,27 +8,27 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var BallNode = require( 'PLINKO/common/view/BallNode' );
+  var BallNode = require( 'PLINKO_PROBABILITY/common/view/BallNode' );
 
   var Bounds2 = require( 'DOT/Bounds2' );
   //var DerivedProperty = require( 'AXON/DerivedProperty' );
 
   var EraserButton = require( 'SCENERY_PHET/buttons/EraserButton' );
-  var GaltonBoardNode = require( 'PLINKO/common/view/GaltonBoardNode' );
-  var HistogramNode = require( 'PLINKO/common/view/HistogramNode' );
+  var GaltonBoardNode = require( 'PLINKO_PROBABILITY/common/view/GaltonBoardNode' );
+  var HistogramNode = require( 'PLINKO_PROBABILITY/common/view/HistogramNode' );
   var HSlider = require( 'SUN/HSlider' );
-  var Hopper = require( 'PLINKO/common/view/Hopper' );
-  var Board = require( 'PLINKO/common/view/Board' );
+  var Hopper = require( 'PLINKO_PROBABILITY/common/view/Hopper' );
+  var Board = require( 'PLINKO_PROBABILITY/common/view/Board' );
   var Image = require( 'SCENERY/nodes/Image' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var PlayPanel = require( 'PLINKO/intro/view/PlayPanel' );
+  var PlayPanel = require( 'PLINKO_PROBABILITY/intro/view/PlayPanel' );
   //var PropertySet = require( 'AXON/PropertySet' );
   var Property = require( 'AXON/Property' );
   //var Range = require( 'DOT/Range' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var SoundToggleButton = require( 'SCENERY_PHET/buttons/SoundToggleButton' );
-  var StatisticsDisplayNode = require( 'PLINKO/common/view/StatisticsDisplayNode' );
+  var StatisticsDisplayNode = require( 'PLINKO_PROBABILITY/common/view/StatisticsDisplayNode' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var Vector2 = require( 'DOT/Vector2' );
 
@@ -36,7 +36,7 @@ define( function( require ) {
   // TODO: place used strings here
 
   // images
-  var mockup01Image = require( 'image!PLINKO/mockupCropped01.png' );
+  var mockup01Image = require( 'image!PLINKO_PROBABILITY/mockupCropped01.png' );
 
   /**
    * @param {PlinkoProbabilityIntroModel} model

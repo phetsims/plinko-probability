@@ -30,7 +30,7 @@ require.config( {
     SUN: '../../sun/js',
 
     // sim code
-    PLINKO: '.'
+    PLINKO_PROBABILITY: '.'
   },
 
   // optional cache buster to make browser refresh load all included scripts, can be disabled with ?cacheBuster=false

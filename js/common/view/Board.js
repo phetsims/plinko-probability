@@ -14,7 +14,7 @@ define( function( require ) {
   var Matrix3 = require( 'DOT/Matrix3' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Path = require( 'SCENERY/nodes/Path' );
-  var PlinkoConstants = require( 'PLINKO/common/PlinkoConstants' );
+  var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
   var Shape = require( 'KITE/Shape' );
 
   /**

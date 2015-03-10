@@ -15,7 +15,7 @@ define( function( require ) {
   var RectangularPushButton = require( 'SUN/buttons/RectangularPushButton' );
 
   // images
-  var counterImage = require( 'image!PLINKO/counter.png' );
+  var counterImage = require( 'image!PLINKO_PROBABILITY/counter.png' );
 
   /**
    * @param {Object} [options]

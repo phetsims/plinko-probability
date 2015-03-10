@@ -12,13 +12,13 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Panel = require( 'SUN/Panel' );
-  var PlinkoConstants = require( 'PLINKO/common/PlinkoConstants' );
-  var SliderWithReadout = require( 'PLINKO/lab/view/SliderWithReadout' );
+  var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
+  var SliderWithReadout = require( 'PLINKO_PROBABILITY/lab/view/SliderWithReadout' );
   var Util = require( 'DOT/Util' );
 
   // strings
-  var rowsString = require( 'string!PLINKO/rows' );
-  var binaryProbabilityString = require( 'string!PLINKO/binaryProbability' );
+  var rowsString = require( 'string!PLINKO_PROBABILITY/rows' );
+  var binaryProbabilityString = require( 'string!PLINKO_PROBABILITY/binaryProbability' );
 
   /**
    *

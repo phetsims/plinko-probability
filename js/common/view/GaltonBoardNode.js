@@ -12,7 +12,7 @@ define( function( require ) {
     //var Bounds2 = require( 'DOT/Bounds2' );
     var Circle = require( 'SCENERY/nodes/Circle' );
     var inherit = require( 'PHET_CORE/inherit' );
-    var PlinkoConstants = require( 'PLINKO/common/PlinkoConstants' );
+    var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
     var Node = require( 'SCENERY/nodes/Node' );
     var Path = require( 'SCENERY/nodes/Path' );
     var RadialGradient = require( 'SCENERY/util/RadialGradient' );

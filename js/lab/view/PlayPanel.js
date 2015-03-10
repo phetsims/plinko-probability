@@ -16,7 +16,7 @@ define( function( require ) {
   var Panel = require( 'SUN/Panel' );
   //var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var PlayPauseButton = require( 'SCENERY_PHET/buttons/PlayPauseButton' );
-  var PlinkoConstants = require( 'PLINKO/common/PlinkoConstants' );
+  var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
   var RadialGradient = require( 'SCENERY/util/RadialGradient' );
   //var Text = require( 'SCENERY/nodes/Text' );
   //var VBox = require( 'SCENERY/nodes/VBox' );

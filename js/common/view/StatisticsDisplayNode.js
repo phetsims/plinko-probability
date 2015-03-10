@@ -12,17 +12,17 @@ define( function( require ) {
   // modules
   var AccordionBox = require( 'SUN/AccordionBox' );
   var CheckBox = require( 'SUN/CheckBox' );
-  var EquationNode = require( 'PLINKO/lab/view/EquationNode' );
+  var EquationNode = require( 'PLINKO_PROBABILITY/lab/view/EquationNode' );
   var HBox = require( 'SCENERY/nodes/HBox' );
-  var HistogramIcon = require( 'PLINKO/lab/view/HistogramIcon' );
+  var HistogramIcon = require( 'PLINKO_PROBABILITY/lab/view/HistogramIcon' );
 //  var HStrut = require( 'SUN/HStrut' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var PlinkoConstants = require( 'PLINKO/common/PlinkoConstants' );
+  var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
   var Property = require( 'AXON/Property' );
   var VBox = require( 'SCENERY/nodes/VBox' );
 
   // strings
-  //var bestFitLineString = require( 'string!PLINKO/bestFitLine' );
+  //var bestFitLineString = require( 'string!PLINKO_PROBABILITY/bestFitLine' );
 
   // strings
 

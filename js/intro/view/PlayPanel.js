@@ -13,8 +13,8 @@ define( function( require ) {
   var HBox = require( 'SCENERY/nodes/HBox' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Panel = require( 'SUN/Panel' );
-  var PlayButton = require( 'PLINKO/intro/view/PlayButton' );
-  var PlinkoConstants = require( 'PLINKO/common/PlinkoConstants' );
+  var PlayButton = require( 'PLINKO_PROBABILITY/intro/view/PlayButton' );
+  var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
   var RadialGradient = require( 'SCENERY/util/RadialGradient' );
   var Text = require( 'SCENERY/nodes/Text' );
   //var VBox = require( 'SCENERY/nodes/VBox' );
@@ -22,7 +22,7 @@ define( function( require ) {
   //var VStrut = require( 'SUN/VStrut' );
 
   // strings
-  var allString = require( 'string!PLINKO/all' );
+  var allString = require( 'string!PLINKO_PROBABILITY/all' );
   var timesString = '\u00D7'; // multiplication Sign
 
   /**

@@ -12,14 +12,14 @@ define( function( require ) {
   // var Color = require( 'SCENERY/util/Color' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var PlinkoConstants = require( 'PLINKO/common/PlinkoConstants' );
+  var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
   var Text = require( 'SCENERY/nodes/Text' );
   var VerticalAquaRadioButtonGroup = require( 'SUN/VerticalAquaRadioButtonGroup' );
 
   // strings
-  var ballString = require( 'string!PLINKO/ball' );
-  var pathString = require( 'string!PLINKO/path' );
-  var noneString = require( 'string!PLINKO/none' );
+  var ballString = require( 'string!PLINKO_PROBABILITY/ball' );
+  var pathString = require( 'string!PLINKO_PROBABILITY/path' );
+  var noneString = require( 'string!PLINKO_PROBABILITY/none' );
 
   /**
    *

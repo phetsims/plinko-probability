@@ -9,16 +9,16 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var PlinkoConstants = require( 'PLINKO/common/PlinkoConstants' );
-  var PlinkoProbabilityIntroModel = require( 'PLINKO/intro/model/PlinkoProbabilityIntroModel' );
-  var PlinkoProbabilityIntroView = require( 'PLINKO/intro/view/PlinkoProbabilityIntroView' );
+  var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
+  var PlinkoProbabilityIntroModel = require( 'PLINKO_PROBABILITY/intro/model/PlinkoProbabilityIntroModel' );
+  var PlinkoProbabilityIntroView = require( 'PLINKO_PROBABILITY/intro/view/PlinkoProbabilityIntroView' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Screen = require( 'JOIST/Screen' );
 
   // strings
-  //var plinkoProbabilityScreenString = require( 'string!PLINKO/plinkoProbabilityScreen' );
+  //var plinkoProbabilityScreenString = require( 'string!PLINKO_PROBABILITY/plinkoProbabilityScreen' );
 
-  var plinkoProbabilityIntroTitleString = require( 'string!PLINKO/plinkoProbabilityIntroTitleScreen' );
+  var plinkoProbabilityIntroTitleString = require( 'string!PLINKO_PROBABILITY/plinkoProbabilityIntroTitleScreen' );
 
   /**
    * Creates the icon for this screen.

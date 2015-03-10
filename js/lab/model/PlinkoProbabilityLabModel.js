@@ -10,10 +10,10 @@ define( function( require ) {
     'use strict';
 
     // modules
-    var Ball = require( 'PLINKO/common/model/Ball' );
-    var GaltonBoard = require( 'PLINKO/common/model/GaltonBoard' );
+    var Ball = require( 'PLINKO_PROBABILITY/common/model/Ball' );
+    var GaltonBoard = require( 'PLINKO_PROBABILITY/common/model/GaltonBoard' );
     var inherit = require( 'PHET_CORE/inherit' );
-    var PlinkoConstants = require( 'PLINKO/common/PlinkoConstants' );
+    var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
     //var Property = require( 'AXON/Property' );
     var PropertySet = require( 'AXON/PropertySet' );
     var ObservableArray = require( 'AXON/ObservableArray' );
