@@ -59,6 +59,7 @@ define( function( require ) {
     this.pegHistory = [];
 
     this.binIndex = -1;
+
   }
 
   return inherit( PropertySet, Ball, {

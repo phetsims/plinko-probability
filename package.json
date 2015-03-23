@@ -23,6 +23,7 @@
     "../assert/js/assert.js",
     "../sherpa/jquery-2.1.0.js",
     "../sherpa/lodash-2.4.1.js",
+    "../sherpa/seedrandom-2.2.js",
     "../sherpa/has.js",
     "../sherpa/FileSaver.js",
     "../chipper/js/initialize-globals.js",

@@ -77,6 +77,8 @@ define( function( require ) {
           this.pegs.push( peg );
         }
       }
+     // see chipper/seedrandom-2.2.js on how to use
+      Math.seedrandom("hello"); // use a seed reproducibility
     }
 
     return inherit( Object, GaltonBoard,
