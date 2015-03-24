@@ -35,7 +35,7 @@ define( function( require ) {
   /**
    *
    * @param {PlinkoProbabilityLabModel} model
-   * @param {Object} options
+   * @param {Object} [options]
    * @constructor
    */
   function StatisticsDisplayPanel( model, options ) {
