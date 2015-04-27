@@ -48,6 +48,9 @@ define( function( require ) {
   var MINUS_SIGN_WIDTH = new Text( '\u2212', { font: MAJOR_TICK_FONT } ).width;
 
 
+  // strings
+  var countString = require( 'string!PLINKO_PROBABILITY/count' );
+
   //----------------------------------------------------------------------------------------
   // major tick with label, orientation is vertical or horizontal
   //----------------------------------------------------------------------------------------
@@ -185,7 +188,7 @@ define( function( require ) {
 
     var centerY = modelViewTransform.modelToViewY( (bounds.minY + bounds.maxY) / 2 );
     var left = modelViewTransform.modelToViewX( bounds.minX );
-    var yLabelNode = new Text( 'STUFF', {
+    var yLabelNode = new Text( countString, {
       font: AXIS_LABEL_FONT,
       fill: AXIS_LABEL_COLOR,
       centerY: centerY,
@@ -221,6 +224,7 @@ define( function( require ) {
 //----------------------------------------------------------------------------------------
 
   /**
+   * @param { } model
    * @param {Property.<number>} numberOfRowsProperty
    * @param {Bounds2} bounds
    * @param {ModelViewTransform2} modelViewTransform
@@ -297,8 +301,6 @@ define( function( require ) {
 
       }
     }
-
-
   }
 
   inherit( Node, XBannerNode );

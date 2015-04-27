@@ -16,8 +16,6 @@ define( function( require ) {
   var Screen = require( 'JOIST/Screen' );
 
   // strings
-  //var plinkoProbabilityScreenString = require( 'string!PLINKO_PROBABILITY/plinkoProbabilityScreen' );
-
   var plinkoProbabilityIntroTitleString = require( 'string!PLINKO_PROBABILITY/plinkoProbabilityIntroTitleScreen' );
 
   /**
