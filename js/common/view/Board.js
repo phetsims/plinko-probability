@@ -11,10 +11,10 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
-  var Matrix3 = require( 'DOT/Matrix3' );
+  //var Matrix3 = require( 'DOT/Matrix3' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Path = require( 'SCENERY/nodes/Path' );
-  var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
+  //var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
   var Shape = require( 'KITE/Shape' );
 
   /**
@@ -51,10 +51,10 @@ define( function( require ) {
     // create a shadow of the wooden board
     //var boardShadowShape = boardShape.copy().transformed( Matrix3.translation( 10, 5 ) );
 //    this.addChild( new Path( boardShadowShape, { fill: options.shadowFill, centerX: 20, top: 10 } ) );
-    var boardShadowRectangleGradient = new LinearGradient( options.bottomWidth / 2, options.height, options.bottomWidth / 2, options.height + 5 ).
-      addColorStop( 0.00, options.shadowFill ).
-      addColorStop( 0.50, options.shadowFill ).
-      addColorStop( 1.00, PlinkoConstants.BACKGROUND_COLOR );
+//    var boardShadowRectangleGradient = new LinearGradient( options.bottomWidth / 2, options.height, options.bottomWidth / 2, options.height + 5 ).
+//      addColorStop( 0.00, options.shadowFill ).
+//      addColorStop( 0.50, options.shadowFill ).
+//      addColorStop( 1.00, PlinkoConstants.BACKGROUND_COLOR );
 
     //this.addChild( new Path( boardShadowShape, { fill: boardShadowRectangleGradient } ) );
     this.addChild( new Path( boardShape, { fill: boardRectangleGradient, centerX: 0, top: 0 } ) );
