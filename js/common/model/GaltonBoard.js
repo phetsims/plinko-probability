@@ -17,27 +17,30 @@ define( function( require ) {
      * @param {number} maxNumberOfRows - maximum number of rows for the simulation
      * @constructor
      */
-    function GaltonBoard( maxNumberOfRows ) {
+    function GaltonBoard( maxNumberOfRows, numberOfRowsProperty ) {
 
       /*
 
        The pegs are labeled in terms of their row and columns;
        The leftmost column of every row is column 0
 
-       row = 0                          *
+       row = 0                          |
 
-       row = 1                      *        *
+       row = 1                      |   *    |
 
-       row = 2                  *       *        *
+       row = 2                  |   *        *   |
 
-       row = 3              *       *        *        *
+       row = 3              |   *       *        *    |
 
-       bucket=4     |       |       |        |        |       |  (edges)
+       row = 4          |   *       *        *        *   |
+
+       bucket=5     |       |       |        |        |       |  (edges)
 
        The galton board has bounds given as bounds2( -1,-1,1,0)
 
        (-1,0)   (0,0)    (1,0)
-       ----------*----------
+       ---------------------
+       |         *         |
        |       *   *       |
        |     *       *     |
        |   *           *   |
@@ -46,13 +49,15 @@ define( function( require ) {
 
        The location of the pegs can be determined in terms of the rows and column allocation:
 
-       The center of the top peg, ( with rowNumber =0 and columnNumber =0)  is located a (0,0);
+       Defining the maximum number of rows as N, the vertical separation of the pegs is given by 1/(N+1)
+
+       The horizontal separation between pegs is 1/(N+1)
+
+       The center of the top peg, ( with rowNumber =1 and columnNumber =0)  is located a (0, -1/(N+1);
        The horizontal y=-1, is the position of edges of the bucket collectors. No pegs lies on this line.
 
-       Defining the maximum number of rows as N, the vertical separation of the pegs is given by 1/(N)
-       The horizontal separation between pegs is 1/(N+1)
-       The vertical position of the peg is given by    y = -row/(N)
-       whereas its horizontal position is given by     x = (2*column-rowNumber)/(N+1)
+       The vertical position of the peg is given by    y = -row/(N+1)
+       whereas its horizontal position is given by     x = (2*column-rowNumber+1)/(N+1)
        The bucket collector are located at  y =-1 and x = (2*column/(N+1) - 1
        */
 
@@ -64,13 +69,14 @@ define( function( require ) {
       this.pegs = [];
 
       var index = 0;
-      for ( rowNumber = 0; rowNumber < maxNumberOfRows; rowNumber++ ) {
-        for ( columnNumber = 0; columnNumber <= rowNumber; columnNumber++ ) {
+      for ( rowNumber = 1; rowNumber <= maxNumberOfRows; rowNumber++ ) {
+        for ( columnNumber = 0; columnNumber < rowNumber; columnNumber++ ) {
 
           var peg = {
-            rowNumber: rowNumber, // an integer starting at zero
+            rowNumber: rowNumber, // an integer starting at one
             columnNumber: columnNumber, // an integer starting at zero
-            unnormalizedPosition: new Vector2( columnNumber - rowNumber * 0.5, rowNumber ), //
+            unnormalizedPosition: new Vector2( columnNumber - (rowNumber - 1) / 2, rowNumber ), //
+            normalizedPosition: new Vector2( (2 * columnNumber - rowNumber + 1) / (numberOfRowsProperty.get() + 1), -rowNumber / (numberOfRowsProperty.get() + 1) ),
             index: index
           };
           index++;
@@ -96,12 +102,12 @@ define( function( require ) {
 
         /**
          * Function that returns the index of a peg (in the array pegs) from its row and column position
-         * @param {number} row - a non negative  integer
+         * @param {number} row - a positive  integer
          * @param {number} column - an integer
          * @returns {number} index
          */
         getIndexArray: function( row, column ) {
-          return column + row * (row + 1) / 2;
+          return column + row * (row - 1) / 2;
         },
 
         /**
@@ -114,8 +120,8 @@ define( function( require ) {
          */
         getOnBoardPosition: function( row, column, numberOfRows ) {
           return this.getPegFromRowColumn( row, column ).unnormalizedPosition.componentTimes( {
-            x: 2 / numberOfRows,
-            y: -1 / numberOfRows
+            x: 2 / (numberOfRows + 1),
+            y: -1 / (numberOfRows + 1)
           } );
         },
 

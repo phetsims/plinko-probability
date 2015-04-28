@@ -59,7 +59,7 @@ define( function( require ) {
     hopper.centerX = galtonBoardApexPosition.x;
     hopper.top = 10;
     // TODO: find a way to take care of the shadow offset in a less ad hoc way
-    board.centerX = hopper.centerX + 10;
+    board.centerX = hopper.centerX;
     board.top = hopper.bottom + 10;
 
     var viewGraphBounds = board.getBounds();

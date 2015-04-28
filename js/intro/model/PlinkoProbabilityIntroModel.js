@@ -45,7 +45,7 @@ define( function( require ) {
     this.standardDeviation = 0; // standard deviation (a.k.a. sigma) the square root of the variance
     this.standardDeviationOfMean = 0; // standard deviation of the mean
 
-    this.galtonBoard = new GaltonBoard( PlinkoConstants.ROWS_RANGE.max );
+    this.galtonBoard = new GaltonBoard( PlinkoConstants.ROWS_RANGE.max, this.numberOfRowsProperty );
     this.balls = new ObservableArray();
     //    this.histogram = new Array( this.maxNumberOfRows ).map( Number.prototype.valueOf, 0 );  //
 

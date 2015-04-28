@@ -37,14 +37,16 @@ define( function( require ) {
     }, options );
 
     var hopperShape = new Shape();
-    hopperShape.moveTo( -options.bottomWidth / 2, 0 )
+    hopperShape.moveTo( 0, 0 )
+      .lineTo( -options.bottomWidth / 2, 0 )
       .lineTo( -options.topWidth / 2, -options.hopperThickness )
       .lineTo( options.topWidth / 2, -options.hopperThickness )
       .lineTo( options.bottomWidth / 2, 0 )
       .close();
 
     var rimShape = new Shape();
-    rimShape.moveTo( -options.bottomWidth / 2, 0 )
+    rimShape.moveTo( 0, 0 )
+      .lineTo( -options.bottomWidth / 2, 0 )
       .lineTo( -options.bottomWidth / 2, options.rimThickness )
       .lineTo( options.bottomWidth / 2, options.rimThickness )
       .lineTo( options.bottomWidth / 2, 0 )
