@@ -5,7 +5,7 @@
  *
  * @author Martin Veillette (Berea College)
  */
-define( function ( require ) {
+define( function( require ) {
     'use strict';
 
     // modules
@@ -14,6 +14,7 @@ define( function ( require ) {
     var inherit = require( 'PHET_CORE/inherit' );
     var Node = require( 'SCENERY/nodes/Node' );
     var Path = require( 'SCENERY/nodes/Path' );
+    var PegInterface = require( 'PLINKO_PROBABILITY/common/model/PegInterface' );
     var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
     var RadialGradient = require( 'SCENERY/util/RadialGradient' );
     var Shape = require( 'KITE/Shape' );
@@ -40,9 +41,9 @@ define( function ( require ) {
       pegShape.arc( 0, 0, PlinkoConstants.PEG_RADIUS, 2 / 8 * Math.PI + Math.PI / 2, 6 / 8 * Math.PI + Math.PI / 2, true );
 
 
-      model.galtonBoard.pegs.forEach( function ( peg ) {
-        pegPath = new Path( pegShape, {fill: PlinkoConstants.PEG_COLOR} );
-        var pegShadow = new Circle( 3 * PlinkoConstants.PEG_RADIUS, {
+      model.galtonBoard.pegs.forEach( function( peg ) {
+        pegPath = new Path( pegShape, { fill: PlinkoConstants.PEG_COLOR } );
+        var pegShadow = new Circle( 2 * PlinkoConstants.PEG_RADIUS, {
           fill: new RadialGradient(
             -PlinkoConstants.PEG_RADIUS * 0.2,
             -PlinkoConstants.PEG_RADIUS * 0.2,
@@ -66,8 +67,8 @@ define( function ( require ) {
             .addColorStop( 0.9217, 'rgba(206,206,206, 0.0783)' )
             .addColorStop( 1, 'rgba(255,255,255, 0.00)' )
         } );
-        pegPath.pegPosition = peg.unnormalizedPosition;
-        pegShadow.pegPosition = peg.unnormalizedPosition.plus( new Vector2( 0.125, 0.25 ) );
+        pegPath.peg = peg;
+        pegShadow.peg = peg;
         galtonBoardNode.pegPathArray.push( pegPath );
         galtonBoardNode.pegShadowArray.push( pegShadow );
       } );
@@ -82,31 +83,26 @@ define( function ( require ) {
       }
 
 
-      model.probabilityProperty.link( function ( newProbability, oldProbability ) {
+      model.probabilityProperty.link( function( newProbability, oldProbability ) {
         var newAngle = newProbability * Math.PI;
         var oldAngle = oldProbability * Math.PI;
         var changeAngle = newAngle - oldAngle;
-        galtonBoardNode.pegPathArray.forEach( function ( pegPath ) {
+        galtonBoardNode.pegPathArray.forEach( function( pegPath ) {
           pegPath.rotateAround( pegPath.center, changeAngle );
         } );
       } );
 
-      model.numberOfRowsProperty.link( function ( numberOfRows ) {
-        var visibleNumberOfPegs = (numberOfRows) * (numberOfRows + 1) / 2;
-        galtonBoardNode.pegPathArray.forEach( function ( pegPath, index ) {
-          pegPath.visible = (index < visibleNumberOfPegs);
-          pegPath.center = modelViewTransform.modelToViewPosition( pegPath.pegPosition.componentTimes( {
-            x: 2 / (numberOfRows + 1),
-            y: -1 / (numberOfRows + 1)
-          } ) );
+      model.numberOfRowsProperty.link( function( numberOfRows ) {
+        var pegSpacing = PegInterface.getSpacing( numberOfRows );
+        var offsetVector = new Vector2( pegSpacing * 0.08, -pegSpacing * 0.04 );
+        galtonBoardNode.pegPathArray.forEach( function( pegPath, index ) {
+          pegPath.visible = pegPath.peg.isVisible;
+          pegPath.center = modelViewTransform.modelToViewPosition( pegPath.peg.position );
           pegPath.setScaleMagnitude( 26 / numberOfRows );
         } );
-        galtonBoardNode.pegShadowArray.forEach( function ( pegPath, index ) {
-          pegPath.visible = (index < visibleNumberOfPegs);
-          pegPath.center = modelViewTransform.modelToViewPosition( pegPath.pegPosition.componentTimes( {
-            x: 2 / (numberOfRows + 1),
-            y: -1 / (numberOfRows + 1)
-          } ) );
+        galtonBoardNode.pegShadowArray.forEach( function( pegPath, index ) {
+          pegPath.visible = pegPath.peg.isVisible;
+          pegPath.center = modelViewTransform.modelToViewPosition( pegPath.peg.position.plus( offsetVector ) );
           pegPath.setScaleMagnitude( 26 / numberOfRows );
 
         } );
@@ -116,8 +112,8 @@ define( function ( require ) {
 
     return inherit( Node, GaltonBoardNode,
       {
-        rotatePegs: function ( angle ) {
-          this.pegPathArray.forEach( function ( pegPath ) {
+        rotatePegs: function( angle ) {
+          this.pegPathArray.forEach( function( pegPath ) {
             pegPath.rotation( angle );
           } );
         }

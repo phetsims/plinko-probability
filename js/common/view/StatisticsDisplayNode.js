@@ -50,7 +50,8 @@ define( function( require ) {
       leftHandSideFont: PlinkoConstants.TEXT_FONT_BOLD,
       leftHandSideFill: PlinkoConstants.SAMPLE_FONT_COLOR,
       rightHandSideFont: PlinkoConstants.TEXT_FONT_BOLD,
-      rightHandSideFill: PlinkoConstants.SAMPLE_FONT_COLOR
+      rightHandSideFill: PlinkoConstants.SAMPLE_FONT_COLOR,
+      maxSigFigs: 0
     };
 
     var optionsSample = {
@@ -82,11 +83,11 @@ define( function( require ) {
       theoreticalStandardDeviationText.setRightHandSideOfEquation( model.getTheoreticalStandardDeviation( integerNumberOfRows, probability ) );
     } );
 
-    model.on( 'statsUpdated', function() {
-      numberLandedBallsText.setRightHandSideOfEquation( model.landedBallsNumber );
-      sampleAverageText.setRightHandSideOfEquation( model.average );
-      sampleStandardDeviationText.setRightHandSideOfEquation( model.standardDeviation );
-      sampleStandardDeviationOfMeanText.setRightHandSideOfEquation( model.standardDeviationOfMean );
+    model.histogram.on( 'statisticsUpdated', function() {
+      numberLandedBallsText.setRightHandSideOfEquation( model.histogram.landedBallsNumber );
+      sampleAverageText.setRightHandSideOfEquation( model.histogram.average );
+      sampleStandardDeviationText.setRightHandSideOfEquation( model.histogram.standardDeviation );
+      sampleStandardDeviationOfMeanText.setRightHandSideOfEquation( model.histogram.standardDeviationOfMean );
     } );
 
 

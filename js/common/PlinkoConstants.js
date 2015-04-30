@@ -12,6 +12,7 @@ define( function( require ) {
   //var Bounds2 = require( 'DOT/Bounds2' );
   //var Dimension2 = require( 'DOT/Dimension2' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  var PhetColorScheme = require( 'SCENERY_PHET/PhetColorScheme' );
   var Range = require( 'DOT/Range' );
 
   var PlinkoConstants = {
@@ -35,7 +36,7 @@ define( function( require ) {
     PANEL_FONT_BOLD: new PhetFont( { size: 22, weight: 'bold' } ),
 
     PANEL_BACKGROUND_COLOR: 'white',
-    SAMPLE_FONT_COLOR: 'red',
+    SAMPLE_FONT_COLOR: PhetColorScheme.RED_COLORBLIND,
     THEORETICAL_FONT_COLOR: 'blue',
 
     BINARY_PROBABILITY_RANGE: new Range( 0, 1 ),
@@ -43,15 +44,17 @@ define( function( require ) {
 
     // constants
     //TODO the radii are not constant
-    BALL_RADIUS: 6, // radius of the Ball.
-    BALL_COLOR: 'red',
+    BALL_RADIUS: 4, // radius of the Ball.
+    BALL_COLOR: PhetColorScheme.RED_COLORBLIND,
     BALL_HIGHLIGHT_COLOR: 'white',
-    PEG_RADIUS: 5, // radius of the peg.
+    PEG_RADIUS: 3, // radius of the peg.
     PEG_COLOR: 'rgb(115,99,87)', //brown
+
+    PEG_HEIGHT_FRACTION_OFFSET :0.8, // ranges between zero and 1
 
     // histogram
     HISTOGRAM_BAR_COLOR_FILL: 'rgb(237,28,36)', // red
-    HISTOGRAM_BAR_COLOR_STROKE: 'rgb(193,39,45)' // darker shae of red
+    HISTOGRAM_BAR_COLOR_STROKE: 'rgb(193,39,45)' // darker shade of red
 
 
   };

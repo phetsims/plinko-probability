@@ -11,6 +11,8 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
+  var PegInterface = require( 'PLINKO_PROBABILITY/common/model/PegInterface' );
+  var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
   var PropertySet = require( 'AXON/PropertySet' );
   var Vector2 = require( 'DOT/Vector2' );
 
@@ -19,13 +21,24 @@ define( function( require ) {
   var PHASE_EXIT = 2;
   var PHASE_COLLECTED = 3;
 
-  function Ball() {
+  /**
+   *
+   * @param probability
+   * @param numberOfRows
+   * @constructor
+   */
+  function Ball( probability, numberOfRows ) {
 
     PropertySet.call( this, {
       position: new Vector2( 0, 0 )
       //   index: 'empty'
     } );
 
+
+    this.probability = probability;
+    this.numberOfRows = numberOfRows;
+
+    this.pegSeparation = PegInterface.getSpacing( numberOfRows );
     // 0 -> Initially falling
     // 1 -> Falling between pegs
     // 2 -> Out of pegs
@@ -53,10 +66,30 @@ define( function( require ) {
     // 0 is left, 1 is right
     this.direction = 0;
 
+    //
+
     // 0 is the top of the current peg, 1 is the top of the next peg
     this.fallenRatio = 0;
 
-    this.pegHistory = [];
+
+    this.pegHistory= [];
+
+    var direction;  // 0 is left, 1 is right
+    var rowNumber;
+    var columnNumber = 0;
+
+    for ( rowNumber = 0; rowNumber < numberOfRows; rowNumber++ ) {
+      direction = (Math.random() < probability) ? 1 : 0;
+      var peg = {
+        rowNumber: rowNumber, // an integer starting at zero
+        columnNumber: columnNumber, // an integer starting at zero
+        direction: direction, // direction to the next peg,
+        position: PegInterface.getPosition( rowNumber, columnNumber, numberOfRows )
+      };
+      this.pegHistory.push( peg );
+
+      columnNumber += direction;
+    }
 
     this.binIndex = -1;
 
@@ -64,30 +97,6 @@ define( function( require ) {
 
   return inherit( PropertySet, Ball, {
     reset: function() {
-    },
-
-    /**
-     *
-     * @param {number} binaryProbability - a number between 0 and 1, the average probability of the ball to fall to the right
-     * @param {number} maxRows - an integer
-     */
-    pegPath: function( binaryProbability, maxRows ) {
-
-      var direction;  // 0 is left, 1 is right
-      var rowNumber;
-      var columnNumber = 0;
-      for ( rowNumber = 0; rowNumber < maxRows; rowNumber++ ) {
-        direction = (Math.random() < binaryProbability) ? 1 : 0;
-        var peg = {
-          rowNumber: rowNumber, // an integer starting at zero
-          columnNumber: columnNumber, // an integer starting at zero
-          direction: direction, // direction to the next peg
-          unnormalizedPosition: new Vector2( columnNumber - rowNumber * 0.5, rowNumber ) //
-        };
-        this.pegHistory.push( peg );
-
-        columnNumber += direction;
-      }
     },
 
     /**
@@ -105,6 +114,10 @@ define( function( require ) {
       if ( this.phase === PHASE_INITIAL ) {
         if ( df + this.fallenRatio < 1 ) {
           this.fallenRatio += df;
+          peg = this.pegHistory[0];
+          this.column = peg.columnNumber;
+          this.row = peg.rowNumber;
+          this.pegPosition = peg.position;
         }
         else {
           this.phase = PHASE_FALLING;
@@ -112,6 +125,7 @@ define( function( require ) {
           peg = this.pegHistory.shift();
           this.column = peg.columnNumber;
           this.row = peg.rowNumber;
+          this.pegPosition = peg.position;
           this.direction = peg.direction;
         }
       }
@@ -128,6 +142,7 @@ define( function( require ) {
             peg = this.pegHistory.shift();
             this.column = peg.columnNumber;
             this.row = peg.rowNumber;
+            this.pegPosition = peg.position;
             this.direction = peg.direction;
 
           }
@@ -151,7 +166,7 @@ define( function( require ) {
           this.trigger( 'landed' );
         }
       }
-      this.position = this.getPosition();
+      this.position = this.getPosition().addXY(0,this.pegSeparation*PlinkoConstants.PEG_HEIGHT_FRACTION_OFFSET);
     },
 
 
@@ -162,37 +177,18 @@ define( function( require ) {
     getPosition: function() {
       switch( this.phase ) {
         case PHASE_INITIAL:
-          return new Vector2( 0, -1 + this.fallenRatio );
+          var displacement = new Vector2(0, (1-this.fallenRatio) );
+          displacement.multiplyScalar( this.pegSeparation );
+          return this.pegPosition.plus( displacement );
         case PHASE_FALLING:
-          return new Vector2( this.getPositionX( this.row, this.column ) + (this.direction - 0.5) * this.fallenRatio,
-            this.getPositionY( this.row, this.column ) + this.fallenRatio * this.fallenRatio );
+          var fallingPosition = new Vector2( (this.direction - 0.5) * this.fallenRatio, -this.fallenRatio * this.fallenRatio );
+          fallingPosition.multiplyScalar( this.pegSeparation );
+          return this.pegPosition.plus( fallingPosition );
         case PHASE_EXIT:
-          return new Vector2( this.getPositionX( this.row, this.column ), this.getPositionY( this.row, this.column ) + this.fallenRatio );
+          return this.pegPosition.plus( 0, -this.fallenRatio * this.pegSeparation );
         case PHASE_COLLECTED:
-          return new Vector2( this.getPositionX( this.row, this.column ), this.getPositionY( this.row, this.column ) + this.fallenRatio );
+          return this.pegPosition.plus( 0, -this.fallenRatio * this.pegSeparation );
       }
-    },
-
-    /**
-     *
-     * @param {number}  row
-     * @param {number} column
-     * @returns {number}
-     */
-    getPositionX: function( row, column ) {
-      //return new GaltonBoard.getPegFromRowColumn( row, column ).position.x;
-      return column - row * 0.5;
-    },
-
-    /**
-     *
-     * @param {number} row
-     * @param {number} column
-     * @returns {number}
-     */
-    getPositionY: function( row, column ) {
-      //return new GaltonBoard.getPegFromRowColumn( row, column ).position.y;
-      return row;
     }
 
   } );

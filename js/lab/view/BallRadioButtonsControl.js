@@ -18,12 +18,12 @@ define( function( require ) {
 
   // strings
   var ballString = require( 'string!PLINKO_PROBABILITY/ball' );
-  var pathString = require( 'string!PLINKO_PROBABILITY/path' );
   var noneString = require( 'string!PLINKO_PROBABILITY/none' );
+  var pathString = require( 'string!PLINKO_PROBABILITY/path' );
 
   /**
    *
-   * @param {Property.<String>} showRadioProperty - Valid values are 'ball', 'path', and 'none'.
+   * @param {Property.<string>} showRadioProperty - Valid values are 'ball', 'path', and 'none'.
    * @param {Object} [options]
    * @constructor
    */

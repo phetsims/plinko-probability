@@ -1,0 +1,159 @@
+// Copyright 2002-2015, University of Colorado Boulder
+
+/**
+ * Model of a histogram that keeps track of the number of counts in each bin
+ * and some associated statistics
+ *
+ * @author Martin Veillette (Berea College)
+ */
+
+define( function( require ) {
+  'use strict';
+
+  var Events = require( 'AXON/Events' );
+  var inherit = require( 'PHET_CORE/inherit' );
+  var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
+
+  /**
+   *
+   * @param {Property.<number>} numberOfRowsProperty
+   * @constructor
+   */
+  function Histogram( numberOfRowsProperty ) {
+
+    Events.call( this );
+
+    var thisHistogram = this;
+
+    this.bins = [];
+
+    this.reset();
+
+    numberOfRowsProperty.link( function( numberOfRows ) {
+      thisHistogram.reset();
+    } );
+  }
+
+  return inherit( Events, Histogram, {
+    reset: function() {
+      this.setBinsToZero();
+      this.resetStatistics();
+
+    },
+
+    setBinsToZero: function() {
+      this.bins = [];
+      for ( var i = 0; i < PlinkoConstants.ROWS_RANGE.max + 1; i++ ) {
+        this.bins.push( 0 );
+      }
+      this.trigger('histogramUpdated');
+    },
+
+    /**
+     * Update the histogram statistic due to adding one ball in bin 'binIndex'
+     *
+     * @param {number} binIndex - the bin index associated with the landed ball.
+     */
+    updateStatistics: function( binIndex ) {
+      this.landedBallsNumber++;
+
+      // convenience variable
+      var N = this.landedBallsNumber;
+
+      this.average = ((N - 1) * this.average + binIndex) / N;
+      this.sumOfSquares += binIndex * binIndex;
+      // the variance and standard deviations exist only when the number of ball is larger than 1
+      if ( N > 1 ) {
+        this.variance = (this.sumOfSquares - N * this.average * this.average) / (N - 1);
+        this.standardDeviation = Math.sqrt( this.variance );
+        this.standardDeviationOfMean = this.standardDeviation / Math.sqrt( N );
+      }
+      else {
+        this.variance = 0;
+        this.standardDeviation = 0;
+        this.standardDeviationOfMean = 0;
+      }
+      this.trigger('statisticsUpdated');
+    },
+
+    /**
+     *
+     * Calculate the statitics from the histogram (from scratch)
+     *
+     */
+    calculateStatistics: function() {
+      this.resetStatistics();
+
+      var self = this;
+
+      this.bins.forEach( function( bin, index ) {
+        self.landedBallsNumber += bin;
+        self.average += bin * index;
+        self.sumOfSquares += bin * index * index;
+      } );
+
+      this.average = this.average / this.landedBallsNumber;
+      this.sumOfSquares = this.sumOfSquares / this.landedBallsNumber;
+
+      var N = this.landedBallsNumber;
+
+      // the variance and standard deviations exist only when the number of ball is larger than 1
+      if ( N > 1 ) {
+        this.variance = (this.sumOfSquares - N * this.average * this.average) / (N - 1);
+        this.standardDeviation = Math.sqrt( this.variance );
+        this.standardDeviationOfMean = this.standardDeviation / Math.sqrt( N );
+      }
+      else {
+        this.variance = 0;
+        this.standardDeviation = 0;
+        this.standardDeviationOfMean = 0;
+      }
+      this.trigger('statisticsUpdated');
+    },
+
+    /**
+     *  Resets all the statistics data to zero
+     */
+    resetStatistics: function() {
+      this.landedBallsNumber = 0;
+      this.average = 0;
+      this.sumOfSquares = 0;
+      this.variance = 0;
+      this.standardDeviation = 0;
+      this.standardDeviationOfMean = 0;
+      this.trigger('statisticsUpdated');
+    },
+
+    /**
+     * Add an additional ball to the histogram to the appropriate bin and update all the relevant statistics
+     * @param {Ball} ball
+     */
+    addBallToHistogram: function( ball ) {
+      this.bins[ ball.binIndex ]++;
+      this.trigger('histogramUpdated');
+      this.updateStatistics( ball.binIndex );
+    },
+
+    /**
+     * Function that returns the number of counts in a bin
+     * The count is a non-negative integer
+     * @param {number} binIndex
+     * @returns {number}
+     */
+    getBinCount: function( binIndex ) {
+      return this.bins[ binIndex ]; // an integer
+    },
+
+    /**
+     * Function that returns the fractional occupation of a bin
+     * The fraction is smaller than one
+     * @param {number} binIndex - an integer
+     * @returns {number}
+     */
+    getFractionalBinCount: function( binIndex ) {
+      return this.bins[ binIndex ] / this.landedBallsNumber; // fraction is smaller than one
+    }
+
+  } );
+} );
+

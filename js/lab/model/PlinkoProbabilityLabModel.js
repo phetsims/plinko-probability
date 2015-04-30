@@ -12,9 +12,9 @@ define( function( require ) {
     // modules
     var Ball = require( 'PLINKO_PROBABILITY/common/model/Ball' );
     var GaltonBoard = require( 'PLINKO_PROBABILITY/common/model/GaltonBoard' );
+    var Histogram = require( 'PLINKO_PROBABILITY/common/model/Histogram' );
     var inherit = require( 'PHET_CORE/inherit' );
     var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
-    //var Property = require( 'AXON/Property' );
     var PropertySet = require( 'AXON/PropertySet' );
     var ObservableArray = require( 'AXON/ObservableArray' );
     var Timer = require( 'JOIST/Timer' );
@@ -35,32 +35,13 @@ define( function( require ) {
       } );
 
       this.launchedBallsNumber = 0; // number of current trial (current ball drop)
-      this.landedBallsNumber = 0; //number of balls in the histogram
-      this.average = 0;  // average of the sample (near zero for p = 0.5)
-      this.sumOfSquares = 0; // sum of squares of trials, used to compute the variance
-      this.variance = 0; // (unbiased) sample variance
-      this.standardDeviation = 0; // standard deviation (a.k.a. sigma) the square root of the variance
-      this.standardDeviationOfMean = 0; // standard deviation of the mean
+
 
       this.galtonBoard = new GaltonBoard( PlinkoConstants.ROWS_RANGE.max, this.numberOfRowsProperty );
       this.balls = new ObservableArray();
-      //    this.histogram = new Array( this.maxNumberOfRows ).map( Number.prototype.valueOf, 0 );  //
+      this.histogram = new Histogram( this.numberOfRowsProperty );
+      this.landedBallsNumber = this.histogram.landedBallsNumber; //number of balls in the histogram
 
-      this.histogram = [];
-      // there are one more bin than the maxNumber of Rows
-      for ( var i = 0; i < PlinkoConstants.ROWS_RANGE.max + 1; i++ ) {
-        this.histogram.push( 0 );
-      }
-
-      this.numberOfRowsProperty.link( function( numberOfRows ) {
-        thisModel.balls.clear();
-        thisModel.histogram = [];
-        thisModel.histogramTotalNumber = 0;
-        //  thisModel.histogram.map( Number.prototype.valueOf, 0 );  //
-        for ( var i = 0; i < PlinkoConstants.ROWS_RANGE.max + 1; i++ ) {
-          thisModel.histogram.push( 0 );
-        }
-      } );
 
       this.isPlayingProperty.link( function( isPlaying ) {
         if ( !isPlaying ) {
@@ -81,7 +62,7 @@ define( function( require ) {
 
       reset: function() {
         PropertySet.prototype.reset.call( this );
-        this.resetStatistics();
+        this.histogram.reset();
       },
 
       play: function() {
@@ -116,7 +97,7 @@ define( function( require ) {
 
             this.continuousTimer = Timer.setInterval( function() {
               thisModel.addNewBall();
-            }, 100 );
+            }, 10 );
             break;
         }
       },
@@ -126,11 +107,10 @@ define( function( require ) {
        */
       addNewBall: function() {
         var thisModel = this;
-        var addedBall = new Ball();
-        addedBall.pegPath( this.probability, this.numberOfRowsProperty.value );
+        var addedBall = new Ball(this.probability, this.numberOfRows);
         this.balls.push( addedBall );
         addedBall.on( 'landed', function() {
-          thisModel.addBallToHistogram( addedBall.binIndex );
+          thisModel.histogram.addBallToHistogram( addedBall );
           thisModel.balls.remove( addedBall );
         } );
       },
@@ -263,55 +243,8 @@ define( function( require ) {
           binomialCoefficientsArray.push( this.getBinomialProbability( this.numberOfRowsProperty.value, k, this.probability ) );
         }
         return binomialCoefficientsArray;
-      },
-
-      /**
-       * Update the histogram statistic of the sample distribution
-       * The number of balls has already been updated
-       *
-       * @param {number} binIndex - the bin index of the Nth Ball - an integer
-       */
-      updateStatistics: function( binIndex ) {
-        var N = this.landedBallsNumber; // convenience variable
-        this.average = ((N - 1) * this.average + binIndex) / N;
-        this.sumOfSquares += binIndex * binIndex;
-        // the variance and standard deviations exist only when the number of ball is larger than 1
-        if ( N > 1 ) {
-          this.variance = (this.sumOfSquares - N * this.average * this.average) / (N - 1);
-          this.standardDeviation = Math.sqrt( this.variance );
-          this.standardDeviationOfMean = this.standardDeviation / Math.sqrt( N );
-        }
-        else {
-          this.variance = 0;
-          this.standardDeviation = 0;
-          this.standardDeviationOfMean = 0;
-        }
-        this.trigger( 'statsUpdated' );
-      },
-
-      /**
-       *  Reset all the statistics to zero
-       */
-      resetStatistics: function() {
-        this.launchedBallsNumber = 0;
-        this.landedBallsNumber = 0;
-        this.average = 0;
-        this.sumOfSquares = 0;
-        this.variance = 0;
-        this.standardDeviation = 0;
-        this.standardDeviationOfMean = 0;
-        this.trigger( 'statsUpdated' );
-      },
-
-      /**
-       * Add an additional ball to the histogram and update all the relevant statistics
-       * @param {number} binIndex
-       */
-      addBallToHistogram: function( binIndex ) {
-        this.landedBallsNumber++;
-        this.histogram[ binIndex ]++;
-        this.updateStatistics( binIndex );
       }
+
     } );
   }
 )

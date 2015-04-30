@@ -47,15 +47,11 @@ define( function( require ) {
     ballNode.addChild( ballRepresentation );
 
     ball.positionProperty.link( function( position ) {
-      ballNode.center = modelViewTransform.modelToViewPosition(
-        position.componentTimes( {
-          x: 2 / (model.numberOfRowsProperty.value + 1),
-          y: -1 / (model.numberOfRowsProperty.value)
-        } ) );
+      ballNode.center = modelViewTransform.modelToViewPosition( position );
     } );
 
     model.numberOfRowsProperty.link( function( numberOfRows ) {
-      ballNode.setScaleMagnitude( 26 / numberOfRows );
+      ballNode.setScaleMagnitude( 20 / numberOfRows );
     } );
 
   }

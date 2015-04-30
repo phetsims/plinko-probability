@@ -36,7 +36,7 @@ define( function( require ) {
       rightHandSideFont: new PhetFont( 16 ),
       leftHandSideFill: 'blue',
       rightHandSideFill: 'blue',
-      maxSigFigs: 2
+      maxSigFigs: 3
     }, options );
 
     Node.call( this );
@@ -72,7 +72,7 @@ define( function( require ) {
 
   return inherit( Node, EquationNode, {
     setRightHandSideOfEquation: function( number ) {
-      this.rightHandSideOfEquationText.text = this.roundNumber( number, { maxSigFigs: 2 } );
+      this.rightHandSideOfEquationText.text = this.roundNumber( number, { maxSigFigs: 3 } );
     },
 
     roundNumber: function( number, options ) {
@@ -80,11 +80,14 @@ define( function( require ) {
       if ( Math.abs( number ) < 1 ) {
         roundedNumber = Util.toFixed( number, options.maxSigFigs );
       }
-      else if ( Math.abs( number ) < 100 ) {
+      else if ( Math.abs( number ) < 10 ) {
         roundedNumber = Util.toFixed( number, options.maxSigFigs - 1 );
       }
-      else {
+      else if ( Math.abs( number ) < 100 ) {
         roundedNumber = Util.toFixed( number, options.maxSigFigs - 2 );
+      }
+      else {
+        roundedNumber = Util.toFixed( number, options.maxSigFigs - 3 );
       }
       return roundedNumber;
     }

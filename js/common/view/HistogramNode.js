@@ -100,7 +100,7 @@ define( function( require ) {
       var numberOfTicks = numberOfRows + 1;
       self.removeAllChildren();
       for ( var i = 0; i < numberOfTicks; i++ ) {
-        var modelX = bounds.minX + (2 * i + 1) / (numberOfTicks );
+        var modelX = bounds.minX +  bounds.width*(i + 1/2) / (numberOfTicks );
         var x = modelViewTransform.modelToViewX( modelX );
         var y = modelViewTransform.modelToViewY( bounds.minY );
         // major tick
@@ -275,7 +275,7 @@ define( function( require ) {
     }
 
 
-    model.on( 'statsUpdated', function() {
+    model.histogram.on( 'histogramUpdated', function() {
       updateHistogram();
     } );
     /**
@@ -288,12 +288,12 @@ define( function( require ) {
         label.removeAllChildren();
       }
       for ( var i = 0; i < numberOfTicks; i++ ) {
-        var modelX = bounds.minX + (2 * i + 1) / (numberOfTicks );
+        var modelX = bounds.minX + bounds.width *( i + 1/2) / (numberOfTicks );
         var x = modelViewTransform.modelToViewX( modelX );
         var y = modelViewTransform.modelToViewY( bounds.maxY );
         // major tick
 
-        var tickLabelNode = new Text( model.histogram[ i ], { font: MAJOR_TICK_FONT, fill: 'white' } );
+        var tickLabelNode = new Text( model.histogram.bins[ i ], { font: MAJOR_TICK_FONT, fill: 'white' } );
         var signXOffset = ( i < 0 ) ? -( MINUS_SIGN_WIDTH / 2 ) : 0;
         tickLabelNode.left = x - ( tickLabelNode.width / 2 ) + signXOffset;
         tickLabelNode.top = y + TICK_LABEL_SPACING;
@@ -330,7 +330,7 @@ define( function( require ) {
     var bannerWidth = maxX - minX;
 
     var histogramRectangleArray = [];
-    var arrayLength = model.histogram.length;
+    var arrayLength = model.histogram.bins.length;
     for ( var i = 0; i < arrayLength; i++ ) {
       histogramRectangleArray[ i ] = new Rectangle( 0, 0, bannerWidth, 1, {
         fill: PlinkoConstants.HISTOGRAM_BAR_COLOR_FILL,
@@ -348,7 +348,7 @@ define( function( require ) {
       updateHistogram();
     } );
 
-    model.on( 'statsUpdated', function() {
+    model.histogram.on( 'histogramUpdated', function() {
       updateHistogram();
     } );
     /**
@@ -358,12 +358,12 @@ define( function( require ) {
     function updateHistogram() {
       var i;
       var xSpacing = bannerWidth / (model.numberOfRowsProperty.value + 1);
-      for ( i = 0; i < model.numberOfRowsProperty.value; i++ ) {
+      for ( i = 0; i < model.numberOfRowsProperty.value + 1; i++ ) {
         histogramRectangleArray[ i ].setRect(
           minX + (i) * xSpacing,
-          maxY - 5 * model.histogram[ i ],
+          maxY - 5 * model.histogram.bins[ i ],
           xSpacing,
-          5 * model.histogram[ i ] );
+          5 * model.histogram.bins[ i ] );
       }
 
     }
@@ -385,7 +385,7 @@ define( function( require ) {
   function HistogramNode( numberOfRowsProperty, verticalScaleProperty, model, modelViewTransform, histogramVisibleProperty ) {
 
     var minY = -1.5;
-    var bounds = new Bounds2( -1, minY, 1, -1 );
+    var bounds = new Bounds2( -1/2, minY, 1/2, -1 );
     Node.call( this, {
         children: [
           new BackgroundNode( bounds, modelViewTransform ),

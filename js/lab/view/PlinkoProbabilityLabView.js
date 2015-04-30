@@ -24,6 +24,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var PathNode = require( 'PLINKO_PROBABILITY/common/view/PathNode' );
   var PlayPanel = require( 'PLINKO_PROBABILITY/lab/view/PlayPanel' );
   //var PropertySet = require( 'AXON/PropertySet' );
   var Property = require( 'AXON/Property' );
@@ -84,6 +85,7 @@ define( function( require ) {
       //do stuff
     } );
 
+
     var ballRadioButtonsControl = new BallRadioButtonsControl( showRadioProperty );
 
     // Add the counter button that allows the histogram
@@ -124,6 +126,8 @@ define( function( require ) {
 
     // Handle the comings and goings of balls
     var ballsLayer = new Node();
+    // Handle the comings and goings of paths
+    var pathsLayer = new Node();
 
     model.balls.addItemAddedListener( function( addedBall ) {
 
@@ -131,10 +135,15 @@ define( function( require ) {
       var addedBallNode = new BallNode( addedBall, model, modelViewTransform );
       ballsLayer.addChild( addedBallNode );
 
+      var addedPathNode = new PathNode( addedBall, model, modelViewTransform );
+      pathsLayer.addChild( addedPathNode );
+
+
       // Add the removal listener for if and when this dataPoint is removed from the model.
       model.balls.addItemRemovedListener( function removalListener( removedBall ) {
         if ( removedBall === addedBall ) {
           ballsLayer.removeChild( addedBallNode );
+          pathsLayer.removeChild( addedPathNode );
           model.balls.removeItemRemovedListener( removalListener );
         }
       } );
@@ -160,7 +169,7 @@ define( function( require ) {
       listener: function() {
         model.reset();
       },
-      right:  thisView.layoutBounds.maxX - 10,
+      right: thisView.layoutBounds.maxX - 10,
       bottom: thisView.layoutBounds.maxY - 10
     } );
 
@@ -174,7 +183,25 @@ define( function( require ) {
     //var hopper = new Hopper();
     //var board = new Board();
 
-    this.addChild( hopper );
+    showRadioProperty.link( function( showRadio ) {
+      switch( showRadio ) {
+        case 'ball':
+          ballsLayer.visible = true;
+          pathsLayer.visible = false;
+          break;
+        case 'path':
+          ballsLayer.visible = false;
+          pathsLayer.visible = true;
+          break;
+        case 'none':
+          pathsLayer.visible = false;
+          ballsLayer.visible = false;
+          break;
+        default:
+          throw new Error( 'Unhandled show Radio state: ' + showRadio);
+      }
+    } );
+
     this.addChild( board );
     this.addChild( eraserButton );
     this.addChild( fractionButton );
@@ -188,6 +215,8 @@ define( function( require ) {
     this.addChild( galtonBoardNode );
     this.addChild( histogramNode );
     this.addChild( ballsLayer );
+    this.addChild( pathsLayer );
+    this.addChild( hopper );
 
     eraserButton.bottom = this.layoutBounds.maxY - 40;
     eraserButton.left = 40;
