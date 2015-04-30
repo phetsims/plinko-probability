@@ -384,7 +384,7 @@ define( function( require ) {
    */
   function HistogramNode( numberOfRowsProperty, verticalScaleProperty, model, modelViewTransform, histogramVisibleProperty ) {
 
-    var minY = -1.5;
+    var minY = -1.70;
     var bounds = new Bounds2( -1/2, minY, 1/2, -1 );
     Node.call( this, {
         children: [

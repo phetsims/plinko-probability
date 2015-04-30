@@ -14,6 +14,7 @@ define( function( require ) {
   var Path = require( 'SCENERY/nodes/Path' );
   var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
   var Shape = require( 'KITE/Shape' );
+  var Vector2 = require( 'DOT/Vector2' );
 
   /**
    * Constructor for the which renders the charge as a scenery node.
@@ -36,7 +37,7 @@ define( function( require ) {
 
     var shape = new Shape();
 
-    shape.moveToPoint( ball.pegHistory[ 0 ].position );
+    shape.moveToPoint( ball.pegHistory[ 0 ].position.plus( new Vector2(0,0) ) );
 
     ball.pegHistory.forEach( function( peg ) {
       shape.lineToPoint( peg.position );

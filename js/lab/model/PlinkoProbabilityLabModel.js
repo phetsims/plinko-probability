@@ -97,7 +97,7 @@ define( function( require ) {
 
             this.continuousTimer = Timer.setInterval( function() {
               thisModel.addNewBall();
-            }, 10 );
+            }, 50 );
             break;
         }
       },
