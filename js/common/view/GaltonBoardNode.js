@@ -50,7 +50,7 @@ define( function( require ) {
             0,
             PlinkoConstants.PEG_RADIUS * 0.1,
             -PlinkoConstants.PEG_RADIUS * 0.3,
-            PlinkoConstants.PEG_RADIUS * 1.8
+            PlinkoConstants.PEG_RADIUS * 1.5
           )
             //.addColorStop( 0, PlinkoConstants.PEG_COLOR )
             //.addColorStop( 0.2, PlinkoConstants.PEG_COLOR )
@@ -94,7 +94,7 @@ define( function( require ) {
 
       model.numberOfRowsProperty.link( function( numberOfRows ) {
         var pegSpacing = PegInterface.getSpacing( numberOfRows );
-        var offsetVector = new Vector2( pegSpacing * 0.08, -pegSpacing * 0.04 );
+        var offsetVector = new Vector2( pegSpacing * 0.08, -pegSpacing * 0.24 );
         galtonBoardNode.pegPathArray.forEach( function( pegPath, index ) {
           pegPath.visible = pegPath.peg.isVisible;
           pegPath.center = modelViewTransform.modelToViewPosition( pegPath.peg.position );

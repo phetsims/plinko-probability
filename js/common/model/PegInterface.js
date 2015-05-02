@@ -33,17 +33,40 @@ define( function( require ) {
     getIndex: function( rowNumber, columnNumber ) {
       return rowNumber * (rowNumber + 1) / 2 + columnNumber;
     },
+    /**
+     *
+     * @param {number} rowNumber
+     * @param {number} numberOfRows
+     * @returns {boolean}
+     */
     getIsVisible: function( rowNumber, numberOfRows ) {
       return (rowNumber < numberOfRows);
     },
+    /**
+     *
+     * @param {number} rowNumber
+     * @param {number} columnNumber
+     * @param {number} numberOfRows
+     * @returns {number}
+     */
     getPositionX: function( rowNumber, columnNumber, numberOfRows ) {
       return (-rowNumber / 2 + columnNumber) / (numberOfRows + 1 );
     },
+    /**
+     *
+     * @param {number} rowNumber
+     * @param {number} columnNumber
+     * @param {number} numberOfRows
+     * @returns {number}
+     */
     getPositionY: function( rowNumber, columnNumber, numberOfRows ) {
       return (-rowNumber - 2 * PlinkoConstants.PEG_HEIGHT_FRACTION_OFFSET) / (numberOfRows + 1 );
     },
-    getPegRadius: function() {},
-
+    /**
+     *
+     * @param {number} numberOfRows
+     * @returns {number}
+     */
     getSpacing: function( numberOfRows ) {
       return 1 / (numberOfRows + 1 );
     }

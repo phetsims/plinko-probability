@@ -44,7 +44,7 @@ define( function( require ) {
 
     numberOfRowsProperty.link( function( numberOfRows ) {
       galtonBoard.spacing = PegInterface.getSpacing( numberOfRows );
-      galtonBoard.pegs.forEach( function( peg) {
+      galtonBoard.pegs.forEach( function( peg ) {
         peg.position = PegInterface.getPosition( peg.rowNumber, peg.columnNumber, numberOfRows );
         peg.isVisible = PegInterface.getIsVisible( peg.rowNumber, numberOfRows );
       } );
@@ -52,4 +52,4 @@ define( function( require ) {
   }
 
   return inherit( Object, GaltonBoard );
-});
+} );
