@@ -78,7 +78,7 @@ define( function( require ) {
     var rowNumber;
     var columnNumber = 0;
 
-    for ( rowNumber = 0; rowNumber < numberOfRows; rowNumber++ ) {
+    for ( rowNumber = 0; rowNumber <= numberOfRows; rowNumber++ ) {
       direction = (Math.random() < probability) ? 1 : 0;
       var peg = {
         rowNumber: rowNumber, // an integer starting at zero
@@ -138,7 +138,7 @@ define( function( require ) {
         else {
           this.fallenRatio = 0;
 
-          if ( this.pegHistory.length > 0 ) {
+          if ( this.pegHistory.length > 1 ) {
             peg = this.pegHistory.shift();
             this.column = peg.columnNumber;
             this.row = peg.rowNumber;
@@ -148,8 +148,11 @@ define( function( require ) {
           }
           else {
             this.phase = PHASE_EXIT;
-            this.column += this.direction;
-            this.row++;
+            peg = this.pegHistory.shift();
+            this.column = peg.columnNumber;
+            this.row = peg.rowNumber;
+            this.pegPosition = peg.position;
+            this.direction = peg.direction;
           }
 
         }
@@ -157,7 +160,7 @@ define( function( require ) {
 
       // Out of pegs
       if ( this.phase === PHASE_EXIT ) {
-        if ( df + this.fallenRatio < 1 ) {
+        if ( df + this.fallenRatio < 5 ) {
           this.fallenRatio += dt;
         }
         else {
@@ -185,9 +188,9 @@ define( function( require ) {
           fallingPosition.multiplyScalar( this.pegSeparation );
           return this.pegPosition.plus( fallingPosition );
         case PHASE_EXIT:
-          return this.pegPosition.plus( 0, -this.fallenRatio * this.pegSeparation );
+          return this.pegPosition.plus( new Vector2( 0, -this.fallenRatio * this.pegSeparation ) );
         case PHASE_COLLECTED:
-          return this.pegPosition.plus( 0, -this.fallenRatio * this.pegSeparation );
+          return this.pegPosition.plus( new Vector2( 0, -this.fallenRatio * this.pegSeparation ) );
       }
     }
 
