@@ -37,10 +37,10 @@ define( function( require ) {
 
     var shape = new Shape();
 
-    shape.moveToPoint( ball.pegHistory[ 0 ].position.plus( new Vector2(0,0) ) );
+    shape.moveToPoint( ball.pegHistory[ 0 ].position.plus( new Vector2( 0, ball.pegSeparation ) ) );
 
     ball.pegHistory.forEach( function( peg ) {
-      shape.lineToPoint( peg.position );
+      shape.lineToPoint( peg.position.plus( new Vector2( 0, ball.pegSeparation * 0.5 ) ) );
     } );
 
     this.addChild( new Path( modelViewTransform.modelToViewShape( shape ), pathOptions ) );
