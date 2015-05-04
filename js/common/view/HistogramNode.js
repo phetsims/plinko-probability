@@ -43,16 +43,17 @@ define( function( require ) {
 
   var LARGE_FONT = new PhetFont( 16 );
   var SMALL_FONT = new PhetFont( 12 );
-  // ticks
 
+  // ticks
   var MAJOR_TICK_COLOR = 'black';
   var MAJOR_TICK_FONT = new PhetFont( 16 );
   var TICK_LABEL_SPACING = 2;
   var MINUS_SIGN_WIDTH = new Text( '\u2212', { font: MAJOR_TICK_FONT } ).width;
 
-
   // strings
-  var countString = require( 'string!PLINKO_PROBABILITY/count' );
+  var numberString = require( 'string!PLINKO_PROBABILITY/count' );
+  var fractionString = require( 'string!PLINKO_PROBABILITY/fraction' );
+  var autoScaleString = require( 'string!PLINKO_PROBABILITY/autoScale' );
 
   //----------------------------------------------------------------------------------------
   // major tick with label, orientation is vertical or horizontal
@@ -185,19 +186,41 @@ define( function( require ) {
    * @param {ModelViewTransform2} modelViewTransform
    * @constructor
    */
-  function YLabelNode( bounds, modelViewTransform ) {
+  function YLabelNode( histogramRadioProperty, bounds, modelViewTransform ) {
 
     Node.call( this );
 
     var centerY = modelViewTransform.modelToViewY( (bounds.minY + bounds.maxY) / 2 );
     var left = modelViewTransform.modelToViewX( bounds.minX );
-    var yLabelNode = new Text( countString, {
+
+    var yLabelNode = new Text( '', {
       font: AXIS_LABEL_FONT,
       fill: AXIS_LABEL_COLOR,
       centerY: centerY,
       left: left - 20,
       rotation: -Math.PI / 2   //remember down is positive in the view
     } );
+
+    histogramRadioProperty.link( function( value ) {
+      var yLabelString;
+
+      switch( value ) {
+        case 'fraction':
+          yLabelString = fractionString;
+          break;
+        case 'number':
+          yLabelString = numberString;
+          break;
+        case 'autoScale':
+          yLabelString = autoScaleString;
+          break;
+      }
+
+      yLabelNode.text = yLabelString;
+      yLabelNode.centerY = centerY;
+    } );
+
+
     this.addChild( yLabelNode );
   }
 
@@ -420,7 +443,7 @@ define( function( require ) {
           //new YAxisNode( bounds, modelViewTransform ),
           new XBannerNode( model, numberOfRowsProperty, bounds, modelViewTransform ),
           new XLabelNode( bounds, modelViewTransform ),
-          new YLabelNode( bounds, modelViewTransform ),
+          new YLabelNode( histogramRadioProperty, bounds, modelViewTransform ),
           new HistogramBarNode( model, numberOfRowsProperty, histogramRadioProperty, bounds, modelViewTransform )
         ]
       }
