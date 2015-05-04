@@ -96,7 +96,7 @@ define( function( require ) {
     var eraserButton = new EraserButton( {
       scale: 1.4,
       listener: function() {
-        // TODO hooked the listener;
+        model.histogram.reset();
       }
     } );
 
