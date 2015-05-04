@@ -13,11 +13,11 @@ define( function( require ) {
   var Bounds2 = require( 'DOT/Bounds2' );
   //var DerivedProperty = require( 'AXON/DerivedProperty' );
   //var Color = require( 'SCENERY/util/Color' );
-  var CounterButton = require( 'PLINKO_PROBABILITY/common/view/CounterButton' );
   var EraserButton = require( 'SCENERY_PHET/buttons/EraserButton' );
-  var FractionButton = require( 'PLINKO_PROBABILITY/common/view/FractionButton' );
+
   var GaltonBoardNode = require( 'PLINKO_PROBABILITY/common/view/GaltonBoardNode' );
   var HistogramNode = require( 'PLINKO_PROBABILITY/common/view/HistogramNode' );
+  var HistogramRadioButtonsControl = require( 'PLINKO_PROBABILITY/lab/view/HistogramRadioButtonsControl' );
   var Hopper = require( 'PLINKO_PROBABILITY/common/view/Hopper' );
   var HSlider = require( 'SUN/HSlider' );
   var Image = require( 'SCENERY/nodes/Image' );
@@ -26,9 +26,10 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var PathNode = require( 'PLINKO_PROBABILITY/common/view/PathNode' );
   var PlayPanel = require( 'PLINKO_PROBABILITY/lab/view/PlayPanel' );
-  //var PropertySet = require( 'AXON/PropertySet' );
+  var PropertySet = require( 'AXON/PropertySet' );
   var Property = require( 'AXON/Property' );
   //var Range = require( 'DOT/Range' );
+  var RadioButtonGroup = require( 'SUN/buttons/RadioButtonGroup' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var SliderControlPanel = require( 'PLINKO_PROBABILITY/lab/view/SliderControlPanel' );
@@ -75,46 +76,19 @@ define( function( require ) {
 
     var galtonBoardNode = new GaltonBoardNode( model, modelViewTransform );
 
-    //var histogramRadioProperty = new Property( 'fraction' ); //Valid values are 'fraction', 'number', and 'autoScale'.
+    var viewProperties = new PropertySet( {
+      histogramRadio: 'fraction', // Valid values are 'fraction', 'number', and 'autoScale'.
+      showRadio: 'ball', // Valid values are 'ball', 'path', and 'none'.
+      ballRadio: 'oneBall' // Valid values are 'oneBall' and 'continuous'.
+    } );
 
-    var showRadioProperty = new Property( 'ball' ); // Valid values are 'ball', 'path', and 'none'.
-
-    var ballRadioProperty = new Property( 'oneBall' ); // Valid values are 'oneBall' and 'continuous'.
-
-    ballRadioProperty.link( function( value ) {
+    viewProperties.ballRadioProperty.link( function( value ) {
       //do stuff
     } );
 
+    var ballRadioButtonsControl = new BallRadioButtonsControl( viewProperties.showRadioProperty );
 
-    var ballRadioButtonsControl = new BallRadioButtonsControl( showRadioProperty );
-
-    // Add the counter button that allows the histogram
-    var counterButton = new CounterButton( {
-      minHeight: 40,
-      xMargin: 3,
-      minWidth: 40,
-      iconWidth: 35,
-      lineWidth: 2,
-      stroke: 'black',
-      cornerRadius: 10,
-      listener: function() {
-        // TODO hooked the listener;
-      }
-    } );
-
-    // Add the fraction button that allows the histogram
-    var fractionButton = new FractionButton( {
-      minHeight: 40,
-      xMargin: 3,
-      minWidth: 40,
-      iconWidth: 35,
-      lineWidth: 2,
-      stroke: 'black',
-      cornerRadius: 10,
-      listener: function() {
-        // TODO hooked the listener;
-      }
-    } );
+    var histogramRadioButtonsControl = new HistogramRadioButtonsControl( viewProperties.histogramRadioProperty );
 
     // Add the eraser button that allows the
     var eraserButton = new EraserButton( {
@@ -179,11 +153,8 @@ define( function( require ) {
       centerY: resetAllButton.centerY
     } );
 
-    //// create the hopper and the wooden Board
-    //var hopper = new Hopper();
-    //var board = new Board();
 
-    showRadioProperty.link( function( showRadio ) {
+    viewProperties.showRadioProperty.link( function( showRadio ) {
       switch( showRadio ) {
         case 'ball':
           ballsLayer.visible = true;
@@ -198,14 +169,13 @@ define( function( require ) {
           ballsLayer.visible = false;
           break;
         default:
-          throw new Error( 'Unhandled show Radio state: ' + showRadio);
+          throw new Error( 'Unhandled show Radio state: ' + showRadio );
       }
     } );
 
     this.addChild( board );
     this.addChild( eraserButton );
-    this.addChild( fractionButton );
-    this.addChild( counterButton );
+    this.addChild( histogramRadioButtonsControl );
     this.addChild( ballRadioButtonsControl );
     this.addChild( soundToggleButton );
     this.addChild( resetAllButton );
@@ -220,10 +190,10 @@ define( function( require ) {
 
     eraserButton.bottom = this.layoutBounds.maxY - 40;
     eraserButton.left = 40;
-    fractionButton.bottom = eraserButton.top - 10;
-    fractionButton.left = eraserButton.left;
-    counterButton.bottom = fractionButton.top - 10;
-    counterButton.left = eraserButton.left;
+    histogramRadioButtonsControl.bottom = eraserButton.top - 10;
+    histogramRadioButtonsControl.left = eraserButton.left;
+
+
     ballRadioButtonsControl.left = hopper.right + 20;
     ballRadioButtonsControl.top = hopper.top;
     playPanel.right = this.layoutBounds.maxX - 40;
