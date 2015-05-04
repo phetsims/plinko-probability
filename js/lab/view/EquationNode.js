@@ -113,7 +113,7 @@ define( function( require ) {
         decimalPlaces = options.maxSigFigs - exponent;
       }
       else {
-        decimalPlaces = options.maxSigFigs
+        decimalPlaces = options.maxSigFigs;
       }
 
       return Util.toFixed( number, decimalPlaces );

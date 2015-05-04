@@ -29,7 +29,6 @@ define( function( require ) {
   var PropertySet = require( 'AXON/PropertySet' );
   var Property = require( 'AXON/Property' );
   //var Range = require( 'DOT/Range' );
-  var RadioButtonGroup = require( 'SUN/buttons/RadioButtonGroup' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var SliderControlPanel = require( 'PLINKO_PROBABILITY/lab/view/SliderControlPanel' );

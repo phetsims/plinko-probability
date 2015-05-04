@@ -11,8 +11,7 @@ define( function( require ) {
   // imports
   var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
+  //var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
   var RadioButtonGroup = require( 'SUN/buttons/RadioButtonGroup' );
 
   // images
@@ -31,8 +30,7 @@ define( function( require ) {
    */
   function HistogramRadioButtonsControl( histogramRadioProperty, options ) {
 
-    Node.call( this );
-    // Demonstrate a common pattern for specifying options and providing default values.
+
     options = _.extend( {
         spacing: 5, // vertical separation of the buttons
         cornerRadius: 10,
