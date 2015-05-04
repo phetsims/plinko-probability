@@ -1,7 +1,7 @@
 // Copyright 2002-2015, University of Colorado Boulder
 
 /**
- * Model for Plinko Probability Intro
+ * Model for Plinko Probability Lab
  *
  * @author Martin Veillette (Berea College)
  */
@@ -19,7 +19,7 @@ define( function( require ) {
     var ObservableArray = require( 'AXON/ObservableArray' );
     var Timer = require( 'JOIST/Timer' );
 
-    function PlinkoProbabilityIntroModel() {
+    function PlinkoProbabilityLabModel() {
 
       var thisModel = this;
 
@@ -30,8 +30,12 @@ define( function( require ) {
         ballMode: 'oneBall', // acceptable values are 'oneBall', 'tenBalls', 'allRemainingBalls' and 'continuous'
         histogramVisible: false,
         isBallCapReached: false, // is the maximum of balls reached?
-        isSoundEnabled: true,
         numberOfRows: 12 // initial value is irrelevant, set by listener is the view
+        //histogramRadio: 'fraction', // Valid values are 'fraction', 'number', and 'autoScale'.
+        //showRadio: 'ball', // Valid values are 'ball', 'path', and 'none'.
+        //ballRadio: 'oneBall', // Valid values are 'oneBall' and 'continuous'.
+        //expandedAccordionBox: false,
+        //isSoundEnabled: false
       } );
 
       this.launchedBallsNumber = 0; // number of current trial (current ball drop)
@@ -53,7 +57,7 @@ define( function( require ) {
       } );
     }
 
-    return inherit( PropertySet, PlinkoProbabilityIntroModel, {
+    return inherit( PropertySet, PlinkoProbabilityLabModel, {
       step: function( dt ) {
         this.balls.forEach( function( ball ) {
           ball.step( 5 * dt );
