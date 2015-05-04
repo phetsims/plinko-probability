@@ -14,7 +14,7 @@ define( function( require ) {
     var GaltonBoard = require( 'PLINKO_PROBABILITY/common/model/GaltonBoard' );
     var Histogram = require( 'PLINKO_PROBABILITY/common/model/Histogram' );
     var inherit = require( 'PHET_CORE/inherit' );
-    var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
+    //var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
     var PropertySet = require( 'AXON/PropertySet' );
     var ObservableArray = require( 'AXON/ObservableArray' );
     var Timer = require( 'JOIST/Timer' );
@@ -40,7 +40,7 @@ define( function( require ) {
 
       this.launchedBallsNumber = 0; // number of current trial (current ball drop)
 
-      this.galtonBoard = new GaltonBoard( PlinkoConstants.ROWS_RANGE.max, this.numberOfRowsProperty );
+      this.galtonBoard = new GaltonBoard( this.numberOfRowsProperty );
       this.balls = new ObservableArray();
       this.histogram = new Histogram( this.numberOfRowsProperty );
       this.landedBallsNumber = this.histogram.landedBallsNumber; //number of balls in the histogram
@@ -54,6 +54,18 @@ define( function( require ) {
           thisModel.play();
         }
       } );
+
+      this.probabilityProperty.link( function() {
+        thisModel.balls.clear();
+        thisModel.histogram.reset();
+      } );
+
+      this.numberOfRowsProperty.link( function() {
+        thisModel.balls.clear();
+        thisModel.histogram.reset();
+      } );
+
+
     }
 
     return inherit( PropertySet, PlinkoProbabilityLabModel, {
@@ -65,6 +77,7 @@ define( function( require ) {
 
       reset: function() {
         PropertySet.prototype.reset.call( this );
+        this.balls.clear();
         this.histogram.reset();
       },
 
@@ -110,7 +123,7 @@ define( function( require ) {
        */
       addNewBall: function() {
         var thisModel = this;
-        var addedBall = new Ball(this.probability, this.numberOfRows);
+        var addedBall = new Ball( this.probability, this.numberOfRows );
         this.balls.push( addedBall );
         addedBall.on( 'landed', function() {
           thisModel.histogram.addBallToHistogram( addedBall );

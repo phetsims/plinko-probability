@@ -97,6 +97,7 @@ define( function( require ) {
       scale: 1.4,
       listener: function() {
         model.histogram.reset();
+        model.balls.clear();
       }
     } );
 

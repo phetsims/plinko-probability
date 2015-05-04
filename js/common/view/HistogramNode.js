@@ -40,6 +40,9 @@ define( function( require ) {
   var AXIS_LABEL_FONT = new PhetFont( 18 );
   var AXIS_LABEL_COLOR = 'black'; // space between end of axis and label
 
+
+  var LARGE_FONT = new PhetFont( 16 );
+  var SMALL_FONT = new PhetFont( 12 );
   // ticks
 
   var MAJOR_TICK_COLOR = 'black';
@@ -276,13 +279,13 @@ define( function( require ) {
 
 
     model.histogram.on( 'histogramUpdated', function() {
-      updateHistogram();
+      updateTextBanner();
     } );
     /**
      * #param {Array} histogram
      * @param {number} numberOfRows
      */
-    function updateHistogram() {
+    function updateTextBanner() {
       var numberOfTicks = numberOfRowsProperty.value + 1;
       if ( label.getChildrenCount() ) {
         label.removeAllChildren();
@@ -293,7 +296,9 @@ define( function( require ) {
         var y = modelViewTransform.modelToViewY( bounds.maxY );
         // major tick
 
-        var tickLabelNode = new Text( model.histogram.bins[ i ], { font: MAJOR_TICK_FONT, fill: 'white' } );
+        var bin = model.histogram.bins[ i ];
+        var font = (bin >= 100 ) ? SMALL_FONT : LARGE_FONT;
+        var tickLabelNode = new Text( bin, { font: font, fill: 'white' } );
         var signXOffset = ( i < 0 ) ? -( MINUS_SIGN_WIDTH / 2 ) : 0;
         tickLabelNode.left = x - ( tickLabelNode.width / 2 ) + signXOffset;
         tickLabelNode.top = y + TICK_LABEL_SPACING;

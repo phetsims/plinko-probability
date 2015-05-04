@@ -12,15 +12,15 @@ define( function( require ) {
   var Bounds2 = require( 'DOT/Bounds2' );
   var inherit = require( 'PHET_CORE/inherit' );
   var PegInterface = require( 'PLINKO_PROBABILITY/common/model/PegInterface' );
-  //var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
+  var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
   //var Vector2 = require( 'DOT/Vector2' );
 
   /**
-   * @param {number} maxNumberOfRows - maximum number of rows for the simulation
+   * @param {Property.<number>} numberOfRowsProperty
    * @constructor
    */
 
-  function GaltonBoard( maxNumberOfRows, numberOfRowsProperty ) {
+  function GaltonBoard( numberOfRowsProperty ) {
 
     var galtonBoard = this;
     this.bounds = new Bounds2( -1 / 2, -1, 1 / 2, 0 );
@@ -29,7 +29,7 @@ define( function( require ) {
     var columnNumber; // {number} a non negative  integer
     this.pegs = [];
 
-    for ( rowNumber = 0; rowNumber <= maxNumberOfRows; rowNumber++ ) {
+    for ( rowNumber = 0; rowNumber <= PlinkoConstants.ROWS_RANGE.max; rowNumber++ ) {
       for ( columnNumber = 0; columnNumber <= rowNumber; columnNumber++ ) {
         var peg = {
           rowNumber: rowNumber, // an integer starting at one
