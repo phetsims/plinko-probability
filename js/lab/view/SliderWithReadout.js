@@ -83,10 +83,10 @@ define( function( require ) {
 
     assert && assert( options.property.value <= options.range.max && options.property.value >= options.range.min, 'the property value must be within range' );
 
-    if ( !options.endDrag && options.magneticSnapping ) {
+    if ( options.magneticSnapping ) {
       // slider will update its position to stick 'magnetically' to nice numerical (property) values at the end of a drag event
-      options.slider.endDrag = function() {
-        options.property.set( Util.toFixedNumber( options.property.value, options.decimalPlaces ) );
+      options.slider.constrainValue = function( value ) {
+        return Util.toFixedNumber( value, options.decimalPlaces );
       };
     }
 

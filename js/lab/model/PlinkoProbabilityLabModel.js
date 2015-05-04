@@ -30,7 +30,7 @@ define( function( require ) {
         ballMode: 'oneBall', // acceptable values are 'oneBall', 'tenBalls', 'allRemainingBalls' and 'continuous'
         histogramVisible: false,
         isBallCapReached: false, // is the maximum of balls reached?
-        numberOfRows: 12 // initial value is irrelevant, set by listener is the view
+        numberOfRows: 12
         //histogramRadio: 'fraction', // Valid values are 'fraction', 'number', and 'autoScale'.
         //showRadio: 'ball', // Valid values are 'ball', 'path', and 'none'.
         //ballRadio: 'oneBall', // Valid values are 'oneBall' and 'continuous'.

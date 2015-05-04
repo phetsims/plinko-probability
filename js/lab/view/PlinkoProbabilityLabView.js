@@ -104,13 +104,7 @@ define( function( require ) {
     var playPanel = new PlayPanel( model.isPlayingProperty, model.ballModeProperty );
 
     // create slider Panel
-    var numberOfRowsForSliderProperty = new Property( 12 );
-
-    numberOfRowsForSliderProperty.link( function( numberOfRowsForSlider ) {
-      // ensure that the numberOfRows in the model is always an integer
-      model.numberOfRows = Math.round( numberOfRowsForSlider );
-    } );
-    var sliderControlPanel = new SliderControlPanel( numberOfRowsForSliderProperty, model.probabilityProperty );
+    var sliderControlPanel = new SliderControlPanel( model.numberOfRowsProperty, model.probabilityProperty );
 
     // create Panel that displays sample and theoretical statistics
     var statisticsDisplayAccordionBox = new StatisticsDisplayAccordionBox( model, viewProperties.expandedAccordionBoxProperty );
