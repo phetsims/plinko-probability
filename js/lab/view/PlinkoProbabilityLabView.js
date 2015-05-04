@@ -33,7 +33,7 @@ define( function( require ) {
   var ScreenView = require( 'JOIST/ScreenView' );
   var SliderControlPanel = require( 'PLINKO_PROBABILITY/lab/view/SliderControlPanel' );
   var SoundToggleButton = require( 'SCENERY_PHET/buttons/SoundToggleButton' );
-  var StatisticsDisplayNode = require( 'PLINKO_PROBABILITY/common/view/StatisticsDisplayNode' );
+  var StatisticsDisplayAccordionBox = require( 'PLINKO_PROBABILITY/common/view/StatisticsDisplayAccordionBox' );
   var Vector2 = require( 'DOT/Vector2' );
 
   // strings
@@ -78,7 +78,8 @@ define( function( require ) {
     var viewProperties = new PropertySet( {
       histogramRadio: 'fraction', // Valid values are 'fraction', 'number', and 'autoScale'.
       showRadio: 'ball', // Valid values are 'ball', 'path', and 'none'.
-      ballRadio: 'oneBall' // Valid values are 'oneBall' and 'continuous'.
+      ballRadio: 'oneBall', // Valid values are 'oneBall' and 'continuous'.
+      expandedAccordionBox: false
     } );
 
     viewProperties.ballRadioProperty.link( function( value ) {
@@ -97,10 +98,60 @@ define( function( require ) {
       }
     } );
 
+    // create play Panel
+    var playPanel = new PlayPanel( model.isPlayingProperty, model.ballModeProperty );
+
+    // create slider Panel
+    var numberOfRowsForSliderProperty = new Property( 12 );
+
+    numberOfRowsForSliderProperty.link( function( numberOfRowsForSlider ) {
+      // ensure that the numberOfRows in the model is always an integer
+      model.numberOfRows = Math.round( numberOfRowsForSlider );
+    } );
+    var sliderControlPanel = new SliderControlPanel( numberOfRowsForSliderProperty, model.probabilityProperty );
+
+    // create Panel that displays sample and theoretical statistics
+    var statisticsDisplayAccordionBox = new StatisticsDisplayAccordionBox( model, viewProperties.expandedAccordionBoxProperty );
+
+    // create the Reset All Button in the bottom right, which resets the model
+    var resetAllButton = new ResetAllButton( {
+      listener: function() {
+        model.reset();
+        viewProperties.reset();
+      },
+      right: thisView.layoutBounds.maxX - 10,
+      bottom: thisView.layoutBounds.maxY - 10
+    } );
+
+    // Create the Sound Toggle Button in the bottom right
+    var soundToggleButton = new SoundToggleButton( model.isSoundEnabledProperty, {
+      right: resetAllButton.left - 20,
+      centerY: resetAllButton.centerY
+    } );
+
     // Handle the comings and goings of balls
     var ballsLayer = new Node();
     // Handle the comings and goings of paths
     var pathsLayer = new Node();
+
+    viewProperties.showRadioProperty.link( function( showRadio ) {
+      switch( showRadio ) {
+        case 'ball':
+          ballsLayer.visible = true;
+          pathsLayer.visible = false;
+          break;
+        case 'path':
+          ballsLayer.visible = false;
+          pathsLayer.visible = true;
+          break;
+        case 'none':
+          pathsLayer.visible = false;
+          ballsLayer.visible = false;
+          break;
+        default:
+          throw new Error( 'Unhandled show Radio state: ' + showRadio );
+      }
+    } );
 
     model.balls.addItemAddedListener( function( addedBall ) {
 
@@ -122,56 +173,6 @@ define( function( require ) {
       } );
     } );
 
-    // create play Panel
-    var playPanel = new PlayPanel( model.isPlayingProperty, model.ballModeProperty );
-
-    // create slider Panel
-    var numberOfRowsForSliderProperty = new Property( 12 );
-
-    numberOfRowsForSliderProperty.link( function( numberOfRowsForSlider ) {
-      // ensure that the numberOfRows in the model is always an integer
-      model.numberOfRows = Math.round( numberOfRowsForSlider );
-    } );
-    var sliderControlPanel = new SliderControlPanel( numberOfRowsForSliderProperty, model.probabilityProperty );
-
-    // create Panel that displays sample and theoretical statistics
-    var statisticsDisplayNode = new StatisticsDisplayNode( model );
-
-    // create the Reset All Button in the bottom right, which resets the model
-    var resetAllButton = new ResetAllButton( {
-      listener: function() {
-        model.reset();
-      },
-      right: thisView.layoutBounds.maxX - 10,
-      bottom: thisView.layoutBounds.maxY - 10
-    } );
-
-    // Create the Sound Toggle Button in the bottom right
-    var soundToggleButton = new SoundToggleButton( model.isSoundEnabledProperty, {
-      right: resetAllButton.left - 20,
-      centerY: resetAllButton.centerY
-    } );
-
-
-    viewProperties.showRadioProperty.link( function( showRadio ) {
-      switch( showRadio ) {
-        case 'ball':
-          ballsLayer.visible = true;
-          pathsLayer.visible = false;
-          break;
-        case 'path':
-          ballsLayer.visible = false;
-          pathsLayer.visible = true;
-          break;
-        case 'none':
-          pathsLayer.visible = false;
-          ballsLayer.visible = false;
-          break;
-        default:
-          throw new Error( 'Unhandled show Radio state: ' + showRadio );
-      }
-    } );
-
     this.addChild( board );
     this.addChild( eraserButton );
     this.addChild( histogramRadioButtonsControl );
@@ -180,7 +181,7 @@ define( function( require ) {
     this.addChild( resetAllButton );
     this.addChild( playPanel );
     this.addChild( sliderControlPanel );
-    this.addChild( statisticsDisplayNode );
+    this.addChild( statisticsDisplayAccordionBox );
     this.addChild( galtonBoardNode );
     this.addChild( histogramNode );
     this.addChild( ballsLayer );
@@ -199,8 +200,8 @@ define( function( require ) {
     playPanel.top = 10;
     sliderControlPanel.top = playPanel.bottom + 10;
     sliderControlPanel.right = playPanel.right;
-    statisticsDisplayNode.top = sliderControlPanel.bottom + 10;
-    statisticsDisplayNode.right = playPanel.right;
+    statisticsDisplayAccordionBox.top = sliderControlPanel.bottom + 10;
+    statisticsDisplayAccordionBox.right = playPanel.right;
     // galtonBoardNode.centerX=hopper.centerX;
     // altonBoardNode.top=board.top+20;
 

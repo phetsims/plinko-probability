@@ -35,16 +35,16 @@ define( function( require ) {
   /**
    *
    * @param {PlinkoProbabilityLabModel} model
+   * @param {Property.<boolean>} expandedAccordionBoxProperty
    * @param {Object} [options]
    * @constructor
    */
-  function StatisticsDisplayPanel( model, options ) {
+  function StatisticsDisplayAccordionBox( model, expandedAccordionBoxProperty, options ) {
 
     this.model = model;
     // var thisPanel = this;
 
-    // property of the accordion Box that control its expansion
-    this.expandedProperty = new Property( false );
+
 
     var optionsTitle = {
       leftHandSideFont: PlinkoConstants.TEXT_FONT_BOLD,
@@ -122,7 +122,7 @@ define( function( require ) {
         fill: PlinkoConstants.PANEL_BACKGROUND_COLOR,
         buttonXMargin: 10,
         buttonYMargin: 6,
-        expandedProperty: this.expandedProperty,
+        expandedProperty: expandedAccordionBoxProperty,
         resize: false,
         buttonAlign: 'right',
         titleNode: numberLandedBallsText,
@@ -135,7 +135,7 @@ define( function( require ) {
 
   }
 
-  return inherit( AccordionBox, StatisticsDisplayPanel, {
+  return inherit( AccordionBox, StatisticsDisplayAccordionBox, {
       reset: function() {
         this.expandedProperty.reset();
       },
