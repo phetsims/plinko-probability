@@ -27,7 +27,7 @@ define( function( require ) {
 
     this.bins = [];
 
-    this.reset();
+    this.setBinsToZero();
 
     numberOfRowsProperty.link( function( numberOfRows ) {
       thisHistogram.reset();
@@ -38,6 +38,8 @@ define( function( require ) {
     reset: function() {
       this.setBinsToZero();
       this.resetStatistics();
+      this.trigger( 'histogramUpdated' );
+      this.trigger( 'statisticsUpdated' );
 
     },
 
@@ -46,7 +48,6 @@ define( function( require ) {
       for ( var i = 0; i < PlinkoConstants.ROWS_RANGE.max + 1; i++ ) {
         this.bins.push( 0 );
       }
-      this.trigger('histogramUpdated');
     },
 
     /**
@@ -73,12 +74,11 @@ define( function( require ) {
         this.standardDeviation = 0;
         this.standardDeviationOfMean = 0;
       }
-      this.trigger('statisticsUpdated');
     },
 
     /**
      *
-     * Calculate the statitics from the histogram (from scratch)
+     * Calculate the statistics from the histogram (from scratch)
      *
      */
     calculateStatistics: function() {
@@ -108,7 +108,6 @@ define( function( require ) {
         this.standardDeviation = 0;
         this.standardDeviationOfMean = 0;
       }
-      this.trigger('statisticsUpdated');
     },
 
     /**
@@ -121,7 +120,6 @@ define( function( require ) {
       this.variance = 0;
       this.standardDeviation = 0;
       this.standardDeviationOfMean = 0;
-      this.trigger('statisticsUpdated');
     },
 
     /**
@@ -130,8 +128,9 @@ define( function( require ) {
      */
     addBallToHistogram: function( ball ) {
       this.bins[ ball.binIndex ]++;
-      this.trigger('histogramUpdated');
+      this.trigger( 'histogramUpdated' );
       this.updateStatistics( ball.binIndex );
+      this.trigger( 'statisticsUpdated' );
     },
 
     /**
@@ -151,7 +150,12 @@ define( function( require ) {
      * @returns {number}
      */
     getFractionalBinCount: function( binIndex ) {
-      return this.bins[ binIndex ] / this.landedBallsNumber; // fraction is smaller than one
+      if ( this.landedBallsNumber ) {
+        return this.bins[ binIndex ] / this.landedBallsNumber; // fraction is smaller than one
+      }
+      else {
+        return 0;
+      }
     }
 
   } );

@@ -15,7 +15,7 @@ define( function( require ) {
   var Path = require( 'SCENERY/nodes/Path' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
-  //var Property = require( 'AXON/Property' );
+  var Property = require( 'AXON/Property' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Shape = require( 'KITE/Shape' );
   var Text = require( 'SCENERY/nodes/Text' );
@@ -100,7 +100,7 @@ define( function( require ) {
       var numberOfTicks = numberOfRows + 1;
       self.removeAllChildren();
       for ( var i = 0; i < numberOfTicks; i++ ) {
-        var modelX = bounds.minX +  bounds.width*(i + 1/2) / (numberOfTicks );
+        var modelX = bounds.minX + bounds.width * (i + 1 / 2) / (numberOfTicks );
         var x = modelViewTransform.modelToViewX( modelX );
         var y = modelViewTransform.modelToViewY( bounds.minY );
         // major tick
@@ -288,7 +288,7 @@ define( function( require ) {
         label.removeAllChildren();
       }
       for ( var i = 0; i < numberOfTicks; i++ ) {
-        var modelX = bounds.minX + bounds.width *( i + 1/2) / (numberOfTicks );
+        var modelX = bounds.minX + bounds.width * ( i + 1 / 2) / (numberOfTicks );
         var x = modelViewTransform.modelToViewX( modelX );
         var y = modelViewTransform.modelToViewY( bounds.maxY );
         // major tick
@@ -316,18 +316,19 @@ define( function( require ) {
    * @param {ModelViewTransform2} modelViewTransform
    * @constructor
    */
-  function HistogramBarNode( model, numberOfRowsProperty, bounds, modelViewTransform ) {
+  function HistogramBarNode( model, numberOfRowsProperty, histogramRadioProperty, bounds, modelViewTransform ) {
 
     Node.call( this );
 
     var self = this;
     //var bannerHeight = 20;
     var minX = modelViewTransform.modelToViewX( bounds.minX );
-    //var minY = modelViewTransform.modelToViewY( bounds.maxY );
+    var minY = modelViewTransform.modelToViewY( bounds.maxY );
     var maxX = modelViewTransform.modelToViewX( bounds.maxX );
     var maxY = modelViewTransform.modelToViewY( bounds.minY );
 
     var bannerWidth = maxX - minX;
+    var bannerHeight = maxY - minY;
 
     var histogramRectangleArray = [];
     var arrayLength = model.histogram.bins.length;
@@ -340,17 +341,36 @@ define( function( require ) {
       self.addChild( histogramRectangleArray[ i ] );
     }
     //
-    //Property.multilink( [ histogramProperty, numberOfRowsProperty ], function( histogram, numberOfRows ) {
-    //  updateHistogram( histogram, numberOfRows );
-    //} );
+    var getHistogramBin; //= model.histogram.getBinCount.bind( model.histogram );
+    var factorHeight; //= 3;
 
-    numberOfRowsProperty.link( function() {
+    numberOfRowsProperty.lazyLink( function() {
       updateHistogram();
     } );
 
     model.histogram.on( 'histogramUpdated', function() {
       updateHistogram();
     } );
+
+
+    histogramRadioProperty.link( function( value ) {
+      switch( value ) {
+        case 'fraction':
+          getHistogramBin = model.histogram.getFractionalBinCount.bind( model.histogram );
+          factorHeight = bannerHeight;
+          break;
+        case 'number':
+          getHistogramBin = model.histogram.getBinCount.bind( model.histogram );
+          factorHeight = 3;
+          break;
+        case 'autoScale':
+          getHistogramBin = model.histogram.getFractionalBinCount.bind( model.histogram );
+          factorHeight = bannerHeight;
+          break;
+      }
+      updateHistogram();
+    } );
+
     /**
      * #param {Array} histogram
      * @param {number} numberOfRows
@@ -358,12 +378,14 @@ define( function( require ) {
     function updateHistogram() {
       var i;
       var xSpacing = bannerWidth / (model.numberOfRowsProperty.value + 1);
+
+
       for ( i = 0; i < model.numberOfRowsProperty.value + 1; i++ ) {
         histogramRectangleArray[ i ].setRect(
           minX + (i) * xSpacing,
-          maxY - 5 * model.histogram.bins[ i ],
+          maxY - factorHeight * getHistogramBin( i ),
           xSpacing,
-          5 * model.histogram.bins[ i ] );
+          factorHeight * getHistogramBin( i ) );
       }
 
     }
@@ -376,16 +398,16 @@ define( function( require ) {
   /**
    *
    * @param {Property.<number>} numberOfRowsProperty
-   * @param {Property.<number>} verticalScaleProperty
+   * @param {Property.<string>} histogramRadioProperty
    * @param histogram
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Property.<boolean>} histogramVisibleProperty
    * @constructor
    */
-  function HistogramNode( numberOfRowsProperty, verticalScaleProperty, model, modelViewTransform, histogramVisibleProperty ) {
+  function HistogramNode( numberOfRowsProperty, histogramRadioProperty, model, modelViewTransform, histogramVisibleProperty ) {
 
     var minY = -1.70;
-    var bounds = new Bounds2( -1/2, minY, 1/2, -1 );
+    var bounds = new Bounds2( -1 / 2, minY, 1 / 2, -1 );
     Node.call( this, {
         children: [
           new BackgroundNode( bounds, modelViewTransform ),
@@ -394,7 +416,7 @@ define( function( require ) {
           new XBannerNode( model, numberOfRowsProperty, bounds, modelViewTransform ),
           new XLabelNode( bounds, modelViewTransform ),
           new YLabelNode( bounds, modelViewTransform ),
-          new HistogramBarNode( model, numberOfRowsProperty, bounds, modelViewTransform )
+          new HistogramBarNode( model, numberOfRowsProperty, histogramRadioProperty, bounds, modelViewTransform )
         ]
       }
     );

@@ -67,21 +67,22 @@ define( function( require ) {
     var modelGraphBounds = model.galtonBoard.bounds;
     var modelViewTransform = ModelViewTransform2.createRectangleInvertedYMapping( modelGraphBounds, viewGraphBounds );
 
-    var histogramNode = new HistogramNode(
-      model.numberOfRowsProperty,
-      new Property( false ),
-      model,
-      modelViewTransform );
-
-    var galtonBoardNode = new GaltonBoardNode( model, modelViewTransform );
-
     var viewProperties = new PropertySet( {
-      histogramRadio: 'fraction', // Valid values are 'fraction', 'number', and 'autoScale'.
+      histogramRadio: 'number', // Valid values are 'fraction', 'number', and 'autoScale'.
       showRadio: 'ball', // Valid values are 'ball', 'path', and 'none'.
       ballRadio: 'oneBall', // Valid values are 'oneBall' and 'continuous'.
       expandedAccordionBox: false,
       isSoundEnabled: false
     } );
+
+    var histogramNode = new HistogramNode(
+      model.numberOfRowsProperty,
+      viewProperties.histogramRadioProperty,
+      model,
+      modelViewTransform );
+
+    var galtonBoardNode = new GaltonBoardNode( model, modelViewTransform );
+
 
     viewProperties.ballRadioProperty.link( function( value ) {
       //do stuff

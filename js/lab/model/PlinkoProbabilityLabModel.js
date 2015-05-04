@@ -40,7 +40,6 @@ define( function( require ) {
 
       this.launchedBallsNumber = 0; // number of current trial (current ball drop)
 
-
       this.galtonBoard = new GaltonBoard( PlinkoConstants.ROWS_RANGE.max, this.numberOfRowsProperty );
       this.balls = new ObservableArray();
       this.histogram = new Histogram( this.numberOfRowsProperty );
