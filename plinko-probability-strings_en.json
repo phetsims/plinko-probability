@@ -27,7 +27,7 @@
     "value": "All"
   },
   "fraction": {
-    "value": "fraction"
+    "value": "Fraction"
   },
   "NEquals": {
     "value": "N ="
@@ -65,8 +65,8 @@
   "help": {
     "value": "Help"
   },
-  "sMeanEquals": {
-    "value": ""
+  "mean": {
+    "value": "mean"
   },
   "reset": {
     "value": "Reset"
@@ -81,7 +81,7 @@
     "value": "Ideal"
   },
   "bin": {
-    "value": "bin"
+    "value": "Bin"
   },
   "binaryProbability": {
     "value": "Binary Probability"

@@ -22,15 +22,13 @@ define( function( require ) {
   var VBox = require( 'SCENERY/nodes/VBox' );
 
   // strings
-  //var bestFitLineString = require( 'string!PLINKO_PROBABILITY/bestFitLine' );
-
-  // strings
 
   var muGreekString = '\u03BC';
   var sigmaGreekString = '\u03C3';
 //  var overlineString = '\u0305';
   var xOverlineString = '\u0078\u0305';
-  var sMeanString = '\u0073<sub>mean</sub>';
+  var meanString = require( 'string!PLINKO_PROBABILITY/mean' );
+  var sMeanString = '\u0073<sub>'+meanString+'</sub>';
 
   /**
    *

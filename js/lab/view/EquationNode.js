@@ -46,6 +46,7 @@ define( function( require ) {
       {
         font: options.leftHandSideFont,
         fill: options.leftHandSideFill,
+        subScale: 0.5
       } );
     this.equalSignText = new Text( ' = ',
       {
