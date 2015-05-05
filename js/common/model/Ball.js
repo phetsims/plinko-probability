@@ -77,10 +77,10 @@ define( function( require ) {
     var direction;  // 0 is left, 1 is right
     var rowNumber;
     var columnNumber = 0;
-
+   var peg;
     for ( rowNumber = 0; rowNumber <= numberOfRows; rowNumber++ ) {
       direction = (Math.random() < probability) ? 1 : 0;
-      var peg = {
+       peg = {
         rowNumber: rowNumber, // an integer starting at zero
         columnNumber: columnNumber, // an integer starting at zero
         direction: direction, // direction to the next peg,

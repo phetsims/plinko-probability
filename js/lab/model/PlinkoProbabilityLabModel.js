@@ -87,7 +87,7 @@ define( function( require ) {
             } );
             break;
           default:
-            throw new Error( 'Unhandled galton Board Radio Button state: ' + galtonBoardRadioButton );
+            throw new Error( 'Unhandled galton Board Radio Button state: ' + this.galtonBoardRadioButton );
         }
 
         this.balls.forEach( function( ball ) {
@@ -143,7 +143,7 @@ define( function( require ) {
                   timeInterval=20;
                     break;
                 default:
-                  throw new Error( 'Unhandled galton Board Radio Button state: ' + galtonBoardRadioButton );
+                  throw new Error( 'Unhandled galton Board Radio Button state: ' + thisModel.galtonBoardRadioButton );
               }
 
             this.continuousTimer = Timer.setInterval( function() {

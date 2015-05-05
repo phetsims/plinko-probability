@@ -12,7 +12,7 @@ define( function( require ) {
   //var Bounds2 = require( 'DOT/Bounds2' );
   //var Dimension2 = require( 'DOT/Dimension2' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  var PhetColorScheme = require( 'SCENERY_PHET/PhetColorScheme' );
+  //var PhetColorScheme = require( 'SCENERY_PHET/PhetColorScheme' );
   var Range = require( 'DOT/Range' );
 
   var PlinkoConstants = {
@@ -43,7 +43,7 @@ define( function( require ) {
     ROWS_RANGE: new Range( 5, 26 ),
 
     // constants
-    //TODO the radii are not constant
+    // TODO the radii are not constant
     BALL_RADIUS: 4, // radius of the Ball.
     BALL_COLOR: 'rgb(237,28,36)',
     BALL_HIGHLIGHT_COLOR: 'white',
@@ -55,7 +55,6 @@ define( function( require ) {
     // histogram
     HISTOGRAM_BAR_COLOR_FILL: 'rgb(237,28,36)', // red
     HISTOGRAM_BAR_COLOR_STROKE: 'rgb(193,39,45)' // darker shade of red
-
 
   };
 
