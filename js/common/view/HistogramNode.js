@@ -10,7 +10,7 @@ define( function( require ) {
     // modules
     var Bounds2 = require( 'DOT/Bounds2' );
     var inherit = require( 'PHET_CORE/inherit' );
-    var Line = require( 'SCENERY/nodes/Line' );
+    //var Line = require( 'SCENERY/nodes/Line' );
     var Node = require( 'SCENERY/nodes/Node' );
     var Path = require( 'SCENERY/nodes/Path' );
     var PhetFont = require( 'SCENERY_PHET/PhetFont' );
@@ -19,7 +19,7 @@ define( function( require ) {
     var Shape = require( 'KITE/Shape' );
     var Text = require( 'SCENERY/nodes/Text' );
     var Util = require( 'DOT/Util' );
-    var Vector2 = require( 'DOT/Vector2' );
+    //var Vector2 = require( 'DOT/Vector2' );
 
     //----------------------------------------------------------------------------------------
     // constants
@@ -33,8 +33,8 @@ define( function( require ) {
 
     // axes
 
-    var AXIS_COLOR = 'black';
-    var AXIS_EXTENT = 0.0; // how far the line extends past the min/max ticks, in model coordinates
+    //var AXIS_COLOR = 'black';
+    //var AXIS_EXTENT = 0.0; // how far the line extends past the min/max ticks, in model coordinates
 
 
     // banner
@@ -347,7 +347,7 @@ define( function( require ) {
       var getHistogramBin = model.histogram.getFractionalNormalizedBinCount.bind( model.histogram );
       var factorHeight = maxBarHeight;
 
-      updateHistogram();
+
 
 
       /**
