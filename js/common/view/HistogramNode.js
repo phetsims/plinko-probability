@@ -15,7 +15,6 @@ define( function( require ) {
     var Path = require( 'SCENERY/nodes/Path' );
     var PhetFont = require( 'SCENERY_PHET/PhetFont' );
     var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
-    //var Property = require( 'AXON/Property' );
     var Rectangle = require( 'SCENERY/nodes/Rectangle' );
     var Shape = require( 'KITE/Shape' );
     var Text = require( 'SCENERY/nodes/Text' );
@@ -37,6 +36,9 @@ define( function( require ) {
     var AXIS_COLOR = 'black';
     var AXIS_EXTENT = 0.0; // how far the line extends past the min/max ticks, in model coordinates
 
+
+    // banner
+    var BANNER_HEIGHT = 20;
     // labels
     var AXIS_LABEL_FONT = new PhetFont( 18 );
     var AXIS_LABEL_COLOR = 'black'; // space between end of axis and label
@@ -54,38 +56,11 @@ define( function( require ) {
     var MINUS_SIGN_WIDTH = new Text( '\u2212', { font: MAJOR_TICK_FONT } ).width;
 
     // strings
+    var binString = require( 'string!PLINKO_PROBABILITY/bin' );
     var numberString = require( 'string!PLINKO_PROBABILITY/count' );
     var fractionString = require( 'string!PLINKO_PROBABILITY/fraction' );
     var autoScaleString = require( 'string!PLINKO_PROBABILITY/autoScale' );
 
-    //----------------------------------------------------------------------------------------
-    // major tick with label, orientation is vertical or horizontal
-    //----------------------------------------------------------------------------------------
-
-    // Tick is placed at (x,y) and is either vertical or horizontal.
-    function MajorTickNode( x, y, value, isVertical ) {
-
-      Node.call( this );
-
-      // tick label
-      var tickLabelNode = new Text( value, { font: MAJOR_TICK_FONT, fill: MAJOR_TICK_COLOR } );
-      this.addChild( tickLabelNode );
-
-      // label position
-      if ( isVertical ) {
-        // center label under line, compensate for minus sign
-        var signXOffset = ( value < 0 ) ? -( MINUS_SIGN_WIDTH / 2 ) : 0;
-        tickLabelNode.left = x - ( tickLabelNode.width / 2 ) + signXOffset;
-        tickLabelNode.top = y + TICK_LABEL_SPACING;
-      }
-      else {
-        // center label to left of line
-        tickLabelNode.right = x - TICK_LABEL_SPACING;
-        tickLabelNode.centerY = y;
-      }
-    }
-
-    inherit( Node, MajorTickNode );
 
     //----------------------------------------------------------------------------------------
     // x-axis (horizontal)
@@ -103,6 +78,16 @@ define( function( require ) {
       Node.call( this );
 
 
+      var centerX = modelViewTransform.modelToViewX( (bounds.minX + bounds.maxX) / 2 );
+      var bottom = modelViewTransform.modelToViewY( bounds.minY );
+      var xLabelNode = new Text( binString, {
+        font: AXIS_LABEL_FONT,
+        fill: AXIS_LABEL_COLOR,
+        centerX: centerX,
+        bottom: bottom + 40
+      } );
+      this.addChild( xLabelNode );
+
       numberOfRowsProperty.link( function( numberOfRows ) {
         var numberOfTicks = numberOfRows + 1;
         self.removeAllChildren();
@@ -117,8 +102,6 @@ define( function( require ) {
           tickLabelNode.left = x - ( tickLabelNode.width / 2 ) + signXOffset;
           tickLabelNode.top = y + TICK_LABEL_SPACING;
           self.addChild( tickLabelNode );
-
-          //self.addChild( new MajorTickNode( x, y, i, true ) );
         }
       } );
 
@@ -126,59 +109,6 @@ define( function( require ) {
 
     inherit( Node, XAxisNode );
 
-    //----------------------------------------------------------------------------------------
-    // y-axis (vertical)
-    //----------------------------------------------------------------------------------------
-
-    /**
-     * @param {Bounds2} bounds
-     * @param {ModelViewTransform2} modelViewTransform
-     * @constructor
-     */
-    function YAxisNode( bounds, modelViewTransform ) {
-
-      Node.call( this );
-
-      // vertical line
-      var tailLocation = new Vector2( modelViewTransform.modelToViewX( bounds.minX ), modelViewTransform.modelToViewY( bounds.minY - AXIS_EXTENT ) );
-      var tipLocation = new Vector2( modelViewTransform.modelToViewX( bounds.minX ), modelViewTransform.modelToViewY( bounds.maxY + AXIS_EXTENT ) );
-      var lineNode = new Line( tailLocation.x, tailLocation.y, tipLocation.x, tipLocation.y, {
-        fill: AXIS_COLOR,
-        stroke: 'black'
-      } );
-      this.addChild( lineNode );
-
-      // ticks
-
-    }
-
-    inherit( Node, YAxisNode );
-
-    //----------------------------------------------------------------------------------------
-//  X label
-//----------------------------------------------------------------------------------------
-
-    /**
-     * @param {Bounds2} bounds
-     * @param {ModelViewTransform2} modelViewTransform
-     * @constructor
-     */
-    function XLabelNode( bounds, modelViewTransform ) {
-
-      Node.call( this );
-
-      var centerX = modelViewTransform.modelToViewX( (bounds.minX + bounds.maxX) / 2 );
-      var bottom = modelViewTransform.modelToViewY( bounds.minY );
-      var xLabelNode = new Text( 'Bin', {
-        font: AXIS_LABEL_FONT,
-        fill: AXIS_LABEL_COLOR,
-        centerX: centerX,
-        bottom: bottom + 40
-      } );
-      this.addChild( xLabelNode );
-    }
-
-    inherit( Node, XLabelNode );
 
     //----------------------------------------------------------------------------------------
 //  Y label
@@ -189,7 +119,7 @@ define( function( require ) {
      * @param {ModelViewTransform2} modelViewTransform
      * @constructor
      */
-    function YLabelNode( histogramRadioProperty, bounds, modelViewTransform ) {
+    function YAxisNode( histogramRadioProperty, bounds, modelViewTransform ) {
 
       Node.call( this );
 
@@ -227,7 +157,7 @@ define( function( require ) {
       this.addChild( yLabelNode );
     }
 
-    inherit( Node, YLabelNode );
+    inherit( Node, YAxisNode );
 
     //----------------------------------------------------------------------------------------
 // 2D Background
@@ -263,14 +193,14 @@ define( function( require ) {
 
       Node.call( this );
 
-      var bannerHeight = 20;
+
       var minX = modelViewTransform.modelToViewX( bounds.minX );
       var minY = modelViewTransform.modelToViewY( bounds.maxY );
       var maxX = modelViewTransform.modelToViewX( bounds.maxX );
-      var maxY = modelViewTransform.modelToViewY( bounds.maxY ) + bannerHeight;
+      var maxY = modelViewTransform.modelToViewY( bounds.maxY ) + BANNER_HEIGHT;
 
       var bannerWidth = maxX - minX;
-      var bannerBackgroundNode = new Rectangle( minX, minY, bannerWidth, bannerHeight,
+      var bannerBackgroundNode = new Rectangle( minX, minY, bannerWidth, BANNER_HEIGHT,
         { fill: 'blue', lineWidth: GRID_BACKGROUND_LINE_WIDTH, stroke: GRID_BACKGROUND_STROKE } );
       this.addChild( bannerBackgroundNode );
 
@@ -293,7 +223,7 @@ define( function( require ) {
           path.removeAllChildren();
         }
         var verticalStrokes = new Shape();
-        var verticalPaths = new Path( verticalStrokes, { stroke: 'red', lineWidth: 2 } );
+        var verticalPaths = new Path( verticalStrokes, { stroke: 'white', lineWidth: 1 } );
         var i;
         var xSpacing = bannerWidth / (numberOfRows + 1);
         for ( i = 0; i < numberOfRows; i++ ) {
@@ -323,20 +253,16 @@ define( function( require ) {
           // major tick
 
           var getHistogramBin = model.histogram.getBinCount.bind( model.histogram );
-          var factorHeight;
           var value = histogramRadioProperty.value;
           switch( value ) {
             case 'fraction':
               getHistogramBin = model.histogram.getFractionalBinCount.bind( model.histogram );
-              factorHeight = bannerHeight;
               break;
             case 'number':
               getHistogramBin = model.histogram.getBinCount.bind( model.histogram );
-              factorHeight = 3;
               break;
             case 'autoScale':
               getHistogramBin = model.histogram.getFractionalBinCount.bind( model.histogram );
-              factorHeight = bannerHeight;
               break;
           }
 
@@ -389,14 +315,13 @@ define( function( require ) {
       Node.call( this );
 
       var self = this;
-      //var bannerHeight = 20;
       var minX = modelViewTransform.modelToViewX( bounds.minX );
       var minY = modelViewTransform.modelToViewY( bounds.maxY );
       var maxX = modelViewTransform.modelToViewX( bounds.maxX );
       var maxY = modelViewTransform.modelToViewY( bounds.minY );
 
       var bannerWidth = maxX - minX;
-      var bannerHeight = maxY - minY;
+      var maxBarHeight = maxY - minY - BANNER_HEIGHT;
 
       var histogramRectangleArray = [];
       var arrayLength = model.histogram.bins.length;
@@ -409,8 +334,6 @@ define( function( require ) {
         self.addChild( histogramRectangleArray[ i ] );
       }
       //
-      var getHistogramBin; //= model.histogram.getBinCount.bind( model.histogram );
-      var factorHeight; //= 3;
 
       numberOfRowsProperty.lazyLink( function() {
         updateHistogram();
@@ -421,23 +344,11 @@ define( function( require ) {
       } );
 
 
-      histogramRadioProperty.link( function( value ) {
-        switch( value ) {
-          case 'fraction':
-            getHistogramBin = model.histogram.getFractionalBinCount.bind( model.histogram );
-            factorHeight = bannerHeight;
-            break;
-          case 'number':
-            getHistogramBin = model.histogram.getBinCount.bind( model.histogram );
-            factorHeight = 3;
-            break;
-          case 'autoScale':
-            getHistogramBin = model.histogram.getFractionalBinCount.bind( model.histogram );
-            factorHeight = bannerHeight;
-            break;
-        }
-        updateHistogram();
-      } );
+      var getHistogramBin = model.histogram.getFractionalNormalizedBinCount.bind( model.histogram );
+      var factorHeight = maxBarHeight;
+
+      updateHistogram();
+
 
       /**
        * #param {Array} histogram
@@ -480,10 +391,8 @@ define( function( require ) {
           children: [
             new BackgroundNode( bounds, modelViewTransform ),
             new XAxisNode( numberOfRowsProperty, bounds, modelViewTransform ),
-            //new YAxisNode( bounds, modelViewTransform ),
+            new YAxisNode( histogramRadioProperty, bounds, modelViewTransform ),
             new XBannerNode( model, numberOfRowsProperty, histogramRadioProperty, bounds, modelViewTransform ),
-            new XLabelNode( bounds, modelViewTransform ),
-            new YLabelNode( histogramRadioProperty, bounds, modelViewTransform ),
             new HistogramBarNode( model, numberOfRowsProperty, histogramRadioProperty, bounds, modelViewTransform )
           ]
         }

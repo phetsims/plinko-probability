@@ -156,7 +156,25 @@ define( function( require ) {
       else {
         return 0;
       }
+    },
+
+    /**
+     * Function that returns the fractional normalized occupation of a bin, i.e. that
+     * at least one bin has value
+     * The fraction is smaller than one
+     * @param {number} binIndex - an integer
+     * @returns {number}
+     */
+    getFractionalNormalizedBinCount: function( binIndex ) {
+      var maxValue = _.max( this.bins );
+      if ( this.landedBallsNumber ) {
+        return this.bins[ binIndex ] / maxValue; // fraction is smaller than one
+      }
+      else {
+        return 0;
+      }
     }
+
 
   } );
 } );

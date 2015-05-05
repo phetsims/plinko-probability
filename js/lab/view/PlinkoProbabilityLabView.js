@@ -131,6 +131,7 @@ define( function( require ) {
     var pathsLayer = new Node();
 
     model.galtonBoardRadioButtonProperty.link( function( galtonBoardRadioButton ) {
+      model.balls.clear();
       switch( galtonBoardRadioButton ) {
         case 'ball':
           ballsLayer.visible = true;
