@@ -91,7 +91,7 @@ define( function( require ) {
       columnNumber += direction;
     }
 
-    this.binIndex = -1;
+    this.binIndex = peg.columnNumber;
 
   }
 
@@ -106,6 +106,11 @@ define( function( require ) {
     step: function( dt ) {
       this.ballStep( dt );
     },
+
+    path: function(){
+      this.trigger( 'landed' );
+    },
+
 
     ballStep: function( dt ) {
       var df = dt;
@@ -165,7 +170,7 @@ define( function( require ) {
         }
         else {
           this.phase = PHASE_COLLECTED;
-          this.binIndex = this.column;
+          //this.binIndex = this.column;
           this.trigger( 'landed' );
         }
       }

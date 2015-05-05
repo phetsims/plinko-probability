@@ -30,9 +30,9 @@ define( function( require ) {
         ballMode: 'oneBall', // acceptable values are 'oneBall', 'tenBalls', 'allRemainingBalls' and 'continuous'
         histogramVisible: false,
         isBallCapReached: false, // is the maximum of balls reached?
-        numberOfRows: 12
+        numberOfRows: 12,
         //histogramRadio: 'fraction', // Valid values are 'fraction', 'number', and 'autoScale'.
-        //showRadio: 'ball', // Valid values are 'ball', 'path', and 'none'.
+        galtonBoardRadioButton: 'ball' // Valid values are 'ball', 'path', and 'none'.
         //ballRadio: 'oneBall', // Valid values are 'oneBall' and 'continuous'.
         //expandedAccordionBox: false,
         //isSoundEnabled: false
@@ -70,6 +70,26 @@ define( function( require ) {
 
     return inherit( PropertySet, PlinkoProbabilityLabModel, {
       step: function( dt ) {
+        switch( this.galtonBoardRadioButton ) {
+          case 'ball':
+            this.balls.forEach( function( ball ) {
+              ball.step( 5 * dt );
+            } );
+            break;
+          case 'path':
+            this.balls.forEach( function( ball ) {
+              ball.path( );
+            } );
+            break;
+          case 'none':
+            this.balls.forEach( function( ball ) {
+              ball.path( );
+            } );
+            break;
+          default:
+            throw new Error( 'Unhandled galton Board Radio Button state: ' + galtonBoardRadioButton );
+        }
+
         this.balls.forEach( function( ball ) {
           ball.step( 5 * dt );
         } );
@@ -110,10 +130,25 @@ define( function( require ) {
             break;
 
           case 'continuous':
+            var timeInterval;
+
+              switch( thisModel.galtonBoardRadioButton ) {
+                case 'ball':
+                 timeInterval=50;
+                  break;
+                case 'path':
+                  timeInterval=20;
+                  break;
+                case 'none':
+                  timeInterval=20;
+                    break;
+                default:
+                  throw new Error( 'Unhandled galton Board Radio Button state: ' + galtonBoardRadioButton );
+              }
 
             this.continuousTimer = Timer.setInterval( function() {
               thisModel.addNewBall();
-            }, 50 );
+            }, timeInterval );
             break;
         }
       },
