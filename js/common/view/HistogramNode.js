@@ -41,8 +41,9 @@ define( function( require ) {
   var AXIS_LABEL_COLOR = 'black'; // space between end of axis and label
 
 
-  var LARGE_FONT = new PhetFont( 16 );
+  var LARGE_FONT = new PhetFont( 14 );
   var SMALL_FONT = new PhetFont( 12 );
+  var TINY_FONT = new PhetFont( 10 );
   // ticks
 
   var MAJOR_TICK_COLOR = 'black';
@@ -297,7 +298,11 @@ define( function( require ) {
         // major tick
 
         var bin = model.histogram.bins[ i ];
-        var font = (bin >= 100 ) ? SMALL_FONT : LARGE_FONT;
+        var font;
+        if ( bin < 100 ) { font = LARGE_FONT;}
+        else if ( bin < 1000 ) {font = SMALL_FONT;}
+        else {font = TINY_FONT;}
+
         var tickLabelNode = new Text( bin, { font: font, fill: 'white' } );
         var signXOffset = ( i < 0 ) ? -( MINUS_SIGN_WIDTH / 2 ) : 0;
         tickLabelNode.left = x - ( tickLabelNode.width / 2 ) + signXOffset;

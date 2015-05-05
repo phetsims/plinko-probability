@@ -128,8 +128,8 @@ define( function( require ) {
      */
     addBallToHistogram: function( ball ) {
       this.bins[ ball.binIndex ]++;
-      this.trigger( 'histogramUpdated' );
       this.updateStatistics( ball.binIndex );
+      this.trigger( 'histogramUpdated' );
       this.trigger( 'statisticsUpdated' );
     },
 
