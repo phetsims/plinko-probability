@@ -84,7 +84,7 @@ define( function( require ) {
     } );
 
     model.histogram.on( 'statisticsUpdated', function() {
-      numberLandedBallsText.setRightHandSideOfEquation( model.histogram.landedBallsNumber );
+      numberLandedBallsText.setRightHandSideOfEquation( model.histogram.landedBallsNumber,  {maxSigFigs: 0} );
       sampleAverageText.setRightHandSideOfEquation( model.histogram.average );
       sampleStandardDeviationText.setRightHandSideOfEquation( model.histogram.standardDeviation );
       sampleStandardDeviationOfMeanText.setRightHandSideOfEquation( model.histogram.standardDeviationOfMean );
