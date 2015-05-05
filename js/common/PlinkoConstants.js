@@ -36,7 +36,7 @@ define( function( require ) {
     PANEL_FONT_BOLD: new PhetFont( { size: 22, weight: 'bold' } ),
 
     PANEL_BACKGROUND_COLOR: 'white',
-    SAMPLE_FONT_COLOR: PhetColorScheme.RED_COLORBLIND,
+    SAMPLE_FONT_COLOR: 'rgb(237,28,36)',
     THEORETICAL_FONT_COLOR: 'blue',
 
     BINARY_PROBABILITY_RANGE: new Range( 0, 1 ),
@@ -45,7 +45,7 @@ define( function( require ) {
     // constants
     //TODO the radii are not constant
     BALL_RADIUS: 4, // radius of the Ball.
-    BALL_COLOR: PhetColorScheme.RED_COLORBLIND,
+    BALL_COLOR: 'rgb(237,28,36)',
     BALL_HIGHLIGHT_COLOR: 'white',
     PEG_RADIUS: 3, // radius of the peg.
     PEG_COLOR: 'rgb(115,99,87)', //brown
