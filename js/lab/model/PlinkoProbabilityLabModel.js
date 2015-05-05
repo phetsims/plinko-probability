@@ -73,7 +73,7 @@ define( function( require ) {
         switch( this.galtonBoardRadioButton ) {
           case 'ball':
             this.balls.forEach( function( ball ) {
-              ball.step( 5 * dt );
+              ball.step( 2 * dt );
             } );
             break;
           case 'path':
