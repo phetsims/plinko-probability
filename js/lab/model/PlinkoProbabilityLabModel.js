@@ -78,12 +78,12 @@ define( function( require ) {
             break;
           case 'path':
             this.balls.forEach( function( ball ) {
-              ball.path( );
+              ball.path();
             } );
             break;
           case 'none':
             this.balls.forEach( function( ball ) {
-              ball.path( );
+              ball.path();
             } );
             break;
           default:
@@ -132,23 +132,30 @@ define( function( require ) {
           case 'continuous':
             var timeInterval;
 
-              switch( thisModel.galtonBoardRadioButton ) {
-                case 'ball':
-                 timeInterval=50;
-                  break;
-                case 'path':
-                  timeInterval=20;
-                  break;
-                case 'none':
-                  timeInterval=20;
-                    break;
-                default:
-                  throw new Error( 'Unhandled galton Board Radio Button state: ' + thisModel.galtonBoardRadioButton );
-              }
+            switch( thisModel.galtonBoardRadioButton ) {
+              case 'ball':
+                timeInterval = 50;
+                this.continuousTimer = Timer.setInterval( function() {
+                  thisModel.addNewBall();
+                }, timeInterval );
+                break;
+              case 'path':
+                timeInterval = 20;
+                this.continuousTimer = Timer.setInterval( function() {
+                  thisModel.addNewBall();
+                }, timeInterval );
+                break;
+              case 'none':
+                timeInterval = 50;
 
-            this.continuousTimer = Timer.setInterval( function() {
-              thisModel.addNewBall();
-            }, timeInterval );
+                this.continuousTimer = Timer.setInterval( function() {
+                  var numberOfBalls = Math.floor( 0.1*Math.sqrt( thisModel.histogram.landedBallsNumber ) ) + 2;
+                  thisModel.histogram.addToHistogram( numberOfBalls, thisModel.probabilityProperty.value );
+                }, timeInterval );
+                break;
+              default:
+                throw new Error( 'Unhandled galton Board Radio Button state: ' + thisModel.galtonBoardRadioButton );
+            }
             break;
         }
       },

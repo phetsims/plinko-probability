@@ -23,6 +23,7 @@ define( function( require ) {
 
     Events.call( this );
 
+    this.numberOfRowsProperty = numberOfRowsProperty;
     var thisHistogram = this;
 
     this.bins = [];
@@ -93,7 +94,7 @@ define( function( require ) {
       } );
 
       this.average = this.average / this.landedBallsNumber;
-      this.sumOfSquares = this.sumOfSquares / this.landedBallsNumber;
+      this.sumOfSquares = this.sumOfSquares;
 
       var N = this.landedBallsNumber;
 
@@ -108,6 +109,7 @@ define( function( require ) {
         this.standardDeviation = 0;
         this.standardDeviationOfMean = 0;
       }
+
     },
 
     /**
@@ -132,6 +134,31 @@ define( function( require ) {
       this.updateStatistics( ball.binIndex );
       this.trigger( 'statisticsUpdated' );
     },
+
+
+    /**
+     * Add an array to the the histogram and update all the relevant statistics
+     * @param {Array.<number>} array
+     */
+    addToHistogram: function( numberBalls, probability ) {
+
+      var numberOfRows = this.numberOfRowsProperty.value;
+      for ( var i=0; i < numberBalls; i++ ) {
+        var columnNumber = 0;
+        var rowNumber;
+        var direction;
+        for ( rowNumber = 0; rowNumber < numberOfRows; rowNumber++ ) {
+          direction = (Math.random() < probability) ? 1 : 0;
+          columnNumber += direction;
+        }
+        this.bins[ columnNumber ]++;
+         }
+      this.calculateStatistics();
+
+      this.trigger( 'histogramUpdated' );
+      this.trigger( 'statisticsUpdated' );
+    },
+
 
     /**
      * Function that returns the number of counts in a bin
