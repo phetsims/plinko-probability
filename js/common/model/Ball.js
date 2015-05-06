@@ -77,10 +77,10 @@ define( function( require ) {
     var direction;  // 0 is left, 1 is right
     var rowNumber;
     var columnNumber = 0;
-
+   var peg;
     for ( rowNumber = 0; rowNumber <= numberOfRows; rowNumber++ ) {
       direction = (Math.random() < probability) ? 1 : 0;
-      var peg = {
+       peg = {
         rowNumber: rowNumber, // an integer starting at zero
         columnNumber: columnNumber, // an integer starting at zero
         direction: direction, // direction to the next peg,
@@ -91,7 +91,7 @@ define( function( require ) {
       columnNumber += direction;
     }
 
-    this.binIndex = -1;
+    this.binIndex = peg.columnNumber;
 
   }
 
@@ -106,6 +106,11 @@ define( function( require ) {
     step: function( dt ) {
       this.ballStep( dt );
     },
+
+    path: function(){
+      this.trigger( 'landed' );
+    },
+
 
     ballStep: function( dt ) {
       var df = dt;
@@ -165,7 +170,7 @@ define( function( require ) {
         }
         else {
           this.phase = PHASE_COLLECTED;
-          this.binIndex = this.column;
+          //this.binIndex = this.column;
           this.trigger( 'landed' );
         }
       }

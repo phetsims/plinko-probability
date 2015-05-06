@@ -69,7 +69,6 @@ define( function( require ) {
 
     var viewProperties = new PropertySet( {
       histogramRadio: 'number', // Valid values are 'fraction', 'number', and 'autoScale'.
-      showRadio: 'ball', // Valid values are 'ball', 'path', and 'none'.
       ballRadio: 'oneBall', // Valid values are 'oneBall' and 'continuous'.
       expandedAccordionBox: false,
       isSoundEnabled: false
@@ -88,7 +87,7 @@ define( function( require ) {
       //do stuff
     } );
 
-    var ballRadioButtonsControl = new BallRadioButtonsControl( viewProperties.showRadioProperty );
+    var ballRadioButtonsControl = new BallRadioButtonsControl( model.galtonBoardRadioButtonProperty );
 
     var histogramRadioButtonsControl = new HistogramRadioButtonsControl( viewProperties.histogramRadioProperty );
 
@@ -131,8 +130,9 @@ define( function( require ) {
     // Handle the comings and goings of paths
     var pathsLayer = new Node();
 
-    viewProperties.showRadioProperty.link( function( showRadio ) {
-      switch( showRadio ) {
+    model.galtonBoardRadioButtonProperty.link( function( galtonBoardRadioButton ) {
+      model.balls.clear();
+      switch( galtonBoardRadioButton ) {
         case 'ball':
           ballsLayer.visible = true;
           pathsLayer.visible = false;
@@ -146,7 +146,7 @@ define( function( require ) {
           ballsLayer.visible = false;
           break;
         default:
-          throw new Error( 'Unhandled show Radio state: ' + showRadio );
+          throw new Error( 'Unhandled galton Board Radio Button state: ' + galtonBoardRadioButton );
       }
     } );
 
@@ -158,7 +158,6 @@ define( function( require ) {
 
       var addedPathNode = new PathNode( addedBall, model, modelViewTransform );
       pathsLayer.addChild( addedPathNode );
-
 
       // Add the removal listener for if and when this dataPoint is removed from the model.
       model.balls.addItemRemovedListener( function removalListener( removedBall ) {
