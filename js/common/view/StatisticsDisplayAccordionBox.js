@@ -29,6 +29,8 @@ define( function( require ) {
   var xOverlineString = '\u0078\u0305';
   var meanString = require( 'string!PLINKO_PROBABILITY/mean' );
   var sMeanString = '\u0073<sub>'+meanString+'</sub>';
+  var sString = require( 'string!PLINKO_PROBABILITY/s' );
+  var nString = require( 'string!PLINKO_PROBABILITY/n' );
 
   /**
    *
@@ -66,14 +68,13 @@ define( function( require ) {
       rightHandSideFill: PlinkoConstants.THEORETICAL_FONT_COLOR
     };
 
-    var numberLandedBallsText = new EquationNode( 'N', 0, optionsTitle );
+    var numberLandedBallsText = new EquationNode( nString, 0, optionsTitle );
     var sampleAverageText = new EquationNode( xOverlineString, 0, optionsSample );
-    var sampleStandardDeviationText = new EquationNode( 's', 0, optionsSample );
+    var sampleStandardDeviationText = new EquationNode( sString, 0, optionsSample );
     var sampleStandardDeviationOfMeanText = new EquationNode( sMeanString, 0, optionsSample );
 
     var theoreticalAverageText = new EquationNode( muGreekString, 0, optionsTheoretical );
     var theoreticalStandardDeviationText = new EquationNode( sigmaGreekString, 0, optionsTheoretical );
-    //var theoreticalStandardDeviationOfMeanText = new EquationNode( 'sd', 0, optionsTheoretical );
 
     Property.multilink( [ model.numberOfRowsProperty, model.probabilityProperty ], function( numberOfRows, probability ) {
       var integerNumberOfRows = numberOfRows;
