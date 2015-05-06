@@ -31,11 +31,7 @@ define( function( require ) {
         histogramVisible: false,
         isBallCapReached: false, // is the maximum of balls reached?
         numberOfRows: 12,
-        //histogramRadio: 'fraction', // Valid values are 'fraction', 'number', and 'autoScale'.
         galtonBoardRadioButton: 'ball' // Valid values are 'ball', 'path', and 'none'.
-        //ballRadio: 'oneBall', // Valid values are 'oneBall' and 'continuous'.
-        //expandedAccordionBox: false,
-        //isSoundEnabled: false
       } );
 
       this.launchedBallsNumber = 0; // number of current trial (current ball drop)
@@ -65,7 +61,6 @@ define( function( require ) {
         thisModel.histogram.reset();
       } );
 
-
     }
 
     return inherit( PropertySet, PlinkoProbabilityLabModel, {
@@ -73,7 +68,7 @@ define( function( require ) {
         switch( this.galtonBoardRadioButton ) {
           case 'ball':
             this.balls.forEach( function( ball ) {
-              ball.step( 2 * dt );
+              ball.step( 5* dt );
             } );
             break;
           case 'path':
@@ -82,17 +77,11 @@ define( function( require ) {
             } );
             break;
           case 'none':
-            this.balls.forEach( function( ball ) {
-              ball.path();
-            } );
             break;
           default:
             throw new Error( 'Unhandled galton Board Radio Button state: ' + this.galtonBoardRadioButton );
         }
 
-        this.balls.forEach( function( ball ) {
-          ball.step( 5 * dt );
-        } );
       },
 
       reset: function() {
@@ -149,7 +138,7 @@ define( function( require ) {
                 timeInterval = 50;
 
                 this.continuousTimer = Timer.setInterval( function() {
-                  var numberOfBalls = Math.floor( 0.1*Math.sqrt( thisModel.histogram.landedBallsNumber ) ) + 2;
+                  var numberOfBalls = Math.floor( 0.1 * Math.sqrt( thisModel.histogram.landedBallsNumber ) ) + 2;
                   thisModel.histogram.addToHistogram( numberOfBalls, thisModel.probabilityProperty.value );
                 }, timeInterval );
                 break;
