@@ -286,10 +286,20 @@ define( function( require ) {
         var binomialCoefficientsArray = [];
         var k;
         // let's not try to be clever and let's go forward with the brute force approach
-        for ( k = 0; k < this.numberOfRowsProperty.value; k++ ) {
+        for ( k = 0; k < this.numberOfRowsProperty.value + 1; k++ ) {
           binomialCoefficientsArray.push( this.getBinomialProbability( this.numberOfRowsProperty.value, k, this.probability ) );
         }
         return binomialCoefficientsArray;
+      },
+
+
+      getNormalizedBinomialDistribution: function() {
+        var binomialCoefficientsArray = this.getBinomialDistribution();
+        var maxCoefficient = _.max( binomialCoefficientsArray );
+        var normalizedArray = binomialCoefficientsArray.map( function( num ) {
+          return num / maxCoefficient;
+        } ); // fraction is smaller than one
+        return normalizedArray;
       }
 
     } );

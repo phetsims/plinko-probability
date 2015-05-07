@@ -54,7 +54,8 @@ define( function( require ) {
 
     // histogram
     HISTOGRAM_BAR_COLOR_FILL: 'rgb(237,28,36)', // red
-    HISTOGRAM_BAR_COLOR_STROKE: 'rgb(193,39,45)' // darker shade of red
+    HISTOGRAM_BAR_COLOR_STROKE: 'rgb(193,39,45)', // darker shade of red
+    BINOMIAL_DISTRIBUTION_BAR_COLOR_STROKE: 'blue'
 
   };
 

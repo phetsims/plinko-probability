@@ -307,7 +307,7 @@ define( function( require ) {
      * @param {ModelViewTransform2} modelViewTransform
      * @constructor
      */
-    function HistogramBarNode( model, numberOfRowsProperty, histogramRadioProperty, bounds, modelViewTransform ) {
+    function HistogramBarNode( model, numberOfRowsProperty, bounds, modelViewTransform, histogramVisibleProperty ) {
 
       Node.call( this );
 
@@ -330,10 +330,23 @@ define( function( require ) {
         } );
         self.addChild( histogramRectangleArray[ i ] );
       }
+
+
+      var binomialDistributionRectangleArray = [];
+
+      for ( var i = 0; i < arrayLength; i++ ) {
+        binomialDistributionRectangleArray[ i ] = new Rectangle( 0, 0, bannerWidth, 1, {
+          stroke: PlinkoConstants.BINOMIAL_DISTRIBUTION_BAR_COLOR_STROKE,
+          lineWidth: 2
+        } );
+        self.addChild( binomialDistributionRectangleArray[ i ] );
+      }
+
       //
 
       numberOfRowsProperty.lazyLink( function() {
         updateHistogram();
+        updateBinomialDistribution();
       } );
 
       model.histogram.on( 'histogramUpdated', function() {
@@ -344,18 +357,11 @@ define( function( require ) {
       var getHistogramBin = model.histogram.getFractionalNormalizedBinCount.bind( model.histogram );
       var factorHeight = maxBarHeight;
 
-
-
-
       /**
-       * #param {Array} histogram
-       * @param {number} numberOfRows
        */
       function updateHistogram() {
         var i;
         var xSpacing = bannerWidth / (model.numberOfRowsProperty.value + 1);
-
-
         for ( i = 0; i < model.numberOfRowsProperty.value + 1; i++ ) {
           histogramRectangleArray[ i ].setRect(
             minX + (i) * xSpacing,
@@ -363,9 +369,25 @@ define( function( require ) {
             xSpacing,
             factorHeight * getHistogramBin( i ) );
         }
-
       }
 
+
+      /**
+       * #param {Array} histogram
+       * @param {number} numberOfRows
+       */
+      function updateBinomialDistribution() {
+        var getBinomialBin = model.getNormalizedBinomialDistribution();
+        var i;
+        var xSpacing = bannerWidth / (model.numberOfRowsProperty.value + 1);
+        for ( i = 0; i < model.numberOfRowsProperty.value + 1; i++ ) {
+          binomialDistributionRectangleArray[ i ].setRect(
+            minX + (i) * xSpacing,
+            maxY - factorHeight * getBinomialBin[ i ],
+            xSpacing,
+            factorHeight * getBinomialBin[ i ] );
+        }
+      }
     }
 
     inherit( Node, HistogramBarNode );
@@ -390,7 +412,7 @@ define( function( require ) {
             new XAxisNode( numberOfRowsProperty, bounds, modelViewTransform ),
             new YAxisNode( histogramRadioProperty, bounds, modelViewTransform ),
             new XBannerNode( model, numberOfRowsProperty, histogramRadioProperty, bounds, modelViewTransform ),
-            new HistogramBarNode( model, numberOfRowsProperty, histogramRadioProperty, bounds, modelViewTransform )
+            new HistogramBarNode( model, numberOfRowsProperty, bounds, modelViewTransform, histogramVisibleProperty )
           ]
         }
       );
