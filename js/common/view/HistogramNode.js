@@ -10,13 +10,13 @@ define( function( require ) {
     // modules
     var Bounds2 = require( 'DOT/Bounds2' );
     var inherit = require( 'PHET_CORE/inherit' );
-    //var Line = require( 'SCENERY/nodes/Line' );
+    var Line = require( 'SCENERY/nodes/Line' );
     var Node = require( 'SCENERY/nodes/Node' );
-    var Path = require( 'SCENERY/nodes/Path' );
+    //var Path = require( 'SCENERY/nodes/Path' );
     var PhetFont = require( 'SCENERY_PHET/PhetFont' );
     var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
     var Rectangle = require( 'SCENERY/nodes/Rectangle' );
-    var Shape = require( 'KITE/Shape' );
+    //var Shape = require( 'KITE/Shape' );
     var Text = require( 'SCENERY/nodes/Text' );
     var Util = require( 'DOT/Util' );
     //var Vector2 = require( 'DOT/Vector2' );
@@ -189,7 +189,6 @@ define( function( require ) {
 
       Node.call( this );
 
-
       var minX = modelViewTransform.modelToViewX( bounds.minX );
       var minY = modelViewTransform.modelToViewY( bounds.maxY );
       var maxX = modelViewTransform.modelToViewX( bounds.maxX );
@@ -200,33 +199,48 @@ define( function( require ) {
         { fill: 'blue', lineWidth: GRID_BACKGROUND_LINE_WIDTH, stroke: GRID_BACKGROUND_STROKE } );
       this.addChild( bannerBackgroundNode );
 
-      var path = new Node();
-      var label = new Node();
-      this.addChild( path );
-      this.addChild( label );
+
+      var linesLayerNode = new Node();
+      var labelsLayerNode = new Node();
+      this.addChild( linesLayerNode );
+      this.addChild( labelsLayerNode );
+
+      var arrayLength = model.histogram.bins.length; // for all the bins
+
+      var labelsTextArray = [];
+      var verticalLinesArray = [];
+
+      for ( var i = 0; i < arrayLength; i++ ) {
+        var verticalLine = new Line( minX, minY, minX, maxY, { stroke: 'white', lineWidth: 1 } );
+        var labelText = new Text( 0, { fill: 'white' } );
+        labelsTextArray[ i ] = labelText;
+        verticalLinesArray[ i ] = verticalLine;
+      }
+      linesLayerNode.setChildren( verticalLinesArray );
+      labelsLayerNode.setChildren( labelsTextArray );
+
+      histogramRadioProperty.link( function() {
+        updateTextBanner();
+      } );
 
       numberOfRowsProperty.link( function( numberOfRows ) {
         updateBanner( numberOfRows );
       } );
-
 
       /**
        *
        * @param {number} numberOfRows
        */
       function updateBanner( numberOfRows ) {
-        if ( path.getChildrenCount() ) {
-          path.removeAllChildren();
-        }
-        var verticalStrokes = new Shape();
-        var verticalPaths = new Path( verticalStrokes, { stroke: 'white', lineWidth: 1 } );
+
         var i;
         var xSpacing = bannerWidth / (numberOfRows + 1);
         for ( i = 0; i < numberOfRows; i++ ) {
-          verticalStrokes.moveTo( minX + (i + 1 ) * xSpacing, minY ).verticalLineTo( maxY );
+          verticalLinesArray[ i ].setLine( minX + (i + 1 ) * xSpacing, minY, minX + (i + 1 ) * xSpacing, maxY );
         }
-        path.addChild( verticalPaths );
-
+        for ( i = 0; i < arrayLength; i++ ) {
+          verticalLinesArray[ i ].visible = (i < model.numberOfRowsProperty.value + 1);
+        }
       }
 
 
@@ -239,9 +253,7 @@ define( function( require ) {
        */
       function updateTextBanner() {
         var numberOfTicks = numberOfRowsProperty.value + 1;
-        if ( label.getChildrenCount() ) {
-          label.removeAllChildren();
-        }
+
         for ( var i = 0; i < numberOfTicks; i++ ) {
           var modelX = bounds.minX + bounds.width * ( i + 1 / 2) / (numberOfTicks );
           var x = modelViewTransform.modelToViewX( modelX );
@@ -257,14 +269,11 @@ define( function( require ) {
             case 'number':
               getHistogramBin = model.histogram.getBinCount.bind( model.histogram );
               break;
-            case 'autoScale':
-              getHistogramBin = model.histogram.getFractionalBinCount.bind( model.histogram );
-              break;
           }
 
 
           var bin = getHistogramBin( i );
-          if ( bin < 1 ) {
+          if ( histogramRadioProperty.value === 'fraction' ) {
             bin = Util.toFixed( bin, 2 );
           }
 
@@ -283,12 +292,15 @@ define( function( require ) {
             else {font = LARGE_FONT;}
           }
 
-          var tickLabelNode = new Text( bin, { font: font, fill: 'white' } );
-          var signXOffset = ( i < 0 ) ? -( MINUS_SIGN_WIDTH / 2 ) : 0;
-          tickLabelNode.left = x - ( tickLabelNode.width / 2 ) + signXOffset;
-          tickLabelNode.top = y + TICK_LABEL_SPACING;
-          label.addChild( tickLabelNode );
+          labelsTextArray[ i ].text = bin;
+          labelsTextArray[ i ].setFont( font );
+          labelsTextArray[ i ].centerX = x;
+          labelsTextArray[ i ].top = y + TICK_LABEL_SPACING;
 
+        }
+
+        for ( i = 0; i < arrayLength; i++ ) {
+          labelsTextArray[ i ].visible = (i < model.numberOfRowsProperty.value + 1);
         }
       }
     }
@@ -345,9 +357,15 @@ define( function( require ) {
       sampleHistogramNode.setChildren( histogramRectanglesArray );
       theoreticalHistogramNode.setChildren( binomialDistributionRectanglesArray );
 
+      for ( i = 0; i < arrayLength; i++ ) {
+        histogramRectanglesArray[ i ].visible = false;
+        binomialDistributionRectanglesArray[ i ].visible = false;
+      }
 
-      isTheoreticalHistogramVisibleProperty.link( function( isVisible ) {
+      //TODO fix layering issue;
+      isTheoreticalHistogramVisibleProperty.lazyLink( function( isVisible ) {
         theoreticalHistogramNode.visible = isVisible;
+        //updateBinomialDistribution();
       } );
 
       model.probabilityProperty.lazyLink( function() {
@@ -355,7 +373,6 @@ define( function( require ) {
       } );
 
       numberOfRowsProperty.lazyLink( function() {
-        updateHistogram();
         updateBinomialDistribution();
       } );
 
