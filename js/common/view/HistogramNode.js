@@ -324,32 +324,35 @@ define( function( require ) {
       var bannerWidth = maxX - minX;
       var maxBarHeight = maxY - minY - BANNER_HEIGHT;
 
-      var histogramRectangleArray = [];
-      var arrayLength = model.histogram.bins.length;
+      var arrayLength = model.histogram.bins.length; // for all the bins
+
+      var histogramRectanglesArray = [];
+      var binomialDistributionRectanglesArray = [];
+
       for ( var i = 0; i < arrayLength; i++ ) {
-        histogramRectangleArray[ i ] = new Rectangle( 0, 0, bannerWidth, 1, {
+        var nominalHistogramRectangle = new Rectangle( 0, 0, bannerWidth, 1, {
           fill: PlinkoConstants.HISTOGRAM_BAR_COLOR_FILL,
           stroke: PlinkoConstants.HISTOGRAM_BAR_COLOR_STROKE,
           lineWidth: 2
         } );
-        sampleHistogramNode.addChild( histogramRectangleArray[ i ] );
+        var nominalBinomialDistributionRectangle = new Rectangle( 0, 0, bannerWidth, 1, {
+          stroke: PlinkoConstants.BINOMIAL_DISTRIBUTION_BAR_COLOR_STROKE,
+          lineWidth: 2
+        } );
+        histogramRectanglesArray[ i ] = nominalHistogramRectangle;
+        binomialDistributionRectanglesArray[ i ] = nominalBinomialDistributionRectangle;
       }
+      sampleHistogramNode.setChildren( histogramRectanglesArray );
+      theoreticalHistogramNode.setChildren( binomialDistributionRectanglesArray );
+
 
       isTheoreticalHistogramVisibleProperty.link( function( isVisible ) {
         theoreticalHistogramNode.visible = isVisible;
       } );
 
-      var binomialDistributionRectangleArray = [];
-
-      for ( var i = 0; i < arrayLength; i++ ) {
-        binomialDistributionRectangleArray[ i ] = new Rectangle( 0, 0, bannerWidth, 1, {
-          stroke: PlinkoConstants.BINOMIAL_DISTRIBUTION_BAR_COLOR_STROKE,
-          lineWidth: 2
-        } );
-        theoreticalHistogramNode.addChild( binomialDistributionRectangleArray[ i ] );
-      }
-
-      //
+      model.probabilityProperty.lazyLink( function() {
+        updateBinomialDistribution();
+      } );
 
       numberOfRowsProperty.lazyLink( function() {
         updateHistogram();
@@ -370,11 +373,15 @@ define( function( require ) {
         var i;
         var xSpacing = bannerWidth / (model.numberOfRowsProperty.value + 1);
         for ( i = 0; i < model.numberOfRowsProperty.value + 1; i++ ) {
-          histogramRectangleArray[ i ].setRect(
+          histogramRectanglesArray[ i ].setRect(
             minX + (i) * xSpacing,
             maxY - factorHeight * getHistogramBin( i ),
             xSpacing,
             factorHeight * getHistogramBin( i ) );
+        }
+
+        for ( i = 0; i < arrayLength; i++ ) {
+          histogramRectanglesArray[ i ].visible = (i < model.numberOfRowsProperty.value + 1);
         }
       }
 
@@ -388,11 +395,15 @@ define( function( require ) {
         var i;
         var xSpacing = bannerWidth / (model.numberOfRowsProperty.value + 1);
         for ( i = 0; i < model.numberOfRowsProperty.value + 1; i++ ) {
-          binomialDistributionRectangleArray[ i ].setRect(
+          binomialDistributionRectanglesArray[ i ].setRect(
             minX + (i) * xSpacing,
             maxY - factorHeight * getBinomialBin[ i ],
             xSpacing,
             factorHeight * getBinomialBin[ i ] );
+        }
+
+        for ( i = 0; i < arrayLength; i++ ) {
+          binomialDistributionRectanglesArray[ i ].visible = (i < model.numberOfRowsProperty.value + 1);
         }
       }
     }
