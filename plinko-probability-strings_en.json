@@ -1,16 +1,4 @@
 {
-  "none": {
-    "value": "None"
-  },
-  "number": {
-    "value": "number"
-  },
-  "start": {
-    "value": "Start"
-  },
-  "continuous": {
-    "value": "continuous"
-  },
   "plinko-probability.name": {
     "value": "Plinko Probability"
   },
@@ -29,26 +17,38 @@
   "fraction": {
     "value": "Fraction"
   },
-  "NEquals": {
-    "value": "N ="
+  "count": {
+    "value": "Count"
+  },
+  "bin": {
+    "value": "Bin"
   },
   "rows": {
     "value": "Rows"
   },
-  "sEquals": {
-    "value": "s ="
+  "binaryProbability": {
+    "value": "Binary Probability"
   },
-  "sound": {
-    "value": "Sound"
+  "n": {
+    "value": "N"
   },
-  "xAvgEquals": {
+  "s": {
+    "value": "s"
+  },
+  "x": {
     "value": ""
   },
   "oneBall": {
     "value": "1 ball"
   },
+  "ball": {
+    "value": "Ball"
+  },
   "path": {
     "value": "Path"
+  },
+  "none": {
+    "value": "None"
   },
   "histogramDisplay": {
     "value": "Histogram \ndisplay:"
@@ -56,38 +56,11 @@
   "p": {
     "value": "p"
   },
-  "stop": {
-    "value": "Stop"
-  },
-  "ball": {
-    "value": "Ball"
-  },
-  "help": {
-    "value": "Help"
-  },
   "mean": {
     "value": "mean"
   },
-  "reset": {
-    "value": "Reset"
-  },
-  "show": {
-    "value": "Show:"
-  },
-  "autoScale": {
-    "value": "auto-scale"
-  },
   "ideal": {
     "value": "Ideal"
-  },
-  "bin": {
-    "value": "Bin"
-  },
-  "binaryProbability": {
-    "value": "Binary Probability"
-  },
-  "count": {
-    "value": "Count"
   },
   "outOfBalls": {
     "value": "Out of Balls"

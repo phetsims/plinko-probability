@@ -59,7 +59,7 @@ define( function( require ) {
     var binString = require( 'string!PLINKO_PROBABILITY/bin' );
     var numberString = require( 'string!PLINKO_PROBABILITY/count' );
     var fractionString = require( 'string!PLINKO_PROBABILITY/fraction' );
-    var autoScaleString = require( 'string!PLINKO_PROBABILITY/autoScale' );
+
 
 
     //----------------------------------------------------------------------------------------
@@ -143,9 +143,6 @@ define( function( require ) {
             break;
           case 'number':
             yLabelString = numberString;
-            break;
-          case 'autoScale':
-            yLabelString = autoScaleString;
             break;
         }
 
