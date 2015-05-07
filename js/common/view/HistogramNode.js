@@ -61,7 +61,6 @@ define( function( require ) {
     var fractionString = require( 'string!PLINKO_PROBABILITY/fraction' );
 
 
-
     //----------------------------------------------------------------------------------------
     // x-axis (horizontal)
     //----------------------------------------------------------------------------------------
@@ -307,15 +306,20 @@ define( function( require ) {
      * @param {ModelViewTransform2} modelViewTransform
      * @constructor
      */
-    function HistogramBarNode( model, numberOfRowsProperty, bounds, modelViewTransform, histogramVisibleProperty ) {
+    function HistogramBarNode( model, numberOfRowsProperty, bounds, modelViewTransform, isTheoreticalHistogramVisibleProperty ) {
 
       Node.call( this );
 
-      var self = this;
+      //var self = this;
       var minX = modelViewTransform.modelToViewX( bounds.minX );
       var minY = modelViewTransform.modelToViewY( bounds.maxY );
       var maxX = modelViewTransform.modelToViewX( bounds.maxX );
       var maxY = modelViewTransform.modelToViewY( bounds.minY );
+
+      var sampleHistogramNode = new Node();
+      var theoreticalHistogramNode = new Node();
+      this.addChild( sampleHistogramNode );
+      this.addChild( theoreticalHistogramNode );
 
       var bannerWidth = maxX - minX;
       var maxBarHeight = maxY - minY - BANNER_HEIGHT;
@@ -328,9 +332,12 @@ define( function( require ) {
           stroke: PlinkoConstants.HISTOGRAM_BAR_COLOR_STROKE,
           lineWidth: 2
         } );
-        self.addChild( histogramRectangleArray[ i ] );
+        sampleHistogramNode.addChild( histogramRectangleArray[ i ] );
       }
 
+      isTheoreticalHistogramVisibleProperty.link( function( isVisible ) {
+        theoreticalHistogramNode.visible = isVisible;
+      } );
 
       var binomialDistributionRectangleArray = [];
 
@@ -339,7 +346,7 @@ define( function( require ) {
           stroke: PlinkoConstants.BINOMIAL_DISTRIBUTION_BAR_COLOR_STROKE,
           lineWidth: 2
         } );
-        self.addChild( binomialDistributionRectangleArray[ i ] );
+        theoreticalHistogramNode.addChild( binomialDistributionRectangleArray[ i ] );
       }
 
       //
@@ -399,10 +406,10 @@ define( function( require ) {
      * @param {Property.<string>} histogramRadioProperty
      * @param histogram
      * @param {ModelViewTransform2} modelViewTransform
-     * @param {Property.<boolean>} histogramVisibleProperty
+     * @param {Property.<boolean>} isTheoreticalHistogramVisibleProperty
      * @constructor
      */
-    function HistogramNode( numberOfRowsProperty, histogramRadioProperty, model, modelViewTransform, histogramVisibleProperty ) {
+    function HistogramNode( numberOfRowsProperty, histogramRadioProperty, model, modelViewTransform, isTheoreticalHistogramVisibleProperty ) {
 
       var minY = -1.70;
       var bounds = new Bounds2( -1 / 2, minY, 1 / 2, -1 );
@@ -412,7 +419,7 @@ define( function( require ) {
             new XAxisNode( numberOfRowsProperty, bounds, modelViewTransform ),
             new YAxisNode( histogramRadioProperty, bounds, modelViewTransform ),
             new XBannerNode( model, numberOfRowsProperty, histogramRadioProperty, bounds, modelViewTransform ),
-            new HistogramBarNode( model, numberOfRowsProperty, bounds, modelViewTransform, histogramVisibleProperty )
+            new HistogramBarNode( model, numberOfRowsProperty, bounds, modelViewTransform, isTheoreticalHistogramVisibleProperty )
           ]
         }
       );

@@ -71,14 +71,17 @@ define( function( require ) {
       histogramRadio: 'number', // Valid values are 'fraction', 'number', and 'autoScale'.
       ballRadio: 'oneBall', // Valid values are 'oneBall' and 'continuous'.
       expandedAccordionBox: false,
-      isSoundEnabled: false
+      isSoundEnabled: false,
+      isTheoreticalHistogramVisible: false,
     } );
 
     var histogramNode = new HistogramNode(
       model.numberOfRowsProperty,
       viewProperties.histogramRadioProperty,
       model,
-      modelViewTransform );
+      modelViewTransform,
+      viewProperties.isTheoreticalHistogramVisibleProperty
+    );
 
     var galtonBoardNode = new GaltonBoardNode( model, modelViewTransform );
 
@@ -107,7 +110,10 @@ define( function( require ) {
     var sliderControlPanel = new SliderControlPanel( model.numberOfRowsProperty, model.probabilityProperty );
 
     // create Panel that displays sample and theoretical statistics
-    var statisticsDisplayAccordionBox = new StatisticsDisplayAccordionBox( model, viewProperties.expandedAccordionBoxProperty );
+    var statisticsDisplayAccordionBox = new StatisticsDisplayAccordionBox(
+      model,
+      viewProperties.isTheoreticalHistogramVisibleProperty,
+      viewProperties.expandedAccordionBoxProperty );
 
     // create the Reset All Button in the bottom right, which resets the model
     var resetAllButton = new ResetAllButton( {

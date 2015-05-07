@@ -38,11 +38,12 @@ define( function( require ) {
   /**
    *
    * @param {PlinkoProbabilityLabModel} model
+   * @param {Property.<boolean>} isTheoreticalHistogramVisibleProperty
    * @param {Property.<boolean>} expandedAccordionBoxProperty
    * @param {Object} [options]
    * @constructor
    */
-  function StatisticsDisplayAccordionBox( model, expandedAccordionBoxProperty, options ) {
+  function StatisticsDisplayAccordionBox( model, isTheoreticalHistogramVisibleProperty, expandedAccordionBoxProperty, options ) {
 
     this.model = model;
     // var thisPanel = this;
@@ -99,10 +100,10 @@ define( function( require ) {
       align: 'center'
     } );
 
-    var histogramCheckBox = new CheckBox( histogramCheckBoxIcon, model.histogramVisibleProperty );
+    var histogramCheckBox = new CheckBox( histogramCheckBoxIcon, isTheoreticalHistogramVisibleProperty );
 
     AccordionBox.call( this, new LayoutBox( {
-          orientation:'horizontal',
+          orientation: 'horizontal',
           spacing: 30,
           children: [
             new LayoutBox( {
