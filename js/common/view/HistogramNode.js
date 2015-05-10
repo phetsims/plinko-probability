@@ -12,11 +12,11 @@ define( function( require ) {
     var inherit = require( 'PHET_CORE/inherit' );
     var Line = require( 'SCENERY/nodes/Line' );
     var Node = require( 'SCENERY/nodes/Node' );
-    //var Path = require( 'SCENERY/nodes/Path' );
+    var Path = require( 'SCENERY/nodes/Path' );
     var PhetFont = require( 'SCENERY_PHET/PhetFont' );
     var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
     var Rectangle = require( 'SCENERY/nodes/Rectangle' );
-    //var Shape = require( 'KITE/Shape' );
+    var Shape = require( 'KITE/Shape' );
     var Text = require( 'SCENERY/nodes/Text' );
     var Util = require( 'DOT/Util' );
     //var Vector2 = require( 'DOT/Vector2' );
@@ -185,6 +185,16 @@ define( function( require ) {
      * @param {ModelViewTransform2} modelViewTransform
      * @constructor
      */
+
+    /**
+     *
+     * @param model
+     * @param numberOfRowsProperty
+     * @param histogramRadioProperty
+     * @param bounds
+     * @param modelViewTransform
+     * @constructor
+     */
     function XBannerNode( model, numberOfRowsProperty, histogramRadioProperty, bounds, modelViewTransform ) {
 
       Node.call( this );
@@ -300,7 +310,7 @@ define( function( require ) {
         }
 
         for ( i = 0; i < arrayLength; i++ ) {
-          labelsTextArray[ i ].visible = (i < model.numberOfRowsProperty.value + 1);
+          labelsTextArray[ i ].visible = (i < numberOfRowsProperty.value + 1);
         }
       }
     }
@@ -362,34 +372,81 @@ define( function( require ) {
         binomialDistributionRectanglesArray[ i ].visible = false;
       }
 
+      var sampleAverageTrianglePath = new Path( new Shape(),
+        {
+          stroke: PlinkoConstants.HISTOGRAM_BAR_COLOR_STROKE,
+          fill: 'rgba(0,0,0,0)',
+          lineWidth: 2
+        } );
+      var theoreticalAverageTrianglePath = new Path( new Shape(),
+        { fill: PlinkoConstants.BINOMIAL_DISTRIBUTION_BAR_COLOR_STROKE } );
+
+      this.addChild( theoreticalAverageTrianglePath );
+      this.addChild( sampleAverageTrianglePath );
+
+      function updateTriangleShape( path, average ) {
+
+        var TRIANGLE_HEIGHT = 10;
+        var TRIANGLE_WIDTH = 20;
+
+        var xSpacing = bannerWidth / (numberOfRowsProperty.value + 1);
+        var xPosition = minX + (average + 0.5) * xSpacing;
+        var shape = new Shape();
+        shape.moveTo( xPosition, maxY )
+          .lineToRelative( -TRIANGLE_WIDTH / 2, TRIANGLE_HEIGHT )
+          .lineToRelative( TRIANGLE_WIDTH, 0 )
+          .close();
+        path.setShape( shape );
+      }
+
+      function updateTheoreticalAverageTriangle() {
+        var average = model.getTheoreticalAverage( numberOfRowsProperty.value, model.probability );
+        theoreticalAverageTrianglePath.visible = isTheoreticalHistogramVisibleProperty.value;
+        updateTriangleShape( theoreticalAverageTrianglePath, average );
+      }
+
+      function updateSampleAverageTriangle() {
+        var average = model.histogram.average;
+        // set to invisible if none of the balls have landed
+        sampleAverageTrianglePath.visible = (model.histogram.landedBallsNumber > 0);
+        updateTriangleShape( sampleAverageTrianglePath, average );
+      }
+
       //TODO fix layering issue;
       isTheoreticalHistogramVisibleProperty.lazyLink( function( isVisible ) {
+        updateBinomialDistribution();
+        updateTheoreticalAverageTriangle();
         theoreticalHistogramNode.visible = isVisible;
-        //updateBinomialDistribution();
+        theoreticalAverageTrianglePath.visible = isVisible;
       } );
 
       model.probabilityProperty.lazyLink( function() {
         updateBinomialDistribution();
+        updateTheoreticalAverageTriangle();
+
       } );
 
       numberOfRowsProperty.lazyLink( function() {
         updateBinomialDistribution();
+        updateTheoreticalAverageTriangle();
       } );
 
       model.histogram.on( 'histogramUpdated', function() {
         updateHistogram();
+        updateSampleAverageTriangle();
       } );
 
 
       var getHistogramBin = model.histogram.getFractionalNormalizedBinCount.bind( model.histogram );
       var factorHeight = maxBarHeight;
 
+
       /**
        */
       function updateHistogram() {
         var i;
-        var xSpacing = bannerWidth / (model.numberOfRowsProperty.value + 1);
-        for ( i = 0; i < model.numberOfRowsProperty.value + 1; i++ ) {
+        var xSpacing = bannerWidth / (numberOfRowsProperty.value + 1);
+        for ( i = 0; i < numberOfRowsProperty.value + 1; i++ ) {
           histogramRectanglesArray[ i ].setRect(
             minX + (i) * xSpacing,
             maxY - factorHeight * getHistogramBin( i ),
@@ -398,7 +455,7 @@ define( function( require ) {
         }
 
         for ( i = 0; i < arrayLength; i++ ) {
-          histogramRectanglesArray[ i ].visible = (i < model.numberOfRowsProperty.value + 1);
+          histogramRectanglesArray[ i ].visible = (i < numberOfRowsProperty.value + 1);
         }
       }
 
@@ -410,8 +467,8 @@ define( function( require ) {
       function updateBinomialDistribution() {
         var getBinomialBin = model.getNormalizedBinomialDistribution();
         var i;
-        var xSpacing = bannerWidth / (model.numberOfRowsProperty.value + 1);
-        for ( i = 0; i < model.numberOfRowsProperty.value + 1; i++ ) {
+        var xSpacing = bannerWidth / (numberOfRowsProperty.value + 1);
+        for ( i = 0; i < numberOfRowsProperty.value + 1; i++ ) {
           binomialDistributionRectanglesArray[ i ].setRect(
             minX + (i) * xSpacing,
             maxY - factorHeight * getBinomialBin[ i ],
@@ -420,9 +477,11 @@ define( function( require ) {
         }
 
         for ( i = 0; i < arrayLength; i++ ) {
-          binomialDistributionRectanglesArray[ i ].visible = (i < model.numberOfRowsProperty.value + 1);
+          binomialDistributionRectanglesArray[ i ].visible = (i < numberOfRowsProperty.value + 1);
         }
       }
+
+
     }
 
     inherit( Node, HistogramBarNode );
