@@ -239,7 +239,7 @@ define( function( require ) {
           verticalLinesArray[ i ].setLine( minX + (i + 1 ) * xSpacing, minY, minX + (i + 1 ) * xSpacing, maxY );
         }
         for ( i = 0; i < arrayLength; i++ ) {
-          verticalLinesArray[ i ].visible = (i < model.numberOfRowsProperty.value + 1);
+          verticalLinesArray[ i ].visible = (i < numberOfRows );
         }
       }
 
