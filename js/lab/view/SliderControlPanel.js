@@ -33,8 +33,8 @@ define( function( require ) {
     var rowsSlider = new SliderWithReadout( {
       buttonStep: 1,
       title: rowsString,
-      titleFont: PlinkoConstants.PANEL_FONT_BOLD,
-      displayFont: PlinkoConstants.PANEL_FONT, // font for the numerical display
+      titleFont: PlinkoConstants.PANEL_FONT,
+      displayFont: PlinkoConstants.PANEL_READOUT_FONT, // font for the numerical display
 
       property: rowsProperty,
       range: PlinkoConstants.ROWS_RANGE,
@@ -51,8 +51,8 @@ define( function( require ) {
     var binaryProbabilitySlider = new SliderWithReadout( {
       buttonStep: 0.01,
       title: binaryProbabilityString,
-      titleFont: PlinkoConstants.PANEL_FONT_BOLD,
-      displayFont: PlinkoConstants.PANEL_FONT, // font for the numerical display
+      titleFont: PlinkoConstants.PANEL_FONT,
+      displayFont: PlinkoConstants.PANEL_READOUT_FONT, // font for the numerical display
 
       property: binaryProbabilityProperty,
       range: PlinkoConstants.BINARY_PROBABILITY_RANGE,
@@ -69,15 +69,15 @@ define( function( require ) {
 
     rowsSlider.x = 200;
     binaryProbabilitySlider.centerX = rowsSlider.centerX;
-    binaryProbabilitySlider.top = rowsSlider.bottom + 30;
+    binaryProbabilitySlider.top = rowsSlider.bottom + 25;
 
     var contentPanel = new Node( {
       children: [ rowsSlider, binaryProbabilitySlider ]
     } );
     var panel = new Panel( contentPanel, {
       fill: 'white',
-      xMargin: 10,
-      yMargin: 10
+      xMargin: 0,
+      yMargin: 8
     } );
     this.addChild( panel );
   }

@@ -46,7 +46,7 @@ define( function( require ) {
         decimalPlaces: 0, // the number of decimal places for the numerical value on the display - must be an integer greater or equal to zero
         magneticSnapping: true, // whether the slider sticks to allowed values, i.e. (rounded) values shown on the readout
 
-        verticalSpacing: 8, // control vertical spacing between scenery nodes
+        verticalSpacing: 5, // control vertical spacing between scenery nodes
         horizontalSpacing: 10, // control spacing between horizontal scenery nodes
         titleFont: new PhetFont( { size: 16, weight: 'bold' } ),
         displayFont: new PhetFont( { size: 14 } ), // font for the numerical display
