@@ -160,7 +160,7 @@ define( function( require ) {
 
       switch( model.galtonBoardRadioButtonProperty.value ) {
         case 'ball':
-          var addedBallNode = new BallNode( addedBall, model, modelViewTransform );
+          var addedBallNode = new BallNode( addedBall.positionProperty, addedBall.ballRadius, modelViewTransform );
           ballsLayer.addChild( addedBallNode );
           model.balls.addItemRemovedListener( function removalListener( removedBall ) {
             if ( removedBall === addedBall ) {
@@ -183,7 +183,7 @@ define( function( require ) {
         case 'none':
           break;
         default:
-          throw new Error( 'Unhandled galton Board Radio Button state: ' + galtonBoardRadioButton );
+          throw new Error( 'Unhandled galton Board Radio Button state: ' +  model.galtonBoardRadioButtonProperty.value );
       }
     } );
     // Create and add the view representation for this dataBall.

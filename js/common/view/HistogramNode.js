@@ -80,7 +80,7 @@ define( function( require ) {
      */
     function XAxisNode( numberOfRowsProperty, bounds, modelViewTransform ) {
 
-      var self = this;
+      //var self = this;
       Node.call( this );
 
 

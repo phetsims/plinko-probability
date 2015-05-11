@@ -38,7 +38,12 @@ define( function( require ) {
     this.probability = probability;
     this.numberOfRows = numberOfRows;
 
+
     this.pegSeparation = PegInterface.getSpacing( numberOfRows );
+
+
+    this.ballRadius = this.pegSeparation * 0.25;
+
     // 0 -> Initially falling
     // 1 -> Falling between pegs
     // 2 -> Out of pegs
@@ -72,15 +77,15 @@ define( function( require ) {
     this.fallenRatio = 0;
 
 
-    this.pegHistory= [];
+    this.pegHistory = [];
 
     var direction;  // 0 is left, 1 is right
     var rowNumber;
     var columnNumber = 0;
-   var peg;
+    var peg;
     for ( rowNumber = 0; rowNumber <= numberOfRows; rowNumber++ ) {
       direction = (Math.random() < probability) ? 1 : 0;
-       peg = {
+      peg = {
         rowNumber: rowNumber, // an integer starting at zero
         columnNumber: columnNumber, // an integer starting at zero
         direction: direction, // direction to the next peg,
@@ -107,7 +112,7 @@ define( function( require ) {
       this.ballStep( dt );
     },
 
-    path: function(){
+    path: function() {
       this.trigger( 'landed' );
     },
 
@@ -119,7 +124,7 @@ define( function( require ) {
       if ( this.phase === PHASE_INITIAL ) {
         if ( df + this.fallenRatio < 1 ) {
           this.fallenRatio += df;
-          peg = this.pegHistory[0];
+          peg = this.pegHistory[ 0 ];
           this.column = peg.columnNumber;
           this.row = peg.rowNumber;
           this.pegPosition = peg.position;
@@ -174,7 +179,7 @@ define( function( require ) {
           this.trigger( 'landed' );
         }
       }
-      this.position = this.getPosition().addXY(0,this.pegSeparation*PlinkoConstants.PEG_HEIGHT_FRACTION_OFFSET);
+      this.position = this.getPosition().addXY( 0, this.pegSeparation * PlinkoConstants.PEG_HEIGHT_FRACTION_OFFSET );
     },
 
 
@@ -185,7 +190,7 @@ define( function( require ) {
     getPosition: function() {
       switch( this.phase ) {
         case PHASE_INITIAL:
-          var displacement = new Vector2(0, (1-this.fallenRatio) );
+          var displacement = new Vector2( 0, (1 - this.fallenRatio) );
           displacement.multiplyScalar( this.pegSeparation );
           return this.pegPosition.plus( displacement );
         case PHASE_FALLING:
