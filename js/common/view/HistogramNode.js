@@ -391,8 +391,9 @@ define( function( require ) {
           lineWidth: 2
         } );
 
-      this.addChild( theoreticalAverageTrianglePath );
       this.addChild( sampleAverageTrianglePath );
+      this.addChild( theoreticalAverageTrianglePath );
+
 
       function updateTriangleShape( path, average ) {
 
