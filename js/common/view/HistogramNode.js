@@ -9,6 +9,7 @@ define( function( require ) {
 
     // modules
     var Bounds2 = require( 'DOT/Bounds2' );
+    var Color = require('SCENERY/util/Color');
     var inherit = require( 'PHET_CORE/inherit' );
     var Line = require( 'SCENERY/nodes/Line' );
     var Node = require( 'SCENERY/nodes/Node' );
@@ -39,6 +40,7 @@ define( function( require ) {
 
     // banner
     var BANNER_HEIGHT = 20;
+    var BANNER_BACKGROUND_COLOR = new Color(46,49,146);
     // labels
     var AXIS_LABEL_FONT = new PhetFont( { size: 14, weight: 'bold' } );
     var AXIS_LABEL_COLOR = 'black'; // space between end of axis and label
@@ -212,7 +214,7 @@ define( function( require ) {
 
       var bannerWidth = maxX - minX;
       var bannerBackgroundNode = new Rectangle( minX, minY, bannerWidth, BANNER_HEIGHT,
-        { fill: 'blue', lineWidth: GRID_BACKGROUND_LINE_WIDTH, stroke: GRID_BACKGROUND_STROKE } );
+        { fill:  BANNER_BACKGROUND_COLOR, lineWidth: GRID_BACKGROUND_LINE_WIDTH, stroke: GRID_BACKGROUND_STROKE } );
       this.addChild( bannerBackgroundNode );
 
 

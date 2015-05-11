@@ -17,7 +17,7 @@ define( function( require ) {
 
   var PlinkoConstants = {
 
-    BACKGROUND_COLOR: 'rgb(170,220,255)',
+    BACKGROUND_COLOR: 'rgb(186,231,249)',
 
     RESET_ALL_BUTTON_SCALE: 0.75,
 
