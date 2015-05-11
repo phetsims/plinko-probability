@@ -132,51 +132,61 @@ define( function( require ) {
     } );
 
     // Handle the comings and goings of balls
-    var ballsLayer = new Node();
+    var ballsLayer = new Node( { layerSplit: true } );
     // Handle the comings and goings of paths
-    var pathsLayer = new Node();
+    var pathsLayer = new Node( { layerSplit: true } );
 
     model.galtonBoardRadioButtonProperty.link( function( galtonBoardRadioButton ) {
       model.balls.clear();
-      switch( galtonBoardRadioButton ) {
+      //switch( galtonBoardRadioButton ) {
+      //  case 'ball':
+      //    ballsLayer.visible = true;
+      //    pathsLayer.visible = true;
+      //    break;
+      //  case 'path':
+      //    ballsLayer.visible = true;
+      //    pathsLayer.visible = true;
+      //    break;
+      //  case 'none':
+      //    pathsLayer.visible = false;
+      //    ballsLayer.visible = false;
+      //    break;
+      //  default:
+      //    throw new Error( 'Unhandled galton Board Radio Button state: ' + galtonBoardRadioButton );
+      //}
+    } );
+
+    model.balls.addItemAddedListener( function( addedBall ) {
+
+      switch( model.galtonBoardRadioButtonProperty.value ) {
         case 'ball':
-          ballsLayer.visible = true;
-          pathsLayer.visible = false;
+          var addedBallNode = new BallNode( addedBall, model, modelViewTransform );
+          ballsLayer.addChild( addedBallNode );
+          model.balls.addItemRemovedListener( function removalListener( removedBall ) {
+            if ( removedBall === addedBall ) {
+              addedBallNode.dispose();
+              ballsLayer.removeChild( addedBallNode );
+              model.balls.removeItemRemovedListener( removalListener );
+            }
+          } );
           break;
         case 'path':
-          ballsLayer.visible = false;
-          pathsLayer.visible = true;
+          var addedPathNode = new PathNode( addedBall, model, modelViewTransform );
+          pathsLayer.addChild( addedPathNode );
+          model.balls.addItemRemovedListener( function removalListener( removedBall ) {
+            if ( removedBall === addedBall ) {
+              pathsLayer.removeChild( addedPathNode );
+              model.balls.removeItemRemovedListener( removalListener );
+            }
+          } );
           break;
         case 'none':
-          pathsLayer.visible = false;
-          ballsLayer.visible = false;
           break;
         default:
           throw new Error( 'Unhandled galton Board Radio Button state: ' + galtonBoardRadioButton );
       }
     } );
-
-    model.balls.addItemAddedListener( function( addedBall ) {
-
-      // Create and add the view representation for this dataBall.
-      var addedBallNode = new BallNode( addedBall, model, modelViewTransform );
-      ballsLayer.addChild( addedBallNode );
-
-      var addedPathNode = new PathNode( addedBall, model, modelViewTransform );
-      pathsLayer.addChild( addedPathNode );
-
-      // Add the removal listener for if and when this dataPoint is removed from the model.
-      model.balls.addItemRemovedListener( function removalListener( removedBall ) {
-        if ( removedBall === addedBall ) {
-          addedBallNode.dispose();
-          ballsLayer.removeChild( addedBallNode );
-          pathsLayer.removeChild( addedPathNode );
-          model.balls.removeItemRemovedListener( removalListener );
-        }
-      } );
-    } );
-
-
+    // Create and add the view representation for this dataBall.
 
 
     this.addChild( board );

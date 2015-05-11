@@ -216,8 +216,8 @@ define( function( require ) {
       this.addChild( bannerBackgroundNode );
 
 
-      var linesLayerNode = new Node();
-      var labelsLayerNode = new Node();
+      var linesLayerNode = new Node({ layerSplit: true });
+      var labelsLayerNode = new Node({ layerSplit: true });
       this.addChild( linesLayerNode );
       this.addChild( labelsLayerNode );
 
@@ -344,8 +344,8 @@ define( function( require ) {
       var maxX = modelViewTransform.modelToViewX( bounds.maxX );
       var maxY = modelViewTransform.modelToViewY( bounds.minY );
 
-      var sampleHistogramNode = new Node();
-      var theoreticalHistogramNode = new Node();
+      var sampleHistogramNode = new Node( { layerSplit: true } );
+      var theoreticalHistogramNode = new Node( { layerSplit: true } );
       this.addChild( sampleHistogramNode );
       this.addChild( theoreticalHistogramNode );
 
@@ -385,16 +385,16 @@ define( function( require ) {
           lineWidth: 2
         } );
       var theoreticalAverageTrianglePath = new Path( new Shape(),
-        { stroke: PlinkoConstants.BINOMIAL_DISTRIBUTION_BAR_COLOR_STROKE,
+        {
+          stroke: PlinkoConstants.BINOMIAL_DISTRIBUTION_BAR_COLOR_STROKE,
           fill: 'rgba(0,0,0,0)',
-          lineWidth:2
+          lineWidth: 2
         } );
 
       this.addChild( theoreticalAverageTrianglePath );
       this.addChild( sampleAverageTrianglePath );
 
       function updateTriangleShape( path, average ) {
-
 
 
         var xSpacing = bannerWidth / (numberOfRowsProperty.value + 1);

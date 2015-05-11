@@ -110,14 +110,7 @@ define( function( require ) {
 
     }
 
-    return inherit( Node, GaltonBoardNode,
-      {
-        rotatePegs: function( angle ) {
-          this.pegPathArray.forEach( function( pegPath ) {
-            pegPath.rotation( angle );
-          } );
-        }
-      } );
+    return inherit( Node, GaltonBoardNode);
 
   }
 )
