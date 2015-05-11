@@ -95,7 +95,7 @@ define( function( require ) {
     var histogramCheckBoxIcon = new LayoutBox( {
       spacing: 5, children: [
         new HistogramIcon(),
-        new Text( idealString, { font: PlinkoConstants.TEXT_FONT_BOLD } )
+        new Text( idealString, { font: PlinkoConstants.PANEL_READOUT_FONT } )
       ],
       align: 'center'
     } );

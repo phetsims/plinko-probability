@@ -25,10 +25,10 @@ define( function( require ) {
       // defaults
 
       binNumber: 5,
-      binWidth: 10,
-      binHeightMax: 20,
+      binWidth: 6,
+      binHeightMax: 10,
       binStroke: 'blue',
-      binLineWidth: 2,
+      binLineWidth: 1,
       binFill: null
     }, options );
 

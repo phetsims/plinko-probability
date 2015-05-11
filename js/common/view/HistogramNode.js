@@ -40,7 +40,7 @@ define( function( require ) {
     // banner
     var BANNER_HEIGHT = 20;
     // labels
-    var AXIS_LABEL_FONT = new PhetFont( 18 );
+    var AXIS_LABEL_FONT = new PhetFont( { size: 14, weight: 'bold' } );
     var AXIS_LABEL_COLOR = 'black'; // space between end of axis and label
 
 
@@ -60,6 +60,9 @@ define( function( require ) {
     var numberString = require( 'string!PLINKO_PROBABILITY/count' );
     var fractionString = require( 'string!PLINKO_PROBABILITY/fraction' );
 
+    // triangle
+    var TRIANGLE_HEIGHT = 20;
+    var TRIANGLE_WIDTH = 20;
 
     //----------------------------------------------------------------------------------------
     // x-axis (horizontal)
@@ -87,9 +90,12 @@ define( function( require ) {
       } );
       this.addChild( xLabelNode );
 
+      var tickLabelsLayer = new Node();
+      this.addChild( tickLabelsLayer );
+
       numberOfRowsProperty.link( function( numberOfRows ) {
         var numberOfTicks = numberOfRows + 1;
-        self.removeAllChildren();
+        tickLabelsLayer.removeAllChildren();
         for ( var i = 0; i < numberOfTicks; i++ ) {
           var modelX = bounds.minX + bounds.width * (i + 1 / 2) / (numberOfTicks );
           var x = modelViewTransform.modelToViewX( modelX );
@@ -100,7 +106,7 @@ define( function( require ) {
           var signXOffset = ( i < 0 ) ? -( MINUS_SIGN_WIDTH / 2 ) : 0;
           tickLabelNode.left = x - ( tickLabelNode.width / 2 ) + signXOffset;
           tickLabelNode.top = y + TICK_LABEL_SPACING;
-          self.addChild( tickLabelNode );
+          tickLabelsLayer.addChild( tickLabelNode );
         }
       } );
 
@@ -374,20 +380,22 @@ define( function( require ) {
 
       var sampleAverageTrianglePath = new Path( new Shape(),
         {
+          fill: PlinkoConstants.HISTOGRAM_BAR_COLOR_FILL,
           stroke: PlinkoConstants.HISTOGRAM_BAR_COLOR_STROKE,
-          fill: 'rgba(0,0,0,0)',
           lineWidth: 2
         } );
       var theoreticalAverageTrianglePath = new Path( new Shape(),
-        { fill: PlinkoConstants.BINOMIAL_DISTRIBUTION_BAR_COLOR_STROKE } );
+        { stroke: PlinkoConstants.BINOMIAL_DISTRIBUTION_BAR_COLOR_STROKE,
+          fill: 'rgba(0,0,0,0)',
+          lineWidth:2
+        } );
 
       this.addChild( theoreticalAverageTrianglePath );
       this.addChild( sampleAverageTrianglePath );
 
       function updateTriangleShape( path, average ) {
 
-        var TRIANGLE_HEIGHT = 10;
-        var TRIANGLE_WIDTH = 20;
+
 
         var xSpacing = bannerWidth / (numberOfRowsProperty.value + 1);
         var xPosition = minX + (average + 0.5) * xSpacing;
