@@ -168,12 +168,16 @@ define( function( require ) {
       // Add the removal listener for if and when this dataPoint is removed from the model.
       model.balls.addItemRemovedListener( function removalListener( removedBall ) {
         if ( removedBall === addedBall ) {
+          addedBallNode.dispose();
           ballsLayer.removeChild( addedBallNode );
           pathsLayer.removeChild( addedPathNode );
           model.balls.removeItemRemovedListener( removalListener );
         }
       } );
     } );
+
+
+
 
     this.addChild( board );
     this.addChild( eraserButton );

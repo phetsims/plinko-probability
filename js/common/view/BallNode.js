@@ -50,11 +50,19 @@ define( function( require ) {
       ballNode.center = modelViewTransform.modelToViewPosition( position );
     } );
 
-    model.numberOfRowsProperty.link( function( numberOfRows ) {
+    var numberOfRowsListener = function( numberOfRows ) {
       ballNode.setScaleMagnitude( 20 / numberOfRows );
-    } );
+    };
+    model.numberOfRowsProperty.link( numberOfRowsListener );
 
+    this.disposeBallNode = function() {
+      model.numberOfRowsProperty.unlink( numberOfRowsListener );
+    }
   }
 
-  return inherit( Node, BallNode );
+  return inherit( Node, BallNode, {
+    dispose: function() {
+      this.disposeBallNode();
+    }
+  } );
 } );
