@@ -9,7 +9,7 @@ define( function( require ) {
 
     // modules
     var Bounds2 = require( 'DOT/Bounds2' );
-    var Color = require('SCENERY/util/Color');
+    var Color = require( 'SCENERY/util/Color' );
     var inherit = require( 'PHET_CORE/inherit' );
     var Line = require( 'SCENERY/nodes/Line' );
     var Node = require( 'SCENERY/nodes/Node' );
@@ -40,10 +40,12 @@ define( function( require ) {
 
     // banner
     var BANNER_HEIGHT = 20;
-    var BANNER_BACKGROUND_COLOR = new Color(46,49,146);
+    var BANNER_BACKGROUND_COLOR = new Color( 46, 49, 146 );
     // labels
-    var AXIS_LABEL_FONT = new PhetFont( { size: 14, weight: 'bold' } );
-    var AXIS_LABEL_COLOR = 'black'; // space between end of axis and label
+    var Y_AXIS_LABEL_FONT = new PhetFont( { size: 20, weight: 'bold' } );
+    var X_AXIS_LABEL_FONT = new PhetFont( { size: 16, weight: 'bold' } );
+    var X_AXIS_LABEL_COLOR = 'black'; // space between end of axis and label
+    var Y_AXIS_LABEL_COLOR = 'black'; // space between end of axis and label
 
 
     var LARGE_FONT = new PhetFont( 16 );
@@ -85,8 +87,8 @@ define( function( require ) {
       var centerX = modelViewTransform.modelToViewX( (bounds.minX + bounds.maxX) / 2 );
       var bottom = modelViewTransform.modelToViewY( bounds.minY );
       var xLabelNode = new Text( binString, {
-        font: AXIS_LABEL_FONT,
-        fill: AXIS_LABEL_COLOR,
+        font: X_AXIS_LABEL_FONT,
+        fill: X_AXIS_LABEL_COLOR,
         centerX: centerX,
         bottom: bottom + 40
       } );
@@ -134,8 +136,8 @@ define( function( require ) {
       var left = modelViewTransform.modelToViewX( bounds.minX );
 
       var yLabelNode = new Text( '', {
-        font: AXIS_LABEL_FONT,
-        fill: AXIS_LABEL_COLOR,
+        font: Y_AXIS_LABEL_FONT,
+        fill: Y_AXIS_LABEL_COLOR,
         centerY: centerY,
         left: left - 20,
         rotation: -Math.PI / 2   //remember down is positive in the view
@@ -214,12 +216,12 @@ define( function( require ) {
 
       var bannerWidth = maxX - minX;
       var bannerBackgroundNode = new Rectangle( minX, minY, bannerWidth, BANNER_HEIGHT,
-        { fill:  BANNER_BACKGROUND_COLOR, lineWidth: GRID_BACKGROUND_LINE_WIDTH, stroke: GRID_BACKGROUND_STROKE } );
+        { fill: BANNER_BACKGROUND_COLOR, lineWidth: GRID_BACKGROUND_LINE_WIDTH, stroke: GRID_BACKGROUND_STROKE } );
       this.addChild( bannerBackgroundNode );
 
 
-      var linesLayerNode = new Node({ layerSplit: true });
-      var labelsLayerNode = new Node({ layerSplit: true });
+      var linesLayerNode = new Node( { layerSplit: true } );
+      var labelsLayerNode = new Node( { layerSplit: true } );
       this.addChild( linesLayerNode );
       this.addChild( labelsLayerNode );
 

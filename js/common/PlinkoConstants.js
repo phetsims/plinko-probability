@@ -21,9 +21,11 @@ define( function( require ) {
 
     RESET_ALL_BUTTON_SCALE: 0.75,
 
-    // font sizes and weight
+    // font sizes and weight (for statistics diaplay node)
     TEXT_FONT: new PhetFont( { size: 18 } ), // default font for text
-    TEXT_FONT_BOLD: new PhetFont( { size: 18, weight: 'bold' } ), // default font for bold font
+    TEXT_FONT_BOLD: new PhetFont( { size: 22, weight: 'bold' } ), // default font for bold font (N=)
+
+
     CHECK_BOX_TEXT_FONT: new PhetFont( { size: 16 } ),
     MAJOR_TICK_FONT: new PhetFont( { size: 16 } ),
 
