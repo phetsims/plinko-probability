@@ -13,7 +13,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
 
   /**
-   * Constructor for the which renders the charge as a scenery node.
+   * Constructor for the which renders the ball as a scenery node with listener on the position
    * @param {Property.<Vector2>} positionProperty
    * @param {number} radius - in model coordinates
    * @param {ModelViewTransform2} modelViewTransform - the coordinate transform between model coordinates and view coordinates

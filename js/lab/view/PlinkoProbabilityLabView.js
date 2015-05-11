@@ -68,11 +68,11 @@ define( function( require ) {
     var modelViewTransform = ModelViewTransform2.createRectangleInvertedYMapping( modelGraphBounds, viewGraphBounds );
 
     var viewProperties = new PropertySet( {
-      histogramRadio: 'number', // Valid values are 'fraction', 'number', and 'autoScale'.
+      histogramRadio: 'number', // Valid values are 'fraction', 'number'
       ballRadio: 'oneBall', // Valid values are 'oneBall' and 'continuous'.
       expandedAccordionBox: false,
       isSoundEnabled: false,
-      isTheoreticalHistogramVisible: false,
+      isTheoreticalHistogramVisible: false
     } );
 
     var histogramNode = new HistogramNode(
@@ -136,24 +136,8 @@ define( function( require ) {
     // Handle the comings and goings of paths
     var pathsLayer = new Node( { layerSplit: true } );
 
-    model.galtonBoardRadioButtonProperty.link( function( galtonBoardRadioButton ) {
+    model.galtonBoardRadioButtonProperty.link( function( ) {
       model.balls.clear();
-      //switch( galtonBoardRadioButton ) {
-      //  case 'ball':
-      //    ballsLayer.visible = true;
-      //    pathsLayer.visible = true;
-      //    break;
-      //  case 'path':
-      //    ballsLayer.visible = true;
-      //    pathsLayer.visible = true;
-      //    break;
-      //  case 'none':
-      //    pathsLayer.visible = false;
-      //    ballsLayer.visible = false;
-      //    break;
-      //  default:
-      //    throw new Error( 'Unhandled galton Board Radio Button state: ' + galtonBoardRadioButton );
-      //}
     } );
 
     model.balls.addItemAddedListener( function( addedBall ) {
