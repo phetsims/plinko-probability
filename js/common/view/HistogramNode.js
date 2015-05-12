@@ -16,6 +16,7 @@ define( function( require ) {
     var Path = require( 'SCENERY/nodes/Path' );
     var PhetFont = require( 'SCENERY_PHET/PhetFont' );
     var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
+    var Property = require( 'AXON/Property' );
     var Rectangle = require( 'SCENERY/nodes/Rectangle' );
     var Shape = require( 'KITE/Shape' );
     var Text = require( 'SCENERY/nodes/Text' );
@@ -37,16 +38,15 @@ define( function( require ) {
     //var AXIS_COLOR = 'black';
     //var AXIS_EXTENT = 0.0; // how far the line extends past the min/max ticks, in model coordinates
 
-
     // banner
     var BANNER_HEIGHT = 20;
     var BANNER_BACKGROUND_COLOR = new Color( 46, 49, 146 );
+
     // labels
     var Y_AXIS_LABEL_FONT = new PhetFont( { size: 20, weight: 'bold' } );
     var X_AXIS_LABEL_FONT = new PhetFont( { size: 16, weight: 'bold' } );
     var X_AXIS_LABEL_COLOR = 'black'; // space between end of axis and label
     var Y_AXIS_LABEL_COLOR = 'black'; // space between end of axis and label
-
 
     var LARGE_FONT = new PhetFont( 16 );
     var NORMAL_FONT = new PhetFont( 14 );
@@ -57,7 +57,6 @@ define( function( require ) {
     var MAJOR_TICK_COLOR = 'black';
     var MAJOR_TICK_FONT = new PhetFont( 16 );
     var TICK_LABEL_SPACING = 2;
-    var MINUS_SIGN_WIDTH = new Text( '\u2212', { font: MAJOR_TICK_FONT } ).width;
 
     // strings
     var binString = require( 'string!PLINKO_PROBABILITY/bin' );
@@ -68,9 +67,10 @@ define( function( require ) {
     var TRIANGLE_HEIGHT = 20;
     var TRIANGLE_WIDTH = 20;
 
-    //----------------------------------------------------------------------------------------
-    // x-axis (horizontal)
-    //----------------------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------------------
+// x-axis (horizontal)
+//----------------------------------------------------------------------------------------
 
     /**
      * @param {Property.<number>} numberOfRowsProperty
@@ -82,7 +82,6 @@ define( function( require ) {
 
       //var self = this;
       Node.call( this );
-
 
       var centerX = modelViewTransform.modelToViewX( (bounds.minX + bounds.maxX) / 2 );
       var bottom = modelViewTransform.modelToViewY( bounds.minY );
@@ -101,14 +100,13 @@ define( function( require ) {
         var numberOfTicks = numberOfRows + 1;
         tickLabelsLayer.removeAllChildren();
         for ( var i = 0; i < numberOfTicks; i++ ) {
-          var modelX = bounds.minX + bounds.width * (i + 1 / 2) / (numberOfTicks );
-          var x = modelViewTransform.modelToViewX( modelX );
+          var binCenterX = bounds.minX + bounds.width * (i + 1 / 2) / (numberOfTicks );
+          var x = modelViewTransform.modelToViewX( binCenterX );
           var y = modelViewTransform.modelToViewY( bounds.minY );
-          // major tick
 
           var tickLabelNode = new Text( i, { font: MAJOR_TICK_FONT, fill: MAJOR_TICK_COLOR } );
-          var signXOffset = ( i < 0 ) ? -( MINUS_SIGN_WIDTH / 2 ) : 0;
-          tickLabelNode.left = x - ( tickLabelNode.width / 2 ) + signXOffset;
+
+          tickLabelNode.centerX = x;
           tickLabelNode.top = y + TICK_LABEL_SPACING;
           tickLabelsLayer.addChild( tickLabelNode );
         }
@@ -118,8 +116,7 @@ define( function( require ) {
 
     inherit( Node, XAxisNode );
 
-
-    //----------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------
 //  Y label
 //----------------------------------------------------------------------------------------
 
@@ -159,13 +156,12 @@ define( function( require ) {
         yLabelNode.centerY = centerY;
       } );
 
-
       this.addChild( yLabelNode );
     }
 
     inherit( Node, YAxisNode );
 
-    //----------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------
 // 2D Background
 //----------------------------------------------------------------------------------------
 
@@ -184,25 +180,17 @@ define( function( require ) {
 
     inherit( Node, BackgroundNode );
 
-    //----------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------
 //  X Banner
 //----------------------------------------------------------------------------------------
 
     /**
-     * @param { } model
-     * @param {Property.<number>} numberOfRowsProperty
-     * @param {Bounds2} bounds
-     * @param {ModelViewTransform2} modelViewTransform
-     * @constructor
-     */
-
-    /**
      *
      * @param model
-     * @param numberOfRowsProperty
+     * @param {Property.<number>} numberOfRowsProperty
      * @param histogramRadioProperty
-     * @param bounds
-     * @param modelViewTransform
+     * @param {Bounds2} bounds
+     * @param {ModelViewTransform2} modelViewTransform
      * @constructor
      */
     function XBannerNode( model, numberOfRowsProperty, histogramRadioProperty, bounds, modelViewTransform ) {
@@ -218,7 +206,6 @@ define( function( require ) {
       var bannerBackgroundNode = new Rectangle( minX, minY, bannerWidth, BANNER_HEIGHT,
         { fill: BANNER_BACKGROUND_COLOR, lineWidth: GRID_BACKGROUND_LINE_WIDTH, stroke: GRID_BACKGROUND_STROKE } );
       this.addChild( bannerBackgroundNode );
-
 
       var linesLayerNode = new Node( { layerSplit: true } );
       var labelsLayerNode = new Node( { layerSplit: true } );
@@ -239,11 +226,7 @@ define( function( require ) {
       linesLayerNode.setChildren( verticalLinesArray );
       labelsLayerNode.setChildren( labelsTextArray );
 
-      histogramRadioProperty.link( function() {
-        updateTextBanner();
-      } );
-
-      numberOfRowsProperty.link( function( numberOfRows ) {
+      Property.multilink( [ numberOfRowsProperty, histogramRadioProperty ], function( numberOfRows, histogramRadio ) {
         updateBanner( numberOfRows );
       } );
 
@@ -262,7 +245,6 @@ define( function( require ) {
           verticalLinesArray[ i ].visible = (i < numberOfRows );
         }
       }
-
 
       model.histogram.on( 'histogramUpdated', function() {
         updateTextBanner();
@@ -290,7 +272,6 @@ define( function( require ) {
               getHistogramBin = model.histogram.getBinCount.bind( model.histogram );
               break;
           }
-
 
           var bin = getHistogramBin( i );
           if ( histogramRadioProperty.value === 'fraction' ) {
@@ -326,7 +307,6 @@ define( function( require ) {
     }
 
     inherit( Node, XBannerNode );
-
 
 //----------------------------------------------------------------------------------------
 //  Histogram Bars
@@ -398,9 +378,7 @@ define( function( require ) {
       this.addChild( sampleAverageTrianglePath );
       this.addChild( theoreticalAverageTrianglePath );
 
-
       function updateTriangleShape( path, average ) {
-
 
         var xSpacing = bannerWidth / (numberOfRowsProperty.value + 1);
         var xPosition = minX + (average + 0.5) * xSpacing;
@@ -425,33 +403,22 @@ define( function( require ) {
         updateTriangleShape( sampleAverageTrianglePath, average );
       }
 
-      //TODO fix layering issue;
-      isTheoreticalHistogramVisibleProperty.lazyLink( function( isVisible ) {
-        updateBinomialDistribution();
-        updateTheoreticalAverageTriangle();
-        theoreticalHistogramNode.visible = isVisible;
-        theoreticalAverageTrianglePath.visible = isVisible;
-      } );
+      var getHistogramBin = model.histogram.getFractionalNormalizedBinCount.bind( model.histogram );
+      var factorHeight = maxBarHeight;
 
-      model.probabilityProperty.lazyLink( function() {
-        updateBinomialDistribution();
-        updateTheoreticalAverageTriangle();
+      Property.multilink( [ numberOfRowsProperty, model.probabilityProperty, isTheoreticalHistogramVisibleProperty ],
+        function( numberOfRows, probability, isTheoreticalHistogramVisible ) {
+          updateBinomialDistribution();
+          updateTheoreticalAverageTriangle();
+          theoreticalHistogramNode.visible = isTheoreticalHistogramVisible;
+          theoreticalAverageTrianglePath.visible = isTheoreticalHistogramVisible;
+        } );
 
-      } );
-
-      numberOfRowsProperty.lazyLink( function() {
-        updateBinomialDistribution();
-        updateTheoreticalAverageTriangle();
-      } );
 
       model.histogram.on( 'histogramUpdated', function() {
         updateHistogram();
         updateSampleAverageTriangle();
       } );
-
-
-      var getHistogramBin = model.histogram.getFractionalNormalizedBinCount.bind( model.histogram );
-      var factorHeight = maxBarHeight;
 
 
       /**

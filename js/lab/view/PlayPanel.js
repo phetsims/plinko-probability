@@ -60,7 +60,7 @@ define( function( require ) {
 
     var continuous = new HBox( {
       align: 'bottom',
-      spacing: -BALL_RADIUS * 1.0,
+      spacing: -BALL_RADIUS * 1.0, // negative spacing
       children: [
         new BallRepresentationNode( BALL_RADIUS ),
         new BallRepresentationNode( BALL_RADIUS ),
