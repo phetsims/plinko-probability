@@ -38,7 +38,8 @@ define( function( require ) {
       var pegPath;
 
       var pegShape = new Shape();
-      pegShape.arc( 0, 0, PlinkoConstants.PEG_RADIUS, 2 / 8 * Math.PI + Math.PI / 2, 6 / 8 * Math.PI + Math.PI / 2, true );
+      var openingAngle = Math.PI * 2 / 4;
+      pegShape.arc( 0, 0, PlinkoConstants.PEG_RADIUS, Math.PI - openingAngle/2, Math.PI + openingAngle/2, true );
 
 
       model.galtonBoard.pegs.forEach( function( peg ) {
