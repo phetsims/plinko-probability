@@ -7,7 +7,7 @@
 define( function( require ) {
   'use strict';
 
-  // imports
+  // modules
   var BallRepresentationNode = require( 'PLINKO_PROBABILITY/common/view/BallRepresentationNode' );
   //var HStrut = require( 'SUN/HStrut' );
   var HBox = require( 'SCENERY/nodes/HBox' );

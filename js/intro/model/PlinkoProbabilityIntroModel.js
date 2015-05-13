@@ -30,8 +30,7 @@ define( function( require ) {
         ballMode: 'oneBall', // acceptable values are 'oneBall', 'tenBalls', 'allRemainingBalls' and 'continuous'
         histogramVisible: false,
         isBallCapReached: false, // is the maximum of balls reached?
-        numberOfRows: 12,
-        galtonBoardRadioButton: 'ball' // Valid values are 'ball', 'path', and 'none'.
+        numberOfRows: 12
       } );
 
       this.launchedBallsNumber = 0; // number of current trial (current ball drop)
@@ -51,36 +50,15 @@ define( function( require ) {
         }
       } );
 
-      this.probabilityProperty.link( function() {
-        thisModel.balls.clear();
-        thisModel.histogram.reset();
-      } );
-
-      this.numberOfRowsProperty.link( function() {
-        thisModel.balls.clear();
-        thisModel.histogram.reset();
-      } );
-
     }
 
     return inherit( PropertySet, PlinkoProbabilityIntroModel, {
       step: function( dt ) {
-        switch( this.galtonBoardRadioButton ) {
-          case 'ball':
-            this.balls.forEach( function( ball ) {
-              ball.step( 5* dt );
-            } );
-            break;
-          case 'path':
-            this.balls.forEach( function( ball ) {
-              ball.path();
-            } );
-            break;
-          case 'none':
-            break;
-          default:
-            throw new Error( 'Unhandled galton Board Radio Button state: ' + this.galtonBoardRadioButton );
-        }
+
+        this.balls.forEach( function( ball ) {
+          ball.step( 5 * dt );
+        } );
+
 
       },
 
@@ -118,34 +96,9 @@ define( function( require ) {
             }
             break;
 
-          case 'continuous':
-            var timeInterval;
+          default:
+            throw new Error( 'Unhandled galton Board Radio Button state: ' + thisModel.galtonBoardRadioButton );
 
-            switch( thisModel.galtonBoardRadioButton ) {
-              case 'ball':
-                timeInterval = 50;
-                this.continuousTimer = Timer.setInterval( function() {
-                  thisModel.addNewBall();
-                }, timeInterval );
-                break;
-              case 'path':
-                timeInterval = 20;
-                this.continuousTimer = Timer.setInterval( function() {
-                  thisModel.addNewBall();
-                }, timeInterval );
-                break;
-              case 'none':
-                timeInterval = 50;
-
-                this.continuousTimer = Timer.setInterval( function() {
-                  var numberOfBalls = Math.floor( 0.1 * Math.sqrt( thisModel.histogram.landedBallsNumber ) ) + 2;
-                  thisModel.histogram.addToHistogram( numberOfBalls, thisModel.probabilityProperty.value );
-                }, timeInterval );
-                break;
-              default:
-                throw new Error( 'Unhandled galton Board Radio Button state: ' + thisModel.galtonBoardRadioButton );
-            }
-            break;
         }
       },
 
@@ -190,7 +143,6 @@ define( function( require ) {
           }
         }
       },
-
 
       /**
        * Function that returns the theoretical average of the binomial distribution

@@ -1,14 +1,12 @@
-// Copyright 2002-2014, University of Colorado Boulder
+// Copyright 2002-2015, University of Colorado Boulder
 
 /**
- * View representation of a cylinder used within the Estimation simulation.
- * The cylinder is defined by a position, size, and color.  Some of these
- * attributes may change.
+ * View representation of the front cylinders (the side part) used within the Plinko Probability Simulation
  */
 define( function( require ) {
   'use strict';
 
-  // Imports
+  // modules
   var Color = require( 'SCENERY/util/Color' );
   var inherit = require( 'PHET_CORE/inherit' );
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
@@ -16,6 +14,7 @@ define( function( require ) {
   var Path = require( 'SCENERY/nodes/Path' );
   var Shape = require( 'KITE/Shape' );
 
+  // constants
   var PERSPECTIVE_TILT = Math.PI/2; // in radians
   var SIDE_CYLINDER_STROKE_COLOR = new Color( 120, 120, 100 );
   var BASE_COLOR = new Color( 190, 175, 155 ,0.5); // must be of type Color

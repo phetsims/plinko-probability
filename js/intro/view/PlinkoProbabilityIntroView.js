@@ -154,10 +154,6 @@ define( function( require ) {
     // Handle the comings and goings of balls
     var ballsLayer = new Node( { layerSplit: true } );
 
-    model.galtonBoardRadioButtonProperty.link( function() {
-      model.balls.clear();
-    } );
-
     model.balls.addItemAddedListener( function( addedBall ) {
       var addedBallNode = new BallNode( addedBall.positionProperty, addedBall.ballRadius, modelViewTransform );
       ballsLayer.addChild( addedBallNode );

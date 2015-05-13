@@ -1,14 +1,14 @@
 // Copyright 2002-2015, University of Colorado Boulder
 
 /**
- *  Scenery Node that displays three Radio Buttons that control the flow of Balls
+ * Scenery Node that displays three Radio Buttons that control the flow of Balls
  *
  * @author Martin Veillette (Berea College)
  */
 define( function( require ) {
   'use strict';
 
-  // imports
+  // modules
   var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
   var RadioButtonGroup = require( 'SUN/buttons/RadioButtonGroup' );

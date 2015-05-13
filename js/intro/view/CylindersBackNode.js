@@ -1,14 +1,12 @@
-// Copyright 2002-2014, University of Colorado Boulder
+// Copyright 2002-2015, University of Colorado Boulder
 
 /**
- * View representation of a cylinder used within the Estimation simulation.
- * The cylinder is defined by a position, size, and color.  Some of these
- * attributes may change.
+ * View representation of the back cylinders (the top part) used within the Plinko Probability Simulation
  */
 define( function( require ) {
   'use strict';
 
-  // Imports
+  // modules
   var Color = require( 'SCENERY/util/Color' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );

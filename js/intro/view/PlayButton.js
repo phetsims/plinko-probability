@@ -1,10 +1,10 @@
-// Copyright 2002-2013, University of Colorado Boulder
+// Copyright 2002-2015, University of Colorado Boulder
 
 /**
  * Play button for starting an action
  *
  * @author Sam Reid
- * @Author Martin Veillette (Berea College)
+ * @author Martin Veillette (Berea College)
  */
 
 define( function( require ) {
@@ -17,7 +17,7 @@ define( function( require ) {
   var RoundPushButton = require( 'SUN/buttons/RoundPushButton' );
   var Shape = require( 'KITE/Shape' );
 
-
+  // constants
   var DEFAULT_RADIUS = 28;
 
   /*
