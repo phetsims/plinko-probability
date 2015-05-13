@@ -12,6 +12,8 @@ define( function( require ) {
   var Bounds2 = require( 'DOT/Bounds2' );
   //var DerivedProperty = require( 'AXON/DerivedProperty' );
   //var Color = require( 'SCENERY/util/Color' );
+  var CylindersBackNode = require( 'PLINKO_PROBABILITY/intro/view/CylindersBackNode' );
+  var CylindersFrontNode = require( 'PLINKO_PROBABILITY/intro/view/CylindersFrontNode' );
   var EraserButton = require( 'SCENERY_PHET/buttons/EraserButton' );
 
   var GaltonBoardNode = require( 'PLINKO_PROBABILITY/common/view/GaltonBoardNode' );
@@ -65,7 +67,7 @@ define( function( require ) {
     var modelViewTransform = ModelViewTransform2.createRectangleInvertedYMapping( modelGraphBounds, viewGraphBounds );
 
     var viewProperties = new PropertySet( {
-      histogramRadio: 'number', // Valid values are 'fraction', 'number'
+      histogramRadio: 'number', // Valid values are 'number', 'cylinder'
       ballRadio: 'oneBall', // Valid values are 'oneBall' and 'continuous'.
       expandedAccordionBox: false,
       isSoundEnabled: false,
@@ -81,6 +83,12 @@ define( function( require ) {
     );
 
     var galtonBoardNode = new GaltonBoardNode( model, modelViewTransform );
+
+    var minY = -1.70;
+    var bounds = new Bounds2( -1 / 2, minY, 1 / 2, -1 );
+
+    var cylindersBackNode = new CylindersBackNode( model.numberOfRowsProperty, bounds, modelViewTransform );
+    var cylindersFrontNode = new CylindersFrontNode( model.numberOfRowsProperty, bounds, modelViewTransform );
 
 
     viewProperties.ballRadioProperty.link( function( value ) {
@@ -124,48 +132,64 @@ define( function( require ) {
       centerY: resetAllButton.centerY
     } );
 
+    viewProperties.histogramRadioProperty.link( function( histogramRadio ) {
+        switch( histogramRadio ) {
+          case 'number':
+            histogramNode.visible = true;
+            cylindersBackNode.visible = false;
+            cylindersFrontNode.visible = false;
+            break;
+          case 'cylinder':
+            histogramNode.visible = false;
+            cylindersBackNode.visible = true;
+            cylindersFrontNode.visible = true;
+            break;
+          default:
+            throw new Error( 'Unhandled Button state: ' +  histogramRadio );
+        }
+      }
+    );
+
+
     // Handle the comings and goings of balls
     var ballsLayer = new Node( { layerSplit: true } );
 
-    model.galtonBoardRadioButtonProperty.link( function( ) {
+    model.galtonBoardRadioButtonProperty.link( function() {
       model.balls.clear();
     } );
 
     model.balls.addItemAddedListener( function( addedBall ) {
-
-
-          var addedBallNode = new BallNode( addedBall.positionProperty, addedBall.ballRadius, modelViewTransform );
-          ballsLayer.addChild( addedBallNode );
-          model.balls.addItemRemovedListener( function removalListener( removedBall ) {
-            if ( removedBall === addedBall ) {
-              addedBallNode.dispose();
-              ballsLayer.removeChild( addedBallNode );
-              model.balls.removeItemRemovedListener( removalListener );
-            }
-          } );
+      var addedBallNode = new BallNode( addedBall.positionProperty, addedBall.ballRadius, modelViewTransform );
+      ballsLayer.addChild( addedBallNode );
+      model.balls.addItemRemovedListener( function removalListener( removedBall ) {
+        if ( removedBall === addedBall ) {
+          addedBallNode.dispose();
+          ballsLayer.removeChild( addedBallNode );
+          model.balls.removeItemRemovedListener( removalListener );
+        }
+      } );
 
     } );
     // Create and add the view representation for this dataBall.
 
-
     this.addChild( board );
     this.addChild( eraserButton );
     this.addChild( histogramRadioButtonsControl );
-      this.addChild( soundToggleButton );
+    this.addChild( soundToggleButton );
     this.addChild( resetAllButton );
     this.addChild( playPanel );
-
     this.addChild( statisticsDisplayAccordionBox );
     this.addChild( galtonBoardNode );
     this.addChild( histogramNode );
+    this.addChild( cylindersBackNode );
     this.addChild( ballsLayer );
+    this.addChild( cylindersFrontNode );
     this.addChild( hopper );
 
     eraserButton.bottom = this.layoutBounds.maxY - 40;
     eraserButton.left = 40;
     histogramRadioButtonsControl.bottom = eraserButton.top - 10;
     histogramRadioButtonsControl.left = eraserButton.left;
-
 
 
     playPanel.right = this.layoutBounds.maxX - 40;

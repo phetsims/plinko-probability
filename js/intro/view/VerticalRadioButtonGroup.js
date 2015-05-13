@@ -48,7 +48,7 @@ define( function( require ) {
 
 
     RadioButtonGroup.call( this, histogramRadioProperty, [
-      { value: 'fraction', node: containerImage },
+      { value: 'cylinder', node: containerImage },
       { value: 'number', node: counterImage }
     ], options );
 

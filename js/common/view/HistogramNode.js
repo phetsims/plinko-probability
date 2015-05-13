@@ -148,6 +148,9 @@ define( function( require ) {
             yLabelString = fractionString;
             break;
           case 'number':
+          yLabelString = numberString;
+          break;
+          case 'cylinder':
             yLabelString = numberString;
             break;
         }
@@ -269,6 +272,9 @@ define( function( require ) {
               getHistogramBin = model.histogram.getFractionalBinCount.bind( model.histogram );
               break;
             case 'number':
+              getHistogramBin = model.histogram.getBinCount.bind( model.histogram );
+              break;
+            case 'cylinder':
               getHistogramBin = model.histogram.getBinCount.bind( model.histogram );
               break;
           }
