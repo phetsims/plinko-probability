@@ -1,6 +1,6 @@
 {
   "name": "plinko-probability",
-  "version": "1.0.0-dev.1",
+  "version": "1.0.0-dev.2",
   "license": "GPLv3",
   "simTitleStringKey": "PLINKO_PROBABILITY/plinko-probability.name",
   "phetLibs": [
