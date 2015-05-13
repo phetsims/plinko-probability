@@ -27,7 +27,7 @@ define( function( require ) {
         probability: 0.5,
         isPlaying: false,
         histogramMode: 'count', // acceptable values are 'count' and 'fraction'
-        ballMode: 'oneBall', // acceptable values are 'oneBall', 'tenBalls', 'allRemainingBalls' and 'continuous'
+        ballMode: 'oneBall', // acceptable values are 'oneBall' and 'continuous'
         histogramVisible: false,
         isBallCapReached: false, // is the maximum of balls reached?
         numberOfRows: 12,
@@ -99,25 +99,6 @@ define( function( require ) {
             this.addNewBall();
             break;
 
-          case 'tenBalls':
-            for ( i; (i < 10) && (this.launchedBallsNumber < 100); i++ ) {
-              this.launchedBallsNumber++;
-              Timer.setTimeout( function() {
-                thisModel.addNewBall();
-              }, (i * 100) ); /// measure in milliseconds
-
-            }
-            break;
-
-          case 'allBalls':
-            for ( i; this.launchedBallsNumber < 100; i++ ) {
-              this.launchedBallsNumber++;
-              Timer.setTimeout( function() {
-                thisModel.addNewBall();
-              }, (i * 100) );
-            }
-            break;
-
           case 'continuous':
             var timeInterval;
 
@@ -160,35 +141,6 @@ define( function( require ) {
           thisModel.histogram.addBallToHistogram( addedBall );
           thisModel.balls.remove( addedBall );
         } );
-      },
-
-      /**
-       * Function that add some number of new balls to the model.
-       * The balls can be added sequentially and the number can be capped to some max number of balls
-       *
-       * @param {number} numberOfBallsAdded
-       * @param {Object} [options]
-       */
-      addNewBalls: function( numberOfBallsAdded, options ) {
-
-        options = {
-          timeSeparation: 0.1, // (in seconds) time interval between the launch of two balls
-          isCapped: true // is the number of balls (on board) capped to a maximum number
-        };
-
-        var thisModel = this;
-
-        for ( var count = 0; count < numberOfBallsAdded; count++ ) {
-          this.launchedBallsNumber++;
-
-          Timer.setTimeout( function() {
-            thisModel.addNewBall();
-          }, count * options.timeSeparation * 1000 );
-
-          if ( options.isCapped && this.launchedBallsNumber > 100 ) {
-            break;
-          }
-        }
       },
 
 

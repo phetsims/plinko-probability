@@ -42,12 +42,8 @@ define( function( require ) {
 
 
       this.isPlayingProperty.link( function( isPlaying ) {
-        if ( !isPlaying ) {
-          Timer.clearInterval( thisModel.continuousTimer );
-        }
-        if ( isPlaying ) {
-          thisModel.play();
-        }
+        thisModel.play();
+        Timer.clearInterval( thisModel.continuousTimer );
       } );
 
     }
@@ -58,7 +54,6 @@ define( function( require ) {
         this.balls.forEach( function( ball ) {
           ball.step( 5 * dt );
         } );
-
 
       },
 
@@ -73,8 +68,10 @@ define( function( require ) {
         var thisModel = this;
         switch( this.ballMode ) {
           case 'oneBall':
-            this.launchedBallsNumber++;
-            this.addNewBall();
+            if ( this.launchedBallsNumber < 100 ) {
+              this.launchedBallsNumber++;
+              this.addNewBall();
+            }
             break;
 
           case 'tenBalls':
@@ -115,34 +112,6 @@ define( function( require ) {
         } );
       },
 
-      /**
-       * Function that add some number of new balls to the model.
-       * The balls can be added sequentially and the number can be capped to some max number of balls
-       *
-       * @param {number} numberOfBallsAdded
-       * @param {Object} [options]
-       */
-      addNewBalls: function( numberOfBallsAdded, options ) {
-
-        options = {
-          timeSeparation: 0.1, // (in seconds) time interval between the launch of two balls
-          isCapped: true // is the number of balls (on board) capped to a maximum number
-        };
-
-        var thisModel = this;
-
-        for ( var count = 0; count < numberOfBallsAdded; count++ ) {
-          this.launchedBallsNumber++;
-
-          Timer.setTimeout( function() {
-            thisModel.addNewBall();
-          }, count * options.timeSeparation * 1000 );
-
-          if ( options.isCapped && this.launchedBallsNumber > 100 ) {
-            break;
-          }
-        }
-      },
 
       /**
        * Function that returns the theoretical average of the binomial distribution
