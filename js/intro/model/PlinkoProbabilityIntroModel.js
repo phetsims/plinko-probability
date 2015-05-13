@@ -41,7 +41,7 @@ define( function( require ) {
       this.landedBallsNumber = this.histogram.landedBallsNumber; //number of balls in the histogram
 
 
-      this.isPlayingProperty.link( function( isPlaying ) {
+      this.isPlayingProperty.lazyLink( function( isPlaying ) {
         thisModel.play();
         Timer.clearInterval( thisModel.continuousTimer );
       } );
