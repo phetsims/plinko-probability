@@ -8,14 +8,13 @@ define( function( require ) {
   'use strict';
 
   // imports
-  var Circle = require( 'SCENERY/nodes/Circle' );
+  var BallRepresentationNode = require( 'PLINKO_PROBABILITY/common/view/BallRepresentationNode' );
   //var HStrut = require( 'SUN/HStrut' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Panel = require( 'SUN/Panel' );
   var PlayButton = require( 'PLINKO_PROBABILITY/intro/view/PlayButton' );
   var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
-  var RadialGradient = require( 'SCENERY/util/RadialGradient' );
   var Text = require( 'SCENERY/nodes/Text' );
   //var VBox = require( 'SCENERY/nodes/VBox' );
   var VerticalAquaRadioButtonGroup = require( 'SUN/VerticalAquaRadioButtonGroup' );
@@ -32,7 +31,7 @@ define( function( require ) {
    * @param {Object} [options]
    * @constructor
    */
-  function PlayPanel( listener, ballModeProperty, options ) {
+  function PlayPanel( isPlayingProperty, ballModeProperty, options ) {
 
     // Demonstrate a common pattern for specifying options and providing default values.
     options = _.extend( {
@@ -45,35 +44,19 @@ define( function( require ) {
       },
       options );
 
-    function createCircle() {
-      return new Circle( PlinkoConstants.BALL_RADIUS, {
-        stroke: PlinkoConstants.BALL_COLOR,
-        lineWidth: 2,
-        fill: new RadialGradient(
-          -PlinkoConstants.BALL_RADIUS * 0.4,
-          -PlinkoConstants.BALL_RADIUS * 0.4,
-          0,
-          PlinkoConstants.BALL_RADIUS * 0.1,
-          -PlinkoConstants.BALL_RADIUS * 0.3,
-          PlinkoConstants.BALL_RADIUS * 0.6 )
-          .addColorStop( 0, PlinkoConstants.BALL_HIGHLIGHT_COLOR )
-          .addColorStop( 1, PlinkoConstants.BALL_COLOR )
-      } );
-    }
-
     var fontOptions = { font: PlinkoConstants.PANEL_FONT };
     var oneBall = new HBox( {
       spacing: PlinkoConstants.BALL_RADIUS,
-      children: [ createCircle(), new Text( timesString + '1', fontOptions ) ]
+      children: [ new BallRepresentationNode( 8 ), new Text( timesString + '1', fontOptions ) ]
     } );
 
     var tenBalls = new HBox( {
       spacing: PlinkoConstants.BALL_RADIUS,
-      children: [ createCircle(), new Text( timesString + '10', fontOptions ) ]
+      children: [ new BallRepresentationNode( 8 ), new Text( timesString + '10', fontOptions ) ]
     } );
     var allBalls = new HBox( {
       spacing: PlinkoConstants.BALL_RADIUS,
-      children: [ createCircle(), new Text( timesString + allString, fontOptions ) ]
+      children: [ new BallRepresentationNode( 8 ), new Text( timesString + allString, fontOptions ) ]
     } );
 
     var ballModeRadioButtons = new VerticalAquaRadioButtonGroup( [
@@ -84,7 +67,7 @@ define( function( require ) {
 
     var playButton = new PlayButton( {
       listener: function() {
-        listener();
+        isPlayingProperty.set( !isPlayingProperty.value );
       }
     } );
 

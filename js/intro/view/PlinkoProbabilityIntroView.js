@@ -1,36 +1,37 @@
 // Copyright 2002-2015, University of Colorado Boulder
 
 /**
- * View for the 'Plinko Probability' Intro screen.
+ * View for the 'Plinko Probability' intro screen.
  */
 define( function( require ) {
   'use strict';
 
   // modules
-  var inherit = require( 'PHET_CORE/inherit' );
   var BallNode = require( 'PLINKO_PROBABILITY/common/view/BallNode' );
-
+  var Board = require( 'PLINKO_PROBABILITY/common/view/Board' );
   var Bounds2 = require( 'DOT/Bounds2' );
   //var DerivedProperty = require( 'AXON/DerivedProperty' );
-
+  //var Color = require( 'SCENERY/util/Color' );
   var EraserButton = require( 'SCENERY_PHET/buttons/EraserButton' );
+
   var GaltonBoardNode = require( 'PLINKO_PROBABILITY/common/view/GaltonBoardNode' );
   var HistogramNode = require( 'PLINKO_PROBABILITY/common/view/HistogramNode' );
-  var HSlider = require( 'SUN/HSlider' );
   var Hopper = require( 'PLINKO_PROBABILITY/common/view/Hopper' );
-  var Board = require( 'PLINKO_PROBABILITY/common/view/Board' );
+  var HSlider = require( 'SUN/HSlider' );
   var Image = require( 'SCENERY/nodes/Image' );
+  var inherit = require( 'PHET_CORE/inherit' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   var Node = require( 'SCENERY/nodes/Node' );
   var PlayPanel = require( 'PLINKO_PROBABILITY/intro/view/PlayPanel' );
-  //var PropertySet = require( 'AXON/PropertySet' );
+  var PropertySet = require( 'AXON/PropertySet' );
   var Property = require( 'AXON/Property' );
   //var Range = require( 'DOT/Range' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
-  var SoundToggleButton = require( 'SCENERY_PHET/buttons/SoundToggleButton' );
-  var StatisticsDisplayNode = require( 'PLINKO_PROBABILITY/common/view/StatisticsDisplayNode' );
   var ScreenView = require( 'JOIST/ScreenView' );
+  var SoundToggleButton = require( 'SCENERY_PHET/buttons/SoundToggleButton' );
+  var StatisticsDisplayAccordionBox = require( 'PLINKO_PROBABILITY/common/view/StatisticsDisplayAccordionBox' );
   var Vector2 = require( 'DOT/Vector2' );
+  var VerticalRadioButtonGroup = require( 'PLINKO_PROBABILITY/intro/view/VerticalRadioButtonGroup' );
 
   // strings
   // TODO: place used strings here
@@ -63,116 +64,140 @@ define( function( require ) {
     var modelGraphBounds = model.galtonBoard.bounds;
     var modelViewTransform = ModelViewTransform2.createRectangleInvertedYMapping( modelGraphBounds, viewGraphBounds );
 
+    var viewProperties = new PropertySet( {
+      histogramRadio: 'number', // Valid values are 'fraction', 'number'
+      ballRadio: 'oneBall', // Valid values are 'oneBall' and 'continuous'.
+      expandedAccordionBox: false,
+      isSoundEnabled: false,
+      isTheoreticalHistogramVisible: false
+    } );
+
     var histogramNode = new HistogramNode(
       model.numberOfRowsProperty,
-      new Property( false ),
+      viewProperties.histogramRadioProperty,
       model,
-      modelViewTransform );
+      modelViewTransform,
+      viewProperties.isTheoreticalHistogramVisibleProperty
+    );
 
     var galtonBoardNode = new GaltonBoardNode( model, modelViewTransform );
 
-    //var histogramRadioProperty = new Property( 'fraction' ); //Valid values are 'fraction', 'number', and 'autoScale'.
 
-    var ballRadioProperty = new Property( 'oneBall' ); // Valid values are 'oneBall' and 'continuous'.
-
-    ballRadioProperty.link( function( value ) {
+    viewProperties.ballRadioProperty.link( function( value ) {
       //do stuff
     } );
 
-    // Add the button that allows the graph to be cleared of all dataPoints.
+    var histogramRadioButtonsControl = new VerticalRadioButtonGroup( viewProperties.histogramRadioProperty );
+
+    // Add the eraser button that allows the
     var eraserButton = new EraserButton( {
-      left: 20,
-      top: this.layoutBounds.maxY - 70,
       scale: 1.4,
       listener: function() {
-        model.resetStatistics();
+        model.histogram.reset();
+        model.balls.clear();
       }
-
-    } );
-
-    // Handle the comings and goings of balls
-    var ballsLayer = new Node( { layerSplit: true } );
-
-    model.balls.addItemAddedListener( function( addedBall ) {
-
-      // Create and add the view representation for this dataBall.
-      var addedBallNode = new BallNode( addedBall, model, modelViewTransform );
-      ballsLayer.addChild( addedBallNode );
-
-      // Add the removal listener for if and when this dataPoint is removed from the model.
-      model.balls.addItemRemovedListener( function removalListener( removedBall ) {
-        if ( removedBall === addedBall ) {
-          ballsLayer.removeChild( addedBallNode );
-          model.balls.removeItemRemovedListener( removalListener );
-        }
-    } );
     } );
 
     // create play Panel
-    var playPanel = new PlayPanel( model.play.bind( model ), model.ballModeProperty );
+    var playPanel = new PlayPanel( model.isPlayingProperty, model.ballModeProperty );
+
 
     // create Panel that displays sample and theoretical statistics
-    var statisticsDisplayNode = new StatisticsDisplayNode( model );
+    var statisticsDisplayAccordionBox = new StatisticsDisplayAccordionBox(
+      model,
+      viewProperties.isTheoreticalHistogramVisibleProperty,
+      viewProperties.expandedAccordionBoxProperty );
 
     // create the Reset All Button in the bottom right, which resets the model
     var resetAllButton = new ResetAllButton( {
       listener: function() {
         model.reset();
+        viewProperties.reset();
       },
-      right:  thisView.layoutBounds.maxX - 10,
+      right: thisView.layoutBounds.maxX - 10,
       bottom: thisView.layoutBounds.maxY - 10
     } );
 
     // Create the Sound Toggle Button in the bottom right
-    var soundToggleButton = new SoundToggleButton( model.isSoundEnabledProperty, {
+    var soundToggleButton = new SoundToggleButton( viewProperties.isSoundEnabledProperty, {
       right: resetAllButton.left - 20,
       centerY: resetAllButton.centerY
     } );
 
-    //// create the hopper and the wooden Board
-    //var hopper = new Hopper();
-    //var board = new Board();
+    // Handle the comings and goings of balls
+    var ballsLayer = new Node( { layerSplit: true } );
 
-    this.addChild( hopper );
+    model.galtonBoardRadioButtonProperty.link( function( ) {
+      model.balls.clear();
+    } );
+
+    model.balls.addItemAddedListener( function( addedBall ) {
+
+
+          var addedBallNode = new BallNode( addedBall.positionProperty, addedBall.ballRadius, modelViewTransform );
+          ballsLayer.addChild( addedBallNode );
+          model.balls.addItemRemovedListener( function removalListener( removedBall ) {
+            if ( removedBall === addedBall ) {
+              addedBallNode.dispose();
+              ballsLayer.removeChild( addedBallNode );
+              model.balls.removeItemRemovedListener( removalListener );
+            }
+          } );
+
+    } );
+    // Create and add the view representation for this dataBall.
+
+
     this.addChild( board );
     this.addChild( eraserButton );
-    this.addChild( soundToggleButton );
+    this.addChild( histogramRadioButtonsControl );
+      this.addChild( soundToggleButton );
     this.addChild( resetAllButton );
     this.addChild( playPanel );
-    this.addChild( statisticsDisplayNode );
+
+    this.addChild( statisticsDisplayAccordionBox );
     this.addChild( galtonBoardNode );
     this.addChild( histogramNode );
     this.addChild( ballsLayer );
+    this.addChild( hopper );
+
+    eraserButton.bottom = this.layoutBounds.maxY - 40;
+    eraserButton.left = 40;
+    histogramRadioButtonsControl.bottom = eraserButton.top - 10;
+    histogramRadioButtonsControl.left = eraserButton.left;
+
+
 
     playPanel.right = this.layoutBounds.maxX - 40;
     playPanel.top = 10;
 
-    statisticsDisplayNode.top = 310;
-    statisticsDisplayNode.right = playPanel.right;
+    statisticsDisplayAccordionBox.top = playPanel.bottom + 150;
+    statisticsDisplayAccordionBox.right = playPanel.right;
     // galtonBoardNode.centerX=hopper.centerX;
-    //   galtonBoardNode.top=board.top+20;
+    // altonBoardNode.top=board.top+20;
 
     //TODO: Delete when done with the layout
     ////////////////////////////////////////////////////////////////
     //Show the mock-up and a slider to change its transparency
     //////////////////////////////////////////////////////////////
-    var mockup01OpacityProperty = new Property( 0.00 );
 
-    var image01 = new Image( mockup01Image, { pickable: false } );
+    var mockup02OpacityProperty = new Property( 0.02 );
 
-    image01.scale( this.layoutBounds.height / image01.height );
+    var image02 = new Image( mockup01Image, { pickable: false } );
 
-    mockup01OpacityProperty.linkAttribute( image01, 'opacity' );
+    image02.scale( this.layoutBounds.height / image02.height );
 
-    this.addChild( image01 );
+    mockup02OpacityProperty.linkAttribute( image02, 'opacity' );
 
-    this.addChild( new HSlider( mockup01OpacityProperty, { min: 0, max: 1 }, { top: 100, left: 20 } ) );
+    this.addChild( image02 );
+
+    this.addChild( new HSlider( mockup02OpacityProperty, { min: 0, max: 1 }, { top: 100, left: 20 } ) );
+
     /////////////////////////////////////////////////////////////////////////
   }
 
   return inherit( ScreenView, PlinkoProbabilityIntroView, {
     step: function( dt ) {
     }
+  } );
 } );
-} )
-;

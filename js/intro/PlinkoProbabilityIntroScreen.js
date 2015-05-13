@@ -1,7 +1,7 @@
 // Copyright 2002-2015, University of Colorado Boulder
 
 /**
- * The main Plinko Probability screen
+ * The main Plinko Probability Intro screen
  */
 define( function( require ) {
   'use strict';
@@ -27,7 +27,7 @@ define( function( require ) {
     var width = Screen.HOME_SCREEN_ICON_SIZE.width;
     var height = Screen.HOME_SCREEN_ICON_SIZE.height;
 
-    //TODO Intro Icon
+    //TODO Lab Icon
     var background = new Rectangle( 0, 0, width, height, { fill: 'white' } );
     return new Node( { children: [ background ] } );
 
