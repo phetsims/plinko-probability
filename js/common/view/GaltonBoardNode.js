@@ -110,7 +110,7 @@ define( function( require ) {
 
     }
 
-    return inherit( Node, GaltonBoardNode);
+    return inherit( Node, GaltonBoardNode );
 
   }
 )

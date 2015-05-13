@@ -15,10 +15,10 @@ define( function( require ) {
   var Shape = require( 'KITE/Shape' );
 
   // constants
-  var PERSPECTIVE_TILT = Math.PI/2; // in radians
+  var PERSPECTIVE_TILT = Math.PI / 2; // in radians
   var SIDE_CYLINDER_STROKE_COLOR = new Color( 120, 120, 100 );
-  var BASE_COLOR = new Color( 190, 175, 155 ,0.5); // must be of type Color
-  var verticalOffset=10;
+  var BASE_COLOR = new Color( 190, 175, 155, 0.5 ); // must be of type Color
+  var verticalOffset = 10;
 
   /**
    *
@@ -31,7 +31,7 @@ define( function( require ) {
 
     Node.call( this );
 
-    var binWidth =  bounds.width / (numberOfRowsProperty.value + 1);
+    var binWidth = bounds.width / (numberOfRowsProperty.value + 1);
     var cylinderWidth = 0.95 * binWidth;
     var height = 0.6 * bounds.height;
     var ellipseWidth = modelViewTransform.modelToViewDeltaX( cylinderWidth );
@@ -68,7 +68,7 @@ define( function( require ) {
           fill: sideFill,
           stroke: SIDE_CYLINDER_STROKE_COLOR,
           centerX: x,
-          top: y+verticalOffset+ ellipseHeight/2
+          top: y + verticalOffset + ellipseHeight / 2
         } );
 
 

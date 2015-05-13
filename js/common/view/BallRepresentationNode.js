@@ -20,14 +20,14 @@ define( function( require ) {
    * @param {number} radius - in view coordinates
    * @constructor
    */
-  function BallRepresentationNode( radius) {
+  function BallRepresentationNode( radius ) {
 
     Node.call( this );
 
     //  create the representation for a ball
     var ballRepresentation = new Circle( radius, {
       stroke: PlinkoConstants.BALL_COLOR,
-      lineWidth: 0.1*radius,
+      lineWidth: 0.1 * radius,
       fill: new RadialGradient( -radius * 0.4,
         -radius * 0.4,
         0,
