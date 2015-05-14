@@ -23,9 +23,15 @@ define( function( require ) {
     /**
      * @param {PlinkoProbabilityModel} model
      * @param {ModelViewTransform2} modelViewTransform
+     * @param {Object} [options]
      * @constructor
      */
-    function GaltonBoardNode( model, modelViewTransform ) {
+    function GaltonBoardNode( model, modelViewTransform, options ) {
+
+      options = _.extend( {
+          openingAngle: Math.PI * 1 / 2 // vertical separation of the buttons
+        },
+        options );
 
       var galtonBoardNode = this;
       Node.call( this );
@@ -38,8 +44,7 @@ define( function( require ) {
       var pegPath;
 
       var pegShape = new Shape();
-      var openingAngle = Math.PI * 2 / 4;
-      pegShape.arc( 0, 0, PlinkoConstants.PEG_RADIUS, Math.PI - openingAngle/2, Math.PI + openingAngle/2, true );
+      pegShape.arc( 0, 0, PlinkoConstants.PEG_RADIUS, Math.PI - options.openingAngle/2, Math.PI + options.openingAngle/2, true );
 
 
       model.galtonBoard.pegs.forEach( function( peg ) {
@@ -53,10 +58,6 @@ define( function( require ) {
             -PlinkoConstants.PEG_RADIUS * 0.3,
             PlinkoConstants.PEG_RADIUS * 1.5
           )
-            //.addColorStop( 0, PlinkoConstants.PEG_COLOR )
-            //.addColorStop( 0.2, PlinkoConstants.PEG_COLOR )
-            //.addColorStop( 1, 'rgba(232, 207, 161, 0 )' )
-
             .addColorStop( 0, 'rgba(0,0,0,1)' )
             .addColorStop( 0.1809, 'rgba(3,3,3, 0.8191)' )
             .addColorStop( 0.3135, 'rgba(12,12,12, 0.6865)' )
@@ -73,9 +74,6 @@ define( function( require ) {
         galtonBoardNode.pegPathArray.push( pegPath );
         galtonBoardNode.pegShadowArray.push( pegShadow );
       } );
-      //pegBoard.setChildren( this.pegShadowArray );
-      //   pegBoard.setChildren( this.pegPathArray );
-
 
       var len = this.pegShadowArray.length;
       for ( var i = 0; i < len; i++ ) {

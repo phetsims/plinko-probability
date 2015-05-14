@@ -19,7 +19,6 @@ define( function( require ) {
   var Util = require( 'DOT/Util' );
 
   // strings
-
 //  var plusString = '\u002B'; // we want a large + sign
 //  var minusString = '\u2212';
 
@@ -46,7 +45,7 @@ define( function( require ) {
       {
         font: options.leftHandSideFont,
         fill: options.leftHandSideFill,
-        subScale: 0.5
+        subScale: 0.25
       } );
     this.equalSignText = new Text( ' = ',
       {

@@ -91,7 +91,6 @@ define( function( require ) {
       },
 
       play: function() {
-        var i = 0;
         var thisModel = this;
         switch( this.ballMode ) {
           case 'oneBall':

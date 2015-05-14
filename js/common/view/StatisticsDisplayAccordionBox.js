@@ -13,18 +13,15 @@ define( function( require ) {
   var AccordionBox = require( 'SUN/AccordionBox' );
   var CheckBox = require( 'SUN/CheckBox' );
   var EquationNode = require( 'PLINKO_PROBABILITY/lab/view/EquationNode' );
-
   var HistogramIcon = require( 'PLINKO_PROBABILITY/lab/view/HistogramIcon' );
-//  var HStrut = require( 'SUN/HStrut' );
+  //var HStrut = require( 'SUN/HStrut' );
   var inherit = require( 'PHET_CORE/inherit' );
   var LayoutBox = require( 'SCENERY/nodes/LayoutBox' );
   var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
   var Property = require( 'AXON/Property' );
   var Text = require( 'SCENERY/nodes/Text' );
 
-
   // strings
-
   var muGreekString = '\u03BC';
   var sigmaGreekString = '\u03C3';
 //  var overlineString = '\u0305';
@@ -47,6 +44,10 @@ define( function( require ) {
 
     this.model = model;
     // var thisPanel = this;
+    options = _.extend( {
+        openingAngle: Math.PI * 1 / 2 // vertical separation of the buttons
+      },
+      options );
 
     var optionsTitle = {
       leftHandSideFont: PlinkoConstants.TEXT_FONT_BOLD,
@@ -91,7 +92,6 @@ define( function( require ) {
       sampleStandardDeviationOfMeanText.setRightHandSideOfEquation( model.histogram.standardDeviationOfMean );
     } );
 
-
     var histogramCheckBoxIcon = new LayoutBox( {
       spacing: 5, children: [
         new HistogramIcon(),
@@ -131,13 +131,13 @@ define( function( require ) {
         cornerRadius: 10,
         fill: PlinkoConstants.PANEL_BACKGROUND_COLOR,
         buttonXMargin: 10,
-        buttonYMargin: 6,
+        buttonYMargin: 10,
         expandedProperty: expandedAccordionBoxProperty,
         resize: false,
         buttonAlign: 'right',
         titleNode: numberLandedBallsText,
         titleAlignX: 'left',
-        titleXMargin: 10,
+        titleXMargin: 15,
         contentXMargin: 8,
         contentYMargin: 5
       }, options )
@@ -146,15 +146,8 @@ define( function( require ) {
   }
 
   return inherit( AccordionBox, StatisticsDisplayAccordionBox, {
-      reset: function() {
-        this.expandedProperty.reset();
-      },
-
-      updateDisplay: function() {
-
-      }
+    reset: function() {
+      this.expandedProperty.reset();
     }
-  )
-    ;
-} )
-;
+  } );
+} );

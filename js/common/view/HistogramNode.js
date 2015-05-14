@@ -121,6 +121,7 @@ define( function( require ) {
 //----------------------------------------------------------------------------------------
 
     /**
+     * @param {Property.<string>} histogramRadioProperty
      * @param {Bounds2} bounds
      * @param {ModelViewTransform2} modelViewTransform
      * @constructor
@@ -191,7 +192,7 @@ define( function( require ) {
      *
      * @param model
      * @param {Property.<number>} numberOfRowsProperty
-     * @param histogramRadioProperty
+     * @param {Property.<string>} histogramRadioProperty
      * @param {Bounds2} bounds
      * @param {ModelViewTransform2} modelViewTransform
      * @constructor
@@ -253,8 +254,6 @@ define( function( require ) {
         updateTextBanner();
       } );
       /**
-       * #param {Array} histogram
-       * @param {number} numberOfRows
        */
       function updateTextBanner() {
         var numberOfTicks = numberOfRowsProperty.value + 1;
@@ -319,9 +318,11 @@ define( function( require ) {
 //----------------------------------------------------------------------------------------
 
     /**
+     * @param model
      * @param {Property.<number>} numberOfRowsProperty
      * @param {Bounds2} bounds
      * @param {ModelViewTransform2} modelViewTransform
+     * @param {Property.<boolean>} isTheoreticalHistogramVisibleProperty
      * @constructor
      */
     function HistogramBarNode( model, numberOfRowsProperty, bounds, modelViewTransform, isTheoreticalHistogramVisibleProperty ) {
@@ -447,8 +448,6 @@ define( function( require ) {
 
 
       /**
-       * #param {Array} histogram
-       * @param {number} numberOfRows
        */
       function updateBinomialDistribution() {
         var getBinomialBin = model.getNormalizedBinomialDistribution();
@@ -477,7 +476,7 @@ define( function( require ) {
      *
      * @param {Property.<number>} numberOfRowsProperty
      * @param {Property.<string>} histogramRadioProperty
-     * @param histogram
+     * @param model
      * @param {ModelViewTransform2} modelViewTransform
      * @param {Property.<boolean>} isTheoreticalHistogramVisibleProperty
      * @constructor

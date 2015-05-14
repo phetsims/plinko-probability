@@ -82,7 +82,7 @@ define( function( require ) {
       viewProperties.isTheoreticalHistogramVisibleProperty
     );
 
-    var galtonBoardNode = new GaltonBoardNode( model, modelViewTransform );
+    var galtonBoardNode = new GaltonBoardNode( model, modelViewTransform, { openingAngle: 0.03 } );
 
     var minY = -1.70;
     var bounds = new Bounds2( -1 / 2, minY, 1 / 2, -1 );
@@ -145,7 +145,7 @@ define( function( require ) {
             cylindersFrontNode.visible = true;
             break;
           default:
-            throw new Error( 'Unhandled Button state: ' +  histogramRadio );
+            throw new Error( 'Unhandled Button state: ' + histogramRadio );
         }
       }
     );
