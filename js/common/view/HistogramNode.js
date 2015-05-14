@@ -309,6 +309,8 @@ define( function( require ) {
           labelsTextArray[ i ].visible = (i < numberOfRowsProperty.value + 1);
         }
       }
+
+      updateTextBanner();
     }
 
     inherit( Node, XBannerNode );

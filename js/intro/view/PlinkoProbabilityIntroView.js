@@ -67,7 +67,7 @@ define( function( require ) {
     var modelViewTransform = ModelViewTransform2.createRectangleInvertedYMapping( modelGraphBounds, viewGraphBounds );
 
     var viewProperties = new PropertySet( {
-      histogramRadio: 'number', // Valid values are 'number', 'cylinder'
+      histogramRadio: 'cylinder', // Valid values are 'number', 'cylinder'
       ballRadio: 'oneBall', // Valid values are 'oneBall' and 'continuous'.
       expandedAccordionBox: false,
       isSoundEnabled: false,
@@ -103,6 +103,7 @@ define( function( require ) {
       listener: function() {
         model.histogram.reset();
         model.balls.clear();
+        model.launchedBallsNumber = 0;
       }
     } );
 
@@ -118,6 +119,7 @@ define( function( require ) {
       listener: function() {
         model.reset();
         viewProperties.reset();
+        model.launchedBallsNumber = 0;
       },
       right: thisView.layoutBounds.maxX - 10,
       bottom: thisView.layoutBounds.maxY - 10

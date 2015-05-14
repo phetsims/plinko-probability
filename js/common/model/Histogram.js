@@ -87,14 +87,14 @@ define( function( require ) {
 
       var self = this;
 
+      var sum = 0;
       this.bins.forEach( function( bin, index ) {
         self.landedBallsNumber += bin;
-        self.average += bin * index;
+        sum += bin * index;
         self.sumOfSquares += bin * index * index;
       } );
 
-      this.average = this.average / this.landedBallsNumber;
-      this.sumOfSquares = this.sumOfSquares;
+      this.average = sum / this.landedBallsNumber;
 
       var N = this.landedBallsNumber;
 
@@ -143,7 +143,7 @@ define( function( require ) {
     addToHistogram: function( numberBalls, probability ) {
 
       var numberOfRows = this.numberOfRowsProperty.value;
-      for ( var i=0; i < numberBalls; i++ ) {
+      for ( var i = 0; i < numberBalls; i++ ) {
         var columnNumber = 0;
         var rowNumber;
         var direction;
@@ -152,7 +152,7 @@ define( function( require ) {
           columnNumber += direction;
         }
         this.bins[ columnNumber ]++;
-         }
+      }
       this.calculateStatistics();
 
       this.trigger( 'histogramUpdated' );
