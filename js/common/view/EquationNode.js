@@ -91,7 +91,7 @@ define( function( require ) {
         maxSigFigs: 3
       }, options );
 
-      // eg. if maxSigFigs =4
+      // eg. if maxSigFigs =3
       // 9999.11 -> 9999  (number larger than 10^3) are rounded to unity
       // 999.111 -> 999.1
       // 99.1111 -> 99.11

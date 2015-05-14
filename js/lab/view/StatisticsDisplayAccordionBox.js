@@ -12,7 +12,7 @@ define( function( require ) {
   // modules
   var AccordionBox = require( 'SUN/AccordionBox' );
   var CheckBox = require( 'SUN/CheckBox' );
-  var EquationNode = require( 'PLINKO_PROBABILITY/lab/view/EquationNode' );
+  var EquationNode = require( 'PLINKO_PROBABILITY/common/view/EquationNode' );
   var HistogramIcon = require( 'PLINKO_PROBABILITY/lab/view/HistogramIcon' );
   //var HStrut = require( 'SUN/HStrut' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -45,7 +45,7 @@ define( function( require ) {
     this.model = model;
     // var thisPanel = this;
     options = _.extend( {
-        openingAngle: Math.PI * 1 / 2 // vertical separation of the buttons
+        openingAngle: Math.PI/ 2 // angle that control the opening of the peg
       },
       options );
 

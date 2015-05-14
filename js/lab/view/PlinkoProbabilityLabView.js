@@ -33,7 +33,7 @@ define( function( require ) {
   var ScreenView = require( 'JOIST/ScreenView' );
   var SliderControlPanel = require( 'PLINKO_PROBABILITY/lab/view/SliderControlPanel' );
   var SoundToggleButton = require( 'SCENERY_PHET/buttons/SoundToggleButton' );
-  var StatisticsDisplayAccordionBox = require( 'PLINKO_PROBABILITY/common/view/StatisticsDisplayAccordionBox' );
+  var StatisticsDisplayAccordionBox = require( 'PLINKO_PROBABILITY/lab/view/StatisticsDisplayAccordionBox' );
   var Vector2 = require( 'DOT/Vector2' );
 
   // strings

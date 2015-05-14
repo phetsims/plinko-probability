@@ -24,6 +24,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var NumberBallsDisplay = require( 'PLINKO_PROBABILITY/intro/view/NumberBallsDisplay' );
   var PlayPanel = require( 'PLINKO_PROBABILITY/intro/view/PlayPanel' );
   var PropertySet = require( 'AXON/PropertySet' );
   var Property = require( 'AXON/Property' );
@@ -31,7 +32,6 @@ define( function( require ) {
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var SoundToggleButton = require( 'SCENERY_PHET/buttons/SoundToggleButton' );
-  var StatisticsDisplayAccordionBox = require( 'PLINKO_PROBABILITY/common/view/StatisticsDisplayAccordionBox' );
   var Vector2 = require( 'DOT/Vector2' );
   var VerticalRadioButtonGroup = require( 'PLINKO_PROBABILITY/intro/view/VerticalRadioButtonGroup' );
 
@@ -110,11 +110,8 @@ define( function( require ) {
     var playPanel = new PlayPanel( model.isPlayingProperty, model.ballModeProperty );
 
 
-    // create Panel that displays sample and theoretical statistics
-    var statisticsDisplayAccordionBox = new StatisticsDisplayAccordionBox(
-      model,
-      viewProperties.isTheoreticalHistogramVisibleProperty,
-      viewProperties.expandedAccordionBoxProperty );
+    var numberBallsDisplay = new NumberBallsDisplay( model );
+
 
     // create the Reset All Button in the bottom right, which resets the model
     var resetAllButton = new ResetAllButton( {
@@ -174,7 +171,7 @@ define( function( require ) {
     this.addChild( soundToggleButton );
     this.addChild( resetAllButton );
     this.addChild( playPanel );
-    this.addChild( statisticsDisplayAccordionBox );
+    this.addChild( numberBallsDisplay );
     this.addChild( galtonBoardNode );
     this.addChild( histogramNode );
     this.addChild( cylindersBackNode );
@@ -190,9 +187,8 @@ define( function( require ) {
 
     playPanel.right = this.layoutBounds.maxX - 40;
     playPanel.top = 10;
-
-    statisticsDisplayAccordionBox.top = playPanel.bottom + 150;
-    statisticsDisplayAccordionBox.right = playPanel.right;
+    numberBallsDisplay.top = playPanel.bottom + 200;
+    numberBallsDisplay.right = playPanel.right;
     // galtonBoardNode.centerX=hopper.centerX;
     // altonBoardNode.top=board.top+20;
 
