@@ -52,7 +52,7 @@ define( function( require ) {
     PEG_RADIUS: 3, // radius of the peg.
     PEG_COLOR: 'rgb(115,99,87)', //brown
 
-    PEG_HEIGHT_FRACTION_OFFSET :0.8, // ranges between zero and 1
+    PEG_HEIGHT_FRACTION_OFFSET :0.7, // ranges between zero and 1
 
     // histogram
     HISTOGRAM_BAR_COLOR_FILL: 'rgb(237,28,36)', // red
