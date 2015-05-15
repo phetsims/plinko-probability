@@ -134,7 +134,10 @@ define( function( require ) {
     }
 
     // define arrow Button Options
-    var arrowButtonOptions = { arrowHeight: options.arrowHeight, arrowWidth: options.arrowHeight * options.arrowAspectRatio };
+    var arrowButtonOptions = {
+      arrowHeight: options.arrowHeight,
+      arrowWidth: options.arrowHeight * options.arrowAspectRatio
+    };
 
     // create plus button to the right of the value
     var rightArrowButton = new ArrowButton( 'right', buttonPropertyUpdate( options.buttonStep ), arrowButtonOptions );

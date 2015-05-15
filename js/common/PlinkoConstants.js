@@ -35,7 +35,7 @@ define( function( require ) {
     CONTROL_PANEL_BACKGROUND_COLOR: 'rgb(255, 245, 238)',
 
     PANEL_FONT: new PhetFont( 18 ),
-    PANEL_READOUT_FONT: new PhetFont( { size: 14} ),
+    PANEL_READOUT_FONT: new PhetFont( { size: 14 } ),
 
     PANEL_BACKGROUND_COLOR: 'white',
     SAMPLE_FONT_COLOR: 'rgb(237,28,36)',
@@ -52,7 +52,7 @@ define( function( require ) {
     PEG_RADIUS: 3, // radius of the peg.
     PEG_COLOR: 'rgb(115,99,87)', //brown
 
-    PEG_HEIGHT_FRACTION_OFFSET :0.7, // ranges between zero and 1
+    PEG_HEIGHT_FRACTION_OFFSET: 0.7, // ranges between zero and 1
 
     // histogram
     HISTOGRAM_BAR_COLOR_FILL: 'rgb(237,28,36)', // red

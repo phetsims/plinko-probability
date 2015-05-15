@@ -33,7 +33,7 @@ define( function( require ) {
   var SliderControlPanel = require( 'PLINKO_PROBABILITY/lab/view/SliderControlPanel' );
   var SoundToggleButton = require( 'SCENERY_PHET/buttons/SoundToggleButton' );
   var StatisticsDisplayAccordionBox = require( 'PLINKO_PROBABILITY/lab/view/StatisticsDisplayAccordionBox' );
-  var TrajectoryPath= require( 'PLINKO_PROBABILITY/common/view/TrajectoryPath' );
+  var TrajectoryPath = require( 'PLINKO_PROBABILITY/common/view/TrajectoryPath' );
   var Vector2 = require( 'DOT/Vector2' );
 
   // strings
@@ -136,7 +136,7 @@ define( function( require ) {
     // Handle the comings and goings of paths
     var pathsLayer = new Node( { layerSplit: true } );
 
-    model.galtonBoardRadioButtonProperty.link( function( ) {
+    model.galtonBoardRadioButtonProperty.link( function() {
       model.balls.clear();
     } );
 
@@ -167,7 +167,7 @@ define( function( require ) {
         case 'none':
           break;
         default:
-          throw new Error( 'Unhandled galton Board Radio Button state: ' +  model.galtonBoardRadioButtonProperty.value );
+          throw new Error( 'Unhandled galton Board Radio Button state: ' + model.galtonBoardRadioButtonProperty.value );
       }
     } );
     // Create and add the view representation for this dataBall.

@@ -45,7 +45,7 @@ define( function( require ) {
     this.model = model;
     // var thisPanel = this;
     options = _.extend( {
-        openingAngle: Math.PI/ 2 // angle that control the opening of the peg
+        openingAngle: Math.PI / 2 // angle that control the opening of the peg
       },
       options );
 
