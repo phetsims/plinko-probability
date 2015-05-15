@@ -9,7 +9,6 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var Bounds2 = require( 'DOT/Bounds2' );
   var inherit = require( 'PHET_CORE/inherit' );
   var PegInterface = require( 'PLINKO_PROBABILITY/common/model/PegInterface' );
   var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
@@ -22,12 +21,13 @@ define( function( require ) {
   function GaltonBoard( numberOfRowsProperty ) {
 
     var galtonBoard = this;
-    this.bounds = new Bounds2( -1 / 2, -1, 1 / 2, 0 );
+    this.bounds = PlinkoConstants.GALTON_BOARD_BOUNDS;
 
     var rowNumber; // {number} a non negative integer
     var columnNumber; // {number} a non negative  integer
     this.pegs = [];
 
+    // creates all the pegs (up to the maximum number of possible rows)
     for ( rowNumber = 0; rowNumber <= PlinkoConstants.ROWS_RANGE.max; rowNumber++ ) {
       for ( columnNumber = 0; columnNumber <= rowNumber; columnNumber++ ) {
         var peg = {
@@ -37,9 +37,9 @@ define( function( require ) {
         this.pegs.push( peg );
       }
     }
+    //TODO : useful for testing but remove before publication:
     // see chipper/seedrandom-2.2.js on how to use
     Math.seedrandom( "123" ); // use a seed reproducibility
-
 
     numberOfRowsProperty.link( function( numberOfRows ) {
       galtonBoard.spacing = PegInterface.getSpacing( numberOfRows );

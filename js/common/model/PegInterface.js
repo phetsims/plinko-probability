@@ -14,7 +14,7 @@ define( function( require ) {
 
   return {
     /**
-     * Function that returns the x and y coordinates of an peg in reference to the galtonBoard bounds
+     * Function that returns the x and y coordinates of a peg in reference to the galtonBoard bounds
      * @param {number} rowNumber
      * @param {number} columnNumber
      * @param {number} numberOfRows - the number of rows on the screen

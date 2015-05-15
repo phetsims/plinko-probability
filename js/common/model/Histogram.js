@@ -41,7 +41,6 @@ define( function( require ) {
       this.resetStatistics();
       this.trigger( 'histogramUpdated' );
       this.trigger( 'statisticsUpdated' );
-
     },
 
     setBinsToZero: function() {
@@ -137,8 +136,9 @@ define( function( require ) {
 
 
     /**
-     * Add an array to the the histogram and update all the relevant statistics
-     * @param {Array.<number>} array
+     * Add an array to the the histogram and update all the relevant statistics\
+     * @param {number} numberBalls - an integer
+     * @param {number} probability - a number ranging from [0,1]
      */
     addToHistogram: function( numberBalls, probability ) {
 

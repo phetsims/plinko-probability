@@ -9,7 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  //var Bounds2 = require( 'DOT/Bounds2' );
+  var Bounds2 = require( 'DOT/Bounds2' );
   //var Dimension2 = require( 'DOT/Dimension2' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   //var PhetColorScheme = require( 'SCENERY_PHET/PhetColorScheme' );
@@ -19,6 +19,10 @@ define( function( require ) {
 
     BACKGROUND_COLOR: 'rgb(186,231,249)',
 
+
+    GALTON_BOARD_BOUNDS: new Bounds2( -1 / 2, -1, 1 / 2, 0 ),
+
+    HISTOGRAM_BOUNDS: new Bounds2( -1 / 2, -1.75, 1 / 2, -1 ),
     RESET_ALL_BUTTON_SCALE: 0.75,
 
     // font sizes and weight (for statistics diaplay node)
