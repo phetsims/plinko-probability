@@ -82,7 +82,7 @@ define( function( require ) {
       viewProperties.isTheoreticalHistogramVisibleProperty
     );
 
-    var galtonBoardNode = new GaltonBoardNode( model, modelViewTransform, { openingAngle: 0.03 } );
+    var galtonBoardNode = new GaltonBoardNode( model.galtonBoard, model.numberOfRowsProperty, model.probabilityProperty, modelViewTransform, { openingAngle: 0.03 } );
 
     var minY = -1.70;
     var bounds = new Bounds2( -1 / 2, minY, 1 / 2, -1 );

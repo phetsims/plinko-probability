@@ -83,7 +83,7 @@ define( function( require ) {
       viewProperties.isTheoreticalHistogramVisibleProperty
     );
 
-    var galtonBoardNode = new GaltonBoardNode( model, modelViewTransform );
+    var galtonBoardNode = new GaltonBoardNode( model.galtonBoard, model.numberOfRowsProperty, model.probabilityProperty, modelViewTransform );
 
 
     viewProperties.ballRadioProperty.link( function( value ) {

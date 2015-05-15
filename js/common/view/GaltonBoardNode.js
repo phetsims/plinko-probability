@@ -21,12 +21,15 @@ define( function( require ) {
     var Vector2 = require( 'DOT/Vector2' );
 
     /**
-     * @param {PlinkoProbabilityModel} model
+     *
+     * @param {GaltonBoard} galtonBoard
+     * @param {Property.<number>} numberOfRowsProperty - an integer
+     * @param {Property.<number>} probabilityProperty - a number ranging from 0 to 1
      * @param {ModelViewTransform2} modelViewTransform
      * @param {Object} [options]
      * @constructor
      */
-    function GaltonBoardNode( model, modelViewTransform, options ) {
+    function GaltonBoardNode( galtonBoard, numberOfRowsProperty, probabilityProperty, modelViewTransform, options ) {
 
       options = _.extend( {
           openingAngle: Math.PI * 1 / 2 // vertical separation of the buttons
@@ -44,10 +47,9 @@ define( function( require ) {
       var pegPath;
 
       var pegShape = new Shape();
-      pegShape.arc( 0, 0, PlinkoConstants.PEG_RADIUS, Math.PI - options.openingAngle/2, Math.PI + options.openingAngle/2, true );
+      pegShape.arc( 0, 0, PlinkoConstants.PEG_RADIUS, Math.PI - options.openingAngle / 2, Math.PI + options.openingAngle / 2, true );
 
-
-      model.galtonBoard.pegs.forEach( function( peg ) {
+      galtonBoard.pegs.forEach( function( peg ) {
         pegPath = new Path( pegShape, { fill: PlinkoConstants.PEG_COLOR } );
         var pegShadow = new Circle( 2 * PlinkoConstants.PEG_RADIUS, {
           fill: new RadialGradient(
@@ -82,7 +84,7 @@ define( function( require ) {
       }
 
 
-      model.probabilityProperty.link( function( newProbability, oldProbability ) {
+      probabilityProperty.link( function( newProbability, oldProbability ) {
         var newAngle = newProbability * Math.PI;
         var oldAngle = oldProbability * Math.PI;
         var changeAngle = newAngle - oldAngle;
@@ -91,7 +93,7 @@ define( function( require ) {
         } );
       } );
 
-      model.numberOfRowsProperty.link( function( numberOfRows ) {
+      numberOfRowsProperty.link( function( numberOfRows ) {
         var pegSpacing = PegInterface.getSpacing( numberOfRows );
         var offsetVector = new Vector2( pegSpacing * 0.08, -pegSpacing * 0.24 );
         galtonBoardNode.pegPathArray.forEach( function( pegPath, index ) {
