@@ -32,7 +32,7 @@ define( function( require ) {
     function GaltonBoardNode( galtonBoard, numberOfRowsProperty, probabilityProperty, modelViewTransform, options ) {
 
       options = _.extend( {
-          openingAngle: Math.PI * 1 / 2 // vertical separation of the buttons
+          openingAngle: Math.PI / 2 //  opening angle of the pegs
         },
         options );
 
@@ -83,7 +83,7 @@ define( function( require ) {
         this.addChild( this.pegPathArray[ i ] );
       }
 
-
+      // no need to unlink since it is present for the lifetime of the simulation
       probabilityProperty.link( function( newProbability, oldProbability ) {
         var newAngle = newProbability * Math.PI;
         var oldAngle = oldProbability * Math.PI;
@@ -93,19 +93,21 @@ define( function( require ) {
         } );
       } );
 
+      // no need to unlink since it is present for the lifetime of the simulation
       numberOfRowsProperty.link( function( numberOfRows ) {
         var pegSpacing = PegInterface.getSpacing( numberOfRows );
         var offsetVector = new Vector2( pegSpacing * 0.08, -pegSpacing * 0.24 );
+
         galtonBoardNode.pegPathArray.forEach( function( pegPath, index ) {
           pegPath.visible = pegPath.peg.isVisible;
           pegPath.center = modelViewTransform.modelToViewPosition( pegPath.peg.position );
           pegPath.setScaleMagnitude( 26 / numberOfRows );
         } );
+
         galtonBoardNode.pegShadowArray.forEach( function( pegPath, index ) {
           pegPath.visible = pegPath.peg.isVisible;
           pegPath.center = modelViewTransform.modelToViewPosition( pegPath.peg.position.plus( offsetVector ) );
           pegPath.setScaleMagnitude( 26 / numberOfRows );
-
         } );
       } );
 
