@@ -22,11 +22,12 @@ define( function( require ) {
 //  var plusString = '\u002B'; // we want a large + sign
 //  var minusString = '\u2212';
 
-  //constants
+
   /**
    *
    * @param {string} leftHandSideOfEquation
    * @param {number} rightHandSideOfEquation
+   * @param {Object} [options]
    * @constructor
    */
   function EquationNode( leftHandSideOfEquation, rightHandSideOfEquation, options ) {
@@ -60,7 +61,7 @@ define( function( require ) {
 
     var mutableEquationText = new Node( {
       children: [
-        new HStrut( 30 ),
+        new HStrut( 5 ),
         this.leftHandSideOfEquationText,
         this.equalSignText,
         this.rightHandSideOfEquationText
