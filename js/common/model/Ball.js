@@ -16,6 +16,7 @@ define( function( require ) {
   var PropertySet = require( 'AXON/PropertySet' );
   var Vector2 = require( 'DOT/Vector2' );
 
+  // constants
   var PHASE_INITIAL = 0;
   var PHASE_FALLING = 1;
   var PHASE_EXIT = 2;
@@ -23,8 +24,8 @@ define( function( require ) {
 
   /**
    *
-   * @param probability
-   * @param numberOfRows
+   * @param {number} probability - number ranging from 0 to 1
+   * @param {number} numberOfRows - an integer
    * @constructor
    */
   function Ball( probability, numberOfRows ) {
@@ -71,13 +72,10 @@ define( function( require ) {
     // 0 is left, 1 is right
     this.direction = 0;
 
-    //
-
     // 0 is the top of the current peg, 1 is the top of the next peg
     this.fallenRatio = 0;
 
-
-    this.pegHistory = [];
+    this.pegHistory = []; // {Array.<Object>}
 
     var direction;  // 0 is left, 1 is right
     var rowNumber;
@@ -96,6 +94,7 @@ define( function( require ) {
       columnNumber += direction;
     }
 
+    // bin position of the ball
     this.binIndex = peg.columnNumber;
 
   }
@@ -113,7 +112,7 @@ define( function( require ) {
     },
 
     path: function() {
-      this.trigger( 'landed' );
+      this.trigger( 'exited' );
     },
 
 
@@ -163,6 +162,7 @@ define( function( require ) {
             this.row = peg.rowNumber;
             this.pegPosition = peg.position;
             this.direction = peg.direction;
+            this.trigger( 'exited' );
           }
 
         }
@@ -170,7 +170,7 @@ define( function( require ) {
 
       // Out of pegs
       if ( this.phase === PHASE_EXIT ) {
-        if ( df + this.fallenRatio < 5 ) {
+        if ( df + this.fallenRatio < 1 ) {
           this.fallenRatio += dt;
         }
         else {

@@ -136,8 +136,10 @@ define( function( require ) {
         var thisModel = this;
         var addedBall = new Ball( this.probability, this.numberOfRows );
         this.balls.push( addedBall );
-        addedBall.on( 'landed', function() {
+        addedBall.on( 'exited', function() {
           thisModel.histogram.addBallToHistogram( addedBall );
+        } );
+        addedBall.on( 'landed', function() {
           thisModel.balls.remove( addedBall );
         } );
       },
