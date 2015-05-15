@@ -27,6 +27,8 @@ define( function( require ) {
     // constants
     //----------------------------------------------------------------------------------------
 
+
+    var MAX_NUMBER_BINS = PlinkoConstants.ROWS_RANGE.max + 1; /// there is one more bin than rows;
     // background
 
     var GRID_BACKGROUND_FILL = 'white';
@@ -34,7 +36,6 @@ define( function( require ) {
     var GRID_BACKGROUND_STROKE = 'gray';
 
     // axes
-
     //var AXIS_COLOR = 'black';
     //var AXIS_EXTENT = 0.0; // how far the line extends past the min/max ticks, in model coordinates
 
@@ -43,19 +44,19 @@ define( function( require ) {
     var BANNER_BACKGROUND_COLOR = new Color( 46, 49, 146 );
 
     // labels
-    var Y_AXIS_LABEL_FONT = new PhetFont( { size: 20, weight: 'bold' } );
-    var X_AXIS_LABEL_FONT = new PhetFont( { size: 16, weight: 'bold' } );
+    var Y_AXIS_LABEL_FONT = new PhetFont( { size: 20, weight: 'bolder' } );
+    var X_AXIS_LABEL_FONT = new PhetFont( { size: 16, weight: 'bold', stretch: 'condensed' } );
     var X_AXIS_LABEL_COLOR = 'black'; // space between end of axis and label
     var Y_AXIS_LABEL_COLOR = 'black'; // space between end of axis and label
 
-    var LARGE_FONT = new PhetFont( 16 );
+    var LARGE_FONT = new PhetFont( { size: 16, weight: 'bold' } );
     var NORMAL_FONT = new PhetFont( 14 );
-    var SMALL_FONT = new PhetFont( 12 );
-    var TINY_FONT = new PhetFont( 10 );
+    var SMALL_FONT = new PhetFont( { size: 12, stretch: 'expanded' } );
+    var TINY_FONT = new PhetFont( { size: 10, stretch: 'ultra-condensed' } );
 
     // ticks
     var MAJOR_TICK_COLOR = 'black';
-    var MAJOR_TICK_FONT = new PhetFont( 16 );
+    var MAJOR_TICK_FONT = new PhetFont( { size: 16, stretch: 'ultra-condensed' } );
     var TICK_LABEL_SPACING = 2;
 
     // strings
@@ -83,7 +84,7 @@ define( function( require ) {
       //var self = this;
       Node.call( this );
 
-      var centerX = modelViewTransform.modelToViewX( (bounds.minX + bounds.maxX) / 2 );
+      var centerX = modelViewTransform.modelToViewX( bounds.centerX );
       var bottom = modelViewTransform.modelToViewY( bounds.minY );
       var xLabelNode = new Text( binString, {
         font: X_AXIS_LABEL_FONT,
@@ -95,21 +96,25 @@ define( function( require ) {
 
       var tickLabelsLayer = new Node();
       this.addChild( tickLabelsLayer );
+      var tickLabels = [];
+      for ( var i = 0; i < MAX_NUMBER_BINS; i++ ) {
+        tickLabels[ i ] = new Text( i, { font: MAJOR_TICK_FONT, fill: MAJOR_TICK_COLOR } );
+      }
+      tickLabelsLayer.setChildren( tickLabels );
 
       numberOfRowsProperty.link( function( numberOfRows ) {
         var numberOfTicks = numberOfRows + 1;
-        tickLabelsLayer.removeAllChildren();
         for ( var i = 0; i < numberOfTicks; i++ ) {
           var binCenterX = bounds.minX + bounds.width * (i + 1 / 2) / (numberOfTicks );
           var x = modelViewTransform.modelToViewX( binCenterX );
           var y = modelViewTransform.modelToViewY( bounds.minY );
-
-          var tickLabelNode = new Text( i, { font: MAJOR_TICK_FONT, fill: MAJOR_TICK_COLOR } );
-
-          tickLabelNode.centerX = x;
-          tickLabelNode.top = y + TICK_LABEL_SPACING;
-          tickLabelsLayer.addChild( tickLabelNode );
+          tickLabels[ i ].centerX = x;
+          tickLabels[ i ].top = y + TICK_LABEL_SPACING;
         }
+        for ( i = 0; i < MAX_NUMBER_BINS; i++ ) {
+          tickLabels[ i ].visible = (i < numberOfTicks );
+        }
+
       } );
 
     }
@@ -130,7 +135,7 @@ define( function( require ) {
 
       Node.call( this );
 
-      var centerY = modelViewTransform.modelToViewY( (bounds.minY + bounds.maxY) / 2 );
+      var centerY = modelViewTransform.modelToViewY( bounds.centerY );
       var left = modelViewTransform.modelToViewX( bounds.minX );
 
       var yLabelNode = new Text( '', {
@@ -149,8 +154,8 @@ define( function( require ) {
             yLabelString = fractionString;
             break;
           case 'number':
-          yLabelString = numberString;
-          break;
+            yLabelString = numberString;
+            break;
           case 'cylinder':
             yLabelString = numberString;
             break;
@@ -216,12 +221,10 @@ define( function( require ) {
       this.addChild( linesLayerNode );
       this.addChild( labelsLayerNode );
 
-      var arrayLength = model.histogram.bins.length; // for all the bins
-
       var labelsTextArray = [];
       var verticalLinesArray = [];
 
-      for ( var i = 0; i < arrayLength; i++ ) {
+      for ( var i = 0; i < MAX_NUMBER_BINS; i++ ) {
         var verticalLine = new Line( minX, minY, minX, maxY, { stroke: 'white', lineWidth: 1 } );
         var labelText = new Text( 0, { fill: 'white' } );
         labelsTextArray[ i ] = labelText;
@@ -246,7 +249,7 @@ define( function( require ) {
         for ( i = 0; i < numberOfRows; i++ ) {
           verticalLinesArray[ i ].setLine( minX + (i + 1 ) * xSpacing, minY, minX + (i + 1 ) * xSpacing, maxY );
         }
-        for ( i = 0; i < arrayLength; i++ ) {
+        for ( i = 0; i < MAX_NUMBER_BINS; i++ ) {
           verticalLinesArray[ i ].visible = (i < numberOfRows );
         }
       }
@@ -306,7 +309,7 @@ define( function( require ) {
 
         }
 
-        for ( i = 0; i < arrayLength; i++ ) {
+        for ( i = 0; i < MAX_NUMBER_BINS; i++ ) {
           labelsTextArray[ i ].visible = (i < numberOfRowsProperty.value + 1);
         }
       }
@@ -346,12 +349,10 @@ define( function( require ) {
       var bannerWidth = maxX - minX;
       var maxBarHeight = maxY - minY - BANNER_HEIGHT;
 
-      var arrayLength = model.histogram.bins.length; // for all the bins
-
       var histogramRectanglesArray = [];
       var binomialDistributionRectanglesArray = [];
 
-      for ( var i = 0; i < arrayLength; i++ ) {
+      for ( var i = 0; i < MAX_NUMBER_BINS; i++ ) {
         var nominalHistogramRectangle = new Rectangle( 0, 0, bannerWidth, 1, {
           fill: PlinkoConstants.HISTOGRAM_BAR_COLOR_FILL,
           stroke: PlinkoConstants.HISTOGRAM_BAR_COLOR_STROKE,
@@ -367,7 +368,7 @@ define( function( require ) {
       sampleHistogramNode.setChildren( histogramRectanglesArray );
       theoreticalHistogramNode.setChildren( binomialDistributionRectanglesArray );
 
-      for ( i = 0; i < arrayLength; i++ ) {
+      for ( i = 0; i < MAX_NUMBER_BINS; i++ ) {
         histogramRectanglesArray[ i ].visible = false;
         binomialDistributionRectanglesArray[ i ].visible = false;
       }
@@ -444,7 +445,7 @@ define( function( require ) {
             factorHeight * getHistogramBin( i ) );
         }
 
-        for ( i = 0; i < arrayLength; i++ ) {
+        for ( i = 0; i < MAX_NUMBER_BINS; i++ ) {
           histogramRectanglesArray[ i ].visible = (i < numberOfRowsProperty.value + 1);
         }
       }
@@ -464,7 +465,7 @@ define( function( require ) {
             factorHeight * getBinomialBin[ i ] );
         }
 
-        for ( i = 0; i < arrayLength; i++ ) {
+        for ( i = 0; i < MAX_NUMBER_BINS; i++ ) {
           binomialDistributionRectanglesArray[ i ].visible = (i < numberOfRowsProperty.value + 1);
         }
       }
@@ -473,7 +474,6 @@ define( function( require ) {
     }
 
     inherit( Node, HistogramBarNode );
-
 
     /**
      *
