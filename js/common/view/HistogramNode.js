@@ -232,6 +232,7 @@ define( function( require ) {
 
       Property.multilink( [ numberOfRowsProperty, histogramRadioProperty ], function( numberOfRows, histogramRadio ) {
         updateBanner( numberOfRows );
+        updateTextBanner();
       } );
 
       /**

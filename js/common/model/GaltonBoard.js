@@ -19,7 +19,6 @@ define( function( require ) {
    * @param {Property.<number>} numberOfRowsProperty
    * @constructor
    */
-
   function GaltonBoard( numberOfRowsProperty ) {
 
     var galtonBoard = this;
