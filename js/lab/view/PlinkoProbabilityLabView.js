@@ -24,7 +24,6 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var PathNode = require( 'PLINKO_PROBABILITY/common/view/PathNode' );
   var PlayPanel = require( 'PLINKO_PROBABILITY/lab/view/PlayPanel' );
   var PropertySet = require( 'AXON/PropertySet' );
   var Property = require( 'AXON/Property' );
@@ -34,6 +33,7 @@ define( function( require ) {
   var SliderControlPanel = require( 'PLINKO_PROBABILITY/lab/view/SliderControlPanel' );
   var SoundToggleButton = require( 'SCENERY_PHET/buttons/SoundToggleButton' );
   var StatisticsDisplayAccordionBox = require( 'PLINKO_PROBABILITY/lab/view/StatisticsDisplayAccordionBox' );
+  var TrajectoryPath= require( 'PLINKO_PROBABILITY/common/view/TrajectoryPath' );
   var Vector2 = require( 'DOT/Vector2' );
 
   // strings
@@ -155,11 +155,11 @@ define( function( require ) {
           } );
           break;
         case 'path':
-          var addedPathNode = new PathNode( addedBall, model, modelViewTransform );
-          pathsLayer.addChild( addedPathNode );
+          var addedTrajectoryPath = new TrajectoryPath( addedBall, modelViewTransform );
+          pathsLayer.addChild( addedTrajectoryPath );
           model.balls.addItemRemovedListener( function removalListener( removedBall ) {
             if ( removedBall === addedBall ) {
-              pathsLayer.removeChild( addedPathNode );
+              pathsLayer.removeChild( addedTrajectoryPath );
               model.balls.removeItemRemovedListener( removalListener );
             }
           } );

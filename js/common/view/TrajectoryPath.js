@@ -1,7 +1,7 @@
 // Copyright 2002-2015, University of Colorado Boulder
 
 /**
- * Scenery node for the path through the Galton board.
+ * Scenery view for the path through the Galton board.
  *
  * @author Martin Veillette (Berea College)
  */
@@ -10,7 +10,6 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var Node = require( 'SCENERY/nodes/Node' );
   var Path = require( 'SCENERY/nodes/Path' );
   var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
   var Shape = require( 'KITE/Shape' );
@@ -19,15 +18,10 @@ define( function( require ) {
   /**
    * Constructor for the which renders the charge as a scenery node.
    * @param {Ball} ball - model of the ball
-   * @param {PlinkoProbabilityModel} model
    * @param {ModelViewTransform2} modelViewTransform - the coordinate transform between model coordinates and view coordinates
    * @constructor
    */
-  function PathNode( ball, model, modelViewTransform ) {
-
-    //var pathNode = this;
-
-    Node.call( this );
+  function TrajectoryPath( ball, modelViewTransform ) {
 
     //  create the representation for a ball
     var pathOptions = {
@@ -43,9 +37,9 @@ define( function( require ) {
       shape.lineToPoint( peg.position.plus( new Vector2( 0, ball.pegSeparation * 0.5 ) ) );
     } );
 
-    this.addChild( new Path( modelViewTransform.modelToViewShape( shape ), pathOptions ) );
+    Path.call( this, modelViewTransform.modelToViewShape( shape ), pathOptions );
 
   }
 
-  return inherit( Node, PathNode );
+  return inherit( Path, TrajectoryPath );
 } );
