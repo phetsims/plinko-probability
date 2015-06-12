@@ -14,7 +14,7 @@ define( function( require ) {
   var CheckBox = require( 'SUN/CheckBox' );
   var EquationNode = require( 'PLINKO_PROBABILITY/common/view/EquationNode' );
   var HistogramIcon = require( 'PLINKO_PROBABILITY/lab/view/HistogramIcon' );
-  //var HStrut = require( 'SUN/HStrut' );
+  //var HStrut = require( 'SCENERY/nodes/HStrut' );
   var inherit = require( 'PHET_CORE/inherit' );
   var LayoutBox = require( 'SCENERY/nodes/LayoutBox' );
   var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );

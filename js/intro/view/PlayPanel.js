@@ -9,7 +9,7 @@ define( function( require ) {
 
   // modules
   var BallRepresentationNode = require( 'PLINKO_PROBABILITY/common/view/BallRepresentationNode' );
-  //var HStrut = require( 'SUN/HStrut' );
+  //var HStrut = require( 'SCENERY/nodes/HStrut' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Panel = require( 'SUN/Panel' );
@@ -18,7 +18,7 @@ define( function( require ) {
   var Text = require( 'SCENERY/nodes/Text' );
   //var VBox = require( 'SCENERY/nodes/VBox' );
   var VerticalAquaRadioButtonGroup = require( 'SUN/VerticalAquaRadioButtonGroup' );
-  //var VStrut = require( 'SUN/VStrut' );
+  //var VStrut = require( 'SCENERY/nodes/VStrut' );
 
   // strings
   var allString = require( 'string!PLINKO_PROBABILITY/all' );
