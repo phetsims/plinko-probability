@@ -93,7 +93,8 @@ define( function( require ) {
     } );
 
     var histogramCheckBoxIcon = new LayoutBox( {
-      spacing: 5, children: [
+      spacing: 5,
+      children: [
         new HistogramIcon(),
         new Text( idealString, { font: PlinkoConstants.PANEL_READOUT_FONT } )
       ],
@@ -107,7 +108,8 @@ define( function( require ) {
           spacing: 30,
           children: [
             new LayoutBox( {
-              spacing: 5, children: [
+              spacing: 5,
+              children: [
                 sampleAverageText,
                 sampleStandardDeviationText,
                 sampleStandardDeviationOfMeanText
@@ -115,7 +117,8 @@ define( function( require ) {
               align: 'left'
             } ),
             new LayoutBox( {
-              spacing: 5, children: [
+              spacing: 5,
+              children: [
                 theoreticalAverageText,
                 theoreticalStandardDeviationText,
                 //             theoreticalStandardDeviationOfMeanText,
