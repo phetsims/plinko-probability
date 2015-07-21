@@ -1,2 +1,7 @@
 board.svg source=PhET author=Amanda M
 hopper.svg source=PhET author=Amanda M
+counter.png source=???
+container.png source=???
+mockupCropped01.png source=PhET
+fraction.png source=PhET
+mockupCropped02.png source=PhET
