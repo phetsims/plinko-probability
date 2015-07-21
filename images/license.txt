@@ -1,7 +1,7 @@
 board.svg source=PhET author=Amanda M
 hopper.svg source=PhET author=Amanda M
-container.png source=???
-counter.png source=???
+container.png source=PhET author=Amanda M notes=https://github.com/phetsims/plinko-probability/issues/9
+counter.png source=PhET author=Amanda M notes=https://github.com/phetsims/plinko-probability/issues/9
 mockupCropped01.png source=PhET
 fraction.png source=PhET
 mockupCropped02.png source=PhET
