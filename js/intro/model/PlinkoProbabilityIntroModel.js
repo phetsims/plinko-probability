@@ -14,10 +14,13 @@ define( function( require ) {
     var GaltonBoard = require( 'PLINKO_PROBABILITY/common/model/GaltonBoard' );
     var Histogram = require( 'PLINKO_PROBABILITY/common/model/Histogram' );
     var inherit = require( 'PHET_CORE/inherit' );
+    var ObservableArray = require( 'AXON/ObservableArray' );
     //var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
     var PropertySet = require( 'AXON/PropertySet' );
-    var ObservableArray = require( 'AXON/ObservableArray' );
     var Timer = require( 'JOIST/Timer' );
+
+    // constants
+    var MAX_BALL_NUMBER = 100;
 
     function PlinkoProbabilityIntroModel() {
 
@@ -68,14 +71,14 @@ define( function( require ) {
         var thisModel = this;
         switch( this.ballMode ) {
           case 'oneBall':
-            if ( this.launchedBallsNumber < 100 ) {
+            if ( this.launchedBallsNumber < MAX_BALL_NUMBER ) {
               this.launchedBallsNumber++;
               this.addNewBall();
             }
             break;
 
           case 'tenBalls':
-            for ( i; (i < 10) && (this.launchedBallsNumber < 100); i++ ) {
+            for ( i; (i < 10) && (this.launchedBallsNumber < MAX_BALL_NUMBER); i++ ) {
               this.launchedBallsNumber++;
               Timer.setTimeout( function() {
                 thisModel.addNewBall();
@@ -85,7 +88,7 @@ define( function( require ) {
             break;
 
           case 'allBalls':
-            for ( i; this.launchedBallsNumber < 100; i++ ) {
+            for ( i; this.launchedBallsNumber < MAX_BALL_NUMBER; i++ ) {
               this.launchedBallsNumber++;
               Timer.setTimeout( function() {
                 thisModel.addNewBall();
