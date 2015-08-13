@@ -399,8 +399,8 @@ define( function( require ) {
 
       function updateTriangleShape( path, average ) {
 
-        var xSpacing = bannerWidth / (numberOfRowsProperty.value + 1);
-        var xPosition = minX + (average + 0.5) * xSpacing;
+        var numberOfBins = numberOfRowsProperty.value() + 1;
+        var xPosition = modelViewTransform.modelToViewX( BinInterface.getValuePosition( average, numberOfBins ) );
         var shape = new Shape();
         shape.moveTo( xPosition, maxY )
           .lineToRelative( -TRIANGLE_WIDTH / 2, TRIANGLE_HEIGHT )
