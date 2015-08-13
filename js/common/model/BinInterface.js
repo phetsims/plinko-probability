@@ -79,6 +79,11 @@ define( function( require ) {
 
     getMaxY: function() {
       return BOUNDS.maxY;
+    },
+
+    getValuePosition: function( value, numberOfBins ) {
+      assert && assert( value < numberOfBins );
+      return ((value + 1 / 2) / numberOfBins) * BOUNDS.width + BOUNDS.minX;
     }
   };
 } );
