@@ -399,7 +399,7 @@ define( function( require ) {
 
       function updateTriangleShape( path, average ) {
 
-        var numberOfBins = numberOfRowsProperty.value() + 1;
+        var numberOfBins = numberOfRowsProperty.value + 1;
         var xPosition = modelViewTransform.modelToViewX( BinInterface.getValuePosition( average, numberOfBins ) );
         var shape = new Shape();
         shape.moveTo( xPosition, maxY )
