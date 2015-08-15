@@ -219,7 +219,13 @@ define( function( require ) {
         return binomialCoefficientsArray;
       },
 
-
+      /**
+       *  Function that returns the theoretical probabilities of the binomial distribution
+       *  i.e. P(n,k,p) of a binomial distribution in array form
+       *  The binomial distribution is normalized in the sense that the largest coefficient of the array will be one.
+       *
+       * @returns {Array.<number>}
+       */
       getNormalizedBinomialDistribution: function() {
         var binomialCoefficientsArray = this.getBinomialDistribution();
         var maxCoefficient = _.max( binomialCoefficientsArray );
