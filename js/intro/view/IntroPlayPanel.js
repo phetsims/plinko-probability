@@ -71,7 +71,10 @@ define( function( require ) {
 
     var playButton = new PlayButton( {
       listener: function() {
+        // TODO: use a btter strategy to set isPlaying.. use Events?
         isPlayingProperty.set( !isPlayingProperty.value );
+        isPlayingProperty.set( !isPlayingProperty.value );
+        console.log(isPlayingProperty.value);
       }
     } );
 
