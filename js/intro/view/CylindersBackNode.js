@@ -33,7 +33,7 @@ define( function( require ) {
     var cylinderWidth = 0.95 * binWidth;
     var ellipseWidth = modelViewTransform.modelToViewDeltaX( cylinderWidth );
     var ellipseHeight = -modelViewTransform.modelToViewDeltaY( cylinderWidth ) * Math.sin( PERSPECTIVE_TILT );
-    var topShape = new Shape.ellipse( 0, 0, ellipseWidth / 2, ellipseHeight / 2 );
+    var topShape = Shape.ellipse( 0, 0, ellipseWidth / 2, ellipseHeight / 2 );
 
     var topLayerNode = new Node();
     this.addChild( topLayerNode );
