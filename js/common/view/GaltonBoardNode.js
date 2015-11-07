@@ -1,4 +1,4 @@
-// Copyright 2002-2015, University of Colorado Boulder
+// Copyright 2014-2015, University of Colorado Boulder
 
 /**
  * View for the Galton Board ( also known as a bean machine). It consists in a triangular lattice of pegs.
