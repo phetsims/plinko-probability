@@ -16,7 +16,7 @@ define( function( require ) {
   var Screen = require( 'JOIST/Screen' );
 
   // strings
-  var plinkoProbabilityLabTitleString = require( 'string!PLINKO_PROBABILITY/plinkoProbabilityLabTitleScreen' );
+  var plinkoProbabilityLabTitleScreenString = require( 'string!PLINKO_PROBABILITY/plinkoProbabilityLabTitleScreen' );
 
   /**
    * Creates the icon for this screen.
@@ -39,7 +39,7 @@ define( function( require ) {
     //If there are multiple screens, then the icon must be provided here.
 
     Screen.call( this,
-      plinkoProbabilityLabTitleString,
+      plinkoProbabilityLabTitleScreenString,
       createScreenIcon(), // no icon, single-screen sim
       function() { return new PlinkoProbabilityLabModel(); },
       function( model ) { return new PlinkoProbabilityLabView( model ); }, {

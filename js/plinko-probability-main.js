@@ -13,7 +13,7 @@ define( function( require ) {
   var SimLauncher = require( 'JOIST/SimLauncher' );
 
   // strings
-  var simTitle = require( 'string!PLINKO_PROBABILITY/plinko-probability.title' );
+  var plinkoProbabilityTitleString = require( 'string!PLINKO_PROBABILITY/plinko-probability.title' );
 
   var simOptions = {
     credits: {
@@ -35,7 +35,7 @@ define( function( require ) {
   }
 
   SimLauncher.launch( function() {
-    var sim = new Sim( simTitle, [ new PlinkoProbabilityIntroScreen(),
+    var sim = new Sim( plinkoProbabilityTitleString, [ new PlinkoProbabilityIntroScreen(),
       new PlinkoProbabilityLabScreen() ], simOptions );
     sim.start();
 

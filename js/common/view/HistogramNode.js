@@ -56,7 +56,7 @@ define( function( require ) {
 
     // strings
     var binString = require( 'string!PLINKO_PROBABILITY/bin' );
-    var numberString = require( 'string!PLINKO_PROBABILITY/count' );
+    var countString = require( 'string!PLINKO_PROBABILITY/count' );
     var fractionString = require( 'string!PLINKO_PROBABILITY/fraction' );
 
     // triangle
@@ -164,10 +164,10 @@ define( function( require ) {
             yLabelNode.text = fractionString;
             break;
           case 'number':
-            yLabelNode.text = numberString;
+            yLabelNode.text = countString;
             break;
           case 'cylinder':
-            yLabelNode.text = numberString;
+            yLabelNode.text = countString;
             break;
         }
       } );
