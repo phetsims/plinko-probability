@@ -17,7 +17,7 @@ define( function( require ) {
     var ObservableArray = require( 'AXON/ObservableArray' );
     //var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
     var PropertySet = require( 'AXON/PropertySet' );
-    var Timer = require( 'JOIST/Timer' );
+    var Timer = require( 'PHET_CORE/Timer' );
 
     // constants
     var MAX_BALL_NUMBER = 100;

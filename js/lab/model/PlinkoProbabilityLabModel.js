@@ -17,7 +17,7 @@ define( function( require ) {
     //var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
     var PropertySet = require( 'AXON/PropertySet' );
     var ObservableArray = require( 'AXON/ObservableArray' );
-    var Timer = require( 'JOIST/Timer' );
+    var Timer = require( 'PHET_CORE/Timer' );
 
     function PlinkoProbabilityLabModel() {
 
