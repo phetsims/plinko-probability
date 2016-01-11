@@ -63,7 +63,10 @@ define( function( require ) {
       { node: oneBall, property: ballModeProperty, value: 'oneBall' },
       { node: tenBalls, property: ballModeProperty, value: 'tenBalls' },
       { node: allBalls, property: ballModeProperty, value: 'allBalls' }
-    ], { radius: 8 } );
+    ], {
+      radius: 8,
+      touchXPadding: 5
+    } );
 
     var playButton = new PlayButton( {
       listener: function() {

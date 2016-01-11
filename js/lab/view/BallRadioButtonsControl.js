@@ -34,7 +34,8 @@ define( function( require ) {
     options = _.extend( {
         spacing: 10, // vertical separation of the buttons
         padding: 3, // horizontal padding
-        radius: 8 //radius of the circle of the Radio Button
+        radius: 8, //radius of the circle of the Radio Button
+        touchXPadding: 5
       },
       options );
 
