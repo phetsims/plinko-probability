@@ -76,7 +76,7 @@ define( function( require ) {
       { node: continuous, property: ballRadioProperty, value: 'continuous' }
     ], {
       radius: 8,
-      touchXPadding: 5,
+      touchAreaXDilation: 5,
       align: 'left'
     } );
 

@@ -65,7 +65,7 @@ define( function( require ) {
       { node: allBalls, property: ballModeProperty, value: 'allBalls' }
     ], {
       radius: 8,
-      touchXPadding: 5
+      touchAreaXDilation: 5
     } );
 
     var playButton = new PlayButton( {
