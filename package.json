@@ -16,7 +16,7 @@
   "phet": {
     "requirejsNamespace": "PLINKO_PROBABILITY",
     "preload": [
-      "../sherpa/lib/seedrandom-2.2.js"
+      "../sherpa/lib/seedrandom-2.4.2.js"
     ]
   }
 }

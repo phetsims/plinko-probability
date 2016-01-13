@@ -38,7 +38,7 @@ define( function( require ) {
       }
     }
     //TODO : useful for testing but remove before publication:
-    // see chipper/seedrandom-2.2.js on how to use
+    // see chipper/seedrandom-2.4.2.js on how to use
     Math.seedrandom( '123' ); // use a seed reproducibility
 
     numberOfRowsProperty.link( function( numberOfRows ) {
