@@ -76,7 +76,7 @@ define( function( require ) {
       { node: continuous, property: ballRadioProperty, value: 'continuous' }
     ], {
       radius: 8,
-      touchXPadding: 5,
+      touchAreaXDilation: 5,
       align: 'left'
     } );
 
@@ -87,7 +87,7 @@ define( function( require ) {
 
     var playPauseButton = new PlayPauseButton( isPlayingProperty, {
       scale: 1.0,
-      touchExpansion: 12,
+      touchAreaDilation: 12,
       pauseOptions: playPauseButtonOptions,
       playOptions: playPauseButtonOptions
     } );
