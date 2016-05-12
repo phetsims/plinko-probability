@@ -11,6 +11,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var Circle = require( 'SCENERY/nodes/Circle' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Path = require( 'SCENERY/nodes/Path' );
@@ -50,6 +51,8 @@ define( function( require ) {
 
     RoundPushButton.call( this, _.extend( { content: playCircle }, options ) );
   }
+
+  plinkoProbability.register( 'PlayButton', PlayButton );
 
   return inherit( RoundPushButton, PlayButton );
 } );

@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var inherit = require( 'PHET_CORE/inherit' );
   var PegInterface = require( 'PLINKO_PROBABILITY/common/model/PegInterface' );
   var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
@@ -49,6 +50,8 @@ define( function( require ) {
       } );
     } );
   }
+
+  plinkoProbability.register( 'GaltonBoard', GaltonBoard );
 
   return inherit( Object, GaltonBoard );
 } );

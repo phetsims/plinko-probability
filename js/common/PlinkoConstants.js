@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var Bounds2 = require( 'DOT/Bounds2' );
   //var Dimension2 = require( 'DOT/Dimension2' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
@@ -64,6 +65,8 @@ define( function( require ) {
     BINOMIAL_DISTRIBUTION_BAR_COLOR_STROKE: 'blue'
 
   };
+
+  plinkoProbability.register( 'PlinkoConstants', PlinkoConstants );
 
   return PlinkoConstants;
 } );

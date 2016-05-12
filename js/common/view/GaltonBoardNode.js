@@ -10,6 +10,7 @@ define( function( require ) {
 
     // modules
     //var Bounds2 = require( 'DOT/Bounds2' );
+    var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
     var Circle = require( 'SCENERY/nodes/Circle' );
     var inherit = require( 'PHET_CORE/inherit' );
     var Node = require( 'SCENERY/nodes/Node' );
@@ -112,6 +113,8 @@ define( function( require ) {
       } );
 
     }
+
+    plinkoProbability.register( 'GaltonBoardNode', GaltonBoardNode );
 
     return inherit( Node, GaltonBoardNode );
 

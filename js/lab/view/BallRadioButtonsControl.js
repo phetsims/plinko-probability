@@ -10,6 +10,7 @@ define( function( require ) {
 
   // imports
   // var Color = require( 'SCENERY/util/Color' );
+  var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
@@ -47,6 +48,8 @@ define( function( require ) {
 
     this.addChild( showRadioButtons );
   }
+
+  plinkoProbability.register( 'BallRadioButtonsControl', BallRadioButtonsControl );
 
   return inherit( Node, BallRadioButtonsControl );
 } );

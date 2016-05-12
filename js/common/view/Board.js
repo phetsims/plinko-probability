@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var inherit = require( 'PHET_CORE/inherit' );
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
   //var Matrix3 = require( 'DOT/Matrix3' );
@@ -62,6 +63,8 @@ define( function( require ) {
     // Pass options through to the parent class.
     this.mutate( options );
   }
+
+  plinkoProbability.register( 'Board', Board );
 
   return inherit( Node, Board );
 } );

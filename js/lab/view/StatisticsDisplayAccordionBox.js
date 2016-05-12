@@ -10,6 +10,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var AccordionBox = require( 'SUN/AccordionBox' );
   var CheckBox = require( 'SUN/CheckBox' );
   var EquationNode = require( 'PLINKO_PROBABILITY/common/view/EquationNode' );
@@ -147,6 +148,8 @@ define( function( require ) {
     );
 
   }
+
+  plinkoProbability.register( 'StatisticsDisplayAccordionBox', StatisticsDisplayAccordionBox );
 
   return inherit( AccordionBox, StatisticsDisplayAccordionBox, {
     reset: function() {

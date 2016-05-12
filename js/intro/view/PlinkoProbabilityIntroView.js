@@ -7,6 +7,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var BallNode = require( 'PLINKO_PROBABILITY/common/view/BallNode' );
   var Board = require( 'PLINKO_PROBABILITY/common/view/Board' );
   var Bounds2 = require( 'DOT/Bounds2' );
@@ -25,7 +26,7 @@ define( function( require ) {
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   var Node = require( 'SCENERY/nodes/Node' );
   var NumberBallsDisplay = require( 'PLINKO_PROBABILITY/intro/view/NumberBallsDisplay' );
-  var PlayPanel = require( 'PLINKO_PROBABILITY/intro/view/PlayPanel' );
+  var IntroPlayPanel = require( 'PLINKO_PROBABILITY/intro/view/IntroPlayPanel' );
   var PropertySet = require( 'AXON/PropertySet' );
   var Property = require( 'AXON/Property' );
   //var Range = require( 'DOT/Range' );
@@ -108,7 +109,7 @@ define( function( require ) {
     } );
 
     // create play Panel
-    var playPanel = new PlayPanel( model.isPlayingProperty, model.ballModeProperty );
+    var playPanel = new IntroPlayPanel( model.isPlayingProperty, model.ballModeProperty );
 
 
     var numberBallsDisplay = new NumberBallsDisplay( model );
@@ -213,6 +214,8 @@ define( function( require ) {
 
     /////////////////////////////////////////////////////////////////////////
   }
+
+  plinkoProbability.register( 'PlinkoProbabilityIntroView', PlinkoProbabilityIntroView );
 
   return inherit( ScreenView, PlinkoProbabilityIntroView, {
     step: function( dt ) {

@@ -8,6 +8,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var BallRepresentationNode = require( 'PLINKO_PROBABILITY/common/view/BallRepresentationNode' );
   //var HStrut = require( 'SCENERY/nodes/HStrut' );
   var HBox = require( 'SCENERY/nodes/HBox' );
@@ -31,7 +32,7 @@ define( function( require ) {
    * @param {Object} [options]
    * @constructor
    */
-  function PlayPanel( isPlayingProperty, ballModeProperty, options ) {
+  function IntroPlayPanel( isPlayingProperty, ballModeProperty, options ) {
 
     // Demonstrate a common pattern for specifying options and providing default values.
     options = _.extend( {
@@ -85,5 +86,7 @@ define( function( require ) {
     Panel.call( this, startVBox, options );
   }
 
-  return inherit( Panel, PlayPanel );
+  plinkoProbability.register( 'IntroPlayPanel', IntroPlayPanel );
+
+  return inherit( Panel, IntroPlayPanel );
 } );

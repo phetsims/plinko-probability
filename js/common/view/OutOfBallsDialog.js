@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var ButtonListener = require( 'SCENERY/input/ButtonListener' );
   var Dialog = require( 'JOIST/Dialog' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -58,6 +59,8 @@ define( function( require ) {
     } ) );
 
   }
+
+  plinkoProbability.register( 'OutOfBallsDialog', OutOfBallsDialog );
 
   return inherit( Dialog, OutOfBallsDialog );
 } );

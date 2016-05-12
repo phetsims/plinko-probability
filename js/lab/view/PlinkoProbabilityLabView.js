@@ -7,6 +7,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var BallNode = require( 'PLINKO_PROBABILITY/common/view/BallNode' );
   var BallRadioButtonsControl = require( 'PLINKO_PROBABILITY/lab/view/BallRadioButtonsControl' );
   var Board = require( 'PLINKO_PROBABILITY/common/view/Board' );
@@ -24,7 +25,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var PlayPanel = require( 'PLINKO_PROBABILITY/lab/view/PlayPanel' );
+  var LabPlayPanel = require( 'PLINKO_PROBABILITY/lab/view/LabPlayPanel' );
   var PropertySet = require( 'AXON/PropertySet' );
   var Property = require( 'AXON/Property' );
   //var Range = require( 'DOT/Range' );
@@ -104,7 +105,7 @@ define( function( require ) {
     } );
 
     // create play Panel
-    var playPanel = new PlayPanel( model.isPlayingProperty, model.ballModeProperty );
+    var playPanel = new LabPlayPanel( model.isPlayingProperty, model.ballModeProperty );
 
     // create slider Panel
     var sliderControlPanel = new SliderControlPanel( model.numberOfRowsProperty, model.probabilityProperty );
@@ -224,6 +225,8 @@ define( function( require ) {
 
     /////////////////////////////////////////////////////////////////////////
   }
+
+  plinkoProbability.register( 'PlinkoProbabilityLabView', PlinkoProbabilityLabView );
 
   return inherit( ScreenView, PlinkoProbabilityLabView, {
     step: function( dt ) {

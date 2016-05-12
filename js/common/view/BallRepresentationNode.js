@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var Circle = require( 'SCENERY/nodes/Circle' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
@@ -41,6 +42,8 @@ define( function( require ) {
     this.addChild( ballRepresentation );
 
   }
+
+  plinkoProbability.register( 'BallRepresentationNode', BallRepresentationNode );
 
   return inherit( Node, BallRepresentationNode );
 } );

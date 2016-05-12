@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var BallRepresentationNode = require( 'PLINKO_PROBABILITY/common/view/BallRepresentationNode' );
   var inherit = require( 'PHET_CORE/inherit' );
 
@@ -35,6 +36,8 @@ define( function( require ) {
       positionProperty.unlink( positionListener );
     };
   }
+
+  plinkoProbability.register( 'BallNode', BallNode );
 
   return inherit( BallRepresentationNode, BallNode, {
     dispose: function() {

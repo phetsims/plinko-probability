@@ -13,6 +13,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var ArrowButton = require( 'SCENERY_PHET/buttons/ArrowButton' );
   var Dimension2 = require( 'DOT/Dimension2' );
   var HSlider = require( 'SUN/HSlider' );
@@ -199,5 +200,7 @@ define( function( require ) {
 
   }
 
-  return inherit( Node, SliderWithReadout, {} );
+  plinkoProbability.register( 'SliderWithReadout', SliderWithReadout );
+
+  return inherit( Node, SliderWithReadout );
 } );

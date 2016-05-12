@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // imports
+  var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
   //var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
@@ -56,6 +57,8 @@ define( function( require ) {
     ], options );
 
   }
+
+  plinkoProbability.register( 'HistogramRadioButtonsControl', HistogramRadioButtonsControl );
 
   return inherit( RadioButtonGroup, HistogramRadioButtonsControl );
 } );

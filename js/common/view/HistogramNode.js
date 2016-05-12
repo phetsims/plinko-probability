@@ -8,6 +8,7 @@ define( function( require ) {
     'use strict';
 
     // modules
+    var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
     var Color = require( 'SCENERY/util/Color' );
     var inherit = require( 'PHET_CORE/inherit' );
     var Line = require( 'SCENERY/nodes/Line' );
@@ -127,6 +128,8 @@ define( function( require ) {
 
     }
 
+    plinkoProbability.register( 'XAxisNode', XAxisNode );
+
     inherit( Node, XAxisNode );
 
 //----------------------------------------------------------------------------------------
@@ -173,6 +176,8 @@ define( function( require ) {
       } );
     }
 
+    plinkoProbability.register( 'YAxisNode', YAxisNode );
+
     inherit( Node, YAxisNode );
 
 //----------------------------------------------------------------------------------------
@@ -190,6 +195,8 @@ define( function( require ) {
         { fill: GRID_BACKGROUND_FILL, lineWidth: GRID_BACKGROUND_LINE_WIDTH, stroke: GRID_BACKGROUND_STROKE } );
       this.addChild( backgroundNode );
     }
+
+    plinkoProbability.register( 'BackgroundNode', BackgroundNode );
 
     inherit( Node, BackgroundNode );
 
@@ -325,6 +332,8 @@ define( function( require ) {
 
       updateTextBanner( numberOfRowsProperty.value );
     }
+
+    plinkoProbability.register( 'XBannerNode', XBannerNode );
 
     inherit( Node, XBannerNode );
 
@@ -480,6 +489,8 @@ define( function( require ) {
 
     }
 
+    plinkoProbability.register( 'HistogramBarNode', HistogramBarNode );
+
     inherit( Node, HistogramBarNode );
 
     /**
@@ -504,6 +515,8 @@ define( function( require ) {
         }
       );
     }
+
+    plinkoProbability.register( 'HistogramNode', HistogramNode );
 
     return inherit( Node, HistogramNode );
   }

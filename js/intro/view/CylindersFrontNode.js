@@ -7,6 +7,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var Color = require( 'SCENERY/util/Color' );
   var inherit = require( 'PHET_CORE/inherit' );
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
@@ -77,6 +78,8 @@ define( function( require ) {
     } );
 
   }
+
+  plinkoProbability.register( 'CylindersFrontNode', CylindersFrontNode );
 
   return inherit( Node, CylindersFrontNode );
 } );

@@ -9,10 +9,11 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
   var Vector2 = require( 'DOT/Vector2' );
 
-  return {
+  var PegInterface = {
     /**
      * Function that returns the x and y coordinates of a peg in reference to the galtonBoard bounds
      * @param {number} rowNumber
@@ -71,4 +72,8 @@ define( function( require ) {
       return 1 / (numberOfRows + 1 );
     }
   };
+
+  plinkoProbability.register( 'PegInterface', PegInterface );
+
+  return PegInterface;
 } );

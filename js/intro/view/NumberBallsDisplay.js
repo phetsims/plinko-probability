@@ -10,6 +10,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var EquationNode = require( 'PLINKO_PROBABILITY/common/view/EquationNode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Panel = require( 'SUN/Panel' );
@@ -49,6 +50,8 @@ define( function( require ) {
     Panel.call( this, numberLandedBallsText, options );
 
   }
+
+  plinkoProbability.register( 'NumberBallsDisplay', NumberBallsDisplay );
 
   return inherit( Panel, NumberBallsDisplay, {
     reset: function() {

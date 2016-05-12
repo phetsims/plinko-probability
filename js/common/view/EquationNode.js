@@ -10,6 +10,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var HStrut = require( 'SCENERY/nodes/HStrut' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
@@ -73,6 +74,8 @@ define( function( require ) {
     this.rightHandSideOfEquationText.left = 50;
     this.addChild( mutableEquationText );
   }
+
+  plinkoProbability.register( 'EquationNode', EquationNode );
 
   return inherit( Node, EquationNode, {
     setRightHandSideOfEquation: function( number, options ) {

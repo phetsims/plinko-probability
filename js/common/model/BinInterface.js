@@ -9,12 +9,13 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
 
   // constants
   var BOUNDS = PlinkoConstants.HISTOGRAM_BOUNDS;
 
-  return {
+  var BinInterface = {
     /**
      * Function that returns the x and y coordinates of a peg in reference to the galtonBoard bounds
      * @param {number} binIndex
@@ -86,4 +87,8 @@ define( function( require ) {
       return ((value + 1 / 2) / numberOfBins) * BOUNDS.width + BOUNDS.minX;
     }
   };
+
+  plinkoProbability.register( 'BinInterface', BinInterface );
+
+  return BinInterface;
 } );

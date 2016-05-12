@@ -8,6 +8,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
@@ -48,6 +49,8 @@ define( function( require ) {
     // Pass options through to the parent class.
     this.mutate( options );
   }
+
+  plinkoProbability.register( 'HistogramIcon', HistogramIcon );
 
   return inherit( Node, HistogramIcon );
 } )

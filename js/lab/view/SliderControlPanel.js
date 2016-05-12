@@ -8,6 +8,9 @@
 
 define( function( require ) {
   'use strict';
+
+  // modules
+  var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var Dimension2 = require( 'DOT/Dimension2' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
@@ -81,6 +84,8 @@ define( function( require ) {
     } );
     this.addChild( panel );
   }
+
+  plinkoProbability.register( 'SliderControlPanel', SliderControlPanel );
 
   return inherit( Node, SliderControlPanel );
 } );

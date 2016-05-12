@@ -10,6 +10,7 @@ define( function( require ) {
     'use strict';
 
     // modules
+    var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
     var Ball = require( 'PLINKO_PROBABILITY/common/model/Ball' );
     var GaltonBoard = require( 'PLINKO_PROBABILITY/common/model/GaltonBoard' );
     var Histogram = require( 'PLINKO_PROBABILITY/common/model/Histogram' );
@@ -62,6 +63,8 @@ define( function( require ) {
       } );
 
     }
+
+    plinkoProbability.register( 'PlinkoProbabilityLabModel', PlinkoProbabilityLabModel );
 
     return inherit( PropertySet, PlinkoProbabilityLabModel, {
       step: function( dt ) {
