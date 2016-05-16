@@ -153,7 +153,7 @@ define( function( require ) {
       var yLabelNode = new Text( '', {
         font: Y_AXIS_LABEL_FONT,
         fill: Y_AXIS_LABEL_COLOR,
-        centerY: axisCenterY,
+        centerY: axisCenterY + 30,
         left: axisLeft - 20,
         rotation: -Math.PI / 2   //remember down is positive in the view
       } );
