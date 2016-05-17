@@ -48,7 +48,6 @@ define( function( require ) {
       this.isPlayingProperty.lazyLink( function( isPlaying ) {
         if ( isPlaying ) {
           thisModel.play();
-          Timer.clearInterval( thisModel.continuousTimer );
         }
       } );
 
