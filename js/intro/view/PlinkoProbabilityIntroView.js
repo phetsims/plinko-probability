@@ -190,7 +190,7 @@ define( function( require ) {
 
     playPanel.right = this.layoutBounds.maxX - 40;
     playPanel.top = 10;
-    numberBallsDisplay.top = playPanel.bottom + 200;
+    numberBallsDisplay.top = playPanel.bottom + 300;
     numberBallsDisplay.right = playPanel.right;
     // galtonBoardNode.centerX=hopper.centerX;
     // altonBoardNode.top=board.top+20;

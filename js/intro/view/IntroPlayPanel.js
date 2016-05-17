@@ -1,7 +1,7 @@
 // Copyright 2015, University of Colorado Boulder
 
 /**
- * Scenery Node that represents a Panel with a Play Button and three radio buttons .
+ * Scenery Node that represents a Panel with a Play Button and three radio buttons.
  *
  */
 define( function( require ) {
@@ -10,14 +10,13 @@ define( function( require ) {
   // modules
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var BallRepresentationNode = require( 'PLINKO_PROBABILITY/common/view/BallRepresentationNode' );
-  //var HStrut = require( 'SCENERY/nodes/HStrut' );
+  var HStrut = require( 'SCENERY/nodes/HStrut' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Panel = require( 'SUN/Panel' );
   var PlayButton = require( 'PLINKO_PROBABILITY/intro/view/PlayButton' );
   var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
   var Text = require( 'SCENERY/nodes/Text' );
-  //var VBox = require( 'SCENERY/nodes/VBox' );
   var VerticalAquaRadioButtonGroup = require( 'SUN/VerticalAquaRadioButtonGroup' );
   //var VStrut = require( 'SCENERY/nodes/VStrut' );
 
@@ -27,7 +26,7 @@ define( function( require ) {
 
   /**
    *
-   * @param {Function} listener
+   * @param {Property.<Boolean>} isPlayingProperty
    * @param {Property.<String>} ballModeProperty
    * @param {Object} [options]
    * @constructor
@@ -36,8 +35,8 @@ define( function( require ) {
 
     // Demonstrate a common pattern for specifying options and providing default values.
     options = _.extend( {
-        xMargin: 10,
-        yMargin: 10,
+        xMargin: 5,
+        yMargin: 12,
         stroke: 'black',
         lineWidth: 1,
         minWidth: 0.1,
@@ -66,6 +65,7 @@ define( function( require ) {
       { node: allBalls, property: ballModeProperty, value: 'allBalls' }
     ], {
       radius: 8,
+      spacing: 8,
       touchAreaXDilation: 5
     } );
 
@@ -74,15 +74,18 @@ define( function( require ) {
         // TODO: use a btter strategy to set isPlaying.. use Events?
         isPlayingProperty.set( !isPlayingProperty.value );
         isPlayingProperty.set( !isPlayingProperty.value );
-        console.log(isPlayingProperty.value);
+        console.log( isPlayingProperty.value );
       }
     } );
 
     var startVBox = new HBox( {
-      spacing: 10,
+      spacing: 0,
       children: [
+        new HStrut( 20 ),
         playButton,
-        ballModeRadioButtons
+        new HStrut( 20 ),
+        ballModeRadioButtons,
+        new HStrut( 10 )
       ]
     } );
 
