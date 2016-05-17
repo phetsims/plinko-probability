@@ -132,15 +132,11 @@ define( function( require ) {
      *  @private
      */
     resetStatistics: function() {
-      // @public
       this.landedBallsNumber = 0;
-      // @public
       this.average = 0;
       this.sumOfSquares = 0;
       this.variance = 0;
-      // @public
       this.standardDeviation = 0;
-      // @public
       this.standardDeviationOfMean = 0;
     },
 
