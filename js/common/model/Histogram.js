@@ -46,7 +46,9 @@ define( function( require ) {
       this.trigger( 'histogramUpdated' );
       this.trigger( 'statisticsUpdated' );
     },
-
+    /**
+     * @private
+     */
     setBinsToZero: function() {
       this.bins = [];
       for ( var i = 0; i < PlinkoConstants.ROWS_RANGE.max + 1; i++ ) {
