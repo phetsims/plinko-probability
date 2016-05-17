@@ -10,7 +10,7 @@ define( function( require ) {
     'use strict';
 
     // modules
-  var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
+    var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
     var Ball = require( 'PLINKO_PROBABILITY/common/model/Ball' );
     var GaltonBoard = require( 'PLINKO_PROBABILITY/common/model/GaltonBoard' );
     var Histogram = require( 'PLINKO_PROBABILITY/common/model/Histogram' );
@@ -57,6 +57,12 @@ define( function( require ) {
     plinkoProbability.register( 'PlinkoProbabilityIntroModel', PlinkoProbabilityIntroModel );
 
     return inherit( PropertySet, PlinkoProbabilityIntroModel, {
+
+      /**
+       * time step function that is responsible for updating the position and status of tehe balls.
+       * @public
+       * @param {number} dt - a small time interval
+       */
       step: function( dt ) {
 
         this.balls.forEach( function( ball ) {
@@ -66,7 +72,7 @@ define( function( require ) {
       },
 
       /**
-       * Reset of the model
+       * Reset of the model attributes.
        * @public
        */
       reset: function() {
@@ -75,7 +81,12 @@ define( function( require ) {
         this.histogram.reset();
         this.launchedBallsNumber = 0;
       },
-      
+
+      /**
+       * Play function adds balls to the model, the number of balls added depends on the status of ballMode.
+       * The function updates the total number of launched balls
+       * @private
+       */
       play: function() {
         var i = 0;
         var thisModel = this;
@@ -114,6 +125,7 @@ define( function( require ) {
 
       /**
        * Add a new Ball to the model
+       * @private
        */
       addNewBall: function() {
         var thisModel = this;
