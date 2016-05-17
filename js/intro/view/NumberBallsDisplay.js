@@ -28,7 +28,7 @@ define( function( require ) {
   function NumberBallsDisplay( model, options ) {
 
     options = _.extend( {
-        minWidth: 200,
+        minWidth: 205,
         align: 'left'
       },
       options );
