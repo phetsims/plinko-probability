@@ -47,6 +47,7 @@ define( function( require ) {
       this.trigger( 'statisticsUpdated' );
     },
     /**
+     * Sets the value of all bins in the histogram to zero.
      * @private
      */
     setBinsToZero: function() {
@@ -60,6 +61,7 @@ define( function( require ) {
      * Update the histogram statistic due to adding one ball in bin 'binIndex'
      *
      * @param {number} binIndex - the bin index associated with the landed ball.
+     * @private
      */
     updateStatistics: function( binIndex ) {
       this.landedBallsNumber++;
@@ -84,8 +86,8 @@ define( function( require ) {
 
     /**
      *
-     * Calculate the statistics from the histogram (from scratch)
-     *
+     * Calculate the statistics from the histogram bins (from scratch instead of a delta update)
+     * @private
      */
     calculateStatistics: function() {
       this.resetStatistics();
@@ -119,6 +121,7 @@ define( function( require ) {
 
     /**
      *  Resets all the statistics data to zero
+     *  @private
      */
     resetStatistics: function() {
       this.landedBallsNumber = 0;
@@ -132,6 +135,7 @@ define( function( require ) {
     /**
      * Add an additional ball to the histogram to the appropriate bin and update all the relevant statistics
      * @param {Ball} ball
+     * @public
      */
     addBallToHistogram: function( ball ) {
       this.bins[ ball.binIndex ]++;
@@ -145,6 +149,7 @@ define( function( require ) {
      * Add an array to the the histogram and update all the relevant statistics\
      * @param {number} numberBalls - an integer
      * @param {number} probability - a number ranging from [0,1]
+     * @private
      */
     addToHistogram: function( numberBalls, probability ) {
 
@@ -171,6 +176,7 @@ define( function( require ) {
      * The count is a non-negative integer
      * @param {number} binIndex
      * @returns {number}
+     * @public
      */
     getBinCount: function( binIndex ) {
       return this.bins[ binIndex ]; // an integer
@@ -181,6 +187,7 @@ define( function( require ) {
      * The fraction is smaller than one
      * @param {number} binIndex - an integer
      * @returns {number}
+     * @public
      */
     getFractionalBinCount: function( binIndex ) {
       if ( this.landedBallsNumber ) {
@@ -197,6 +204,7 @@ define( function( require ) {
      * The fraction is smaller than one
      * @param {number} binIndex - an integer
      * @returns {number}
+     * @public
      */
     getFractionalNormalizedBinCount: function( binIndex ) {
       var maxValue = _.max( this.bins );
