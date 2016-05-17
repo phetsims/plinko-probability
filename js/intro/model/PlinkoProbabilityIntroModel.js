@@ -65,12 +65,17 @@ define( function( require ) {
 
       },
 
+      /**
+       * Reset of the model
+       * @public
+       */
       reset: function() {
         PropertySet.prototype.reset.call( this );
         this.balls.clear();
         this.histogram.reset();
+        this.launchedBallsNumber = 0;
       },
-
+      
       play: function() {
         var i = 0;
         var thisModel = this;

@@ -120,7 +120,6 @@ define( function( require ) {
       listener: function() {
         model.reset();
         viewProperties.reset();
-        model.launchedBallsNumber = 0;
       },
       right: thisView.layoutBounds.maxX - 10,
       bottom: thisView.layoutBounds.maxY - 10
