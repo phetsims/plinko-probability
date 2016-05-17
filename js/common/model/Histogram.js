@@ -25,12 +25,22 @@ define( function( require ) {
 
     Events.call( this );
 
-    this.numberOfRowsProperty = numberOfRowsProperty;
     var thisHistogram = this;
 
+    // @private
     this.bins = [];
+    this.sumOfSquares = 0;
+    this.variance = 0;
+
+    // @public
+    this.average = 0;
+    this.standardDeviation = 0;
+    this.standardDeviationOfMean = 0;
+    this.landedBallsNumber = 0;
 
     this.setBinsToZero();
+
+    this.numberOfRowsProperty = numberOfRowsProperty;
 
     numberOfRowsProperty.link( function( numberOfRows ) {
       thisHistogram.reset();
@@ -56,7 +66,6 @@ define( function( require ) {
         this.bins.push( 0 );
       }
     },
-
     /**
      * Update the histogram statistic due to adding one ball in bin 'binIndex'
      *
@@ -83,7 +92,6 @@ define( function( require ) {
         this.standardDeviationOfMean = 0;
       }
     },
-
     /**
      *
      * Calculate the statistics from the histogram bins (from scratch instead of a delta update)
@@ -124,11 +132,15 @@ define( function( require ) {
      *  @private
      */
     resetStatistics: function() {
+      // @public
       this.landedBallsNumber = 0;
+      // @public
       this.average = 0;
       this.sumOfSquares = 0;
       this.variance = 0;
+      // @public
       this.standardDeviation = 0;
+      // @public
       this.standardDeviationOfMean = 0;
     },
 
@@ -138,12 +150,12 @@ define( function( require ) {
      * @public
      */
     addBallToHistogram: function( ball ) {
+      // @private
       this.bins[ ball.binIndex ]++;
       this.updateStatistics( ball.binIndex );
       this.trigger( 'histogramUpdated' );
       this.trigger( 'statisticsUpdated' );
     },
-
 
     /**
      * Add an array to the the histogram and update all the relevant statistics\
@@ -169,7 +181,6 @@ define( function( require ) {
       this.trigger( 'histogramUpdated' );
       this.trigger( 'statisticsUpdated' );
     },
-
 
     /**
      * Function that returns the number of counts in a bin
@@ -215,7 +226,6 @@ define( function( require ) {
         return 0;
       }
     }
-
 
   } );
 } );
