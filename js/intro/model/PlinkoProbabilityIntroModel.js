@@ -18,7 +18,12 @@ define( function( require ) {
     var ObservableArray = require( 'AXON/ObservableArray' );
     //var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
     var PropertySet = require( 'AXON/PropertySet' );
+    var Sound = require( 'VIBE/Sound' );
     var Timer = require( 'PHET_CORE/Timer' );
+
+
+    // audio
+    var ballHittingFloorAudio = require( 'audio!PLINKO_PROBABILITY/ballHittingFloor' );
 
     // constants
     var MAX_BALL_NUMBER = 100;
@@ -33,8 +38,13 @@ define( function( require ) {
         ballMode: 'oneBall', // acceptable values are 'oneBall', 'tenBalls', 'allRemainingBalls' and 'continuous'
         histogramVisible: false,
         isBallCapReached: false, // is the maximum of balls reached?
-        numberOfRows: 12
+        numberOfRows: 12,
+        isSoundEnabled: false
       } );
+
+
+      this.ballHittingFloorSound = new Sound( ballHittingFloorAudio );
+
 
       this.launchedBallsNumber = 0; // number of current trial (current ball drop)
 
@@ -128,6 +138,9 @@ define( function( require ) {
         this.balls.push( addedBall );
         addedBall.on( 'exited', function() {
           thisModel.histogram.addBallToHistogram( addedBall );
+          if ( thisModel.isSoundEnabled ) {
+            thisModel.ballHittingFloorSound.play();
+          }
         } );
 
       },
