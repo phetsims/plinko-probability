@@ -29,7 +29,6 @@ define( function( require ) {
 
       PropertySet.call( this, {
         probability: 0.5,
-        isPlaying: false,
         histogramMode: 'count', // acceptable values are 'count' and 'fraction'
         ballMode: 'oneBall', // acceptable values are 'oneBall', 'tenBalls', 'allRemainingBalls' and 'continuous'
         histogramVisible: false,
@@ -44,14 +43,11 @@ define( function( require ) {
       this.histogram = new Histogram( this.numberOfRowsProperty );
       this.landedBallsNumber = this.histogram.landedBallsNumber; //number of balls in the histogram
 
-
-      this.isPlayingProperty.lazyLink( function( isPlaying ) {
-        if ( isPlaying ) {
-          thisModel.play();
-        }
+      this.on( 'PressPlayButton', function() {
+        thisModel.play();
       } );
-
     }
+
 
     plinkoProbability.register( 'PlinkoProbabilityIntroModel', PlinkoProbabilityIntroModel );
 

@@ -109,7 +109,7 @@ define( function( require ) {
     } );
 
     // create play Panel
-    var playPanel = new IntroPlayPanel( model.isPlayingProperty, model.ballModeProperty );
+    var playPanel = new IntroPlayPanel( model, model.ballModeProperty );
 
 
     var numberBallsDisplay = new NumberBallsDisplay( model );

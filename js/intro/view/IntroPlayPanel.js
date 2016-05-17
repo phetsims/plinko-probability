@@ -18,7 +18,6 @@ define( function( require ) {
   var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
   var Text = require( 'SCENERY/nodes/Text' );
   var VerticalAquaRadioButtonGroup = require( 'SUN/VerticalAquaRadioButtonGroup' );
-  //var VStrut = require( 'SCENERY/nodes/VStrut' );
 
   // strings
   var allString = require( 'string!PLINKO_PROBABILITY/all' );
@@ -26,12 +25,11 @@ define( function( require ) {
 
   /**
    *
-   * @param {Property.<Boolean>} isPlayingProperty
-   * @param {Property.<String>} ballModeProperty
+   * @param {PlinkoProbabilityIntroModel} model
    * @param {Object} [options]
    * @constructor
    */
-  function IntroPlayPanel( isPlayingProperty, ballModeProperty, options ) {
+  function IntroPlayPanel( model, options ) {
 
     // Demonstrate a common pattern for specifying options and providing default values.
     options = _.extend( {
@@ -45,11 +43,11 @@ define( function( require ) {
       options );
 
     var fontOptions = { font: PlinkoConstants.PANEL_FONT };
+
     var oneBall = new HBox( {
       spacing: PlinkoConstants.BALL_RADIUS,
       children: [ new BallRepresentationNode( 8 ), new Text( timesString + '1', fontOptions ) ]
     } );
-
     var tenBalls = new HBox( {
       spacing: PlinkoConstants.BALL_RADIUS,
       children: [ new BallRepresentationNode( 8 ), new Text( timesString + '10', fontOptions ) ]
@@ -60,9 +58,9 @@ define( function( require ) {
     } );
 
     var ballModeRadioButtons = new VerticalAquaRadioButtonGroup( [
-      { node: oneBall, property: ballModeProperty, value: 'oneBall' },
-      { node: tenBalls, property: ballModeProperty, value: 'tenBalls' },
-      { node: allBalls, property: ballModeProperty, value: 'allBalls' }
+      { node: oneBall, property: model.ballModeProperty, value: 'oneBall' },
+      { node: tenBalls, property: model.ballModeProperty, value: 'tenBalls' },
+      { node: allBalls, property: model.ballModeProperty, value: 'allBalls' }
     ], {
       radius: 8,
       spacing: 8,
@@ -71,14 +69,11 @@ define( function( require ) {
 
     var playButton = new PlayButton( {
       listener: function() {
-        // TODO: use a btter strategy to set isPlaying.. use Events?
-        isPlayingProperty.set( !isPlayingProperty.value );
-        isPlayingProperty.set( !isPlayingProperty.value );
-        console.log( isPlayingProperty.value );
+        model.trigger( 'PressPlayButton' );
       }
     } );
 
-    var startVBox = new HBox( {
+    var playAndRadioButtonBox = new HBox( {
       spacing: 0,
       children: [
         new HStrut( 20 ),
@@ -89,7 +84,7 @@ define( function( require ) {
       ]
     } );
 
-    Panel.call( this, startVBox, options );
+    Panel.call( this, playAndRadioButtonBox, options );
   }
 
   plinkoProbability.register( 'IntroPlayPanel', IntroPlayPanel );
