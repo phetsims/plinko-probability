@@ -86,6 +86,12 @@ define( function( require ) {
       innerButtonLineWidth: 1
     };
 
+    // link the ballRadioProperty to the state of the playPauseButton
+    ballRadioProperty.link( function() {
+        isPlayingProperty.set( false );
+      }
+    );
+
     var playPauseButton = new PlayPauseButton( isPlayingProperty, {
       scale: 1.0,
       touchAreaDilation: 12,
