@@ -72,7 +72,6 @@ define( function( require ) {
       histogramRadio: 'number', // Valid values are 'fraction', 'number'
       ballRadio: 'oneBall', // Valid values are 'oneBall' and 'continuous'.
       expandedAccordionBox: false,
-      isSoundEnabled: false,
       isTheoreticalHistogramVisible: false
     } );
 
@@ -127,7 +126,7 @@ define( function( require ) {
     } );
 
     // Create the Sound Toggle Button in the bottom right
-    var soundToggleButton = new SoundToggleButton( viewProperties.isSoundEnabledProperty, {
+    var soundToggleButton = new SoundToggleButton( model.isSoundEnabledProperty, {
       right: resetAllButton.left - 20,
       centerY: resetAllButton.centerY
     } );

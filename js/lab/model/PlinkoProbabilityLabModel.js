@@ -18,7 +18,11 @@ define( function( require ) {
     //var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
     var PropertySet = require( 'AXON/PropertySet' );
     var ObservableArray = require( 'AXON/ObservableArray' );
+    var Sound = require( 'VIBE/Sound' );
     var Timer = require( 'PHET_CORE/Timer' );
+
+    // audio
+    var ballHittingFloorAudio = require( 'audio!PLINKO_PROBABILITY/ballHittingFloor' );
 
     function PlinkoProbabilityLabModel() {
 
@@ -26,14 +30,19 @@ define( function( require ) {
 
       PropertySet.call( this, {
         probability: 0.5,
-        isPlaying: false,
+        isPlaying: true,
         histogramMode: 'count', // acceptable values are 'count' and 'fraction'
         ballMode: 'oneBall', // acceptable values are 'oneBall' and 'continuous'
         histogramVisible: false,
         isBallCapReached: false, // is the maximum of balls reached?
         numberOfRows: 12,
-        galtonBoardRadioButton: 'ball' // Valid values are 'ball', 'path', and 'none'.
-      } );
+        galtonBoardRadioButton: 'ball', // Valid values are 'ball', 'path', and 'none'.
+        isSoundEnabled: false
+      } )
+      ;
+
+
+      this.ballHittingFloorSound = new Sound( ballHittingFloorAudio );
 
       this.launchedBallsNumber = 0; // number of current trial (current ball drop)
 
@@ -141,6 +150,9 @@ define( function( require ) {
         this.balls.push( addedBall );
         addedBall.on( 'exited', function() {
           thisModel.histogram.addBallToHistogram( addedBall );
+          if ( thisModel.isSoundEnabled ) {
+            thisModel.ballHittingFloorSound.play();
+          }
         } );
         addedBall.on( 'landed', function() {
           thisModel.balls.remove( addedBall );
