@@ -27,12 +27,21 @@ define( function( require ) {
    *
    * @param {Property.<number>} rowsProperty
    * @param {Property.<number>} binaryProbabilityProperty
+   * @param {Object} [options]
    * @constructor
    */
-  function SliderControlPanel( rowsProperty, binaryProbabilityProperty ) {
+  function SliderControlPanel( rowsProperty, binaryProbabilityProperty, options ) {
 
     Node.call( this );
+    options = _.extend( {
 
+        fill: 'white',
+        xMargin: 0,
+        yMargin: 8,
+        minWidth: 200
+      },
+
+      options );
     var rowsSlider = new SliderWithReadout( {
       buttonStep: 1,
       title: rowsString,
@@ -77,11 +86,10 @@ define( function( require ) {
     var contentPanel = new Node( {
       children: [ rowsSlider, binaryProbabilitySlider ]
     } );
-    var panel = new Panel( contentPanel, {
-      fill: 'white',
-      xMargin: 0,
-      yMargin: 8
-    } );
+    var panel = new Panel( contentPanel, options );
+
+    // Panel.call( this,  options );
+
     this.addChild( panel );
   }
 

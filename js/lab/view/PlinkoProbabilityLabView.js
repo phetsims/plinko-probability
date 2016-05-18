@@ -103,17 +103,21 @@ define( function( require ) {
       }
     } );
 
-    // create play Panel
-    var playPanel = new LabPlayPanel( model.isPlayingProperty, model.ballModeProperty );
-
-    // create slider Panel
-    var sliderControlPanel = new SliderControlPanel( model.numberOfRowsProperty, model.probabilityProperty );
-
     // create Panel that displays sample and theoretical statistics
     var statisticsDisplayAccordionBox = new StatisticsDisplayAccordionBox(
       model,
       viewProperties.isTheoreticalHistogramVisibleProperty,
       viewProperties.expandedAccordionBoxProperty );
+    var statisticsDisplayAccordionBoxWidth = statisticsDisplayAccordionBox.right - statisticsDisplayAccordionBox.left;
+
+
+    // create play Panel
+    var playPanel = new LabPlayPanel( model.isPlayingProperty, model.ballModeProperty, { minWidth: statisticsDisplayAccordionBoxWidth } );
+
+
+    // create slider Panel
+    var sliderControlPanel = new SliderControlPanel( model.numberOfRowsProperty, model.probabilityProperty, { minWidth: statisticsDisplayAccordionBoxWidth } );
+
 
     // create the Reset All Button in the bottom right, which resets the model
     var resetAllButton = new ResetAllButton( {
@@ -196,7 +200,7 @@ define( function( require ) {
 
     ballRadioButtonsControl.left = hopper.right + 20;
     ballRadioButtonsControl.top = hopper.top;
-    playPanel.right = this.layoutBounds.maxX - 40;
+    playPanel.right = this.layoutBounds.maxX - 50;
     playPanel.top = 10;
     sliderControlPanel.top = playPanel.bottom + 10;
     sliderControlPanel.right = playPanel.right;
