@@ -41,7 +41,7 @@ define( function( require ) {
         yMargin: 10,
         stroke: 'black',
         lineWidth: 1,
-        minWidth: 0.1,
+        minWidth: 0,
         titleToControlsVerticalSpace: 5
       },
       options );
