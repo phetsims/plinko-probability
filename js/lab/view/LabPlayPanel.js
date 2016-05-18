@@ -41,7 +41,7 @@ define( function( require ) {
         yMargin: 10,
         stroke: 'black',
         lineWidth: 1,
-        minWidth: 0.1,
+        minWidth: 0,
         titleToControlsVerticalSpace: 5
       },
       options );
@@ -85,6 +85,12 @@ define( function( require ) {
     var playPauseButtonOptions = {
       innerButtonLineWidth: 1
     };
+
+    // link the ballRadioProperty to the state of the playPauseButton
+    ballRadioProperty.link( function() {
+        isPlayingProperty.set( false );
+      }
+    );
 
     var playPauseButton = new PlayPauseButton( isPlayingProperty, {
       scale: 1.0,
