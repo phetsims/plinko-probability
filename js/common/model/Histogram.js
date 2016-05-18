@@ -25,12 +25,22 @@ define( function( require ) {
 
     Events.call( this );
 
-    this.numberOfRowsProperty = numberOfRowsProperty;
     var thisHistogram = this;
 
+    // @private
     this.bins = [];
+    this.sumOfSquares = 0;
+    this.variance = 0;
+
+    // @public
+    this.average = 0;
+    this.standardDeviation = 0;
+    this.standardDeviationOfMean = 0;
+    this.landedBallsNumber = 0;
 
     this.setBinsToZero();
+
+    this.numberOfRowsProperty = numberOfRowsProperty;
 
     numberOfRowsProperty.link( function( numberOfRows ) {
       thisHistogram.reset();
@@ -47,6 +57,7 @@ define( function( require ) {
       this.trigger( 'statisticsUpdated' );
     },
     /**
+     * Sets the value of all bins in the histogram to zero.
      * @private
      */
     setBinsToZero: function() {
@@ -55,11 +66,11 @@ define( function( require ) {
         this.bins.push( 0 );
       }
     },
-
     /**
      * Update the histogram statistic due to adding one ball in bin 'binIndex'
      *
      * @param {number} binIndex - the bin index associated with the landed ball.
+     * @private
      */
     updateStatistics: function( binIndex ) {
       this.landedBallsNumber++;
@@ -81,11 +92,10 @@ define( function( require ) {
         this.standardDeviationOfMean = 0;
       }
     },
-
     /**
      *
-     * Calculate the statistics from the histogram (from scratch)
-     *
+     * Calculate the statistics from the histogram bins (from scratch instead of a delta update)
+     * @private
      */
     calculateStatistics: function() {
       this.resetStatistics();
@@ -119,6 +129,7 @@ define( function( require ) {
 
     /**
      *  Resets all the statistics data to zero
+     *  @private
      */
     resetStatistics: function() {
       this.landedBallsNumber = 0;
@@ -132,19 +143,21 @@ define( function( require ) {
     /**
      * Add an additional ball to the histogram to the appropriate bin and update all the relevant statistics
      * @param {Ball} ball
+     * @public
      */
     addBallToHistogram: function( ball ) {
+      // @private
       this.bins[ ball.binIndex ]++;
       this.updateStatistics( ball.binIndex );
       this.trigger( 'histogramUpdated' );
       this.trigger( 'statisticsUpdated' );
     },
 
-
     /**
      * Add an array to the the histogram and update all the relevant statistics\
      * @param {number} numberBalls - an integer
      * @param {number} probability - a number ranging from [0,1]
+     * @private
      */
     addToHistogram: function( numberBalls, probability ) {
 
@@ -165,12 +178,12 @@ define( function( require ) {
       this.trigger( 'statisticsUpdated' );
     },
 
-
     /**
      * Function that returns the number of counts in a bin
      * The count is a non-negative integer
      * @param {number} binIndex
      * @returns {number}
+     * @public
      */
     getBinCount: function( binIndex ) {
       return this.bins[ binIndex ]; // an integer
@@ -181,6 +194,7 @@ define( function( require ) {
      * The fraction is smaller than one
      * @param {number} binIndex - an integer
      * @returns {number}
+     * @public
      */
     getFractionalBinCount: function( binIndex ) {
       if ( this.landedBallsNumber ) {
@@ -197,6 +211,7 @@ define( function( require ) {
      * The fraction is smaller than one
      * @param {number} binIndex - an integer
      * @returns {number}
+     * @public
      */
     getFractionalNormalizedBinCount: function( binIndex ) {
       var maxValue = _.max( this.bins );
@@ -207,7 +222,6 @@ define( function( require ) {
         return 0;
       }
     }
-
 
   } );
 } );
