@@ -105,30 +105,30 @@ define( function( require ) {
     var histogramCheckBox = new CheckBox( histogramCheckBoxIcon, isTheoreticalHistogramVisibleProperty );
 
     AccordionBox.call( this, new LayoutBox( {
-          orientation: 'horizontal',
-          spacing: 30,
-          children: [
-            new LayoutBox( {
-              spacing: 5,
-              children: [
-                sampleAverageText,
-                sampleStandardDeviationText,
-                sampleStandardDeviationOfMeanText
-              ],
-              align: 'left'
-            } ),
-            new LayoutBox( {
-              spacing: 5,
-              children: [
-                theoreticalAverageText,
-                theoreticalStandardDeviationText,
-                //             theoreticalStandardDeviationOfMeanText,
-                histogramCheckBox
-              ],
-              align: 'left'
-            } )
-          ]
-        }
+        orientation: 'horizontal',
+        spacing: 5,
+        children: [
+          new LayoutBox( {
+            spacing: 10,
+            children: [
+              sampleAverageText,
+              sampleStandardDeviationText,
+              sampleStandardDeviationOfMeanText
+            ],
+            align: 'left'
+          } ),
+          new LayoutBox( {
+            spacing: 5,
+            children: [
+              theoreticalAverageText,
+              theoreticalStandardDeviationText,
+              //             theoreticalStandardDeviationOfMeanText,
+              histogramCheckBox
+            ],
+            align: 'left'
+          } )
+        ]
+      }
       ),
 
       _.extend( {
@@ -143,7 +143,8 @@ define( function( require ) {
         titleAlignX: 'left',
         titleXMargin: 15,
         contentXMargin: 8,
-        contentYMargin: 5
+        contentYMargin: 5,
+        minWidth: 0
       }, options )
     );
 
