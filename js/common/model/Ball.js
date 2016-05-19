@@ -44,7 +44,7 @@ define( function( require ) {
     this.pegSeparation = PegInterface.getSpacing( numberOfRows );
 
 
-    this.ballRadius = this.pegSeparation * 0.25;
+    this.ballRadius = this.pegSeparation * 0.25 / 2;
 
     // 0 -> Initially falling
     // 1 -> Falling between pegs
@@ -97,6 +97,7 @@ define( function( require ) {
 
     // bin position of the ball
     this.binIndex = peg.columnNumber;
+    this.numberOfBalls = 0;
 
   }
 
@@ -117,71 +118,25 @@ define( function( require ) {
     path: function() {
       this.trigger( 'exited' );
     },
-
+   updatePegPositionInformation: function( ) {
+     var peg;
+     peg = this.pegHistory.shift();
+      this.column = peg.columnNumber;
+      this.row = peg.rowNumber;
+      this.pegPosition = peg.position;
+      this.direction = peg.direction;
+    },
+    initialPegPositionInformation: function(){
+      var peg;
+       peg = this.pegHistory[0];
+          this.column = peg.columnNumber;
+          this.row = peg.rowNumber;
+      this.pegPosition = peg.position;
+    },
 
     ballStep: function( dt ) {
-      var df = dt;
-      var peg;
-      // Initially falling
-      if ( this.phase === PHASE_INITIAL ) {
-        if ( df + this.fallenRatio < 1 ) {
-          this.fallenRatio += df;
-          peg = this.pegHistory[ 0 ];
-          this.column = peg.columnNumber;
-          this.row = peg.rowNumber;
-          this.pegPosition = peg.position;
-        }
-        else {
-          this.phase = PHASE_FALLING;
-          this.fallenRatio = 0;
-          peg = this.pegHistory.shift();
-          this.column = peg.columnNumber;
-          this.row = peg.rowNumber;
-          this.pegPosition = peg.position;
-          this.direction = peg.direction;
-        }
-      }
-
-      // Falling between pegs
-      if ( this.phase === PHASE_FALLING ) {
-        if ( df + this.fallenRatio < 1 ) {
-          this.fallenRatio += df;
-        }
-        else {
-          this.fallenRatio = 0;
-
-          if ( this.pegHistory.length > 1 ) {
-            peg = this.pegHistory.shift();
-            this.column = peg.columnNumber;
-            this.row = peg.rowNumber;
-            this.pegPosition = peg.position;
-            this.direction = peg.direction;
-
-          }
-          else {
-            this.phase = PHASE_EXIT;
-            peg = this.pegHistory.shift();
-            this.column = peg.columnNumber;
-            this.row = peg.rowNumber;
-            this.pegPosition = peg.position;
-            this.direction = peg.direction;
-            this.trigger( 'exited' );
-          }
-
-        }
-      }
-
-      // Out of pegs
-      if ( this.phase === PHASE_EXIT ) {
-        if ( df + this.fallenRatio < 1 ) {
-          this.fallenRatio += dt;
-        }
-        else {
-          this.phase = PHASE_COLLECTED;
-          //this.binIndex = this.column;
-          this.trigger( 'landed' );
-        }
-      }
+      // all of the logic involving the motion to the pegs has been moved to PlinkoProbabilityIntroModel.js
+      //TODO: add motion logic to the lab model. It is broken at this point.
       this.position = this.getPosition().addXY( 0, this.pegSeparation * PlinkoConstants.PEG_HEIGHT_FRACTION_OFFSET );
     },
 

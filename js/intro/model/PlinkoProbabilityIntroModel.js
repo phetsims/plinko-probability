@@ -69,9 +69,55 @@ define( function( require ) {
        * @param {number} dt - a small time interval
        */
       step: function( dt ) {
-
+        var thisModel = this;
+        var PHASE_INITIAL = 0;
+        var PHASE_FALLING = 1;
+        var PHASE_EXIT = 2;
+        var PHASE_COLLECTED = 3;
         this.balls.forEach( function( ball ) {
-          ball.step( 5 * dt );
+          var df = dt*5;
+          if ( ball.phase === PHASE_INITIAL ) {
+            if ( df + ball.fallenRatio < 1 ) {
+              ball.fallenRatio += df;
+              ball.initialPegPositionInformation();
+            }
+            else {
+              ball.phase = PHASE_FALLING;
+              ball.fallenRatio = 0;
+              ball.updatePegPositionInformation();
+            }
+          }
+          if ( ball.phase === PHASE_FALLING ) {
+            if ( df + ball.fallenRatio < 1 ) {
+              ball.fallenRatio += df;
+            }
+            else {
+              ball.fallenRatio = 0;
+
+              if ( ball.pegHistory.length > 1 ) {
+                ball.updatePegPositionInformation();
+
+              }
+              else {
+                ball.phase = PHASE_EXIT;
+                ball.updatePegPositionInformation();
+                ball.trigger( 'exited' );
+                ball.numberOfBalls = thisModel.histogram.bins[ball.binIndex];
+
+              }
+            }
+          }
+          if ( ball.phase === PHASE_EXIT ) {
+            if ( df + ball.fallenRatio < 7- 0.5*ball.numberOfBalls ) {
+              ball.fallenRatio += df;
+            }
+            else {
+              ball.phase = PHASE_COLLECTED;
+              //this.binIndex = this.column;
+              ball.trigger( 'landed' );
+            }
+          }
+          ball.step( dt * 5 );
         } );
 
       },
@@ -108,7 +154,7 @@ define( function( require ) {
               this.launchedBallsNumber++;
               Timer.setTimeout( function() {
                 thisModel.addNewBall();
-              }, (i * 100) ); /// measure in milliseconds
+              }, (i * 500) ); /// measure in milliseconds
 
             }
             break;
@@ -118,7 +164,7 @@ define( function( require ) {
               this.launchedBallsNumber++;
               Timer.setTimeout( function() {
                 thisModel.addNewBall();
-              }, (i * 100) );
+              }, (i * 300) );
             }
             break;
 
@@ -138,6 +184,7 @@ define( function( require ) {
         this.balls.push( addedBall );
         addedBall.on( 'exited', function() {
           thisModel.histogram.addBallToHistogram( addedBall );
+          addedBall.numberOfBalls = thisModel.histogram.bins[ addedBall.binIndex ];
           if ( thisModel.isSoundEnabled ) {
             thisModel.ballHittingFloorSound.play();
           }

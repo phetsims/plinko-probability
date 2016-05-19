@@ -79,7 +79,51 @@ define( function( require ) {
       step: function( dt ) {
         switch( this.galtonBoardRadioButton ) {
           case 'ball':
+            var PHASE_INITIAL = 0;
+            var PHASE_FALLING = 1;
+            var PHASE_EXIT = 2;
+            var PHASE_COLLECTED = 3;
             this.balls.forEach( function( ball ) {
+              var df = dt * 5;
+              if ( ball.phase === PHASE_INITIAL ) {
+                if ( df + ball.fallenRatio < 1 ) {
+                  ball.fallenRatio += df;
+                  ball.initialPegPositionInformation();
+                }
+                else {
+                  ball.phase = PHASE_FALLING;
+                  ball.fallenRatio = 0;
+                  ball.updatePegPositionInformation();
+                }
+              }
+              if ( ball.phase === PHASE_FALLING ) {
+                if ( df + ball.fallenRatio < 1 ) {
+                  ball.fallenRatio += df;
+                }
+                else {
+                  ball.fallenRatio = 0;
+
+                  if ( ball.pegHistory.length > 1 ) {
+                    ball.updatePegPositionInformation();
+
+                  }
+                  else {
+                    ball.phase = PHASE_EXIT;
+                    ball.updatePegPositionInformation();
+                    ball.trigger( 'exited' );
+                  }
+                }
+              }
+              if ( ball.phase === PHASE_EXIT ) {
+                if ( df + ball.fallenRatio < 1 ) {
+                  ball.fallenRatio += df;
+                }
+                else {
+                  ball.phase = PHASE_COLLECTED;
+                  //this.binIndex = this.column;
+                  ball.trigger( 'landed' );
+                }
+              }
               ball.step( 5 * dt );
             } );
             break;
