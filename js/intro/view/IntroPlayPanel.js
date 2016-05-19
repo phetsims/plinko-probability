@@ -33,8 +33,8 @@ define( function( require ) {
 
     // Demonstrate a common pattern for specifying options and providing default values.
     options = _.extend( {
-        xMargin: 5,
-        yMargin: 12,
+        xMargin: 9,
+        yMargin: 14,
         stroke: 'black',
         lineWidth: 1,
         minWidth: 0.1,
@@ -76,9 +76,9 @@ define( function( require ) {
     var playAndRadioButtonBox = new HBox( {
       spacing: 0,
       children: [
-        new HStrut( 20 ),
+        new HStrut( 15 ),
         playButton,
-        new HStrut( 20 ),
+        new HStrut( 25 ),
         ballModeRadioButtons,
         new HStrut( 10 )
       ]
