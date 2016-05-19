@@ -192,13 +192,13 @@ define( function( require ) {
     this.addChild( pathsLayer );
     this.addChild( hopper );
 
-    eraserButton.bottom = this.layoutBounds.maxY - 40;
+    eraserButton.bottom = this.layoutBounds.maxY - 55;
     eraserButton.left = 40;
     histogramRadioButtonsControl.bottom = eraserButton.top - 10;
     histogramRadioButtonsControl.left = eraserButton.left;
 
 
-    ballRadioButtonsControl.left = hopper.right + 20;
+    ballRadioButtonsControl.left = hopper.right + 47;
     ballRadioButtonsControl.top = hopper.top;
     playPanel.right = this.layoutBounds.maxX - 50;
     playPanel.top = 10;

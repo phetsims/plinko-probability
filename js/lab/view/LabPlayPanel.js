@@ -78,7 +78,8 @@ define( function( require ) {
     ], {
       radius: 8,
       touchAreaXDilation: 5,
-      align: 'left'
+      align: 'left',
+      spacing: 10
     } );
 
     // play button
