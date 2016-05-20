@@ -293,7 +293,7 @@ define( function( require ) {
 
           var binValue = getHistogramBin( binIndex ); // a number
           if ( histogramRadioProperty.value === 'fraction' ) {
-            binValue = Util.toFixed( binValue, 2 );
+            binValue = Util.toFixed( binValue, 3 );
           }
 
           var font;
