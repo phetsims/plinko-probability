@@ -101,9 +101,10 @@ define( function( require ) {
     var eraserButton = new EraserButton( {
       scale: 1.4,
       listener: function() {
-        model.histogram.reset();
         model.balls.clear();
+        model.histogram.reset();
         model.launchedBallsNumber = 0;
+        model.resetTimer();
       }
     } );
 

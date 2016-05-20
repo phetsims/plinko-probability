@@ -45,6 +45,7 @@ define( function( require ) {
 
       this.ballHittingFloorSound = new Sound( ballHittingFloorAudio );
 
+      this.timerID = [];
 
       this.launchedBallsNumber = 0; // number of current trial (current ball drop)
 
@@ -75,7 +76,7 @@ define( function( require ) {
         var PHASE_EXIT = 2;
         var PHASE_COLLECTED = 3;
         this.balls.forEach( function( ball ) {
-          var df = dt*5;
+          var df = dt * 5;
           if ( ball.phase === PHASE_INITIAL ) {
             if ( df + ball.fallenRatio < 1 ) {
               ball.fallenRatio += df;
@@ -102,13 +103,13 @@ define( function( require ) {
                 ball.phase = PHASE_EXIT;
                 ball.updatePegPositionInformation();
                 ball.trigger( 'exited' );
-                ball.numberOfBalls = thisModel.histogram.bins[ball.binIndex];
+                ball.numberOfBalls = thisModel.histogram.bins[ ball.binIndex ];
 
               }
             }
           }
           if ( ball.phase === PHASE_EXIT ) {
-            if ( df + ball.fallenRatio < 7- 0.5*ball.numberOfBalls ) {
+            if ( df + ball.fallenRatio < 7 - 0.5 * ball.numberOfBalls ) {
               ball.fallenRatio += df;
             }
             else {
@@ -131,7 +132,24 @@ define( function( require ) {
         this.balls.clear();
         this.histogram.reset();
         this.launchedBallsNumber = 0;
+        this.resetTimer();
+
       },
+      /**
+       * Reset of the Timer to empty listeners.
+       * @public
+       */
+      resetTimer: function() {
+        //TODO: Manage memory leak for timerID array. Values do not delete after function call.
+        if ( this.timerID ) {
+
+          this.timerID.forEach( function( timerIdElement ) {
+            Timer.clearTimeout( timerIdElement );
+          } );
+          this.timerID = [];
+        }
+      },
+
 
       /**
        * Play function adds balls to the model, the number of balls added depends on the status of ballMode.
@@ -141,6 +159,7 @@ define( function( require ) {
       play: function() {
         var i = 0;
         var thisModel = this;
+        var timerIDnumber;
         switch( this.ballMode ) {
           case 'oneBall':
             if ( this.launchedBallsNumber < MAX_BALL_NUMBER ) {
@@ -150,21 +169,26 @@ define( function( require ) {
             break;
 
           case 'tenBalls':
+
             for ( i; (i < 10) && (this.launchedBallsNumber < MAX_BALL_NUMBER); i++ ) {
               this.launchedBallsNumber++;
-              Timer.setTimeout( function() {
+              timerIDnumber = Timer.setTimeout( function() {
                 thisModel.addNewBall();
               }, (i * 500) ); /// measure in milliseconds
 
+              this.timerID.push( timerIDnumber );
             }
+
+
             break;
 
           case 'allBalls':
             for ( i; this.launchedBallsNumber < MAX_BALL_NUMBER; i++ ) {
               this.launchedBallsNumber++;
-              Timer.setTimeout( function() {
+              timerIDnumber = Timer.setTimeout( function() {
                 thisModel.addNewBall();
               }, (i * 300) );
+              this.timerID.push( timerIDnumber );
             }
             break;
 
