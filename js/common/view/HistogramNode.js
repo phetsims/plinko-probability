@@ -50,6 +50,7 @@ define( function( require ) {
     var NORMAL_FONT = new PhetFont( 14 );
     var SMALL_FONT = new PhetFont( { size: 12 } );
     var TINY_FONT = new PhetFont( { size: 10 } );
+    var TINY_TINY_FONT = new PhetFont( { size: 8 } );
 
     // ticks
     var MAJOR_TICK_COLOR = 'black';
@@ -305,8 +306,19 @@ define( function( require ) {
           }
           else {
             var numberOf = numberOfRowsProperty.value;
-            if ( numberOf > 20 ) {font = TINY_FONT;}
-            else if ( numberOf > 15 ) {font = SMALL_FONT;}
+            if ( numberOf > 24 ) {
+              font = TINY_TINY_FONT;
+              binValue = Util.toFixed( binValue, 2 );
+            }
+            else if ( numberOf > 21 ) {
+              font = TINY_FONT;
+              binValue = Util.toFixed( binValue, 2 );
+            }
+            else if ( numberOf > 17 ) {
+              font = SMALL_FONT;
+              binValue = Util.toFixed( binValue, 2 );
+            }
+            else if ( numberOf > 14 ) {font = SMALL_FONT;}
             else if ( numberOf > 10 ) {font = NORMAL_FONT;}
             else {font = LARGE_FONT;}
           }
