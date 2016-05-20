@@ -44,7 +44,7 @@ define( function( require ) {
     this.pegSeparation = PegInterface.getSpacing( numberOfRows );
 
 
-    this.ballRadius = this.pegSeparation * 0.25 / 2;
+    this.ballRadius = this.pegSeparation * 0.25 / 1.6;
 
     // 0 -> Initially falling
     // 1 -> Falling between pegs
