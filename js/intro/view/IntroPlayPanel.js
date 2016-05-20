@@ -33,7 +33,7 @@ define( function( require ) {
 
     // Demonstrate a common pattern for specifying options and providing default values.
     options = _.extend( {
-        xMargin: 9,
+        xMargin: 7,
         yMargin: 14,
         stroke: 'black',
         lineWidth: 1,

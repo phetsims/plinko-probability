@@ -181,7 +181,7 @@ define( function( require ) {
     this.addChild( cylindersFrontNode );
     this.addChild( hopper );
 
-    eraserButton.bottom = this.layoutBounds.maxY - 40;
+    eraserButton.bottom = this.layoutBounds.maxY - 55;
     eraserButton.left = 40;
     histogramRadioButtonsControl.bottom = eraserButton.top - 10;
     histogramRadioButtonsControl.left = eraserButton.left;
@@ -189,7 +189,7 @@ define( function( require ) {
 
     playPanel.right = this.layoutBounds.maxX - 40;
     playPanel.top = 10;
-    numberBallsDisplay.top = playPanel.bottom + 300;
+    numberBallsDisplay.top = playPanel.bottom + 283;
     numberBallsDisplay.right = playPanel.right;
     // galtonBoardNode.centerX=hopper.centerX;
     // altonBoardNode.top=board.top+20;

@@ -37,7 +37,7 @@ define( function( require ) {
         cornerRadius: 10,
         baseColor: 'white',
         buttonContentXMargin: 5,
-        buttonContentYMargin: 15,
+        buttonContentYMargin: 13,
         selectedStroke: 'black',
         deselectedLineWidth: 1,
         selectedLineWidth: 2
