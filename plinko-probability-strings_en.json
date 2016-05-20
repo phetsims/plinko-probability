@@ -2,9 +2,6 @@
   "plinko-probability.title": {
     "value": "Plinko Probability"
   },
-  "plinkoProbabilityScreen": {
-    "value": "Plinko Probability"
-  },
   "plinkoProbabilityLabTitleScreen": {
     "value": "Lab"
   },
@@ -35,12 +32,6 @@
   "s": {
     "value": "s"
   },
-  "x": {
-    "value": ""
-  },
-  "oneBall": {
-    "value": "1 ball"
-  },
   "ball": {
     "value": "Ball"
   },
@@ -50,12 +41,6 @@
   "none": {
     "value": "None"
   },
-  "histogramDisplay": {
-    "value": "Histogram \ndisplay:"
-  },
-  "p": {
-    "value": "p"
-  },
   "mean": {
     "value": "mean"
   },
@@ -63,6 +48,6 @@
     "value": "Ideal"
   },
   "outOfBalls": {
-    "value": "Out\nof\n Balls!"
+    "value": "Out\nof\nBalls!"
   }
 }
