@@ -82,10 +82,6 @@ define( function( require ) {
       spacing: 10
     } );
 
-    // play button
-    var playPauseButtonOptions = {
-      innerButtonLineWidth: 1
-    };
 
     // link the ballRadioProperty to the state of the playPauseButton
     ballRadioProperty.link( function() {
@@ -95,9 +91,8 @@ define( function( require ) {
 
     var playPauseButton = new PlayPauseButton( isPlayingProperty, {
       scale: 1.0,
-      touchAreaDilation: 12,
-      pauseOptions: playPauseButtonOptions,
-      playOptions: playPauseButtonOptions
+      touchAreaDilation: 12
+
     } );
 
     var startVBox = new HBox( {
