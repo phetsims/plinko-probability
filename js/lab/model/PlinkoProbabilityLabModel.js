@@ -57,7 +57,12 @@ define( function( require ) {
       this.balls = new ObservableArray();
       this.histogram = new Histogram( this.numberOfRowsProperty );
       this.landedBallsNumber = this.histogram.landedBallsNumber; //number of balls in the histogram
-
+      this.galtonBoardRadioButtonProperty.link(function () {
+        if (thisModel.isPlayingProperty.value) {
+          Timer.clearInterval( thisModel.continuousTimer );
+          thisModel.play();
+        }
+      });
 
       this.isPlayingProperty.link( function( isPlaying ) {
         if ( !isPlaying ) {
