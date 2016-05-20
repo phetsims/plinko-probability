@@ -19,7 +19,8 @@ define( function( require ) {
   var Shape = require( 'KITE/Shape' );
 
   // constants
-  var DEFAULT_RADIUS = 28;
+  var DEFAULT_RADIUS = 30;
+  var PLAY_BUTTON_BASE_COLOR = '#00E079'; //light-green hue
 
   /*
    * PlayButton constructor
@@ -30,7 +31,8 @@ define( function( require ) {
   function PlayButton( options ) {
 
     options = _.extend( {
-      radius: DEFAULT_RADIUS
+      radius: DEFAULT_RADIUS,
+      baseColor: PLAY_BUTTON_BASE_COLOR
     }, options );
 
     // play symbol is sized relative to the radius
