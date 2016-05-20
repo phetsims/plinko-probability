@@ -117,20 +117,21 @@ define( function( require ) {
 
     path: function() {
       this.trigger( 'exited' );
+      this.trigger( 'landed' );
     },
-   updatePegPositionInformation: function( ) {
-     var peg;
-     peg = this.pegHistory.shift();
+    updatePegPositionInformation: function() {
+      var peg;
+      peg = this.pegHistory.shift();
       this.column = peg.columnNumber;
       this.row = peg.rowNumber;
       this.pegPosition = peg.position;
       this.direction = peg.direction;
     },
-    initialPegPositionInformation: function(){
+    initialPegPositionInformation: function() {
       var peg;
-       peg = this.pegHistory[0];
-          this.column = peg.columnNumber;
-          this.row = peg.rowNumber;
+      peg = this.pegHistory[ 0 ];
+      this.column = peg.columnNumber;
+      this.row = peg.rowNumber;
       this.pegPosition = peg.position;
     },
 

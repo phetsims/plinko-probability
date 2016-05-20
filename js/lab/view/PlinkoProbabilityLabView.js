@@ -141,9 +141,15 @@ define( function( require ) {
     model.galtonBoardRadioButtonProperty.link( function() {
       model.balls.clear();
     } );
-
+    
+    var ballPath = [];
     model.balls.addItemAddedListener( function( addedBall ) {
-
+      
+      if ( ballPath.length >= 1 ) {
+        var previousBallPath = ballPath.shift();
+        pathsLayer.removeChild( previousBallPath );
+      }
+      
       switch( model.galtonBoardRadioButtonProperty.value ) {
         case 'ball':
           var addedBallNode = new BallNode( addedBall.positionProperty, addedBall.ballRadius, modelViewTransform );
@@ -158,10 +164,10 @@ define( function( require ) {
           break;
         case 'path':
           var addedTrajectoryPath = new TrajectoryPath( addedBall, modelViewTransform );
+          ballPath.push( addedTrajectoryPath );
           pathsLayer.addChild( addedTrajectoryPath );
           model.balls.addItemRemovedListener( function removalListener( removedBall ) {
             if ( removedBall === addedBall ) {
-              pathsLayer.removeChild( addedTrajectoryPath );
               model.balls.removeItemRemovedListener( removalListener );
             }
           } );

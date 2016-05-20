@@ -140,6 +140,9 @@ define( function( require ) {
             } );
             break;
           case 'none':
+            this.balls.forEach( function( ball ) {
+              ball.path();
+            } );
             break;
           default:
             throw new Error( 'Unhandled galton Board Radio Button state: ' + this.galtonBoardRadioButton );
@@ -178,11 +181,12 @@ define( function( require ) {
                 }, timeInterval );
                 break;
               case 'none':
-                timeInterval = 50;
-
+                timeInterval = 10;
+                thisModel.balls.clear();
                 this.continuousTimer = Timer.setInterval( function() {
-                  var numberOfBalls = Math.floor( 0.1 * Math.sqrt( thisModel.histogram.landedBallsNumber ) ) + 2;
-                  thisModel.histogram.addToHistogram( numberOfBalls, thisModel.probabilityProperty.value );
+                  //var numberOfBalls = Math.floor( 0.1 * Math.sqrt( thisModel.histogram.landedBallsNumber ) ) + 2;
+                  //thisModel.histogram.addToHistogram( numberOfBalls, thisModel.probabilityProperty.value );
+                  thisModel.addNewBall();
                 }, timeInterval );
                 break;
               default:
