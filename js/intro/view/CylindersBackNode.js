@@ -14,9 +14,9 @@ define( function( require ) {
   var Path = require( 'SCENERY/nodes/Path' );
   var Shape = require( 'KITE/Shape' );
 
-  var PERSPECTIVE_TILT = Math.PI / 2; // in radians
+  var PERSPECTIVE_TILT = Math.PI / 1.4; // in radians
   var TOP_CYLINDER_STROKE_COLOR = new Color( 120, 120, 100 );
-  var TOP_CYLINDER_FILL_COLOR = new Color( 220, 220, 200 );
+  var TOP_CYLINDER_FILL_COLOR = new Color( 212, 230, 238 );
   var verticalOffset = 10;
 
   /**

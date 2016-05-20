@@ -16,9 +16,9 @@ define( function( require ) {
   var Shape = require( 'KITE/Shape' );
 
   // constants
-  var PERSPECTIVE_TILT = Math.PI / 2; // in radians
+  var PERSPECTIVE_TILT = Math.PI / 1.4; // in radians
   var SIDE_CYLINDER_STROKE_COLOR = new Color( 120, 120, 100 );
-  var BASE_COLOR = new Color( 190, 175, 155, 0.5 ); // must be of type Color
+  var BASE_COLOR = new Color( 171, 189, 196, 0.5 ); // must be of type Color
   var verticalOffset = 10;
 
   /**
@@ -48,10 +48,7 @@ define( function( require ) {
       .close();
 
 
-    var sideFill = new LinearGradient( -ellipseWidth / 2, 0, ellipseWidth / 2, 0 ).
-      addColorStop( 0.0, BASE_COLOR.colorUtilsDarker( 0.5 ) ).
-      addColorStop( 0.5, BASE_COLOR ).
-      addColorStop( 1, BASE_COLOR.colorUtilsBrighter( 0.5 ) );
+    var sideFill = new LinearGradient( -ellipseWidth / 2, 0, ellipseWidth / 2, 0 ).addColorStop( 0.0, BASE_COLOR.colorUtilsDarker( 0.7 ) ).addColorStop( 0.5, BASE_COLOR ).addColorStop( 1, BASE_COLOR.colorUtilsBrighter( 0.5 ) );
 
     var sideLayerNode = new Node();
     this.addChild( sideLayerNode );
