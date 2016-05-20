@@ -175,9 +175,9 @@ define( function( require ) {
     this.addChild( playPanel );
     this.addChild( numberBallsDisplay );
     this.addChild( galtonBoardNode );
-    this.addChild( histogramNode );
     this.addChild( cylindersBackNode );
     this.addChild( ballsLayer );
+    this.addChild( histogramNode );
     this.addChild( cylindersFrontNode );
     this.addChild( hopper );
 
