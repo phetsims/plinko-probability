@@ -190,8 +190,8 @@ define( function( require ) {
     this.addChild( sliderControlPanel );
     this.addChild( statisticsDisplayAccordionBox );
     this.addChild( galtonBoardNode );
-    this.addChild( histogramNode );
     this.addChild( ballsLayer );
+    this.addChild( histogramNode );
     this.addChild( pathsLayer );
     this.addChild( hopper );
 
