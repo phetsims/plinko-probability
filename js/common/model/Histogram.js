@@ -221,6 +221,15 @@ define( function( require ) {
       else {
         return 0;
       }
+    },
+
+    /**
+     * Function that returns the maximum value of the all the bins
+     * @returns {number}
+     * @public
+     */
+    getMaximumBinCount: function() {
+      return _.max( this.bins );
     }
 
   } );

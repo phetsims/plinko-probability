@@ -24,6 +24,14 @@ define( function( require ) {
     // audio
     var ballHittingFloorAudio = require( 'audio!PLINKO_PROBABILITY/ballHittingFloor' );
 
+
+    // constants
+    var MAX_NUMBER_BALLS = 9500;
+
+    /**
+     * Main model of the second tab (lab tab) of the plinko probability simulation
+     * @constructor
+     */
     function PlinkoProbabilityLabModel() {
 
       var thisModel = this;
@@ -38,8 +46,7 @@ define( function( require ) {
         numberOfRows: 12,
         galtonBoardRadioButton: 'ball', // Valid values are 'ball', 'path', and 'none'.
         isSoundEnabled: false
-      } )
-      ;
+      } );
 
 
       this.ballHittingFloorSound = new Sound( ballHittingFloorAudio );
@@ -195,7 +202,12 @@ define( function( require ) {
         addedBall.on( 'exited', function() {
           thisModel.histogram.addBallToHistogram( addedBall );
           if ( thisModel.isSoundEnabled ) {
+
             thisModel.ballHittingFloorSound.play();
+          }
+          if ( thisModel.histogram.getMaximumBinCount() > MAX_NUMBER_BALLS ) {
+            thisModel.isPlayingProperty.set( false );
+            thisModel.isBallCapReachedProperty.set( true );
           }
         } );
         addedBall.on( 'landed', function() {
