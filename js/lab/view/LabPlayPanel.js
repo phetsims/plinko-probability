@@ -7,7 +7,7 @@
 define( function( require ) {
   'use strict';
 
-  // imports
+  // modules
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var BallRepresentationNode = require( 'PLINKO_PROBABILITY/common/view/BallRepresentationNode' );
   var Circle = require( 'SCENERY/nodes/Circle' );
@@ -16,24 +16,26 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Panel = require( 'SUN/Panel' );
   //var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  var PlayPauseButton = require( 'SCENERY_PHET/buttons/PlayPauseButton' );
+  var PlayButton = require( 'PLINKO_PROBABILITY/intro/view/PlayButton' );
+  var PauseButton = require( 'PLINKO_PROBABILITY/intro/view/PauseButton' );
   //var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
   //var RadialGradient = require( 'SCENERY/util/RadialGradient' );
-  //var Text = require( 'SCENERY/nodes/Text' );
+  var Node = require( 'SCENERY/nodes/Node' );
   //var VBox = require( 'SCENERY/nodes/VBox' );
   var VerticalAquaRadioButtonGroup = require( 'SUN/VerticalAquaRadioButtonGroup' );
+  var Timer = require( 'PHET_CORE/Timer' );
   //var VStrut = require( 'SCENERY/nodes/VStrut' );
 
   var BALL_RADIUS = 8;
 
   /**
    *
-   * @param {Property.<boolean>} isPlayingProperty
+   * @param model
    * @param {Property.<String>} ballRadioProperty
    * @param {Object} [options]
    * @constructor
    */
-  function LabPlayPanel( isPlayingProperty, ballRadioProperty, options ) {
+  function LabPlayPanel( model, ballRadioProperty, options ) {
 
     // Demonstrate a common pattern for specifying options and providing default values.
     options = _.extend( {
@@ -45,7 +47,6 @@ define( function( require ) {
         titleToControlsVerticalSpace: 5
       },
       options );
-
 
     var oneBall = new BallRepresentationNode( BALL_RADIUS );
 
@@ -82,23 +83,44 @@ define( function( require ) {
       spacing: 10
     } );
 
+    var playButton = new PlayButton( {
+      listener: function() {
+        //  model.trigger( 'PressPlayButton' );
+        if ( ballRadioProperty.value === 'continuous' ) {
+          playButton.visible = false;
+          pauseButton.visible = true;
+        }
+        Timer.clearInterval( model.continuousTimer );
+        model.play();
+      }
+    } );
+
+    var pauseButton = new PauseButton( {
+      baseColor: 'red',
+      listener: function() {
+        pauseButton.visible = false;
+        playButton.visible = true;
+        Timer.clearInterval( model.continuousTimer );
+      }
+    } );
+
+    var playPlayPauseButton = new Node();
+
+    playPlayPauseButton.addChild( playButton );
+    playPlayPauseButton.addChild( pauseButton );
 
     // link the ballRadioProperty to the state of the playPauseButton
     ballRadioProperty.link( function() {
-        isPlayingProperty.set( false );
+      playButton.visible = true;
+      pauseButton.visible = false;
+      Timer.clearInterval( model.continuousTimer );
       }
     );
-
-    var playPauseButton = new PlayPauseButton( isPlayingProperty, {
-      scale: 1.0,
-      touchAreaDilation: 12
-
-    } );
 
     var startVBox = new HBox( {
       spacing: 20,
       children: [
-        playPauseButton,
+        playPlayPauseButton,
         ballModeRadioButtons
       ]
     } );

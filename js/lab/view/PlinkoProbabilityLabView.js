@@ -110,7 +110,7 @@ define( function( require ) {
 
 
     // create play Panel
-    var playPanel = new LabPlayPanel( model.isPlayingProperty, model.ballModeProperty, { minWidth: statisticsDisplayAccordionBoxWidth } );
+    var playPanel = new LabPlayPanel( model, model.ballModeProperty, { minWidth: statisticsDisplayAccordionBoxWidth } );
 
 
     // create slider Panel

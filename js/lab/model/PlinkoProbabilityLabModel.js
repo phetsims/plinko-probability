@@ -38,7 +38,6 @@ define( function( require ) {
 
       PropertySet.call( this, {
         probability: 0.5,
-        isPlaying: true,
         histogramMode: 'count', // acceptable values are 'count' and 'fraction'
         ballMode: 'oneBall', // acceptable values are 'oneBall' and 'continuous'
         histogramVisible: false,
@@ -57,21 +56,6 @@ define( function( require ) {
       this.balls = new ObservableArray();
       this.histogram = new Histogram( this.numberOfRowsProperty );
       this.landedBallsNumber = this.histogram.landedBallsNumber; //number of balls in the histogram
-      this.galtonBoardRadioButtonProperty.link(function () {
-        if (thisModel.isPlayingProperty.value) {
-          Timer.clearInterval( thisModel.continuousTimer );
-          thisModel.play();
-        }
-      });
-
-      this.isPlayingProperty.link( function( isPlaying ) {
-        if ( !isPlaying ) {
-          Timer.clearInterval( thisModel.continuousTimer );
-        }
-        if ( isPlaying ) {
-          thisModel.play();
-        }
-      } );
 
       this.probabilityProperty.link( function() {
         thisModel.balls.clear();
@@ -215,8 +199,8 @@ define( function( require ) {
             thisModel.ballHittingFloorSound.play();
           }
           if ( thisModel.histogram.getMaximumBinCount() > MAX_NUMBER_BALLS ) {
-            thisModel.isPlayingProperty.set( false );
-            thisModel.isBallCapReachedProperty.set( true );
+            Timer.clearInterval( thisModel.continuousTimer );
+            thisModel.isBallCapReached = true;
           }
         } );
         addedBall.on( 'landed', function() {
