@@ -63,11 +63,10 @@ define( function( require ) {
 
     hopper.centerX = galtonBoardApexPosition.x;
     hopper.top = 10;
-    // TODO: find a way to take care of the shadow offset in a less ad hoc way
-    board.centerX = hopper.centerX;
+    board.centerX = hopper.centerX- (board.options.bottomWidth-board.width)/2;
     board.top = hopper.bottom + 10;
 
-    var viewGraphBounds = board.getBounds();
+    var viewGraphBounds = new Bounds2( board.left, board.top,  board.left+board.options.bottomWidth, board.top+board.options.height );
     var modelGraphBounds = model.galtonBoard.bounds;
     var modelViewTransform = ModelViewTransform2.createRectangleInvertedYMapping( modelGraphBounds, viewGraphBounds );
 
@@ -204,7 +203,6 @@ define( function( require ) {
       } ).show();
 
     } );
-
     eraserButton.left = 40;
     histogramRadioButtonsControl.bottom = eraserButton.top - 16;
     histogramRadioButtonsControl.left = eraserButton.left;

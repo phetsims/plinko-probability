@@ -23,7 +23,7 @@ define( function( require ) {
 
     GALTON_BOARD_BOUNDS: new Bounds2( -1 / 2, -1, 1 / 2, 0 ),
 
-    HISTOGRAM_BOUNDS: new Bounds2( -1 / 2, -1.75, 1 / 2, -1 ),
+    HISTOGRAM_BOUNDS: new Bounds2( -1 / 2, -1.70, 1 / 2, -1.03 ),
     RESET_ALL_BUTTON_SCALE: 0.75,
 
     // font sizes and weight (for statistics diaplay node)

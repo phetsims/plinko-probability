@@ -14,11 +14,11 @@ define( function( require ) {
 
   // constants
   var BOUNDS = PlinkoConstants.HISTOGRAM_BOUNDS;
-  
+
   var BinInterface = {
     /**
-     * Function that returns the center x coordinate of a bin with index binIndex 
-     * @param {number} binIndex - index associated with the bin, the index may range from 0 to numberOfBins-1 
+     * Function that returns the center x coordinate of a bin with index binIndex
+     * @param {number} binIndex - index associated with the bin, the index may range from 0 to numberOfBins-1
      * @param {number} numberOfBins - the number of bins on the screen
      * @returns {number}
      */
@@ -118,7 +118,7 @@ define( function( require ) {
       return ((value + 1 / 2) / numberOfBins) * BOUNDS.width + BOUNDS.minX;
     }
   };
-  
+
   plinkoProbability.register( 'BinInterface', BinInterface );
 
   return BinInterface;
