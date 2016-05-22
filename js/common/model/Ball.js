@@ -151,15 +151,15 @@ define( function( require ) {
         case PHASE_INITIAL:
           var displacement = new Vector2( 0, (1 - this.fallenRatio) );
           displacement.multiplyScalar( this.pegSeparation );
-          return this.pegPosition.plus( displacement );
+          return displacement.add( this.pegPosition );
         case PHASE_FALLING:
           var fallingPosition = new Vector2( (this.direction - 0.5) * this.fallenRatio, -this.fallenRatio * this.fallenRatio );
           fallingPosition.multiplyScalar( this.pegSeparation );
-          return this.pegPosition.plus( fallingPosition );
+          return fallingPosition.add( this.pegPosition );
         case PHASE_EXIT:
-          return this.pegPosition.plus( new Vector2( 0, -this.fallenRatio * this.pegSeparation ) );
+          return new Vector2( 0, -this.fallenRatio * this.pegSeparation ).add( this.pegPosition );
         case PHASE_COLLECTED:
-          return this.pegPosition.plus( new Vector2( 0, -this.fallenRatio * this.pegSeparation ) );
+          return new Vector2( 0, -this.fallenRatio * this.pegSeparation ).add( this.pegPosition );
       }
     }
 
