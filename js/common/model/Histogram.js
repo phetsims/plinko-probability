@@ -154,31 +154,6 @@ define( function( require ) {
     },
 
     /**
-     * Add an array to the the histogram and update all the relevant statistics\
-     * @param {number} numberBalls - an integer
-     * @param {number} probability - a number ranging from [0,1]
-     * @private
-     */
-    addToHistogram: function( numberBalls, probability ) {
-
-      var numberOfRows = this.numberOfRowsProperty.value;
-      for ( var i = 0; i < numberBalls; i++ ) {
-        var columnNumber = 0;
-        var rowNumber;
-        var direction;
-        for ( rowNumber = 0; rowNumber < numberOfRows; rowNumber++ ) {
-          direction = (Math.random() < probability) ? 1 : 0;
-          columnNumber += direction;
-        }
-        this.bins[ columnNumber ]++;
-      }
-      this.calculateStatistics();
-
-      this.trigger( 'histogramUpdated' );
-      this.trigger( 'statisticsUpdated' );
-    },
-
-    /**
      * Function that returns the number of counts in a bin
      * The count is a non-negative integer
      * @param {number} binIndex
