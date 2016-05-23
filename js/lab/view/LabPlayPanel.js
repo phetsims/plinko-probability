@@ -37,6 +37,8 @@ define( function( require ) {
    */
   function LabPlayPanel( model, ballRadioProperty, options ) {
 
+
+    var self = this;
     // Demonstrate a common pattern for specifying options and providing default values.
     options = _.extend( {
         xMargin: 10,
@@ -83,37 +85,44 @@ define( function( require ) {
       spacing: 10
     } );
 
-    var playButton = new PlayButton( {
+    this.playButton = new PlayButton( {
       listener: function() {
         //  model.trigger( 'PressPlayButton' );
-        if ( ballRadioProperty.value === 'continuous' ) {
-          playButton.visible = false;
-          pauseButton.visible = true;
+        if ( model.isBallCapReached ) {
+          model.isBallCapReachedProperty.notifyObserversStatic();
         }
-        Timer.clearInterval( model.continuousTimer );
-        model.play();
+        else {
+          if ( ballRadioProperty.value === 'continuous' ) {
+            self.playButton.visible = false;
+            self.pauseButton.visible = true;
+          }
+
+          Timer.clearInterval( model.continuousTimer );
+          model.play();
+        }
       }
     } );
 
-    var pauseButton = new PauseButton( {
+    this.pauseButton = new PauseButton( {
       baseColor: 'red',
       listener: function() {
-        pauseButton.visible = false;
-        playButton.visible = true;
+        self.pauseButton.visible = false;
+        self.playButton.visible = true;
         Timer.clearInterval( model.continuousTimer );
+        
       }
     } );
 
     var playPlayPauseButton = new Node();
 
-    playPlayPauseButton.addChild( playButton );
-    playPlayPauseButton.addChild( pauseButton );
+    playPlayPauseButton.addChild( this.playButton );
+    playPlayPauseButton.addChild( this.pauseButton );
 
     // link the ballRadioProperty to the state of the playPauseButton
     ballRadioProperty.link( function() {
-      playButton.visible = true;
-      pauseButton.visible = false;
-      Timer.clearInterval( model.continuousTimer );
+        self.playButton.visible = true;
+        self.pauseButton.visible = false;
+        Timer.clearInterval( model.continuousTimer );
       }
     );
 
@@ -130,5 +139,21 @@ define( function( require ) {
 
   plinkoProbability.register( 'LabPlayPanel', LabPlayPanel );
 
-  return inherit( Panel, LabPlayPanel );
+  return inherit( Panel, LabPlayPanel, {
+    togglePlayPauseButtonVisibility: function() {
+      this.playButton.visible = !this.playButton.visible;
+      this.pauseButton.visible = !this.pauseButton.visible;
+    },
+
+    setPlayButtonVisible: function() {
+      this.playButton.visible = true;
+      this.pauseButton.visible = false;
+    },
+    setPauseButtonVisible: function() {
+      this.playButton.visible = false;
+      this.pauseButton.visible = true;
+    }
+
+
+  } );
 } );

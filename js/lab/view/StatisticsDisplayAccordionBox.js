@@ -15,7 +15,7 @@ define( function( require ) {
   var CheckBox = require( 'SUN/CheckBox' );
   var EquationNode = require( 'PLINKO_PROBABILITY/common/view/EquationNode' );
   var HistogramIcon = require( 'PLINKO_PROBABILITY/lab/view/HistogramIcon' );
-  //var HStrut = require( 'SCENERY/nodes/HStrut' );
+  var HStrut = require( 'SCENERY/nodes/HStrut' );
   var inherit = require( 'PHET_CORE/inherit' );
   var LayoutBox = require( 'SCENERY/nodes/LayoutBox' );
   var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
@@ -123,7 +123,14 @@ define( function( require ) {
               theoreticalAverageText,
               theoreticalStandardDeviationText,
               //             theoreticalStandardDeviationOfMeanText,
-              histogramCheckBox
+              new LayoutBox( {
+                orientation: 'horizontal',
+                children: [
+                  new HStrut( 30 ),
+                  histogramCheckBox
+                ]
+              } )
+              //  histogramCheckBox
             ],
             align: 'left'
           } )
@@ -143,7 +150,7 @@ define( function( require ) {
         titleAlignX: 'left',
         titleXMargin: 15,
         contentXMargin: 8,
-        contentYMargin: 5,
+        contentYMargin: 10,
         minWidth: 0
       }, options )
     );

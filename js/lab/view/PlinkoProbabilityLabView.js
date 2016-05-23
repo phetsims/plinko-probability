@@ -63,10 +63,10 @@ define( function( require ) {
 
     hopper.centerX = galtonBoardApexPosition.x;
     hopper.top = 10;
-    board.centerX = hopper.centerX- (board.options.bottomWidth-board.width)/2;
+    board.centerX = hopper.centerX - (board.options.bottomWidth - board.width) / 2;
     board.top = hopper.bottom + 10;
 
-    var viewGraphBounds = new Bounds2( board.left, board.top,  board.left+board.options.bottomWidth, board.top+board.options.height );
+    var viewGraphBounds = new Bounds2( board.left, board.top, board.left + board.options.bottomWidth, board.top + board.options.height );
     var modelGraphBounds = model.galtonBoard.bounds;
     var modelViewTransform = ModelViewTransform2.createRectangleInvertedYMapping( modelGraphBounds, viewGraphBounds );
 
@@ -98,7 +98,7 @@ define( function( require ) {
       listener: function() {
         model.histogram.reset();
         model.balls.clear();
-
+        model.isBallCapReachedProperty.value = false;
       }
     } );
 
@@ -197,13 +197,15 @@ define( function( require ) {
     this.addChild( hopper );
 
     eraserButton.bottom = this.layoutBounds.maxY - 55;
-    model.isBallCapReachedProperty.lazyLink( function() {
-      new Dialog( new MultiLineText( outOfBallsString, { font: new PhetFont( 50 ) } ), {
-        modal: true,
-        // focusable so it can be dismissed
-        focusable: true
-      } ).show();
-
+    model.isBallCapReachedProperty.lazyLink( function( isBallCapReached ) {
+      if ( isBallCapReached ) {
+        new Dialog( new MultiLineText( outOfBallsString, { font: new PhetFont( 50 ) } ), {
+          modal: true,
+          // focusable so it can be dismissed
+          focusable: true
+        } ).show();
+        playPanel.setPlayButtonVisible();
+      }
     } );
     eraserButton.left = 40;
     histogramRadioButtonsControl.bottom = eraserButton.top - 16;
@@ -218,10 +220,10 @@ define( function( require ) {
     statisticsDisplayAccordionBox.top = sliderControlPanel.bottom + 10;
     statisticsDisplayAccordionBox.right = playPanel.right;
 
-    //TODO: Delete when done with the layout
-    ////////////////////////////////////////////////////////////////
-    //Show the mock-up and a slider to change its transparency
-    //////////////////////////////////////////////////////////////
+//TODO: Delete when done with the layout
+////////////////////////////////////////////////////////////////
+//Show the mock-up and a slider to change its transparency
+//////////////////////////////////////////////////////////////
 
     var mockup02OpacityProperty = new Property( 0.02 );
 
@@ -235,7 +237,7 @@ define( function( require ) {
 
     this.addChild( new HSlider( mockup02OpacityProperty, { min: 0, max: 1 }, { top: 100, left: 20 } ) );
 
-    /////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
   }
 
   plinkoProbability.register( 'PlinkoProbabilityLabView', PlinkoProbabilityLabView );
@@ -244,4 +246,5 @@ define( function( require ) {
     step: function( dt ) {
     }
   } );
-} );
+} )
+;
