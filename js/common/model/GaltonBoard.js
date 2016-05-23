@@ -16,12 +16,15 @@ define( function( require ) {
   //var Vector2 = require( 'DOT/Vector2' );
 
   /**
-   * @param {Property.<number>} numberOfRowsProperty
+   * @param {Property.<number>} numberOfRowsProperty - number of rows of pegs
    * @constructor
    */
   function GaltonBoard( numberOfRowsProperty ) {
 
     var galtonBoard = this;
+
+    // @public
+    // TODO why is this here?
     this.bounds = PlinkoConstants.GALTON_BOARD_BOUNDS;
 
     var rowNumber; // {number} a non negative integer
@@ -32,20 +35,23 @@ define( function( require ) {
     for ( rowNumber = 0; rowNumber <= PlinkoConstants.ROWS_RANGE.max; rowNumber++ ) {
       for ( columnNumber = 0; columnNumber <= rowNumber; columnNumber++ ) {
         var peg = {
-          rowNumber: rowNumber, // an integer starting at one
+          rowNumber: rowNumber, // an integer starting at zero
           columnNumber: columnNumber // an integer starting at zero
         };
         this.pegs.push( peg );
       }
     }
-    //TODO : useful for testing but remove before publication:
-    // see chipper/seedrandom-2.4.2.js on how to use
+    //TODO : seed random is useful for testing but it should be removed before publication:
+    // see sherpa/seedrandom-2.4.2.js on how to use
     Math.seedrandom( '123' ); // use a seed reproducibility
 
+    // link the numberOrRows to adjust the spacing between pegs (and size)
     numberOfRowsProperty.link( function( numberOfRows ) {
       galtonBoard.spacing = PegInterface.getSpacing( numberOfRows );
       galtonBoard.pegs.forEach( function( peg ) {
+        // update the position of the pegs on the Galton Board.
         peg.position = PegInterface.getPosition( peg.rowNumber, peg.columnNumber, numberOfRows );
+        // for performance reasons, we don't throw out the pegs, we simply update their visibility
         peg.isVisible = PegInterface.getIsVisible( peg.rowNumber, numberOfRows );
       } );
     } );
