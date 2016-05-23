@@ -30,14 +30,14 @@ define( function( require ) {
 
   /**
    *
-   * @param model
+   * @param {PlinkoProbabilityLabModel} model
    * @param {Property.<String>} ballRadioProperty
    * @param {Object} [options]
    * @constructor
    */
   function LabPlayPanel( model, ballRadioProperty, options ) {
 
-
+  //TODO hoist constants
     var self = this;
     // Demonstrate a common pattern for specifying options and providing default values.
     options = _.extend( {
@@ -50,8 +50,10 @@ define( function( require ) {
       },
       options );
 
+    // create the icon for oneBall mode, a representation for a ball
     var oneBall = new BallRepresentationNode( BALL_RADIUS );
 
+    // create an ellipsis (the punctuation mark, not the geometrical shape)
     var threeDots = new HBox( {
       spacing: 2,
       children: [
@@ -62,6 +64,7 @@ define( function( require ) {
       ]
     } );
 
+    // create the icon for the continuous mode
     var continuous = new HBox( {
       align: 'bottom',
       spacing: -BALL_RADIUS * 1.0, // negative spacing
@@ -75,6 +78,7 @@ define( function( require ) {
       ]
     } );
 
+    // create the vertical radio group buttons for the one ball and continuous mode.
     var ballModeRadioButtons = new VerticalAquaRadioButtonGroup( [
       { node: oneBall, property: ballRadioProperty, value: 'oneBall' },
       { node: continuous, property: ballRadioProperty, value: 'continuous' }
@@ -85,6 +89,8 @@ define( function( require ) {
       spacing: 10
     } );
 
+
+    // create the play button
     this.playButton = new PlayButton( {
       listener: function() {
         //  model.trigger( 'PressPlayButton' );
@@ -93,8 +99,7 @@ define( function( require ) {
         }
         else {
           if ( ballRadioProperty.value === 'continuous' ) {
-            self.playButton.visible = false;
-            self.pauseButton.visible = true;
+            self.togglePlayPauseButtonVisibility();
           }
 
           Timer.clearInterval( model.continuousTimer );
@@ -103,29 +108,31 @@ define( function( require ) {
       }
     } );
 
+    // create the pause button
     this.pauseButton = new PauseButton( {
       baseColor: 'red',
       listener: function() {
-        self.pauseButton.visible = false;
-        self.playButton.visible = true;
+        self.togglePlayPauseButtonVisibility();
         Timer.clearInterval( model.continuousTimer );
-        
       }
     } );
 
-    var playPlayPauseButton = new Node();
-
-    playPlayPauseButton.addChild( this.playButton );
-    playPlayPauseButton.addChild( this.pauseButton );
-
     // link the ballRadioProperty to the state of the playPauseButton
     ballRadioProperty.link( function() {
-        self.playButton.visible = true;
-        self.pauseButton.visible = false;
+        self.setPlayButtonVisible();
         Timer.clearInterval( model.continuousTimer );
       }
     );
 
+    // create a separate node to hold the play and pause button
+    var playPlayPauseButton = new Node();
+
+    // add the play and pause button
+    playPlayPauseButton.addChild( this.playButton );
+    playPlayPauseButton.addChild( this.pauseButton );
+
+
+    // create the content of the panel, with the play pause button and the radio buttons
     var startVBox = new HBox( {
       spacing: 20,
       children: [
@@ -140,15 +147,28 @@ define( function( require ) {
   plinkoProbability.register( 'LabPlayPanel', LabPlayPanel );
 
   return inherit( Panel, LabPlayPanel, {
+    /**
+     * toggle the visibility of the play and pause button
+     * @public
+     */
     togglePlayPauseButtonVisibility: function() {
+      assert && assert( this.playButton.visible !== this.pauseButton.visible, 'the visibility of the play and pause buttons should alternate' );
       this.playButton.visible = !this.playButton.visible;
       this.pauseButton.visible = !this.pauseButton.visible;
     },
 
+    /**
+     * sets the visibility of the play pause button to play
+     * @public
+     */
     setPlayButtonVisible: function() {
       this.playButton.visible = true;
       this.pauseButton.visible = false;
     },
+    /**
+     * sets the visibility of the play/pause button to pause
+     * @public
+     */
     setPauseButtonVisible: function() {
       this.playButton.visible = false;
       this.pauseButton.visible = true;
