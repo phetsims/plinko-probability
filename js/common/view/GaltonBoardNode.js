@@ -52,14 +52,14 @@ define( function( require ) {
 
       galtonBoard.pegs.forEach( function( peg ) {
         pegPath = new Path( pegShape, { fill: PlinkoConstants.PEG_COLOR } );
-        var pegShadow = new Circle( 2 * PlinkoConstants.PEG_RADIUS, {
+        var pegShadow = new Circle( 1.6 * PlinkoConstants.PEG_RADIUS, {
           fill: new RadialGradient(
-            -PlinkoConstants.PEG_RADIUS * 0.2,
-            -PlinkoConstants.PEG_RADIUS * 0.2,
+            PlinkoConstants.PEG_RADIUS * 0.3,
+            PlinkoConstants.PEG_RADIUS * 0.5,
             0,
             PlinkoConstants.PEG_RADIUS * 0.1,
-            -PlinkoConstants.PEG_RADIUS * 0.3,
-            PlinkoConstants.PEG_RADIUS * 1.5
+            -PlinkoConstants.PEG_RADIUS * 0.6,
+            PlinkoConstants.PEG_RADIUS * 1.6
           )
             .addColorStop( 0, 'rgba(0,0,0,1)' )
             .addColorStop( 0.1809, 'rgba(3,3,3, 0.8191)' )
