@@ -94,10 +94,12 @@ define( function( require ) {
 
     // create the eraser button
     var eraserButton = new EraserButton( {
+      iconWidth: 22,
       scale: 1.4,
       listener: function() {
         model.histogram.reset();
         model.balls.clear();
+
       }
     } );
 

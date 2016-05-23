@@ -34,7 +34,7 @@ define( function( require ) {
     // Demonstrate a common pattern for specifying options and providing default values.
     options = _.extend( {
         xMargin: 7,
-        yMargin: 14,
+        yMargin: 15,
         stroke: 'black',
         lineWidth: 1,
         minWidth: 0.1,
@@ -63,7 +63,7 @@ define( function( require ) {
       { node: allBalls, property: model.ballModeProperty, value: 'allBalls' }
     ], {
       radius: 8,
-      spacing: 8,
+      spacing: 6,
       touchAreaXDilation: 5
     } );
 
