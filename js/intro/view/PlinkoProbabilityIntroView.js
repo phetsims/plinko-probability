@@ -60,10 +60,10 @@ define( function( require ) {
     hopper.centerX = galtonBoardApexPosition.x;
     hopper.top = 10;
     // TODO: find a way to take care of the shadow offset in a less ad hoc way
-    board.centerX = hopper.centerX- (board.options.bottomWidth-board.width)/2;
+    board.centerX = hopper.centerX - (board.options.bottomWidth - board.width) / 2;
     board.top = hopper.bottom + 10;
 
-    var viewGraphBounds = new Bounds2( board.left, board.top,  board.left+board.options.bottomWidth, board.top+board.options.height );
+    var viewGraphBounds = new Bounds2( board.left, board.top, board.left + board.options.bottomWidth, board.top + board.options.height );
     var modelGraphBounds = model.galtonBoard.bounds;
     var modelViewTransform = ModelViewTransform2.createRectangleInvertedYMapping( modelGraphBounds, viewGraphBounds );
 
@@ -85,7 +85,7 @@ define( function( require ) {
     var galtonBoardNode = new GaltonBoardNode( model.galtonBoard, model.numberOfRowsProperty, model.probabilityProperty, modelViewTransform, { openingAngle: 0.03 } );
 
     var minY = -1.70;
-    var bounds = new Bounds2( -1 / 2, minY, 1 / 2, -1 );
+    var bounds = new Bounds2( -1 / 2, minY, 1 / 2, -1.05 );
 
     var cylindersBackNode = new CylindersBackNode( model.numberOfRowsProperty, bounds, modelViewTransform );
     var cylindersFrontNode = new CylindersFrontNode( model.numberOfRowsProperty, bounds, modelViewTransform );

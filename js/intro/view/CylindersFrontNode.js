@@ -34,7 +34,7 @@ define( function( require ) {
 
     var binWidth = bounds.width / (numberOfRowsProperty.value + 1);
     var cylinderWidth = 0.95 * binWidth;
-    var height = 0.6 * bounds.height;
+    var height = 0.74 * bounds.height;
     var ellipseWidth = modelViewTransform.modelToViewDeltaX( cylinderWidth );
     var ellipseHeight = -modelViewTransform.modelToViewDeltaY( cylinderWidth ) * Math.sin( PERSPECTIVE_TILT );
     var cylinderHeight = -modelViewTransform.modelToViewDeltaY( height );
