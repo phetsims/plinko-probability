@@ -26,7 +26,7 @@ define( function( require ) {
 
 
     // constants
-    var MAX_NUMBER_BALLS = 9;
+  var MAX_NUMBER_BALLS = 9500;
 
     /**
      * Main model of the second tab (lab tab) of the plinko probability simulation
