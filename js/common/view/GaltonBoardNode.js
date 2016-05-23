@@ -48,7 +48,7 @@ define( function( require ) {
       var pegPath;
 
       var pegShape = new Shape();
-      pegShape.arc( 0, 0, PlinkoConstants.PEG_RADIUS, Math.PI - options.openingAngle / 2, Math.PI + options.openingAngle / 2, true );
+      pegShape.arc( 0, 0, PlinkoConstants.PEG_RADIUS * 1.19, Math.PI - options.openingAngle / 2, Math.PI + options.openingAngle / 2, true );
 
       galtonBoard.pegs.forEach( function( peg ) {
         pegPath = new Path( pegShape, { fill: PlinkoConstants.PEG_COLOR } );
