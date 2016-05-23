@@ -86,6 +86,9 @@ define( function( require ) {
               ball.phase = PHASE_FALLING;
               ball.fallenRatio = 0;
               ball.updatePegPositionInformation();
+              if ( thisModel.isSoundEnabled ) {
+                thisModel.ballHittingFloorSound.play();
+              }
             }
           }
           if ( ball.phase === PHASE_FALLING ) {
@@ -97,11 +100,17 @@ define( function( require ) {
 
               if ( ball.pegHistory.length > 1 ) {
                 ball.updatePegPositionInformation();
+                if ( thisModel.isSoundEnabled ) {
+                  thisModel.ballHittingFloorSound.play();
+                }
 
               }
               else {
                 ball.phase = PHASE_EXIT;
                 ball.updatePegPositionInformation();
+                if ( thisModel.isSoundEnabled ) {
+                  thisModel.ballHittingFloorSound.play();
+                }
                 ball.trigger( 'exited' );
                 ball.numberOfBalls = thisModel.histogram.bins[ ball.binIndex ];
 

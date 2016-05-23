@@ -73,6 +73,7 @@ define( function( require ) {
 
     return inherit( PropertySet, PlinkoProbabilityLabModel, {
       step: function( dt ) {
+        var thisModel = this;
         switch( this.galtonBoardRadioButton ) {
           case 'ball':
             var PHASE_INITIAL = 0;
@@ -90,6 +91,10 @@ define( function( require ) {
                   ball.phase = PHASE_FALLING;
                   ball.fallenRatio = 0;
                   ball.updatePegPositionInformation();
+                  if ( thisModel.isSoundEnabled ) {
+                    thisModel.ballHittingFloorSound.play();
+                  }
+
                 }
               }
               if ( ball.phase === PHASE_FALLING ) {
@@ -101,11 +106,18 @@ define( function( require ) {
 
                   if ( ball.pegHistory.length > 1 ) {
                     ball.updatePegPositionInformation();
+                    if ( thisModel.isSoundEnabled ) {
+
+                      thisModel.ballHittingFloorSound.play();
+                    }
 
                   }
                   else {
                     ball.phase = PHASE_EXIT;
                     ball.updatePegPositionInformation();
+                    if ( thisModel.isSoundEnabled ) {
+                      thisModel.ballHittingFloorSound.play();
+                    }
                     ball.trigger( 'exited' );
                   }
                 }
@@ -194,10 +206,10 @@ define( function( require ) {
         this.balls.push( addedBall );
         addedBall.on( 'exited', function() {
           thisModel.histogram.addBallToHistogram( addedBall );
-          if ( thisModel.isSoundEnabled ) {
-
-            thisModel.ballHittingFloorSound.play();
-          }
+          // if ( thisModel.isSoundEnabled ) {
+          //
+          //   thisModel.ballHittingFloorSound.play();
+          //}
           if ( thisModel.histogram.getMaximumBinCount() > MAX_NUMBER_BALLS ) {
             Timer.clearInterval( thisModel.continuousTimer );
             thisModel.isBallCapReached = true;
