@@ -143,12 +143,18 @@ define( function( require ) {
       model.balls.clear();
     } );
 
-    var ballPath = [];
+    model.numberOfRowsProperty.link( function(){
+      if ( pathsLayer.hasChildren() ) {
+        pathsLayer.removeAllChildren();
+      }
+    });
+
+
     model.balls.addItemAddedListener( function( addedBall ) {
 
-      if ( ballPath.length >= 1 ) {
-        var previousBallPath = ballPath.shift();
-        pathsLayer.removeChild( previousBallPath );
+      // remove the previous path trajectory when adding a model.ball
+      if ( pathsLayer.hasChildren() ) {
+        pathsLayer.removeAllChildren();
       }
 
       switch( model.galtonBoardRadioButtonProperty.value ) {
@@ -165,7 +171,6 @@ define( function( require ) {
           break;
         case 'path':
           var addedTrajectoryPath = new TrajectoryPath( addedBall, modelViewTransform );
-          ballPath.push( addedTrajectoryPath );
           pathsLayer.addChild( addedTrajectoryPath );
           model.balls.addItemRemovedListener( function removalListener( removedBall ) {
             if ( removedBall === addedBall ) {
