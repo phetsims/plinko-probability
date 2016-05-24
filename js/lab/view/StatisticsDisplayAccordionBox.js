@@ -1,7 +1,7 @@
 // Copyright 2014-2015, University of Colorado Boulder
 
 /**
- * Accordion Box Node in That Display Statistics in Plinko Probability Simulation
+ * Accordion Box that displays statistics associated with the histogram in Plinko Probability Simulation lab tab
  *
  * @author Martin Veillette (Berea College)
  */
@@ -45,17 +45,13 @@ define( function( require ) {
 
     this.model = model;
     // var thisPanel = this;
-    options = _.extend( {
-        openingAngle: Math.PI / 2 // angle that control the opening of the peg
-      },
-      options );
 
     var optionsTitle = {
       leftHandSideFont: PlinkoConstants.TEXT_FONT_BOLD,
       leftHandSideFill: PlinkoConstants.SAMPLE_FONT_COLOR,
       rightHandSideFont: PlinkoConstants.TEXT_FONT_BOLD,
       rightHandSideFill: PlinkoConstants.SAMPLE_FONT_COLOR,
-      maxSigFigs: 0
+      maxDecimalPlaces: 0
     };
 
     var optionsSample = {
@@ -87,7 +83,7 @@ define( function( require ) {
     } );
 
     model.histogram.on( 'statisticsUpdated', function() {
-      numberLandedBallsText.setRightHandSideOfEquation( model.histogram.landedBallsNumber, { maxSigFigs: 0 } );
+      numberLandedBallsText.setRightHandSideOfEquation( model.histogram.landedBallsNumber );
       sampleAverageText.setRightHandSideOfEquation( model.histogram.average );
       sampleStandardDeviationText.setRightHandSideOfEquation( model.histogram.standardDeviation );
       sampleStandardDeviationOfMeanText.setRightHandSideOfEquation( model.histogram.standardDeviationOfMean );
@@ -122,7 +118,6 @@ define( function( require ) {
             children: [
               theoreticalAverageText,
               theoreticalStandardDeviationText,
-              //             theoreticalStandardDeviationOfMeanText,
               new LayoutBox( {
                 orientation: 'horizontal',
                 children: [
@@ -130,7 +125,6 @@ define( function( require ) {
                   histogramCheckBox
                 ]
               } )
-              //  histogramCheckBox
             ],
             align: 'left'
           } )
@@ -160,6 +154,9 @@ define( function( require ) {
   plinkoProbability.register( 'StatisticsDisplayAccordionBox', StatisticsDisplayAccordionBox );
 
   return inherit( AccordionBox, StatisticsDisplayAccordionBox, {
+    /**
+     * resets the panel to the unexpanded state
+     */
     reset: function() {
       this.expandedProperty.reset();
     }

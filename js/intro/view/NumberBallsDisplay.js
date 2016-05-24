@@ -25,6 +25,8 @@ define( function( require ) {
    * @param {Object} [options]
    * @constructor
    */
+
+  //TODO dont pass the entire model, just what is needed
   function NumberBallsDisplay( model, options ) {
 
     options = _.extend( {
@@ -38,13 +40,14 @@ define( function( require ) {
       leftHandSideFill: PlinkoConstants.SAMPLE_FONT_COLOR,
       rightHandSideFont: PlinkoConstants.TEXT_FONT_BOLD,
       rightHandSideFill: PlinkoConstants.SAMPLE_FONT_COLOR,
-      maxSigFigs: 0
+      maxDecimalPlaces: 0
     };
+
 
     var numberLandedBallsText = new EquationNode( nString, 0, optionsTitle );
 
     model.histogram.on( 'statisticsUpdated', function() {
-      numberLandedBallsText.setRightHandSideOfEquation( model.histogram.landedBallsNumber, { maxSigFigs: 0 } );
+      numberLandedBallsText.setRightHandSideOfEquation( model.histogram.landedBallsNumber );
     } );
 
     Panel.call( this, numberLandedBallsText, options );
@@ -53,8 +56,5 @@ define( function( require ) {
 
   plinkoProbability.register( 'NumberBallsDisplay', NumberBallsDisplay );
 
-  return inherit( Panel, NumberBallsDisplay, {
-    reset: function() {
-    }
-  } );
+  return inherit( Panel, NumberBallsDisplay );
 } );

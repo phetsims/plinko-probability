@@ -35,9 +35,12 @@ define( function( require ) {
       rightHandSideFont: new PhetFont( 16 ),
       leftHandSideFill: 'blue',
       rightHandSideFill: 'blue',
-      maxDecimalPlaces: 3,  // the maximum number of decimal places
-      positionOfEqualSign: 30 // position of the equal sign, (the left hand side is defined as zero).
+      positionOfEqualSign: 30,// position of the equal sign, (the left hand side is defined as zero).
+      maxDecimalPlaces: 3
     }, options );
+
+    // @private
+    this.options = options;
 
     Node.call( this );
 
@@ -52,7 +55,7 @@ define( function( require ) {
         font: options.leftHandSideFont,
         fill: options.leftHandSideFill
       } );
-    this.rightHandSideOfEquationText = new Text( this.roundNumber( rightHandSideOfEquation, options ),
+    this.rightHandSideOfEquationText = new Text( this.roundNumber( rightHandSideOfEquation ),
       {
         font: options.rightHandSideFont,
         fill: options.rightHandSideFill
@@ -84,11 +87,10 @@ define( function( require ) {
     /**
      *
      * @param {number} number
-     * @param {Object} options
      * @public
      */
-    setRightHandSideOfEquation: function( number, options ) {
-      this.rightHandSideOfEquationText.text = this.roundNumber( number, options );
+    setRightHandSideOfEquation: function( number ) {
+      this.rightHandSideOfEquationText.text = this.roundNumber( number );
     },
 
     /**
@@ -96,14 +98,10 @@ define( function( require ) {
      * whereas for numbers larger than ten, the number/string is returned a fixed number of significant figures
      *
      * @param {number} number
-     * @param {Object} [options]
      * @returns {string}
      * @private
      */
-    roundNumber: function( number, options ) {
-      options = _.extend( {
-        maxDecimalPlaces: 3
-      }, options );
+    roundNumber: function( number ) {
 
       // eg. if maxDecimalPlaces =3
       // 9999.11 -> 9999  (number larger than 10^3) are rounded to unity
@@ -120,14 +118,14 @@ define( function( require ) {
       var exponent = Math.floor( Math.log10( Math.abs( number ) ) );
 
       var decimalPlaces;
-      if ( exponent >= options.maxDecimalPlaces ) {
+      if ( exponent >= this.options.maxDecimalPlaces ) {
         decimalPlaces = 0;
       }
       else if ( exponent > 0 ) {
-        decimalPlaces = options.maxDecimalPlaces - exponent;
+        decimalPlaces = this.options.maxDecimalPlaces - exponent;
       }
       else {
-        decimalPlaces = options.maxDecimalPlaces;
+        decimalPlaces = this.options.maxDecimalPlaces;
       }
 
       return Util.toFixed( number, decimalPlaces );
