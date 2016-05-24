@@ -2,6 +2,8 @@
 
 /**
  * Equation Node that renders a text node of an equation of the form  'text' = 'number'
+ * The left hand side of the equation can make use of <sup> and <sub> html tags
+ * The numerical value can be updated through a public method.
  *
  * Martin Veillette (Berea College)
  */
@@ -19,15 +21,10 @@ define( function( require ) {
   var Text = require( 'SCENERY/nodes/Text' );
   var Util = require( 'DOT/Util' );
 
-  // strings
-//  var plusString = '\u002B'; // we want a large + sign
-//  var minusString = '\u2212';
-
-
   /**
    *
-   * @param {string} leftHandSideOfEquation
-   * @param {number} rightHandSideOfEquation
+   * @param {string} leftHandSideOfEquation - the string that should appear on the left hand side of the equation
+   * @param {number} rightHandSideOfEquation - the value (number) that should appear on the right hand side
    * @param {Object} [options]
    * @constructor
    */
@@ -38,7 +35,8 @@ define( function( require ) {
       rightHandSideFont: new PhetFont( 16 ),
       leftHandSideFill: 'blue',
       rightHandSideFill: 'blue',
-      maxSigFigs: 3
+      maxDecimalPlaces: 3,  // the maximum number of decimal places
+      positionOfEqualSign: 30 // position of the equal sign, (the left hand side is defined as zero).
     }, options );
 
     Node.call( this );
@@ -47,7 +45,7 @@ define( function( require ) {
       {
         font: options.leftHandSideFont,
         fill: options.leftHandSideFill,
-        subScale: 0.25
+        subScale: 0.5
       } );
     this.equalSignText = new Text( ' = ',
       {
@@ -60,24 +58,35 @@ define( function( require ) {
         fill: options.rightHandSideFill
       } );
 
+    var hStrut = new HStrut( options.positionOfEqualSign );
+
     var mutableEquationText = new Node( {
       children: [
-        new HStrut( 5 ),
+        hStrut,
         this.leftHandSideOfEquationText,
         this.equalSignText,
         this.rightHandSideOfEquationText
       ]
     } );
 
-    this.equalSignText.left = 30;
-    this.leftHandSideOfEquationText.right = this.equalSignText.left;
-    this.rightHandSideOfEquationText.left = 50;
+    // in general, we align the equation with respect to the equal sign (that's aesthetically pleasing)
+    // but we don't want to to enforce this rule if the left hand side of the equation is too long.
+    this.leftHandSideOfEquationText.right = options.positionOfEqualSign;
+    this.equalSignText.left = this.leftHandSideOfEquationText.right;
+    this.rightHandSideOfEquationText.left = this.equalSignText.right;
+
     this.addChild( mutableEquationText );
   }
 
   plinkoProbability.register( 'EquationNode', EquationNode );
 
   return inherit( Node, EquationNode, {
+    /**
+     *
+     * @param {number} number
+     * @param {Object} options
+     * @public
+     */
     setRightHandSideOfEquation: function( number, options ) {
       this.rightHandSideOfEquationText.text = this.roundNumber( number, options );
     },
@@ -89,13 +98,14 @@ define( function( require ) {
      * @param {number} number
      * @param {Object} [options]
      * @returns {string}
+     * @private
      */
     roundNumber: function( number, options ) {
       options = _.extend( {
-        maxSigFigs: 3
+        maxDecimalPlaces: 3
       }, options );
 
-      // eg. if maxSigFigs =3
+      // eg. if maxDecimalPlaces =3
       // 9999.11 -> 9999  (number larger than 10^3) are rounded to unity
       // 999.111 -> 999.1
       // 99.1111 -> 99.11
@@ -110,14 +120,14 @@ define( function( require ) {
       var exponent = Math.floor( Math.log10( Math.abs( number ) ) );
 
       var decimalPlaces;
-      if ( exponent >= options.maxSigFigs ) {
+      if ( exponent >= options.maxDecimalPlaces ) {
         decimalPlaces = 0;
       }
       else if ( exponent > 0 ) {
-        decimalPlaces = options.maxSigFigs - exponent;
+        decimalPlaces = options.maxDecimalPlaces - exponent;
       }
       else {
-        decimalPlaces = options.maxSigFigs;
+        decimalPlaces = options.maxDecimalPlaces;
       }
 
       return Util.toFixed( number, decimalPlaces );
