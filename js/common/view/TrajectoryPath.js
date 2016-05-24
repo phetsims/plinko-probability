@@ -1,7 +1,7 @@
 // Copyright 2015, University of Colorado Boulder
 
 /**
- * Scenery view for the path through the Galton board.
+ * Scenery view for the path line  followed by a ball on the Galton board.
  *
  * @author Martin Veillette (Berea College)
  */
@@ -17,25 +17,31 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
 
   /**
-   * Constructor for the which renders the charge as a scenery node.
+   * Constructor for trajectory path of a ball falling through the galton board
    * @param {Ball} ball - model of the ball
    * @param {ModelViewTransform2} modelViewTransform - the coordinate transform between model coordinates and view coordinates
    * @constructor
    */
   function TrajectoryPath( ball, modelViewTransform ) {
 
-    //  create the representation for a ball
     var pathOptions = {
       stroke: PlinkoConstants.BALL_COLOR,
       lineWidth: 2
     };
 
+    // create the shape of the trajectory
     var shape = new Shape();
 
-    shape.moveToPoint( ball.pegHistory[ 0 ].position.plus( new Vector2( 0, ball.pegSeparation ) ) );
+    // create a vector representing an up vector with a length given by half of the separation between two rows.
+    var verticalVector = new Vector2( 0, ball.pegSeparation/2 );
 
+    // starting point of the shape is above the first peg plus some vertical offset.
+    shape.moveToPoint( ball.pegHistory[ 0 ].position.plus( verticalVector.times( 2 ) ) );
+
+    // add linear segments to the shape.
     ball.pegHistory.forEach( function( peg ) {
-      shape.lineToPoint( peg.position.plus( new Vector2( 0, ball.pegSeparation * 0.5 ) ) );
+      // in order to minimize vector allocations, we used the peg position as a mutable object.
+      shape.lineToPoint( peg.position.add( verticalVector ) );
     } );
 
     Path.call( this, modelViewTransform.modelToViewShape( shape ), pathOptions );
