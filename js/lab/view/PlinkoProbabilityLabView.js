@@ -139,9 +139,6 @@ define( function( require ) {
     // Handle the comings and goings of paths
     var pathsLayer = new Node( { layerSplit: true } );
 
-    model.galtonBoardRadioButtonProperty.link( function() {
-      model.balls.clear();
-    } );
 
     model.numberOfRowsProperty.link( function(){
       if ( pathsLayer.hasChildren() ) {

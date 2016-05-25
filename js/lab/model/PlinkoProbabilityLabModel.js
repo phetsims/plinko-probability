@@ -57,6 +57,11 @@ define( function( require ) {
       this.histogram = new Histogram( this.numberOfRowsProperty );
       this.landedBallsNumber = this.histogram.landedBallsNumber; //number of balls in the histogram
 
+
+      this.galtonBoardRadioButtonProperty.link( function() {
+        thisModel.balls.clear();
+      } );
+      
       this.probabilityProperty.link( function() {
         thisModel.balls.clear();
         thisModel.histogram.reset();
