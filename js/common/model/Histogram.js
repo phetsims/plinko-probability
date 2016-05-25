@@ -26,7 +26,7 @@ define( function( require ) {
     Events.call( this );
 
     var thisHistogram = this;
-
+    this.cylinderBallNumberAndLastPosition = []; //@public
     // @private
     this.bins = [];
     this.sumOfSquares = 0;
@@ -62,10 +62,29 @@ define( function( require ) {
      */
     setBinsToZero: function() {
       this.bins = [];
+      this.cylinderBallNumberAndLastPosition = [];
+      var binInfo;
       for ( var i = 0; i < PlinkoConstants.ROWS_RANGE.max + 1; i++ ) {
         this.bins.push( 0 );
+        binInfo = {
+          binCount: 0,
+          direction: 0
+        };
+        this.cylinderBallNumberAndLastPosition.push( binInfo );
       }
     },
+
+    /**
+     * Updates the array elements for the number of balls in a bin and the horizontal final position of the last ball.
+     *
+     * @param {Ball} ball
+     * @public
+     */
+    updateCylinderBallNumberAndLastPosition: function( ball ) {
+      this.cylinderBallNumberAndLastPosition[ ball.binIndex ].binCount++;
+      this.cylinderBallNumberAndLastPosition[ ball.binIndex ].direction = ball.binDirection;
+    },
+
     /**
      * Update the histogram statistic due to adding one ball in bin 'binIndex'
      *

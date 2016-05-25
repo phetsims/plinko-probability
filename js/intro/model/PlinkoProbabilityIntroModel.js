@@ -75,8 +75,8 @@ define( function( require ) {
         var PHASE_FALLING = 1;
         var PHASE_EXIT = 2;
         var PHASE_COLLECTED = 3;
+        var df = dt * 5;
         this.balls.forEach( function( ball ) {
-          var df = dt * 5;
           if ( ball.phase === PHASE_INITIAL ) {
             if ( df + ball.fallenRatio < 1 ) {
               ball.fallenRatio += df;
@@ -112,13 +112,11 @@ define( function( require ) {
                   thisModel.ballHittingFloorSound.play();
                 }
                 ball.trigger( 'exited' );
-                ball.numberOfBalls = thisModel.histogram.bins[ ball.binIndex ];
-
               }
             }
           }
           if ( ball.phase === PHASE_EXIT ) {
-            if ( df + ball.fallenRatio < 7 - 0.5 * ball.numberOfBalls ) {
+            if ( df + ball.fallenRatio < ball.finalBinVerticalPosition ) {
               ball.fallenRatio += df;
             }
             else {
@@ -127,7 +125,7 @@ define( function( require ) {
               ball.trigger( 'landed' );
             }
           }
-          ball.step( dt * 5 );
+          ball.step( df );
         } );
 
       },
@@ -213,11 +211,14 @@ define( function( require ) {
        */
       addNewBall: function() {
         var thisModel = this;
-        var addedBall = new Ball( this.probability, this.numberOfRows );
+        //create new ball
+        var addedBall = new Ball( this.probability, this.numberOfRows, thisModel.histogram.cylinderBallNumberAndLastPosition );
+        // update number of balls in the bin and the last position of the addedBall
+        this.histogram.updateCylinderBallNumberAndLastPosition( addedBall );
         this.balls.push( addedBall );
+        //'exited' is triggered when the addedBall leaves the last peg on the Galton board.
         addedBall.on( 'exited', function() {
           thisModel.histogram.addBallToHistogram( addedBall );
-          addedBall.numberOfBalls = thisModel.histogram.bins[ addedBall.binIndex ];
           if ( thisModel.isSoundEnabled ) {
             thisModel.ballHittingFloorSound.play();
           }

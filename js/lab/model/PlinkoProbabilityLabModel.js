@@ -26,7 +26,7 @@ define( function( require ) {
 
 
     // constants
-  var MAX_NUMBER_BALLS = 9500;
+    var MAX_NUMBER_BALLS = 9500;
 
     /**
      * Main model of the second tab (lab tab) of the plinko probability simulation
@@ -202,7 +202,7 @@ define( function( require ) {
        */
       addNewBall: function() {
         var thisModel = this;
-        var addedBall = new Ball( this.probability, this.numberOfRows );
+        var addedBall = new Ball( this.probability, this.numberOfRows, this.histogram.cylinderBallNumberAndLastPosition );
         this.balls.push( addedBall );
         addedBall.on( 'exited', function() {
           thisModel.histogram.addBallToHistogram( addedBall );

@@ -18,10 +18,10 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
 
   // constants
-  var PHASE_INITIAL = 0;
-  var PHASE_FALLING = 1;
-  var PHASE_EXIT = 2;
-  var PHASE_COLLECTED = 3;
+  var PHASE_INITIAL = 0;      // ball leaving hopper
+  var PHASE_FALLING = 1;      // ball falling within bounds of board
+  var PHASE_EXIT = 2;         // ball exits the lower bounds of board and enters the bins
+  var PHASE_COLLECTED = 3;    // ball lands in final position
 
   /**
    *
@@ -29,7 +29,7 @@ define( function( require ) {
    * @param {number} numberOfRows - an integer
    * @constructor
    */
-  function Ball( probability, numberOfRows ) {
+  function Ball( probability, numberOfRows, cylindersNumberOfBallsAndLastPosition ) {
 
     PropertySet.call( this, {
       position: new Vector2( 0, 0 )
@@ -70,7 +70,7 @@ define( function( require ) {
     // 0 is the leftmost
     this.column = 0;
 
-    // 0 is left, 1 is right
+    // -0.5 is left, 0.5 is right
     this.direction = 0;
 
     // 0 is the top of the current peg, 1 is the top of the next peg
@@ -83,7 +83,7 @@ define( function( require ) {
     var columnNumber = 0;
     var peg;
     for ( rowNumber = 0; rowNumber <= numberOfRows; rowNumber++ ) {
-      direction = (Math.random() < probability) ? 1 : 0;
+      direction = (Math.random() < probability) ? 0.5 : -0.5;
       peg = {
         rowNumber: rowNumber, // an integer starting at zero
         columnNumber: columnNumber, // an integer starting at zero
@@ -92,13 +92,50 @@ define( function( require ) {
       };
       this.pegHistory.push( peg );
 
-      columnNumber += direction;
+      columnNumber += direction + 0.5;
     }
 
-    // bin position of the ball
+    // @public (read-only)
+    // bin position of the ball {number}
     this.binIndex = peg.columnNumber;
-    this.numberOfBalls = 0;
 
+
+    // @public (read-only)
+    // binDirection {number} takes values -1 (left), 0 (center), 1 (right)
+    this.binDirection = cylindersNumberOfBallsAndLastPosition[ this.binIndex ].direction;
+
+    // @private (read-only)
+    // binCount {number} indicates the number of balls in a specific cylinder
+    this.binCount = cylindersNumberOfBallsAndLastPosition[ this.binIndex ].binCount;
+
+    // Indicates ball horizontal position in bin
+    switch( this.binCount % 3 ) {
+      case 0:     // Ball makes probabilistic decision whether to end in left or right horizontal position in the bin
+        this.binDirection = (Math.random() < 0.5) ? 1 : -1;
+        break;
+      case 1:     // Ball makes decision to end in left horizontal position in the bin
+        this.binDirection *= -1;
+        break;
+      case 2:     // Ball makes decision to end in left horizontal position in the bin
+        this.binDirection = 0;
+        break;
+
+      default:
+        throw new Error( 'Unhandled bin direction' );
+    }
+    this.binCount++;
+
+    // @public
+    // describes number of rows in the ball stack within a bin {number}
+    this.binStackLevel = 2 * Math.floor( this.binCount / 3 ) + ((this.binCount % 3 === 0) ? 0 : 1);
+
+    // @public
+    // describes final vertical position of ball within a bin {number}
+    this.finalBinVerticalPosition = 8.5 - (0.4 * this.binStackLevel);
+
+    // @public
+    // describes final horizontal position of ball within a bin {number}
+    this.finalBinHorizontalPosition = this.binDirection / 4;
   }
 
   plinkoProbability.register( 'Ball', Ball );
@@ -149,17 +186,25 @@ define( function( require ) {
     getPosition: function() {
       switch( this.phase ) {
         case PHASE_INITIAL:
-          var displacement = new Vector2( 0, (1 - this.fallenRatio) );
+          var displacement = new Vector2( 0, (1 - this.fallenRatio) );  // {Vector2} describes motion of ball within bin in PHASE_INITIAL
           displacement.multiplyScalar( this.pegSeparation );
           return displacement.add( this.pegPosition );
         case PHASE_FALLING:
-          var fallingPosition = new Vector2( (this.direction - 0.5) * this.fallenRatio, -this.fallenRatio * this.fallenRatio );
-          fallingPosition.multiplyScalar( this.pegSeparation );
+          var fallingPosition;      // {Vector2} describes motion of ball within bin in PHASE_FALLING
+          if ( this.row === 11 ) {
+            // #TODO : Fix ball jumping on lab screen. Needs to be made more general.
+            fallingPosition = new Vector2( (this.direction + this.finalBinHorizontalPosition) * this.fallenRatio, -this.fallenRatio * this.fallenRatio );
+            fallingPosition.multiplyScalar( this.pegSeparation );
+          }
+          else {
+            fallingPosition = new Vector2( this.direction * this.fallenRatio, -this.fallenRatio * this.fallenRatio );
+            fallingPosition.multiplyScalar( this.pegSeparation );
+          }
           return fallingPosition.add( this.pegPosition );
         case PHASE_EXIT:
-          return new Vector2( 0, -this.fallenRatio * this.pegSeparation ).add( this.pegPosition );
+          return new Vector2( this.finalBinHorizontalPosition, -this.fallenRatio ).multiplyScalar( this.pegSeparation ).add( this.pegPosition );
         case PHASE_COLLECTED:
-          return new Vector2( 0, -this.fallenRatio * this.pegSeparation ).add( this.pegPosition );
+          return new Vector2( this.finalBinHorizontalPosition, -this.finalBinVerticalPosition ).multiplyScalar( this.pegSeparation ).add( this.pegPosition );
       }
     }
 
