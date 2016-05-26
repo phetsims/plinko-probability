@@ -99,6 +99,7 @@ define( function( require ) {
         model.histogram.reset();
         model.balls.clear();
         model.isBallCapReachedProperty.value = false;
+        removePathLayerChildren();
       }
     } );
 
@@ -123,6 +124,7 @@ define( function( require ) {
       listener: function() {
         model.reset();
         viewProperties.reset();
+        removePathLayerChildren();
       },
       right: thisView.layoutBounds.maxX - 10,
       bottom: thisView.layoutBounds.maxY - 10
@@ -140,19 +142,10 @@ define( function( require ) {
     var pathsLayer = new Node( { layerSplit: true } );
 
 
-    model.numberOfRowsProperty.link( function(){
-      if ( pathsLayer.hasChildren() ) {
-        pathsLayer.removeAllChildren();
-      }
-    });
-
-
     model.balls.addItemAddedListener( function( addedBall ) {
 
       // remove the previous path trajectory when adding a model.ball
-      if ( pathsLayer.hasChildren() ) {
-        pathsLayer.removeAllChildren();
-      }
+      removePathLayerChildren();
 
       switch( model.galtonBoardRadioButtonProperty.value ) {
         case 'ball':
@@ -221,6 +214,18 @@ define( function( require ) {
     sliderControlPanel.right = playPanel.right;
     statisticsDisplayAccordionBox.top = sliderControlPanel.bottom + 10;
     statisticsDisplayAccordionBox.right = playPanel.right;
+
+
+    /**
+     * Removes all the trajectory Paths on the screen
+     */
+    var removePathLayerChildren = function() {
+      if ( pathsLayer.hasChildren() ) {
+        pathsLayer.removeAllChildren();
+      }
+    };
+
+    model.numberOfRowsProperty.link( removePathLayerChildren );
 
 //TODO: Delete when done with the layout
 ////////////////////////////////////////////////////////////////
