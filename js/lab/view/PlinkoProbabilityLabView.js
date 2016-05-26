@@ -73,10 +73,11 @@ define( function( require ) {
     var viewProperties = new PropertySet( {
       histogramRadio: 'number', // Valid values are 'fraction', 'number'
       ballRadio: 'oneBall', // Valid values are 'oneBall' and 'continuous'.
-      expandedAccordionBox: false,
-      isTheoreticalHistogramVisible: false
+      expandedAccordionBox: false, // accordion box responsible for the statistics display
+      isTheoreticalHistogramVisible: false // property attached to the "ideal" checkbox in the statistical accordion box
     } );
 
+    // create the histogram node, a bar chart, at the bottom of the Galton board
     var histogramNode = new HistogramNode(
       model.numberOfRowsProperty,
       viewProperties.histogramRadioProperty,
@@ -85,10 +86,13 @@ define( function( require ) {
       viewProperties.isTheoreticalHistogramVisibleProperty
     );
 
+    // create the Galton board, including the pegs and dropped shadows
     var galtonBoardNode = new GaltonBoardNode( model.galtonBoard, model.numberOfRowsProperty, model.probabilityProperty, modelViewTransform );
 
+    // create three radio buttons next to the hopper
     var ballRadioButtonsControl = new BallRadioButtonsControl( model.galtonBoardRadioButtonProperty );
 
+    // create the two radio buttons that can toogle between 'fraction and 'number' mode
     var histogramRadioButtonsControl = new HistogramRadioButtonsControl( viewProperties.histogramRadioProperty );
 
     // create the eraser button
@@ -103,38 +107,29 @@ define( function( require ) {
       }
     } );
 
-    // create Panel that displays sample and theoretical statistics
+    // create an accordion box that displays sample and theoretical statistics related to the histogram
     var statisticsDisplayAccordionBox = new StatisticsDisplayAccordionBox(
       model,
       viewProperties.isTheoreticalHistogramVisibleProperty,
       viewProperties.expandedAccordionBoxProperty );
-    var statisticsDisplayAccordionBoxWidth = statisticsDisplayAccordionBox.right - statisticsDisplayAccordionBox.left;
-
 
     // create play Panel
-    var playPanel = new LabPlayPanel( model, model.ballModeProperty, { minWidth: statisticsDisplayAccordionBoxWidth } );
+    var playPanel = new LabPlayPanel( model, model.ballModeProperty, { minWidth: statisticsDisplayAccordionBox.width } );
 
+    // create slider panel that can modify properties of the galton board (number of rows and the binary probability)
+    var sliderControlPanel = new SliderControlPanel( model.numberOfRowsProperty, model.probabilityProperty, { minWidth: statisticsDisplayAccordionBox.width } );
 
-    // create slider Panel
-    var sliderControlPanel = new SliderControlPanel( model.numberOfRowsProperty, model.probabilityProperty, { minWidth: statisticsDisplayAccordionBoxWidth } );
-
-
-    // create the Reset All Button in the bottom right, which resets the model
+    // create the Reset All Button in the bottom right, which resets the model and view properties
     var resetAllButton = new ResetAllButton( {
       listener: function() {
         model.reset();
         viewProperties.reset();
         removePathLayerChildren();
-      },
-      right: thisView.layoutBounds.maxX - 10,
-      bottom: thisView.layoutBounds.maxY - 10
+      }
     } );
 
     // Create the Sound Toggle Button at the bottom right
-    var soundToggleButton = new SoundToggleButton( model.isSoundEnabledProperty, {
-      right: resetAllButton.left - 20,
-      centerY: resetAllButton.centerY
-    } );
+    var soundToggleButton = new SoundToggleButton( model.isSoundEnabledProperty );
 
     // Handle the comings and goings of balls
     var ballsLayer = new Node( { layerSplit: true } );
@@ -175,7 +170,7 @@ define( function( require ) {
       }
     } );
 
-
+    // adding children to the scene graph
     this.addChild( board );
     this.addChild( eraserButton );
     this.addChild( histogramRadioButtonsControl );
@@ -191,21 +186,12 @@ define( function( require ) {
     this.addChild( pathsLayer );
     this.addChild( hopper );
 
+
+    // laying out the nodes
     eraserButton.bottom = this.layoutBounds.maxY - 55;
-    model.isBallCapReachedProperty.lazyLink( function( isBallCapReached ) {
-      if ( isBallCapReached ) {
-        new Dialog( new MultiLineText( outOfBallsString, { font: new PhetFont( 50 ) } ), {
-          modal: true,
-          // focusable so it can be dismissed
-          focusable: true
-        } ).show();
-        playPanel.setPlayButtonVisible();
-      }
-    } );
     eraserButton.left = 40;
     histogramRadioButtonsControl.bottom = eraserButton.top - 16;
     histogramRadioButtonsControl.left = eraserButton.left;
-
     ballRadioButtonsControl.left = hopper.right + 47;
     ballRadioButtonsControl.top = hopper.top;
     playPanel.right = this.layoutBounds.maxX - 50;
@@ -214,7 +200,10 @@ define( function( require ) {
     sliderControlPanel.right = playPanel.right;
     statisticsDisplayAccordionBox.top = sliderControlPanel.bottom + 10;
     statisticsDisplayAccordionBox.right = playPanel.right;
-
+    resetAllButton.right = this.layoutBounds.maxX - 10;
+    resetAllButton.bottom = this.layoutBounds.maxY - 10;
+    soundToggleButton.right = resetAllButton.left - 20;
+    soundToggleButton.centerY = resetAllButton.centerY;
 
     /**
      * Removes all the trajectory Paths on the screen
@@ -225,7 +214,23 @@ define( function( require ) {
       }
     };
 
+    // no need to dispose of this link since it is present for  the lifetime of the sim
     model.numberOfRowsProperty.link( removePathLayerChildren );
+
+    // no need to dispose of this link
+    model.isBallCapReachedProperty.lazyLink( function( isBallCapReached ) {
+      // pops up a dialog box when the number of balls is reached.
+      if ( isBallCapReached ) {
+        new Dialog( new MultiLineText( outOfBallsString, { font: new PhetFont( 50 ) } ), {
+          modal: true,
+          // focusable so it can be dismissed
+          focusable: true
+        } ).show();
+        // sets the play button to active.
+        playPanel.setPlayButtonVisible();
+      }
+    } );
+
 
 //TODO: Delete when done with the layout
 ////////////////////////////////////////////////////////////////
