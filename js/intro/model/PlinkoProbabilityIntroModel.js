@@ -24,7 +24,10 @@ define( function( require ) {
 
     // audio
     var ballHittingFloorAudio = require( 'audio!PLINKO_PROBABILITY/ballHittingFloor' );
-
+    var bonk1Audio = require( 'audio!PLINKO_PROBABILITY/bonk-1-for-plinko' );
+    var bonk2Audio = require( 'audio!PLINKO_PROBABILITY/bonk-2-for-plinko' );
+    var click1Audio = require( 'audio!PLINKO_PROBABILITY/click-1-for-plinko' );
+    var click2Audio = require( 'audio!PLINKO_PROBABILITY/click-2-for-plinko' );
     // constants
     var MAX_BALL_NUMBER = 100;
 
@@ -42,8 +45,13 @@ define( function( require ) {
         isSoundEnabled: false
       } );
 
-
+      //Audio for ball hitting pegs
       this.ballHittingFloorSound = new Sound( ballHittingFloorAudio );
+      this.bonk1Audio = new Sound( bonk1Audio );
+      this.bonk2Audio = new Sound( bonk2Audio );
+      this.click1Audio = new Sound( click1Audio );
+      this.click2Audio = new Sound( click2Audio );
+
 
       this.timerID = [];
 
@@ -63,7 +71,26 @@ define( function( require ) {
     plinkoProbability.register( 'PlinkoProbabilityIntroModel', PlinkoProbabilityIntroModel );
 
     return inherit( PropertySet, PlinkoProbabilityIntroModel, {
+      /**
+       * Plays "ball hitting peg" sound during ball path through the Galton board.
+       * @param {number} ballDirection
+       * @param {boolean} isBallSoundActive
+       */
+      playBallHittingPegSound: function( ballDirection, isBallSoundActive ) {
+        var thisModel = this;
 
+        //Various sound options: click1Audio , click2Audio , bonk1Audio , bonk2Audio , ballHittingFloor ;
+        //Will play sound based on ball's motion, left or right
+        if ( thisModel.isSoundEnabled && isBallSoundActive ) {
+
+          if ( ballDirection === -0.5 ) {
+            thisModel.bonk1Audio.play();
+          }
+          else {
+            thisModel.bonk2Audio.play();
+          }
+        }
+      },
       /**
        * time step function that is responsible for updating the position and status of tehe balls.
        * @public
@@ -86,9 +113,7 @@ define( function( require ) {
               ball.phase = PHASE_FALLING;
               ball.fallenRatio = 0;
               ball.updatePegPositionInformation();
-              if ( thisModel.isSoundEnabled ) {
-                thisModel.ballHittingFloorSound.play();
-              }
+              thisModel.playBallHittingPegSound( ball.direction, ball.isSoundActive );
             }
           }
           if ( ball.phase === PHASE_FALLING ) {
@@ -100,17 +125,11 @@ define( function( require ) {
 
               if ( ball.pegHistory.length > 1 ) {
                 ball.updatePegPositionInformation();
-                if ( thisModel.isSoundEnabled ) {
-                  thisModel.ballHittingFloorSound.play();
-                }
-
+                thisModel.playBallHittingPegSound( ball.direction, ball.isSoundActive );
               }
               else {
                 ball.phase = PHASE_EXIT;
                 ball.updatePegPositionInformation();
-                if ( thisModel.isSoundEnabled ) {
-                  thisModel.ballHittingFloorSound.play();
-                }
                 ball.trigger( 'exited' );
               }
             }
@@ -127,9 +146,7 @@ define( function( require ) {
           }
           ball.step( df );
         } );
-
       },
-
       /**
        * Reset of the model attributes.
        * @public
@@ -167,34 +184,45 @@ define( function( require ) {
         var i = 0;
         var thisModel = this;
         var timerIDnumber;
+        var soundActive;  //{boolean} indicates if a ball will be able to play a sound
         switch( this.ballMode ) {
           case 'oneBall':
             if ( this.launchedBallsNumber < MAX_BALL_NUMBER ) {
               this.launchedBallsNumber++;
-              this.addNewBall();
+              soundActive = true;
+              this.addNewBall( soundActive );
             }
             break;
 
           case 'tenBalls':
-
-            for ( i; (i < 10) && (this.launchedBallsNumber < MAX_BALL_NUMBER); i++ ) {
+            var maxBallNumberTenCase = 10;
+            for ( i; (i < maxBallNumberTenCase) && (this.launchedBallsNumber < MAX_BALL_NUMBER); i++ ) {
               this.launchedBallsNumber++;
-              timerIDnumber = Timer.setTimeout( function() {
-                thisModel.addNewBall();
-              }, (i * 500) ); /// measure in milliseconds
-
+              soundActive = (i % 2 === 0 || i === (maxBallNumberTenCase - 1)); // sets soundActive on every other ball including the last ball.
+              thisModel.soundActive = soundActive;
+              //Because setTimeout is a callback function we are passing our addNewBall function with the isSoundActive parameter via IIFE into setTimout().
+              var listener = (function( isSoundActive ) {
+                return function() {
+                  return thisModel.addNewBall( isSoundActive );
+                };
+              })( soundActive );
+              timerIDnumber = Timer.setTimeout( listener, (i * 500) ); /// measure in milliseconds
               this.timerID.push( timerIDnumber );
             }
-
-
             break;
 
           case 'allBalls':
             for ( i; this.launchedBallsNumber < MAX_BALL_NUMBER; i++ ) {
               this.launchedBallsNumber++;
-              timerIDnumber = Timer.setTimeout( function() {
-                thisModel.addNewBall();
-              }, (i * 300) );
+              soundActive = (i % 5 === 0 || i === (MAX_BALL_NUMBER - 1));
+              thisModel.soundActive = soundActive;
+              var listener2 = (function( isSoundActive ) {
+                return function() {
+                  return thisModel.addNewBall( isSoundActive );
+                };
+              })( soundActive );
+              timerIDnumber = Timer.setTimeout( listener2, (i * 300) );
+
               this.timerID.push( timerIDnumber );
             }
             break;
@@ -208,20 +236,19 @@ define( function( require ) {
       /**
        * Add a new Ball to the model
        * @private
+       * @param {boolean} soundActive
        */
-      addNewBall: function() {
+      addNewBall: function( soundActive ) {
         var thisModel = this;
         //create new ball
         var addedBall = new Ball( this.probability, this.numberOfRows, thisModel.histogram.cylinderBallNumberAndLastPosition );
+        addedBall.isSoundActive = soundActive;// indicates whether a ball will play a sound while it's passing through the board.
         // update number of balls in the bin and the last position of the addedBall
         this.histogram.updateCylinderBallNumberAndLastPosition( addedBall );
         this.balls.push( addedBall );
         //'exited' is triggered when the addedBall leaves the last peg on the Galton board.
         addedBall.on( 'exited', function() {
           thisModel.histogram.addBallToHistogram( addedBall );
-          if ( thisModel.isSoundEnabled ) {
-            thisModel.ballHittingFloorSound.play();
-          }
         } );
 
       },

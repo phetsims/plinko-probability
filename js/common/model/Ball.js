@@ -27,13 +27,13 @@ define( function( require ) {
    *
    * @param {number} probability - number ranging from 0 to 1
    * @param {number} numberOfRows - an integer
+   * @param {Array.<{binCount,direction}>} cylindersNumberOfBallsAndLastPosition - an array containing the [number of balls in bin , last position of ball]
    * @constructor
    */
   function Ball( probability, numberOfRows, cylindersNumberOfBallsAndLastPosition ) {
 
     PropertySet.call( this, {
       position: new Vector2( 0, 0 )
-      //   index: 'empty'
     } );
 
 
@@ -136,6 +136,8 @@ define( function( require ) {
     // @public
     // describes final horizontal position of ball within a bin {number}
     this.finalBinHorizontalPosition = this.binDirection / 4;
+
+    this.indexOfBall = this.indexOfEveryBall( cylindersNumberOfBallsAndLastPosition );
   }
 
   plinkoProbability.register( 'Ball', Ball );
@@ -170,6 +172,19 @@ define( function( require ) {
       this.column = peg.columnNumber;
       this.row = peg.rowNumber;
       this.pegPosition = peg.position;
+    },
+
+    /**
+     *Indexes every instance of a ball.
+     * @param {Array.<{binCount,direction}>} binCountArray
+     * @public
+     */
+    indexOfEveryBall: function( binCountArray ) {
+      var tempCount = 0;
+      for ( var i = 0; i < binCountArray.length; i++ ) {
+        tempCount += binCountArray[ i ].binCount;
+      }
+      return tempCount;
     },
 
     ballStep: function( dt ) {
