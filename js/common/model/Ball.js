@@ -153,10 +153,21 @@ define( function( require ) {
     step: function( dt ) {
       this.ballStep( dt );
     },
+    /**
+     * Sends the trigger to update statistics and land
+     * if the ball phase is PHASE_INITIAL otherwise it does nothing
+     * changes the phase to COLLECTED to make sure the triggers only get sent once
+     * @public
+     */
+    updateStatisticsAndLand: function() {
+      if ( this.phase === PHASE_INITIAL ) {
+        // send triggers
+        this.trigger( 'updateStatisticsSignal' );
+        this.trigger( 'landed' );
 
-    path: function() {
-      this.trigger( 'exited' );
-      this.trigger( 'landed' );
+        //changes phase
+        this.phase = PHASE_COLLECTED;
+      }
     },
     updatePegPositionInformation: function() {
       var peg;
@@ -188,8 +199,6 @@ define( function( require ) {
     },
 
     ballStep: function( dt ) {
-      // all of the logic involving the motion to the pegs has been moved to PlinkoProbabilityIntroModel.js
-      //TODO: add motion logic to the lab model. It is broken at this point.
       this.position = this.getPosition().addXY( 0, this.pegSeparation * PlinkoConstants.PEG_HEIGHT_FRACTION_OFFSET );
     },
 

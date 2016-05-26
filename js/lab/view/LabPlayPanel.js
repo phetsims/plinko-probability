@@ -37,7 +37,7 @@ define( function( require ) {
    */
   function LabPlayPanel( model, ballRadioProperty, options ) {
 
-  //TODO hoist constants
+    //TODO hoist constants
     var self = this;
     // Demonstrate a common pattern for specifying options and providing default values.
     options = _.extend( {
@@ -100,6 +100,7 @@ define( function( require ) {
         else {
           if ( ballRadioProperty.value === 'continuous' ) {
             self.togglePlayPauseButtonVisibility();
+            model.isPlayingProperty.set( true ); //set isPlayingProperty to true signifying that balls are being dropped
           }
 
           Timer.clearInterval( model.continuousTimer );
@@ -114,6 +115,7 @@ define( function( require ) {
       listener: function() {
         self.togglePlayPauseButtonVisibility();
         Timer.clearInterval( model.continuousTimer );
+        model.isPlayingProperty.set( false ); // set isPlayingProperty to false signifying that no balls are being dropped
       }
     } );
 

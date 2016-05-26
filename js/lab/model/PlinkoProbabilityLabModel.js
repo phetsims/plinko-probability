@@ -44,7 +44,8 @@ define( function( require ) {
         isBallCapReached: false, // is the maximum of balls reached?
         numberOfRows: 12,
         galtonBoardRadioButton: 'ball', // Valid values are 'ball', 'path', and 'none'.
-        isSoundEnabled: false
+        isSoundEnabled: false,
+        isPlaying: false  // false if no balls are being dropped true if they are
       } );
 
 
@@ -60,8 +61,14 @@ define( function( require ) {
 
       this.galtonBoardRadioButtonProperty.link( function() {
         thisModel.balls.clear();
+        Timer.clearInterval( thisModel.continuousTimer ); // reset the timer
+
+        // if it is playing then call play again to make sure that the timer between dropped balls is the correct one
+        if ( thisModel.isPlayingProperty.value === true ) {
+          thisModel.play();
+        }
       } );
-      
+
       this.probabilityProperty.link( function() {
         thisModel.balls.clear();
         thisModel.histogram.reset();
@@ -79,12 +86,12 @@ define( function( require ) {
     return inherit( PropertySet, PlinkoProbabilityLabModel, {
       step: function( dt ) {
         var thisModel = this;
+        var PHASE_INITIAL = 0;
+        var PHASE_FALLING = 1;
+        var PHASE_EXIT = 2;
+        var PHASE_COLLECTED = 3;
         switch( this.galtonBoardRadioButton ) {
           case 'ball':
-            var PHASE_INITIAL = 0;
-            var PHASE_FALLING = 1;
-            var PHASE_EXIT = 2;
-            var PHASE_COLLECTED = 3;
             this.balls.forEach( function( ball ) {
               var df = dt * 5;
               if ( ball.phase === PHASE_INITIAL ) {
@@ -123,7 +130,7 @@ define( function( require ) {
                     if ( thisModel.isSoundEnabled ) {
                       thisModel.ballHittingFloorSound.play();
                     }
-                    ball.trigger( 'exited' );
+                    ball.trigger( 'updateStatisticsSignal' );
                   }
                 }
               }
@@ -142,12 +149,12 @@ define( function( require ) {
             break;
           case 'path':
             this.balls.forEach( function( ball ) {
-              ball.path();
+              ball.updateStatisticsAndLand();
             } );
             break;
           case 'none':
             this.balls.forEach( function( ball ) {
-              ball.path();
+              ball.updateStatisticsAndLand();
             } );
             break;
           default:
@@ -190,8 +197,6 @@ define( function( require ) {
                 timeInterval = 10;
                 thisModel.balls.clear();
                 this.continuousTimer = Timer.setInterval( function() {
-                  //var numberOfBalls = Math.floor( 0.1 * Math.sqrt( thisModel.histogram.landedBallsNumber ) ) + 2;
-                  //thisModel.histogram.addToHistogram( numberOfBalls, thisModel.probabilityProperty.value );
                   thisModel.addNewBall();
                 }, timeInterval );
                 break;
@@ -209,19 +214,20 @@ define( function( require ) {
         var thisModel = this;
         var addedBall = new Ball( this.probability, this.numberOfRows, this.histogram.cylinderBallNumberAndLastPosition );
         this.balls.push( addedBall );
-        addedBall.on( 'exited', function() {
+        addedBall.on( 'updateStatisticsSignal', function() {
           thisModel.histogram.addBallToHistogram( addedBall );
-          // if ( thisModel.isSoundEnabled ) {
-          //
-          //   thisModel.ballHittingFloorSound.play();
-          //}
           if ( thisModel.histogram.getMaximumBinCount() > MAX_NUMBER_BALLS ) {
             Timer.clearInterval( thisModel.continuousTimer );
             thisModel.isBallCapReached = true;
           }
         } );
+        // when the ball lands remove the one that came before it
         addedBall.on( 'landed', function() {
-          thisModel.balls.remove( addedBall );
+          var previousBallIndex = thisModel.balls.indexOf( addedBall ) - 1; //gets the index of the ball before it
+          if ( previousBallIndex > -1 ) {
+            var previousBall = thisModel.balls.get( previousBallIndex ); // gets the last ball object
+            thisModel.balls.remove( previousBall ); //removes the previous ball
+          }
         } );
       },
 
