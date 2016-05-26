@@ -102,7 +102,6 @@ define( function( require ) {
         model.histogram.reset();
         model.balls.clear();
         model.isBallCapReachedProperty.value = false;
-        removePathLayerChildren();
       }
     } );
 
@@ -123,7 +122,6 @@ define( function( require ) {
       listener: function() {
         model.reset();
         viewProperties.reset();
-        removePathLayerChildren();
       }
     } );
 
@@ -137,9 +135,6 @@ define( function( require ) {
 
 
     model.balls.addItemAddedListener( function( addedBall ) {
-
-      // remove the previous path trajectory when adding a model.ball
-      removePathLayerChildren();
 
       switch( model.galtonBoardRadioButtonProperty.value ) {
         case 'ball':
@@ -158,6 +153,7 @@ define( function( require ) {
           pathsLayer.addChild( addedTrajectoryPath );
           model.balls.addItemRemovedListener( function removalListener( removedBall ) {
             if ( removedBall === addedBall ) {
+              pathsLayer.removeChild( addedTrajectoryPath );
               model.balls.removeItemRemovedListener( removalListener );
             }
           } );
@@ -203,18 +199,6 @@ define( function( require ) {
     resetAllButton.bottom = this.layoutBounds.maxY - 10;
     soundToggleButton.right = resetAllButton.left - 20;
     soundToggleButton.centerY = resetAllButton.centerY;
-
-    /**
-     * Removes all the trajectory Paths on the screen
-     */
-    var removePathLayerChildren = function() {
-      if ( pathsLayer.hasChildren() ) {
-        pathsLayer.removeAllChildren();
-      }
-    };
-
-    // no need to dispose of this link since it is present for  the lifetime of the sim
-    model.numberOfRowsProperty.link( removePathLayerChildren );
 
     // no need to dispose of this link
     model.isBallCapReachedProperty.lazyLink( function( isBallCapReached ) {
