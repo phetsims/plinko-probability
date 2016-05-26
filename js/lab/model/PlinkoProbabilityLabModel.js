@@ -22,11 +22,13 @@ define( function( require ) {
     var Timer = require( 'PHET_CORE/Timer' );
 
     // audio
-    var ballHittingFloorAudio = require( 'audio!PLINKO_PROBABILITY/ballHittingFloor' );
+    var bonk1Audio = require( 'audio!PLINKO_PROBABILITY/bonk-1-for-plinko' );
+    var bonk2Audio = require( 'audio!PLINKO_PROBABILITY/bonk-2-for-plinko' );
 
 
     // constants
     var MAX_NUMBER_BALLS = 9500;
+    var SOUND_TIME_INTERVAL = 100;   // in millisecond, minimum sound time interval between two sounds.
 
     /**
      * Main model of the second tab (lab tab) of the plinko probability simulation
@@ -48,7 +50,9 @@ define( function( require ) {
       } );
 
 
-      this.ballHittingFloorSound = new Sound( ballHittingFloorAudio );
+      //Audio for ball hitting pegs
+      this.bonk1Audio = new Sound( bonk1Audio );
+      this.bonk2Audio = new Sound( bonk2Audio );
 
       this.launchedBallsNumber = 0; // number of current trial (current ball drop)
 
@@ -61,7 +65,7 @@ define( function( require ) {
       this.galtonBoardRadioButtonProperty.link( function() {
         thisModel.balls.clear();
       } );
-      
+
       this.probabilityProperty.link( function() {
         thisModel.balls.clear();
         thisModel.histogram.reset();
@@ -71,6 +75,10 @@ define( function( require ) {
         thisModel.balls.clear();
         thisModel.histogram.reset();
       } );
+
+
+      // keep track of time, for playing sound purposes
+      this.oldTime = new Date().getTime();
 
     }
 
@@ -96,9 +104,7 @@ define( function( require ) {
                   ball.phase = PHASE_FALLING;
                   ball.fallenRatio = 0;
                   ball.updatePegPositionInformation();
-                  if ( thisModel.isSoundEnabled ) {
-                    thisModel.ballHittingFloorSound.play();
-                  }
+                  thisModel.playBallHittingPegSound( ball.direction );
 
                 }
               }
@@ -111,18 +117,12 @@ define( function( require ) {
 
                   if ( ball.pegHistory.length > 1 ) {
                     ball.updatePegPositionInformation();
-                    if ( thisModel.isSoundEnabled ) {
-
-                      thisModel.ballHittingFloorSound.play();
-                    }
+                    thisModel.playBallHittingPegSound( ball.direction );
 
                   }
                   else {
                     ball.phase = PHASE_EXIT;
                     ball.updatePegPositionInformation();
-                    if ( thisModel.isSoundEnabled ) {
-                      thisModel.ballHittingFloorSound.play();
-                    }
                     ball.trigger( 'exited' );
                   }
                 }
@@ -201,6 +201,36 @@ define( function( require ) {
             break;
         }
       },
+
+
+      /**
+       * play sound at a certain rate
+       * @param {number} direction
+       */
+      playBallHittingPegSound: function( direction ) {
+        var thisModel = this;
+
+        if ( thisModel.isSoundEnabled ) {
+          // get current time
+          var currentTime = new Date().getTime();
+
+          //play sound if the previous sound was played more than some elpased time
+          if (currentTime-thisModel.oldTime  > SOUND_TIME_INTERVAL ) {
+
+            //Will play sound based on ball's motion, left or right
+            if ( direction === -0.5 ) {
+              thisModel.bonk1Audio.play();
+            }
+            else {
+              thisModel.bonk2Audio.play();
+            }
+
+            // keep track of when the sound was play
+            thisModel.oldTime = currentTime;
+          }
+        }
+      },
+
 
       /**
        * Add a new Ball to the model

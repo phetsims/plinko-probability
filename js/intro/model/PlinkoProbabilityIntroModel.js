@@ -23,11 +23,9 @@ define( function( require ) {
 
 
     // audio
-    var ballHittingFloorAudio = require( 'audio!PLINKO_PROBABILITY/ballHittingFloor' );
     var bonk1Audio = require( 'audio!PLINKO_PROBABILITY/bonk-1-for-plinko' );
     var bonk2Audio = require( 'audio!PLINKO_PROBABILITY/bonk-2-for-plinko' );
-    var click1Audio = require( 'audio!PLINKO_PROBABILITY/click-1-for-plinko' );
-    var click2Audio = require( 'audio!PLINKO_PROBABILITY/click-2-for-plinko' );
+
     // constants
     var MAX_BALL_NUMBER = 100;
 
@@ -46,13 +44,9 @@ define( function( require ) {
       } );
 
       //Audio for ball hitting pegs
-      this.ballHittingFloorSound = new Sound( ballHittingFloorAudio );
       this.bonk1Audio = new Sound( bonk1Audio );
       this.bonk2Audio = new Sound( bonk2Audio );
-      this.click1Audio = new Sound( click1Audio );
-      this.click2Audio = new Sound( click2Audio );
-
-
+      
       this.timerID = [];
 
       this.launchedBallsNumber = 0; // number of current trial (current ball drop)
