@@ -12,16 +12,12 @@ define( function( require ) {
   var BallRadioButtonsControl = require( 'PLINKO_PROBABILITY/lab/view/BallRadioButtonsControl' );
   var Board = require( 'PLINKO_PROBABILITY/common/view/Board' );
   var Bounds2 = require( 'DOT/Bounds2' );
-  //var DerivedProperty = require( 'AXON/DerivedProperty' );
-  //var Color = require( 'SCENERY/util/Color' );
   var Dialog = require( 'JOIST/Dialog' );
   var EraserButton = require( 'SCENERY_PHET/buttons/EraserButton' );
   var GaltonBoardNode = require( 'PLINKO_PROBABILITY/common/view/GaltonBoardNode' );
   var HistogramNode = require( 'PLINKO_PROBABILITY/common/view/HistogramNode' );
   var HistogramRadioButtonsControl = require( 'PLINKO_PROBABILITY/lab/view/HistogramRadioButtonsControl' );
   var Hopper = require( 'PLINKO_PROBABILITY/common/view/Hopper' );
-  var HSlider = require( 'SUN/HSlider' );
-  var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
   var LabPlayPanel = require( 'PLINKO_PROBABILITY/lab/view/LabPlayPanel' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
@@ -29,8 +25,6 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var PropertySet = require( 'AXON/PropertySet' );
-  var Property = require( 'AXON/Property' );
-  //var Range = require( 'DOT/Range' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var SliderControlPanel = require( 'PLINKO_PROBABILITY/lab/view/SliderControlPanel' );
@@ -42,9 +36,6 @@ define( function( require ) {
 
   // strings
   var outOfBallsString = require( 'string!PLINKO_PROBABILITY/outOfBalls' );
-
-  // images
-  var mockup02Image = require( 'image!PLINKO_PROBABILITY/mockupCropped02.png' );
 
   /**
    * @param {PlinkoProbabilityLabModel} model
@@ -215,25 +206,6 @@ define( function( require ) {
       }
     } );
 
-
-//TODO: Delete when done with the layout
-////////////////////////////////////////////////////////////////
-//Show the mock-up and a slider to change its transparency
-//////////////////////////////////////////////////////////////
-
-    var mockup02OpacityProperty = new Property( 0.02 );
-
-    var image02 = new Image( mockup02Image, { pickable: false } );
-
-    image02.scale( this.layoutBounds.height / image02.height );
-
-    mockup02OpacityProperty.linkAttribute( image02, 'opacity' );
-
-    this.addChild( image02 );
-
-    this.addChild( new HSlider( mockup02OpacityProperty, { min: 0, max: 1 }, { top: 100, left: 20 } ) );
-
-/////////////////////////////////////////////////////////////////////////
   }
 
   plinkoProbability.register( 'PlinkoProbabilityLabView', PlinkoProbabilityLabView );
