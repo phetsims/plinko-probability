@@ -11,9 +11,7 @@ define( function( require ) {
   // modules
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var Bounds2 = require( 'DOT/Bounds2' );
-  //var Dimension2 = require( 'DOT/Dimension2' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  //var PhetColorScheme = require( 'SCENERY_PHET/PhetColorScheme' );
   var Range = require( 'DOT/Range' );
 
   var PlinkoConstants = {
@@ -50,10 +48,9 @@ define( function( require ) {
     ROWS_RANGE: new Range( 5, 26 ),
 
     // constants
-    // TODO the radii are not constant
     BALL_RADIUS: 4, // radius of the Ball.
-    BALL_COLOR: 'rgb(237,28,36)',
-    BALL_HIGHLIGHT_COLOR: 'white',
+    BALL_COLOR: 'rgb(237,28,36)', // color of the Ball.
+    BALL_HIGHLIGHT_COLOR: 'white', // color of the Ball's glare
     PEG_RADIUS: 3, // radius of the peg.
     PEG_COLOR: 'rgb(115,99,87)', //brown
 
