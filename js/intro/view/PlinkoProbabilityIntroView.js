@@ -76,7 +76,7 @@ define( function( require ) {
 
     var galtonBoardNode = new GaltonBoardNode( model.galtonBoard, model.numberOfRowsProperty, model.probabilityProperty, modelViewTransform, { openingAngle: 0.03 } );
 
-    var minY = -1.70;
+    var minY = -1.80;
     var bounds = new Bounds2( -1 / 2, minY, 1 / 2, -1.05 );
 
     var cylindersBackNode = new CylindersBackNode( model.numberOfRowsProperty, bounds, modelViewTransform );

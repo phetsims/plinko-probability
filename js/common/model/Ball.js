@@ -131,7 +131,7 @@ define( function( require ) {
 
     // @public
     // describes final vertical position of ball within a bin {number}
-    this.finalBinVerticalPosition = 8.5 - (0.4 * this.binStackLevel);
+    this.finalBinVerticalPosition = 9.3 - (0.4 * this.binStackLevel);
 
     // @public
     // describes final horizontal position of ball within a bin {number}
