@@ -12,7 +12,6 @@ define( function( require ) {
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var inherit = require( 'PHET_CORE/inherit' );
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
-  //var Matrix3 = require( 'DOT/Matrix3' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Path = require( 'SCENERY/nodes/Path' );
   var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
@@ -43,10 +42,13 @@ define( function( require ) {
       .lineTo( -options.bottomWidth / 2, options.height )
       .close();
 
+
+    //Gradient on face of Galton Board
     var boardRectangleGradient = new LinearGradient( -options.bottomWidth / 2, 0, options.bottomWidth / 2, 0 ).addColorStop( 0.0112, '#FBEFD0' ).addColorStop( 0.1742, '#FADBA2' ).addColorStop( 0.2978, '#FAE3B0' ).addColorStop( 0.5393, '#E8CFA1' ).addColorStop( 0.6573, '#F0D3A1' ).addColorStop( 0.7809, '#FBEED2' ).addColorStop( 0.9607, '#F9E2BA' );
     var boardPath = new Path( boardShape, { fill: boardRectangleGradient, centerX: 0, top: 0 } );
     this.addChild( boardPath );
 
+    //Produces shadow on  Galton Board
     var boardShadowRectangleGradient = new LinearGradient( options.bottomWidth / 2, options.height, options.bottomWidth / 2, options.height + 10 ).addColorStop( 0.00, options.shadowFill ).addColorStop( 0.20, options.shadowFill ).addColorStop( 1.00, PlinkoConstants.BACKGROUND_COLOR );
     var horizontalRectangle = new Rectangle( boardPath.left + 4, boardPath.bottom, boardPath.width + 8, 10, 5, 50, { fill: boardShadowRectangleGradient } );
     this.addChild( horizontalRectangle );
@@ -60,15 +62,6 @@ define( function( require ) {
     var slantedShadowPath = new Path( slantedShadowShape, { fill: boardSlantedGradient } );
 
     this.addChild( slantedShadowPath );
-
-    // create a shadow of the wooden board
-    //  var boardShadowShape = boardShape.copy().transformed( Matrix3.translation( 10, 40 ) );
-    //  this.addChild( new Path( boardShadowShape, { fill: options.shadowFill, centerX: 20, top: 10 } ) );
-
-
-    //   var boardShadowRectangleGradient = new LinearGradient( options.bottomWidth / 2, options.height, options.bottomWidth / 2, options.height + 15 ).addColorStop( 0.00, options.shadowFill ).addColorStop( 0.50, options.shadowFill ).addColorStop( 1.00, PlinkoConstants.BACKGROUND_COLOR );
-
-    //  this.addChild( new Path( boardShadowShape, { fill: boardShadowRectangleGradient } ) );
 
 
     // Pass options through to the parent class.
