@@ -11,8 +11,6 @@ define( function( require ) {
   var BallNode = require( 'PLINKO_PROBABILITY/common/view/BallNode' );
   var Board = require( 'PLINKO_PROBABILITY/common/view/Board' );
   var Bounds2 = require( 'DOT/Bounds2' );
-  //var DerivedProperty = require( 'AXON/DerivedProperty' );
-  //var Color = require( 'SCENERY/util/Color' );
   var CylindersBackNode = require( 'PLINKO_PROBABILITY/intro/view/CylindersBackNode' );
   var CylindersFrontNode = require( 'PLINKO_PROBABILITY/intro/view/CylindersFrontNode' );
   var EraserButton = require( 'SCENERY_PHET/buttons/EraserButton' );
@@ -20,16 +18,12 @@ define( function( require ) {
   var GaltonBoardNode = require( 'PLINKO_PROBABILITY/common/view/GaltonBoardNode' );
   var HistogramNode = require( 'PLINKO_PROBABILITY/common/view/HistogramNode' );
   var Hopper = require( 'PLINKO_PROBABILITY/common/view/Hopper' );
-  var HSlider = require( 'SUN/HSlider' );
-  var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   var Node = require( 'SCENERY/nodes/Node' );
   var NumberBallsDisplay = require( 'PLINKO_PROBABILITY/intro/view/NumberBallsDisplay' );
   var IntroPlayPanel = require( 'PLINKO_PROBABILITY/intro/view/IntroPlayPanel' );
   var PropertySet = require( 'AXON/PropertySet' );
-  var Property = require( 'AXON/Property' );
-  //var Range = require( 'DOT/Range' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var SoundToggleButton = require( 'SCENERY_PHET/buttons/SoundToggleButton' );
@@ -39,8 +33,6 @@ define( function( require ) {
   // strings
   // TODO: place used strings here
 
-  // images
-  var mockup01Image = require( 'image!PLINKO_PROBABILITY/mockupCropped01.png' );
 
   /**
    * @param {PlinkoProbabilityIntroModel} model
@@ -192,27 +184,7 @@ define( function( require ) {
     playPanel.top = 10;
     numberBallsDisplay.top = playPanel.bottom + 283;
     numberBallsDisplay.right = playPanel.right;
-    // galtonBoardNode.centerX=hopper.centerX;
-    // altonBoardNode.top=board.top+20;
 
-    //TODO: Delete when done with the layout
-    ////////////////////////////////////////////////////////////////
-    //Show the mock-up and a slider to change its transparency
-    //////////////////////////////////////////////////////////////
-
-    var mockup02OpacityProperty = new Property( 0.02 );
-
-    var image02 = new Image( mockup01Image, { pickable: false } );
-
-    image02.scale( this.layoutBounds.height / image02.height );
-
-    mockup02OpacityProperty.linkAttribute( image02, 'opacity' );
-
-    this.addChild( image02 );
-
-    this.addChild( new HSlider( mockup02OpacityProperty, { min: 0, max: 1 }, { top: 100, left: 20 } ) );
-
-    /////////////////////////////////////////////////////////////////////////
   }
 
   plinkoProbability.register( 'PlinkoProbabilityIntroView', PlinkoProbabilityIntroView );
