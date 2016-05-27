@@ -92,6 +92,11 @@ define( function( require ) {
     plinkoProbability.register( 'PlinkoProbabilityLabModel', PlinkoProbabilityLabModel );
 
     return inherit( PropertySet, PlinkoProbabilityLabModel, {
+      /**
+       * time step function that is  responsible for updating the position and status of the balls
+       * @public
+       * @param dt
+       */
       step: function( dt ) {
         var thisModel = this;
         var PHASE_INITIAL = 0;
@@ -102,46 +107,46 @@ define( function( require ) {
           case 'ball':
             this.balls.forEach( function( ball ) {
               var df = dt * 5;
-              if ( ball.phase === PHASE_INITIAL ) {
-                if ( df + ball.fallenRatio < 1 ) {
-                  ball.fallenRatio += df;
-                  ball.initialPegPositionInformation();
+              if ( ball.phase === PHASE_INITIAL ) { // balls is leaving the hopper
+                if ( df + ball.fallenRatio < 1 ) { // if the ball has not gotten to the first peg
+                  ball.fallenRatio += df; // fall some more
+                  ball.initialPegPositionInformation(); // get the initial peg information
                 }
                 else {
-                  ball.phase = PHASE_FALLING;
-                  ball.fallenRatio = 0;
-                  ball.updatePegPositionInformation();
+                  ball.phase = PHASE_FALLING; // switch the phase
+                  ball.fallenRatio = 0; // reset the raio
+                  ball.updatePegPositionInformation(); // update the peg position information
                   thisModel.playBallHittingPegSound( ball.direction );
 
                 }
               }
-              if ( ball.phase === PHASE_FALLING ) {
-                if ( df + ball.fallenRatio < 1 ) {
-                  ball.fallenRatio += df;
+              if ( ball.phase === PHASE_FALLING ) { //ball is falling between pegs
+                if ( df + ball.fallenRatio < 1 ) { // if ball has not reached the next peg
+                  ball.fallenRatio += df; // fall some more
                 }
-                else {
-                  ball.fallenRatio = 0;
+                else { // the ball has reached the top of the next peg
+                  ball.fallenRatio = 0; // reset the fallen ratio
 
-                  if ( ball.pegHistory.length > 1 ) {
-                    ball.updatePegPositionInformation();
+                  if ( ball.pegHistory.length > 1 ) { // if it is not the last peg
+                    ball.updatePegPositionInformation(); // update the next to last peg information
                     thisModel.playBallHittingPegSound( ball.direction );
 
                   }
-                  else {
-                    ball.phase = PHASE_EXIT;
-                    ball.updatePegPositionInformation();
+                  else { // ball is at the top of the last peg
+                    ball.phase = PHASE_EXIT; // switch phases
+                    ball.updatePegPositionInformation(); // update the last peg information
 
                     ball.trigger( 'updateStatisticsSignal' );
                   }
                 }
               }
-              if ( ball.phase === PHASE_EXIT ) {
-                if ( df + ball.fallenRatio < 1 ) {
-                  ball.fallenRatio += df;
+              if ( ball.phase === PHASE_EXIT ) { // the ball has exited and it is making its way to the bin
+                if ( df + ball.fallenRatio < ball.finalBinVerticalPosition ) { // if it has not fallen to its final postition
+                  ball.fallenRatio += df; //fall some more
                 }
                 else {
-                  ball.phase = PHASE_COLLECTED;
-                  //this.binIndex = this.column;
+                  ball.phase = PHASE_COLLECTED; // switch phases
+                  ball.trigger( 'landed' ); // mark the ball for removal
                   ball.trigger( 'landed' );
                 }
               }
@@ -163,24 +168,29 @@ define( function( require ) {
         }
 
       },
-
+      /**
+       * Reset of the model attributes
+       * @public
+       */
       reset: function() {
         PropertySet.prototype.reset.call( this );
         this.balls.clear();
         this.histogram.reset();
       },
-
+      /**
+       * Play function adds balls to the model, the number of balls depends on the status of ballMode
+       */
       play: function() {
         var thisModel = this;
         switch( this.ballMode ) {
           case 'oneBall':
-            this.launchedBallsNumber++;
+            this.launchedBallsNumber++; // add one to the total
             this.addNewBall();
             break;
 
           case 'continuous':
             var timeInterval;
-
+            // depending on the galtonBoardRadioButton the ball will show up as either ball, path, or not show up
             switch( thisModel.galtonBoardRadioButton ) {
               case 'ball':
                 timeInterval = 50;
@@ -220,8 +230,8 @@ define( function( require ) {
           // get current time
           var currentTime = new Date().getTime();
 
-          //play sound if the previous sound was played more than some elpased time
-          if (currentTime-thisModel.oldTime  > SOUND_TIME_INTERVAL ) {
+          //play sound if the previous sound was played more than some elapsed time
+          if ( currentTime - thisModel.oldTime > SOUND_TIME_INTERVAL ) {
 
             //Will play sound based on ball's motion, left or right
             if ( direction === -0.5 ) {
@@ -243,7 +253,7 @@ define( function( require ) {
        */
       addNewBall: function() {
         var thisModel = this;
-        var addedBall = new Ball( this.probability, this.numberOfRows, this.histogram.cylinderBallNumberAndLastPosition );
+        var addedBall = new Ball( this.probability, this.numberOfRows, this.histogram.binCountAndPreviousPosition );
         this.balls.push( addedBall );
         addedBall.on( 'updateStatisticsSignal', function() {
           thisModel.histogram.addBallToHistogram( addedBall );

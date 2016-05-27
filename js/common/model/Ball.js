@@ -169,20 +169,28 @@ define( function( require ) {
         this.phase = PHASE_COLLECTED;
       }
     },
+    /**
+     * @public
+     * this function updates the information about the peg position based on the peg history
+     */
     updatePegPositionInformation: function() {
       var peg;
       peg = this.pegHistory.shift();
-      this.column = peg.columnNumber;
-      this.row = peg.rowNumber;
-      this.pegPosition = peg.position;
-      this.direction = peg.direction;
+      this.column = peg.columnNumber; //0 is the topmost
+      this.row = peg.rowNumber; // 0 is the leftmost
+      this.pegPosition = peg.position; // vector position of the peg based on the column, row, and number of of rows
+      this.direction = peg.direction; // whether the ball went left or right
     },
+    /**
+     * @public
+     * this function gets the first peg position
+     */
     initialPegPositionInformation: function() {
       var peg;
-      peg = this.pegHistory[ 0 ];
-      this.column = peg.columnNumber;
-      this.row = peg.rowNumber;
-      this.pegPosition = peg.position;
+      peg = this.pegHistory[ 0 ]; // get the first peg from the peg history
+      this.column = peg.columnNumber; // 0 is the topmost
+      this.row = peg.rowNumber; // 0 is the left most
+      this.pegPosition = peg.position; // vector position of the peg
     },
 
     /**
@@ -197,37 +205,42 @@ define( function( require ) {
       }
       return tempCount;
     },
-
-    ballStep: function( dt ) {
+    /**
+     *
+     * @public
+     * updates the position of the ball
+     */
+    ballStep: function() {
+      // position depends of the state of the ball
       this.position = this.getPosition().addXY( 0, this.pegSeparation * PlinkoConstants.PEG_HEIGHT_FRACTION_OFFSET );
     },
 
 
     /**
-     *
+     * gets the position of the ball depending on the phase
      * @returns {Vector2}
      */
     getPosition: function() {
       switch( this.phase ) {
-        case PHASE_INITIAL:
+        case PHASE_INITIAL: // ball left the hopper
+          // we only want this to move one peg distance down
           var displacement = new Vector2( 0, (1 - this.fallenRatio) );  // {Vector2} describes motion of ball within bin in PHASE_INITIAL
           displacement.multiplyScalar( this.pegSeparation );
           return displacement.add( this.pegPosition );
-        case PHASE_FALLING:
+        case PHASE_FALLING: // ball is falling through the pegs
           var fallingPosition;      // {Vector2} describes motion of ball within bin in PHASE_FALLING
-          if ( this.row === 11 ) {
+          if ( this.row === 11 ) { // if we are exiting the peg board we want to drop in the bin position
             // #TODO : Fix ball jumping on lab screen. Needs to be made more general.
             fallingPosition = new Vector2( (this.direction + this.finalBinHorizontalPosition) * this.fallenRatio, -this.fallenRatio * this.fallenRatio );
-            fallingPosition.multiplyScalar( this.pegSeparation );
           }
           else {
             fallingPosition = new Vector2( this.direction * this.fallenRatio, -this.fallenRatio * this.fallenRatio );
-            fallingPosition.multiplyScalar( this.pegSeparation );
           }
+          fallingPosition.multiplyScalar( this.pegSeparation ); // scale the vector by the peg separation
           return fallingPosition.add( this.pegPosition );
-        case PHASE_EXIT:
+        case PHASE_EXIT: // the ball is exiting the pegs and making its way to the bin
           return new Vector2( this.finalBinHorizontalPosition, -this.fallenRatio ).multiplyScalar( this.pegSeparation ).add( this.pegPosition );
-        case PHASE_COLLECTED:
+        case PHASE_COLLECTED: // the ball has landed to its final position
           return new Vector2( this.finalBinHorizontalPosition, -this.finalBinVerticalPosition ).multiplyScalar( this.pegSeparation ).add( this.pegPosition );
       }
     }

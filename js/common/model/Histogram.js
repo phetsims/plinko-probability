@@ -26,7 +26,7 @@ define( function( require ) {
     Events.call( this );
 
     var thisHistogram = this;
-    this.cylinderBallNumberAndLastPosition = []; //@public
+    this.binCountAndPreviousPosition = []; //@public
     // @private
     this.bins = [];
     this.sumOfSquares = 0;
@@ -42,14 +42,18 @@ define( function( require ) {
 
     this.numberOfRowsProperty = numberOfRowsProperty;
 
-    numberOfRowsProperty.link( function( numberOfRows ) {
-      thisHistogram.reset();
+    numberOfRowsProperty.link( function() {
+      thisHistogram.reset(); // if the number of rows change then reset the histogram
     } );
   }
 
   plinkoProbability.register( 'Histogram', Histogram );
 
   return inherit( Events, Histogram, {
+    /**
+     * @public
+     * sets all the binCounts to 0 and resets the statistics
+     */
     reset: function() {
       this.setBinsToZero();
       this.resetStatistics();
@@ -61,16 +65,16 @@ define( function( require ) {
      * @private
      */
     setBinsToZero: function() {
-      this.bins = [];
-      this.cylinderBallNumberAndLastPosition = [];
-      var binInfo;
+      this.bins = []; // reset the viewable bin array to an empty array
+      this.binCountAndPreviousPosition = []; // resets the bin count and previous position
+      var binInfo; // object with a count and direction
       for ( var i = 0; i < PlinkoConstants.ROWS_RANGE.max + 1; i++ ) {
         this.bins.push( 0 );
         binInfo = {
           binCount: 0,
-          direction: 0
+          direction: 0 // 0 is center, 1 is right, -1 is left
         };
-        this.cylinderBallNumberAndLastPosition.push( binInfo );
+        this.binCountAndPreviousPosition.push( binInfo );
       }
     },
 
@@ -80,9 +84,9 @@ define( function( require ) {
      * @param {Ball} ball
      * @public
      */
-    updateCylinderBallNumberAndLastPosition: function( ball ) {
-      this.cylinderBallNumberAndLastPosition[ ball.binIndex ].binCount++;
-      this.cylinderBallNumberAndLastPosition[ ball.binIndex ].direction = ball.binDirection;
+    updateBinCountAndPreviousPosition: function( ball ) {
+      this.binCountAndPreviousPosition[ ball.binIndex ].binCount++;
+      this.binCountAndPreviousPosition[ ball.binIndex ].direction = ball.binDirection;
     },
 
     /**

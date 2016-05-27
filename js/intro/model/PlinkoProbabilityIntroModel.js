@@ -34,10 +34,10 @@ define( function( require ) {
       var thisModel = this;
 
       PropertySet.call( this, {
-        probability: 0.5,
+        probability: 0.5,  // probability will be 50%
         histogramMode: 'count', // acceptable values are 'count' and 'fraction'
         ballMode: 'oneBall', // acceptable values are 'oneBall', 'tenBalls', 'allRemainingBalls' and 'continuous'
-        histogramVisible: false,
+        histogramVisible: false, // start with the bin view
         isBallCapReached: false, // is the maximum of balls reached?
         numberOfRows: 12,
         isSoundEnabled: false
@@ -46,13 +46,13 @@ define( function( require ) {
       //Audio for ball hitting pegs
       this.bonk1Audio = new Sound( bonk1Audio );
       this.bonk2Audio = new Sound( bonk2Audio );
-      
+
       this.timerID = [];
 
       this.launchedBallsNumber = 0; // number of current trial (current ball drop)
 
-      this.galtonBoard = new GaltonBoard( this.numberOfRowsProperty );
-      this.balls = new ObservableArray();
+      this.galtonBoard = new GaltonBoard( this.numberOfRowsProperty ); // create the galton board
+      this.balls = new ObservableArray(); // the balls that are currently on the screen
       this.histogram = new Histogram( this.numberOfRowsProperty );
       this.landedBallsNumber = this.histogram.landedBallsNumber; //number of balls in the histogram
 
@@ -98,47 +98,46 @@ define( function( require ) {
         var PHASE_COLLECTED = 3;
         var df = dt * 5;
         this.balls.forEach( function( ball ) {
-          if ( ball.phase === PHASE_INITIAL ) {
-            if ( df + ball.fallenRatio < 1 ) {
-              ball.fallenRatio += df;
-              ball.initialPegPositionInformation();
+          if ( ball.phase === PHASE_INITIAL ) { // balls is leaving the hopper
+            if ( df + ball.fallenRatio < 1 ) { // if the ball has not gotten to the first peg
+              ball.fallenRatio += df; // fall some more
+              ball.initialPegPositionInformation(); // get the initial peg information
             }
             else {
-              ball.phase = PHASE_FALLING;
-              ball.fallenRatio = 0;
-              ball.updatePegPositionInformation();
-              thisModel.playBallHittingPegSound( ball.direction, ball.isSoundActive );
+              ball.phase = PHASE_FALLING; // switch the phase
+              ball.fallenRatio = 0; // reset the raio
+              ball.updatePegPositionInformation(); // update the peg position information
+              thisModel.playBallHittingPegSound( ball.direction, ball.isSoundActive ); // if sound is active play
             }
           }
-          if ( ball.phase === PHASE_FALLING ) {
-            if ( df + ball.fallenRatio < 1 ) {
-              ball.fallenRatio += df;
+          if ( ball.phase === PHASE_FALLING ) { //ball is falling between pegs
+            if ( df + ball.fallenRatio < 1 ) { // if ball has not reached the next peg
+              ball.fallenRatio += df; // fall some more
             }
-            else {
-              ball.fallenRatio = 0;
+            else { // the ball has reached the top of the next peg
+              ball.fallenRatio = 0; // reset the fallen ratio
 
-              if ( ball.pegHistory.length > 1 ) {
-                ball.updatePegPositionInformation();
-                thisModel.playBallHittingPegSound( ball.direction, ball.isSoundActive );
+              if ( ball.pegHistory.length > 1 ) { // if it is not the last peg
+                ball.updatePegPositionInformation(); // update the next to last peg information
+                thisModel.playBallHittingPegSound( ball.direction, ball.isSoundActive ); // if sound is active play sound
               }
-              else {
-                ball.phase = PHASE_EXIT;
-                ball.updatePegPositionInformation();
+              else { // ball is at the top of the last peg
+                ball.phase = PHASE_EXIT; // switch phases
+                ball.updatePegPositionInformation(); // update the last peg information
                 ball.trigger( 'exited' );
               }
             }
           }
-          if ( ball.phase === PHASE_EXIT ) {
-            if ( df + ball.fallenRatio < ball.finalBinVerticalPosition ) {
-              ball.fallenRatio += df;
+          if ( ball.phase === PHASE_EXIT ) { // the ball has exited and it is making its way to the bin
+            if ( df + ball.fallenRatio < ball.finalBinVerticalPosition ) { // if it has not fallen to its final postition
+              ball.fallenRatio += df; //fall some more
             }
             else {
-              ball.phase = PHASE_COLLECTED;
-              //this.binIndex = this.column;
-              ball.trigger( 'landed' );
+              ball.phase = PHASE_COLLECTED; // switch phases
+              ball.trigger( 'landed' ); // mark the ball for removal
             }
           }
-          ball.step( df );
+          ball.step( df ); // this update the position
         } );
       },
       /**
@@ -147,7 +146,7 @@ define( function( require ) {
        */
       reset: function() {
         PropertySet.prototype.reset.call( this );
-        this.balls.clear();
+        this.balls.clear(); // get rid of all the balls on the screen 
         this.histogram.reset();
         this.launchedBallsNumber = 0;
         this.resetTimer();
@@ -235,10 +234,10 @@ define( function( require ) {
       addNewBall: function( soundActive ) {
         var thisModel = this;
         //create new ball
-        var addedBall = new Ball( this.probability, this.numberOfRows, thisModel.histogram.cylinderBallNumberAndLastPosition );
+        var addedBall = new Ball( this.probability, this.numberOfRows, thisModel.histogram.binCountAndPreviousPosition );
         addedBall.isSoundActive = soundActive;// indicates whether a ball will play a sound while it's passing through the board.
         // update number of balls in the bin and the last position of the addedBall
-        this.histogram.updateCylinderBallNumberAndLastPosition( addedBall );
+        this.histogram.updateBinCountAndPreviousPosition( addedBall );
         this.balls.push( addedBall );
         //'exited' is triggered when the addedBall leaves the last peg on the Galton board.
         addedBall.on( 'exited', function() {
