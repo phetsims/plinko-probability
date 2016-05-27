@@ -211,6 +211,7 @@ define( function( require ) {
         } ).show();
         // sets the play button to active.
         playPanel.setPlayButtonVisible();
+        model.isPlayingProperty.set( false ); // if pop up dialog comes on then it is not playing anymore
       }
     } );
 
