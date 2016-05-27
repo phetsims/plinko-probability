@@ -39,26 +39,6 @@ define( function( require ) {
     },
 
     /**
-     * Function that returns the right position of a bin
-     * @param {number} binIndex
-     * @param {number} numberOfBins - the number of bins on the screen
-     * @returns {number}
-     */
-    getBinRight: function( binIndex, numberOfBins ) {
-      assert && assert( binIndex < numberOfBins );
-      return ((binIndex + 1 ) / numberOfBins) * BOUNDS.width + BOUNDS.minX;
-    },
-
-    /**
-     * Function that returns the width of a bin
-     * @param {number} numberOfBins
-     * @returns {number}
-     */
-    getBinWidth: function( numberOfBins ) {
-      return (1 / numberOfBins) * BOUNDS.width;
-    },
-
-    /**
      * Function that returns the minimum X value, i.e. the leftmost position of all the bins
      * @returns {number}
      */

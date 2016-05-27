@@ -24,7 +24,6 @@ define( function( require ) {
     var galtonBoard = this;
 
     // @public
-    // TODO why is this here?
     this.bounds = PlinkoConstants.GALTON_BOARD_BOUNDS;
 
     var rowNumber; // {number} a non negative integer
