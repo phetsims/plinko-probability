@@ -229,7 +229,7 @@ define( function( require ) {
           return displacement.add( this.pegPosition );
         case PHASE_FALLING: // ball is falling through the pegs
           var fallingPosition;      // {Vector2} describes motion of ball within bin in PHASE_FALLING
-          if ( this.row === 11 ) { // if we are exiting the peg board we want to drop in the bin position
+          if ( this.row === this.numberOfRows-1 ) { // if we are exiting the peg board we want to drop in the bin position
             // #TODO : Fix ball jumping on lab screen. Needs to be made more general.
             fallingPosition = new Vector2( (this.direction + this.finalBinHorizontalPosition) * this.fallenRatio, -this.fallenRatio * this.fallenRatio );
           }
