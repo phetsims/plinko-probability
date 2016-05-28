@@ -30,17 +30,12 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
   var VerticalRadioButtonGroup = require( 'PLINKO_PROBABILITY/intro/view/VerticalRadioButtonGroup' );
 
-  // strings
-  // TODO: place used strings here
-
-
   /**
    * @param {PlinkoProbabilityIntroModel} model
    * @constructor
    */
   function PlinkoProbabilityIntroView( model ) {
 
-    var thisView = this;
     ScreenView.call( this, { layoutBounds: new Bounds2( 0, 0, 1024, 618 ) } );
 
     var galtonBoardApexPosition = new Vector2( this.layoutBounds.maxX / 2 - 80, 70 );
@@ -74,23 +69,23 @@ define( function( require ) {
       viewProperties.isTheoreticalHistogramVisibleProperty
     );
 
+    // create the galton board (including the pegs)
     var galtonBoardNode = new GaltonBoardNode( model.galtonBoard, model.numberOfRowsProperty, model.probabilityProperty, modelViewTransform, { openingAngle: 0.03 } );
 
+    // TODO hoist constants
     var minY = -1.80;
     var bounds = new Bounds2( -1 / 2, minY, 1 / 2, -1.05 );
 
+    // create the view for the cylinders. The Back and Front node will be put on a different z-layer
     var cylindersBackNode = new CylindersBackNode( model.numberOfRowsProperty, bounds, modelViewTransform );
     var cylindersFrontNode = new CylindersFrontNode( model.numberOfRowsProperty, bounds, modelViewTransform );
 
-
-    viewProperties.ballRadioProperty.link( function( value ) {
-      //do stuff
-    } );
-
+    // create the histogram radio buttons at the left of the histogram/cylinders
     var histogramRadioButtonsControl = new VerticalRadioButtonGroup( viewProperties.histogramRadioProperty );
 
-    // Add the eraser button that allows the
+    // create the eraser button
     var eraserButton = new EraserButton( {
+      iconWidth: 22,
       scale: 1.4,
       listener: function() {
         model.balls.clear();
@@ -104,26 +99,20 @@ define( function( require ) {
     // create play Panel
     var playPanel = new IntroPlayPanel( model, model.ballModeProperty );
 
-
+    // create the number of balls display panel
     var numberBallsDisplay = new NumberBallsDisplay( model );
 
-
-    // create the Reset All Button in the bottom right, which resets the model
+    // create the Reset All Button at the bottom right, which resets the model
     var resetAllButton = new ResetAllButton( {
       listener: function() {
         model.reset();
         viewProperties.reset();
-      },
-      right: thisView.layoutBounds.maxX - 10,
-      bottom: thisView.layoutBounds.maxY - 10
-    } );
+      }} );
 
-    // Create the Sound Toggle Button in the bottom right
-    var soundToggleButton = new SoundToggleButton( model.isSoundEnabledProperty, {
-      right: resetAllButton.left - 20,
-      centerY: resetAllButton.centerY
-    } );
+    // Create the Sound Toggle Button at the bottom right
+    var soundToggleButton = new SoundToggleButton( model.isSoundEnabledProperty );
 
+    // link the histogram radio buttons (to the left of the histogram) to toggle the visibility of the histogram and cylinders
     viewProperties.histogramRadioProperty.link( function( histogramRadio ) {
         switch( histogramRadio ) {
           case 'number':
@@ -142,11 +131,12 @@ define( function( require ) {
       }
     );
 
-
-    // Handle the comings and goings of balls
+    // put all the BallNodes on a separate z-layer
     var ballsLayer = new Node( { layerSplit: true } );
 
+    // handle the coming and going of the model Balls
     model.balls.addItemAddedListener( function( addedBall ) {
+      // Create and add the view representation for this addedBall
       var addedBallNode = new BallNode( addedBall.positionProperty, addedBall.ballRadius, modelViewTransform );
       ballsLayer.addChild( addedBallNode );
       model.balls.addItemRemovedListener( function removalListener( removedBall ) {
@@ -156,10 +146,9 @@ define( function( require ) {
           model.balls.removeItemRemovedListener( removalListener );
         }
       } );
-
     } );
-    // Create and add the view representation for this dataBall.
 
+    // add children to the scene graph
     this.addChild( board );
     this.addChild( eraserButton );
     this.addChild( histogramRadioButtonsControl );
@@ -174,23 +163,22 @@ define( function( require ) {
     this.addChild( cylindersFrontNode );
     this.addChild( hopper );
 
+    // layout the children nodes on the scenegraph
     eraserButton.bottom = this.layoutBounds.maxY - 55;
     eraserButton.left = 40;
     histogramRadioButtonsControl.bottom = eraserButton.top - 10;
     histogramRadioButtonsControl.left = eraserButton.left;
-
-
     playPanel.right = this.layoutBounds.maxX - 40;
     playPanel.top = 10;
     numberBallsDisplay.top = playPanel.bottom + 283;
     numberBallsDisplay.right = playPanel.right;
-
+    resetAllButton.right = this.layoutBounds.maxX - 10;
+    resetAllButton.bottom = this.layoutBounds.maxY - 10;
+    soundToggleButton.right = resetAllButton.left - 20;
+    soundToggleButton.centerY = resetAllButton.centerY;
   }
 
   plinkoProbability.register( 'PlinkoProbabilityIntroView', PlinkoProbabilityIntroView );
 
-  return inherit( ScreenView, PlinkoProbabilityIntroView, {
-    step: function( dt ) {
-    }
-  } );
+  return inherit( ScreenView, PlinkoProbabilityIntroView);
 } );

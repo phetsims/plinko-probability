@@ -118,13 +118,12 @@ define( function( require ) {
 
     // Create the Sound Toggle Button at the bottom right
     var soundToggleButton = new SoundToggleButton( model.isSoundEnabledProperty );
-
-    // Handle the comings and goings of balls
+    
+    // put the ballNode(s) and TrajectoryPath(s) on a separate layer
     var ballsLayer = new Node( { layerSplit: true } );
-    // Handle the comings and goings of paths
     var pathsLayer = new Node( { layerSplit: true } );
 
-
+    // handle the coming and going of the balls in the model.
     model.balls.addItemAddedListener( function( addedBall ) {
 
       switch( model.galtonBoardRadioButtonProperty.value ) {
@@ -210,9 +209,5 @@ define( function( require ) {
 
   plinkoProbability.register( 'PlinkoProbabilityLabView', PlinkoProbabilityLabView );
 
-  return inherit( ScreenView, PlinkoProbabilityLabView, {
-    step: function( dt ) {
-    }
-  } );
-} )
-;
+  return inherit( ScreenView, PlinkoProbabilityLabView );
+} );
