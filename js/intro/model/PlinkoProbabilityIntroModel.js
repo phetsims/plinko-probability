@@ -28,6 +28,8 @@ define( function( require ) {
 
     // constants
     var MAX_BALL_NUMBER = 100;
+    var SOUND_TIME_INTERVAL = 100;   // in millisecond, minimum sound time interval between two sounds.
+
 
     function PlinkoProbabilityIntroModel() {
 
@@ -47,8 +49,6 @@ define( function( require ) {
       this.bonk1Audio = new Sound( bonk1Audio );
       this.bonk2Audio = new Sound( bonk2Audio );
 
-      this.timerID = [];
-
       this.launchedBallsNumber = 0; // number of current trial (current ball drop)
 
       this.galtonBoard = new GaltonBoard( this.numberOfRowsProperty ); // create the galton board
@@ -59,32 +59,46 @@ define( function( require ) {
       this.on( 'PressPlayButton', function() {
         thisModel.play();
       } );
+
+      // keep track of time, for playing sound purposes
+      this.oldTime = new Date().getTime();
+
     }
 
 
     plinkoProbability.register( 'PlinkoProbabilityIntroModel', PlinkoProbabilityIntroModel );
 
     return inherit( PropertySet, PlinkoProbabilityIntroModel, {
+
       /**
-       * Plays "ball hitting peg" sound during ball path through the Galton board.
-       * @param {number} ballDirection
-       * @param {boolean} isBallSoundActive
+       * play sound at a certain rate
+       * @param {number} direction
        */
-      playBallHittingPegSound: function( ballDirection, isBallSoundActive ) {
+      playBallHittingPegSound: function( direction ) {
         var thisModel = this;
 
-        //Various sound options: click1Audio , click2Audio , bonk1Audio , bonk2Audio , ballHittingFloor ;
-        //Will play sound based on ball's motion, left or right
-        if ( thisModel.isSoundEnabled && isBallSoundActive ) {
+        if ( thisModel.isSoundEnabled ) {
+          // get current time
+          var currentTime = new Date().getTime();
 
-          if ( ballDirection === -0.5 ) {
-            thisModel.bonk1Audio.play();
-          }
-          else {
-            thisModel.bonk2Audio.play();
+          //play sound if the previous sound was played more than some elapsed time
+          if ( currentTime - thisModel.oldTime > SOUND_TIME_INTERVAL ) {
+
+            //Will play sound based on ball's motion, left or right
+            if ( direction === -0.5 ) {
+              thisModel.bonk1Audio.play();
+            }
+            else {
+              thisModel.bonk2Audio.play();
+            }
+
+            // keep track of when the sound was play
+            thisModel.oldTime = currentTime;
           }
         }
       },
+
+
       /**
        * time step function that is responsible for updating the position and status of tehe balls.
        * @public
@@ -105,9 +119,9 @@ define( function( require ) {
             }
             else {
               ball.phase = PHASE_FALLING; // switch the phase
-              ball.fallenRatio = 0; // reset the raio
+              ball.fallenRatio = 0; // reset the ratio
               ball.updatePegPositionInformation(); // update the peg position information
-              thisModel.playBallHittingPegSound( ball.direction, ball.isSoundActive ); // if sound is active play
+              thisModel.playBallHittingPegSound( ball.direction ); // if sound is active play
             }
           }
           if ( ball.phase === PHASE_FALLING ) { //ball is falling between pegs
@@ -119,7 +133,7 @@ define( function( require ) {
 
               if ( ball.pegHistory.length > 1 ) { // if it is not the last peg
                 ball.updatePegPositionInformation(); // update the next to last peg information
-                thisModel.playBallHittingPegSound( ball.direction, ball.isSoundActive ); // if sound is active play sound
+                thisModel.playBallHittingPegSound( ball.direction ); // if sound is active play sound
               }
               else { // ball is at the top of the last peg
                 ball.phase = PHASE_EXIT; // switch phases
@@ -149,24 +163,7 @@ define( function( require ) {
         this.balls.clear(); // get rid of all the balls on the screen 
         this.histogram.reset();
         this.launchedBallsNumber = 0;
-        this.resetTimer();
-
       },
-      /**
-       * Reset of the Timer to empty listeners.
-       * @public
-       */
-      resetTimer: function() {
-        //TODO: Manage memory leak for timerID array. Values do not delete after function call.
-        if ( this.timerID ) {
-
-          this.timerID.forEach( function( timerIdElement ) {
-            Timer.clearTimeout( timerIdElement );
-          } );
-          this.timerID = [];
-        }
-      },
-
 
       /**
        * Play function adds balls to the model, the number of balls added depends on the status of ballMode.
@@ -176,14 +173,11 @@ define( function( require ) {
       play: function() {
         var i = 0;
         var thisModel = this;
-        var timerIDnumber;
-        var soundActive;  //{boolean} indicates if a ball will be able to play a sound
         switch( this.ballMode ) {
           case 'oneBall':
             if ( this.launchedBallsNumber < MAX_BALL_NUMBER ) {
               this.launchedBallsNumber++;
-              soundActive = true;
-              this.addNewBall( soundActive );
+              this.addNewBall();
             }
             break;
 
@@ -191,32 +185,14 @@ define( function( require ) {
             var maxBallNumberTenCase = 10;
             for ( i; (i < maxBallNumberTenCase) && (this.launchedBallsNumber < MAX_BALL_NUMBER); i++ ) {
               this.launchedBallsNumber++;
-              soundActive = (i % 2 === 0 || i === (maxBallNumberTenCase - 1)); // sets soundActive on every other ball including the last ball.
-              thisModel.soundActive = soundActive;
-              //Because setTimeout is a callback function we are passing our addNewBall function with the isSoundActive parameter via IIFE into setTimout().
-              var listener = (function( isSoundActive ) {
-                return function() {
-                  return thisModel.addNewBall( isSoundActive );
-                };
-              })( soundActive );
-              timerIDnumber = Timer.setTimeout( listener, (i * 500) ); /// measure in milliseconds
-              this.timerID.push( timerIDnumber );
+              Timer.setTimeout( function() { thisModel.addNewBall();}, (i * 500) ); /// measured in milliseconds
             }
             break;
 
           case 'allBalls':
             for ( i; this.launchedBallsNumber < MAX_BALL_NUMBER; i++ ) {
               this.launchedBallsNumber++;
-              soundActive = (i % 5 === 0 || i === (MAX_BALL_NUMBER - 1));
-              thisModel.soundActive = soundActive;
-              var listener2 = (function( isSoundActive ) {
-                return function() {
-                  return thisModel.addNewBall( isSoundActive );
-                };
-              })( soundActive );
-              timerIDnumber = Timer.setTimeout( listener2, (i * 300) );
-
-              this.timerID.push( timerIDnumber );
+              Timer.setTimeout( function() { thisModel.addNewBall();}, (i * 300) ); /// measured in milliseconds
             }
             break;
 
@@ -235,7 +211,6 @@ define( function( require ) {
         var thisModel = this;
         //create new ball
         var addedBall = new Ball( this.probability, this.numberOfRows, thisModel.histogram.binCountAndPreviousPosition );
-        addedBall.isSoundActive = soundActive;// indicates whether a ball will play a sound while it's passing through the board.
         // update number of balls in the bin and the last position of the addedBall
         this.histogram.updateBinCountAndPreviousPosition( addedBall );
         this.balls.push( addedBall );
