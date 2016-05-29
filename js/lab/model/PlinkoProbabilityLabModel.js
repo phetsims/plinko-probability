@@ -141,7 +141,7 @@ define( function( require ) {
                 }
               }
               if ( ball.phase === PHASE_EXIT ) { // the ball has exited and it is making its way to the bin
-                if ( df + ball.fallenRatio < ball.finalBinVerticalPosition ) { // if it has not fallen to its final postition
+                if ( df + ball.fallenRatio < 4 ) { // if it has not fallen to its final postition
                   ball.fallenRatio += df; //fall some more
                 }
                 else {
