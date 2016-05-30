@@ -1,20 +1,4 @@
 {
-  "board.svg": {
-    "text": [
-      "Copyright 2002-2015 University of Colorado Boulder"
-    ],
-    "projectURL": "http://phet.colorado.edu",
-    "license": "contact phethelp@colorado.edu",
-    "notes": "created by Amanda McGarry"
-  },
-  "hopper.svg": {
-    "text": [
-      "Copyright 2002-2015 University of Colorado Boulder"
-    ],
-    "projectURL": "http://phet.colorado.edu",
-    "license": "contact phethelp@colorado.edu",
-    "notes": "created by Amanda McGarry"
-  },
   "container.png": {
     "text": [
       "Copyright 2002-2015 University of Colorado Boulder"
@@ -31,28 +15,12 @@
     "license": "contact phethelp@colorado.edu",
     "notes": "created by Amanda McGarry, see https://github.com/phetsims/plinko-probability/issues/9"
   },
-  "mockupCropped01.png": {
-    "text": [
-      "Copyright 2002-2015 University of Colorado Boulder"
-    ],
-    "projectURL": "http://phet.colorado.edu",
-    "license": "contact phethelp@colorado.edu",
-    "notes": ""
-  },
   "fraction.png": {
     "text": [
       "Copyright 2002-2015 University of Colorado Boulder"
     ],
     "projectURL": "http://phet.colorado.edu",
     "license": "contact phethelp@colorado.edu",
-    "notes": ""
-  },
-  "mockupCropped02.png": {
-    "text": [
-      "Copyright 2002-2015 University of Colorado Boulder"
-    ],
-    "projectURL": "http://phet.colorado.edu",
-    "license": "contact phethelp@colorado.edu",
-    "notes": ""
+    "notes": "created by Amanda McGarry"
   }
 }
