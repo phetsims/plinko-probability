@@ -15,7 +15,6 @@ define( function( require ) {
     var GaltonBoard = require( 'PLINKO_PROBABILITY/common/model/GaltonBoard' );
     var Histogram = require( 'PLINKO_PROBABILITY/common/model/Histogram' );
     var inherit = require( 'PHET_CORE/inherit' );
-    //var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
     var PropertySet = require( 'AXON/PropertySet' );
     var ObservableArray = require( 'AXON/ObservableArray' );
     var Sound = require( 'VIBE/Sound' );
@@ -98,59 +97,10 @@ define( function( require ) {
        * @param dt
        */
       step: function( dt ) {
-        var thisModel = this;
-        var PHASE_INITIAL = 0;
-        var PHASE_FALLING = 1;
-        var PHASE_EXIT = 2;
-        var PHASE_COLLECTED = 3;
         switch( this.galtonBoardRadioButton ) {
           case 'ball':
             this.balls.forEach( function( ball ) {
-              var df = dt * 5;
-              if ( ball.phase === PHASE_INITIAL ) { // balls is leaving the hopper
-                if ( df + ball.fallenRatio < 1 ) { // if the ball has not gotten to the first peg
-                  ball.fallenRatio += df; // fall some more
-                  ball.initialPegPositionInformation(); // get the initial peg information
-                }
-                else {
-                  ball.phase = PHASE_FALLING; // switch the phase
-                  ball.fallenRatio = 0; // reset the raio
-                  ball.updatePegPositionInformation(); // update the peg position information
-                  thisModel.playBallHittingPegSound( ball.direction );
-
-                }
-              }
-              if ( ball.phase === PHASE_FALLING ) { //ball is falling between pegs
-                if ( df + ball.fallenRatio < 1 ) { // if ball has not reached the next peg
-                  ball.fallenRatio += df; // fall some more
-                }
-                else { // the ball has reached the top of the next peg
-                  ball.fallenRatio = 0; // reset the fallen ratio
-
-                  if ( ball.pegHistory.length > 1 ) { // if it is not the last peg
-                    ball.updatePegPositionInformation(); // update the next to last peg information
-                    thisModel.playBallHittingPegSound( ball.direction );
-
-                  }
-                  else { // ball is at the top of the last peg
-                    ball.phase = PHASE_EXIT; // switch phases
-                    ball.updatePegPositionInformation(); // update the last peg information
-
-                    ball.trigger( 'updateStatisticsSignal' );
-                  }
-                }
-              }
-              if ( ball.phase === PHASE_EXIT ) { // the ball has exited and it is making its way to the bin
-                if ( df + ball.fallenRatio < 4 ) { // if it has not fallen to its final postition
-                  ball.fallenRatio += df; //fall some more
-                }
-                else {
-                  ball.phase = PHASE_COLLECTED; // switch phases
-                  ball.trigger( 'landed' ); // mark the ball for removal
-                  ball.trigger( 'landed' );
-                }
-              }
-              ball.step( 5 * dt );
+              ball.step( dt * 5 );
             } );
             break;
           case 'path':
@@ -255,7 +205,7 @@ define( function( require ) {
         var thisModel = this;
         var addedBall = new Ball( this.probability, this.numberOfRows, this.histogram.binCountAndPreviousPosition );
         this.balls.push( addedBall );
-        addedBall.on( 'updateStatisticsSignal', function() {
+        addedBall.on( 'exited', function() {
           thisModel.histogram.addBallToHistogram( addedBall );
           if ( thisModel.histogram.getMaximumBinCount() > MAX_NUMBER_BALLS ) {
             Timer.clearInterval( thisModel.continuousTimer );
@@ -269,6 +219,9 @@ define( function( require ) {
             var previousBall = thisModel.balls.get( previousBallIndex ); // gets the last ball object
             thisModel.balls.remove( previousBall ); //removes the previous ball
           }
+        } );
+        addedBall.on( 'playSound', function() {
+          thisModel.playBallHittingPegSound( addedBall.direction );
         } );
       },
 

@@ -137,7 +137,6 @@ define( function( require ) {
     // describes final horizontal position of ball within a bin {number}
     this.finalBinHorizontalPosition = this.binDirection / 4;
 
-    this.indexOfBall = this.indexOfEveryBall( cylindersNumberOfBallsAndLastPosition );
   }
 
   plinkoProbability.register( 'Ball', Ball );
@@ -162,7 +161,7 @@ define( function( require ) {
     updateStatisticsAndLand: function() {
       if ( this.phase === PHASE_INITIAL ) {
         // send triggers
-        this.trigger( 'updateStatisticsSignal' );
+        this.trigger( 'exited' );
         this.trigger( 'landed' );
 
         //changes phase
@@ -192,29 +191,55 @@ define( function( require ) {
       this.row = peg.rowNumber; // 0 is the left most
       this.pegPosition = peg.position; // vector position of the peg
     },
-
-    /**
-     *Indexes every instance of a ball.
-     * @param {Array.<{binCount,direction}>} binCountArray
-     * @public
-     */
-    indexOfEveryBall: function( binCountArray ) {
-      var tempCount = 0;
-      for ( var i = 0; i < binCountArray.length; i++ ) {
-        tempCount += binCountArray[ i ].binCount;
-      }
-      return tempCount;
-    },
     /**
      *
      * @public
      * updates the position of the ball
      */
-    ballStep: function() {
+    ballStep: function( df ) {
+      if ( this.phase === PHASE_INITIAL ) { // balls is leaving the hopper
+        if ( df + this.fallenRatio < 1 ) { // if the ball has not gotten to the first peg
+          this.fallenRatio += df; // fall some more
+          this.initialPegPositionInformation(); // get the initial peg information
+        }
+        else {
+          this.phase = PHASE_FALLING; // switch the phase
+          this.fallenRatio = 0; // reset the ratio
+          this.updatePegPositionInformation(); // update the peg position information
+          this.trigger( 'playSound' );  //plays sound when ball hits peg
+        }
+      }
+      if ( this.phase === PHASE_FALLING ) { //ball is falling between pegs
+        if ( df + this.fallenRatio < 1 ) { // if ball has not reached the next peg
+          this.fallenRatio += df; // fall some more
+        }
+        else { // the ball has reached the top of the next peg
+          this.fallenRatio = 0; // reset the fallen ratio
+
+          if ( this.pegHistory.length > 1 ) { // if it is not the last peg
+            this.updatePegPositionInformation(); // update the next to last peg information
+            this.trigger( 'playSound' );  //plays sound when ball hits peg
+          }
+          else { // ball is at the top of the last peg
+            this.phase = PHASE_EXIT; // switch phases
+            this.updatePegPositionInformation(); // update the last peg information
+            this.trigger( 'exited' );
+          }
+        }
+      }
+      if ( this.phase === PHASE_EXIT ) { // the ball has exited and it is making its way to the bin
+        if ( df + this.fallenRatio < this.finalBinVerticalPosition ) { // if it has not fallen to its final postition
+          this.fallenRatio += df; //fall some more
+        }
+        else {
+          this.phase = PHASE_COLLECTED; // switch phases
+          this.trigger( 'landed' ); // mark the ball for removal
+        }
+      }
+
       // position depends of the state of the ball
       this.position = this.getPosition().addXY( 0, this.pegSeparation * PlinkoConstants.PEG_HEIGHT_FRACTION_OFFSET );
     },
-
 
     /**
      * gets the position of the ball depending on the phase

@@ -16,7 +16,6 @@ define( function( require ) {
     var Histogram = require( 'PLINKO_PROBABILITY/common/model/Histogram' );
     var inherit = require( 'PHET_CORE/inherit' );
     var ObservableArray = require( 'AXON/ObservableArray' );
-    //var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
     var PropertySet = require( 'AXON/PropertySet' );
     var Sound = require( 'VIBE/Sound' );
     var Timer = require( 'PHET_CORE/Timer' );
@@ -98,60 +97,14 @@ define( function( require ) {
         }
       },
 
-
       /**
        * time step function that is responsible for updating the position and status of tehe balls.
        * @public
        * @param {number} dt - a small time interval
        */
       step: function( dt ) {
-        var thisModel = this;
-        var PHASE_INITIAL = 0;
-        var PHASE_FALLING = 1;
-        var PHASE_EXIT = 2;
-        var PHASE_COLLECTED = 3;
-        var df = dt * 5;
         this.balls.forEach( function( ball ) {
-          if ( ball.phase === PHASE_INITIAL ) { // balls is leaving the hopper
-            if ( df + ball.fallenRatio < 1 ) { // if the ball has not gotten to the first peg
-              ball.fallenRatio += df; // fall some more
-              ball.initialPegPositionInformation(); // get the initial peg information
-            }
-            else {
-              ball.phase = PHASE_FALLING; // switch the phase
-              ball.fallenRatio = 0; // reset the ratio
-              ball.updatePegPositionInformation(); // update the peg position information
-              thisModel.playBallHittingPegSound( ball.direction ); // if sound is active play
-            }
-          }
-          if ( ball.phase === PHASE_FALLING ) { //ball is falling between pegs
-            if ( df + ball.fallenRatio < 1 ) { // if ball has not reached the next peg
-              ball.fallenRatio += df; // fall some more
-            }
-            else { // the ball has reached the top of the next peg
-              ball.fallenRatio = 0; // reset the fallen ratio
-
-              if ( ball.pegHistory.length > 1 ) { // if it is not the last peg
-                ball.updatePegPositionInformation(); // update the next to last peg information
-                thisModel.playBallHittingPegSound( ball.direction ); // if sound is active play sound
-              }
-              else { // ball is at the top of the last peg
-                ball.phase = PHASE_EXIT; // switch phases
-                ball.updatePegPositionInformation(); // update the last peg information
-                ball.trigger( 'exited' );
-              }
-            }
-          }
-          if ( ball.phase === PHASE_EXIT ) { // the ball has exited and it is making its way to the bin
-            if ( df + ball.fallenRatio < ball.finalBinVerticalPosition ) { // if it has not fallen to its final postition
-              ball.fallenRatio += df; //fall some more
-            }
-            else {
-              ball.phase = PHASE_COLLECTED; // switch phases
-              ball.trigger( 'landed' ); // mark the ball for removal
-            }
-          }
-          ball.step( df ); // this update the position
+          ball.step( dt * 5 );
         } );
       },
       /**
@@ -217,6 +170,9 @@ define( function( require ) {
         //'exited' is triggered when the addedBall leaves the last peg on the Galton board.
         addedBall.on( 'exited', function() {
           thisModel.histogram.addBallToHistogram( addedBall );
+        } );
+        addedBall.on( 'playSound', function() {
+          thisModel.playBallHittingPegSound( addedBall.direction );
         } );
 
       },
