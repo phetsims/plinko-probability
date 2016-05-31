@@ -118,7 +118,7 @@ define( function( require ) {
 
     // Create the Sound Toggle Button at the bottom right
     var soundToggleButton = new SoundToggleButton( model.isSoundEnabledProperty );
-    
+
     // put the ballNode(s) and TrajectoryPath(s) on a separate layer
     var ballsLayer = new Node( { layerSplit: true } );
     var pathsLayer = new Node( { layerSplit: true } );

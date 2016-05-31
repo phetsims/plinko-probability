@@ -33,7 +33,7 @@ define( function( require ) {
     var shape = new Shape();
 
     // create a vector representing an up vector with a length given by half of the separation between two rows.
-    var verticalVector = new Vector2( 0, ball.pegSeparation/2 );
+    var verticalVector = new Vector2( 0, ball.pegSeparation / 2 );
 
     // starting point of the shape is above the first peg plus some vertical offset.
     shape.moveToPoint( ball.pegHistory[ 0 ].position.plus( verticalVector.times( 2 ) ) );

@@ -107,7 +107,8 @@ define( function( require ) {
       listener: function() {
         model.reset();
         viewProperties.reset();
-      }} );
+      }
+    } );
 
     // Create the Sound Toggle Button at the bottom right
     var soundToggleButton = new SoundToggleButton( model.isSoundEnabledProperty );
@@ -180,5 +181,5 @@ define( function( require ) {
 
   plinkoProbability.register( 'PlinkoProbabilityIntroView', PlinkoProbabilityIntroView );
 
-  return inherit( ScreenView, PlinkoProbabilityIntroView);
+  return inherit( ScreenView, PlinkoProbabilityIntroView );
 } );

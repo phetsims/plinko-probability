@@ -28,7 +28,7 @@ define( function( require ) {
       var thisModel = this;
 
       this.timerID = [];
-      
+
       PlinkoProbabilityCommonModel.call( this ); // inherits properties from PlinkoProbabilityCommonModel.js
 
       //trigger that plays when play button is pressed
@@ -76,7 +76,7 @@ define( function( require ) {
           this.timerID = [];
         }
       },
-      
+
       /**
        * Play function adds balls to the model, the number of balls added depends on the status of ballMode.
        * The function updates the total number of launched balls

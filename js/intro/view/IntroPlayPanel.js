@@ -24,7 +24,7 @@ define( function( require ) {
   var timesString = '\u00D7'; // multiplication Sign
 
   /**
-   * Creation of play panel 
+   * Creation of play panel
    * @param {PlinkoProbabilityIntroModel} model
    * @param {Object} [options]
    * @constructor
@@ -43,7 +43,7 @@ define( function( require ) {
       options );
 
     var fontOptions = { font: PlinkoConstants.PANEL_FONT };
-    
+
     // Creation of radio buttons
     var oneBall = new HBox( {
       spacing: PlinkoConstants.BALL_RADIUS,
@@ -57,7 +57,7 @@ define( function( require ) {
       spacing: PlinkoConstants.BALL_RADIUS,
       children: [ new BallRepresentationNode( 8 ), new Text( timesString + allString, fontOptions ) ]
     } );
-    
+
     var ballModeRadioButtons = new VerticalAquaRadioButtonGroup( [
       { node: oneBall, property: model.ballModeProperty, value: 'oneBall' },
       { node: tenBalls, property: model.ballModeProperty, value: 'tenBalls' },
@@ -67,15 +67,15 @@ define( function( require ) {
       spacing: 6,     // vertical spacing between each radio button
       touchAreaXDilation: 5
     } );
-    
-    
+
+
     //Creation of play button
     var playButton = new PlayButton( {
       listener: function() {
         model.trigger( 'PressPlayButton' );
       }
     } );
-    
+
     //Creation of play button panel box
     var playAndRadioButtonBox = new HBox( {
       spacing: 0,
