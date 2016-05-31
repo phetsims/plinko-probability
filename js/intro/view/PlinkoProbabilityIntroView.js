@@ -92,7 +92,6 @@ define( function( require ) {
         model.histogram.reset();
         model.launchedBallsNumber = 0;
         model.resetTimer();
-        eraserButton.iconWidth = 23;
       }
     } );
 
