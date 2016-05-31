@@ -28,7 +28,7 @@ define( function( require ) {
 
       var thisModel = this;
 
-      PlinkoProbabilityCommonModel.call( this );
+      PlinkoProbabilityCommonModel.call( this ); // inherits properties from PlinkoProbabilityCommonModel.js
 
       this.galtonBoardRadioButtonProperty.link( function() {
         thisModel.balls.clear();
@@ -145,11 +145,11 @@ define( function( require ) {
             thisModel.balls.remove( previousBall ); //removes the previous ball
           }
         } );
+        //triggers sound to play when ball hits a peg
         addedBall.on( 'playSound', function() {
           thisModel.playBallHittingPegSound( addedBall.direction );
         } );
       }
-
     } );
   }
 )
