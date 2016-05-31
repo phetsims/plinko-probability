@@ -40,13 +40,13 @@ define( function( require ) {
         isPlaying: false  // false if no balls are being dropped true if they are
       } );
 
-      //Audio for ball hitting pegs
-      this.bonk1Audio = new Sound( bonk1Audio );
-      this.bonk2Audio = new Sound( bonk2Audio );
+      // Audio for ball hitting pegs
+      this.bonk1Audio = new Sound( bonk1Audio );  // @private
+      this.bonk2Audio = new Sound( bonk2Audio );  // @private
 
-      this.launchedBallsNumber = 0; // number of current trial (current ball drop)
+      this.launchedBallsNumber = 0; // @public - number of current trial (current ball drop)
 
-      this.galtonBoard = new GaltonBoard( this.numberOfRowsProperty ); // create the galton board
+      this.galtonBoard = new GaltonBoard( this.numberOfRowsProperty ); // @public (read-only) - create the galton board
       this.balls = new ObservableArray(); // the balls that are currently on the screen
       this.histogram = new Histogram( this.numberOfRowsProperty );
       this.landedBallsNumber = this.histogram.landedBallsNumber; //number of balls in the histogram

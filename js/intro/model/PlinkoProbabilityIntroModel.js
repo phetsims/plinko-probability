@@ -118,9 +118,9 @@ define( function( require ) {
       addNewBall: function() {
         var thisModel = this;
         //create new ball
-        var addedBall = new Ball( this.probability, this.numberOfRows, this.histogram.binCountAndPreviousPosition );
+        var addedBall = new Ball( this.probability, this.numberOfRows, this.histogram.bins );
         // update number of balls in the bin and the last position of the addedBall
-        this.histogram.updateBinCountAndPreviousPosition( addedBall );
+        this.histogram.updateBinCountAndOrientation( addedBall );
         this.balls.push( addedBall );
         //'exited' is triggered when the addedBall leaves the last peg on the Galton board.
         addedBall.on( 'exited', function() {
