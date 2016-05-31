@@ -56,16 +56,17 @@ define( function( require ) {
       },
 
       /**
-       * Reset of the Timer to empty listeners.
+       * Reset of the Timer to ensure that all the step listeners are prevented from being called back
        * @public
        */
       resetTimer: function() {
-        //TODO: Manage memory leak for timerID array. Values do not delete after function call.
+        // check that if this.timerID contains any scheduled timeout
         if ( this.timerID ) {
-
+          // clear all the timeO
           this.timerID.forEach( function( timerIdElement ) {
             Timer.clearTimeout( timerIdElement );
           } );
+          // clear out the array
           this.timerID = [];
         }
       },
@@ -105,7 +106,7 @@ define( function( require ) {
             break;
 
           default:
-            throw new Error( 'Unhandled galton Board Radio Button state: ' + thisModel.galtonBoardRadioButton );
+            throw new Error( 'Unhandled galton Board Radio Button state: ' + this.galtonBoardRadioButton );
 
         }
       },
@@ -117,7 +118,7 @@ define( function( require ) {
       addNewBall: function() {
         var thisModel = this;
         //create new ball
-        var addedBall = new Ball( this.probability, this.numberOfRows, thisModel.histogram.binCountAndPreviousPosition );
+        var addedBall = new Ball( this.probability, this.numberOfRows, this.histogram.binCountAndPreviousPosition );
         // update number of balls in the bin and the last position of the addedBall
         this.histogram.updateBinCountAndPreviousPosition( addedBall );
         this.balls.push( addedBall );
