@@ -72,7 +72,7 @@ define( function( require ) {
     //Creation of play button
     var playButton = new PlayButton( {
       listener: function() {
-        model.trigger( 'PressPlayButton' );
+        model.play();
       }
     } );
 

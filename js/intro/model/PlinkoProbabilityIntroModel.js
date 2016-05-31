@@ -25,16 +25,9 @@ define( function( require ) {
      */
     function PlinkoProbabilityIntroModel() {
 
-      var thisModel = this;
+      PlinkoProbabilityCommonModel.call( this );
 
       this.timerID = [];
-
-      PlinkoProbabilityCommonModel.call( this ); // inherits properties from PlinkoProbabilityCommonModel.js
-
-      //trigger that plays when play button is pressed
-      this.on( 'PressPlayButton', function() {
-        thisModel.play();
-      } );
     }
 
 
