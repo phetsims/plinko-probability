@@ -27,6 +27,8 @@ define( function( require ) {
 
       var thisModel = this;
 
+      this.timerID = [];
+      
       PlinkoProbabilityCommonModel.call( this ); // inherits properties from PlinkoProbabilityCommonModel.js
 
       //trigger that plays when play button is pressed
@@ -52,12 +54,37 @@ define( function( require ) {
       },
 
       /**
+       * resets timer for each ball
+       * @public
+       */
+      reset: function() {
+        this.resetTimer();
+        PlinkoProbabilityCommonModel.prototype.reset.call( this );
+      },
+
+      /**
+       * Reset of the Timer to empty listeners.
+       * @public
+       */
+      resetTimer: function() {
+        //TODO: Manage memory leak for timerID array. Values do not delete after function call.
+        if ( this.timerID ) {
+
+          this.timerID.forEach( function( timerIdElement ) {
+            Timer.clearTimeout( timerIdElement );
+          } );
+          this.timerID = [];
+        }
+      },
+      
+      /**
        * Play function adds balls to the model, the number of balls added depends on the status of ballMode.
        * The function updates the total number of launched balls
        * @private
        */
       play: function() {
         var i = 0;
+        var timerIDnumber;
         var thisModel = this;
         switch( this.ballMode ) {
           case 'oneBall':
@@ -71,14 +98,16 @@ define( function( require ) {
             var maxBallNumberTenCase = 10;
             for ( i; (i < maxBallNumberTenCase) && (this.launchedBallsNumber < MAX_BALL_NUMBER); i++ ) {
               this.launchedBallsNumber++;
-              Timer.setTimeout( function() { thisModel.addNewBall();}, (i * 500) ); /// measured in milliseconds
+              timerIDnumber = Timer.setTimeout( function() { thisModel.addNewBall();}, (i * 500) ); /// measured in milliseconds
+              this.timerID.push( timerIDnumber );
             }
             break;
 
           case 'allBalls':
             for ( i; this.launchedBallsNumber < MAX_BALL_NUMBER; i++ ) {
               this.launchedBallsNumber++;
-              Timer.setTimeout( function() { thisModel.addNewBall();}, (i * 300) ); /// measured in milliseconds
+              timerIDnumber = Timer.setTimeout( function() { thisModel.addNewBall();}, (i * 300) ); /// measured in milliseconds
+              this.timerID.push( timerIDnumber );
             }
             break;
 
