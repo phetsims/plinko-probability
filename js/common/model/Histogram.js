@@ -26,13 +26,14 @@ define( function( require ) {
     Events.call( this );
 
     var thisHistogram = this;
-    this.binCountAndPreviousPosition = []; //@public
+
+
     // @private
-    this.bins = [];
     this.sumOfSquares = 0;
     this.variance = 0;
 
     // @public
+    this.bins = []; // {Object[]}
     this.average = 0;
     this.standardDeviation = 0;
     this.standardDeviationOfMean = 0;
@@ -65,16 +66,15 @@ define( function( require ) {
      * @private
      */
     setBinsToZero: function() {
-      this.bins = []; // reset the viewable bin array to an empty array
-      this.binCountAndPreviousPosition = []; // resets the bin count and previous position
-      var binInfo; // object with a count and direction
+      this.bins = []; // reset the bin array to an empty array
+      var binInfo;
       for ( var i = 0; i < PlinkoConstants.ROWS_RANGE.max + 1; i++ ) {
-        this.bins.push( 0 );
         binInfo = {
-          binCount: 0,
-          direction: 0 // 0 is center, 1 is right, -1 is left
+          binCount: 0,  // number of balls that will be in the bin (including those falling through the galton board)
+          visibleBinCount: 0,  // number of balls that are in the bin
+          orientation: 0 // 0 is center, 1 is right, -1 is left
         };
-        this.binCountAndPreviousPosition.push( binInfo );
+        this.bins.push( binInfo );
       }
     },
 
@@ -84,9 +84,9 @@ define( function( require ) {
      * @param {Ball} ball
      * @public
      */
-    updateBinCountAndPreviousPosition: function( ball ) {
-      this.binCountAndPreviousPosition[ ball.binIndex ].binCount++;
-      this.binCountAndPreviousPosition[ ball.binIndex ].direction = ball.binDirection;
+    updateBinCountAndOrientation: function( ball ) {
+      this.bins[ ball.binIndex ].binCount++;
+      this.bins[ ball.binIndex ].orientation = ball.binOrientation;
     },
 
     /**
@@ -115,40 +115,6 @@ define( function( require ) {
         this.standardDeviationOfMean = 0;
       }
     },
-    /**
-     *
-     * Calculate the statistics from the histogram bins (from scratch instead of a delta update)
-     * @private
-     */
-    calculateStatistics: function() {
-      this.resetStatistics();
-
-      var self = this;
-
-      var sum = 0;
-      this.bins.forEach( function( bin, index ) {
-        self.landedBallsNumber += bin;
-        sum += bin * index;
-        self.sumOfSquares += bin * index * index;
-      } );
-
-      this.average = sum / this.landedBallsNumber;
-
-      var N = this.landedBallsNumber;
-
-      // the variance and standard deviations exist only when the number of ball is larger than 1
-      if ( N > 1 ) {
-        this.variance = (this.sumOfSquares - N * this.average * this.average) / (N - 1);
-        this.standardDeviation = Math.sqrt( this.variance );
-        this.standardDeviationOfMean = this.standardDeviation / Math.sqrt( N );
-      }
-      else {
-        this.variance = 0;
-        this.standardDeviation = 0;
-        this.standardDeviationOfMean = 0;
-      }
-
-    },
 
     /**
      *  Resets all the statistics data to zero
@@ -170,7 +136,7 @@ define( function( require ) {
      */
     addBallToHistogram: function( ball ) {
       // @private
-      this.bins[ ball.binIndex ]++;
+      this.bins[ ball.binIndex ].visibleBinCount++;
       this.updateStatistics( ball.binIndex );
       this.trigger( 'histogramUpdated' );
       this.trigger( 'statisticsUpdated' );
@@ -184,7 +150,7 @@ define( function( require ) {
      * @public
      */
     getBinCount: function( binIndex ) {
-      return this.bins[ binIndex ]; // an integer
+      return this.bins[ binIndex ].visibleBinCount; // an integer
     },
 
     /**
@@ -196,7 +162,7 @@ define( function( require ) {
      */
     getFractionalBinCount: function( binIndex ) {
       if ( this.landedBallsNumber ) {
-        return this.bins[ binIndex ] / this.landedBallsNumber; // fraction is smaller than one
+        return this.bins[ binIndex ].visibleBinCount / this.landedBallsNumber; // fraction is smaller than one
       }
       else {
         return 0;
@@ -212,9 +178,9 @@ define( function( require ) {
      * @public
      */
     getFractionalNormalizedBinCount: function( binIndex ) {
-      var maxValue = _.max( this.bins );
+      var maxCount= this.getMaximumBinCount();
       if ( this.landedBallsNumber ) {
-        return this.bins[ binIndex ] / maxValue; // fraction is smaller than one
+        return this.bins[ binIndex ].visibleBinCount / maxCount; // fraction is smaller than one
       }
       else {
         return 0;
@@ -227,7 +193,11 @@ define( function( require ) {
      * @public
      */
     getMaximumBinCount: function() {
-      return _.max( this.bins );
+      var maxCount=0;
+      this.bins.forEach( function(binElement){
+         maxCount = Math.max(maxCount,binElement.visibleBinCount);
+      });
+      return maxCount;
     }
 
   } );

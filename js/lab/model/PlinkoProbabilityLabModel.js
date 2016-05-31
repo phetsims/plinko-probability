@@ -128,7 +128,7 @@ define( function( require ) {
        */
       addNewBall: function() {
         var thisModel = this;
-        var addedBall = new Ball( this.probability, this.numberOfRows, this.histogram.binCountAndPreviousPosition );
+        var addedBall = new Ball( this.probability, this.numberOfRows, this.histogram.bins );
         this.balls.push( addedBall );
         addedBall.on( 'exited', function() {
           thisModel.histogram.addBallToHistogram( addedBall );

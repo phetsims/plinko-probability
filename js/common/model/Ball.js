@@ -27,10 +27,10 @@ define( function( require ) {
    *
    * @param {number} probability - number ranging from 0 to 1
    * @param {number} numberOfRows - an integer
-   * @param {Array.<{binCount,direction}>} cylindersNumberOfBallsAndLastPosition - an array containing the [number of balls in bin , last position of ball]
+   * @param {Array.<Object>} bins
    * @constructor
    */
-  function Ball( probability, numberOfRows, cylindersNumberOfBallsAndLastPosition ) {
+  function Ball( probability, numberOfRows, bins) {
 
     PropertySet.call( this, {
       position: new Vector2( 0, 0 )
@@ -78,7 +78,7 @@ define( function( require ) {
 
     this.pegHistory = []; // {Array.<Object>}
 
-    var direction;  // 0 is left, 1 is right
+    var direction;  // -0.5 is left, 0.5 is right
     var rowNumber;
     var columnNumber = 0;
     var peg;
@@ -101,23 +101,23 @@ define( function( require ) {
 
 
     // @public (read-only)
-    // binDirection {number} takes values -1 (left), 0 (center), 1 (right)
-    this.binDirection = cylindersNumberOfBallsAndLastPosition[ this.binIndex ].direction;
+    // binOrientation {number} takes values -1 (left), 0 (center), 1 (right)
+    this.binOrientation = bins[ this.binIndex ].orientation;
 
     // @private (read-only)
     // binCount {number} indicates the number of balls in a specific cylinder
-    this.binCount = cylindersNumberOfBallsAndLastPosition[ this.binIndex ].binCount;
+    this.binCount = bins[ this.binIndex ].binCount;
 
     // Indicates ball horizontal position in bin
     switch( this.binCount % 3 ) {
       case 0:     // Ball makes probabilistic decision whether to end in left or right horizontal position in the bin
-        this.binDirection = (Math.random() < 0.5) ? 1 : -1;
+        this.binOrientation = (Math.random() < 0.5) ? 1 : -1;
         break;
       case 1:     // Ball makes decision to end in left horizontal position in the bin
-        this.binDirection *= -1;
+        this.binOrientation *= -1;
         break;
       case 2:     // Ball makes decision to end in left horizontal position in the bin
-        this.binDirection = 0;
+        this.binOrientation = 0;
         break;
 
       default:
@@ -135,7 +135,7 @@ define( function( require ) {
 
     // @public
     // describes final horizontal position of ball within a bin {number}
-    this.finalBinHorizontalPosition = this.binDirection / 4;
+    this.finalBinHorizontalPosition = this.binOrientation / 4;
 
   }
 
