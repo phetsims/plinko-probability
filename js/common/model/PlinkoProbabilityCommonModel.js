@@ -63,12 +63,13 @@ define( function( require ) {
     return inherit( PropertySet, PlinkoProbabilityCommonModel, {
 
       /**
-       * play sound at a certain rate
-       * @param {number} direction
+       * Play sound that depends on the direction of the ball
+       * @param {number} direction - a value  -0.5 (left) and 0.5 (right)
        */
       playBallHittingPegSound: function( direction ) {
         var thisModel = this;
 
+        assert && assert( direction === -0.5 || direction === 0.5, 'direction should be -0.5 to 0.5' );
         if ( thisModel.isSoundEnabled ) {
           // get current time
           var currentTime = new Date().getTime();
@@ -82,7 +83,7 @@ define( function( require ) {
             else {
               thisModel.bonk2Audio.play();
             }
-            thisModel.oldTime = new Date().getTime();
+            thisModel.oldTime = currentTime;
           }
         }
       },
@@ -113,6 +114,7 @@ define( function( require ) {
        * @param {number} numberOfRows - an integer
        * @param {number} probability - ranges from 0 to 1
        * @returns {number}
+       * @public read-only
        */
       getTheoreticalAverage: function( numberOfRows, probability ) {
         assert && assert( numberOfRows % 1 === 0, 'number of rows should be an integer' );
@@ -124,28 +126,11 @@ define( function( require ) {
        * @param {number} numberOfRows - an integer
        * @param {number} probability - ranges from 0 to 1
        * @returns {number}
+       * @public read-only
        */
       getTheoreticalStandardDeviation: function( numberOfRows, probability ) {
         assert && assert( numberOfRows % 1 === 0, 'number of rows should be an integer' );
         return Math.sqrt( numberOfRows * probability * (1 - probability) );
-      },
-
-      /**
-       * Function that calculates the theoretical standard deviation of the mean for the current value of number of balls
-       * It returns a string if there is not a single particle on the board
-       * @param {number} numberOfRows - an integer
-       * @param {number} probability - ranges from 0 to 1
-       * @returns {number||string}
-       */
-      getTheoreticalStandardDeviationOfMean: function( numberOfRows, probability ) {
-        assert && assert( numberOfRows % 1 === 0, 'number of rows should be an integer' );
-
-        if ( this.landedBallsNumber > 0 ) {
-          return Math.sqrt( numberOfRows * probability * (1 - probability ) / this.landedBallsNumber );
-        }
-        else {
-          return 'Not A Number';
-        }
       },
 
       /**
@@ -158,6 +143,7 @@ define( function( require ) {
        * @param {number} n - the number of rows
        * @param {number} k - the bin number
        * @returns {number}  "n choose k"= n!/( k! (n-k)!)
+       * @private
        */
       getBinomialCoefficient: function( n, k ) {
         // we want (n)*(n-1)*(n-2)..(n-k+1) divided by (k)*(k-1)*(k-2)...*2*1
@@ -182,6 +168,7 @@ define( function( require ) {
        * @param {number} k - the bin number - an integer between 0 and n
        * @param {number} p - the success (a.k.a binary) probability, a number between 0 and 1
        * @returns {number} P(n,k,p)= ("n choose k") * p^k * p^(n-k)
+       * @private
        */
       getBinomialProbability: function( n, k, p ) {
         assert && assert( k <= n, 'the bin number, k, ranges from 0 to n' );
@@ -197,6 +184,7 @@ define( function( require ) {
        *  see http://en.wikipedia.org/wiki/Binomial_distribution
        *
        * @returns {Array.<number>}
+       * @private
        */
       getBinomialDistribution: function() {
         var binomialCoefficientsArray = [];
@@ -214,6 +202,7 @@ define( function( require ) {
        *  The binomial distribution is normalized in the sense that the largest coefficient of the array will be one.
        *
        * @returns {Array.<number>}
+       * @public read-only
        */
       getNormalizedBinomialDistribution: function() {
         var binomialCoefficientsArray = this.getBinomialDistribution();
