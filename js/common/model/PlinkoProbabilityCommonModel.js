@@ -1,4 +1,4 @@
-// Copyright 2014-2015, University of Colorado Boulder
+// Copyright 2014-2016, University of Colorado Boulder
 
 /**
  * Model for Plinko Probability Intro
@@ -17,7 +17,6 @@ define( function( require ) {
     var ObservableArray = require( 'AXON/ObservableArray' );
     var PropertySet = require( 'AXON/PropertySet' );
     var Sound = require( 'VIBE/Sound' );
-
 
     // audio
     var bonk1Audio = require( 'audio!PLINKO_PROBABILITY/bonk-1-for-plinko' );
@@ -203,8 +202,8 @@ define( function( require ) {
         var binomialCoefficientsArray = [];
         var k;
         // let's not try to be clever and let's go forward with the brute force approach
-        for ( k = 0; k < this.numberOfRowsProperty.value + 1; k++ ) {
-          binomialCoefficientsArray.push( this.getBinomialProbability( this.numberOfRowsProperty.value, k, this.probability ) );
+        for ( k = 0; k < this.numberOfRows + 1; k++ ) {
+          binomialCoefficientsArray.push( this.getBinomialProbability( this.numberOfRows, k, this.probability ) );
         }
         return binomialCoefficientsArray;
       },
