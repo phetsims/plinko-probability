@@ -17,7 +17,7 @@ define( function( require ) {
   var PERSPECTIVE_TILT = Math.PI / 1.4; // in radians
   var TOP_CYLINDER_STROKE_COLOR = new Color( 120, 120, 100 );
   var TOP_CYLINDER_FILL_COLOR = new Color( 212, 230, 238 );
-  var verticalOffset = 10;
+  var VERTICAL_OFFSET = 10;
 
   /**
    *
@@ -40,6 +40,7 @@ define( function( require ) {
     this.addChild( topLayerNode );
 
     numberOfRowsProperty.link( function( numberOfRows ) {
+      assert && assert (Number.isInteger(numberOfRows),'numberOfRows must be an integer');
       var numberOfTicks = numberOfRows + 1;
       for ( var i = 0; i < numberOfTicks; i++ ) {
         var binCenterX = bounds.minX + bounds.width * (i + 1 / 2) / (numberOfTicks );
@@ -50,7 +51,7 @@ define( function( require ) {
           fill: TOP_CYLINDER_FILL_COLOR,
           stroke: TOP_CYLINDER_STROKE_COLOR,
           centerX: x,
-          top: y + verticalOffset
+          top: y + VERTICAL_OFFSET
         } );
 
         topLayerNode.addChild( top );
