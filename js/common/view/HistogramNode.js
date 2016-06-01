@@ -337,7 +337,7 @@ define( function( require ) {
         updateTextBanner( numberOfRowsProperty.value );
       } );
 
-      Property.multilink( [ numberOfRowsProperty, histogramRadioProperty ], function( numberOfRows, histogramRadio ) {
+      Property.multilink( [ numberOfRowsProperty, histogramRadioProperty ], function( numberOfRows ) {
         updateBanner( numberOfRows );
         updateTextBanner( numberOfRows );
       } );
