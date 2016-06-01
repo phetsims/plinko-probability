@@ -21,13 +21,12 @@ define( function( require ) {
 
   /**
    *
-   * @param {PlinkoProbabilityIntroModel} model
+   * @param {Histogram} histogram
    * @param {Object} [options]
    * @constructor
    */
-
-  //TODO dont pass the entire model, just what is needed
-  function NumberBallsDisplay( model, options ) {
+  
+  function NumberBallsDisplay( histogram, options ) {
 
     options = _.extend( {
         minWidth: 209,
@@ -46,8 +45,8 @@ define( function( require ) {
 
     var numberLandedBallsText = new EquationNode( nString, 0, optionsTitle );
 
-    model.histogram.on( 'statisticsUpdated', function() {
-      numberLandedBallsText.setRightHandSideOfEquation( model.histogram.landedBallsNumber );
+    histogram.on( 'statisticsUpdated', function() {
+      numberLandedBallsText.setRightHandSideOfEquation( histogram.landedBallsNumber );
     } );
 
     Panel.call( this, numberLandedBallsText, options );
