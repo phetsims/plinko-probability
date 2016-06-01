@@ -67,7 +67,7 @@ define( function( require ) {
     // create the icon for the continuous mode
     var continuous = new HBox( {
       align: 'bottom',
-      spacing: -BALL_RADIUS * 1.0, // negative spacing
+      spacing: -BALL_RADIUS, // negative spacing
       children: [
         new BallRepresentationNode( BALL_RADIUS ),
         new BallRepresentationNode( BALL_RADIUS ),
