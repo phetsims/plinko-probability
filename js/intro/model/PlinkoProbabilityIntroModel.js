@@ -10,7 +10,6 @@ define( function( require ) {
     'use strict';
 
     // modules
-    var Bounds2 = require( 'DOT/Bounds2' );
     var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
     var Ball = require( 'PLINKO_PROBABILITY/common/model/Ball' );
     var inherit = require( 'PHET_CORE/inherit' );
