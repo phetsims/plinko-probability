@@ -16,8 +16,8 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Panel = require( 'SUN/Panel' );
   //var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  var PlayButton = require( 'PLINKO_PROBABILITY/intro/view/PlayButton' );
-  var PauseButton = require( 'PLINKO_PROBABILITY/intro/view/PauseButton' );
+  var PlayButton = require( 'PLINKO_PROBABILITY/common/view/PlayButton' );
+  var PauseButton = require( 'PLINKO_PROBABILITY/common/view/PauseButton' );
   //var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
   //var RadialGradient = require( 'SCENERY/util/RadialGradient' );
   var Node = require( 'SCENERY/nodes/Node' );
