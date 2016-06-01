@@ -47,15 +47,17 @@ define( function( require ) {
 
     var galtonBoardApexPosition = new Vector2( this.layoutBounds.maxX / 2 - 80, 70 );
 
-    // create the hopper and the wooden Board
+    // create the hopper and the Galton Board
     var hopper = new Hopper();
     var board = new Board();
 
+    // hopper and Galton Board positioning
     hopper.centerX = galtonBoardApexPosition.x;
     hopper.top = 10;
     board.centerX = hopper.centerX - (board.options.bottomWidth - board.width) / 2;
     board.top = hopper.bottom + 10;
 
+    // histogram positioning (heavily dependent on Galton Board positioning)
     var viewGraphBounds = new Bounds2( board.left, board.top, board.left + board.options.bottomWidth, board.top + board.options.height );
     var modelGraphBounds = model.galtonBoard.bounds;
     var modelViewTransform = ModelViewTransform2.createRectangleInvertedYMapping( modelGraphBounds, viewGraphBounds );
@@ -173,19 +175,19 @@ define( function( require ) {
 
 
     // laying out the nodes
-    eraserButton.bottom = this.layoutBounds.maxY - 55;
+    eraserButton.bottom = this.layoutBounds.maxY - 55;    // eraser button position determines histogram radio buttons position
     eraserButton.left = 40;
     histogramRadioButtonsControl.bottom = eraserButton.top - 16;
     histogramRadioButtonsControl.left = eraserButton.left;
-    ballRadioButtonsControl.left = hopper.right + 47;
+    ballRadioButtonsControl.left = hopper.right + 47;     // dependent on hopper position
     ballRadioButtonsControl.top = hopper.top;
-    playPanel.right = this.layoutBounds.maxX - 50;
+    playPanel.right = this.layoutBounds.maxX - 50;        // determines slider control panel and statistical display position
     playPanel.top = 10;
     sliderControlPanel.top = playPanel.bottom + 10;
     sliderControlPanel.right = playPanel.right;
     statisticsDisplayAccordionBox.top = sliderControlPanel.bottom + 10;
     statisticsDisplayAccordionBox.right = playPanel.right;
-    resetAllButton.right = this.layoutBounds.maxX - 10;
+    resetAllButton.right = this.layoutBounds.maxX - 10;   // determines sound toggle position
     resetAllButton.bottom = this.layoutBounds.maxY - 10;
     soundToggleButton.right = resetAllButton.left - 20;
     soundToggleButton.centerY = resetAllButton.centerY;
