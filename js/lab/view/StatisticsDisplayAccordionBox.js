@@ -77,9 +77,9 @@ define( function( require ) {
     var theoreticalStandardDeviationText = new EquationNode( sigmaGreekString, 0, optionsTheoretical );
 
     Property.multilink( [ model.numberOfRowsProperty, model.probabilityProperty ], function( numberOfRows, probability ) {
-      var integerNumberOfRows = numberOfRows;
-      theoreticalAverageText.setRightHandSideOfEquation( model.getTheoreticalAverage( integerNumberOfRows, probability ) );
-      theoreticalStandardDeviationText.setRightHandSideOfEquation( model.getTheoreticalStandardDeviation( integerNumberOfRows, probability ) );
+      assert && assert( Number.isInteger( numberOfRows ), 'the number of rows must be an integer' );
+      theoreticalAverageText.setRightHandSideOfEquation( model.getTheoreticalAverage( numberOfRows, probability ) );
+      theoreticalStandardDeviationText.setRightHandSideOfEquation( model.getTheoreticalStandardDeviation( numberOfRows, probability ) );
     } );
 
     model.histogram.on( 'statisticsUpdated', function() {
