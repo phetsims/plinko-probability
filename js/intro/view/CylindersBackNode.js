@@ -13,6 +13,7 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var Path = require( 'SCENERY/nodes/Path' );
   var Shape = require( 'KITE/Shape' );
+  var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
 
   var PERSPECTIVE_TILT = Math.PI / 1.4; // in radians
   var TOP_CYLINDER_STROKE_COLOR = new Color( 120, 120, 100 );
@@ -22,14 +23,14 @@ define( function( require ) {
   /**
    *
    * @param {Property.<number>} numberOfRowsProperty
-   * @param {Bounds2} bounds
    * @param {ModelViewTransform2} modelViewTransform
    * @constructor
    */
-  function CylindersBackNode( numberOfRowsProperty, bounds, modelViewTransform ) {
+  function CylindersBackNode( numberOfRowsProperty, modelViewTransform ) {
 
     Node.call( this );
-
+    
+    var bounds = PlinkoConstants.CYLINDER_BOUNDS;
     var binWidth = bounds.width / (numberOfRowsProperty.value + 1);
     var cylinderWidth = 0.95 * binWidth;
     var ellipseWidth = modelViewTransform.modelToViewDeltaX( cylinderWidth );

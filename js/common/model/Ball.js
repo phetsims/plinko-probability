@@ -28,10 +28,9 @@ define( function( require ) {
    * @param {number} probability - number ranging from 0 to 1
    * @param {number} numberOfRows - an integer
    * @param {Array.<Object>} bins
-   * @param {Bound.<Object>} the bounds for the cylinder
    * @constructor
    */
-  function Ball( probability, numberOfRows, bins, bounds ) {
+  function Ball( probability, numberOfRows, bins ) {
 
     PropertySet.call( this, {
       position: new Vector2( 0, 0 )
@@ -132,6 +131,7 @@ define( function( require ) {
 
     // @public
     // describes final vertical position of ball within a bin {number}
+    var bounds = PlinkoConstants.CYLINDER_BOUNDS;
     var verticalOffset = .031816; // necessary offset
     var ellipseHeight = (bounds.width / numberOfRows) * Math.sin( Math.PI / 1.4 ) * .95; // height of the ellipse on top
     var cylinderHeight = .74 * bounds.height; //height of the cylinder

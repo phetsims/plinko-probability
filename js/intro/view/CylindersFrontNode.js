@@ -14,6 +14,7 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var Path = require( 'SCENERY/nodes/Path' );
   var Shape = require( 'KITE/Shape' );
+  var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
 
   // constants
   var PERSPECTIVE_TILT = Math.PI / 1.4; // in radians
@@ -24,14 +25,13 @@ define( function( require ) {
   /**
    *
    * @param {Property.<number>} numberOfRowsProperty
-   * @param {Bounds2} bounds
    * @param {ModelViewTransform2} modelViewTransform
    * @constructor
    */
-  function CylindersFrontNode( numberOfRowsProperty, bounds, modelViewTransform ) {
+  function CylindersFrontNode( numberOfRowsProperty, modelViewTransform ) {
 
     Node.call( this );
-
+    var bounds = PlinkoConstants.CYLINDER_BOUNDS;
     var binWidth = bounds.width / (numberOfRowsProperty.value + 1);
     var cylinderWidth = 0.95 * binWidth;
     var height = 0.74 * bounds.height;
