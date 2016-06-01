@@ -15,21 +15,16 @@ define( function( require ) {
   var HBox = require( 'SCENERY/nodes/HBox' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Panel = require( 'SUN/Panel' );
-  //var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var PlayButton = require( 'PLINKO_PROBABILITY/common/view/PlayButton' );
   var PauseButton = require( 'PLINKO_PROBABILITY/common/view/PauseButton' );
-  //var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
-  //var RadialGradient = require( 'SCENERY/util/RadialGradient' );
   var Node = require( 'SCENERY/nodes/Node' );
-  //var VBox = require( 'SCENERY/nodes/VBox' );
   var VerticalAquaRadioButtonGroup = require( 'SUN/VerticalAquaRadioButtonGroup' );
   var Timer = require( 'PHET_CORE/Timer' );
-  //var VStrut = require( 'SCENERY/nodes/VStrut' );
 
   var BALL_RADIUS = 8;
 
   /**
-   *
+   * Responsible for the panel that contains the play/pause button and amount of balls to be released.
    * @param {PlinkoProbabilityLabModel} model
    * @param {Property.<String>} ballRadioProperty
    * @param {Object} [options]
@@ -37,7 +32,6 @@ define( function( require ) {
    */
   function LabPlayPanel( model, ballRadioProperty, options ) {
 
-    //TODO hoist constants
     var self = this;
     // Demonstrate a common pattern for specifying options and providing default values.
     options = _.extend( {
@@ -86,20 +80,19 @@ define( function( require ) {
       radius: 8,
       touchAreaXDilation: 5,
       align: 'left',
-      spacing: 10
+      spacing: 10    // vertical spacing between radio buttons
     } );
 
 
     // create the play button
     this.playButton = new PlayButton( {
       listener: function() {
-        //  model.trigger( 'PressPlayButton' );
         if ( model.isBallCapReached ) {
           model.isBallCapReachedProperty.notifyObserversStatic();
         }
         else {
           if ( ballRadioProperty.value === 'continuous' ) {
-            self.togglePlayPauseButtonVisibility();
+            self.togglePlayPauseButtonVisibility(); // alternates play/pause visual state of button
             model.isPlayingProperty.set( true ); //set isPlayingProperty to true signifying that balls are being dropped
           }
 
@@ -113,7 +106,7 @@ define( function( require ) {
     this.pauseButton = new PauseButton( {
       baseColor: 'red',
       listener: function() {
-        self.togglePlayPauseButtonVisibility();
+        self.togglePlayPauseButtonVisibility(); // alternates play/pause visual state of button
         Timer.clearInterval( model.continuousTimer );
         model.isPlayingProperty.set( false ); // set isPlayingProperty to false signifying that no balls are being dropped
       }
@@ -166,16 +159,6 @@ define( function( require ) {
     setPlayButtonVisible: function() {
       this.playButton.visible = true;
       this.pauseButton.visible = false;
-    },
-    /**
-     * sets the visibility of the play/pause button to pause
-     * @public
-     */
-    setPauseButtonVisible: function() {
-      this.playButton.visible = false;
-      this.pauseButton.visible = true;
     }
-
-
   } );
 } );
