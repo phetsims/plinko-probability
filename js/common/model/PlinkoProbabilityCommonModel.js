@@ -89,7 +89,7 @@ define( function( require ) {
       },
 
       /**
-       * time step function that is responsible for updating the position and status of tehe balls.
+       * time step function that is responsible for updating the position and status of the balls.
        * @public
        * @param {number} dt - a small time interval
        */

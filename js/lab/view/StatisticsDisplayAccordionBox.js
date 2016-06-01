@@ -23,9 +23,9 @@ define( function( require ) {
   var Text = require( 'SCENERY/nodes/Text' );
 
   // strings
+  // TODO see issue #16
   var muGreekString = '\u03BC';
   var sigmaGreekString = '\u03C3';
-//  var overlineString = '\u0305';
   var xOverlineString = '\u0078\u0305';
   var meanString = require( 'string!PLINKO_PROBABILITY/mean' );
   var sMeanString = '\u0073<sub>' + meanString + '</sub>';
@@ -43,9 +43,7 @@ define( function( require ) {
    */
   function StatisticsDisplayAccordionBox( model, isTheoreticalHistogramVisibleProperty, expandedAccordionBoxProperty, options ) {
 
-    this.model = model;
-    // var thisPanel = this;
-
+    // options for the title of the panel
     var optionsTitle = {
       leftHandSideFont: PlinkoConstants.TEXT_FONT_BOLD,
       leftHandSideFill: PlinkoConstants.SAMPLE_FONT_COLOR,
@@ -54,6 +52,7 @@ define( function( require ) {
       maxDecimalPlaces: 0
     };
 
+    // options for sample statistics
     var optionsSample = {
       leftHandSideFont: PlinkoConstants.TEXT_FONT,
       leftHandSideFill: PlinkoConstants.SAMPLE_FONT_COLOR,
@@ -61,6 +60,7 @@ define( function( require ) {
       rightHandSideFill: PlinkoConstants.SAMPLE_FONT_COLOR
     };
 
+    // options for the theoretical statistics
     var optionsTheoretical = {
       leftHandSideFont: PlinkoConstants.TEXT_FONT,
       leftHandSideFill: PlinkoConstants.THEORETICAL_FONT_COLOR,
@@ -68,20 +68,22 @@ define( function( require ) {
       rightHandSideFill: PlinkoConstants.THEORETICAL_FONT_COLOR
     };
 
+    // create the EquationNode(s) that will populate the panel
     var numberLandedBallsText = new EquationNode( nString, 0, optionsTitle );
     var sampleAverageText = new EquationNode( xOverlineString, 0, optionsSample );
     var sampleStandardDeviationText = new EquationNode( sString, 0, optionsSample );
     var sampleStandardDeviationOfMeanText = new EquationNode( sMeanString, 0, optionsSample );
-
     var theoreticalAverageText = new EquationNode( muGreekString, 0, optionsTheoretical );
     var theoreticalStandardDeviationText = new EquationNode( sigmaGreekString, 0, optionsTheoretical );
 
+    // link is present for the life of the simulation, no need to dispose
     Property.multilink( [ model.numberOfRowsProperty, model.probabilityProperty ], function( numberOfRows, probability ) {
-      var integerNumberOfRows = numberOfRows;
-      theoreticalAverageText.setRightHandSideOfEquation( model.getTheoreticalAverage( integerNumberOfRows, probability ) );
-      theoreticalStandardDeviationText.setRightHandSideOfEquation( model.getTheoreticalStandardDeviation( integerNumberOfRows, probability ) );
+      assert && assert( Number.isInteger( numberOfRows ), 'the number of rows must be an integer' );
+      theoreticalAverageText.setRightHandSideOfEquation( model.getTheoreticalAverage( numberOfRows, probability ) );
+      theoreticalStandardDeviationText.setRightHandSideOfEquation( model.getTheoreticalStandardDeviation( numberOfRows, probability ) );
     } );
 
+    // update the statistics display after a ball landed in the bins.
     model.histogram.on( 'statisticsUpdated', function() {
       numberLandedBallsText.setRightHandSideOfEquation( model.histogram.landedBallsNumber );
       sampleAverageText.setRightHandSideOfEquation( model.histogram.average );
@@ -89,6 +91,7 @@ define( function( require ) {
       sampleStandardDeviationOfMeanText.setRightHandSideOfEquation( model.histogram.standardDeviationOfMean );
     } );
 
+    // create the histogram icon with the text underneath it.
     var histogramCheckBoxIcon = new LayoutBox( {
       spacing: 5,
       children: [
@@ -120,18 +123,10 @@ define( function( require ) {
               theoreticalStandardDeviationText,
               new LayoutBox( {
                 orientation: 'horizontal',
-                children: [
-                  new HStrut( 30 ),
-                  histogramCheckBox
-                ]
-              } )
-            ],
-            align: 'left'
-          } )
-        ]
-      }
-      ),
-
+                children: [ new HStrut( 30 ), histogramCheckBox ]
+              } ) ], align: 'left'
+          } ) ]
+      } ),
       _.extend( {
         cornerRadius: 10,
         fill: PlinkoConstants.PANEL_BACKGROUND_COLOR,
@@ -156,6 +151,7 @@ define( function( require ) {
   return inherit( AccordionBox, StatisticsDisplayAccordionBox, {
     /**
      * resets the panel to the unexpanded state
+     * @public
      */
     reset: function() {
       this.expandedProperty.reset();

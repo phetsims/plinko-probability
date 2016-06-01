@@ -14,7 +14,7 @@ define( function( require ) {
   var HBox = require( 'SCENERY/nodes/HBox' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Panel = require( 'SUN/Panel' );
-  var PlayButton = require( 'PLINKO_PROBABILITY/intro/view/PlayButton' );
+  var PlayButton = require( 'PLINKO_PROBABILITY/common/view/PlayButton' );
   var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
   var Text = require( 'SCENERY/nodes/Text' );
   var VerticalAquaRadioButtonGroup = require( 'SUN/VerticalAquaRadioButtonGroup' );
@@ -25,11 +25,12 @@ define( function( require ) {
 
   /**
    * Creation of play panel
-   * @param {PlinkoProbabilityIntroModel} model
+   * @param {Function} playFunction - function that add Balls to the model
+   * @param {Property.<String>} ballModeProperty
    * @param {Object} [options]
    * @constructor
    */
-  function IntroPlayPanel( model, options ) {
+  function IntroPlayPanel( playFunction, ballModeProperty, options ) {
 
     // Demonstrate a common pattern for specifying options and providing default values.
     options = _.extend( {
@@ -44,7 +45,7 @@ define( function( require ) {
 
     var fontOptions = { font: PlinkoConstants.PANEL_FONT };
 
-    // Creation of radio buttons
+    // Creation of radio button icons
     var oneBall = new HBox( {
       spacing: PlinkoConstants.BALL_RADIUS,
       children: [ new BallRepresentationNode( 8 ), new Text( timesString + '1', fontOptions ) ]
@@ -59,9 +60,9 @@ define( function( require ) {
     } );
 
     var ballModeRadioButtons = new VerticalAquaRadioButtonGroup( [
-      { node: oneBall, property: model.ballModeProperty, value: 'oneBall' },
-      { node: tenBalls, property: model.ballModeProperty, value: 'tenBalls' },
-      { node: allBalls, property: model.ballModeProperty, value: 'allBalls' }
+      { node: oneBall, property: ballModeProperty, value: 'oneBall' },
+      { node: tenBalls, property: ballModeProperty, value: 'tenBalls' },
+      { node: allBalls, property: ballModeProperty, value: 'allBalls' }
     ], {
       radius: 8,      // radius of radio button circle
       spacing: 6,     // vertical spacing between each radio button
@@ -71,9 +72,7 @@ define( function( require ) {
 
     //Creation of play button
     var playButton = new PlayButton( {
-      listener: function() {
-        model.play();
-      }
+      listener: playFunction
     } );
 
     //Creation of play button panel box

@@ -92,10 +92,10 @@ define( function( require ) {
     } );
 
     // create play Panel
-    var playPanel = new IntroPlayPanel( model, model.ballModeProperty );
+    var playPanel = new IntroPlayPanel( model.play.bind( model ), model.ballModeProperty );
 
     // create the number of balls display panel
-    var numberBallsDisplay = new NumberBallsDisplay( model );
+    var numberBallsDisplay = new NumberBallsDisplay( model.histogram );
 
     // create the Reset All Button at the bottom right, which resets the model
     var resetAllButton = new ResetAllButton( {
@@ -159,7 +159,7 @@ define( function( require ) {
     this.addChild( cylindersFrontNode );
     this.addChild( hopper );
 
-    // layout the children nodes on the scenegraph
+    // layout the children nodes on the scene graph
     eraserButton.bottom = this.layoutBounds.maxY - 55;
     eraserButton.left = 40;
     histogramRadioButtonsControl.bottom = eraserButton.top - 10;

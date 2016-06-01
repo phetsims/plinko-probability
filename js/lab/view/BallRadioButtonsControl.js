@@ -9,7 +9,6 @@ define( function( require ) {
   'use strict';
 
   // imports
-  // var Color = require( 'SCENERY/util/Color' );
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );

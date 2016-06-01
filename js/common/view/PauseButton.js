@@ -4,6 +4,7 @@
  * Pause button for stopping the sim.
  *
  * @author Sam Reid
+ * @author Martin Veillette
  */
 
 define( function( require ) {
@@ -17,10 +18,10 @@ define( function( require ) {
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var RoundPushButton = require( 'SUN/buttons/RoundPushButton' );
 
+  // constants
   var DEFAULT_RADIUS = 30;
 
   /**
-   * @param {Property.<boolean>} runningProperty property that represents whether the sim is paused or not
    * @param {Object} [options] node options
    * @constructor
    */

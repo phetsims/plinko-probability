@@ -99,13 +99,13 @@ define( function( require ) {
         var pegSpacing = PegInterface.getSpacing( numberOfRows );
         var offsetVector = new Vector2( pegSpacing * 0.08, -pegSpacing * 0.24 );
 
-        galtonBoardNode.pegPathArray.forEach( function( pegPath, index ) {
+        galtonBoardNode.pegPathArray.forEach( function( pegPath) {
           pegPath.visible = pegPath.peg.isVisible;
           pegPath.center = modelViewTransform.modelToViewPosition( pegPath.peg.position );
           pegPath.setScaleMagnitude( 26 / numberOfRows );
         } );
 
-        galtonBoardNode.pegShadowArray.forEach( function( pegPath, index ) {
+        galtonBoardNode.pegShadowArray.forEach( function( pegPath ) {
           pegPath.visible = pegPath.peg.isVisible;
           pegPath.center = modelViewTransform.modelToViewPosition( pegPath.peg.position.plus( offsetVector ) );
           pegPath.setScaleMagnitude( 26 / numberOfRows );
