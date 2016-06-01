@@ -10,6 +10,7 @@ define( function( require ) {
     'use strict';
 
     // modules
+    var Bounds2 = require( 'DOT/Bounds2' );
     var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
     var Ball = require( 'PLINKO_PROBABILITY/common/model/Ball' );
     var inherit = require( 'PHET_CORE/inherit' );
@@ -28,6 +29,11 @@ define( function( require ) {
       PlinkoProbabilityCommonModel.call( this );
 
       this.timerID = [];
+      var maxY = -1.05; // maximum y of the cylinder
+      var minY = -1.80; // minimum y of cylinder
+      var minX = -1 / 2; // minimum X
+      var maxX = 1 / 2;
+      this.bounds = new Bounds2( minX, minY, maxX, maxY );
     }
 
 
@@ -118,7 +124,7 @@ define( function( require ) {
       addNewBall: function() {
         var thisModel = this;
         //create new ball
-        var addedBall = new Ball( this.probability, this.numberOfRows, this.histogram.bins );
+        var addedBall = new Ball( this.probability, this.numberOfRows, this.histogram.bins, this.bounds );
         // update number of balls in the bin and the last position of the addedBall
         this.histogram.updateBinCountAndOrientation( addedBall );
         this.balls.push( addedBall );

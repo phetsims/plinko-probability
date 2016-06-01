@@ -72,13 +72,9 @@ define( function( require ) {
     // create the galton board (including the pegs)
     var galtonBoardNode = new GaltonBoardNode( model.galtonBoard, model.numberOfRowsProperty, model.probabilityProperty, modelViewTransform, { openingAngle: 0.03 } );
 
-    // TODO hoist constants
-    var minY = -1.80;
-    var bounds = new Bounds2( -1 / 2, minY, 1 / 2, -1.05 );
-
     // create the view for the cylinders. The Back and Front node will be put on a different z-layer
-    var cylindersBackNode = new CylindersBackNode( model.numberOfRowsProperty, bounds, modelViewTransform );
-    var cylindersFrontNode = new CylindersFrontNode( model.numberOfRowsProperty, bounds, modelViewTransform );
+    var cylindersBackNode = new CylindersBackNode( model.numberOfRowsProperty, model.bounds, modelViewTransform );
+    var cylindersFrontNode = new CylindersFrontNode( model.numberOfRowsProperty, model.bounds, modelViewTransform );
 
     // create the histogram radio buttons at the left of the histogram/cylinders
     var histogramRadioButtonsControl = new VerticalRadioButtonGroup( viewProperties.histogramRadioProperty );

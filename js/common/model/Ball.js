@@ -28,9 +28,10 @@ define( function( require ) {
    * @param {number} probability - number ranging from 0 to 1
    * @param {number} numberOfRows - an integer
    * @param {Array.<Object>} bins
+   * @param {Bound.<Object>} the bounds for the cylinder
    * @constructor
    */
-  function Ball( probability, numberOfRows, bins) {
+  function Ball( probability, numberOfRows, bins, bounds ) {
 
     PropertySet.call( this, {
       position: new Vector2( 0, 0 )
@@ -44,7 +45,7 @@ define( function( require ) {
     this.pegSeparation = PegInterface.getSpacing( numberOfRows );
 
 
-    this.ballRadius = this.pegSeparation * 0.25 / 1.6;
+    this.ballRadius = this.pegSeparation * 0.17;
 
     // 0 -> Initially falling
     // 1 -> Falling between pegs
@@ -131,11 +132,19 @@ define( function( require ) {
 
     // @public
     // describes final vertical position of ball within a bin {number}
-    this.finalBinVerticalPosition = 9.3 - (0.4 * this.binStackLevel);
+    var verticalOffset = .031816; // necessary offset
+    var ellipseHeight = (bounds.width / numberOfRows) * Math.sin( Math.PI / 1.4 ) * .95; // height of the ellipse on top
+    var cylinderHeight = .74 * bounds.height; //height of the cylinder
+    var minimumYposition = bounds.maxY - verticalOffset - ellipseHeight - cylinderHeight; // the bottom of the cylinder
+    var cylinderWidth = this.pegSeparation * 0.85; // the cylinder width
+    // height = sqrt((2R)^2 -(w/2 - r)^2)
+    var delta = this.ballRadius + Math.sqrt( Math.pow( 2 * this.ballRadius, 2 ) - Math.pow( (cylinderWidth / 2) - this.ballRadius, 2 ) ); // the height separation
+    // the very bottom plus the height difference times the number of deltas
+    this.finalBinVerticalPosition = minimumYposition + ((this.binStackLevel - 1) * delta);
 
     // @public
     // describes final horizontal position of ball within a bin {number}
-    this.finalBinHorizontalPosition = this.binOrientation / 4;
+    this.finalBinHorizontalPosition = (this.binOrientation * ((cylinderWidth / 2) - this.ballRadius));
 
   }
 
@@ -228,8 +237,8 @@ define( function( require ) {
         }
       }
       if ( this.phase === PHASE_EXIT ) { // the ball has exited and it is making its way to the bin
-        if ( df + this.fallenRatio < this.finalBinVerticalPosition ) { // if it has not fallen to its final postition
-          this.fallenRatio += df; //fall some more
+        if ( this.getPosition().y > this.finalBinVerticalPosition ) { // if it has not fallen to its final postition
+          this.fallenRatio += df / 10; //fall some more
         }
         else {
           this.phase = PHASE_COLLECTED; // switch phases
@@ -264,9 +273,9 @@ define( function( require ) {
           fallingPosition.multiplyScalar( this.pegSeparation ); // scale the vector by the peg separation
           return fallingPosition.add( this.pegPosition );
         case PHASE_EXIT: // the ball is exiting the pegs and making its way to the bin
-          return new Vector2( this.finalBinHorizontalPosition, -this.fallenRatio ).multiplyScalar( this.pegSeparation ).add( this.pegPosition );
+          return new Vector2( this.finalBinHorizontalPosition, -this.fallenRatio ).add( this.pegPosition );
         case PHASE_COLLECTED: // the ball has landed to its final position
-          return new Vector2( this.finalBinHorizontalPosition, -this.finalBinVerticalPosition ).multiplyScalar( this.pegSeparation ).add( this.pegPosition );
+          return new Vector2( this.finalBinHorizontalPosition, this.finalBinVerticalPosition ).addXY( this.pegPosition.x, 0 );
       }
     }
 
