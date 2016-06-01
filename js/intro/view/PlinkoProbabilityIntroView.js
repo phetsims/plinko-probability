@@ -96,7 +96,7 @@ define( function( require ) {
     } );
 
     // create play Panel
-    var playPanel = new IntroPlayPanel( model, model.ballModeProperty );
+    var playPanel = new IntroPlayPanel( model.play.bind( model ), model.ballModeProperty );
 
     // create the number of balls display panel
     var numberBallsDisplay = new NumberBallsDisplay( model.histogram );
