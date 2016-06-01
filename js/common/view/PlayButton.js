@@ -16,13 +16,14 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Path = require( 'SCENERY/nodes/Path' );
   var RoundPushButton = require( 'SUN/buttons/RoundPushButton' );
+  var Color = require( 'SCENERY/util/Color' );
   var Shape = require( 'KITE/Shape' );
 
   // constants
   var DEFAULT_RADIUS = 30;
-  var PLAY_BUTTON_BASE_COLOR = '#00E079'; //light-green hue
+  var PLAY_BUTTON_BASE_COLOR = new Color( 0, 224, 121 ); //light-green hue
 
-  /*
+  /**
    * PlayButton constructor
    *
    * @param {Object} [options] node options
