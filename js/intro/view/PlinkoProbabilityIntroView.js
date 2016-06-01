@@ -163,7 +163,7 @@ define( function( require ) {
     this.addChild( cylindersFrontNode );
     this.addChild( hopper );
 
-    // layout the children nodes on the scenegraph
+    // layout the children nodes on the scene graph
     eraserButton.bottom = this.layoutBounds.maxY - 55;
     eraserButton.left = 40;
     histogramRadioButtonsControl.bottom = eraserButton.top - 10;

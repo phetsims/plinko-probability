@@ -82,7 +82,7 @@ define( function( require ) {
     // create three radio buttons next to the hopper
     var ballRadioButtonsControl = new BallRadioButtonsControl( model.galtonBoardRadioButtonProperty );
 
-    // create the two radio buttons that can toogle between 'fraction and 'number' mode
+    // create the two radio buttons that can toggle between 'fraction and 'number' mode
     var histogramRadioButtonsControl = new HistogramRadioButtonsControl( viewProperties.histogramRadioProperty );
 
     // create the eraser button

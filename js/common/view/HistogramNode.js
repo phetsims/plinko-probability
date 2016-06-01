@@ -161,7 +161,7 @@ define( function( require ) {
       this.addChild( yLabelNode );
 
       // no need to unlink present for the lifetime of the sim
-      // TODO: cylinder shouldnt be here in the first place
+      // TODO: cylinder should not be here in the first place
       histogramRadioProperty.link( function( value ) {
         switch( value ) {
           case 'fraction':
