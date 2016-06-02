@@ -14,30 +14,25 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var Path = require( 'SCENERY/nodes/Path' );
   var Shape = require( 'KITE/Shape' );
-  var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
-
+  var BinInterface = require( 'PLINKO_PROBABILITY/common/model/BinInterface' );
   // constants
-  var PERSPECTIVE_TILT = Math.PI / 1.4; // in radians
   var SIDE_CYLINDER_STROKE_COLOR = new Color( 120, 120, 100 );
   var BASE_COLOR = new Color( 171, 189, 196, 0.5 ); // must be of type Color
-  var VERTICAL_OFFSET = 10;
 
   /**
    *
    * @param {Property.<number>} numberOfRowsProperty
    * @param {ModelViewTransform2} modelViewTransform
+   * @param {Object} cylinderInfo - Contains cylinder info: height, width, offset, ellipseHeight
    * @constructor
    */
-  function CylindersFrontNode( numberOfRowsProperty, modelViewTransform ) {
-
+  function CylindersFrontNode( numberOfRowsProperty, modelViewTransform, cylinderInfo ) {
+    var VERTICAL_OFFSET = -modelViewTransform.modelToViewDeltaY( cylinderInfo.verticalOffset );
     Node.call( this );
-    var bounds = PlinkoConstants.CYLINDER_BOUNDS;
-    var binWidth = bounds.width / (numberOfRowsProperty.value + 1);
-    var cylinderWidth = 0.95 * binWidth;
-    var height = 0.74 * bounds.height;
-    var ellipseWidth = modelViewTransform.modelToViewDeltaX( cylinderWidth );
-    var ellipseHeight = -modelViewTransform.modelToViewDeltaY( cylinderWidth ) * Math.sin( PERSPECTIVE_TILT );
-    var cylinderHeight = -modelViewTransform.modelToViewDeltaY( height );
+
+    var ellipseWidth = modelViewTransform.modelToViewDeltaX( cylinderInfo.cylinderWidth );
+    var ellipseHeight = -modelViewTransform.modelToViewDeltaY( cylinderInfo.ellipseHeight );
+    var cylinderHeight = -modelViewTransform.modelToViewDeltaY( cylinderInfo.height );
 
     var sideShape = new Shape();
     sideShape.moveTo( -ellipseWidth / 2, 0 )
@@ -57,9 +52,9 @@ define( function( require ) {
     numberOfRowsProperty.link( function( numberOfRows ) {
       var numberOfTicks = numberOfRows + 1;
       for ( var i = 0; i < numberOfTicks; i++ ) {
-        var binCenterX = bounds.minX + bounds.width * (i + 1 / 2) / (numberOfTicks );
+        var binCenterX = BinInterface.getBinCenterX( i, numberOfTicks );
         var x = modelViewTransform.modelToViewX( binCenterX );
-        var y = modelViewTransform.modelToViewY( bounds.maxY );
+        var y = modelViewTransform.modelToViewY( cylinderInfo.top );
 
 
         var side = new Path( sideShape, {

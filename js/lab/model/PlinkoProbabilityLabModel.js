@@ -11,7 +11,7 @@ define( function( require ) {
 
     // modules
     var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
-    var Ball = require( 'PLINKO_PROBABILITY/common/model/Ball' );
+    var LabBall = require( 'PLINKO_PROBABILITY/lab/model/LabBall' );
     var inherit = require( 'PHET_CORE/inherit' );
     var Timer = require( 'PHET_CORE/Timer' );
     var PlinkoProbabilityCommonModel = require( 'PLINKO_PROBABILITY/common/model/PlinkoProbabilityCommonModel' );
@@ -128,7 +128,7 @@ define( function( require ) {
        */
       addNewBall: function() {
         var thisModel = this;
-        var addedBall = new Ball( this.probability, this.numberOfRows, this.histogram.bins );
+        var addedBall = new LabBall( this.probability, this.numberOfRows, this.histogram.bins );
         this.balls.push( addedBall );
         addedBall.on( 'exited', function() {
           thisModel.histogram.addBallToHistogram( addedBall );
