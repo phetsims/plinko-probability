@@ -65,6 +65,9 @@ define( function( require ) {
     var TRIANGLE_HEIGHT = 20;
     var TRIANGLE_WIDTH = 20;
 
+    // model histogram bounds
+    var HISTOGRAM_BOUNDS = PlinkoConstants.HISTOGRAM_BOUNDS;
+
 
 //----------------------------------------------------------------------------------------
 // x-axis (horizontal)
@@ -147,16 +150,19 @@ define( function( require ) {
 
       Node.call( this );
 
-      var axisCenterY = modelViewTransform.modelToViewY( BinInterface.getCenterY() );
       var axisLeft = modelViewTransform.modelToViewX( BinInterface.getMinX() );
 
+      //Sets max width of y-axis label to histogram height.
+      var histogramHeight = Math.abs( modelViewTransform.modelToViewDeltaY( HISTOGRAM_BOUNDS.height ) );
+      var histogramCenterY = modelViewTransform.modelToViewY( HISTOGRAM_BOUNDS.centerY );
       // create and add the Y axis label
       var yLabelNode = new Text( '', {
         font: Y_AXIS_LABEL_FONT,
         fill: Y_AXIS_LABEL_COLOR,
-        centerY: axisCenterY + 50,
-        left: axisLeft - 40,
-        rotation: -Math.PI / 2   //remember down is positive in the view
+        centerY: histogramCenterY,
+        left: axisLeft - 30,
+        rotation: -Math.PI / 2,   // remember down is positive in the view
+        maxWidth: histogramHeight // number for y-label max height
       } );
       this.addChild( yLabelNode );
 
@@ -174,6 +180,7 @@ define( function( require ) {
             yLabelNode.text = countString;
             break;
         }
+        yLabelNode.centerY = histogramCenterY; // center y-label text based on content
       } );
     }
 
@@ -217,11 +224,10 @@ define( function( require ) {
 
       Node.call( this );
 
-      var bounds = PlinkoConstants.HISTOGRAM_BOUNDS;
-      var minX = modelViewTransform.modelToViewX( bounds.minX );
-      var minY = modelViewTransform.modelToViewY( bounds.maxY );
-      var maxX = modelViewTransform.modelToViewX( bounds.maxX );
-      var maxY = modelViewTransform.modelToViewY( bounds.maxY ) + BANNER_HEIGHT;
+      var minX = modelViewTransform.modelToViewX( HISTOGRAM_BOUNDS.minX );
+      var minY = modelViewTransform.modelToViewY( HISTOGRAM_BOUNDS.maxY );
+      var maxX = modelViewTransform.modelToViewX( HISTOGRAM_BOUNDS.maxX );
+      var maxY = modelViewTransform.modelToViewY( HISTOGRAM_BOUNDS.maxY ) + BANNER_HEIGHT;
 
       var bannerWidth = maxX - minX;
 
@@ -364,11 +370,10 @@ define( function( require ) {
 
       Node.call( this );
 
-      var bounds = PlinkoConstants.HISTOGRAM_BOUNDS;
-      var minX = modelViewTransform.modelToViewX( bounds.minX );
-      var minY = modelViewTransform.modelToViewY( bounds.maxY );
-      var maxX = modelViewTransform.modelToViewX( bounds.maxX );
-      var maxY = modelViewTransform.modelToViewY( bounds.minY );
+      var minX = modelViewTransform.modelToViewX( HISTOGRAM_BOUNDS.minX );
+      var minY = modelViewTransform.modelToViewY( HISTOGRAM_BOUNDS.maxY );
+      var maxX = modelViewTransform.modelToViewX( HISTOGRAM_BOUNDS.maxX );
+      var maxY = modelViewTransform.modelToViewY( HISTOGRAM_BOUNDS.minY );
 
       var sampleHistogramNode = new Node( { layerSplit: true } );
       var theoreticalHistogramNode = new Node( { layerSplit: true } );

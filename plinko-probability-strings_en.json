@@ -49,5 +49,17 @@
   },
   "outOfBalls": {
     "value": "Out\nof\nBalls!"
+  },
+  "muGreek": {
+    "value": "\u03BC"
+  },
+  "sigmaGreek": {
+    "value": "\u03C3"
+  },
+  "xOverline": {
+    "value": "\u0078\u0305"
+  },
+  "sMeanString": {
+    "value": "\u0073"
   }
 }

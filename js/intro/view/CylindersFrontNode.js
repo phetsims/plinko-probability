@@ -20,7 +20,7 @@ define( function( require ) {
   var PERSPECTIVE_TILT = Math.PI / 1.4; // in radians
   var SIDE_CYLINDER_STROKE_COLOR = new Color( 120, 120, 100 );
   var BASE_COLOR = new Color( 171, 189, 196, 0.5 ); // must be of type Color
-  var verticalOffset = 10;
+  var VERTICAL_OFFSET = 10;
 
   /**
    *
@@ -66,7 +66,7 @@ define( function( require ) {
           fill: sideFill,
           stroke: SIDE_CYLINDER_STROKE_COLOR,
           centerX: x,
-          top: y + verticalOffset + ellipseHeight / 2
+          top: y + VERTICAL_OFFSET + ellipseHeight / 2
         } );
 
 

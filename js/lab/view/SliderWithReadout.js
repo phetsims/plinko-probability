@@ -35,6 +35,7 @@ define( function( require ) {
         range: new Range( 0, 1 ), // range of the property
 
         title: '', // (string) title above the numerical display
+        titleMaxWidth: 110,  //(number) describes max width of title text
         patternValueUnit: '{0}', // eg. '{0}  {1}'  {0} is the value and {1} is the unitString
         unitString: 'm',  // will not be used if patterValueUnit does not make use of the {1} element
 
@@ -92,7 +93,7 @@ define( function( require ) {
     }
 
     // create label title
-    var labelTitle = new Text( options.title, { font: options.titleFont } );
+    var labelTitle = new Text( options.title, { font: options.titleFont, maxWidth: options.titleMaxWidth } );
 
     // @public create slider
     this.hSlider = new HSlider( options.property, options.range, options.slider );

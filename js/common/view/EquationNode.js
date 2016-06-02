@@ -36,7 +36,8 @@ define( function( require ) {
       leftHandSideFill: 'blue',
       rightHandSideFill: 'blue',
       positionOfEqualSign: 30,// position of the equal sign, (the left hand side is defined as zero).
-      maxDecimalPlaces: 3
+      maxDecimalPlaces: 3,
+      leftHandSideMaxWidth: 45  // maximum width of left hand side of equation
     }, options );
 
     // @private
@@ -48,7 +49,8 @@ define( function( require ) {
       {
         font: options.leftHandSideFont,
         fill: options.leftHandSideFill,
-        subScale: 0.5
+        subScale: 0.5,
+        maxWidth: options.leftHandSideMaxWidth
       } );
     this.equalSignText = new Text( ' = ',
       {

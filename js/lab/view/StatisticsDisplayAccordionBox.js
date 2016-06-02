@@ -23,15 +23,17 @@ define( function( require ) {
   var Text = require( 'SCENERY/nodes/Text' );
 
   // strings
-  // TODO see issue #16
-  var muGreekString = '\u03BC';
-  var sigmaGreekString = '\u03C3';
-  var xOverlineString = '\u0078\u0305';
+  var muGreekString = require( 'string!PLINKO_PROBABILITY/muGreek' );
+  var sigmaGreekString = require( 'string!PLINKO_PROBABILITY/sigmaGreek' );
+  var xOverlineString = require( 'string!PLINKO_PROBABILITY/xOverline' );
   var meanString = require( 'string!PLINKO_PROBABILITY/mean' );
-  var sMeanString = '\u0073<sub>' + meanString + '</sub>';
   var sString = require( 'string!PLINKO_PROBABILITY/s' );
+  var sMeanString = sString + '<sub>' + meanString + '</sub>';
   var nString = require( 'string!PLINKO_PROBABILITY/n' );
   var idealString = require( 'string!PLINKO_PROBABILITY/ideal' );
+
+  // constants
+  var IDEAL_MAX_TEXT_WIDTH = 45; // maximum length of the Ideal string
 
   /**
    *
@@ -96,7 +98,7 @@ define( function( require ) {
       spacing: 5,
       children: [
         new HistogramIcon(),
-        new Text( idealString, { font: PlinkoConstants.PANEL_READOUT_FONT } )
+        new Text( idealString, { font: PlinkoConstants.PANEL_READOUT_FONT, maxWidth: IDEAL_MAX_TEXT_WIDTH } )
       ],
       align: 'center'
     } );
