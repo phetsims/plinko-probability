@@ -17,7 +17,7 @@ define( function( require ) {
     var PlinkoProbabilityCommonModel = require( 'PLINKO_PROBABILITY/common/model/PlinkoProbabilityCommonModel' );
 
     // constants
-    var MAX_NUMBER_BALLS = 9999;
+    var MAX_NUMBER_BALLS = 9;
 
 
     /**
