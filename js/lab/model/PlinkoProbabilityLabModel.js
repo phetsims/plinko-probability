@@ -11,13 +11,13 @@ define( function( require ) {
 
     // modules
     var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
-    var Ball = require( 'PLINKO_PROBABILITY/common/model/Ball' );
+    var LabBall = require( 'PLINKO_PROBABILITY/lab/model/LabBall' );
     var inherit = require( 'PHET_CORE/inherit' );
     var Timer = require( 'PHET_CORE/Timer' );
     var PlinkoProbabilityCommonModel = require( 'PLINKO_PROBABILITY/common/model/PlinkoProbabilityCommonModel' );
 
     // constants
-    var MAX_NUMBER_BALLS = 9500;
+    var MAX_NUMBER_BALLS = 9999;
 
 
     /**
@@ -43,11 +43,13 @@ define( function( require ) {
       this.probabilityProperty.link( function() {
         thisModel.balls.clear();
         thisModel.histogram.reset();
+        thisModel.isBallCapReached = false;
       } );
 
       this.numberOfRowsProperty.link( function() {
         thisModel.balls.clear();
         thisModel.histogram.reset();
+        thisModel.isBallCapReached = false;
       } );
     }
 
@@ -128,14 +130,15 @@ define( function( require ) {
        */
       addNewBall: function() {
         var thisModel = this;
-        var addedBall = new Ball( this.probability, this.numberOfRows, this.histogram.bins );
+        var addedBall = new LabBall( this.probability, this.numberOfRows, this.histogram.bins );
+        this.histogram.bins[ addedBall.binIndex ].binCount++; //update the bin count of the bins
         this.balls.push( addedBall );
+        if ( thisModel.histogram.getMaximumActualBinCount() >= MAX_NUMBER_BALLS ) {
+          Timer.clearInterval( thisModel.continuousTimer );
+          thisModel.isBallCapReached = true;
+        }
         addedBall.on( 'exited', function() {
           thisModel.histogram.addBallToHistogram( addedBall );
-          if ( thisModel.histogram.getMaximumBinCount() > MAX_NUMBER_BALLS ) {
-            Timer.clearInterval( thisModel.continuousTimer );
-            thisModel.isBallCapReached = true;
-          }
         } );
         // when the ball lands remove the one that came before it
         addedBall.on( 'landed', function() {

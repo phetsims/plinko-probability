@@ -11,13 +11,15 @@ define( function( require ) {
 
     // modules
     var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
-    var Ball = require( 'PLINKO_PROBABILITY/common/model/Ball' );
+    var IntroBall = require( 'PLINKO_PROBABILITY/intro/model/IntroBall' );
     var inherit = require( 'PHET_CORE/inherit' );
     var Timer = require( 'PHET_CORE/Timer' );
+    var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
     var PlinkoProbabilityCommonModel = require( 'PLINKO_PROBABILITY/common/model/PlinkoProbabilityCommonModel' );
 
     // constants
     var MAX_BALL_NUMBER = 100;
+    var PERSPECTIVE_TILT = Math.PI / 1.4; // in radians
 
     /**
      * Main model of the first tab (intro tab) of the plinko probability simulation
@@ -28,6 +30,18 @@ define( function( require ) {
       PlinkoProbabilityCommonModel.call( this );
 
       this.timerID = [];
+
+      var bounds = PlinkoConstants.HISTOGRAM_BOUNDS;
+      var binWidth = bounds.width / (this.numberOfRows + 1); // the width of one bin is the total width divided by the number of rows
+      var cylinderWidth = 0.95 * binWidth;
+      var ellipseHeight = cylinderWidth * Math.sin( PERSPECTIVE_TILT ); // the height is the width times some perspective tilt
+      this.cylinderInfo = {
+        height: bounds.height * 0.87, // we want the cylinders to be shorter than the histogram
+        cylinderWidth: cylinderWidth, // there is a small gap between each cylinder
+        ellipseHeight: ellipseHeight,
+        verticalOffset: 0.035, // gap between pegboard and cylinders
+        top: bounds.maxY
+      };
     }
 
 
@@ -118,7 +132,7 @@ define( function( require ) {
       addNewBall: function() {
         var thisModel = this;
         //create new ball
-        var addedBall = new Ball( this.probability, this.numberOfRows, this.histogram.bins);
+        var addedBall = new IntroBall( this.probability, this.numberOfRows, this.histogram.bins, this.cylinderInfo );
         // update number of balls in the bin and the last position of the addedBall
         this.histogram.updateBinCountAndOrientation( addedBall );
         this.balls.push( addedBall );

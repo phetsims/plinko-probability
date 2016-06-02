@@ -77,8 +77,8 @@ define( function( require ) {
     var galtonBoardNode = new GaltonBoardNode( model.galtonBoard, model.numberOfRowsProperty, model.probabilityProperty, modelViewTransform, { openingAngle: 0.03 } );
 
     // create the view for the cylinders. The Back and Front node will be put on a different z-layer
-    var cylindersBackNode = new CylindersBackNode( model.numberOfRowsProperty, modelViewTransform );
-    var cylindersFrontNode = new CylindersFrontNode( model.numberOfRowsProperty, modelViewTransform );
+    var cylindersBackNode = new CylindersBackNode( model.numberOfRowsProperty, modelViewTransform, model.cylinderInfo );
+    var cylindersFrontNode = new CylindersFrontNode( model.numberOfRowsProperty, modelViewTransform, model.cylinderInfo );
 
     // create the histogram radio buttons at the left of the histogram/cylinders
     var histogramRadioButtonsControl = new VerticalRadioButtonCommon( viewProperties.histogramRadioProperty, counterDOMImage, containerDOMImage, 'number', 'cylinder' );

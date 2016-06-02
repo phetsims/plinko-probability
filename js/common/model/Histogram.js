@@ -188,15 +188,27 @@ define( function( require ) {
     },
 
     /**
-     * Function that returns the maximum value of the all the bins
+     * Function that returns the maximum value of all the balls in the bins
+     * @returns {number}
+     */
+    getMaximumActualBinCount: function() {
+      var maxCount = 0;
+      this.bins.forEach( function( binElement ) {
+        maxCount = Math.max( maxCount, binElement.binCount );
+      } );
+      return maxCount;
+    },
+
+    /**
+     * Function that returns the maximum visible value of the balls in the bins
      * @returns {number}
      * @public
      */
     getMaximumBinCount: function() {
-      var maxCount=0;
-      this.bins.forEach( function(binElement){
-         maxCount = Math.max(maxCount,binElement.visibleBinCount);
-      });
+      var maxCount = 0;
+      this.bins.forEach( function( binElement ) {
+        maxCount = Math.max( maxCount, binElement.visibleBinCount );
+      } );
       return maxCount;
     }
 

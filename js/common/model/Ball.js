@@ -44,7 +44,7 @@ define( function( require ) {
     this.pegSeparation = PegInterface.getSpacing( numberOfRows );
 
 
-    this.ballRadius = this.pegSeparation * 0.17;
+    this.ballRadius = this.pegSeparation * 0.18;
 
     // 0 -> Initially falling
     // 1 -> Falling between pegs
@@ -100,51 +100,10 @@ define( function( require ) {
     this.binIndex = peg.columnNumber;
 
 
-    // @public (read-only)
-    // binOrientation {number} takes values -1 (left), 0 (center), 1 (right)
-    this.binOrientation = bins[ this.binIndex ].orientation;
-
     // @private (read-only)
     // binCount {number} indicates the number of balls in a specific cylinder
     this.binCount = bins[ this.binIndex ].binCount;
 
-    // Indicates ball horizontal position in bin
-    switch( this.binCount % 3 ) {
-      case 0:     // Ball makes probabilistic decision whether to end in left or right horizontal position in the bin
-        this.binOrientation = (Math.random() < 0.5) ? 1 : -1;
-        break;
-      case 1:     // Ball makes decision to end in left horizontal position in the bin
-        this.binOrientation *= -1;
-        break;
-      case 2:     // Ball makes decision to end in left horizontal position in the bin
-        this.binOrientation = 0;
-        break;
-
-      default:
-        throw new Error( 'Unhandled bin direction' );
-    }
-    this.binCount++;
-
-    // @public
-    // describes number of rows in the ball stack within a bin {number}
-    this.binStackLevel = 2 * Math.floor( this.binCount / 3 ) + ((this.binCount % 3 === 0) ? 0 : 1);
-
-    // @public
-    // describes final vertical position of ball within a bin {number}
-    var bounds = PlinkoConstants.CYLINDER_BOUNDS;
-    var verticalOffset = .031816; // necessary offset
-    var ellipseHeight = (bounds.width / numberOfRows) * Math.sin( Math.PI / 1.4 ) * .95; // height of the ellipse on top
-    var cylinderHeight = .74 * bounds.height; //height of the cylinder
-    var minimumYposition = bounds.maxY - verticalOffset - ellipseHeight - cylinderHeight; // the bottom of the cylinder
-    var cylinderWidth = this.pegSeparation * 0.85; // the cylinder width
-    // height = sqrt((2R)^2 -(w/2 - r)^2)
-    var delta = this.ballRadius + Math.sqrt( Math.pow( 2 * this.ballRadius, 2 ) - Math.pow( (cylinderWidth / 2) - this.ballRadius, 2 ) ); // the height separation
-    // the very bottom plus the height difference times the number of deltas
-    this.finalBinVerticalPosition = minimumYposition + ((this.binStackLevel - 1) * delta);
-
-    // @public
-    // describes final horizontal position of ball within a bin {number}
-    this.finalBinHorizontalPosition = (this.binOrientation * ((cylinderWidth / 2) - this.ballRadius));
 
   }
 
