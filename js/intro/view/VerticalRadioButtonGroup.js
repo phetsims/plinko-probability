@@ -1,7 +1,7 @@
 // Copyright 2015, University of Colorado Boulder
 
 /**
- * Scenery Node that displays three Radio Buttons that control the flow of Balls
+ * Scenery Node that displays two Radio Buttons that switches between the cylinder and histogram view
  *
  * @author Martin Veillette (Berea College)
  */
@@ -23,7 +23,7 @@ define( function( require ) {
 
   /**
    *
-   * @param {Property.<string>} histogramRadioProperty - Valid values are 'fraction', 'number'.
+   * @param {Property.<string>} histogramRadioProperty - Valid values are 'cylinder', 'number'.
    * @param {Object} [options]
    * @constructor
    */
@@ -42,6 +42,7 @@ define( function( require ) {
       },
       options );
 
+    // create the icons for the radio buttons
     var counterImage = new Image( counterDOMImage );
     counterImage.scale( ICON_WIDTH / counterImage.width );
     var containerImage = new Image( containerDOMImage );

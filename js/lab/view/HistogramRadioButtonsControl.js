@@ -1,7 +1,7 @@
 // Copyright 2015, University of Colorado Boulder
 
 /**
- *  Scenery Node that displays three Radio Buttons that control the flow of Balls
+ *  Scenery Node that displays two Radio Buttons that switches between the fraction and counter view for the histogram
  *
  * @author Martin Veillette (Berea College)
  */
@@ -42,13 +42,13 @@ define( function( require ) {
       },
       options );
 
-    // eraser icon
+    // create (and scale) the counter icon and the fraction icon
     var counterImage = new Image( counterDOMImage );
     counterImage.scale( ICON_WIDTH / counterImage.width );
     var fractionImage = new Image( fractionDOMImage );
     fractionImage.scale( ICON_WIDTH / fractionImage.width );
-
-
+    
+    // create the radio buttons
     RadioButtonGroup.call( this, histogramRadioProperty, [
       { value: 'number', node: counterImage },
       { value: 'fraction', node: fractionImage }
