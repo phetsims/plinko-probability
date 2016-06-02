@@ -14,9 +14,6 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var RadioButtonGroup = require( 'SUN/buttons/RadioButtonGroup' );
 
-  // images
-  var counterDOMImage = require( 'image!PLINKO_PROBABILITY/counter.png' );
-  var containerDOMImage = require( 'image!PLINKO_PROBABILITY/container.png' );
 
   // constants
   var ICON_WIDTH = 35;
@@ -24,10 +21,14 @@ define( function( require ) {
   /**
    *
    * @param {Property.<string>} histogramRadioProperty - Valid values are 'cylinder', 'number'.
+   * @param {DOMImage} topDOMImage - represents top icon to be created
+   * @param {DOMImage} bottomDOMImage - represents bottom icon to be created
+   * @param {string} topValue - represents value of top icon image value
+   * @param {string} bottomValue - represents value of bottom icon image value
    * @param {Object} [options]
    * @constructor
    */
-  function VerticalRadioButtonGroup( histogramRadioProperty, options ) {
+  function VerticalRadioButtonCommon( histogramRadioProperty, topDOMImage, bottomDOMImage, topValue, bottomValue, options ) {
 
 
     options = _.extend( {
@@ -43,21 +44,21 @@ define( function( require ) {
       options );
 
     // create the icons for the radio buttons
-    var counterImage = new Image( counterDOMImage );
-    counterImage.scale( ICON_WIDTH / counterImage.width );
-    var containerImage = new Image( containerDOMImage );
-    containerImage.scale( ICON_WIDTH / containerImage.width );
+    var topImage = new Image( topDOMImage );
+    topImage.scale( ICON_WIDTH / topImage.width );
+    var bottomImage = new Image( bottomDOMImage );
+    bottomImage.scale( ICON_WIDTH / bottomImage.width );
 
 
     RadioButtonGroup.call( this, histogramRadioProperty, [
-      { value: 'cylinder', node: containerImage },
-      { value: 'number', node: counterImage }
+      { value: topValue, node: topImage },
+      { value: bottomValue, node: bottomImage }
     ], options );
 
   }
 
-  plinkoProbability.register( 'VerticalRadioButtonGroup', VerticalRadioButtonGroup );
+  plinkoProbability.register( 'VerticalRadioButtonCommon', VerticalRadioButtonCommon );
 
-  return inherit( RadioButtonGroup, VerticalRadioButtonGroup );
+  return inherit( RadioButtonGroup, VerticalRadioButtonCommon );
 } );
 
