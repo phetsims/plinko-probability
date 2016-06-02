@@ -24,7 +24,7 @@ define( function( require ) {
   var binaryProbabilityString = require( 'string!PLINKO_PROBABILITY/binaryProbability' );
 
   /**
-   *
+   * Constructor for a control panel with two sliders
    * @param {Property.<number>} rowsProperty
    * @param {Property.<number>} binaryProbabilityProperty
    * @param {Object} [options]
@@ -34,20 +34,18 @@ define( function( require ) {
 
     Node.call( this );
     options = _.extend( {
-
         fill: 'white',
         xMargin: 0,
         yMargin: 8,
         minWidth: 200
       },
-
       options );
+
     var rowsSlider = new SliderWithReadout( {
       buttonStep: 1,
       title: rowsString,
       titleFont: PlinkoConstants.PANEL_FONT,
       displayFont: PlinkoConstants.PANEL_READOUT_FONT, // font for the numerical display
-
       property: rowsProperty,
       range: PlinkoConstants.ROWS_RANGE,
       decimalPlaces: 0,
@@ -60,12 +58,12 @@ define( function( require ) {
         }
       }
     } );
+
     var binaryProbabilitySlider = new SliderWithReadout( {
       buttonStep: 0.01,
       title: binaryProbabilityString,
       titleFont: PlinkoConstants.PANEL_FONT,
       displayFont: PlinkoConstants.PANEL_READOUT_FONT, // font for the numerical display
-
       property: binaryProbabilityProperty,
       range: PlinkoConstants.BINARY_PROBABILITY_RANGE,
       decimalPlaces: 2,
@@ -79,18 +77,18 @@ define( function( require ) {
       }
     } );
 
+    // layout the two sliders
     rowsSlider.x = 200;
     binaryProbabilitySlider.centerX = rowsSlider.centerX;
     binaryProbabilitySlider.top = rowsSlider.bottom + 25;
 
+    // create and add the panel that contains the two sliders
     var contentPanel = new Node( {
       children: [ rowsSlider, binaryProbabilitySlider ]
     } );
     var panel = new Panel( contentPanel, options );
-
-    // Panel.call( this,  options );
-
     this.addChild( panel );
+
   }
 
   plinkoProbability.register( 'SliderControlPanel', SliderControlPanel );
