@@ -33,7 +33,8 @@ define( function( require ) {
     function GaltonBoardNode( galtonBoard, numberOfRowsProperty, probabilityProperty, modelViewTransform, options ) {
 
       options = _.extend( {
-          openingAngle: Math.PI / 2 //  opening angle of the pegs
+          openingAngle: Math.PI / 2, //  opening angle of the pegs
+          rangeRotationAngle: Math.PI / 2
         },
         options );
 
@@ -48,18 +49,23 @@ define( function( require ) {
       var pegPath;
 
       var pegShape = new Shape();
-      pegShape.arc( 0, 0, PlinkoConstants.PEG_RADIUS * 1.19, Math.PI - options.openingAngle / 2, Math.PI + options.openingAngle / 2, true );
+
+      // the peg orientation should be facing up when the probability is 50%
+      var leftArcAngle = -Math.PI / 2 + options.rangeRotationAngle * (probabilityProperty.value - 0.5) - options.openingAngle / 2;
+      var rightArcAngle = -Math.PI / 2 + options.rangeRotationAngle * (probabilityProperty.value - 0.5) + options.openingAngle / 2;
+
+      pegShape.arc( 0, 0, PlinkoConstants.PEG_RADIUS, leftArcAngle, rightArcAngle, true );
 
       galtonBoard.pegs.forEach( function( peg ) {
         pegPath = new Path( pegShape, { fill: PlinkoConstants.PEG_COLOR } );
-        var pegShadow = new Circle( 1.6 * PlinkoConstants.PEG_RADIUS, {
+        var pegShadow = new Circle( 1.4 * PlinkoConstants.PEG_RADIUS, {
           fill: new RadialGradient(
             PlinkoConstants.PEG_RADIUS * 0.3,
             PlinkoConstants.PEG_RADIUS * 0.5,
             0,
             PlinkoConstants.PEG_RADIUS * 0.1,
             -PlinkoConstants.PEG_RADIUS * 0.6,
-            PlinkoConstants.PEG_RADIUS * 1.6
+            PlinkoConstants.PEG_RADIUS * 1.4
           )
             .addColorStop( 0, 'rgba(0,0,0,1)' )
             .addColorStop( 0.1809, 'rgba(3,3,3, 0.8191)' )
@@ -84,10 +90,10 @@ define( function( require ) {
         this.addChild( this.pegPathArray[ i ] );
       }
 
-      // no need to unlink since it is present for the lifetime of the simulation
-      probabilityProperty.link( function( newProbability, oldProbability ) {
-        var newAngle = newProbability * Math.PI;
-        var oldAngle = oldProbability * Math.PI;
+      // // no need to unlink since it is present for the lifetime of the simulation
+      probabilityProperty.lazyLink( function( newProbability, oldProbability ) {
+        var newAngle = newProbability * options.rangeRotationAngle;
+        var oldAngle = oldProbability * options.rangeRotationAngle;
         var changeAngle = newAngle - oldAngle;
         galtonBoardNode.pegPathArray.forEach( function( pegPath ) {
           pegPath.rotateAround( pegPath.center, changeAngle );
@@ -99,7 +105,7 @@ define( function( require ) {
         var pegSpacing = PegInterface.getSpacing( numberOfRows );
         var offsetVector = new Vector2( pegSpacing * 0.08, -pegSpacing * 0.24 );
 
-        galtonBoardNode.pegPathArray.forEach( function( pegPath) {
+        galtonBoardNode.pegPathArray.forEach( function( pegPath ) {
           pegPath.visible = pegPath.peg.isVisible;
           pegPath.center = modelViewTransform.modelToViewPosition( pegPath.peg.position );
           pegPath.setScaleMagnitude( 26 / numberOfRows );
