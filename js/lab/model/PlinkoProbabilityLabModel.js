@@ -43,11 +43,13 @@ define( function( require ) {
       this.probabilityProperty.link( function() {
         thisModel.balls.clear();
         thisModel.histogram.reset();
+        thisModel.isBallCapReached = false;
       } );
 
       this.numberOfRowsProperty.link( function() {
         thisModel.balls.clear();
         thisModel.histogram.reset();
+        thisModel.isBallCapReached = false;
       } );
     }
 
@@ -131,12 +133,12 @@ define( function( require ) {
         var addedBall = new LabBall( this.probability, this.numberOfRows, this.histogram.bins );
         this.histogram.bins[ addedBall.binIndex ].binCount++; //update the bin count of the bins
         this.balls.push( addedBall );
+        if ( thisModel.histogram.getMaximumActualBinCount() >= MAX_NUMBER_BALLS ) {
+          Timer.clearInterval( thisModel.continuousTimer );
+          thisModel.isBallCapReached = true;
+        }
         addedBall.on( 'exited', function() {
           thisModel.histogram.addBallToHistogram( addedBall );
-          if ( thisModel.histogram.getMaximumActualBinCount() >= MAX_NUMBER_BALLS ) {
-            Timer.clearInterval( thisModel.continuousTimer );
-            thisModel.isBallCapReached = true;
-          }
         } );
         // when the ball lands remove the one that came before it
         addedBall.on( 'landed', function() {
