@@ -28,7 +28,11 @@ define( function( require ) {
   var ScreenView = require( 'JOIST/ScreenView' );
   var SoundToggleButton = require( 'SCENERY_PHET/buttons/SoundToggleButton' );
   var Vector2 = require( 'DOT/Vector2' );
-  var VerticalRadioButtonGroup = require( 'PLINKO_PROBABILITY/intro/view/VerticalRadioButtonGroup' );
+  var VerticalRadioButtonCommon = require( 'PLINKO_PROBABILITY/common/view/VerticalRadioButtonCommon' );
+
+  // images
+  var counterDOMImage = require( 'image!PLINKO_PROBABILITY/counter.png' );
+  var containerDOMImage = require( 'image!PLINKO_PROBABILITY/container.png' );
 
   /**
    * @param {PlinkoProbabilityIntroModel} model
@@ -77,7 +81,7 @@ define( function( require ) {
     var cylindersFrontNode = new CylindersFrontNode( model.numberOfRowsProperty, modelViewTransform );
 
     // create the histogram radio buttons at the left of the histogram/cylinders
-    var histogramRadioButtonsControl = new VerticalRadioButtonGroup( viewProperties.histogramRadioProperty );
+    var histogramRadioButtonsControl = new VerticalRadioButtonCommon( viewProperties.histogramRadioProperty, counterDOMImage, containerDOMImage, 'number', 'cylinder' );
 
     // create the eraser button
     var eraserButton = new EraserButton( {

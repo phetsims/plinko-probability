@@ -41,8 +41,8 @@ define( function( require ) {
       } );
 
       // Audio for ball hitting pegs
-      this.bonk1Audio = new Sound( bonk1Audio );  // @private
-      this.bonk2Audio = new Sound( bonk2Audio );  // @private
+      this.bonk1Sound = new Sound( bonk1Audio );  // @private
+      this.bonk2Sound = new Sound( bonk2Audio );  // @private
 
       this.launchedBallsNumber = 0; // @public - number of current trial (current ball drop)
 
@@ -78,10 +78,10 @@ define( function( require ) {
           if ( currentTime - thisModel.oldTime > SOUND_TIME_INTERVAL ) {
             //Will play sound based on ball's motion, left or right
             if ( direction === -0.5 ) {
-              thisModel.bonk1Audio.play();
+              thisModel.bonk1Sound.play();
             }
             else {
-              thisModel.bonk2Audio.play();
+              thisModel.bonk2Sound.play();
             }
             thisModel.oldTime = currentTime;
           }

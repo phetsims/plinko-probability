@@ -16,7 +16,6 @@ define( function( require ) {
   var EraserButton = require( 'SCENERY_PHET/buttons/EraserButton' );
   var GaltonBoardNode = require( 'PLINKO_PROBABILITY/common/view/GaltonBoardNode' );
   var HistogramNode = require( 'PLINKO_PROBABILITY/common/view/HistogramNode' );
-  var HistogramRadioButtonsControl = require( 'PLINKO_PROBABILITY/lab/view/HistogramRadioButtonsControl' );
   var Hopper = require( 'PLINKO_PROBABILITY/common/view/Hopper' );
   var inherit = require( 'PHET_CORE/inherit' );
   var LabPlayPanel = require( 'PLINKO_PROBABILITY/lab/view/LabPlayPanel' );
@@ -32,7 +31,11 @@ define( function( require ) {
   var StatisticsDisplayAccordionBox = require( 'PLINKO_PROBABILITY/lab/view/StatisticsDisplayAccordionBox' );
   var TrajectoryPath = require( 'PLINKO_PROBABILITY/common/view/TrajectoryPath' );
   var Vector2 = require( 'DOT/Vector2' );
+  var VerticalRadioButtonCommon = require( 'PLINKO_PROBABILITY/common/view/VerticalRadioButtonCommon' );
 
+  // images
+  var counterDOMImage = require( 'image!PLINKO_PROBABILITY/counter.png' );
+  var fractionDOMImage = require( 'image!PLINKO_PROBABILITY/fraction.png' );
 
   // strings
   var outOfBallsString = require( 'string!PLINKO_PROBABILITY/outOfBalls' );
@@ -85,7 +88,9 @@ define( function( require ) {
     var ballRadioButtonsControl = new BallRadioButtonsControl( model.galtonBoardRadioButtonProperty );
 
     // create the two radio buttons that can toggle between 'fraction and 'number' mode
-    var histogramRadioButtonsControl = new HistogramRadioButtonsControl( viewProperties.histogramRadioProperty );
+    var histogramRadioButtonsControl = new VerticalRadioButtonCommon( viewProperties.histogramRadioProperty, counterDOMImage, fractionDOMImage, 'number', 'fraction', {
+      buttonContentYMargin: 13
+    } );
 
     // create the eraser button
     var eraserButton = new EraserButton( {
