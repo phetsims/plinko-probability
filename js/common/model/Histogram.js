@@ -58,8 +58,8 @@ define( function( require ) {
     reset: function() {
       this.setBinsToZero();
       this.resetStatistics();
-      this.trigger( 'histogramUpdated' );
-      this.trigger( 'statisticsUpdated' );
+      this.trigger0( 'histogramUpdated' );
+      this.trigger0( 'statisticsUpdated' );
     },
     /**
      * Sets the value of all bins in the histogram to zero.
@@ -138,8 +138,8 @@ define( function( require ) {
       // @private
       this.bins[ ball.binIndex ].visibleBinCount++;
       this.updateStatistics( ball.binIndex );
-      this.trigger( 'histogramUpdated' );
-      this.trigger( 'statisticsUpdated' );
+      this.trigger0( 'histogramUpdated' );
+      this.trigger0( 'statisticsUpdated' );
     },
 
     /**
