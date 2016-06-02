@@ -1,23 +1,20 @@
 // Copyright 2015, University of Colorado Boulder
 
 /**
- * View representation of the front cylinders (the side part) used within the Plinko Probability Simulation
+ * View representation of the front cylinders (the side part of the cylinder) used within the Plinko Probability Simulation
  */
 define( function( require ) {
   'use strict';
 
   // modules
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
-  var Color = require( 'SCENERY/util/Color' );
+  var BinInterface = require( 'PLINKO_PROBABILITY/common/model/BinInterface' );
   var inherit = require( 'PHET_CORE/inherit' );
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Path = require( 'SCENERY/nodes/Path' );
+  var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
   var Shape = require( 'KITE/Shape' );
-  var BinInterface = require( 'PLINKO_PROBABILITY/common/model/BinInterface' );
-  // constants
-  var SIDE_CYLINDER_STROKE_COLOR = new Color( 120, 120, 100 );
-  var BASE_COLOR = new Color( 171, 189, 196, 0.5 ); // must be of type Color
 
   /**
    *
@@ -27,13 +24,16 @@ define( function( require ) {
    * @constructor
    */
   function CylindersFrontNode( numberOfRowsProperty, modelViewTransform, cylinderInfo ) {
-    var VERTICAL_OFFSET = -modelViewTransform.modelToViewDeltaY( cylinderInfo.verticalOffset );
+
     Node.call( this );
 
+    // convenience variable for placing the object inn the view
     var ellipseWidth = modelViewTransform.modelToViewDeltaX( cylinderInfo.cylinderWidth );
-    var ellipseHeight = -modelViewTransform.modelToViewDeltaY( cylinderInfo.ellipseHeight );
-    var cylinderHeight = -modelViewTransform.modelToViewDeltaY( cylinderInfo.height );
+    var ellipseHeight = Math.abs( modelViewTransform.modelToViewDeltaY( cylinderInfo.ellipseHeight ) );
+    var cylinderHeight = Math.abs( modelViewTransform.modelToViewDeltaY( cylinderInfo.height ) );
+    var verticalOffset = -modelViewTransform.modelToViewDeltaY( cylinderInfo.verticalOffset );
 
+    // create side shape of the cylinder
     var sideShape = new Shape();
     sideShape.moveTo( -ellipseWidth / 2, 0 )
       .lineTo( -ellipseWidth / 2, cylinderHeight )
@@ -42,12 +42,11 @@ define( function( require ) {
       .ellipticalArc( 0, cylinderHeight, ellipseWidth / 2, ellipseHeight / 2, 0, 0, Math.PI, false )
       .close();
 
-
-    var sideFill = new LinearGradient( -ellipseWidth / 2, 0, ellipseWidth / 2, 0 ).addColorStop( 0.0, BASE_COLOR.colorUtilsDarker( 0.7 ) ).addColorStop( 0.5, BASE_COLOR ).addColorStop( 1, BASE_COLOR.colorUtilsBrighter( 0.5 ) );
+    // create the linear fill gradient for the cylinder
+    var sideFill = new LinearGradient( -ellipseWidth / 2, 0, ellipseWidth / 2, 0 ).addColorStop( 0.0, PlinkoConstants.CYLINDER_BASE_COLOR.colorUtilsDarker( 0.7 ) ).addColorStop( 0.5, PlinkoConstants.CYLINDER_BASE_COLOR ).addColorStop( 1, PlinkoConstants.CYLINDER_BASE_COLOR.colorUtilsBrighter( 0.5 ) );
 
     var sideLayerNode = new Node();
     this.addChild( sideLayerNode );
-
 
     numberOfRowsProperty.link( function( numberOfRows ) {
       var numberOfTicks = numberOfRows + 1;
@@ -56,15 +55,13 @@ define( function( require ) {
         var x = modelViewTransform.modelToViewX( binCenterX );
         var y = modelViewTransform.modelToViewY( cylinderInfo.top );
 
-
+        // create and add the path for side of the cylinder
         var side = new Path( sideShape, {
           fill: sideFill,
-          stroke: SIDE_CYLINDER_STROKE_COLOR,
+          stroke: PlinkoConstants.SIDE_CYLINDER_STROKE_COLOR,
           centerX: x,
-          top: y + VERTICAL_OFFSET + ellipseHeight / 2
+          top: y + verticalOffset + ellipseHeight / 2
         } );
-
-
         sideLayerNode.addChild( side );
       }
     } );

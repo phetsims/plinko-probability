@@ -8,15 +8,13 @@ define( function( require ) {
 
   // modules
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
-  var Color = require( 'SCENERY/util/Color' );
+  var BinInterface = require( 'PLINKO_PROBABILITY/common/model/BinInterface' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Path = require( 'SCENERY/nodes/Path' );
+  var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
   var Shape = require( 'KITE/Shape' );
-  var BinInterface = require( 'PLINKO_PROBABILITY/common/model/BinInterface' );
 
-  var TOP_CYLINDER_STROKE_COLOR = new Color( 120, 120, 100 );
-  var TOP_CYLINDER_FILL_COLOR = new Color( 212, 230, 238 );
 
   /**
    *
@@ -27,16 +25,18 @@ define( function( require ) {
    */
   function CylindersBackNode( numberOfRowsProperty, modelViewTransform, cylinderInfo ) {
 
-    var VERTICAL_OFFSET = -modelViewTransform.modelToViewDeltaY( cylinderInfo.verticalOffset );
-
     Node.call( this );
+
     var ellipseWidth = modelViewTransform.modelToViewDeltaX( cylinderInfo.cylinderWidth );
     var ellipseHeight = Math.abs( modelViewTransform.modelToViewDeltaY( cylinderInfo.ellipseHeight ) );
 
     var topShape = Shape.ellipse( 0, 0, ellipseWidth / 2, ellipseHeight / 2 );
-    var topLayerNode = new Node();
 
+    var verticalOffset = -modelViewTransform.modelToViewDeltaY( cylinderInfo.verticalOffset );
+
+    var topLayerNode = new Node();
     this.addChild( topLayerNode );
+
     numberOfRowsProperty.link( function( numberOfRows ) {
       assert && assert( Number.isInteger( numberOfRows ), 'numberOfRows must be an integer' );
       var numberOfTicks = numberOfRows + 1;
@@ -46,10 +46,10 @@ define( function( require ) {
         var y = modelViewTransform.modelToViewY( cylinderInfo.top );
 
         var top = new Path( topShape, {
-          fill: TOP_CYLINDER_FILL_COLOR,
-          stroke: TOP_CYLINDER_STROKE_COLOR,
+          fill: PlinkoConstants.TOP_CYLINDER_FILL_COLOR,
+          stroke: PlinkoConstants.TOP_CYLINDER_STROKE_COLOR,
           centerX: x,
-          top: y + VERTICAL_OFFSET
+          top: y + verticalOffset
         } );
 
         topLayerNode.addChild( top );

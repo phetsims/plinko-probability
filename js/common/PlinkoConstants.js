@@ -11,6 +11,7 @@ define( function( require ) {
   // modules
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var Bounds2 = require( 'DOT/Bounds2' );
+  var Color = require( 'SCENERY/util/Color' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Range = require( 'DOT/Range' );
 
@@ -22,7 +23,7 @@ define( function( require ) {
     GALTON_BOARD_BOUNDS: new Bounds2( -1 / 2, -1, 1 / 2, 0 ),
 
     HISTOGRAM_BOUNDS: new Bounds2( -1 / 2, -1.70, 1 / 2, -1.03 ),
-    CYLINDER_BOUNDS: new Bounds2(-1/2, -1.80, 1/2, -1.05),
+    CYLINDER_BOUNDS: new Bounds2( -1 / 2, -1.80, 1 / 2, -1.05 ),
     RESET_ALL_BUTTON_SCALE: 0.75,
 
     // font sizes and weight (for statistics diaplay node)
@@ -60,7 +61,13 @@ define( function( require ) {
     // histogram
     HISTOGRAM_BAR_COLOR_FILL: 'rgb(237,28,36)', // red
     HISTOGRAM_BAR_COLOR_STROKE: 'rgb(193,39,45)', // darker shade of red
-    BINOMIAL_DISTRIBUTION_BAR_COLOR_STROKE: 'blue'
+    BINOMIAL_DISTRIBUTION_BAR_COLOR_STROKE: 'blue',
+
+    // cylinder
+    CYLINDER_BASE_COLOR: new Color( 171, 189, 196, 0.5 ), // must be of type Color
+    SIDE_CYLINDER_STROKE_COLOR: 'rgb( 120, 120, 100 )',
+    TOP_CYLINDER_STROKE_COLOR: 'rgb( 120, 120, 100 )',
+    TOP_CYLINDER_FILL_COLOR: 'rgb(212, 230, 238 )'
 
   };
 
