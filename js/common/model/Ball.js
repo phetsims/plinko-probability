@@ -90,7 +90,8 @@ define( function( require ) {
         rowNumber: rowNumber, // an integer starting at zero
         columnNumber: columnNumber, // an integer starting at zero
         direction: direction, // direction to the next peg,
-        position: PegInterface.getPosition( rowNumber, columnNumber, numberOfRows )
+        positionX: PegInterface.getPositionX( rowNumber, columnNumber, numberOfRows ),
+        positionY: PegInterface.getPositionY( rowNumber, columnNumber, numberOfRows )
       };
       this.pegHistory.push( peg );
 
@@ -147,7 +148,8 @@ define( function( require ) {
       peg = this.pegHistory.shift();
       this.column = peg.columnNumber; //0 is the topmost
       this.row = peg.rowNumber; // 0 is the leftmost
-      this.pegPosition = peg.position; // vector position of the peg based on the column, row, and number of of rows
+      this.pegPositionX = peg.positionX; // x position of the peg based on the column, row, and number of of rows
+      this.pegPositionY = peg.positionY; // y position of the peg based on the column, row, and number of of rows
       this.direction = peg.direction; // whether the ball went left or right
     },
     /**
@@ -159,7 +161,8 @@ define( function( require ) {
       peg = this.pegHistory[ 0 ]; // get the first peg from the peg history
       this.column = peg.columnNumber; // 0 is the topmost
       this.row = peg.rowNumber; // 0 is the left most
-      this.pegPosition = peg.position; // vector position of the peg
+      this.pegPositionX = peg.positionX; // x position of the peg based on the column, row, and number of of rows
+      this.pegPositionY = peg.positionY; // y position of the peg based on the column, row, and number of of rows
     },
     /**
      *
@@ -222,7 +225,7 @@ define( function( require ) {
           // we only want this to move one peg distance down
           var displacement = scratchVector.setXY( 0, (1 - this.fallenRatio) );  // {Vector2} describes motion of ball within bin in PHASE_INITIAL
           displacement.multiplyScalar( this.pegSeparation );
-          return displacement.add( this.pegPosition );
+          return displacement.addXY( this.pegPositionX, this.pegPositionY );
         case PHASE_FALLING: // ball is falling through the pegs
           var fallingPosition;      // {Vector2} describes motion of ball within bin in PHASE_FALLING
           if ( this.row === this.numberOfRows - 1 ) { // if we are exiting the peg board we want to drop in the bin position
@@ -233,11 +236,11 @@ define( function( require ) {
             fallingPosition = scratchVector.setXY( this.direction * this.fallenRatio, -this.fallenRatio * this.fallenRatio );
           }
           fallingPosition.multiplyScalar( this.pegSeparation ); // scale the vector by the peg separation
-          return fallingPosition.add( this.pegPosition );
+          return fallingPosition.addXY( this.pegPositionX, this.pegPositionY );
         case PHASE_EXIT: // the ball is exiting the pegs and making its way to the bin
-          return scratchVector.setXY( this.finalBinHorizontalPosition, -this.fallenRatio ).add( this.pegPosition );
+          return scratchVector.setXY( this.finalBinHorizontalPosition, -this.fallenRatio ).addXY( this.pegPositionX, this.pegPositionY );;
         case PHASE_COLLECTED: // the ball has landed to its final position
-          return scratchVector.setXY( this.finalBinHorizontalPosition, this.finalBinVerticalPosition ).addXY( this.pegPosition.x, 0 );
+          return scratchVector.setXY( this.finalBinHorizontalPosition, this.finalBinVerticalPosition ).addXY( this.pegPositionX, 0 );
       }
     }
 
