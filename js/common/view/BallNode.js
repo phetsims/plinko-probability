@@ -27,7 +27,8 @@ define( function( require ) {
     BallRepresentationNode.call( this, modelViewTransform.modelToViewDeltaX( radius ) );
 
     var positionListener = function( position ) {
-      ballNode.center = modelViewTransform.modelToViewPosition( position );
+      ballNode.centerX = modelViewTransform.modelToViewX( position.x );
+      ballNode.centerY = modelViewTransform.modelToViewY( position.y );
     };
 
     positionProperty.link( positionListener );
