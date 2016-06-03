@@ -17,6 +17,8 @@ define( function( require ) {
   var PropertySet = require( 'AXON/PropertySet' );
   var Vector2 = require( 'DOT/Vector2' );
 
+  var scratchVector = new Vector2();
+
   // constants
   var PHASE_INITIAL = 0;      // ball leaving hopper
   var PHASE_FALLING = 1;      // ball falling within bounds of board
@@ -207,6 +209,7 @@ define( function( require ) {
 
       // position depends of the state of the ball
       this.position = this.getPosition().addXY( 0, this.pegSeparation * PlinkoConstants.PEG_HEIGHT_FRACTION_OFFSET );
+      this.positionProperty.notifyObserversStatic();
     },
 
     /**
@@ -217,24 +220,24 @@ define( function( require ) {
       switch( this.phase ) {
         case PHASE_INITIAL: // ball left the hopper
           // we only want this to move one peg distance down
-          var displacement = new Vector2( 0, (1 - this.fallenRatio) );  // {Vector2} describes motion of ball within bin in PHASE_INITIAL
+          var displacement = scratchVector.setXY( 0, (1 - this.fallenRatio) );  // {Vector2} describes motion of ball within bin in PHASE_INITIAL
           displacement.multiplyScalar( this.pegSeparation );
           return displacement.add( this.pegPosition );
         case PHASE_FALLING: // ball is falling through the pegs
           var fallingPosition;      // {Vector2} describes motion of ball within bin in PHASE_FALLING
           if ( this.row === this.numberOfRows - 1 ) { // if we are exiting the peg board we want to drop in the bin position
             // #TODO : Fix ball jumping on lab screen. Needs to be made more general.
-            fallingPosition = new Vector2( (this.direction + this.finalBinHorizontalPosition) * this.fallenRatio, -this.fallenRatio * this.fallenRatio );
+            fallingPosition = scratchVector.setXY( (this.direction + this.finalBinHorizontalPosition) * this.fallenRatio, -this.fallenRatio * this.fallenRatio );
           }
           else {
-            fallingPosition = new Vector2( this.direction * this.fallenRatio, -this.fallenRatio * this.fallenRatio );
+            fallingPosition = scratchVector.setXY( this.direction * this.fallenRatio, -this.fallenRatio * this.fallenRatio );
           }
           fallingPosition.multiplyScalar( this.pegSeparation ); // scale the vector by the peg separation
           return fallingPosition.add( this.pegPosition );
         case PHASE_EXIT: // the ball is exiting the pegs and making its way to the bin
-          return new Vector2( this.finalBinHorizontalPosition, -this.fallenRatio ).add( this.pegPosition );
+          return scratchVector.setXY( this.finalBinHorizontalPosition, -this.fallenRatio ).add( this.pegPosition );
         case PHASE_COLLECTED: // the ball has landed to its final position
-          return new Vector2( this.finalBinHorizontalPosition, this.finalBinVerticalPosition ).addXY( this.pegPosition.x, 0 );
+          return scratchVector.setXY( this.finalBinHorizontalPosition, this.finalBinVerticalPosition ).addXY( this.pegPosition.x, 0 );
       }
     }
 
