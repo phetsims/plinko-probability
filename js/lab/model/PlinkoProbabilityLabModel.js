@@ -13,7 +13,6 @@ define( function( require ) {
     var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
     var LabBall = require( 'PLINKO_PROBABILITY/lab/model/LabBall' );
     var inherit = require( 'PHET_CORE/inherit' );
-    var Timer = require( 'PHET_CORE/Timer' );
     var PlinkoProbabilityCommonModel = require( 'PLINKO_PROBABILITY/common/model/PlinkoProbabilityCommonModel' );
 
     // constants
@@ -32,14 +31,8 @@ define( function( require ) {
 
       this.galtonBoardRadioButtonProperty.link( function() {
         thisModel.balls.clear();
-        Timer.clearInterval( thisModel.continuousTimer ); // reset the timer
-
-        // if it is playing then call play again to make sure that the timer between dropped balls is the correct one
-        if ( thisModel.isPlayingProperty.value === true ) {
-          thisModel.play();
-        }
       } );
-
+      
       this.probabilityProperty.link( function() {
         thisModel.balls.clear();
         thisModel.histogram.reset();
@@ -51,78 +44,50 @@ define( function( require ) {
         thisModel.histogram.reset();
         thisModel.isBallCapReached = false;
       } );
+
+      this.ballCreationTimeElapsed = 0; // time elapsed since the last ball was created
+      this.ballCreationTimeInterval = 0; // time we want to pass before we created a new ball
     }
 
     plinkoProbability.register( 'PlinkoProbabilityLabModel', PlinkoProbabilityLabModel );
 
     return inherit( PlinkoProbabilityCommonModel, PlinkoProbabilityLabModel, {
       /**
-       * time step function that is  responsible for updating the position and status of the balls
+       * time step function that is  responsible for creating and updating the position and status of the balls
        * @public
        * @param dt
        */
       step: function( dt ) {
+        this.ballCreationTimeElapsed += dt; // we don't want balls to drop too quickly so we keep track of the interval
+        if ( this.isPlaying && this.ballCreationTimeElapsed > this.ballCreationTimeInterval ) { // if the play button is pressed and the interval is greater than some interval
+          this.addNewBall(); // add a new ball
+          this.ballCreationTimeElapsed = 0; // reset the elapsed time
+        }
+
         switch( this.galtonBoardRadioButton ) {
           case 'ball':
             this.balls.forEach( function( ball ) {
-              ball.step( dt * 5 );
+              // we want to cap dt fairly low so that the balls don't make a sudden jump
+              ball.step( Math.min( 0.08, dt * 5 ) ); // 80 milliseconds is the highest dt will be
             } );
+            this.ballCreationTimeInterval = 0.05; // 50 milliseconds if we are seeing balls
             break;
           case 'path':
             this.balls.forEach( function( ball ) {
               ball.updateStatisticsAndLand();
             } );
+            this.ballCreationTimeInterval = 0.05; // 50 milliseconds if we are seeing paths
             break;
           case 'none':
             this.balls.forEach( function( ball ) {
               ball.updateStatisticsAndLand();
             } );
+            this.ballCreationTimeInterval = 0.02; // 20 milliseconds if nothing is being shown
             break;
           default:
             throw new Error( 'Unhandled galton Board Radio Button state: ' + this.galtonBoardRadioButton );
         }
 
-      },
-
-      /**
-       * Play function adds balls to the model, the number of balls depends on the status of ballMode
-       */
-      play: function() {
-        var thisModel = this;
-        switch( this.ballMode ) {
-          case 'oneBall':
-            this.launchedBallsNumber++; // add one to the total
-            this.addNewBall();
-            break;
-
-          case 'continuous':
-            var timeInterval;
-            // depending on the galtonBoardRadioButton the ball will show up as either ball, path, or not show up
-            switch( thisModel.galtonBoardRadioButton ) {
-              case 'ball':
-                timeInterval = 50;
-                this.continuousTimer = Timer.setInterval( function() {
-                  thisModel.addNewBall();
-                }, timeInterval );
-                break;
-              case 'path':
-                timeInterval = 20;
-                this.continuousTimer = Timer.setInterval( function() {
-                  thisModel.addNewBall();
-                }, timeInterval );
-                break;
-              case 'none':
-                timeInterval = 10;
-                thisModel.balls.clear();
-                this.continuousTimer = Timer.setInterval( function() {
-                  thisModel.addNewBall();
-                }, timeInterval );
-                break;
-              default:
-                throw new Error( 'Unhandled galton Board Radio Button state: ' + thisModel.galtonBoardRadioButton );
-            }
-            break;
-        }
       },
 
       /**
@@ -134,7 +99,6 @@ define( function( require ) {
         this.histogram.bins[ addedBall.binIndex ].binCount++; //update the bin count of the bins
         this.balls.push( addedBall );
         if ( thisModel.histogram.getMaximumActualBinCount() >= MAX_NUMBER_BALLS ) {
-          Timer.clearInterval( thisModel.continuousTimer );
           thisModel.isBallCapReached = true;
         }
         addedBall.on( 'exited', function() {

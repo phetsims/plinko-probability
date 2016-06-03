@@ -19,7 +19,6 @@ define( function( require ) {
   var PauseButton = require( 'PLINKO_PROBABILITY/common/view/PauseButton' );
   var Node = require( 'SCENERY/nodes/Node' );
   var VerticalAquaRadioButtonGroup = require( 'SUN/VerticalAquaRadioButtonGroup' );
-  var Timer = require( 'PHET_CORE/Timer' );
 
   var BALL_RADIUS = 8;
 
@@ -95,9 +94,9 @@ define( function( require ) {
             self.togglePlayPauseButtonVisibility(); // alternates play/pause visual state of button
             model.isPlayingProperty.set( true ); //set isPlayingProperty to true signifying that balls are being dropped
           }
-
-          Timer.clearInterval( model.continuousTimer );
-          model.play();
+          else {
+            model.addNewBall(); // if it is not continuous then we assume it is at 'oneBall'
+          }
         }
       }
     } );
@@ -107,15 +106,14 @@ define( function( require ) {
       baseColor: 'red',
       listener: function() {
         self.togglePlayPauseButtonVisibility(); // alternates play/pause visual state of button
-        Timer.clearInterval( model.continuousTimer );
         model.isPlayingProperty.set( false ); // set isPlayingProperty to false signifying that no balls are being dropped
       }
     } );
 
     // link the ballRadioProperty to the state of the playPauseButton
     ballRadioProperty.link( function() {
-        self.setPlayButtonVisible();
-        Timer.clearInterval( model.continuousTimer );
+        model.isPlayingProperty.set( false ); // if the radio buttons change then we would like to change the playing property
+        self.setPlayButtonVisible(); // show the play button
       }
     );
 
