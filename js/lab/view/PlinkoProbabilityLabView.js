@@ -66,7 +66,7 @@ define( function( require ) {
     var modelViewTransform = ModelViewTransform2.createRectangleInvertedYMapping( modelGraphBounds, viewGraphBounds );
 
     var viewProperties = new PropertySet( {
-      histogramRadio: 'number', // Valid values are 'fraction', 'number'
+      histogramRadio: 'counter', // Valid values are 'fraction', 'counter'
       ballRadio: 'oneBall', // Valid values are 'oneBall' and 'continuous'.
       expandedAccordionBox: false, // accordion box responsible for the statistics display
       isTheoreticalHistogramVisible: false // property attached to the "ideal" checkbox in the statistical accordion box
@@ -87,8 +87,8 @@ define( function( require ) {
     // create three radio buttons next to the hopper
     var ballRadioButtonsControl = new BallRadioButtonsControl( model.galtonBoardRadioButtonProperty );
 
-    // create the two radio buttons that can toggle between 'fraction and 'number' mode
-    var histogramRadioButtonsControl = new VerticalRadioButtonCommon( viewProperties.histogramRadioProperty, counterDOMImage, fractionDOMImage, 'number', 'fraction', {
+    // create the two radio buttons that can toggle between 'fraction and 'counter' mode
+    var histogramRadioButtonsControl = new VerticalRadioButtonCommon( viewProperties.histogramRadioProperty, counterDOMImage, fractionDOMImage, 'counter', 'fraction', {
       buttonContentYMargin: 13
     } );
 

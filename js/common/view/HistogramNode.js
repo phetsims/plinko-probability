@@ -173,7 +173,7 @@ define( function( require ) {
           case 'fraction':
             yLabelNode.text = fractionString;
             break;
-          case 'number':
+          case 'counter':
             yLabelNode.text = countString;
             break;
           case 'cylinder':
@@ -423,7 +423,7 @@ define( function( require ) {
       this.addChild( sampleAverageTrianglePath );
       this.addChild( theoreticalAverageTrianglePath );
 
-      
+
       function updateTriangleShape( path, average ) {
 
         var numberOfBins = numberOfRowsProperty.value + 1;

@@ -59,7 +59,7 @@ define( function( require ) {
     var modelViewTransform = ModelViewTransform2.createRectangleInvertedYMapping( modelGraphBounds, viewGraphBounds );
 
     var viewProperties = new PropertySet( {
-      histogramRadio: 'cylinder', // Valid values are 'number', 'cylinder'
+      histogramRadio: 'cylinder', // Valid values are 'counter', 'cylinder'
       ballRadio: 'oneBall', // Valid values are 'oneBall' and 'continuous'.
       expandedAccordionBox: false,
       isTheoreticalHistogramVisible: false
@@ -81,7 +81,7 @@ define( function( require ) {
     var cylindersFrontNode = new CylindersFrontNode( model.numberOfRowsProperty, modelViewTransform, model.cylinderInfo );
 
     // create the histogram radio buttons at the left of the histogram/cylinders
-    var histogramRadioButtonsControl = new VerticalRadioButtonCommon( viewProperties.histogramRadioProperty, counterDOMImage, containerDOMImage, 'number', 'cylinder' );
+    var histogramRadioButtonsControl = new VerticalRadioButtonCommon( viewProperties.histogramRadioProperty, counterDOMImage, containerDOMImage, 'counter', 'cylinder' );
 
     // create the eraser button
     var eraserButton = new EraserButton( {
@@ -115,7 +115,7 @@ define( function( require ) {
     // link the histogram radio buttons (to the left of the histogram) to toggle the visibility of the histogram and cylinders
     viewProperties.histogramRadioProperty.link( function( histogramRadio ) {
         switch( histogramRadio ) {
-          case 'number':
+          case 'counter':
             histogramNode.visible = true;
             cylindersBackNode.visible = false;
             cylindersFrontNode.visible = false;
