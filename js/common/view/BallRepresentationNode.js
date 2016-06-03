@@ -39,13 +39,10 @@ define( function( require ) {
         .addColorStop( 1, PlinkoConstants.BALL_COLOR )
     } );
 
-    var factor = 1.2; // fudge factor (must be larger than 1), we want the image to be slightly larger than the size of the ball, otherwise it looks too square.
-    // the discrepancy is more apparent the smaller the ball radius is.
+    var factor = 1.15; // fudge factor , we want the image to be slightly larger than the size of the ball so it looks round rather than square
 
-    // create an image from the disk
+    // create an image of the ball and add to this node.
     var ballImage = ballRepresentation.toDataURLNodeSynchronous( factor * radius, factor * radius, 2 * factor * radius, 2 * factor * radius );
-
-    // add the image to this Node.
     this.addChild( ballImage );
 
   }
