@@ -238,7 +238,7 @@ define( function( require ) {
           fallingPosition.multiplyScalar( this.pegSeparation ); // scale the vector by the peg separation
           return fallingPosition.addXY( this.pegPositionX, this.pegPositionY );
         case PHASE_EXIT: // the ball is exiting the pegs and making its way to the bin
-          return scratchVector.setXY( this.finalBinHorizontalPosition, -this.fallenRatio ).addXY( this.pegPositionX, this.pegPositionY );;
+          return scratchVector.setXY( this.finalBinHorizontalPosition, -this.fallenRatio ).addXY( this.pegPositionX, this.pegPositionY );
         case PHASE_COLLECTED: // the ball has landed to its final position
           return scratchVector.setXY( this.finalBinHorizontalPosition, this.finalBinVerticalPosition ).addXY( this.pegPositionX, 0 );
       }

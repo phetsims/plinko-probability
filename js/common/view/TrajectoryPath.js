@@ -14,7 +14,6 @@ define( function( require ) {
   var Path = require( 'SCENERY/nodes/Path' );
   var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
   var Shape = require( 'KITE/Shape' );
-  var Vector2 = require( 'DOT/Vector2' );
 
   /**
    * Constructor for trajectory path of a ball falling through the galton board
