@@ -88,10 +88,10 @@ define( function( require ) {
       iconWidth: 22,
       scale: 1.4,
       listener: function() {
-        model.balls.clear();
-        model.histogram.reset();
-        model.launchedBallsNumber = 0;
-        model.resetTimer();
+        model.balls.clear(); // clear the balls on the galton board
+        model.histogram.reset(); // reset the histogram statistics
+        model.launchedBallsNumber = 0; // reset the number of launched balls
+        model.ballsToCreate = 0; // reset the ball creation queue
       }
     } );
 
@@ -104,8 +104,8 @@ define( function( require ) {
     // create the Reset All Button at the bottom right, which resets the model
     var resetAllButton = new ResetAllButton( {
       listener: function() {
-        model.reset();
-        viewProperties.reset();
+        model.reset(); // reset the model
+        viewProperties.reset(); // reset the properties
       }
     } );
 

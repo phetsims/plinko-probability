@@ -30,12 +30,12 @@ define( function( require ) {
       PlinkoProbabilityCommonModel.call( this ); // inherits properties from PlinkoProbabilityCommonModel.js
 
       this.galtonBoardRadioButtonProperty.link( function() {
-        thisModel.balls.clear();
+        thisModel.balls.clear(); // clear the balls
       } );
-      
+
       this.probabilityProperty.link( function() {
-        thisModel.balls.clear();
-        thisModel.histogram.reset();
+        thisModel.balls.clear(); // clear the balls
+        thisModel.histogram.reset(); // reset histogram statistics
         thisModel.isBallCapReached = false;
       } );
 
@@ -45,7 +45,6 @@ define( function( require ) {
         thisModel.isBallCapReached = false;
       } );
 
-      this.ballCreationTimeElapsed = 0; // time elapsed since the last ball was created
       this.ballCreationTimeInterval = 0; // time we want to pass before we created a new ball
     }
 

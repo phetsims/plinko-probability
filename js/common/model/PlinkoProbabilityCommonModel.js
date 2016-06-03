@@ -50,6 +50,7 @@ define( function( require ) {
       this.balls = new ObservableArray(); // the balls that are currently on the screen
       this.histogram = new Histogram( this.numberOfRowsProperty );
       this.landedBallsNumber = this.histogram.landedBallsNumber; //number of balls in the histogram
+      this.ballCreationTimeElapsed = 0; // time elapsed since last ball creation;
 
 
       // keep track of time, for playing sound purposes

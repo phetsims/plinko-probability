@@ -13,7 +13,6 @@ define( function( require ) {
     var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
     var IntroBall = require( 'PLINKO_PROBABILITY/intro/model/IntroBall' );
     var inherit = require( 'PHET_CORE/inherit' );
-    var Timer = require( 'PHET_CORE/Timer' );
     var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
     var PlinkoProbabilityCommonModel = require( 'PLINKO_PROBABILITY/common/model/PlinkoProbabilityCommonModel' );
 
@@ -29,7 +28,6 @@ define( function( require ) {
 
       PlinkoProbabilityCommonModel.call( this );
 
-      this.timerID = [];
 
       var bounds = PlinkoConstants.HISTOGRAM_BOUNDS;
       var binWidth = bounds.width / (this.numberOfRows + 1); // the width of one bin is the total width divided by the number of rows
@@ -42,6 +40,7 @@ define( function( require ) {
         verticalOffset: 0.035, // gap between pegboard and cylinders
         top: bounds.maxY
       };
+      this.ballsToCreate = 0; // ball creation queue
     }
 
 
@@ -55,8 +54,20 @@ define( function( require ) {
        * @param {number} dt - a small time interval
        */
       step: function( dt ) {
+        this.ballCreationTimeElapsed += dt; // we want to to keep track of the time elapsed since the last ball was created
+        // we only want to create a ball if:
+        // there are balls waiting in line &&
+        // the minimum time interval has passed 300 milliseconds &&
+        // the number of launched balls is less than the maximum number of balls
+        if ( this.ballsToCreate > 0 && this.ballCreationTimeElapsed > 0.3 && this.launchedBallsNumber < MAX_BALL_NUMBER ) {
+          this.addNewBall(); // add a new ball
+          this.ballCreationTimeElapsed = 0; //reset the time elapsed
+          this.ballsToCreate--; //remove the ball for the queue
+        }
+
         this.balls.forEach( function( ball ) {
-          ball.step( dt * 5 );
+          // we want to cap the dt so that the balls don't make a big jump
+          ball.step( Math.min( 0.08, dt * 5 ) );
         } );
       },
 
@@ -65,24 +76,8 @@ define( function( require ) {
        * @public
        */
       reset: function() {
-        this.resetTimer();
         PlinkoProbabilityCommonModel.prototype.reset.call( this );
-      },
-
-      /**
-       * Reset of the Timer to ensure that all the step listeners are prevented from being called back
-       * @public
-       */
-      resetTimer: function() {
-        // check that if this.timerID contains any scheduled timeout
-        if ( this.timerID ) {
-          // clear all the timeO
-          this.timerID.forEach( function( timerIdElement ) {
-            Timer.clearTimeout( timerIdElement );
-          } );
-          // clear out the array
-          this.timerID = [];
-        }
+        this.ballsToCreate = 0; // remove the queue of balls waiting to be created
       },
 
       /**
@@ -91,32 +86,17 @@ define( function( require ) {
        * @private
        */
       play: function() {
-        var i = 0;
-        var timerIDnumber;
-        var thisModel = this;
         switch( this.ballMode ) {
           case 'oneBall':
-            if ( this.launchedBallsNumber < MAX_BALL_NUMBER ) {
-              this.launchedBallsNumber++;
-              this.addNewBall();
-            }
+            this.ballsToCreate++; // add a ball to the queue
             break;
 
           case 'tenBalls':
-            var maxBallNumberTenCase = 10;
-            for ( i; (i < maxBallNumberTenCase) && (this.launchedBallsNumber < MAX_BALL_NUMBER); i++ ) {
-              this.launchedBallsNumber++;
-              timerIDnumber = Timer.setTimeout( function() { thisModel.addNewBall();}, (i * 500) ); /// measured in milliseconds
-              this.timerID.push( timerIDnumber );
-            }
+            this.ballsToCreate += 10;
             break;
 
           case 'allBalls':
-            for ( i; this.launchedBallsNumber < MAX_BALL_NUMBER; i++ ) {
-              this.launchedBallsNumber++;
-              timerIDnumber = Timer.setTimeout( function() { thisModel.addNewBall();}, (i * 300) ); /// measured in milliseconds
-              this.timerID.push( timerIDnumber );
-            }
+            this.ballsToCreate += MAX_BALL_NUMBER;
             break;
 
           default:
@@ -134,6 +114,7 @@ define( function( require ) {
         //create new ball
         var addedBall = new IntroBall( this.probability, this.numberOfRows, this.histogram.bins, this.cylinderInfo );
         // update number of balls in the bin and the last position of the addedBall
+        this.launchedBallsNumber++; // update the number of launched balls
         this.histogram.updateBinCountAndOrientation( addedBall );
         this.balls.push( addedBall );
         //'exited' is triggered when the addedBall leaves the last peg on the Galton board.
