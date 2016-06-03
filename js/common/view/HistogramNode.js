@@ -423,6 +423,7 @@ define( function( require ) {
       this.addChild( sampleAverageTrianglePath );
       this.addChild( theoreticalAverageTrianglePath );
 
+      
       function updateTriangleShape( path, average ) {
 
         var numberOfBins = numberOfRowsProperty.value + 1;

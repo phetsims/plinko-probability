@@ -108,13 +108,13 @@ define( function( require ) {
         galtonBoardNode.pegPathArray.forEach( function( pegPath ) {
           pegPath.visible = pegPath.peg.isVisible;
           pegPath.center = modelViewTransform.modelToViewPosition( pegPath.peg.position );
-          pegPath.setScaleMagnitude( 26 / numberOfRows );
+          pegPath.setScaleMagnitude( PlinkoConstants.ROWS_RANGE.max / numberOfRows );
         } );
 
         galtonBoardNode.pegShadowArray.forEach( function( pegPath ) {
           pegPath.visible = pegPath.peg.isVisible;
           pegPath.center = modelViewTransform.modelToViewPosition( pegPath.peg.position.plus( offsetVector ) );
-          pegPath.setScaleMagnitude( 26 / numberOfRows );
+          pegPath.setScaleMagnitude( PlinkoConstants.ROWS_RANGE.max / numberOfRows );
         } );
       } );
 
