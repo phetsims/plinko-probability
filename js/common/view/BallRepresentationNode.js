@@ -1,7 +1,7 @@
 // Copyright 2015, University of Colorado Boulder
 
 /**
- * Scenery node for the representation of a ball falling through the Galton board.
+ * Scenery node for the representation of a ball. For performance reason, the ball is passed as a Scenery Image instead of a Circle.
  *
  * @author Martin Veillette (Berea College)
  */
@@ -17,7 +17,7 @@ define( function( require ) {
   var RadialGradient = require( 'SCENERY/util/RadialGradient' );
 
   /**
-   * Constructor for the which renders the ball as a scenery node.
+   * Constructor for the representation of a ball
    * @param {number} radius - in view coordinates
    * @constructor
    */
@@ -39,7 +39,14 @@ define( function( require ) {
         .addColorStop( 1, PlinkoConstants.BALL_COLOR )
     } );
 
-    this.addChild( ballRepresentation );
+    var factor = 1.2; // fudge factor (must be larger than 1), we want the image to be slightly larger than the size of the ball, otherwise it looks too square.
+    // the discrepancy is more apparent the smaller the ball radius is.
+
+    // create an image from the disk
+    var ballImage = ballRepresentation.toDataURLNodeSynchronous( factor * radius, factor * radius, 2 * factor * radius, 2 * factor * radius );
+
+    // add the image to this Node.
+    this.addChild( ballImage );
 
   }
 
