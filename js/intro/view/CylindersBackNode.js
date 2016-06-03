@@ -1,7 +1,9 @@
 // Copyright 2015, University of Colorado Boulder
 
 /**
- * View representation of the back cylinders (the top part) used within the Plinko Probability Simulation
+ * View representation of the top portion of the row of cylinders
+ * it is the back portion of the cylinder from the viewpoint of the z-layer
+ * used within the Plinko Probability Simulation
  */
 define( function( require ) {
   'use strict';
@@ -25,34 +27,36 @@ define( function( require ) {
    */
   function CylindersBackNode( numberOfRowsProperty, modelViewTransform, cylinderInfo ) {
 
+
     Node.call( this );
 
+    var thisNode = this;
+
+    // convenience variables
     var ellipseWidth = modelViewTransform.modelToViewDeltaX( cylinderInfo.cylinderWidth );
     var ellipseHeight = Math.abs( modelViewTransform.modelToViewDeltaY( cylinderInfo.ellipseHeight ) );
-
-    var topShape = Shape.ellipse( 0, 0, ellipseWidth / 2, ellipseHeight / 2 );
-
     var verticalOffset = -modelViewTransform.modelToViewDeltaY( cylinderInfo.verticalOffset );
 
-    var topLayerNode = new Node();
-    this.addChild( topLayerNode );
+    // create the shape for the top of the cylinder
+    var topShape = Shape.ellipse( 0, 0, ellipseWidth / 2, ellipseHeight / 2 );
 
+    // link present for the lifetime of the sim
     numberOfRowsProperty.link( function( numberOfRows ) {
       assert && assert( Number.isInteger( numberOfRows ), 'numberOfRows must be an integer' );
-      var numberOfTicks = numberOfRows + 1;
-      for ( var i = 0; i < numberOfTicks; i++ ) {
-        var binCenterX = BinInterface.getBinCenterX( i, numberOfTicks );
+
+      var numberOfCylinders = numberOfRows + 1;
+      for ( var i = 0; i < numberOfCylinders; i++ ) {
+        // create and add the top of the cylinders containers
+        var binCenterX = BinInterface.getBinCenterX( i, numberOfCylinders );
         var x = modelViewTransform.modelToViewX( binCenterX );
         var y = modelViewTransform.modelToViewY( cylinderInfo.top );
-
         var top = new Path( topShape, {
           fill: PlinkoConstants.TOP_CYLINDER_FILL_COLOR,
           stroke: PlinkoConstants.TOP_CYLINDER_STROKE_COLOR,
           centerX: x,
           top: y + verticalOffset
         } );
-
-        topLayerNode.addChild( top );
+        thisNode.addChild( top );
       }
     } );
 
