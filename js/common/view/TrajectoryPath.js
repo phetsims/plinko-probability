@@ -14,6 +14,7 @@ define( function( require ) {
   var Path = require( 'SCENERY/nodes/Path' );
   var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
   var Shape = require( 'KITE/Shape' );
+  var Vector2 = require( 'DOT/Vector2' );
 
   /**
    * Constructor for trajectory path of a ball falling through the galton board
@@ -31,16 +32,16 @@ define( function( require ) {
     // create the shape of the trajectory
     var shape = new Shape();
 
-    // the trajectory path should not be on the pegs itself but shifted up by a vertical offset.
-    // the vertical offset should be a fraction of the pegSeparation (less than 1)
-    var verticalOffset = (1/2)*ball.pegSeparation ;
+    // create a vector representing an up vector with a length given by half of the separation between two rows.
+    var verticalVector = new Vector2( 0, ball.pegSeparation / 2 );
 
     // starting point of the shape is above the first peg plus some vertical offset.
-    shape.moveTo( ball.pegHistory[ 0 ].positionX, ball.pegHistory[ 0 ].positionY +  ball.pegSeparation );
+    shape.moveToPoint( ball.pegHistory[ 0 ].position.plus( verticalVector.times( 2 ) ) );
 
     // add linear segments to the shape.
     ball.pegHistory.forEach( function( peg ) {
-      shape.lineTo( peg.positionX, peg.positionY + verticalOffset );
+      // in order to minimize vector allocations, we used the peg position as a mutable object.
+      shape.lineToPoint( peg.position.add( verticalVector ) );
     } );
 
     Path.call( this, modelViewTransform.modelToViewShape( shape ), pathOptions );

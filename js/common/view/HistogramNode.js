@@ -173,7 +173,7 @@ define( function( require ) {
           case 'fraction':
             yLabelNode.text = fractionString;
             break;
-          case 'number':
+          case 'counter':
             yLabelNode.text = countString;
             break;
           case 'cylinder':
@@ -290,7 +290,7 @@ define( function( require ) {
             case 'fraction':
               getHistogramBin = histogram.getFractionalBinCount.bind( histogram );
               break;
-            case 'number':
+            case 'counter':
               getHistogramBin = histogram.getBinCount.bind( histogram );
               break;
             case 'cylinder':
@@ -304,7 +304,7 @@ define( function( require ) {
           }
 
           var font;
-          if ( histogramRadioProperty.value === 'number' ) {
+          if ( histogramRadioProperty.value === 'counter' ) {
             if ( binValue > 999 ) {font = TINY_FONT;}
             else if ( binValue > 99 ) {font = SMALL_FONT;}
             else if ( binValue > 9 ) {font = NORMAL_FONT;}
@@ -407,36 +407,51 @@ define( function( require ) {
         binomialDistributionRectanglesArray[ i ].visible = false;
       }
 
-      // create the shape of the triangle indicating the average of the
-      var triangleShape= new Shape().moveTo( 0, maxY )
-        .lineToRelative( -TRIANGLE_WIDTH / 2, TRIANGLE_HEIGHT )
-        .lineToRelative( TRIANGLE_WIDTH, 0 )
-        .close();
-
-      // create  and add two triangle paths, one for the sample average, one for the theoretical (binomial) distribution
-      var sampleAverageTrianglePath = new Path( triangleShape,
+      var sampleAverageTrianglePath = new Path( new Shape(),
         {
           fill: PlinkoConstants.HISTOGRAM_BAR_COLOR_FILL,
           stroke: PlinkoConstants.HISTOGRAM_BAR_COLOR_STROKE,
           lineWidth: 2
         } );
-      var theoreticalAverageTrianglePath = new Path( triangleShape,
+      var theoreticalAverageTrianglePath = new Path( new Shape(),
         {
           stroke: PlinkoConstants.BINOMIAL_DISTRIBUTION_BAR_COLOR_STROKE,
-          fill: 'rgba(0,0,0,0)', // transparent
+          fill: 'rgba(0,0,0,0)',
           lineWidth: 2
         } );
+
       this.addChild( sampleAverageTrianglePath );
       this.addChild( theoreticalAverageTrianglePath );
 
-      // triangle indicating the average is set to invisible
-      sampleAverageTrianglePath.visible=false;
 
+      function updateTriangleShape( path, average ) {
+
+        var numberOfBins = numberOfRowsProperty.value + 1;
+        var xPosition = modelViewTransform.modelToViewX( BinInterface.getValuePosition( average, numberOfBins ) );
+        var shape = new Shape();
+        shape.moveTo( xPosition, maxY )
+          .lineToRelative( -TRIANGLE_WIDTH / 2, TRIANGLE_HEIGHT )
+          .lineToRelative( TRIANGLE_WIDTH, 0 )
+          .close();
+        path.setShape( shape );
+      }
+
+      function updateTheoreticalAverageTriangle() {
+        var average = model.getTheoreticalAverage( numberOfRowsProperty.value, model.probability );
+        theoreticalAverageTrianglePath.visible = isTheoreticalHistogramVisibleProperty.value;
+        updateTriangleShape( theoreticalAverageTrianglePath, average );
+      }
+
+      function updateSampleAverageTriangle() {
+        var average = model.histogram.average;
+        // set to invisible if none of the balls have landed
+        sampleAverageTrianglePath.visible = (model.histogram.landedBallsNumber > 0);
+        updateTriangleShape( sampleAverageTrianglePath, average );
+      }
 
       var getHistogramBin = model.histogram.getFractionalNormalizedBinCount.bind( model.histogram );
       var factorHeight = maxBarHeight;
 
-      // link present for the lifetime of the simulation
       Property.multilink( [ numberOfRowsProperty, model.probabilityProperty, isTheoreticalHistogramVisibleProperty ],
         function( numberOfRows, probability, isTheoreticalHistogramVisible ) {
           updateBinomialDistribution();
@@ -445,44 +460,14 @@ define( function( require ) {
           theoreticalAverageTrianglePath.visible = isTheoreticalHistogramVisible;
         } );
 
+
       model.histogram.on( 'histogramUpdated', function() {
         updateHistogram();
         updateSampleAverageTriangle();
       } );
 
-      /**
-       * Function that updates a Path Position based on the average value of a distribution
-       * @param {Path} path
-       * @param {number} average
-       */
-      function updateTrianglePosition( path, average ) {
-
-        var numberOfBins = numberOfRowsProperty.value + 1;
-        var xPosition = modelViewTransform.modelToViewX( BinInterface.getValuePosition( average, numberOfBins ) );
-        path.centerX=xPosition;
-      }
 
       /**
-       * Function that updates the position of the theoretical average triangle
-       */
-      function updateTheoreticalAverageTriangle() {
-        var average = model.getTheoreticalAverage( numberOfRowsProperty.value, model.probability );
-        theoreticalAverageTrianglePath.visible = isTheoreticalHistogramVisibleProperty.value;
-        updateTrianglePosition( theoreticalAverageTrianglePath, average );
-      }
-
-      /**
-       * Function that updates the position of the triangle based on the sample average
-       */
-      function updateSampleAverageTriangle() {
-        var average = model.histogram.average;
-        // set to invisible if none of the balls have landed
-        sampleAverageTrianglePath.visible = (model.histogram.landedBallsNumber > 0);
-        updateTrianglePosition( sampleAverageTrianglePath, average );
-      }
-
-      /**
-       * Update the histogram, i.e. the bar nodes rectangle , based on the sample distribution
        */
       function updateHistogram() {
         var i;
@@ -500,8 +485,8 @@ define( function( require ) {
         }
       }
 
+
       /**
-       * Update the bar rectangles associated with the binomial distribution, a.k.a. theoretical, ideal, histogram,
        */
       function updateBinomialDistribution() {
         var getBinomialBin = model.getNormalizedBinomialDistribution();
@@ -526,8 +511,6 @@ define( function( require ) {
 
     inherit( Node, HistogramBarNode );
 
-
-  // TODO what do we need from the model
     /**
      *
      * @param {Property.<number>} numberOfRowsProperty
