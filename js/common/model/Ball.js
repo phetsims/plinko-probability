@@ -13,10 +13,13 @@ define( function( require ) {
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var inherit = require( 'PHET_CORE/inherit' );
   var PegInterface = require( 'PLINKO_PROBABILITY/common/model/PegInterface' );
+  var Random = require('DOT/Random');
   var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
   var PropertySet = require( 'AXON/PropertySet' );
   var Vector2 = require( 'DOT/Vector2' );
 
+  // convenience variables
+  var random = new Random();
   var scratchVector = new Vector2();
 
   // constants
@@ -86,7 +89,7 @@ define( function( require ) {
     var peg;
 
     for ( rowNumber = 0; rowNumber <= numberOfRows; rowNumber++ ) {
-      direction = (Math.random() < probability) ? 'left' : 'right';
+      direction = (random.random() < probability) ? 'left' : 'right';
       peg = {
         rowNumber: rowNumber, // an integer starting at zero
         columnNumber: columnNumber, // an integer starting at zero

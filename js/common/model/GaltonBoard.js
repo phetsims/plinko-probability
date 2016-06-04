@@ -39,9 +39,6 @@ define( function( require ) {
         this.pegs.push( peg );
       }
     }
-    //TODO : seed random is useful for testing but it should be removed before publication:
-    // see sherpa/seedrandom-2.4.2.js on how to use
-     Math.seedrandom( '123' ); // use a seed reproducibility
 
     // link the numberOrRows to adjust the spacing between pegs (and size)
     numberOfRowsProperty.link( function( numberOfRows ) {
