@@ -89,7 +89,7 @@ define( function( require ) {
     var peg;
 
     for ( rowNumber = 0; rowNumber <= numberOfRows; rowNumber++ ) {
-      direction = (random.random() < probability) ? 'left' : 'right';
+      direction = (random.random() > probability) ? 'left' : 'right';
       peg = {
         rowNumber: rowNumber, // an integer starting at zero
         columnNumber: columnNumber, // an integer starting at zero
