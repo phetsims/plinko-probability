@@ -40,7 +40,7 @@ define( function( require ) {
         verticalOffset: 0.035, // gap between pegboard and cylinders
         top: bounds.maxY
       };
-      this.ballsToCreate = 0; // ball creation queue
+      this.ballsToCreateNumber = 0; // an integer number representing the number of balls in the creation queue
     }
 
 
@@ -59,10 +59,10 @@ define( function( require ) {
         // there are balls waiting in line &&
         // the minimum time interval has passed 300 milliseconds &&
         // the number of launched balls is less than the maximum number of balls
-        if ( this.ballsToCreate > 0 && this.ballCreationTimeElapsed > 0.3 && this.launchedBallsNumber < MAX_BALL_NUMBER ) {
+        if ( this.ballsToCreateNumber > 0 && this.ballCreationTimeElapsed > 0.3 && this.launchedBallsNumber < MAX_BALL_NUMBER ) {
           this.addNewBall(); // add a new ball
           this.ballCreationTimeElapsed = 0; //reset the time elapsed
-          this.ballsToCreate--; //remove the ball for the queue
+          this.ballsToCreateNumber--; //remove the ball for the queue
         }
 
         this.balls.forEach( function( ball ) {
@@ -77,7 +77,7 @@ define( function( require ) {
        */
       reset: function() {
         PlinkoProbabilityCommonModel.prototype.reset.call( this );
-        this.ballsToCreate = 0; // remove the queue of balls waiting to be created
+        this.ballsToCreateNumber = 0; // remove the queue of balls waiting to be created
       },
 
       /**
@@ -88,15 +88,15 @@ define( function( require ) {
       play: function() {
         switch( this.ballMode ) {
           case 'oneBall':
-            this.ballsToCreate++; // add a ball to the queue
+            this.ballsToCreateNumber++; // add a ball to the queue
             break;
 
           case 'tenBalls':
-            this.ballsToCreate += 10;
+            this.ballsToCreateNumber += 10;
             break;
 
           case 'allBalls':
-            this.ballsToCreate += MAX_BALL_NUMBER;
+            this.ballsToCreateNumber += MAX_BALL_NUMBER;
             break;
 
           default:

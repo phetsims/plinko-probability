@@ -54,7 +54,7 @@ define( function( require ) {
       /**
        * time step function that is  responsible for creating and updating the position and status of the balls
        * @public
-       * @param dt
+       * @param {number} dt 
        */
       step: function( dt ) {
         this.ballCreationTimeElapsed += dt; // we don't want balls to drop too quickly so we keep track of the interval
@@ -67,21 +67,21 @@ define( function( require ) {
           case 'ball':
             this.balls.forEach( function( ball ) {
               // we want to cap dt fairly low so that the balls don't make a sudden jump
-              ball.step( Math.min( 0.08, dt * 5 ) ); // 80 milliseconds is the highest dt will be
+              ball.step( Math.min( 0.080, dt * 5 ) ); // 80 milliseconds is the highest dt will be
             } );
-            this.ballCreationTimeInterval = 0.05; // 50 milliseconds if we are seeing balls
+            this.ballCreationTimeInterval = 0.050; // 50 milliseconds if we are seeing balls
             break;
           case 'path':
             this.balls.forEach( function( ball ) {
               ball.updateStatisticsAndLand();
             } );
-            this.ballCreationTimeInterval = 0.05; // 50 milliseconds if we are seeing paths
+            this.ballCreationTimeInterval = 0.050; // 50 milliseconds if we are seeing paths
             break;
           case 'none':
             this.balls.forEach( function( ball ) {
               ball.updateStatisticsAndLand();
             } );
-            this.ballCreationTimeInterval = 0.02; // 20 milliseconds if nothing is being shown
+            this.ballCreationTimeInterval = 0.020; // 20 milliseconds if nothing is being shown
             break;
           default:
             throw new Error( 'Unhandled galton Board Radio Button state: ' + this.galtonBoardRadioButton );

@@ -91,7 +91,7 @@ define( function( require ) {
         model.balls.clear(); // clear the balls on the galton board
         model.histogram.reset(); // reset the histogram statistics
         model.launchedBallsNumber = 0; // reset the number of launched balls
-        model.ballsToCreate = 0; // reset the ball creation queue
+        model.ballsToCreateNumber = 0; // reset the ball creation queue
       }
     } );
 
