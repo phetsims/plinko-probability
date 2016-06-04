@@ -34,25 +34,25 @@ define( function( require ) {
 
       options = _.extend( {
           openingAngle: Math.PI / 2, //  opening angle of the pegs
-          rangeRotationAngle: Math.PI / 2
+          rangeRotationAngle: Math.PI / 2 // range of rotation of the peg, when going from binaryProbability 0 to 1.
         },
         options );
 
       var galtonBoardNode = this;
       Node.call( this );
 
-      var pegBoard = new Node();
-      this.addChild( pegBoard );
-
-      var pegArray = [];
-
-      var pegShape = new Shape();
+      // create and add a pegShadow Layer, so the peg shadows can be a on separate z-layer.
+      var pegShadowLayer = new Node();
+      this.addChild( pegShadowLayer );
 
       // the peg orientation should be facing up when the probability is 50%
       var leftArcAngle = -Math.PI / 2 + options.rangeRotationAngle * (probabilityProperty.value - 0.5) - options.openingAngle / 2;
       var rightArcAngle = -Math.PI / 2 + options.rangeRotationAngle * (probabilityProperty.value - 0.5) + options.openingAngle / 2;
 
-      pegShape.arc( 0, 0, PlinkoConstants.PEG_RADIUS, leftArcAngle, rightArcAngle, true );
+      // create the shape of the peg , a disk with a segment removed, the segment removed spans an angle of options.openingAngle
+      var pegShape = new Shape().arc( 0, 0, PlinkoConstants.PEG_RADIUS, leftArcAngle, rightArcAngle, true );
+
+      var pegArray = []; // this array will contain the pegShadows, pegPaths and the peg (from the GaltonBoard model)
 
       // for each peg, let's create a peg Path and a peg Shadow
       galtonBoard.pegs.forEach( function( peg ) {
@@ -78,7 +78,7 @@ define( function( require ) {
             .addColorStop( 1, 'rgba(255,255,255, 0.00)' )
         } );
 
-        // push all pegPath and pegShadow into an array, as well a peg, which has two attributes, position and isVisible
+        // push all pegPath and pegShadow into an array, as well a peg model, which has two attributes, position and isVisible
         pegArray.push( { pegPath: pegPath, pegShadow: pegShadow, peg: peg } );
       } );
 
@@ -86,10 +86,10 @@ define( function( require ) {
       // put the peg shadows on a separate layer so that they can appear behind z-layer-wise
       pegArray.forEach( function( peg ) {
         galtonBoardNode.addChild( peg.pegPath );
-        pegBoard.addChild( peg.pegShadow );
+        pegShadowLayer.addChild( peg.pegShadow );
       } );
 
-      // // no need to unlink since it is present for the lifetime of the simulation
+      // no need to unlink since it is present for the lifetime of the simulation
       // this handle the rotation of the pegs
       probabilityProperty.lazyLink( function( newProbability, oldProbability ) {
         var newAngle = newProbability * options.rangeRotationAngle;
