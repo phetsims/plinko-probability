@@ -13,6 +13,7 @@ define( function( require ) {
   var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
   var Vector2 = require( 'DOT/Vector2' );
 
+  //TODO which of the methods are used, get rid of the ones that are not used.
   var PegInterface = {
     /**
      * Function that returns the x and y coordinates of a peg in reference to the galtonBoard bounds

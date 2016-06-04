@@ -45,9 +45,7 @@ define( function( require ) {
     this.probability = probability;
     this.numberOfRows = numberOfRows;
 
-
     this.pegSeparation = PegInterface.getSpacing( numberOfRows );
-
 
     this.ballRadius = this.pegSeparation * 0.18;
 
@@ -86,8 +84,9 @@ define( function( require ) {
     var direction;  // 'left', 'right'
     var rowNumber;
     var columnNumber = 0;
-    var peg;
+    var peg; // {Object}
 
+    // the path of the balls through the pegs of the galton board  is determined
     for ( rowNumber = 0; rowNumber <= numberOfRows; rowNumber++ ) {
       direction = (random.random() > probability) ? 'left' : 'right';
       peg = {
@@ -99,6 +98,7 @@ define( function( require ) {
       };
       this.pegHistory.push( peg );
 
+      // increment the column number of the next row
       columnNumber += (direction === 'left') ? 0 : 1;
     }
 
@@ -106,11 +106,9 @@ define( function( require ) {
     // bin position of the ball {number}
     this.binIndex = peg.columnNumber;
 
-
     // @private (read-only)
     // binCount {number} indicates the number of balls in a specific cylinder
     this.binCount = bins[ this.binIndex ].binCount;
-
 
   }
 
@@ -206,6 +204,8 @@ define( function( require ) {
       }
       if ( this.phase === PHASE_EXIT ) { // the ball has exited and it is making its way to the bin
         if ( this.getPosition().y > this.finalBinVerticalPosition ) { // if it has not fallen to its final position
+  
+      // TODO magic number
           this.fallenRatio += df / 10; //fall some more
         }
         else {
@@ -231,11 +231,13 @@ define( function( require ) {
           displacement.multiplyScalar( this.pegSeparation );
           return displacement.addXY( this.pegPositionX, this.pegPositionY );
         case PHASE_FALLING: // ball is falling through the pegs
+          // steer the ball to the left or right depending on this.direction
           var shift = (this.direction === 'left') ? -0.5 : 0.5;
           // mimic the fall as a parabolic motion
           var fallingPosition = scratchVector.setXY( shift * this.fallenRatio, -this.fallenRatio * this.fallenRatio );
           // get the ball aligned with its final x position in the bin.
           fallingPosition.multiplyScalar( this.pegSeparation ); // scale the vector by the peg separation
+          // exit from the last row with the correct alignment with the bin
           if ( this.row === this.numberOfRows-1) {
             //TODO this.finalBinHorizontalPosition is not defined within this file
             fallingPosition.addXY( this.finalBinHorizontalPosition*this.fallenRatio, 0 );

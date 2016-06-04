@@ -15,6 +15,7 @@ define( function( require ) {
   // constants
   var BOUNDS = PlinkoConstants.HISTOGRAM_BOUNDS;
 
+  //TODO which of the methods are used, get rid of the ones that are not used.
   var BinInterface = {
     /**
      * Function that returns the center x coordinate of a bin with index binIndex

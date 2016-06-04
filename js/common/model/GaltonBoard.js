@@ -27,7 +27,7 @@ define( function( require ) {
 
     var rowNumber; // {number} a non negative integer
     var columnNumber; // {number} a non negative  integer
-    this.pegs = [];
+    this.pegs = []; // @public (read-only)
 
     // creates all the pegs (up to the maximum number of possible rows)
     for ( rowNumber = 0; rowNumber <= PlinkoConstants.ROWS_RANGE.max; rowNumber++ ) {
