@@ -166,7 +166,7 @@ define( function( require ) {
     // layout the children nodes on the scene graph
     eraserButton.bottom = this.layoutBounds.maxY - 55;
     eraserButton.left = 40;
-    histogramRadioButtonsControl.bottom = eraserButton.top - 10;
+    histogramRadioButtonsControl.bottom = eraserButton.top - 16;
     histogramRadioButtonsControl.left = eraserButton.left;
     playPanel.right = this.layoutBounds.maxX - 40;
     playPanel.top = 10;
