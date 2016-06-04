@@ -44,9 +44,7 @@ define( function( require ) {
       var pegBoard = new Node();
       this.addChild( pegBoard );
 
-      this.pegPathArray = [];
-      this.pegShadowArray = [];
-      var pegPath;
+      var pegArray = [];
 
       var pegShape = new Shape();
 
@@ -56,8 +54,9 @@ define( function( require ) {
 
       pegShape.arc( 0, 0, PlinkoConstants.PEG_RADIUS, leftArcAngle, rightArcAngle, true );
 
+      // for each peg, let's create a peg Path and a peg Shadow
       galtonBoard.pegs.forEach( function( peg ) {
-        pegPath = new Path( pegShape, { fill: PlinkoConstants.PEG_COLOR } );
+        var pegPath = new Path( pegShape, { fill: PlinkoConstants.PEG_COLOR } );
         var pegShadow = new Circle( 1.4 * PlinkoConstants.PEG_RADIUS, {
           fill: new RadialGradient(
             PlinkoConstants.PEG_RADIUS * 0.3,
@@ -78,44 +77,44 @@ define( function( require ) {
             .addColorStop( 0.9217, 'rgba(206,206,206, 0.0783)' )
             .addColorStop( 1, 'rgba(255,255,255, 0.00)' )
         } );
-        pegPath.peg = peg;
-        pegShadow.peg = peg;
-        galtonBoardNode.pegPathArray.push( pegPath );
-        galtonBoardNode.pegShadowArray.push( pegShadow );
+
+        // push all pegPath and pegShadow into an array, as well a peg, which has two attributes, position and isVisible
+        pegArray.push( { pegPath: pegPath, pegShadow: pegShadow, peg: peg } );
       } );
 
-      var len = this.pegShadowArray.length;
-      for ( var i = 0; i < len; i++ ) {
-        this.addChild( this.pegShadowArray[ i ] );
-        this.addChild( this.pegPathArray[ i ] );
-      }
+      // add all the peg paths and peg shadows to this node.
+      // put the peg shadows on a separate layer so that they can appear behind z-layer-wise
+      pegArray.forEach( function( peg ) {
+        galtonBoardNode.addChild( peg.pegPath );
+        pegBoard.addChild( peg.pegShadow );
+      } );
 
       // // no need to unlink since it is present for the lifetime of the simulation
+      // this handle the rotation of the pegs
       probabilityProperty.lazyLink( function( newProbability, oldProbability ) {
         var newAngle = newProbability * options.rangeRotationAngle;
         var oldAngle = oldProbability * options.rangeRotationAngle;
         var changeAngle = newAngle - oldAngle;
-        galtonBoardNode.pegPathArray.forEach( function( pegPath ) {
-          pegPath.rotateAround( pegPath.center, changeAngle );
+        pegArray.forEach( function( peg ) {
+          peg.pegPath.rotateAround( peg.pegPath.center, changeAngle );
         } );
       } );
 
       // no need to unlink since it is present for the lifetime of the simulation
       numberOfRowsProperty.link( function( numberOfRows ) {
         var pegSpacing = PegInterface.getSpacing( numberOfRows );
+        // offset the center of the shadow with respect to the peg, a bit below and to the left, empirically determined
         var offsetVector = new Vector2( pegSpacing * 0.08, -pegSpacing * 0.24 );
 
-        galtonBoardNode.pegPathArray.forEach( function( pegPath ) {
-          pegPath.visible = pegPath.peg.isVisible;
-          pegPath.center = modelViewTransform.modelToViewPosition( pegPath.peg.position );
-          pegPath.setScaleMagnitude( PlinkoConstants.ROWS_RANGE.max / numberOfRows );
+        pegArray.forEach( function( peg ) {
+          peg.pegPath.visible = peg.peg.isVisible;
+          peg.pegShadow.visible = peg.peg.isVisible;
+          peg.pegPath.center = modelViewTransform.modelToViewPosition( peg.peg.position );
+          peg.pegShadow.center = modelViewTransform.modelToViewPosition( peg.peg.position.plus(offsetVector) );
+          peg.pegPath.setScaleMagnitude( PlinkoConstants.ROWS_RANGE.max / numberOfRows );
+          peg.pegShadow.setScaleMagnitude( PlinkoConstants.ROWS_RANGE.max / numberOfRows );
         } );
 
-        galtonBoardNode.pegShadowArray.forEach( function( pegPath ) {
-          pegPath.visible = pegPath.peg.isVisible;
-          pegPath.center = modelViewTransform.modelToViewPosition( pegPath.peg.position.plus( offsetVector ) );
-          pegPath.setScaleMagnitude( PlinkoConstants.ROWS_RANGE.max / numberOfRows );
-        } );
       } );
 
     }
