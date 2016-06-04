@@ -81,11 +81,11 @@ define( function( require ) {
       },
 
       /**
-       * Play function adds balls to the model, the number of balls added depends on the status of ballMode.
-       * The function updates the total number of launched balls
+       * This function updates the number of balls to be launched which depends on the status of ballMode
+       * The cap of of the maximum number of balls to be launches is enforced by the step() function. 
        * @private
        */
-      play: function() {
+      updateBallsToCreateNumber: function() {
         switch( this.ballMode ) {
           case 'oneBall':
             this.ballsToCreateNumber++; // add a ball to the queue
@@ -111,7 +111,7 @@ define( function( require ) {
        */
       addNewBall: function() {
         var thisModel = this;
-        //create new ball
+        // create a new ball
         var addedBall = new IntroBall( this.probability, this.numberOfRows, this.histogram.bins, this.cylinderInfo );
         // update number of balls in the bin and the last position of the addedBall
         this.launchedBallsNumber++; // update the number of launched balls
@@ -121,7 +121,7 @@ define( function( require ) {
         addedBall.on( 'exited', function() {
           thisModel.histogram.addBallToHistogram( addedBall );
         } );
-        //triggers sound to play when ball hits a peg
+        // triggers sound to play when ball hits a peg
         addedBall.on( 'playSound', function() {
           thisModel.playBallHittingPegSound( addedBall.direction );
         } );

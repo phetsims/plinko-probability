@@ -25,12 +25,12 @@ define( function( require ) {
 
   /**
    * Creation of play panel
-   * @param {Function} playFunction - function that add Balls to the model
+   * @param {Function} updateBallsToCreateNumber - function that update the number of balls to be created
    * @param {Property.<String>} ballModeProperty
    * @param {Object} [options]
    * @constructor
    */
-  function IntroPlayPanel( playFunction, ballModeProperty, options ) {
+  function IntroPlayPanel( updateBallsToCreateNumber, ballModeProperty, options ) {
 
     // Demonstrate a common pattern for specifying options and providing default values.
     options = _.extend( {
@@ -72,7 +72,7 @@ define( function( require ) {
 
     //Creation of play button
     var playButton = new PlayButton( {
-      listener: playFunction
+      listener: updateBallsToCreateNumber
     } );
 
     //Creation of play button panel box
