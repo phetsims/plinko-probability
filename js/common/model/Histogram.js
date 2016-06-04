@@ -32,6 +32,7 @@ define( function( require ) {
     this.sumOfSquares = 0;
     this.variance = 0;
 
+    // TODO but which one are read only
     // @public
     this.bins = []; // {Object[]}
     this.average = 0;
@@ -39,9 +40,8 @@ define( function( require ) {
     this.standardDeviationOfMean = 0;
     this.landedBallsNumber = 0;
 
+    // initialized all the bins to zero.
     this.setBinsToZero();
-
-    this.numberOfRowsProperty = numberOfRowsProperty;
 
     numberOfRowsProperty.link( function() {
       thisHistogram.reset(); // if the number of rows change then reset the histogram
@@ -70,7 +70,7 @@ define( function( require ) {
       var binInfo;
       for ( var i = 0; i < PlinkoConstants.ROWS_RANGE.max + 1; i++ ) {
         binInfo = {
-          binCount: 0,  // number of balls that will be in the bin (including those falling through the galton board)
+          binCount: 0,  // number of balls that will be in the bin (including those currently falling through the galton board)
           visibleBinCount: 0,  // number of balls that are in the bin
           orientation: 0 // 0 is center, 1 is right, -1 is left
         };
@@ -187,6 +187,7 @@ define( function( require ) {
       }
     },
 
+    // TODO these two functions have the same descritpion
     /**
      * Function that returns the maximum value of all the balls in the bins
      * @returns {number}
