@@ -33,6 +33,9 @@ define( function( require ) {
       shadowFill: 'rgb(136,136,136)'
     }, options );
 
+    // @public (read-only)
+    this.options= options;
+
     // create the triangular shape of the board
     var boardShape = new Shape().moveTo( 0, 0 )
       .lineTo( options.bottomWidth / 2, options.height )
@@ -49,7 +52,7 @@ define( function( require ) {
     var horizontalRectangle = new Rectangle( boardPath.left + 4, boardPath.bottom, boardPath.width + 8, 10, 5, 50, { fill: boardShadowRectangleGradient } );
     this.addChild( horizontalRectangle );
 
-    // create the dropped shadow to the right of the board
+    // create the dropped shadow to the right of the galton board
     var slantedShadowShape = new Shape().moveTo( 4, 4 )
       .lineToRelative( options.bottomWidth / 2, options.height )
       .lineToRelative( 10, 0 )
@@ -57,6 +60,7 @@ define( function( require ) {
       .close();
     var boardSlantedGradient = new LinearGradient( options.bottomWidth / 4, options.height / 2, options.bottomWidth / 4 + 5, options.height / 2 - 5 ).addColorStop( 0.00, options.shadowFill ).addColorStop( 0.20, options.shadowFill ).addColorStop( 1.00, PlinkoConstants.BACKGROUND_COLOR );
     var slantedShadowPath = new Path( slantedShadowShape, { fill: boardSlantedGradient } );
+
     this.addChild( slantedShadowPath );
 
 
