@@ -38,7 +38,7 @@ define( function( require ) {
       position: new Vector2( 0, 0 )
     } );
 
-
+    // TODO which one of these is public / private
     this.probability = probability;
     this.numberOfRows = numberOfRows;
 
@@ -72,20 +72,21 @@ define( function( require ) {
     // 0 is the leftmost
     this.column = 0;
 
-    // -0.5 is left, 0.5 is right
-    this.direction = 0;
+    // 'left','right'
+    this.direction = 'left';
 
     // 0 is the top of the current peg, 1 is the top of the next peg
     this.fallenRatio = 0;
 
     this.pegHistory = []; // {Array.<Object>}
 
-    var direction;  // -0.5 is left, 0.5 is right
+    var direction;  // 'left', 'right'
     var rowNumber;
     var columnNumber = 0;
     var peg;
+
     for ( rowNumber = 0; rowNumber <= numberOfRows; rowNumber++ ) {
-      direction = (Math.random() < probability) ? 0.5 : -0.5;
+      direction = (Math.random() < probability) ? 'left' : 'right';
       peg = {
         rowNumber: rowNumber, // an integer starting at zero
         columnNumber: columnNumber, // an integer starting at zero
@@ -95,7 +96,7 @@ define( function( require ) {
       };
       this.pegHistory.push( peg );
 
-      columnNumber += direction + 0.5;
+      columnNumber += (direction === 'left') ? 0 : 1;
     }
 
     // @public (read-only)
@@ -140,8 +141,8 @@ define( function( require ) {
       }
     },
     /**
-     * @public
      * this function updates the information about the peg position based on the peg history
+     * @public
      */
     updatePegPositionInformation: function() {
       var peg;
@@ -153,8 +154,8 @@ define( function( require ) {
       this.direction = peg.direction; // whether the ball went left or right
     },
     /**
-     * @public
      * this function gets the first peg position
+     * @public
      */
     initialPegPositionInformation: function() {
       var peg;
@@ -166,8 +167,8 @@ define( function( require ) {
     },
     /**
      *
+     * Updates the position of the ball
      * @public
-     * updates the position of the ball
      */
     ballStep: function( df ) {
       if ( this.phase === PHASE_INITIAL ) { // balls is leaving the hopper
@@ -227,17 +228,19 @@ define( function( require ) {
           displacement.multiplyScalar( this.pegSeparation );
           return displacement.addXY( this.pegPositionX, this.pegPositionY );
         case PHASE_FALLING: // ball is falling through the pegs
-          var fallingPosition;      // {Vector2} describes motion of ball within bin in PHASE_FALLING
-          if ( this.row === this.numberOfRows - 1 ) { // if we are exiting the peg board we want to drop in the bin position
-            // #TODO : Fix ball jumping on lab screen. Needs to be made more general.
-            fallingPosition = scratchVector.setXY( (this.direction + this.finalBinHorizontalPosition) * this.fallenRatio, -this.fallenRatio * this.fallenRatio );
-          }
-          else {
-            fallingPosition = scratchVector.setXY( this.direction * this.fallenRatio, -this.fallenRatio * this.fallenRatio );
-          }
+          var shift = (this.direction === 'left') ? -0.5 : 0.5;
+          // mimic the fall as a parabolic motion
+          var fallingPosition = scratchVector.setXY( shift * this.fallenRatio, -this.fallenRatio * this.fallenRatio );
+          // get the ball aligned with its final x position in the bin.
           fallingPosition.multiplyScalar( this.pegSeparation ); // scale the vector by the peg separation
+          if ( this.row === this.numberOfRows-1) {
+            //TODO this.finalBinHorizontalPosition is not defined within this file
+            fallingPosition.addXY( this.finalBinHorizontalPosition*this.fallenRatio, 0 );
+          }
           return fallingPosition.addXY( this.pegPositionX, this.pegPositionY );
         case PHASE_EXIT: // the ball is exiting the pegs and making its way to the bin
+          //TODO this.finalBinHorizontalPosition is not defined within the scope of this file
+          // ditto for this.finalBinVerticalPosition
           return scratchVector.setXY( this.finalBinHorizontalPosition, -this.fallenRatio ).addXY( this.pegPositionX, this.pegPositionY );
         case PHASE_COLLECTED: // the ball has landed to its final position
           return scratchVector.setXY( this.finalBinHorizontalPosition, this.finalBinVerticalPosition ).addXY( this.pegPositionX, 0 );

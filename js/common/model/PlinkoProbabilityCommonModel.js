@@ -65,12 +65,12 @@ define( function( require ) {
 
       /**
        * Play sound that depends on the direction of the ball
-       * @param {number} direction - a value  -0.5 (left) and 0.5 (right)
+       * @param {string} direction - acceptable values are 'left' and 'right'
        */
       playBallHittingPegSound: function( direction ) {
         var thisModel = this;
 
-        assert && assert( direction === -0.5 || direction === 0.5, 'direction should be -0.5 to 0.5' );
+        assert && assert( direction === 'left' || direction === 'right', 'direction should be left or right' );
         if ( thisModel.isSoundEnabled ) {
           // get current time
           var currentTime = new Date().getTime();
@@ -78,12 +78,8 @@ define( function( require ) {
           //play sound if the previous sound was played more than some elapsed time
           if ( currentTime - thisModel.oldTime > SOUND_TIME_INTERVAL ) {
             //Will play sound based on ball's motion, left or right
-            if ( direction === -0.5 ) {
-              thisModel.bonk1Sound.play();
-            }
-            else {
-              thisModel.bonk2Sound.play();
-            }
+            ( direction === 'left') ? thisModel.bonk1Sound.play() : thisModel.bonk2Sound.play();
+
             thisModel.oldTime = currentTime;
           }
         }
