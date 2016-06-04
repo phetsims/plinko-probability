@@ -31,7 +31,7 @@ define( function( require ) {
 
     var sliderWithReadout = this;
     options = _.extend( {
-        property: new Property( 0.5 ), // property of the slider
+        valueProperty: new Property( 0.5 ), // property of the slider
         range: new Range( 0, 1 ), // range of the property
 
         title: '', // (string) title above the numerical display
@@ -77,13 +77,13 @@ define( function( require ) {
 
         tick: {
           step: 1, minText: '', maxText: ''
-        } // step is the distance between ticks (in property value),  (minText and MaxText are Strings)
+        } // step is the distance between ticks (in valueProperty value),  (minText and MaxText are Strings)
       },
       options.slider );
 
     Node.call( this );
 
-    assert && assert( options.property.value <= options.range.max && options.property.value >= options.range.min, 'the property value must be within range' );
+    assert && assert( options.valueProperty.value <= options.range.max && options.valueProperty.value >= options.range.min, 'the property value must be within range' );
 
     if ( options.magneticSnapping ) {
       // slider will update its position to stick 'magnetically' to nice numerical (property) values at the end of a drag event
@@ -96,7 +96,7 @@ define( function( require ) {
     var labelTitle = new Text( options.title, { font: options.titleFont, maxWidth: options.titleMaxWidth } );
 
     // @public create slider
-    this.hSlider = new HSlider( options.property, options.range, options.slider );
+    this.hSlider = new HSlider( options.valueProperty, options.range, options.slider );
 
     // create an invisible rectangle that encompasses the slider (and its thumb) such that this node has a width that exceeds
     // the dynamical width of the slider
@@ -131,7 +131,7 @@ define( function( require ) {
      */
     function buttonPropertyUpdate( increment ) {
       return function() {
-        options.property.set( Util.clamp( options.property.value + increment, options.range.min, options.range.max ) );
+        options.qq.set( Util.clamp( options.valueProperty.value + increment, options.range.min, options.range.max ) );
       };
     }
 
@@ -197,7 +197,7 @@ define( function( require ) {
       leftArrowButton.enabled = ( value > options.range.min );
     }
 
-    options.property.link( updatePropertyObserver );
+    options.valueProperty.link( updatePropertyObserver );
 
   }
 

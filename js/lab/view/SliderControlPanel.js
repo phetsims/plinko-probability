@@ -51,7 +51,7 @@ define( function( require ) {
       titleFont: PlinkoConstants.PANEL_FONT,
       displayFont: PlinkoConstants.PANEL_READOUT_FONT, // font for the numerical display
       titleMaxWidth: options.minWidth,
-      property: rowsProperty,
+      valueProperty: rowsProperty,
       range: PlinkoConstants.ROWS_RANGE,
       decimalPlaces: 0,
       slider: {
@@ -71,7 +71,7 @@ define( function( require ) {
       titleFont: PlinkoConstants.PANEL_FONT,
       displayFont: PlinkoConstants.PANEL_READOUT_FONT, // font for the numerical display
       titleMaxWidth: options.minWidth,
-      property: binaryProbabilityProperty,
+      valueProperty: binaryProbabilityProperty,
       range: PlinkoConstants.BINARY_PROBABILITY_RANGE,
       decimalPlaces: 2,
       slider: {
