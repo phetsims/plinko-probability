@@ -1,7 +1,7 @@
 // Copyright 2014-2015, University of Colorado Boulder
 
 /**
- * Control Panel for the sliders of the rows and binary Probability
+ * Control Panel for two sliders: rows slider  and binary Probability slider
  *
  * @author Martin Veillette (Berea College)
  */
@@ -41,17 +41,21 @@ define( function( require ) {
       },
       options );
 
+    // tracksize for the slider
+    var trackSize = new Dimension2( 170, 2 );
+
+    // create the slider for the rows
     var rowsSlider = new SliderWithReadout( {
       buttonStep: 1,
       title: rowsString,
       titleFont: PlinkoConstants.PANEL_FONT,
       displayFont: PlinkoConstants.PANEL_READOUT_FONT, // font for the numerical display
-      titleMaxWidth : options.minWidth,
+      titleMaxWidth: options.minWidth,
       property: rowsProperty,
       range: PlinkoConstants.ROWS_RANGE,
       decimalPlaces: 0,
       slider: {
-        trackSize: new Dimension2( 170, 2 ),
+        trackSize: trackSize,
         tick: {
           step: PlinkoConstants.ROWS_RANGE.getLength(),
           minText: Util.toFixed( PlinkoConstants.ROWS_RANGE.min, 0 ),
@@ -60,17 +64,18 @@ define( function( require ) {
       }
     } );
 
+    // create the slider for the binary probability
     var binaryProbabilitySlider = new SliderWithReadout( {
       buttonStep: 0.01,
       title: binaryProbabilityString,
       titleFont: PlinkoConstants.PANEL_FONT,
       displayFont: PlinkoConstants.PANEL_READOUT_FONT, // font for the numerical display
-      titleMaxWidth : options.minWidth,
+      titleMaxWidth: options.minWidth,
       property: binaryProbabilityProperty,
       range: PlinkoConstants.BINARY_PROBABILITY_RANGE,
       decimalPlaces: 2,
       slider: {
-        trackSize: new Dimension2( 170, 2 ),
+        trackSize: trackSize,
         tick: {
           step: PlinkoConstants.BINARY_PROBABILITY_RANGE.getLength(),
           minText: Util.toFixed( PlinkoConstants.BINARY_PROBABILITY_RANGE.min, 0 ),
@@ -80,7 +85,6 @@ define( function( require ) {
     } );
 
     // layout the two sliders
-    rowsSlider.x = 200;
     binaryProbabilitySlider.centerX = rowsSlider.centerX;
     binaryProbabilitySlider.top = rowsSlider.bottom + 25;
 
