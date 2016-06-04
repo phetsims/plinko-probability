@@ -110,7 +110,7 @@ define( function( require ) {
           peg.pegPath.visible = peg.peg.isVisible;
           peg.pegShadow.visible = peg.peg.isVisible;
           peg.pegPath.center = modelViewTransform.modelToViewPosition( peg.peg.position );
-          peg.pegShadow.center = modelViewTransform.modelToViewPosition( peg.peg.position.plus(offsetVector) );
+          peg.pegShadow.center = modelViewTransform.modelToViewPosition( peg.peg.position.plus( offsetVector ) );
           peg.pegPath.setScaleMagnitude( PlinkoConstants.ROWS_RANGE.max / numberOfRows );
           peg.pegShadow.setScaleMagnitude( PlinkoConstants.ROWS_RANGE.max / numberOfRows );
         } );
