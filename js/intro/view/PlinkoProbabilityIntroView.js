@@ -14,7 +14,6 @@ define( function( require ) {
   var CylindersBackNode = require( 'PLINKO_PROBABILITY/intro/view/CylindersBackNode' );
   var CylindersFrontNode = require( 'PLINKO_PROBABILITY/intro/view/CylindersFrontNode' );
   var EraserButton = require( 'SCENERY_PHET/buttons/EraserButton' );
-
   var GaltonBoardNode = require( 'PLINKO_PROBABILITY/common/view/GaltonBoardNode' );
   var HistogramNode = require( 'PLINKO_PROBABILITY/common/view/HistogramNode' );
   var Hopper = require( 'PLINKO_PROBABILITY/common/view/Hopper' );

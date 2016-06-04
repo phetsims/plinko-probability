@@ -13,7 +13,6 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var PegInterface = require( 'PLINKO_PROBABILITY/common/model/PegInterface' );
   var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
-  //var Vector2 = require( 'DOT/Vector2' );
 
   /**
    * @param {Property.<number>} numberOfRowsProperty - number of rows of pegs

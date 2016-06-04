@@ -11,9 +11,9 @@ define( function( require ) {
 
   // modules
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
+  var Ball = require( 'PLINKO_PROBABILITY/common/model/Ball' );
   var inherit = require( 'PHET_CORE/inherit' );
   var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
-  var Ball = require( 'PLINKO_PROBABILITY/common/model/Ball' );
 
   /**
    *

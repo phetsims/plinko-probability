@@ -22,7 +22,6 @@ define( function( require ) {
     var Shape = require( 'KITE/Shape' );
     var Text = require( 'SCENERY/nodes/Text' );
     var Util = require( 'DOT/Util' );
-    //var Vector2 = require( 'DOT/Vector2' );
 
     //----------------------------------------------------------------------------------------
     // constants

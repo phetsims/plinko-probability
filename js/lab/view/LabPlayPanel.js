@@ -14,10 +14,10 @@ define( function( require ) {
   var HStrut = require( 'SCENERY/nodes/HStrut' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var Node = require( 'SCENERY/nodes/Node' );
   var Panel = require( 'SUN/Panel' );
   var PlayButton = require( 'PLINKO_PROBABILITY/common/view/PlayButton' );
   var PauseButton = require( 'PLINKO_PROBABILITY/common/view/PauseButton' );
-  var Node = require( 'SCENERY/nodes/Node' );
   var VerticalAquaRadioButtonGroup = require( 'SUN/VerticalAquaRadioButtonGroup' );
 
   var BALL_RADIUS = 8;
