@@ -156,8 +156,10 @@ define( function( require ) {
       }
     );
 
-    //TODO: add labelTitle only if non null: otherwise it will add unnecessary white space at the top
-    this.addChild( labelTitle );
+    // only add a labelTitle if the text is not empty or null
+    if ( labelTitle.text !== '' && labelTitle.text !== null ) {
+      this.addChild( labelTitle );
+    }
     this.addChild( leftArrowButton );
     this.addChild( rightArrowButton );
     this.addChild( readoutBackground );
