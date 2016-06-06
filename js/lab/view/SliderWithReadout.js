@@ -131,7 +131,7 @@ define( function( require ) {
      */
     function buttonPropertyUpdate( increment ) {
       return function() {
-        options.qq.set( Util.clamp( options.valueProperty.value + increment, options.range.min, options.range.max ) );
+        options.valueProperty.set( Util.clamp( options.valueProperty.value + increment, options.range.min, options.range.max ) );
       };
     }
 
