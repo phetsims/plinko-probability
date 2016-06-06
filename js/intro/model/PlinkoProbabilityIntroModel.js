@@ -33,7 +33,7 @@ define( function( require ) {
       var binWidth = bounds.width / (this.numberOfRows + 1); // the width of one bin is the total width divided by the number of rows
       var cylinderWidth = 0.95 * binWidth;
       var ellipseHeight = cylinderWidth * Math.sin( PERSPECTIVE_TILT ); // the height is the width times some perspective tilt
-     // TODO {private/public?}
+      // TODO {private/public?}
       this.cylinderInfo = {
         height: bounds.height * 0.87, // we want the cylinders to be shorter than the histogram
         cylinderWidth: cylinderWidth, // there is a small gap between each cylinder
@@ -55,6 +55,8 @@ define( function( require ) {
        * @param {number} dt - a small time interval
        */
       step: function( dt ) {
+        PlinkoProbabilityCommonModel.prototype.step.call( this, dt );
+
         this.ballCreationTimeElapsed += dt; // we want to to keep track of the time elapsed since the last ball was created
         // we only want to create a ball if:
         // there are balls waiting in line &&
@@ -68,6 +70,7 @@ define( function( require ) {
 
         this.balls.forEach( function( ball ) {
           // we want to cap the dt so that the balls don't make a big jump
+
           ball.step( Math.min( 0.08, dt * 5 ) );
         } );
       },
@@ -83,7 +86,7 @@ define( function( require ) {
 
       /**
        * This function updates the number of balls to be launched which depends on the status of ballMode
-       * The cap of of the maximum number of balls to be launches is enforced by the step() function. 
+       * The cap of of the maximum number of balls to be launches is enforced by the step() function.
        * @private
        */
       updateBallsToCreateNumber: function() {

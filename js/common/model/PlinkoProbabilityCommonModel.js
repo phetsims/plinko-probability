@@ -23,10 +23,10 @@ define( function( require ) {
     var bonk2Audio = require( 'audio!PLINKO_PROBABILITY/bonk-2-for-plinko' );
 
     // constants
-    var SOUND_TIME_INTERVAL = 100;   // in millisecond, minimum sound time interval between two sounds.
-
+    var SOUND_TIME_INTERVAL = .1;   // in millisecond, minimum sound time interval between two sounds
 
     function PlinkoProbabilityCommonModel() {
+
 
       PropertySet.call( this, {
         probability: 0.5,
@@ -45,6 +45,8 @@ define( function( require ) {
       this.bonk2Sound = new Sound( bonk2Audio );  // @private
 
       this.launchedBallsNumber = 0; // @public - number of current trial (current ball drop)
+
+      this.soundTimeElapse = 0;  //@private - number used to keep track of the last sound playing
 
       this.galtonBoard = new GaltonBoard( this.numberOfRowsProperty ); // @public (read-only) - create the galton board
       this.balls = new ObservableArray(); // the balls that are currently on the screen
@@ -72,15 +74,11 @@ define( function( require ) {
 
         assert && assert( direction === 'left' || direction === 'right', 'direction should be left or right' );
         if ( thisModel.isSoundEnabled ) {
-          // get current time
-          var currentTime = new Date().getTime();
-
           //play sound if the previous sound was played more than some elapsed time
-          if ( currentTime - thisModel.oldTime > SOUND_TIME_INTERVAL ) {
+          if ( this.soundTimeElapse > SOUND_TIME_INTERVAL ) {
             //Will play sound based on ball's motion, left or right
             ( direction === 'left') ? thisModel.bonk1Sound.play() : thisModel.bonk2Sound.play();
-
-            thisModel.oldTime = currentTime;
+            this.soundTimeElapse = 0;
           }
         }
       },
@@ -91,9 +89,7 @@ define( function( require ) {
        * @param {number} dt - a small time interval
        */
       step: function( dt ) {
-        this.balls.forEach( function( ball ) {
-          ball.step( dt * 5 );
-        } );
+        this.soundTimeElapse += dt;
       },
       /**
        * Reset of the model attributes.

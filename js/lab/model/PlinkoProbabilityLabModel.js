@@ -54,9 +54,10 @@ define( function( require ) {
       /**
        * time step function that is  responsible for creating and updating the position and status of the balls
        * @public
-       * @param {number} dt 
+       * @param {number} dt
        */
       step: function( dt ) {
+        PlinkoProbabilityCommonModel.prototype.step.call( this, dt );
         this.ballCreationTimeElapsed += dt; // we don't want balls to drop too quickly so we keep track of the interval
         if ( this.isPlaying && this.ballCreationTimeElapsed > this.ballCreationTimeInterval ) { // if the play button is pressed and the interval is greater than some interval
           this.addNewBall(); // add a new ball
