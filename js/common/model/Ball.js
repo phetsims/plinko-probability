@@ -80,6 +80,9 @@ define( function( require ) {
 
     this.pegHistory = []; // {Array.<Object>}
 
+    this.finalBinHorizontalPosition = 0;
+    this.finalBinVerticalPosition = 0;
+
     var direction;  // 'left', 'right'
     var rowNumber;
     var columnNumber = 0;
@@ -238,13 +241,10 @@ define( function( require ) {
           fallingPosition.multiplyScalar( this.pegSeparation ); // scale the vector by the peg separation
           // exit from the last row with the correct alignment with the bin
           if ( this.row === this.numberOfRows - 1 ) {
-            //TODO this.finalBinHorizontalPosition is not defined within this file
             fallingPosition.addXY( this.finalBinHorizontalPosition * this.fallenRatio, 0 );
           }
           return fallingPosition.addXY( this.pegPositionX, this.pegPositionY );
         case PHASE_EXIT: // the ball is exiting the pegs and making its way to the bin
-          //TODO this.finalBinHorizontalPosition is not defined within the scope of this file
-          // ditto for this.finalBinVerticalPosition
           return scratchVector.setXY( this.finalBinHorizontalPosition, -this.fallenRatio ).addXY( this.pegPositionX, this.pegPositionY );
         case PHASE_COLLECTED: // the ball has landed to its final position
           return scratchVector.setXY( this.finalBinHorizontalPosition, this.finalBinVerticalPosition ).addXY( this.pegPositionX, 0 );
