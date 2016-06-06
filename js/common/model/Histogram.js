@@ -187,9 +187,9 @@ define( function( require ) {
       }
     },
 
-    // TODO these two functions have the same descritpion
     /**
      * Function that returns the maximum value of all the balls in the bins
+     * This includes the balls that still traveling through the GaltonBoard
      * @returns {number}
      */
     getMaximumActualBinCount: function() {
@@ -202,6 +202,7 @@ define( function( require ) {
 
     /**
      * Function that returns the maximum visible value of the balls in the bins
+     * This does not include the balls that are still traveling through the GaltonBoard
      * @returns {number}
      * @public
      */
