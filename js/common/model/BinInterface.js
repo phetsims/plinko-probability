@@ -15,7 +15,6 @@ define( function( require ) {
   // constants
   var BOUNDS = PlinkoConstants.HISTOGRAM_BOUNDS;
 
-  //TODO which of the methods are used, get rid of the ones that are not used.
   var BinInterface = {
     /**
      * Function that returns the center x coordinate of a bin with index binIndex
@@ -48,14 +47,6 @@ define( function( require ) {
     },
 
     /**
-     * Function that returns the maximum X value, i.e. the rightmost position of all the bins
-     * @returns {number}
-     */
-    getMaxX: function() {
-      return BOUNDS.maxX;
-    },
-
-    /**
      * Function that returns the center X value of the bins, i.e. the center position of all the bins
      * @returns {number}
      */
@@ -64,27 +55,11 @@ define( function( require ) {
     },
 
     /**
-     * Function that returns the center X value of the bins, i.e. the center position of all the bins
-     * @returns {number}
-     */
-    getCenterY: function() {
-      return BOUNDS.centerY;
-    },
-
-    /**
      * Function that returns the minimum Y value, i.e. the bottom position of all the bins
      * @returns {number}
      */
     getMinY: function() {
       return BOUNDS.minY;
-    },
-
-    /**
-     * Function that returns the maximum Y value, i.e. the topmost position of all the bins
-     * @returns {number}
-     */
-    getMaxY: function() {
-      return BOUNDS.maxY;
     },
 
     /**
