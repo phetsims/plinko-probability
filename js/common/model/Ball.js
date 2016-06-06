@@ -13,7 +13,7 @@ define( function( require ) {
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var inherit = require( 'PHET_CORE/inherit' );
   var PegInterface = require( 'PLINKO_PROBABILITY/common/model/PegInterface' );
-  var Random = require('DOT/Random');
+  var Random = require( 'DOT/Random' );
   var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
   var PropertySet = require( 'AXON/PropertySet' );
   var Vector2 = require( 'DOT/Vector2' );
@@ -41,19 +41,18 @@ define( function( require ) {
       position: new Vector2( 0, 0 )
     } );
 
-    // TODO which one of these is public / private
-    this.probability = probability;
-    this.numberOfRows = numberOfRows;
+    this.probability = probability; // @private {read-only}
+    this.numberOfRows = numberOfRows; // @private {read-only}
 
-    this.pegSeparation = PegInterface.getSpacing( numberOfRows );
+    this.pegSeparation = PegInterface.getSpacing( numberOfRows ); // @public {read-only}
 
-    this.ballRadius = this.pegSeparation * 0.18;
+    this.ballRadius = this.pegSeparation * 0.18;  // @public {read-only}
 
     // 0 -> Initially falling
     // 1 -> Falling between pegs
     // 2 -> Out of pegs
     // 3 -> Collected
-    this.phase = PHASE_INITIAL;
+    this.phase = PHASE_INITIAL; // @private {read-only}
 
     // rows and column
     /*
@@ -68,16 +67,16 @@ define( function( require ) {
      */
 
     // 0 is the topmost
-    this.row = 0;
+    this.row = 0; // @private
 
     // 0 is the leftmost
-    this.column = 0;
+    this.column = 0;  // @private
 
     // 'left','right'
-    this.direction = 'left';
+    this.direction = 'left';  // @public {read-only}
 
     // 0 is the top of the current peg, 1 is the top of the next peg
-    this.fallenRatio = 0;
+    this.fallenRatio = 0; // @private
 
     this.pegHistory = []; // {Array.<Object>}
 
@@ -204,9 +203,9 @@ define( function( require ) {
       }
       if ( this.phase === PHASE_EXIT ) { // the ball has exited and it is making its way to the bin
         if ( this.getPosition().y > this.finalBinVerticalPosition ) { // if it has not fallen to its final position
-  
-      // TODO magic number
-          this.fallenRatio += df / 10; //fall some more
+
+          // TODO magic number
+          this.fallenRatio += df / 10; //PHASE_EXIT is measured in absolute coordinates, so our fallenRation needs to be smaller.
         }
         else {
           this.phase = PHASE_COLLECTED; // switch phases
@@ -238,9 +237,9 @@ define( function( require ) {
           // get the ball aligned with its final x position in the bin.
           fallingPosition.multiplyScalar( this.pegSeparation ); // scale the vector by the peg separation
           // exit from the last row with the correct alignment with the bin
-          if ( this.row === this.numberOfRows-1) {
+          if ( this.row === this.numberOfRows - 1 ) {
             //TODO this.finalBinHorizontalPosition is not defined within this file
-            fallingPosition.addXY( this.finalBinHorizontalPosition*this.fallenRatio, 0 );
+            fallingPosition.addXY( this.finalBinHorizontalPosition * this.fallenRatio, 0 );
           }
           return fallingPosition.addXY( this.pegPositionX, this.pegPositionY );
         case PHASE_EXIT: // the ball is exiting the pegs and making its way to the bin
