@@ -49,8 +49,8 @@ define( function( require ) {
 
     hopper.centerX = galtonBoardApexPosition.x;
     hopper.top = 10;
-    // TODO: find a way to take care of the shadow offset in a less ad hoc way
-    board.centerX = hopper.centerX - (board.options.bottomWidth - board.width) / 2;
+    var boardOffset = (board.options.bottomWidth - board.width) / 2; // horizontal displacement of board
+    board.centerX = hopper.centerX - boardOffset;
     board.top = hopper.bottom + 10;
 
     var viewGraphBounds = new Bounds2( board.left, board.top, board.left + board.options.bottomWidth, board.top + board.options.height );
