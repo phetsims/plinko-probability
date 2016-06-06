@@ -54,10 +54,6 @@ define( function( require ) {
       this.landedBallsNumber = this.histogram.landedBallsNumber; //number of balls in the histogram
       this.ballCreationTimeElapsed = 0; // time elapsed since last ball creation;
 
-      //TODO, can the play hitting ball peg sound use the time from the stepper instead?
-      // keep track of time, for playing sound purposes
-      this.oldTime = new Date().getTime();
-
     }
 
 
