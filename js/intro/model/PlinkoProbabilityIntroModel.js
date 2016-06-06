@@ -33,8 +33,8 @@ define( function( require ) {
       var binWidth = bounds.width / (this.numberOfRows + 1); // the width of one bin is the total width divided by the number of rows
       var cylinderWidth = 0.95 * binWidth;
       var ellipseHeight = cylinderWidth * Math.sin( PERSPECTIVE_TILT ); // the height is the width times some perspective tilt
-      // TODO {private/public?}
-      this.cylinderInfo = {
+
+      this.cylinderInfo = {           // @public {read-only}
         height: bounds.height * 0.87, // we want the cylinders to be shorter than the histogram
         cylinderWidth: cylinderWidth, // there is a small gap between each cylinder
         ellipseHeight: ellipseHeight,
