@@ -32,13 +32,13 @@ define( function( require ) {
     this.sumOfSquares = 0;
     this.variance = 0;
 
-    // TODO but which one are read only
+    
     // @public
     this.bins = []; // {Object[]}
-    this.average = 0;
-    this.standardDeviation = 0;
-    this.standardDeviationOfMean = 0;
-    this.landedBallsNumber = 0;
+    this.average = 0; // @private
+    this.standardDeviation = 0; // @private
+    this.standardDeviationOfMean = 0; // @private
+    this.landedBallsNumber = 0; // @private
 
     // initialized all the bins to zero.
     this.setBinsToZero();
@@ -178,7 +178,7 @@ define( function( require ) {
      * @public
      */
     getFractionalNormalizedBinCount: function( binIndex ) {
-      var maxCount= this.getMaximumBinCount();
+      var maxCount = this.getMaximumBinCount();
       if ( this.landedBallsNumber ) {
         return this.bins[ binIndex ].visibleBinCount / maxCount; // fraction is smaller than one
       }
