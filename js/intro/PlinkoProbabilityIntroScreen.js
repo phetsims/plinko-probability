@@ -8,16 +8,20 @@ define( function( require ) {
 
   // modules
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
+  var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
   var PlinkoProbabilityIntroModel = require( 'PLINKO_PROBABILITY/intro/model/PlinkoProbabilityIntroModel' );
   var PlinkoProbabilityIntroView = require( 'PLINKO_PROBABILITY/intro/view/PlinkoProbabilityIntroView' );
-  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  //var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Screen = require( 'JOIST/Screen' );
 
   // strings
   var plinkoProbabilityIntroTitleScreenString = require( 'string!PLINKO_PROBABILITY/plinkoProbabilityIntroTitleScreen' );
+
+  // image
+  var containerDOMImage = require( 'image!PLINKO_PROBABILITY/container.png' );
 
   /**
    * Creates the icon for this screen.
@@ -25,11 +29,12 @@ define( function( require ) {
    */
   var createScreenIcon = function() {
 
-    var width = Screen.HOME_SCREEN_ICON_SIZE.width;
-    var height = Screen.HOME_SCREEN_ICON_SIZE.height;
+    //var width = Screen.HOME_SCREEN_ICON_SIZE.width;
+    //var height = Screen.HOME_SCREEN_ICON_SIZE.height;
 
     //TODO Lab Icon
-    var background = new Rectangle( 0, 0, width, height, { fill: 'white' } );
+    //var background = new Rectangle( 0, 0, width, height, { fill: 'white' } );
+    var background = new Image( containerDOMImage );
     return new Node( { children: [ background ] } );
 
   };
