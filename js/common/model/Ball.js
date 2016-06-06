@@ -80,8 +80,8 @@ define( function( require ) {
 
     this.pegHistory = []; // {Array.<Object>}
 
-    this.finalBinHorizontalPosition = 0;
-    this.finalBinVerticalPosition = 0;
+    this.finalBinHorizontalPosition = 0; // @public describes final horizontal position of ball within a bin {number}
+    this.finalBinVerticalPosition = 0;  // @public describes final vertical position of ball within a bin {number}
 
     var direction;  // 'left', 'right'
     var rowNumber;
