@@ -65,7 +65,7 @@ define( function( require ) {
       { node: allBalls, property: ballModeProperty, value: 'allBalls' }
     ], {
       radius: 8,      // radius of radio button circle
-      spacing: 6,     // vertical spacing between each radio button
+      spacing: 10,     // vertical spacing between each radio button
       touchAreaXDilation: 5
     } );
 

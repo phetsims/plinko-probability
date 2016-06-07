@@ -79,7 +79,7 @@ define( function( require ) {
       radius: 8,
       touchAreaXDilation: 5,
       align: 'left',
-      spacing: 10    // vertical spacing between radio buttons
+      spacing: 13  // vertical spacing between radio buttons
     } );
 
 
