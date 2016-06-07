@@ -112,6 +112,7 @@ define( function( require ) {
     var soundToggleButton = new SoundToggleButton( model.isSoundEnabledProperty );
 
     // link the histogram radio buttons (to the left of the histogram) to toggle the visibility of the histogram and cylinders
+    // TODO: I am assuming this needs to be linked until the end of the sim. Confirm.
     viewProperties.histogramRadioProperty.link( function( histogramRadio ) {
         switch( histogramRadio ) {
           case 'counter':

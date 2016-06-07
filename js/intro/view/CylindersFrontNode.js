@@ -47,7 +47,7 @@ define( function( require ) {
 
     var sideLayerNode = new Node();
     this.addChild( sideLayerNode );
-
+    // TODO: Does this need to be unlinked?
     numberOfRowsProperty.link( function( numberOfRows ) {
       var numberOfTicks = numberOfRows + 1;
       for ( var i = 0; i < numberOfTicks; i++ ) {

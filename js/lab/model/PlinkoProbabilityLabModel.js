@@ -28,7 +28,7 @@ define( function( require ) {
       var thisModel = this;
 
       PlinkoProbabilityCommonModel.call( this ); // inherits properties from PlinkoProbabilityCommonModel.js
-
+      // These need to be linked until the end of the simulation
       this.galtonBoardRadioButtonProperty.link( function() {
         thisModel.balls.clear(); // clear the balls
       } );
