@@ -171,6 +171,7 @@ define( function( require ) {
     /**
      *
      * Updates the position of the ball
+     * @param {number} df - the time difference in seconds
      * @public
      */
     ballStep: function( df ) {
