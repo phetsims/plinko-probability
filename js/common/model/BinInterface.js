@@ -16,6 +16,7 @@ define( function( require ) {
   var BOUNDS = PlinkoConstants.HISTOGRAM_BOUNDS;
 
   var BinInterface = {
+    // TODO: what is the difference between this and getValuePosition?
     /**
      * Function that returns the center x coordinate of a bin with index binIndex
      * @param {number} binIndex - index associated with the bin, the index may range from 0 to numberOfBins-1
@@ -61,7 +62,7 @@ define( function( require ) {
     getMinY: function() {
       return BOUNDS.minY;
     },
-
+// TODO: what is the difference between this and getBinCenterX?
     /**
      * Function that returns the middle position of the bin with index value.
      * This is useful to determine the x-position of the label attached to the bin
