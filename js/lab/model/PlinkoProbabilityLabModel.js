@@ -68,7 +68,7 @@ define( function( require ) {
           case 'ball':
             this.balls.forEach( function( ball ) {
               // we want to cap dt fairly low so that the balls don't make a sudden jump
-              ball.step( Math.min( 0.080, dt * 5 ) ); // 80 milliseconds is the highest dt will be
+              ball.step( Math.min( 0.090, dt * 5 ) ); // 90 milliseconds is the highest dt will be
             } );
             this.ballCreationTimeInterval = 0.050; // 50 milliseconds if we are seeing balls
             break;
@@ -97,7 +97,7 @@ define( function( require ) {
         var thisModel = this;
         var addedBall = new LabBall( this.probability, this.numberOfRows, this.histogram.bins );
         this.histogram.bins[ addedBall.binIndex ].binCount++; //update the bin count of the bins
-        this.balls.push( addedBall );
+        this.balls.push( addedBall ); // add the ball to the observable array
         if ( thisModel.histogram.getMaximumActualBinCount() >= MAX_NUMBER_BALLS ) {
           thisModel.isBallCapReached = true;
         }

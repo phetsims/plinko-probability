@@ -29,7 +29,7 @@ define( function( require ) {
 
 
       PropertySet.call( this, {
-        probability: 0.5,
+        probability: 0.5, // this can be a number between 0 and 1
         histogramMode: 'count', // acceptable values are 'count' and 'fraction'
         ballMode: 'oneBall', // acceptable values are 'oneBall' and 'continuous'
         histogramVisible: false,

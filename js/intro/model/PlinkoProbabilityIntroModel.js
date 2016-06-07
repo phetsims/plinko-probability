@@ -37,9 +37,9 @@ define( function( require ) {
       this.cylinderInfo = {           // @public {read-only}
         height: bounds.height * 0.87, // we want the cylinders to be shorter than the histogram
         cylinderWidth: cylinderWidth, // there is a small gap between each cylinder
-        ellipseHeight: ellipseHeight,
+        ellipseHeight: ellipseHeight, // the height of the ellipse
         verticalOffset: 0.035, // gap between pegboard and cylinders
-        top: bounds.maxY
+        top: bounds.maxY // the top of the cylinders
       };
       this.ballsToCreateNumber = 0; // an integer number representing the number of balls in the creation queue
     }

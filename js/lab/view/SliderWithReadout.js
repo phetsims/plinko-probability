@@ -65,7 +65,7 @@ define( function( require ) {
         trackSize: new Dimension2( 140, 2 ),
         trackFill: 'black',
         // custom thumb
-        thumbSize: new Dimension2( 22, 38 ),
+        thumbSize: new Dimension2( 22, 38 ), // size of the slider 
         thumbFillEnabled: 'rgb(50,145,184)',
         thumbFillHighlighted: 'rgb(71,207,255)',
         // custom ticks
