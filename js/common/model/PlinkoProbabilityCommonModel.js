@@ -51,8 +51,8 @@ define( function( require ) {
       this.galtonBoard = new GaltonBoard( this.numberOfRowsProperty ); // @public (read-only) - create the galton board
       this.balls = new ObservableArray(); // @public the balls that are currently on the screen
       this.histogram = new Histogram( this.numberOfRowsProperty );
-      //this.landedBallsNumber = this.histogram.landedBallsNumber; // @private number of balls in the histogram
-      //this.ballCreationTimeElapsed = 0; //  time elapsed since last ball creation;
+      this.landedBallsNumber = this.histogram.landedBallsNumber; // @private number of balls in the histogram
+      this.ballCreationTimeElapsed = 0; //  time elapsed since last ball creation;
 
     }
 
