@@ -71,7 +71,7 @@ define( function( require ) {
         this.balls.forEach( function( ball ) {
           // we want to cap the dt so that the balls don't make a big jump
 
-          ball.step( Math.min( 0.08, dt * 5 ) );
+          ball.step( Math.min( 0.1, dt * 5 ) );
         } );
       },
 

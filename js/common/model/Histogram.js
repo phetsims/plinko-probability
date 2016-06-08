@@ -32,7 +32,7 @@ define( function( require ) {
     this.sumOfSquares = 0;
     this.variance = 0;
 
-    
+
     // @public
     this.bins = []; // {Object[]}
     this.average = 0; // @private
@@ -42,7 +42,7 @@ define( function( require ) {
 
     // initialized all the bins to zero.
     this.setBinsToZero();
-    
+
     // TODO: does this need to be unlinked? 
     numberOfRowsProperty.link( function() {
       thisHistogram.reset(); // if the number of rows change then reset the histogram
@@ -101,7 +101,6 @@ define( function( require ) {
 
       // convenience variable
       var N = this.landedBallsNumber;
-console.log(this.average);
       this.average = ((N - 1) * this.average + binIndex) / N;
       this.sumOfSquares += binIndex * binIndex;
       // the variance and standard deviations exist only when the number of ball is larger than 1
