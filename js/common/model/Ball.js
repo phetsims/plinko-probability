@@ -20,7 +20,7 @@ define( function( require ) {
 
   // convenience variables
   var random = new Random();
-  var scratchVector = new Vector2();
+  var scratchVector = new Vector2(); // @private updated throughout falling phase to prevent multiple Vector2() calls.
 
   // constants
   var PHASE_INITIAL = 0;      // ball leaving hopper
