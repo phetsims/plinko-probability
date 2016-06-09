@@ -47,7 +47,8 @@ define( function( require ) {
 
     var sideLayerNode = new Node();
     this.addChild( sideLayerNode );
-    // TODO: Does this need to be unlinked?
+    
+    // link is present for the lifetime of the sim
     numberOfRowsProperty.link( function( numberOfRows ) {
       var numberOfTicks = numberOfRows + 1;
       for ( var i = 0; i < numberOfTicks; i++ ) {

@@ -43,7 +43,7 @@ define( function( require ) {
     // initialized all the bins to zero.
     this.setBinsToZero();
 
-    // TODO: does this need to be unlinked? 
+    // link is present for the lifetime of the sim
     numberOfRowsProperty.link( function() {
       thisHistogram.reset(); // if the number of rows change then reset the histogram
     } );

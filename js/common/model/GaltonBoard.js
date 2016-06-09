@@ -41,7 +41,7 @@ define( function( require ) {
     }
 
     // link the numberOrRows to adjust the spacing between pegs (and size)
-    // TODO: does this need to be linked the entire time or can we unlink it.
+    // link is present for the lifetime of the sum
     numberOfRowsProperty.link( function( numberOfRows ) {
       galtonBoard.spacing = PegInterface.getSpacing( numberOfRows );
       galtonBoard.pegs.forEach( function( peg ) {
