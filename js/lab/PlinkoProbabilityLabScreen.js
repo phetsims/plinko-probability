@@ -25,6 +25,7 @@ define( function( require ) {
    */
   var createScreenIcon = function() {
 
+    //determined by aspect ratio
     var width = Screen.HOME_SCREEN_ICON_SIZE.width;
     var height = Screen.HOME_SCREEN_ICON_SIZE.height;
 
