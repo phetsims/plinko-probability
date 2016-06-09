@@ -69,8 +69,6 @@ define( function( require ) {
     // 0 is the topmost
     this.row = 0; // @private
 
-    // 0 is the leftmost
-    this.column = 0;  // @private
 
     // 'left','right'
     this.direction = 'left';  // @public {read-only}
@@ -93,24 +91,26 @@ define( function( require ) {
       direction = (random.random() > probability) ? 'left' : 'right';
       peg = {
         rowNumber: rowNumber, // an integer starting at zero
-        columnNumber: columnNumber, // an integer starting at zero
-        direction: direction, // direction to the next peg,
         positionX: PegInterface.getPositionX( rowNumber, columnNumber, numberOfRows ),
-        positionY: PegInterface.getPositionY( rowNumber, columnNumber, numberOfRows )
+        positionY: PegInterface.getPositionY( rowNumber, columnNumber, numberOfRows ),
+        direction: direction // direction to the next peg
       };
+
       this.pegHistory.push( peg );
 
-      // increment the column number of the next row
-      columnNumber += (direction === 'left') ? 0 : 1;
+      // increment the column number of the next row, but not for the last row
+      if (rowNumber < numberOfRows){
+        columnNumber += (direction === 'left') ? 0 : 1;
+      }
     }
 
     // @public (read-only)
     // bin position of the ball {number}
-    this.binIndex = peg.columnNumber;
+    this.binIndex = columnNumber;
 
     // @private (read-only)
     // binCount {number} indicates the number of balls in a specific cylinder
-    this.binCount = bins[ this.binIndex ].binCount;
+    this.binCount = bins[ columnNumber ].binCount;
 
   }
 
@@ -150,7 +150,6 @@ define( function( require ) {
     updatePegPositionInformation: function() {
       var peg;
       peg = this.pegHistory.shift();
-      this.column = peg.columnNumber; //0 is the topmost
       this.row = peg.rowNumber; // 0 is the leftmost
       this.pegPositionX = peg.positionX; // x position of the peg based on the column, row, and number of of rows
       this.pegPositionY = peg.positionY; // y position of the peg based on the column, row, and number of of rows
@@ -163,7 +162,6 @@ define( function( require ) {
     initialPegPositionInformation: function() {
       var peg;
       peg = this.pegHistory[ 0 ]; // get the first peg from the peg history
-      this.column = peg.columnNumber; // 0 is the topmost
       this.row = peg.rowNumber; // 0 is the left most
       this.pegPositionX = peg.positionX; // x position of the peg based on the column, row, and number of of rows
       this.pegPositionY = peg.positionY; // y position of the peg based on the column, row, and number of of rows
