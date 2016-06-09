@@ -52,7 +52,7 @@ define( function( require ) {
     // 1 -> Falling between pegs
     // 2 -> Out of pegs
     // 3 -> Collected
-    this.phase = PHASE_INITIAL; // @private {read-only}
+    this.phase = PHASE_INITIAL; // @private
 
     // rows and column
     /*
