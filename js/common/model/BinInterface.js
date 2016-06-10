@@ -24,7 +24,7 @@ define( function( require ) {
      * @returns {number}
      */
     getBinCenterX: function( binIndex, numberOfBins ) {
-      assert && assert( binIndex < numberOfBins );
+      assert && assert( binIndex <= numberOfBins );
       return ((binIndex + 1 / 2) / numberOfBins) * BOUNDS.width + BOUNDS.minX;
     },
 
@@ -35,7 +35,7 @@ define( function( require ) {
      * @returns {number}
      */
     getBinLeft: function( binIndex, numberOfBins ) {
-      assert && assert( binIndex < numberOfBins );
+      assert && assert( binIndex <= numberOfBins );
       return (binIndex / numberOfBins) * BOUNDS.width + BOUNDS.minX;
     },
 
@@ -71,7 +71,7 @@ define( function( require ) {
      * @returns {number}
      */
     getValuePosition: function( value, numberOfBins ) {
-      assert && assert( value < numberOfBins && value>0, 'the average should be between 0 and the max number of bins');
+      assert && assert( value <= numberOfBins && value >= 0, 'the average should be between 0 and the max number of bins' );
       return ((value + 1 / 2) / numberOfBins) * BOUNDS.width + BOUNDS.minX;
     }
   };
