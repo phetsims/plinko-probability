@@ -23,7 +23,6 @@ define( function( require ) {
   var scratchVector = new Vector2(); // @private updated throughout falling phase to prevent multiple Vector2() calls.
 
   // constants
-  var BALL_SIZE_FRACTION = 0.18; // radius of the ball compared to the horiznotal separation of the pegs.
   var PHASE_INITIAL = 0;         // ball leaving hopper
   var PHASE_FALLING = 1;         // ball falling within bounds of board
   var PHASE_EXIT = 2;            // ball exits the lower bounds of board and enters the bins
@@ -47,7 +46,7 @@ define( function( require ) {
 
     this.pegSeparation = PegInterface.getSpacing( numberOfRows ); // @public {read-only}
 
-    this.ballRadius = this.pegSeparation * BALL_SIZE_FRACTION;  // @public {read-only}
+    this.ballRadius = this.pegSeparation * PlinkoConstants.BALL_SIZE_FRACTION;  // @public {read-only}
 
     // 0 -> Initially falling
     // 1 -> Falling between pegs
