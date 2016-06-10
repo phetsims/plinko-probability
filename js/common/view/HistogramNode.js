@@ -294,7 +294,7 @@ define( function( require ) {
           }
 
           var binValue = getHistogramBin( binIndex ); // a number
-          if ( histogramRadio === 'fraction' ) {
+          if ( histogramRadioProperty.value === 'fraction' ) {
             binValue = Util.toFixed( binValue, 3 );
           }
 
@@ -306,22 +306,27 @@ define( function( require ) {
             else {font = LARGE_FONT;}
           }
           else {
-            var numberOfRows = numberOfRowsProperty.value;
-            if (numberOfRows > 24 ) {
+            if (numberOfBins > 23 ) {
               font = TINY_TINY_FONT;
               binValue = Util.toFixed( binValue, 2 );
             }
-            else if (numberOfRows > 21 ) {
+            else if (numberOfBins > 20 ) {
               font = TINY_FONT;
               binValue = Util.toFixed( binValue, 2 );
             }
-            else if (numberOfRows > 17 ) {
+            else if (numberOfBins > 16 ) {
               font = SMALL_FONT;
               binValue = Util.toFixed( binValue, 2 );
             }
-            else if (numberOfRows > 14 ) {font = SMALL_FONT;}
-            else if (numberOfRows > 10 ) {font = NORMAL_FONT;}
-            else {font = LARGE_FONT;}
+            else if (numberOfBins > 13 ) {
+              font = SMALL_FONT;
+            }
+            else if (numberOfBins > 9 ) {
+              font = NORMAL_FONT;
+            }
+            else {
+              font = LARGE_FONT;
+            }
           }
 
           labelsTextArray[ binIndex ].text = binValue;
@@ -355,7 +360,7 @@ define( function( require ) {
 //----------------------------------------------------------------------------------------
 
     /**
-     * @param model
+     * @param {PlinkoProbabilityCommonModel} model
      * @param {ModelViewTransform2} modelViewTransform
      * @param {Property.<boolean>} isTheoreticalHistogramVisibleProperty
      * @constructor
@@ -420,7 +425,7 @@ define( function( require ) {
 
       function updateTriangleShape( path, average ) {
 
-        var numberOfBins = model.numberOfRows + 1;
+        var numberOfBins = model.numberOfRowsProperty.value + 1;
         var xPosition = modelViewTransform.modelToViewX( BinInterface.getValuePosition( average, numberOfBins ) );
         var shape = new Shape();
         shape.moveTo( xPosition, maxY )
@@ -431,7 +436,7 @@ define( function( require ) {
       }
 
       function updateTheoreticalAverageTriangle() {
-        var average = model.getTheoreticalAverage( model.numberOfRows, model.probability );
+        var average = model.getTheoreticalAverage( model.numberOfRowsProperty.value, model.probabilityProperty.value );
         theoreticalAverageTrianglePath.visible = isTheoreticalHistogramVisibleProperty.value;
         updateTriangleShape( theoreticalAverageTrianglePath, average );
       }
@@ -465,8 +470,9 @@ define( function( require ) {
        */
       function updateHistogram() {
         var i;
-        var xSpacing = bannerWidth / (model.numberOfRowsProperty.value + 1);
-        for ( i = 0; i < model.numberOfRowsProperty.value + 1; i++ ) {
+        var numberOfBins = model.numberOfRowsProperty.value + 1;
+        var xSpacing = bannerWidth / numberOfBins;
+        for ( i = 0; i < numberOfBins; i++ ) {
           histogramRectanglesArray[ i ].setRect(
             minX + (i) * xSpacing,
             maxY - factorHeight * getHistogramBin( i ),
@@ -475,7 +481,7 @@ define( function( require ) {
         }
 
         for ( i = 0; i < MAX_NUMBER_BINS; i++ ) {
-          histogramRectanglesArray[ i ].visible = (i < model.numberOfRowsProperty.value + 1);
+          histogramRectanglesArray[ i ].visible = (i < numberOfBins);
         }
       }
 
@@ -516,7 +522,6 @@ define( function( require ) {
      */
     function HistogramNode( histogramRadioProperty, model, modelViewTransform, isTheoreticalHistogramVisibleProperty ) {
 
-      debugger;
       Node.call( this, {
           children: [
             new BackgroundNode( modelViewTransform ),
