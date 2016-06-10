@@ -67,16 +67,12 @@ define( function( require ) {
        * @param {string} direction - acceptable values are 'left' and 'right'
        */
       playBallHittingPegSound: function( direction ) {
-        var thisModel = this;
-
         assert && assert( direction === 'left' || direction === 'right', 'direction should be left or right' );
-        if ( thisModel.isSoundEnabled ) {
-          //play sound if the previous sound was played more than some elapsed time
-          if ( this.soundTimeElapsed > PlinkoConstants.SOUND_TIME_INTERVAL ) {
-            //Will play sound based on ball's motion, left or right
-            ( direction === 'left') ? thisModel.bonk1Sound.play() : thisModel.bonk2Sound.play();
-            this.soundTimeElapsed = 0;
-          }
+        // play sound if the previous sound was played more than some elapsed time
+        if ( this.isSoundEnabled && (this.soundTimeElapsed > PlinkoConstants.SOUND_TIME_INTERVAL) ) {
+            // will play sound based on ball's motion, left or right
+            ( direction === 'left') ? this.bonk1Sound.play() : this.bonk2Sound.play();
+            this.soundTimeElapsed = 0; // reset the time elapsed since last sound to zero
         }
       },
 
@@ -96,7 +92,9 @@ define( function( require ) {
         PropertySet.prototype.reset.call( this );
         this.balls.clear(); // clear all the model balls
         this.histogram.reset(); // empty out all the model bins
-        this.launchedBallsNumber = 0; // reset the number of balls to zero
+        this.launchedBallsNumber = 0; // reset the number of launched balls to zero
+        this.ballCreationTimeElapsed = 0;
+        this.soundTimeElapsed = 0;
       },
 
       /**
