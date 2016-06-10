@@ -339,10 +339,12 @@ define( function( require ) {
       }
     }
 
+    // update the banner when a ball has been added to the histogram
     histogram.on( 'histogramUpdated', function() {
       updateTextBanner( numberOfRowsProperty.value );
     } );
 
+    // no need to unlink, present for the lifetime of the sim
     Property.multilink( [ numberOfRowsProperty, histogramRadioProperty ], function( numberOfRows ) {
       updateBanner( numberOfRows );
       updateTextBanner( numberOfRows );
@@ -369,41 +371,55 @@ define( function( require ) {
 
     Node.call( this );
 
+    // get the coordinate of the histogram bar nodes
+    // the HISTOGRAM_BOUNDS include the banner on top (
+    // but not the Y and X labels are outside of HISTOGRAM_BOUNDS
     var minX = modelViewTransform.modelToViewX( HISTOGRAM_BOUNDS.minX );
     var minY = modelViewTransform.modelToViewY( HISTOGRAM_BOUNDS.maxY );
     var maxX = modelViewTransform.modelToViewX( HISTOGRAM_BOUNDS.maxX );
     var maxY = modelViewTransform.modelToViewY( HISTOGRAM_BOUNDS.minY );
 
+    // convinience variables
+    var bannerWidth = maxX - minX; // in view coordinates
+    var maxBarHeight = maxY - minY - BANNER_HEIGHT; // in view coordinates
+    assert && assert (maxBarHeight>0, 'the Height of the bar must be larger than zero' );
+
+    // create and add (on a separate layer) the two histograms
     var sampleHistogramNode = new Node( { layerSplit: true } );
     var theoreticalHistogramNode = new Node( { layerSplit: true } );
     this.addChild( sampleHistogramNode );
     this.addChild( theoreticalHistogramNode );
 
-    var bannerWidth = maxX - minX;
-    var maxBarHeight = maxY - minY - BANNER_HEIGHT;
+    // the rectangles that make up each histogram are stored in an array
+    var sampleHistogramRectanglesArray = [];
+    var theoreticalHistogramRectanglesArray = [];
 
-    var histogramRectanglesArray = [];
-    var binomialDistributionRectanglesArray = [];
 
     for ( var i = 0; i < MAX_NUMBER_BINS; i++ ) {
-      var nominalHistogramRectangle = new Rectangle( 0, 0, bannerWidth, 1, {
+      // creates rectangles with a nominal height of 1, so that scenery doesn't
+      // throw a fit
+      var nominalSampleHistogramRectangle = new Rectangle( 0, 0, bannerWidth, 1, {
         fill: PlinkoConstants.HISTOGRAM_BAR_COLOR_FILL,
         stroke: PlinkoConstants.HISTOGRAM_BAR_COLOR_STROKE,
         lineWidth: 2
       } );
-      var nominalBinomialDistributionRectangle = new Rectangle( 0, 0, bannerWidth, 1, {
+      // create nominal rectangles
+      // height of rectangles will be updated through an update function
+      var nominalTheoreticalHistogramRectangle = new Rectangle( 0, 0, bannerWidth, 1, {
         stroke: PlinkoConstants.BINOMIAL_DISTRIBUTION_BAR_COLOR_STROKE,
         lineWidth: 2
       } );
-      histogramRectanglesArray.push( nominalHistogramRectangle );
-      binomialDistributionRectanglesArray.push( nominalBinomialDistributionRectangle );
-    }
-    sampleHistogramNode.setChildren( histogramRectanglesArray );
-    theoreticalHistogramNode.setChildren( binomialDistributionRectanglesArray );
 
+      sampleHistogramRectanglesArray.push( nominalSampleHistogramRectangle );
+      theoreticalHistogramRectanglesArray.push( nominalTheoreticalHistogramRectangle );
+    }
+    sampleHistogramNode.setChildren( sampleHistogramRectanglesArray );
+    theoreticalHistogramNode.setChildren( theoreticalHistogramRectanglesArray );
+
+    // set the visibility of all rectangles to false
     for ( i = 0; i < MAX_NUMBER_BINS; i++ ) {
-      histogramRectanglesArray[ i ].visible = false;
-      binomialDistributionRectanglesArray[ i ].visible = false;
+      sampleHistogramRectanglesArray[ i ].visible = false;
+      theoreticalHistogramRectanglesArray[ i ].visible = false;
     }
 
     // create triangle shape for the indicator of sample average and theoretical average
@@ -422,7 +438,7 @@ define( function( require ) {
     var theoreticalAverageTrianglePath = new Path( triangleShape,
       {
         stroke: PlinkoConstants.BINOMIAL_DISTRIBUTION_BAR_COLOR_STROKE,
-        fill: 'rgba(0,0,0,0)',
+        fill: 'rgba(0,0,0,0)', // transparent
         lineWidth: 2
       } );
     this.addChild( sampleAverageTrianglePath );
@@ -431,15 +447,16 @@ define( function( require ) {
     // position the sample average triangle and set its visibility
     updateSampleAverageTriangle();
 
+    // no need to unlink , present for the lifetime of the sim
     Property.multilink( [ model.numberOfRowsProperty, model.probabilityProperty, isTheoreticalHistogramVisibleProperty ],
       function( numberOfRows, probability, isTheoreticalHistogramVisible ) {
-        updateBinomialDistributionHistogram();
+        updateTheoreticalHistogram();
         updateTheoreticalAverageTriangle();
         theoreticalHistogramNode.visible = isTheoreticalHistogramVisible;
         theoreticalAverageTrianglePath.visible = isTheoreticalHistogramVisible;
       } );
 
-
+    // update the histogram when a model ball has exited the galton board
     model.histogram.on( 'histogramUpdated', function() {
       updateSampleHistogram();
       updateSampleAverageTriangle();
@@ -452,8 +469,7 @@ define( function( require ) {
      */
     function updateTrianglePosition( path, average ) {
       var numberOfBins = model.numberOfRowsProperty.value + 1;
-      var xPosition = modelViewTransform.modelToViewX( BinInterface.getValuePosition( average, numberOfBins ) );
-      path.centerX = xPosition;
+      path.centerX = modelViewTransform.modelToViewX( BinInterface.getValuePosition( average, numberOfBins ) );
     }
 
     /**
@@ -482,14 +498,14 @@ define( function( require ) {
      *  Update the sample Histogram
      */
     function updateSampleHistogram() {
-      updateHistogram( histogramRectanglesArray, model.histogram.getNormalizedSampleDistribution() );
+      updateHistogram( sampleHistogramRectanglesArray, model.histogram.getNormalizedSampleDistribution() );
     }
 
     /**
      * Update the binomial distribution histogram (a.k.a. ideal histogram)
      */
-    function updateBinomialDistributionHistogram() {
-      updateHistogram( binomialDistributionRectanglesArray, model.getNormalizedBinomialDistribution() );
+    function updateTheoreticalHistogram() {
+      updateHistogram( theoreticalHistogramRectanglesArray, model.getNormalizedBinomialDistribution() );
     }
 
     /**
