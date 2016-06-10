@@ -23,7 +23,7 @@ define( function( require ) {
     var bonk2Audio = require( 'audio!PLINKO_PROBABILITY/bonk-2-for-plinko' );
 
     // constants
-    var SOUND_TIME_INTERVAL = .1;   // in millisecond, minimum sound time interval between two sounds
+    var SOUND_TIME_INTERVAL = 0.1;   // in second, minimum sound time interval between two sounds
 
     function PlinkoProbabilityCommonModel() {
 
@@ -45,14 +45,17 @@ define( function( require ) {
       this.bonk2Sound = new Sound( bonk2Audio );  // @private
 
       this.launchedBallsNumber = 0; // @public - number of current trial (current ball drop)
+      this.ballCreationTimeElapsed = 0; // @public time elapsed since last ball creation;
+      this.soundTimeElapsed = 0;  // @private - number used to keep track of the last sound playing
 
-      this.soundTimeElapsed = 0;  //@private - number used to keep track of the last sound playing
+      // create an observable array of the model balls
+      this.balls = new ObservableArray(); // @public
 
-      this.galtonBoard = new GaltonBoard( this.numberOfRowsProperty ); // @public (read-only) - create the galton board
-      this.balls = new ObservableArray(); // @public the balls that are currently on the screen
-      this.histogram = new Histogram( this.numberOfRowsProperty );
-      this.landedBallsNumber = this.histogram.landedBallsNumber; // @private number of balls in the histogram
-      this.ballCreationTimeElapsed = 0; //  time elapsed since last ball creation;
+      // create the model for the Galton Board which describes the position of the pegs and their visibility
+      this.galtonBoard = new GaltonBoard( this.numberOfRowsProperty ); // @public
+
+      // create the model for the histogram
+      this.histogram = new Histogram( this.numberOfRowsProperty ); // @public
 
     }
 
@@ -93,9 +96,9 @@ define( function( require ) {
        */
       reset: function() {
         PropertySet.prototype.reset.call( this );
-        this.balls.clear(); // get rid of all the balls on the screen
-        this.histogram.reset();
-        this.launchedBallsNumber = 0;
+        this.balls.clear(); // clear all the model balls
+        this.histogram.reset(); // empty out all the model bins
+        this.launchedBallsNumber = 0; // reset the number of balls to zero
       },
 
       /**
