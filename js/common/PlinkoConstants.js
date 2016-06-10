@@ -38,6 +38,7 @@ define( function( require ) {
     CONTROL_PANEL_CORNER_RADIUS: 10,
     SMALL_PANEL_CORNER_RADIUS: 5,
     CONTROL_PANEL_BACKGROUND_COLOR: 'rgb(255, 245, 238)',
+    BALL_RADIUS: 8, // radius of the Ball for Play panel
 
     PANEL_FONT: new PhetFont( 18 ),
     PANEL_READOUT_FONT: new PhetFont( { size: 14 } ),
@@ -46,17 +47,19 @@ define( function( require ) {
     SAMPLE_FONT_COLOR: 'rgb(237,28,36)',
     THEORETICAL_FONT_COLOR: 'blue',
 
-    BINARY_PROBABILITY_RANGE: new Range( 0, 1 ),
-    ROWS_RANGE: new Range( 5, 26 ),
+    BINARY_PROBABILITY_RANGE: new Range( 0, 1, 0.5 ),
+    ROWS_RANGE: new Range( 5, 26, 12 ),
 
-    // constants
-    BALL_RADIUS: 8, // radius of the Ball for Play panel
+    // constants for the ball and the pegs
     BALL_COLOR: 'rgb(237,28,36)', // color of the Ball.
     BALL_HIGHLIGHT_COLOR: 'white', // color of the Ball's glare
     PEG_RADIUS: 3.6, // radius of the peg (size of the pegs when the number of rows is the default value.
     PEG_COLOR: 'rgb(115,99,87)', //brown
 
     PEG_HEIGHT_FRACTION_OFFSET: 0.7, // ranges between zero and 1
+
+    // constants
+    SOUND_TIME_INTERVAL: 0.1,   // in second, minimum sound time interval between two sounds
 
     // histogram
     HISTOGRAM_BAR_COLOR_FILL: 'rgb(237,28,36)', // red

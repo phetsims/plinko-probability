@@ -16,25 +16,23 @@ define( function( require ) {
     var inherit = require( 'PHET_CORE/inherit' );
     var ObservableArray = require( 'AXON/ObservableArray' );
     var PropertySet = require( 'AXON/PropertySet' );
+    var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
     var Sound = require( 'VIBE/Sound' );
 
     // audio
     var bonk1Audio = require( 'audio!PLINKO_PROBABILITY/bonk-1-for-plinko' );
     var bonk2Audio = require( 'audio!PLINKO_PROBABILITY/bonk-2-for-plinko' );
 
-    // constants
-    var SOUND_TIME_INTERVAL = 0.1;   // in second, minimum sound time interval between two sounds
-
     function PlinkoProbabilityCommonModel() {
 
 
       PropertySet.call( this, {
-        probability: 0.5, // this can be a number between 0 and 1
+        probability: PlinkoConstants.BINARY_PROBABILITY_RANGE.defaultValue, // this can be a number between 0 and 1
         histogramMode: 'count', // acceptable values are 'count' and 'fraction'
         ballMode: 'oneBall', // acceptable values are 'oneBall' and 'continuous'
         histogramVisible: false,
         isBallCapReached: false, // is the maximum of balls reached?
-        numberOfRows: 12,
+        numberOfRows: PlinkoConstants.ROWS_RANGE.defaultValue, /// must be an integer
         galtonBoardRadioButton: 'ball', // Valid values are 'ball', 'path', and 'none'.
         isSoundEnabled: false,
         isPlaying: false  // false if no balls are being dropped true if they are
@@ -74,7 +72,7 @@ define( function( require ) {
         assert && assert( direction === 'left' || direction === 'right', 'direction should be left or right' );
         if ( thisModel.isSoundEnabled ) {
           //play sound if the previous sound was played more than some elapsed time
-          if ( this.soundTimeElapsed > SOUND_TIME_INTERVAL ) {
+          if ( this.soundTimeElapsed > PlinkoConstants.SOUND_TIME_INTERVAL ) {
             //Will play sound based on ball's motion, left or right
             ( direction === 'left') ? thisModel.bonk1Sound.play() : thisModel.bonk2Sound.play();
             this.soundTimeElapsed = 0;
