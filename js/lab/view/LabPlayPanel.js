@@ -18,9 +18,11 @@ define( function( require ) {
   var Panel = require( 'SUN/Panel' );
   var PlayButton = require( 'PLINKO_PROBABILITY/common/view/PlayButton' );
   var PauseButton = require( 'PLINKO_PROBABILITY/common/view/PauseButton' );
+  var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
   var VerticalAquaRadioButtonGroup = require( 'SUN/VerticalAquaRadioButtonGroup' );
 
-  var BALL_RADIUS = 8;
+  // constants
+  var BALL_RADIUS=PlinkoConstants.BALL_RADIUS;
 
   /**
    * Responsible for the panel that contains the play/pause button and amount of balls to be released.

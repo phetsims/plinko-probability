@@ -23,10 +23,11 @@ define( function( require ) {
   var scratchVector = new Vector2(); // @private updated throughout falling phase to prevent multiple Vector2() calls.
 
   // constants
-  var PHASE_INITIAL = 0;      // ball leaving hopper
-  var PHASE_FALLING = 1;      // ball falling within bounds of board
-  var PHASE_EXIT = 2;         // ball exits the lower bounds of board and enters the bins
-  var PHASE_COLLECTED = 3;    // ball lands in final position
+  var BALL_SIZE_FRACTION = 0.18; // radius of the ball compared to the horiznotal separation of the pegs.
+  var PHASE_INITIAL = 0;         // ball leaving hopper
+  var PHASE_FALLING = 1;         // ball falling within bounds of board
+  var PHASE_EXIT = 2;            // ball exits the lower bounds of board and enters the bins
+  var PHASE_COLLECTED = 3;       // ball lands in final position
 
   /**
    *
@@ -46,7 +47,7 @@ define( function( require ) {
 
     this.pegSeparation = PegInterface.getSpacing( numberOfRows ); // @public {read-only}
 
-    this.ballRadius = this.pegSeparation * 0.18;  // @public {read-only}
+    this.ballRadius = this.pegSeparation * BALL_SIZE_FRACTION;  // @public {read-only}
 
     // 0 -> Initially falling
     // 1 -> Falling between pegs
@@ -99,7 +100,7 @@ define( function( require ) {
       this.pegHistory.push( peg );
 
       // increment the column number of the next row, but not for the last row
-      if (rowNumber < numberOfRows){
+      if ( rowNumber < numberOfRows ) {
         columnNumber += (direction === 'left') ? 0 : 1;
       }
     }
@@ -111,7 +112,7 @@ define( function( require ) {
     // @private (read-only)
     // binCount {number} indicates the number of balls in a specific cylinder
     this.binCount = bins[ columnNumber ].binCount;
-    
+
     // increment the number of balls in this index by one
     this.binCount++;
 

@@ -19,6 +19,9 @@ define( function( require ) {
   var Text = require( 'SCENERY/nodes/Text' );
   var VerticalAquaRadioButtonGroup = require( 'SUN/VerticalAquaRadioButtonGroup' );
 
+  // constants
+  var BALL_RADIUS = PlinkoConstants.BALL_RADIUS;
+
   // strings
   var allString = require( 'string!PLINKO_PROBABILITY/all' );
   var timesString = '\u00D7'; // multiplication Sign
@@ -47,16 +50,16 @@ define( function( require ) {
 
     // Creation of radio button icons
     var oneBall = new HBox( {
-      spacing: PlinkoConstants.BALL_RADIUS,
-      children: [ new BallRepresentationNode( 8 ), new Text( timesString + '1', fontOptions ) ]
+      spacing: BALL_RADIUS / 2,
+      children: [ new BallRepresentationNode( BALL_RADIUS ), new Text( timesString + '1', fontOptions ) ]
     } );
     var tenBalls = new HBox( {
-      spacing: PlinkoConstants.BALL_RADIUS,
-      children: [ new BallRepresentationNode( 8 ), new Text( timesString + '10', fontOptions ) ]
+      spacing: BALL_RADIUS / 2,
+      children: [ new BallRepresentationNode( BALL_RADIUS ), new Text( timesString + '10', fontOptions ) ]
     } );
     var allBalls = new HBox( {
-      spacing: PlinkoConstants.BALL_RADIUS,
-      children: [ new BallRepresentationNode( 8 ), new Text( timesString + allString, fontOptions ) ]
+      spacing: BALL_RADIUS / 2,
+      children: [ new BallRepresentationNode( BALL_RADIUS ), new Text( timesString + allString, fontOptions ) ]
     } );
 
     var ballModeRadioButtons = new VerticalAquaRadioButtonGroup( [

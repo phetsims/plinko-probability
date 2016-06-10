@@ -50,10 +50,10 @@ define( function( require ) {
     ROWS_RANGE: new Range( 5, 26 ),
 
     // constants
-    BALL_RADIUS: 4, // radius of the Ball.
+    BALL_RADIUS: 8, // radius of the Ball for Play panel
     BALL_COLOR: 'rgb(237,28,36)', // color of the Ball.
     BALL_HIGHLIGHT_COLOR: 'white', // color of the Ball's glare
-    PEG_RADIUS: 3.6, // radius of the peg.
+    PEG_RADIUS: 3.6, // radius of the peg (size of the pegs when the number of rows is the default value.
     PEG_COLOR: 'rgb(115,99,87)', //brown
 
     PEG_HEIGHT_FRACTION_OFFSET: 0.7, // ranges between zero and 1
