@@ -155,36 +155,55 @@ define( function( require ) {
 
     /**
      * Function that returns the fractional occupation of a bin
-     * The fraction is smaller than one
+     * The fraction is smaller than one but the sum of all fractions add up to one
      * @param {number} binIndex - an integer
      * @returns {number}
      * @public
      */
     getFractionalBinCount: function( binIndex ) {
-      if ( this.landedBallsNumber ) {
+      if ( this.landedBallsNumber > 0 ) {
         return this.bins[ binIndex ].visibleBinCount / this.landedBallsNumber; // fraction is smaller than one
       }
       else {
+        // no balls are present
         return 0;
       }
     },
 
     /**
-     * Function that returns the fractional normalized occupation of a bin, i.e. that
-     * at least one bin has value
-     * The fraction is smaller than one
+     * Function that returns the fractional 'normalized 'occupation of a bin, i.e.
+     * the fractional normalized account is done with respect to the bin with the largest count
      * @param {number} binIndex - an integer
      * @returns {number}
      * @public
      */
     getFractionalNormalizedBinCount: function( binIndex ) {
-      var maxCount = this.getMaximumBinCount();
-      if ( this.landedBallsNumber ) {
-        return this.bins[ binIndex ].visibleBinCount / maxCount; // fraction is smaller than one
+      if ( this.landedBallsNumber > 0 ) {
+        var maxCount = this.getMaximumBinCount();
+        return this.bins[ binIndex ].visibleBinCount / maxCount;
       }
       else {
+        // no balls are present
         return 0;
       }
+    },
+
+    /**
+     * Function that returns an array of the fractional 'normalized 'occupation of a bin, i.e.
+     * the fractional normalized account is done with respect to the bin with the largest count
+     * Hence at least one element of the array will return a value of 1 (unless the array is completly
+     * filled with zeros in which case it returns an array of zeros)
+     * @returns {Array.<number>}
+     * @public read-only
+     */
+    getNormalizedSampleDistribution: function() {
+      var maxCount = this.getMaximumBinCount();
+      // we don't want to divide by zero; if maxCount is zero, then bin.visibleCount is zero anyway.
+      var divisionFactor = Math.max( maxCount, 1 );
+      var normalizedArray = this.bins.map( function( bin ) {
+        return bin.visibleBinCount / divisionFactor;
+      } );
+      return normalizedArray;
     },
 
     /**
