@@ -74,7 +74,6 @@ define( function( require ) {
 
     // create the histogram node, a bar chart, at the bottom of the Galton board
     var histogramNode = new HistogramNode(
-      model.numberOfRowsProperty,
       viewProperties.histogramRadioProperty,
       model,
       modelViewTransform,

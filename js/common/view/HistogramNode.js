@@ -294,7 +294,7 @@ define( function( require ) {
           }
 
           var binValue = getHistogramBin( binIndex ); // a number
-          if ( histogramRadioProperty.value === 'fraction' ) {
+          if ( histogramRadio === 'fraction' ) {
             binValue = Util.toFixed( binValue, 3 );
           }
 
@@ -306,21 +306,21 @@ define( function( require ) {
             else {font = LARGE_FONT;}
           }
           else {
-            var numberOf = numberOfRowsProperty.value;
-            if ( numberOf > 24 ) {
+            var numberOfRows = numberOfRowsProperty.value;
+            if (numberOfRows > 24 ) {
               font = TINY_TINY_FONT;
               binValue = Util.toFixed( binValue, 2 );
             }
-            else if ( numberOf > 21 ) {
+            else if (numberOfRows > 21 ) {
               font = TINY_FONT;
               binValue = Util.toFixed( binValue, 2 );
             }
-            else if ( numberOf > 17 ) {
+            else if (numberOfRows > 17 ) {
               font = SMALL_FONT;
               binValue = Util.toFixed( binValue, 2 );
             }
-            else if ( numberOf > 14 ) {font = SMALL_FONT;}
-            else if ( numberOf > 10 ) {font = NORMAL_FONT;}
+            else if (numberOfRows > 14 ) {font = SMALL_FONT;}
+            else if (numberOfRows > 10 ) {font = NORMAL_FONT;}
             else {font = LARGE_FONT;}
           }
 
@@ -356,12 +356,11 @@ define( function( require ) {
 
     /**
      * @param model
-     * @param {Property.<number>} numberOfRowsProperty
      * @param {ModelViewTransform2} modelViewTransform
      * @param {Property.<boolean>} isTheoreticalHistogramVisibleProperty
      * @constructor
      */
-    function HistogramBarNode( model, numberOfRowsProperty, modelViewTransform, isTheoreticalHistogramVisibleProperty ) {
+    function HistogramBarNode( model, modelViewTransform, isTheoreticalHistogramVisibleProperty ) {
 
       Node.call( this );
 
@@ -421,7 +420,7 @@ define( function( require ) {
 
       function updateTriangleShape( path, average ) {
 
-        var numberOfBins = numberOfRowsProperty.value + 1;
+        var numberOfBins = model.numberOfRows + 1;
         var xPosition = modelViewTransform.modelToViewX( BinInterface.getValuePosition( average, numberOfBins ) );
         var shape = new Shape();
         shape.moveTo( xPosition, maxY )
@@ -432,7 +431,7 @@ define( function( require ) {
       }
 
       function updateTheoreticalAverageTriangle() {
-        var average = model.getTheoreticalAverage( numberOfRowsProperty.value, model.probability );
+        var average = model.getTheoreticalAverage( model.numberOfRows, model.probability );
         theoreticalAverageTrianglePath.visible = isTheoreticalHistogramVisibleProperty.value;
         updateTriangleShape( theoreticalAverageTrianglePath, average );
       }
@@ -447,7 +446,7 @@ define( function( require ) {
       var getHistogramBin = model.histogram.getFractionalNormalizedBinCount.bind( model.histogram );
       var factorHeight = maxBarHeight;
 
-      Property.multilink( [ numberOfRowsProperty, model.probabilityProperty, isTheoreticalHistogramVisibleProperty ],
+      Property.multilink( [ model.numberOfRowsProperty, model.probabilityProperty, isTheoreticalHistogramVisibleProperty ],
         function( numberOfRows, probability, isTheoreticalHistogramVisible ) {
           updateBinomialDistribution();
           updateTheoreticalAverageTriangle();
@@ -466,8 +465,8 @@ define( function( require ) {
        */
       function updateHistogram() {
         var i;
-        var xSpacing = bannerWidth / (numberOfRowsProperty.value + 1);
-        for ( i = 0; i < numberOfRowsProperty.value + 1; i++ ) {
+        var xSpacing = bannerWidth / (model.numberOfRowsProperty.value + 1);
+        for ( i = 0; i < model.numberOfRowsProperty.value + 1; i++ ) {
           histogramRectanglesArray[ i ].setRect(
             minX + (i) * xSpacing,
             maxY - factorHeight * getHistogramBin( i ),
@@ -476,7 +475,7 @@ define( function( require ) {
         }
 
         for ( i = 0; i < MAX_NUMBER_BINS; i++ ) {
-          histogramRectanglesArray[ i ].visible = (i < numberOfRowsProperty.value + 1);
+          histogramRectanglesArray[ i ].visible = (i < model.numberOfRowsProperty.value + 1);
         }
       }
 
@@ -486,8 +485,8 @@ define( function( require ) {
       function updateBinomialDistribution() {
         var getBinomialBin = model.getNormalizedBinomialDistribution();
         var i;
-        var xSpacing = bannerWidth / (numberOfRowsProperty.value + 1);
-        for ( i = 0; i < numberOfRowsProperty.value + 1; i++ ) {
+        var xSpacing = bannerWidth / (model.numberOfRowsProperty.value + 1);
+        for ( i = 0; i < model.numberOfRowsProperty.value + 1; i++ ) {
           binomialDistributionRectanglesArray[ i ].setRect(
             minX + (i) * xSpacing,
             maxY - factorHeight * getBinomialBin[ i ],
@@ -496,7 +495,7 @@ define( function( require ) {
         }
 
         for ( i = 0; i < MAX_NUMBER_BINS; i++ ) {
-          binomialDistributionRectanglesArray[ i ].visible = (i < numberOfRowsProperty.value + 1);
+          binomialDistributionRectanglesArray[ i ].visible = (i < model.numberOfRowsProperty.value + 1);
         }
       }
 
@@ -508,22 +507,23 @@ define( function( require ) {
 
     /**
      *
-     * @param {Property.<number>} numberOfRowsProperty
+
      * @param {Property.<string>} histogramRadioProperty
-     * @param model
+     * @param {PlinkoProbabilityCommonModel} model
      * @param {ModelViewTransform2} modelViewTransform
      * @param {Property.<boolean>} isTheoreticalHistogramVisibleProperty
      * @constructor
      */
-    function HistogramNode( numberOfRowsProperty, histogramRadioProperty, model, modelViewTransform, isTheoreticalHistogramVisibleProperty ) {
+    function HistogramNode( histogramRadioProperty, model, modelViewTransform, isTheoreticalHistogramVisibleProperty ) {
 
+      debugger;
       Node.call( this, {
           children: [
             new BackgroundNode( modelViewTransform ),
-            new XAxisNode( numberOfRowsProperty, modelViewTransform ),
+            new XAxisNode( model.numberOfRowsProperty, modelViewTransform ),
             new YAxisNode( histogramRadioProperty, modelViewTransform ),
-            new XBannerNode( model.histogram, numberOfRowsProperty, histogramRadioProperty, modelViewTransform ),
-            new HistogramBarNode( model, numberOfRowsProperty, modelViewTransform, isTheoreticalHistogramVisibleProperty )
+            new XBannerNode( model.histogram, model.numberOfRowsProperty, histogramRadioProperty, modelViewTransform ),
+            new HistogramBarNode( model, modelViewTransform, isTheoreticalHistogramVisibleProperty )
           ]
         }
       );

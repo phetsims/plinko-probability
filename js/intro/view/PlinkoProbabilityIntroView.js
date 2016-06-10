@@ -65,7 +65,6 @@ define( function( require ) {
     } );
 
     var histogramNode = new HistogramNode(
-      model.numberOfRowsProperty,
       viewProperties.histogramRadioProperty,
       model,
       modelViewTransform,
