@@ -46,7 +46,7 @@ define( function( require ) {
 
       this.launchedBallsNumber = 0; // @public - number of current trial (current ball drop)
 
-      this.soundTimeElapse = 0;  //@private - number used to keep track of the last sound playing
+      this.soundTimeElapsed = 0;  //@private - number used to keep track of the last sound playing
 
       this.galtonBoard = new GaltonBoard( this.numberOfRowsProperty ); // @public (read-only) - create the galton board
       this.balls = new ObservableArray(); // @public the balls that are currently on the screen
@@ -71,10 +71,10 @@ define( function( require ) {
         assert && assert( direction === 'left' || direction === 'right', 'direction should be left or right' );
         if ( thisModel.isSoundEnabled ) {
           //play sound if the previous sound was played more than some elapsed time
-          if ( this.soundTimeElapse > SOUND_TIME_INTERVAL ) {
+          if ( this.soundTimeElapsed > SOUND_TIME_INTERVAL ) {
             //Will play sound based on ball's motion, left or right
             ( direction === 'left') ? thisModel.bonk1Sound.play() : thisModel.bonk2Sound.play();
-            this.soundTimeElapse = 0;
+            this.soundTimeElapsed = 0;
           }
         }
       },
@@ -85,7 +85,7 @@ define( function( require ) {
        * @param {number} dt - a small time interval
        */
       step: function( dt ) {
-        this.soundTimeElapse += dt;
+        this.soundTimeElapsed += dt;
       },
       /**
        * Reset of the model attributes.
