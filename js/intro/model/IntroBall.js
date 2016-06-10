@@ -28,9 +28,6 @@ define( function( require ) {
     // let's find the ball horizontal orientation of the top ball within a cylinder
     // binOrientation {number||null} takes values -1 (left), 0 (center), 1 (right) or null (no ball are present)
      var lastBallBinOrientation = bins[ this.binIndex ].orientation;
-
-    // increment the number of balls in this index by one
-    this.binCount++;
     
     // determine the ball orientation within the bin
     switch( this.binCount % 3 ) {

@@ -111,6 +111,9 @@ define( function( require ) {
     // @private (read-only)
     // binCount {number} indicates the number of balls in a specific cylinder
     this.binCount = bins[ columnNumber ].binCount;
+    
+    // increment the number of balls in this index by one
+    this.binCount++;
 
   }
 
