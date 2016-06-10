@@ -78,7 +78,7 @@ define( function( require ) {
         } );
 
         // push all pegPath and pegShadow into an array, as well a peg model, which has two attributes, position and isVisible
-        pegArray.push( { pegPath: pegPath, pegShadow: pegShadow, peg: peg } );
+        pegArray.push( { pegPath: pegPath, pegShadow: pegShadow, modelPeg: peg } );
       } );
 
       // add all the peg paths and peg shadows to this node.
@@ -106,10 +106,10 @@ define( function( require ) {
         var offsetVector = new Vector2( pegSpacing * 0.08, -pegSpacing * 0.24 );
 
         pegArray.forEach( function( peg ) {
-          peg.pegPath.visible = peg.peg.isVisible;
-          peg.pegShadow.visible = peg.peg.isVisible;
-          peg.pegPath.center = modelViewTransform.modelToViewPosition( peg.peg.position );
-          peg.pegShadow.center = modelViewTransform.modelToViewPosition( peg.peg.position.plus( offsetVector ) );
+          peg.pegPath.visible = peg.modelPeg.isVisible;
+          peg.pegShadow.visible = peg.modelPeg.isVisible;
+          peg.pegPath.center = modelViewTransform.modelToViewPosition( peg.modelPeg.position );
+          peg.pegShadow.center = modelViewTransform.modelToViewPosition( peg.modelPeg.position.plus( offsetVector ) );
           peg.pegPath.setScaleMagnitude( PlinkoConstants.ROWS_RANGE.max / numberOfRows );
           peg.pegShadow.setScaleMagnitude( PlinkoConstants.ROWS_RANGE.max / numberOfRows );
         } );
