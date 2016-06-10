@@ -24,27 +24,29 @@ define( function( require ) {
    */
   function IntroBall( probability, numberOfRows, bins, cylinderInfo ) {
     Ball.call( this, probability, numberOfRows, bins );
-    // @public (read-only)
-    // binOrientation {number} takes values -1 (left), 0 (center), 1 (right)
-    this.binOrientation = bins[ this.binIndex ].orientation;
+    
+    // let's find the ball horizontal orientation of the top ball within a cylinder
+    // binOrientation {number||null} takes values -1 (left), 0 (center), 1 (right) or null (no ball are present)
+     var lastBallBinOrientation = bins[ this.binIndex ].orientation;
 
-    // Indicates ball horizontal position in bin
+    // increment the number of balls in this index by one
+    this.binCount++;
+    
+    // determine the ball orientation within the bin
     switch( this.binCount % 3 ) {
-      case 0:     // Ball makes probabilistic decision whether to end in left or right horizontal position in the bin
-        this.binOrientation = (Math.random() < 0.5) ? 1 : -1;
-        break;
-      case 1:     // Ball makes decision to end in left horizontal position in the bin
-        this.binOrientation *= -1;
-        break;
-      case 2:     // Ball makes decision to end in left horizontal position in the bin
+      case 0:     // a multiple of three, Ball makes decision to be centered
         this.binOrientation = 0;
         break;
-
+      case 1:     // Ball makes probabilistic decision whether to end in left or right horizontal position in the bin
+        this.binOrientation = (Math.random() < 0.5) ? 1 : -1;
+        break;
+      case 2:     // the ball must take the opposite orientation than the last ball 
+        this.binOrientation = -lastBallBinOrientation;
+        break;
       default:
         throw new Error( 'Unhandled bin direction' );
     }
-    this.binCount++;
-
+    
     // @public
     // {number} describes number of rows in the ball stack within a bin starting at 1
     this.binStackLevel = 2 * Math.floor( this.binCount / 3 ) + ((this.binCount % 3 === 0) ? 0 : 1);
