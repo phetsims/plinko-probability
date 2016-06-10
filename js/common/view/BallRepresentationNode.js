@@ -41,8 +41,9 @@ define( function( require ) {
 
     var factor = 1.15; // fudge factor , we want the image to be slightly larger than the size of the ball so it looks round rather than square
 
+    var dimension = Math.floor( 2 * factor * radius );
     // create an image of the ball and add to this node.
-    var ballImage = ballRepresentation.toDataURLNodeSynchronous( factor * radius, factor * radius, 2 * factor * radius, 2 * factor * radius );
+    var ballImage = ballRepresentation.toDataURLNodeSynchronous( factor * radius, factor * radius, dimension, dimension );
     this.addChild( ballImage );
 
   }
