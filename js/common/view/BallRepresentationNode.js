@@ -1,7 +1,7 @@
 // Copyright 2015, University of Colorado Boulder
 
 /**
- * Scenery node for the representation of a ball. For performance reason, the ball is passed as a Scenery Image instead of a Circle.
+ * Scenery node for the representation of a ball. For performance reason, the ball is added as a Scenery Image instead of a Circle.
  *
  * @author Martin Veillette (Berea College)
  */
@@ -39,11 +39,12 @@ define( function( require ) {
         .addColorStop( 1, PlinkoConstants.BALL_COLOR )
     } );
 
-    var factor = 1.15; // fudge factor , we want the image to be slightly larger than the size of the ball so it looks round rather than square
+    // the ball on the screen is slightly larger than the radius of the fill
+    var correctedRadius = ballRepresentation.radius + ballRepresentation.lineWidth / 2;
+    var correctedDiameter = Math.ceil( correctedRadius * 2 );
 
-    var dimension = Math.floor( 2 * factor * radius );
     // create an image of the ball and add to this node.
-    var ballImage = ballRepresentation.toDataURLNodeSynchronous( factor * radius, factor * radius, dimension, dimension );
+    var ballImage = ballRepresentation.toDataURLNodeSynchronous( correctedRadius, correctedRadius, correctedDiameter, correctedDiameter );
     this.addChild( ballImage );
 
   }
