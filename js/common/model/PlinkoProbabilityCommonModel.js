@@ -70,9 +70,9 @@ define( function( require ) {
         assert && assert( direction === 'left' || direction === 'right', 'direction should be left or right' );
         // play sound if the previous sound was played more than some elapsed time
         if ( this.isSoundEnabled && (this.soundTimeElapsed > PlinkoConstants.SOUND_TIME_INTERVAL) ) {
-            // will play sound based on ball's motion, left or right
-            ( direction === 'left') ? this.bonk1Sound.play() : this.bonk2Sound.play();
-            this.soundTimeElapsed = 0; // reset the time elapsed since last sound to zero
+          // will play sound based on ball's motion, left or right
+          ( direction === 'left') ? this.bonk1Sound.play() : this.bonk2Sound.play();
+          this.soundTimeElapsed = 0; // reset the time elapsed since last sound to zero
         }
       },
 

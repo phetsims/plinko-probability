@@ -22,7 +22,7 @@ define( function( require ) {
   var VerticalAquaRadioButtonGroup = require( 'SUN/VerticalAquaRadioButtonGroup' );
 
   // constants
-  var BALL_RADIUS=PlinkoConstants.BALL_RADIUS;
+  var BALL_RADIUS = PlinkoConstants.BALL_RADIUS;
 
   /**
    * Responsible for the panel that contains the play/pause button and amount of balls to be released.
