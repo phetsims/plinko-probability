@@ -100,7 +100,6 @@ define( function( require ) {
 
     // create an invisible rectangle that encompasses the slider (and its thumb) such that this node has a width that exceeds
     // the dynamical width of the slider
-    // TODO: does it need to be 2* width of thumbSize, why 1 is not enough
     var rectangleSlider = new Rectangle( 0, 0, 2 * options.slider.thumbSize.width + options.slider.trackSize.width, this.hSlider.height );
 
     // create ticks on slider
