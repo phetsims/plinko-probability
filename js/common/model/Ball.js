@@ -176,10 +176,10 @@ define( function( require ) {
      * @public
      */
     ballStep: function( df ) {
-      if ( this.phase === PHASE_INITIAL ) { // balls is leaving the hopper
-        if ( df + this.fallenRatio < 1 ) { // if the ball has not gotten to the first peg
-          this.fallenRatio += df; // fall some more
-          this.initialPegPositionInformation(); // get the initial peg information
+        if ( this.phase === PHASE_INITIAL ) { // balls is leaving the hopper
+          if ( df + this.fallenRatio < 1 ) { // if the ball has not gotten to the first peg
+            this.initialPegPositionInformation(); // get the initial peg information
+            this.fallenRatio += df; // fall some more
         }
         else {
           this.phase = PHASE_FALLING; // switch the phase
@@ -209,8 +209,8 @@ define( function( require ) {
       if ( this.phase === PHASE_EXIT ) { // the ball has exited and it is making its way to the bin
         if ( this.getPosition().y > this.finalBinVerticalPosition ) { // if it has not fallen to its final position
 
-          // TODO magic number
-          this.fallenRatio += df / 10; //PHASE_EXIT is measured in absolute coordinates, so our fallenRation needs to be smaller.
+          // the change in the fallen ratio needs to be scaled by the peg separation so that it matches the speed everywhere else
+          this.fallenRatio += df * this.pegSeparation; 
         }
         else {
           this.phase = PHASE_COLLECTED; // switch phases
