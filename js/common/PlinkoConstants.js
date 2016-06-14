@@ -26,7 +26,7 @@ define( function( require ) {
     CYLINDER_BOUNDS: new Bounds2( -1 / 2, -1.80, 1 / 2, -1.05 ),
     RESET_ALL_BUTTON_SCALE: 0.75,
 
-    // font sizes and weight (for statistics diaplay node)
+    // font sizes and weight (for statistics display node)
     TEXT_FONT: new PhetFont( { size: 18 } ), // default font for text
     TEXT_FONT_BOLD: new PhetFont( { size: 22, weight: 'bold' } ), // default font for bold font (N=)
 
