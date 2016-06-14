@@ -237,10 +237,13 @@ define( function( require ) {
         case PHASE_FALLING: // ball is falling through the pegs
           // steer the ball to the left or right depending on this.direction
           var shift = (this.direction === 'left') ? -0.5 : 0.5;
+
           // mimic the fall as a parabolic motion
           var fallingPosition = scratchVector.setXY( shift * this.fallenRatio, -this.fallenRatio * this.fallenRatio );
+
           // get the ball aligned with its final x position in the bin.
           fallingPosition.multiplyScalar( this.pegSeparation ); // scale the vector by the peg separation
+
           // exit from the last row with the correct alignment with the bin
           if ( this.row === this.numberOfRows - 1 ) {
             // transition
