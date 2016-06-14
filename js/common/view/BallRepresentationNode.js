@@ -29,7 +29,7 @@ define( function( require ) {
     var ballRepresentation = new Circle( radius, {
       stroke: PlinkoConstants.BALL_COLOR,
       lineWidth: 0.1 * radius,
-      fill: new RadialGradient( -radius * 0.4,
+      fill: new RadialGradient( -radius * 0.4,  // gives ball white glare
         -radius * 0.4,
         0,
         radius * 0.1,
