@@ -64,18 +64,16 @@ define( function( require ) {
      * @private
      */
     paintCanvas: function( context ) {
-
       var self = this;
 
       // Slight chance the image used isn't loaded. In that case, return & try again on next frame
       if ( self.ballImage === null ) {
         return;
       }
-      // render all balls
-      this.balls.forEach( function( ball ) {
-
-        // render a ball only if 'ball' is the current mode of the Galton Board
-        if ( true || self.galtonBoardRadioButtonProperty.value == 'ball' ) {
+      // render all balls only if 'ball' is the current mode of the Galton Board
+      if ( self.galtonBoardRadioButtonProperty.value === 'ball' ) {
+        this.balls.forEach( function( ball ) {
+          // render a ball only if 'ball' is the current mode of the Galton Board
           var ballViewPosition = self.modelViewTransform.modelToViewPosition( ball.position );
           var scale = self.defaultNumberOfRows / ball.numberOfRows;
           context.drawImage( self.ballImage,
@@ -83,8 +81,9 @@ define( function( require ) {
             ballViewPosition.y - self.ballImage.height * scale / 2,
             self.ballImage.width * scale,
             self.ballImage.height * scale );
-        }
-      } );
+
+        } );
+      }
     }
   } );
 } ); // define

@@ -22,6 +22,7 @@ define( function( require ) {
   var NumberBallsDisplay = require( 'PLINKO_PROBABILITY/intro/view/NumberBallsDisplay' );
   var IntroPlayPanel = require( 'PLINKO_PROBABILITY/intro/view/IntroPlayPanel' );
   var PropertySet = require( 'AXON/PropertySet' );
+  var Property = require( 'AXON/Property' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var SoundToggleButton = require( 'SCENERY_PHET/buttons/SoundToggleButton' );
@@ -130,7 +131,7 @@ define( function( require ) {
     );
 
     // put all the Balls on a separate z-layer
-    var ballsLayerNode = new BallsLayerNode( model.balls, modelViewTransform, { canvasBounds: this.layoutBounds } );
+    var ballsLayerNode = new BallsLayerNode( model.balls, modelViewTransform, new Property( 'ball' ), { canvasBounds: this.layoutBounds } );
     this.ballsLayerNode = ballsLayerNode;
 
     // handle the coming and going of the model Balls
