@@ -1,7 +1,7 @@
 // Copyright 2015, University of Colorado Boulder
 
 /**
- * Scenery node for the representation of a ball. For performance reason, the ball is passed as a Scenery Image instead of a Circle.
+ * Scenery node for the representation of a ball. For performance reason, the ball is added as a Scenery Image instead of a Circle.
  *
  * @author Martin Veillette (Berea College)
  */
@@ -39,9 +39,11 @@ define( function( require ) {
         .addColorStop( 1, PlinkoConstants.BALL_COLOR )
     } );
 
+
     // create an image of the ball and add to this node.
-    var ballImage = ballRepresentation.toDataURLNodeSynchronous();
-    this.addChild( ballImage );
+    //var ballImage = ballRepresentation.toDataURLNodeSynchronous();
+    //this.addChild( ballImage );
+    this.addChild( ballRepresentation );
 
   }
 

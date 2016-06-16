@@ -8,7 +8,7 @@ define( function( require ) {
 
   // modules
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
-  var BallNode = require( 'PLINKO_PROBABILITY/common/view/BallNode' );
+  var BallsLayerNode = require( 'PLINKO_PROBABILITY/common/view/BallsLayerNode' );
   var BallRadioButtonsControl = require( 'PLINKO_PROBABILITY/lab/view/BallRadioButtonsControl' );
   var Board = require( 'PLINKO_PROBABILITY/common/view/Board' );
   var Bounds2 = require( 'DOT/Bounds2' );
@@ -125,8 +125,11 @@ define( function( require ) {
     // Create the Sound Toggle Button at the bottom right
     var soundToggleButton = new SoundToggleButton( model.isSoundEnabledProperty );
 
-    // put the ballNode(s) and TrajectoryPath(s) on a separate layer
-    var ballsLayer = new Node( { layerSplit: true } );
+    // create the ballLayerNodes  (a canvas Node) that renders all the balls
+    var ballsLayerNode = new BallsLayerNode( model.balls, modelViewTransform, { canvasBounds: this.layoutBounds } );
+    this.ballsLayerNode = ballsLayerNode;
+
+   // create pathsLayer to keep all the TrajectoryPath
     var pathsLayer = new Node( { layerSplit: true } );
 
     // handle the coming and going of the balls in the model.
@@ -134,12 +137,8 @@ define( function( require ) {
 
       switch( model.galtonBoardRadioButtonProperty.value ) {
         case 'ball':
-          var addedBallNode = new BallNode( addedBall.positionProperty, addedBall.ballRadius, modelViewTransform );
-          ballsLayer.addChild( addedBallNode );
           model.balls.addItemRemovedListener( function removalListener( removedBall ) {
             if ( removedBall === addedBall ) {
-              addedBallNode.dispose();
-              ballsLayer.removeChild( addedBallNode );
               model.balls.removeItemRemovedListener( removalListener );
             }
           } );
@@ -161,6 +160,8 @@ define( function( require ) {
       }
     } );
 
+
+
     // adding children to the scene graph
     this.addChild( board );
     this.addChild( eraserButton );
@@ -172,7 +173,7 @@ define( function( require ) {
     this.addChild( sliderControlPanel );
     this.addChild( statisticsDisplayAccordionBox );
     this.addChild( galtonBoardNode );
-    this.addChild( ballsLayer );
+    this.addChild( ballsLayerNode );
     this.addChild( histogramNode );
     this.addChild( pathsLayer );
     this.addChild( hopper );
@@ -215,5 +216,10 @@ define( function( require ) {
 
   plinkoProbability.register( 'PlinkoProbabilityLabView', PlinkoProbabilityLabView );
 
-  return inherit( ScreenView, PlinkoProbabilityLabView );
+  return inherit( ScreenView, PlinkoProbabilityLabView, {
+    step: function( dt ) {
+      // update view on model step
+      this.ballsLayerNode.invalidatePaint();
+    }
+  } );
 } );

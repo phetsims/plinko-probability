@@ -397,8 +397,7 @@ define( function( require ) {
 
 
     for ( var i = 0; i < MAX_NUMBER_BINS; i++ ) {
-      // creates rectangles with a nominal height of 1, so that scenery doesn't
-      // throw a fit
+      // creates rectangles with a nominal height of 1, so that scenery doesn't throw a fit
       var nominalSampleHistogramRectangle = new Rectangle( 0, 0, bannerWidth, 1, {
         fill: PlinkoConstants.HISTOGRAM_BAR_COLOR_FILL,
         stroke: PlinkoConstants.HISTOGRAM_BAR_COLOR_STROKE,
@@ -448,18 +447,22 @@ define( function( require ) {
     // position the sample average triangle and set its visibility
     updateSampleAverageTriangle();
 
+
     // no need to unlink , present for the lifetime of the sim
     Property.multilink( [ model.numberOfRowsProperty, model.probabilityProperty, isTheoreticalHistogramVisibleProperty ],
       function( numberOfRows, probability, isTheoreticalHistogramVisible ) {
-        updateTheoreticalHistogram();
+        updateHistogram( theoreticalHistogramRectanglesArray, model.getNormalizedBinomialDistribution() );
         updateTheoreticalAverageTriangle();
+        updateHistogram( sampleHistogramRectanglesArray, model.histogram.getNormalizedSampleDistribution() );
         theoreticalHistogramNode.visible = isTheoreticalHistogramVisible;
         theoreticalAverageTrianglePath.visible = isTheoreticalHistogramVisible;
       } );
 
     // update the histogram when a model ball has exited the galton board
     model.histogram.on( 'histogramUpdated', function() {
-      updateSampleHistogram();
+      // update the height of bins of histogram
+      updateHeightOfHistogram( sampleHistogramRectanglesArray, model.histogram.getNormalizedSampleDistribution() );
+      // update the position of the indicator for sample average
       updateSampleAverageTriangle();
     } );
 
@@ -496,17 +499,18 @@ define( function( require ) {
     }
 
     /**
-     *  Update the sample Histogram
+     * Function that solely update the Height of the bars of the histogram
+     *  (and not their visibility)
+     * @param {Array<Rectangle>} rectanglesArray
+     * @param {Array<number>} bins
      */
-    function updateSampleHistogram() {
-      updateHistogram( sampleHistogramRectanglesArray, model.histogram.getNormalizedSampleDistribution() );
-    }
-
-    /**
-     * Update the binomial distribution histogram (a.k.a. ideal histogram)
-     */
-    function updateTheoreticalHistogram() {
-      updateHistogram( theoreticalHistogramRectanglesArray, model.getNormalizedBinomialDistribution() );
+    function updateHeightOfHistogram( rectanglesArray, bins ) {
+      var i;
+      var numberOfBins = model.numberOfRowsProperty.value + 1;
+      for ( i = 0; i < numberOfBins; i++ ) {
+        // update the height of the rectangles that are visible
+        rectanglesArray[ i ].setRectHeightFromBottom( maxBarHeight * bins[ i ] );
+      }
     }
 
     /**
@@ -545,8 +549,8 @@ define( function( require ) {
   inherit( Node, HistogramBarNode );
 
   /**
+   * Constructor for Histogram Node
    *
-
    * @param {Property.<string>} histogramRadioProperty
    * @param {PlinkoProbabilityCommonModel} model
    * @param {ModelViewTransform2} modelViewTransform
