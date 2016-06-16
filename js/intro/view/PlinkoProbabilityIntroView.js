@@ -8,7 +8,7 @@ define( function( require ) {
 
   // modules
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
-  var BallNode = require( 'PLINKO_PROBABILITY/common/view/BallNode' );
+  var BallsLayerNode = require( 'PLINKO_PROBABILITY/common/view/BallsLayerNode' );
   var Board = require( 'PLINKO_PROBABILITY/common/view/Board' );
   var Bounds2 = require( 'DOT/Bounds2' );
   var CylindersBackNode = require( 'PLINKO_PROBABILITY/intro/view/CylindersBackNode' );
@@ -19,7 +19,6 @@ define( function( require ) {
   var Hopper = require( 'PLINKO_PROBABILITY/common/view/Hopper' );
   var inherit = require( 'PHET_CORE/inherit' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
-  var Node = require( 'SCENERY/nodes/Node' );
   var NumberBallsDisplay = require( 'PLINKO_PROBABILITY/intro/view/NumberBallsDisplay' );
   var IntroPlayPanel = require( 'PLINKO_PROBABILITY/intro/view/IntroPlayPanel' );
   var PropertySet = require( 'AXON/PropertySet' );
@@ -130,18 +129,14 @@ define( function( require ) {
       }
     );
 
-    // put all the BallNodes on a separate z-layer
-    var ballsLayer = new Node( { layerSplit: true } );
+    // put all the Balls on a separate z-layer
+    var ballsLayerNode = new BallsLayerNode( model.balls, modelViewTransform, { canvasBounds: this.layoutBounds } );
+    this.ballsLayerNode = ballsLayerNode;
 
     // handle the coming and going of the model Balls
     model.balls.addItemAddedListener( function( addedBall ) {
-      // Create and add the view representation for this addedBall
-      var addedBallNode = new BallNode( addedBall.positionProperty, addedBall.ballRadius, modelViewTransform );
-      ballsLayer.addChild( addedBallNode );
       model.balls.addItemRemovedListener( function removalListener( removedBall ) {
         if ( removedBall === addedBall ) {
-          addedBallNode.dispose();
-          ballsLayer.removeChild( addedBallNode );
           model.balls.removeItemRemovedListener( removalListener );
         }
       } );
@@ -157,7 +152,7 @@ define( function( require ) {
     this.addChild( numberBallsDisplay );
     this.addChild( galtonBoardNode );
     this.addChild( cylindersBackNode );
-    this.addChild( ballsLayer );
+    this.addChild( ballsLayerNode );
     this.addChild( histogramNode );
     this.addChild( cylindersFrontNode );
     this.addChild( hopper );
@@ -179,5 +174,11 @@ define( function( require ) {
 
   plinkoProbability.register( 'PlinkoProbabilityIntroView', PlinkoProbabilityIntroView );
 
-  return inherit( ScreenView, PlinkoProbabilityIntroView );
+  return inherit( ScreenView, PlinkoProbabilityIntroView, {
+    step: function( dt ) {
+      // update view on model step
+      this.ballsLayerNode.invalidatePaint();
+    }
+  } );
+
 } );
