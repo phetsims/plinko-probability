@@ -22,7 +22,7 @@ define( function( require ) {
   var VerticalAquaRadioButtonGroup = require( 'SUN/VerticalAquaRadioButtonGroup' );
 
   // constants
-  var BALL_RADIUS=PlinkoConstants.BALL_RADIUS;
+  var BALL_RADIUS = PlinkoConstants.BALL_RADIUS;
 
   /**
    * Responsible for the panel that contains the play/pause button and amount of balls to be released.
@@ -60,9 +60,13 @@ define( function( require ) {
     } );
 
     // create the icon for the continuous mode
+
+    // the ball size is not necessarily twice the radius if 
+    var ballWidth = new BallRepresentationNode( BALL_RADIUS ).width;
+
     var continuous = new HBox( {
       align: 'bottom',
-      spacing: -BALL_RADIUS, // negative spacing
+      spacing: -ballWidth/2, // negative spacing
       children: [
         new BallRepresentationNode( BALL_RADIUS ),
         new BallRepresentationNode( BALL_RADIUS ),

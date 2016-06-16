@@ -39,13 +39,11 @@ define( function( require ) {
         .addColorStop( 1, PlinkoConstants.BALL_COLOR )
     } );
 
-    // the ball on the screen is slightly larger than the radius of the fill
-    var correctedRadius = ballRepresentation.radius + ballRepresentation.lineWidth / 2;
-    var correctedDiameter = Math.ceil( correctedRadius * 2 );
 
     // create an image of the ball and add to this node.
-    var ballImage = ballRepresentation.toDataURLNodeSynchronous( correctedRadius, correctedRadius, correctedDiameter, correctedDiameter );
-    this.addChild( ballImage );
+    //var ballImage = ballRepresentation.toDataURLNodeSynchronous();
+    //this.addChild( ballImage );
+    this.addChild( ballRepresentation );
 
   }
 

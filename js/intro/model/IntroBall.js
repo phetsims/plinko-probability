@@ -24,11 +24,11 @@ define( function( require ) {
    */
   function IntroBall( probability, numberOfRows, bins, cylinderInfo ) {
     Ball.call( this, probability, numberOfRows, bins );
-    
+
     // let's find the ball horizontal orientation of the top ball within a cylinder
     // binOrientation {number||null} takes values -1 (left), 0 (center), 1 (right) or null (no ball are present)
-     var lastBallBinOrientation = bins[ this.binIndex ].orientation;
-    
+    var lastBallBinOrientation = bins[ this.binIndex ].orientation;
+
     // determine the ball orientation within the bin
     switch( this.binCount % 3 ) {
       case 0:     // a multiple of three, Ball makes decision to be centered
@@ -43,19 +43,17 @@ define( function( require ) {
       default:
         throw new Error( 'Unhandled bin direction' );
     }
-    
-    // @public
-    // {number} describes number of rows in the ball stack within a bin starting at 1
-    this.binStackLevel = 2 * Math.floor( this.binCount / 3 ) + ((this.binCount % 3 === 0) ? 0 : 1);
-    var minimumYposition = cylinderInfo.top - cylinderInfo.verticalOffset - cylinderInfo.ellipseHeight - cylinderInfo.height; // the bottom of the cylinder
-    var delta = this.ballRadius + Math.sqrt( Math.pow( 2 * this.ballRadius, 2 ) - Math.pow( (cylinderInfo.cylinderWidth / 2) - this.ballRadius, 2 ) ); // the height separation
-    // @public
-    // describes final vertical position of ball within a bin {number}
-    this.finalBinVerticalPosition = minimumYposition + ((this.binStackLevel - 1) * delta) - this.ballRadius;
 
-    // @public
-    // describes final horizontal position of ball within a bin {number}
-    this.finalBinHorizontalPosition = (this.binOrientation * ((cylinderInfo.cylinderWidth / 2) - this.ballRadius));
+    // {number} describes number of rows in the ball stack within a bin, starting at 1
+    var binStackLevel = 2 * Math.floor( this.binCount / 3 ) + ((this.binCount % 3 === 0) ? 0 : 1); // number of balls per stack goes as (2,1,2,1,2...
+    var minimumYposition = cylinderInfo.top - cylinderInfo.verticalOffset - cylinderInfo.ellipseHeight - cylinderInfo.height; // the bottom of the cylinder
+    var delta = this.ballRadius + Math.sqrt( Math.pow( 2 * this.ballRadius, 2 ) - Math.pow( (cylinderInfo.cylinderWidth / 2) - this.ballRadius, 2 ) ); // the height separation between stacks
+
+    // describes final vertical offset of ball within a bin {number}
+    this.finalBinVerticalOffset = minimumYposition + ((binStackLevel - 1) * delta) - this.ballRadius;
+
+    // describes final horizontal offset of the ball within a bin {number}
+    this.finalBinHorizontalOffset = (this.binOrientation * ((cylinderInfo.cylinderWidth / 2) - this.ballRadius));
 
   }
 

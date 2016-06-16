@@ -1,30 +1,16 @@
-The model describes the motion of a ball in a plinko board.
+The simulation describes the motion of a ball on a plinko board made out of pegs.
 
-In the intro tab this probability is 50% so that the ball has equal
-chance to go right than it does to go left. The model is made up of the pegs and
-balls. The ball makes a random decision to go left of right. It does this of how ever
-many rows are present. The user can choose to send 1, 10 or all the balls and watch
-how the balls fall into the different containers at the bottom
+In the intro tab, a ball has an equal probability of going to the left or right
+of the peg. The ball goes to the left or right based on a random process.
+The user can choose to send 1, 10 or all the balls though the plinko board (up to a
+ maximum of hundred) and watch how the balls fall into the different containers
+ at the bottom of the board.
 
-In the lab model both the number of rows and the probability is changeable.
-The user can move a slider that changes the probability and the number of rows.
-At this moment all of the balls disappear and new balls are dropped that have
-the information of the new Galton Board.
-
-The statistics are update after a ball makes it to the bottom.
-
-Equation used
-Mean = (N-1 * currentMean + binNumber)/N Where N is the number of balls
-For example:
-if the first ball drops into bin 4 and the second into bin 6 the equation will be
-(1-1 * 0 + 4)/1 = 4 after the first ball
-(2-1 * 4 + 6)/2 = 5 after the second ball
-
-Everytime a ball is added the square is added to the bins
-Sum of squares += (binNumber * binNumber)
-
-Variance = (sum of squares - N * mean^2)/( N -1)
-
-Standard Deviation = Sqrt( Variance )
-
-Standard Deviation of the Mean = standard Deviation / sqrt( N )
+In the lab tab, the number of rows and the binary probability can be modified
+ by the user.  The statistics are updated after a ball makes it to the last row.
+The accordion box displays statistics related to the sample distribution and
+the theoretical distribution. The theoretical average is P*N where P is the binary probability
+and N is the number of rows. The standard deviation is given by the square root of N  P  (1 - P):
+ The sample average is defined in the usual way and the standard deviation is the
+unbiased sample standard deviation. The standard deviation of the mean
+ is equal to the standard Deviation / sqrt( N ).

@@ -26,7 +26,7 @@ define( function( require ) {
     CYLINDER_BOUNDS: new Bounds2( -1 / 2, -1.80, 1 / 2, -1.05 ),
     RESET_ALL_BUTTON_SCALE: 0.75,
 
-    // font sizes and weight (for statistics diaplay node)
+    // font sizes and weight (for statistics display node)
     TEXT_FONT: new PhetFont( { size: 18 } ), // default font for text
     TEXT_FONT_BOLD: new PhetFont( { size: 22, weight: 'bold' } ), // default font for bold font (N=)
 
@@ -55,7 +55,7 @@ define( function( require ) {
     BALL_HIGHLIGHT_COLOR: 'white', // color of the Ball's glare
     PEG_RADIUS: 3.6, // radius of the peg (size of the pegs when the number of rows is the default value.
     PEG_COLOR: 'rgb(115,99,87)', //brown
-    BALL_SIZE_FRACTION :0.18,  // radius of the ball compared to the horizontal separation of the pegs.
+    BALL_SIZE_FRACTION: 0.18,  // radius of the ball compared to the horizontal separation of the pegs.
 
     PEG_HEIGHT_FRACTION_OFFSET: 0.7, // ranges between zero and 1
 

@@ -258,10 +258,11 @@ define( function( require ) {
       var numberOfBins = numberOfRows + 1;
       // start on bin 1 rather than zero since the left side of the '0th' bin is the y-axis
       for ( var binIndex = 1; binIndex < numberOfBins; binIndex++ ) {
+        var x = modelViewTransform.modelToViewX( BinInterface.getBinLeft( binIndex, numberOfBins ) );
         verticalLinesArray[ binIndex ].setLine(
-          modelViewTransform.modelToViewX( BinInterface.getBinLeft( binIndex, numberOfBins ) ),
+          x,
           minY,
-          modelViewTransform.modelToViewX( BinInterface.getBinLeft( binIndex, numberOfBins ) ),
+          x,
           maxY );
       }
       for ( binIndex = 0; binIndex < MAX_NUMBER_BINS; binIndex++ ) {
