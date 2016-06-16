@@ -95,7 +95,9 @@ define( function( require ) {
         var oldAngle = oldProbability * options.rangeRotationAngle;
         var changeAngle = newAngle - oldAngle;
         pegArray.forEach( function( peg ) {
-          peg.pegPath.rotateAround( peg.pegPath.center, changeAngle );
+          if (peg.modelPeg.isVisible) {
+            peg.pegPath.rotateAround( peg.pegPath.center, changeAngle );
+          }
         } );
       } );
 
@@ -108,10 +110,12 @@ define( function( require ) {
         pegArray.forEach( function( peg ) {
           peg.pegPath.visible = peg.modelPeg.isVisible;
           peg.pegShadow.visible = peg.modelPeg.isVisible;
-          peg.pegPath.center = modelViewTransform.modelToViewPosition( peg.modelPeg.position );
-          peg.pegShadow.center = modelViewTransform.modelToViewPosition( peg.modelPeg.position.plus( offsetVector ) );
-          peg.pegPath.setScaleMagnitude( PlinkoConstants.ROWS_RANGE.max / numberOfRows );
-          peg.pegShadow.setScaleMagnitude( PlinkoConstants.ROWS_RANGE.max / numberOfRows );
+          if (peg.pegPath.visible) {
+            peg.pegPath.center = modelViewTransform.modelToViewPosition( peg.modelPeg.position );
+            peg.pegShadow.center = modelViewTransform.modelToViewPosition( peg.modelPeg.position.plus( offsetVector ) );
+            peg.pegPath.setScaleMagnitude( PlinkoConstants.ROWS_RANGE.max / numberOfRows );
+            peg.pegShadow.setScaleMagnitude( PlinkoConstants.ROWS_RANGE.max / numberOfRows );
+          }
         } );
 
       } );

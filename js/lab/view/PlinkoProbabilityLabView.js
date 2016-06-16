@@ -126,15 +126,14 @@ define( function( require ) {
     var soundToggleButton = new SoundToggleButton( model.isSoundEnabledProperty );
 
     // create the ballLayerNodes  (a canvas Node) that renders all the balls
-    var ballsLayerNode = new BallsLayerNode( model.balls, modelViewTransform, { canvasBounds: this.layoutBounds } );
+    var ballsLayerNode = new BallsLayerNode( model.balls, modelViewTransform, model.galtonBoardRadioButtonProperty, { canvasBounds: this.layoutBounds } );
     this.ballsLayerNode = ballsLayerNode;
 
-   // create pathsLayer to keep all the TrajectoryPath
+    // create pathsLayer to keep all the TrajectoryPath
     var pathsLayer = new Node( { layerSplit: true } );
 
     // handle the coming and going of the balls in the model.
     model.balls.addItemAddedListener( function( addedBall ) {
-
       switch( model.galtonBoardRadioButtonProperty.value ) {
         case 'ball':
           model.balls.addItemRemovedListener( function removalListener( removedBall ) {
@@ -159,7 +158,6 @@ define( function( require ) {
           throw new Error( 'Unhandled galton Board Radio Button state: ' + model.galtonBoardRadioButtonProperty.value );
       }
     } );
-
 
 
     // adding children to the scene graph

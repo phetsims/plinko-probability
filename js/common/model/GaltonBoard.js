@@ -45,10 +45,12 @@ define( function( require ) {
     numberOfRowsProperty.link( function( numberOfRows ) {
       galtonBoard.spacing = PegInterface.getSpacing( numberOfRows );
       galtonBoard.pegs.forEach( function( peg ) {
-        // update the position of the pegs on the Galton Board.
-        peg.position = PegInterface.getPosition( peg.rowNumber, peg.columnNumber, numberOfRows );
         // for performance reasons, we don't throw out the pegs, we simply update their visibility
         peg.isVisible = PegInterface.getIsVisible( peg.rowNumber, numberOfRows );
+        if ( peg.isVisible ) {
+          // update the position of the pegs on the Galton Board.
+          peg.position = PegInterface.getPosition( peg.rowNumber, peg.columnNumber, numberOfRows );
+        }
       } );
     } );
   }

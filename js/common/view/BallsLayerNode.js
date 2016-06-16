@@ -19,10 +19,11 @@ define( function( require ) {
   /**
    * @param {Ball[]} balls - an array of model Ball
    * @param {ModelViewTransform2} modelViewTransform - model to view transform
+   * @param {sting}galtonBoardRadioButtonProperty - valid values are 'ball', 'path', and 'none'
    * @param {Object} options - must contain a canvasBounds attribute of type Bounds2
    * @constructor
    */
-  function BallsLayerNode( balls, modelViewTransform, options ) {
+  function BallsLayerNode( balls, modelViewTransform, galtonBoardRadioButtonProperty, options ) {
 
     assert && assert( options && options.hasOwnProperty( 'canvasBounds' ), 'No canvasBounds specified.' );
 
@@ -35,11 +36,12 @@ define( function( require ) {
 
     // @private - model to view coordinate transform
     this.modelViewTransform = modelViewTransform;
+    this.galtonBoardRadioButtonProperty = galtonBoardRadioButtonProperty; // valid values are 'ball', 'path', 'none'
 
     this.defaultNumberOfRows = PlinkoConstants.ROWS_RANGE.defaultValue;
-    var defaultBallRadius = modelViewTransform.modelToViewDeltaX( PegInterface.getSpacing( this.defaultNumberOfRows ) * PlinkoConstants.BALL_SIZE_FRACTION)  ; //
+    var defaultBallRadius = modelViewTransform.modelToViewDeltaX( PegInterface.getSpacing( this.defaultNumberOfRows ) * PlinkoConstants.BALL_SIZE_FRACTION ); //
     this.defaultBallRadius = defaultBallRadius;
- //   console.log(defaultBallRadius);
+
     // create a single ball image to use for rendering all balls - asynchronous
     var ball = new BallRepresentationNode( defaultBallRadius );
     ball.toImage( function( image ) {
@@ -71,11 +73,13 @@ define( function( require ) {
       }
       // render all balls
       this.balls.forEach( function( ball ) {
-        // render a ball
-        var ballViewPosition = self.modelViewTransform.modelToViewPosition( ball.position );
-        context.drawImage( self.ballImage,
-          ballViewPosition.x - self.ballImageHalfWidth,
-          ballViewPosition.y - self.ballImageHalfHeight );
+        // render a ball only if 'ball' is the current mode of the Galton Board
+        if ( self.galtonBoardRadioButtonProperty.value == 'ball' ) {
+          var ballViewPosition = self.modelViewTransform.modelToViewPosition( ball.position );
+          context.drawImage( self.ballImage,
+            ballViewPosition.x - self.ballImageHalfWidth,
+            ballViewPosition.y - self.ballImageHalfHeight );
+        }
       } );
     }
   } );
