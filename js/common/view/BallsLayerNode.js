@@ -38,16 +38,16 @@ define( function( require ) {
     this.modelViewTransform = modelViewTransform;
     this.galtonBoardRadioButtonProperty = galtonBoardRadioButtonProperty; // valid values are 'ball', 'path', 'none'
 
-    this.defaultNumberOfRows = PlinkoConstants.ROWS_RANGE.defaultValue;
+
+    // set the default ball radius using the largest possible radius, that is the minimum number of rows.
+    this.defaultNumberOfRows = PlinkoConstants.ROWS_RANGE.min;
     var defaultBallRadius = modelViewTransform.modelToViewDeltaX( PegInterface.getSpacing( this.defaultNumberOfRows ) * PlinkoConstants.BALL_SIZE_FRACTION ); //
-    this.defaultBallRadius = defaultBallRadius;
+
 
     // create a single ball image to use for rendering all balls - asynchronous
     var ball = new BallRepresentationNode( defaultBallRadius );
     ball.toImage( function( image ) {
       self.ballImage = image;
-      self.ballImageHalfWidth = self.ballImage.width / 2;
-      self.ballImageHalfHeight = self.ballImage.height / 2;
     } );
 
     this.invalidatePaint();
@@ -73,12 +73,16 @@ define( function( require ) {
       }
       // render all balls
       this.balls.forEach( function( ball ) {
+
         // render a ball only if 'ball' is the current mode of the Galton Board
-        if ( self.galtonBoardRadioButtonProperty.value == 'ball' ) {
+        if ( true || self.galtonBoardRadioButtonProperty.value == 'ball' ) {
           var ballViewPosition = self.modelViewTransform.modelToViewPosition( ball.position );
+          var scale = self.defaultNumberOfRows / ball.numberOfRows;
           context.drawImage( self.ballImage,
-            ballViewPosition.x - self.ballImageHalfWidth,
-            ballViewPosition.y - self.ballImageHalfHeight );
+            ballViewPosition.x - self.ballImage.width * scale / 2,
+            ballViewPosition.y - self.ballImage.height * scale / 2,
+            self.ballImage.width * scale,
+            self.ballImage.height * scale );
         }
       } );
     }
