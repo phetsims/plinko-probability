@@ -258,10 +258,11 @@ define( function( require ) {
       var numberOfBins = numberOfRows + 1;
       // start on bin 1 rather than zero since the left side of the '0th' bin is the y-axis
       for ( var binIndex = 1; binIndex < numberOfBins; binIndex++ ) {
+        var x = modelViewTransform.modelToViewX( BinInterface.getBinLeft( binIndex, numberOfBins ) );
         verticalLinesArray[ binIndex ].setLine(
-          modelViewTransform.modelToViewX( BinInterface.getBinLeft( binIndex, numberOfBins ) ),
+          x,
           minY,
-          modelViewTransform.modelToViewX( BinInterface.getBinLeft( binIndex, numberOfBins ) ),
+          x,
           maxY );
       }
       for ( binIndex = 0; binIndex < MAX_NUMBER_BINS; binIndex++ ) {
@@ -379,10 +380,10 @@ define( function( require ) {
     var maxX = modelViewTransform.modelToViewX( HISTOGRAM_BOUNDS.maxX );
     var maxY = modelViewTransform.modelToViewY( HISTOGRAM_BOUNDS.minY );
 
-    // convinience variables
+    // convenience variables
     var bannerWidth = maxX - minX; // in view coordinates
     var maxBarHeight = maxY - minY - BANNER_HEIGHT; // in view coordinates
-    assert && assert (maxBarHeight>0, 'the Height of the bar must be larger than zero' );
+    assert && assert( maxBarHeight > 0, 'the Height of the bar must be larger than zero' );
 
     // create and add (on a separate layer) the two histograms
     var sampleHistogramNode = new Node( { layerSplit: true } );

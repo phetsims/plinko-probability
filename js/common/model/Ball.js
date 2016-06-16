@@ -78,8 +78,8 @@ define( function( require ) {
 
     this.pegHistory = []; // {Array.<Object>}
 
-    this.finalBinHorizontalPosition = 0; // @public describes final horizontal position of ball within a bin {number}
-    this.finalBinVerticalPosition = 0;  // @public describes final vertical position of ball within a bin {number}
+    this.finalBinHorizontalOffset = 0; // @public describes final horizontal offset of ball within a bin {number}
+    this.finalBinVerticalOffset = 0;  // @public describes final vertical offset of ball within a bin {number}
 
     var direction;  // 'left', 'right'
     var rowNumber;
@@ -207,7 +207,7 @@ define( function( require ) {
         }
       }
       if ( this.phase === PHASE_EXIT ) { // the ball has exited and it is making its way to the bin
-        if ( this.getPosition().y > this.finalBinVerticalPosition ) { // if it has not fallen to its final position
+        if ( this.getPosition().y > this.finalBinVerticalOffset ) { // if it has not fallen to its final position
 
           // the change in the fallen ratio needs to be scaled by the peg separation so that it matches the speed everywhere else
           this.fallenRatio += df * this.pegSeparation;
@@ -237,19 +237,23 @@ define( function( require ) {
         case PHASE_FALLING: // ball is falling through the pegs
           // steer the ball to the left or right depending on this.direction
           var shift = (this.direction === 'left') ? -0.5 : 0.5;
+
           // mimic the fall as a parabolic motion
           var fallingPosition = scratchVector.setXY( shift * this.fallenRatio, -this.fallenRatio * this.fallenRatio );
+
           // get the ball aligned with its final x position in the bin.
           fallingPosition.multiplyScalar( this.pegSeparation ); // scale the vector by the peg separation
+
           // exit from the last row with the correct alignment with the bin
           if ( this.row === this.numberOfRows - 1 ) {
-            fallingPosition.addXY( this.finalBinHorizontalPosition * this.fallenRatio, 0 );
+            // transition
+            fallingPosition.addXY( this.finalBinHorizontalOffset * this.fallenRatio, 0 );
           }
           return fallingPosition.addXY( this.pegPositionX, this.pegPositionY );
         case PHASE_EXIT: // the ball is exiting the pegs and making its way to the bin
-          return scratchVector.setXY( this.finalBinHorizontalPosition, -this.fallenRatio ).addXY( this.pegPositionX, this.pegPositionY );
+          return scratchVector.setXY( this.finalBinHorizontalOffset, -this.fallenRatio ).addXY( this.pegPositionX, this.pegPositionY );
         case PHASE_COLLECTED: // the ball has landed to its final position
-          return scratchVector.setXY( this.finalBinHorizontalPosition, this.finalBinVerticalPosition ).addXY( this.pegPositionX, 0 );
+          return scratchVector.setXY( this.finalBinHorizontalOffset, this.finalBinVerticalOffset ).addXY( this.pegPositionX, 0 );
       }
     }
 

@@ -25,16 +25,14 @@ define( function( require ) {
   function LabBall( probability, numberOfRows, bins ) {
     Ball.call( this, probability, numberOfRows, bins );
     var bounds = PlinkoConstants.HISTOGRAM_BOUNDS;
-    // @private
     //describes the minimumYposition the ball will take
-    var minimumYposition = bounds.maxY - (bounds.height * .74); // the bottom of the cylinder
-    // @public
-    // describes final vertical position of ball within a bin {number}
-    this.finalBinVerticalPosition = minimumYposition;
-
-    // @public
-    // describes final horizontal position of ball within a bin {number}
-    this.finalBinHorizontalPosition = 0;
+    var minimumYposition = bounds.maxY - (bounds.height * 0.74); // the bottom of the cylinder - empirically determined
+    
+    // describes final vertical position offset (measure from the bottom of the galton board) of ball within a bin {number}
+    this.finalBinVerticalOffset = minimumYposition;
+    
+    // describes final horizontal offset (measured from the middle position) of ball within a bin {number}
+    this.finalBinHorizontalOffset = 0;
 
   }
 

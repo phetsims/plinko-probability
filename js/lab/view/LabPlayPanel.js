@@ -60,9 +60,13 @@ define( function( require ) {
     } );
 
     // create the icon for the continuous mode
+
+    // the ball size is not necessarily twice the radius if 
+    var ballWidth = new BallRepresentationNode( BALL_RADIUS ).width;
+
     var continuous = new HBox( {
       align: 'bottom',
-      spacing: -BALL_RADIUS, // negative spacing
+      spacing: -ballWidth/2, // negative spacing
       children: [
         new BallRepresentationNode( BALL_RADIUS ),
         new BallRepresentationNode( BALL_RADIUS ),
