@@ -91,14 +91,14 @@ define( function( require ) {
       // no need to unlink since it is present for the lifetime of the simulation
       // this handle the rotation of the pegs
       probabilityProperty.lazyLink( function( newProbability, oldProbability ) {
-        var newAngle = newProbability * options.rangeRotationAngle;
-        var oldAngle = oldProbability * options.rangeRotationAngle;
-        var changeAngle = newAngle - oldAngle;
-        pegArray.forEach( function( peg ) {
-          if (peg.modelPeg.isVisible) {
-            peg.pegPath.rotateAround( peg.pegPath.center, changeAngle );
-          }
-        } );
+          var newAngle = newProbability * options.rangeRotationAngle;
+          var oldAngle = oldProbability * options.rangeRotationAngle;
+          var changeAngle = newAngle - oldAngle;
+          pegArray.forEach( function( peg ) {
+            if (peg.modelPeg.isVisible) {
+              peg.pegPath.rotateAround( peg.pegPath.center, changeAngle );
+            }
+          } );
       } );
 
       // no need to unlink since it is present for the lifetime of the simulation

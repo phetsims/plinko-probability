@@ -14,7 +14,7 @@ define( function( require ) {
   var Bounds2 = require( 'DOT/Bounds2' );
   var Dialog = require( 'JOIST/Dialog' );
   var EraserButton = require( 'SCENERY_PHET/buttons/EraserButton' );
-  var GaltonBoardNode = require( 'PLINKO_PROBABILITY/common/view/GaltonBoardNode' );
+  var GaltonBoardCanvasNode = require( 'PLINKO_PROBABILITY/common/view/GaltonBoardCanvasNode' );
   var HistogramNode = require( 'PLINKO_PROBABILITY/common/view/HistogramNode' );
   var Hopper = require( 'PLINKO_PROBABILITY/common/view/Hopper' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -24,6 +24,7 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var PropertySet = require( 'AXON/PropertySet' );
+  var Property = require( 'AXON/Property' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var SliderControlPanel = require( 'PLINKO_PROBABILITY/lab/view/SliderControlPanel' );
@@ -81,9 +82,14 @@ define( function( require ) {
     );
 
     // create the Galton board, including the pegs and dropped shadows
-    var galtonBoardNode = new GaltonBoardNode( model.galtonBoard, model.numberOfRowsProperty, model.probabilityProperty, modelViewTransform );
-
+    var galtonBoardCanvasNode = new GaltonBoardCanvasNode( model.galtonBoard, model.numberOfRowsProperty, model.probabilityProperty, modelViewTransform, { canvasBounds: this.layoutBounds } );
     // create three radio buttons next to the hopper
+
+    // no need to unlink, present for the lifetime of the sim
+    Property.multilink( [ model.numberOfRowsProperty, model.probabilityProperty ], function() {
+      galtonBoardCanvasNode.invalidatePaint();
+    } );
+
     var ballRadioButtonsControl = new BallRadioButtonsControl( model.galtonBoardRadioButtonProperty );
 
     // create the two radio buttons that can toggle between 'fraction and 'counter' mode
@@ -170,7 +176,7 @@ define( function( require ) {
     this.addChild( playPanel );
     this.addChild( sliderControlPanel );
     this.addChild( statisticsDisplayAccordionBox );
-    this.addChild( galtonBoardNode );
+    this.addChild( galtonBoardCanvasNode );
     this.addChild( ballsLayerNode );
     this.addChild( histogramNode );
     this.addChild( pathsLayer );
