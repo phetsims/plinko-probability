@@ -19,7 +19,7 @@ define( function( require ) {
   /**
    * @param {Ball[]} balls - an array of model Ball
    * @param {ModelViewTransform2} modelViewTransform - model to view transform
-   * @param {Property.<string> } galtonBoardRadioButtonProperty - valid values are 'ball', 'path', and 'none'
+   * @param {Property.<string>} galtonBoardRadioButtonProperty - valid values are 'ball', 'path', and 'none'
    * @param {Object} options - must contain a canvasBounds attribute of type Bounds2
    * @constructor
    */
@@ -42,6 +42,7 @@ define( function( require ) {
     // set the default ball radius using the largest possible radius, that is the minimum number of rows.
     this.defaultNumberOfRows = PlinkoConstants.ROWS_RANGE.min;
     var defaultBallRadius = modelViewTransform.modelToViewDeltaX( PegInterface.getSpacing( this.defaultNumberOfRows ) * PlinkoConstants.BALL_SIZE_FRACTION ); //
+
 
     // create a single ball image to use for rendering all balls - asynchronous
     var ball = new BallRepresentationNode( defaultBallRadius );
