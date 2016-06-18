@@ -24,7 +24,6 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var PropertySet = require( 'AXON/PropertySet' );
-  var Property = require( 'AXON/Property' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var SliderControlPanel = require( 'PLINKO_PROBABILITY/lab/view/SliderControlPanel' );
@@ -84,11 +83,6 @@ define( function( require ) {
     // create the Galton board, including the pegs and dropped shadows
     var galtonBoardCanvasNode = new GaltonBoardCanvasNode( model.galtonBoard, model.numberOfRowsProperty, model.probabilityProperty, modelViewTransform, { canvasBounds: this.layoutBounds } );
     // create three radio buttons next to the hopper
-
-    // no need to unlink, present for the lifetime of the sim
-    Property.multilink( [ model.numberOfRowsProperty, model.probabilityProperty ], function() {
-      galtonBoardCanvasNode.invalidatePaint();
-    } );
 
     var ballRadioButtonsControl = new BallRadioButtonsControl( model.galtonBoardRadioButtonProperty );
 
