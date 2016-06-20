@@ -304,7 +304,7 @@ define( function( require ) {
           var binValue = getHistogramBin( binIndex ); // a number
 
           if ( histogramRadioProperty.value === 'fraction' ) {
-            binValue = (numberOfBins > 16) ? Util.toFixed( binValue, 3 ) : Util.toFixed( binValue, 3 );
+            binValue = (numberOfBins > 16) ? Util.toFixed( binValue, 2 ) : Util.toFixed( binValue, 3 );
             if ( numberOfBins > 23 ) {font = TINY_TINY_FONT;}
             else if ( numberOfBins > 20 ) {font = TINY_FONT;}
             else if ( numberOfBins > 16 ) {font = SMALL_FONT;}
