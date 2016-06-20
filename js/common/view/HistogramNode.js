@@ -282,6 +282,8 @@ define( function( require ) {
 
       var getHistogramBin;
       var value = histogramRadioProperty.value;
+      var font;
+
       switch( value ) {
         case 'fraction':
           getHistogramBin = histogram.getFractionalBinCount.bind( histogram );
@@ -295,52 +297,34 @@ define( function( require ) {
       }
 
       for ( binIndex = 0; binIndex < MAX_NUMBER_BINS; binIndex++ ) {
+
         if ( binIndex < numberOfBins ) {
           labelsTextArray[ binIndex ].visible = true;
-
           var binCenterX = modelViewTransform.modelToViewX( BinInterface.getBinCenterX( binIndex, numberOfBins ) );
           var binValue = getHistogramBin( binIndex ); // a number
-          var font;
-
 
           if ( histogramRadioProperty.value === 'fraction' ) {
-            binValue = Util.toFixed( binValue, 3 );
-
-            if ( numberOfBins > 23 ) {
-              font = TINY_TINY_FONT;
-              binValue = Util.toFixed( binValue, 2 );
-            }
-            else if ( numberOfBins > 20 ) {
-              font = TINY_FONT;
-              binValue = Util.toFixed( binValue, 2 );
-            }
-            else if ( numberOfBins > 16 ) {
-              font = SMALL_FONT;
-              binValue = Util.toFixed( binValue, 2 );
-            }
-            else if ( numberOfBins > 13 ) {
-              font = SMALL_FONT;
-            }
-            else if ( numberOfBins > 9 ) {
-              font = NORMAL_FONT;
-            }
-            else {
-              font = LARGE_FONT;
-            }
+            binValue = (numberOfBins > 16) ? Util.toFixed( binValue, 3 ) : Util.toFixed( binValue, 3 );
+            if ( numberOfBins > 23 ) {font = TINY_TINY_FONT;}
+            else if ( numberOfBins > 20 ) {font = TINY_FONT;}
+            else if ( numberOfBins > 16 ) {font = SMALL_FONT;}
+            else if ( numberOfBins > 9 ) {font = NORMAL_FONT;}
+            else {font = LARGE_FONT;}
           }
           else if ( histogramRadioProperty.value === 'counter' ) {
-
             if ( binValue > 999 ) {font = TINY_FONT;}
             else if ( binValue > 99 ) {font = SMALL_FONT;}
             else if ( binValue > 9 ) {font = NORMAL_FONT;}
             else {font = LARGE_FONT;}
           }
 
+          // update position and text of the bins
           labelsTextArray[ binIndex ].text = binValue;
           labelsTextArray[ binIndex ].setFont( font );
           labelsTextArray[ binIndex ].centerX = binCenterX;
         }
         else {
+          // if binIndex>= numberOfbins, the bins are not visible. We choose not to update the text.
           labelsTextArray[ binIndex ].visible = false;
         }
       }
