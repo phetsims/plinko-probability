@@ -121,11 +121,13 @@ define( function( require ) {
     // update the visibility of the tick labels and their x positions
     numberOfRowsProperty.link( function( numberOfRows ) {
       var numberOfBins = numberOfRows + 1;
-      for ( var binIndex = 0; binIndex < numberOfBins; binIndex++ ) {
-        tickLabels[ binIndex ].centerX = modelViewTransform.modelToViewX( BinInterface.getBinCenterX( binIndex, numberOfBins ) );
-      }
       for ( binIndex = 0; binIndex < MAX_NUMBER_BINS; binIndex++ ) {
+        // update the visiblility of all the labels
         tickLabels[ binIndex ].visible = (binIndex < numberOfBins );
+        // center the visible labels
+        if ( tickLabels[ binIndex ].visible ) {
+          tickLabels[ binIndex ].centerX = modelViewTransform.modelToViewX( BinInterface.getBinCenterX( binIndex, numberOfBins ) );
+        }
       }
     } );
 
@@ -234,18 +236,18 @@ define( function( require ) {
       } );
     this.addChild( bannerBackgroundNode );
 
-    var linesLayerNode = new Node( { layerSplit: true } );
-    var labelsLayerNode = new Node( { layerSplit: true } );
+    var linesLayerNode = new Node();
+    var labelsLayerNode = new Node();
     this.addChild( linesLayerNode );
     this.addChild( labelsLayerNode );
 
     var labelsTextArray = [];
     var verticalLinesArray = [];
 
+    // create and add an array of bin value (set initially to zero) and vertical line separator
     for ( var binIndex = 0; binIndex < MAX_NUMBER_BINS; binIndex++ ) {
-      var verticalLine = new Line( minX, minY, minX, maxY, { stroke: 'white', lineWidth: 1 } );
-      labelsTextArray[ binIndex ] = new Text( 0, { fill: 'white', centerY: (maxY + minY) / 2 } );
-      verticalLinesArray[ binIndex ] = verticalLine;
+      labelsTextArray[ binIndex ] = new Text( 0, { fill: 'white', centerY: (maxY + minY) / 2, font: NORMAL_FONT } );
+      verticalLinesArray[ binIndex ] = new Line( minX, minY, minX, maxY, { stroke: 'white', lineWidth: 1 } );
     }
     linesLayerNode.setChildren( verticalLinesArray );
     labelsLayerNode.setChildren( labelsTextArray );
@@ -266,6 +268,7 @@ define( function( require ) {
           maxY );
       }
       for ( binIndex = 0; binIndex < MAX_NUMBER_BINS; binIndex++ ) {
+        // update the visibility of vertical line separator
         verticalLinesArray[ binIndex ].visible = (binIndex < numberOfBins );
       }
     }
@@ -277,66 +280,69 @@ define( function( require ) {
     function updateTextBanner( numberOfRows ) {
       var numberOfBins = numberOfRows + 1;
 
-      for ( var binIndex = 0; binIndex < numberOfBins; binIndex++ ) {
-        var binCenterX = modelViewTransform.modelToViewX( BinInterface.getBinCenterX( binIndex, numberOfBins ) );
-
-        var getHistogramBin = histogram.getBinCount.bind( histogram );
-        var value = histogramRadioProperty.value;
-        switch( value ) {
-          case 'fraction':
-            getHistogramBin = histogram.getFractionalBinCount.bind( histogram );
-            break;
-          case 'counter':
-            getHistogramBin = histogram.getBinCount.bind( histogram );
-            break;
-          case 'cylinder':
-            getHistogramBin = histogram.getBinCount.bind( histogram );
-            break;
-        }
-
-        var binValue = getHistogramBin( binIndex ); // a number
-        if ( histogramRadioProperty.value === 'fraction' ) {
-          binValue = Util.toFixed( binValue, 3 );
-        }
-
-        var font;
-        if ( histogramRadioProperty.value === 'counter' ) {
-          if ( binValue > 999 ) {font = TINY_FONT;}
-          else if ( binValue > 99 ) {font = SMALL_FONT;}
-          else if ( binValue > 9 ) {font = NORMAL_FONT;}
-          else {font = LARGE_FONT;}
-        }
-        else {
-          if ( numberOfBins > 23 ) {
-            font = TINY_TINY_FONT;
-            binValue = Util.toFixed( binValue, 2 );
-          }
-          else if ( numberOfBins > 20 ) {
-            font = TINY_FONT;
-            binValue = Util.toFixed( binValue, 2 );
-          }
-          else if ( numberOfBins > 16 ) {
-            font = SMALL_FONT;
-            binValue = Util.toFixed( binValue, 2 );
-          }
-          else if ( numberOfBins > 13 ) {
-            font = SMALL_FONT;
-          }
-          else if ( numberOfBins > 9 ) {
-            font = NORMAL_FONT;
-          }
-          else {
-            font = LARGE_FONT;
-          }
-        }
-
-        labelsTextArray[ binIndex ].text = binValue;
-        labelsTextArray[ binIndex ].setFont( font );
-        labelsTextArray[ binIndex ].centerX = binCenterX;
+      var getHistogramBin;
+      var value = histogramRadioProperty.value;
+      switch( value ) {
+        case 'fraction':
+          getHistogramBin = histogram.getFractionalBinCount.bind( histogram );
+          break;
+        case 'counter':
+          getHistogramBin = histogram.getBinCount.bind( histogram );
+          break;
+        case 'cylinder':
+          getHistogramBin = histogram.getBinCount.bind( histogram );
+          break;
       }
 
       for ( binIndex = 0; binIndex < MAX_NUMBER_BINS; binIndex++ ) {
-        labelsTextArray[ binIndex ].visible = (binIndex < numberOfBins);
+        if ( binIndex < numberOfBins ) {
+          labelsTextArray[ binIndex ].visible = true;
+
+          var binCenterX = modelViewTransform.modelToViewX( BinInterface.getBinCenterX( binIndex, numberOfBins ) );
+          var binValue = getHistogramBin( binIndex ); // a number
+          var font;
+
+
+          if ( histogramRadioProperty.value === 'fraction' ) {
+            binValue = Util.toFixed( binValue, 3 );
+
+            if ( numberOfBins > 23 ) {
+              font = TINY_TINY_FONT;
+              binValue = Util.toFixed( binValue, 2 );
+            }
+            else if ( numberOfBins > 20 ) {
+              font = TINY_FONT;
+              binValue = Util.toFixed( binValue, 2 );
+            }
+            else if ( numberOfBins > 16 ) {
+              font = SMALL_FONT;
+              binValue = Util.toFixed( binValue, 2 );
+            }
+            else if ( numberOfBins > 13 ) {
+              font = SMALL_FONT;
+            }
+            else if ( numberOfBins > 9 ) {
+              font = NORMAL_FONT;
+            }
+            else {
+              font = LARGE_FONT;
+            }
+          }
+          else if ( histogramRadioProperty.value === 'counter' ) {
+
+            if ( binValue > 999 ) {font = TINY_FONT;}
+            else if ( binValue > 99 ) {font = SMALL_FONT;}
+            else if ( binValue > 9 ) {font = NORMAL_FONT;}
+            else {font = LARGE_FONT;}
+          }
+
+          labelsTextArray[ binIndex ].text = binValue;
+          labelsTextArray[ binIndex ].setFont( font );
+          labelsTextArray[ binIndex ].centerX = binCenterX;
+        }
+        else {
+          labelsTextArray[ binIndex ].visible = false;
+        }
       }
     }
 
@@ -382,12 +388,12 @@ define( function( require ) {
 
     // convenience variables
     var bannerWidth = maxX - minX; // in view coordinates
-    var maxBarHeight = maxY - minY - BANNER_HEIGHT-5; // in view coordinates, (-5) allows for small white space above bar so bar doesn't touch banner
+    var maxBarHeight = maxY - minY - BANNER_HEIGHT - 5; // in view coordinates, (-5) allows for small white space above bar so bar doesn't touch banner
     assert && assert( maxBarHeight > 0, 'the Height of the bar must be larger than zero' );
 
     // create and add (on a separate layer) the two histograms
-    var sampleHistogramNode = new Node( { layerSplit: true } );
-    var theoreticalHistogramNode = new Node( { layerSplit: true } );
+    var sampleHistogramNode = new Node();
+    var theoreticalHistogramNode = new Node();
     this.addChild( sampleHistogramNode );
     this.addChild( theoreticalHistogramNode );
 
@@ -395,32 +401,28 @@ define( function( require ) {
     var sampleHistogramRectanglesArray = [];
     var theoreticalHistogramRectanglesArray = [];
 
-
+    // create and add the two arrays of rectangles
+    // initialize the height, the fill and strokes of the rectangle, set visibility to false
     for ( var i = 0; i < MAX_NUMBER_BINS; i++ ) {
       // creates rectangles with a nominal height of 1, so that scenery doesn't throw a fit
       var nominalSampleHistogramRectangle = new Rectangle( 0, 0, bannerWidth, 1, {
         fill: PlinkoConstants.HISTOGRAM_BAR_COLOR_FILL,
         stroke: PlinkoConstants.HISTOGRAM_BAR_COLOR_STROKE,
-        lineWidth: 2
+        lineWidth: 2,
+        visible: false
       } );
       // create nominal rectangles
       // height of rectangles will be updated through an update function
       var nominalTheoreticalHistogramRectangle = new Rectangle( 0, 0, bannerWidth, 1, {
         stroke: PlinkoConstants.BINOMIAL_DISTRIBUTION_BAR_COLOR_STROKE,
-        lineWidth: 2
+        lineWidth: 2,
+        visible: false
       } );
-
       sampleHistogramRectanglesArray.push( nominalSampleHistogramRectangle );
       theoreticalHistogramRectanglesArray.push( nominalTheoreticalHistogramRectangle );
     }
     sampleHistogramNode.setChildren( sampleHistogramRectanglesArray );
     theoreticalHistogramNode.setChildren( theoreticalHistogramRectanglesArray );
-
-    // set the visibility of all rectangles to false
-    for ( i = 0; i < MAX_NUMBER_BINS; i++ ) {
-      sampleHistogramRectanglesArray[ i ].visible = false;
-      theoreticalHistogramRectanglesArray[ i ].visible = false;
-    }
 
     // create triangle shape for the indicator of sample average and theoretical average
     var triangleShape = new Shape().moveTo( 0, maxY )
@@ -447,15 +449,19 @@ define( function( require ) {
     // position the sample average triangle and set its visibility
     updateSampleAverageTriangle();
 
-
     // no need to unlink , present for the lifetime of the sim
     Property.multilink( [ model.numberOfRowsProperty, model.probabilityProperty, isTheoreticalHistogramVisibleProperty ],
       function( numberOfRows, probability, isTheoreticalHistogramVisible ) {
-        updateHistogram( theoreticalHistogramRectanglesArray, model.getNormalizedBinomialDistribution() );
-        updateTheoreticalAverageTriangle();
+        // update the sample histogram
         updateHistogram( sampleHistogramRectanglesArray, model.histogram.getNormalizedSampleDistribution() );
+        // set the appropriate visibility to the theroetical
         theoreticalHistogramNode.visible = isTheoreticalHistogramVisible;
         theoreticalAverageTrianglePath.visible = isTheoreticalHistogramVisible;
+        // only update the theoretical average, if isTheoreticalHistogramVisible is set to visible
+        if ( isTheoreticalHistogramVisible ) {
+          updateHistogram( theoreticalHistogramRectanglesArray, model.getNormalizedBinomialDistribution() );
+          updateTheoreticalAverageTriangle();
+        }
       } );
 
     // update the histogram when a model ball has exited the galton board
@@ -501,8 +507,8 @@ define( function( require ) {
     /**
      * Function that solely update the Height of the bars of the histogram
      *  (and not their visibility)
-     * @param {Array<Rectangle>} rectanglesArray
-     * @param {Array<number>} bins
+     * @param {Array.<Rectangle>} rectanglesArray
+     * @param {Array.<number>} bins
      */
     function updateHeightOfHistogram( rectanglesArray, bins ) {
       var i;
@@ -515,8 +521,8 @@ define( function( require ) {
 
     /**
      *
-     * @param {Array<Rectangle>} rectanglesArray
-     * @param {Array<number>} bins
+     * @param {Array.<Rectangle>} rectanglesArray
+     * @param {Array.<number>} bins
      */
     function updateHistogram( rectanglesArray, bins ) {
       var i;
@@ -575,4 +581,5 @@ define( function( require ) {
 
   return inherit( Node, HistogramNode );
 
-} );
+} )
+;
