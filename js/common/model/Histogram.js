@@ -171,24 +171,6 @@ define( function( require ) {
     },
 
     /**
-     * Function that returns the fractional 'normalized 'occupation of a bin, i.e.
-     * the fractional normalized account is done with respect to the bin with the largest count
-     * @param {number} binIndex - an integer
-     * @returns {number}
-     * @public
-     */
-    getFractionalNormalizedBinCount: function( binIndex ) {
-      if ( this.landedBallsNumber > 0 ) {
-        var maxCount = this.getMaximumBinCount();
-        return this.bins[ binIndex ].visibleBinCount / maxCount;
-      }
-      else {
-        // no balls are present
-        return 0;
-      }
-    },
-
-    /**
      * Function that returns an array of the fractional 'normalized 'occupation of a bin, i.e.
      * the fractional normalized account is done with respect to the bin with the largest count
      * Hence at least one element of the array will return a value of 1 (unless the array is completly
