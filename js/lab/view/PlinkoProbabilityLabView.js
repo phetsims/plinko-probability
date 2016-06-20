@@ -171,6 +171,7 @@ define( function( require ) {
     this.addChild( sliderControlPanel );
     this.addChild( statisticsDisplayAccordionBox );
     this.addChild( galtonBoardCanvasNode );
+    this.addChild( new Node( { layerSplit: true } ) );
     this.addChild( ballsLayerNode );
     this.addChild( histogramNode );
     this.addChild( pathsLayer );
