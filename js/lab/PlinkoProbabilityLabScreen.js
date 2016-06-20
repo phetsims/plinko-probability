@@ -8,6 +8,7 @@ define( function( require ) {
 
   // modules
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
+  var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
@@ -15,6 +16,9 @@ define( function( require ) {
   var PlinkoProbabilityLabView = require( 'PLINKO_PROBABILITY/lab/view/PlinkoProbabilityLabView' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Screen = require( 'JOIST/Screen' );
+
+  //image
+  var counterDOMImage = require( 'image!PLINKO_PROBABILITY/counter.png' );
 
   // strings
   var plinkoProbabilityLabTitleScreenString = require( 'string!PLINKO_PROBABILITY/plinkoProbabilityLabTitleScreen' );
@@ -30,7 +34,12 @@ define( function( require ) {
     var height = Screen.HOME_SCREEN_ICON_SIZE.height;
 
     //TODO Lab Icon
-    var background = new Rectangle( 0, 0, width, height, { fill: 'white' } );
+    var ICON_WIDTH = 35;
+
+    //var background = new Rectangle( 0, 0, width, height, { fill: 'white' } );
+    var background = new Image(counterDOMImage);
+    background._initialWidth= 373;
+    background._initialHeight= 548;
     return new Node( { children: [ background ] } );
 
   };
