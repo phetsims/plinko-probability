@@ -14,7 +14,7 @@ define( function( require ) {
   var CylindersBackNode = require( 'PLINKO_PROBABILITY/intro/view/CylindersBackNode' );
   var CylindersFrontNode = require( 'PLINKO_PROBABILITY/intro/view/CylindersFrontNode' );
   var EraserButton = require( 'SCENERY_PHET/buttons/EraserButton' );
-  var GaltonBoardNode = require( 'PLINKO_PROBABILITY/common/view/GaltonBoardNode' );
+  var GaltonBoardCanvasNode = require( 'PLINKO_PROBABILITY/common/view/GaltonBoardCanvasNode' );
   var HistogramNode = require( 'PLINKO_PROBABILITY/common/view/HistogramNode' );
   var Hopper = require( 'PLINKO_PROBABILITY/common/view/Hopper' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -72,7 +72,7 @@ define( function( require ) {
     );
 
     // create the galton board (including the pegs)
-    var galtonBoardNode = new GaltonBoardNode( model.galtonBoard, model.numberOfRowsProperty, model.probabilityProperty, modelViewTransform, { openingAngle: 0.03 } );
+    var galtonBoardCanvasNode = new GaltonBoardCanvasNode( model.galtonBoard, model.numberOfRowsProperty, model.probabilityProperty, modelViewTransform, { openingAngle: 0.01, canvasBounds: viewGraphBounds} );
 
     // create the view for the cylinders. The Back and Front node will be put on a different z-layer
     var cylindersBackNode = new CylindersBackNode( model.numberOfRowsProperty, modelViewTransform, model.cylinderInfo );
@@ -151,7 +151,7 @@ define( function( require ) {
     this.addChild( resetAllButton );
     this.addChild( playPanel );
     this.addChild( numberBallsDisplay );
-    this.addChild( galtonBoardNode );
+    this.addChild( galtonBoardCanvasNode );
     this.addChild( cylindersBackNode );
     this.addChild( ballsLayerNode );
     this.addChild( histogramNode );
