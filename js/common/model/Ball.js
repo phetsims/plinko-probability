@@ -206,7 +206,8 @@ define( function( require ) {
         }
       }
       if ( this.phase === PHASE_EXIT ) { // the ball has exited and it is making its way to the bin
-        if ( this.getPosition().y > this.finalBinVerticalOffset ) { // if it has not fallen to its final position
+        this.updatePosition();
+        if ( this.position.y > this.finalBinVerticalOffset ) { // if it has not fallen to its final position
 
           // the change in the fallen ratio needs to be scaled by the peg separation so that it matches the speed everywhere else
           this.fallenRatio += df * this.pegSeparation;
@@ -218,7 +219,11 @@ define( function( require ) {
       }
 
       // position depends of the state of the ball
-      this.position = this.getPosition().addXY( 0, this.pegSeparation * PlinkoConstants.PEG_HEIGHT_FRACTION_OFFSET );
+      // first update the position
+      this.updatePosition();
+
+      // then add the offset for it to work
+      this.position = this.position.addXY( 0, this.pegSeparation * PlinkoConstants.PEG_HEIGHT_FRACTION_OFFSET );
 
     },
 
@@ -226,33 +231,44 @@ define( function( require ) {
      * gets the position of the ball depending on the phase
      * @returns {Vector2}
      */
-    getPosition: function() {
+    updatePosition: function() {
       switch( this.phase ) {
         case PHASE_INITIAL: // ball left the hopper
           // we only want this to move one peg distance down
-          var displacement = new Vector2( 0, (1 - this.fallenRatio) );  // {Vector2} describes motion of ball within bin in PHASE_INITIAL
-          displacement.multiplyScalar( this.pegSeparation );
-          return displacement.addXY( this.pegPositionX, this.pegPositionY );
+          // set the position be at some point between the hopper and the first peg
+          this.position.setXY( 0, (1 - this.fallenRatio) );  // {Vector2} describes motion of ball within bin in PHASE_INITIAL
+
+          // scale it so that it does not move too much
+          this.position.multiplyScalar( this.pegSeparation );
+
+          // add the position of the first peg
+          this.position.addXY( this.pegPositionX, this.pegPositionY );
+          break;
+
         case PHASE_FALLING: // ball is falling through the pegs
           // steer the ball to the left or right depending on this.direction
           var shift = (this.direction === 'left') ? -0.5 : 0.5;
 
           // mimic the fall as a parabolic motion
-          var fallingPosition = new Vector2( shift * this.fallenRatio, -this.fallenRatio * this.fallenRatio );
+          this.position.setXY( shift * this.fallenRatio, -this.fallenRatio * this.fallenRatio );
 
           // get the ball aligned with its final x position in the bin.
-          fallingPosition.multiplyScalar( this.pegSeparation ); // scale the vector by the peg separation
+          this.position.multiplyScalar( this.pegSeparation ); // scale the vector by the peg separation
 
           // exit from the last row with the correct alignment with the bin
           if ( this.row === this.numberOfRows - 1 ) {
             // transition
-            fallingPosition.addXY( this.finalBinHorizontalOffset * this.fallenRatio, 0 );
+            this.position.addXY( this.finalBinHorizontalOffset * this.fallenRatio, 0 );
           }
-          return fallingPosition.addXY( this.pegPositionX, this.pegPositionY );
+          this.position.addXY( this.pegPositionX, this.pegPositionY );
+          break;
         case PHASE_EXIT: // the ball is exiting the pegs and making its way to the bin
-          return new Vector2( this.finalBinHorizontalOffset, -this.fallenRatio ).addXY( this.pegPositionX, this.pegPositionY );
+          this.position.setXY( this.finalBinHorizontalOffset, -this.fallenRatio );
+          this.position.addXY( this.pegPositionX, this.pegPositionY );
+          break;
         case PHASE_COLLECTED: // the ball has landed to its final position
-          return new Vector2( this.finalBinHorizontalOffset, this.finalBinVerticalOffset ).addXY( this.pegPositionX, 0 );
+          this.position.setXY( this.finalBinHorizontalOffset, this.finalBinVerticalOffset );
+          this.position.addXY( this.pegPositionX, 0 );
       }
     }
 
