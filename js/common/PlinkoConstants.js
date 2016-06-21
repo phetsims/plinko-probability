@@ -55,7 +55,7 @@ define( function( require ) {
     BALL_HIGHLIGHT_COLOR: 'white', // color of the Ball's glare
     PEG_RADIUS: 3.6, // radius of the peg (size of the pegs when the number of rows is the default value.
     PEG_COLOR: 'rgb(115,99,87)', //brown
-    BALL_SIZE_FRACTION: 0.18,  // radius of the ball compared to the horizontal separation of the pegs.
+    BALL_SIZE_FRACTION: 0.193,  // radius of the ball compared to the horizontal separation of the pegs.
 
     PEG_HEIGHT_FRACTION_OFFSET: 0.7, // ranges between zero and 1
 
