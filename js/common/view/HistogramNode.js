@@ -372,7 +372,7 @@ define( function( require ) {
 
     // convenience variables
     var bannerWidth = maxX - minX; // in view coordinates
-    var maxBarHeight = maxY - minY - BANNER_HEIGHT - 5; // in view coordinates, (-5) allows for small white space above bar so bar doesn't touch banner
+    var maxBarHeight = maxY - minY - BANNER_HEIGHT - 3; // in view coordinates, (-5) allows for small white space above bar so bar doesn't touch banner
     assert && assert( maxBarHeight > 0, 'the Height of the bar must be larger than zero' );
 
     // create and add (on a separate layer) the two histograms
