@@ -14,6 +14,7 @@ define( function( require ) {
   var Circle = require( 'SCENERY/nodes/Circle' );
   var inherit = require( 'PHET_CORE/inherit' );
   var CanvasNode = require( 'SCENERY/nodes/CanvasNode' );
+  var Node = require( 'SCENERY/nodes/Node' );
   var Path = require( 'SCENERY/nodes/Path' );
   var PegInterface = require( 'PLINKO_PROBABILITY/common/model/PegInterface' );
   var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
@@ -55,8 +56,9 @@ define( function( require ) {
 
     var pegRadius = PlinkoConstants.PEG_RADIUS * 26 / 5;
     // create the shape of the peg , a disk with a segment removed, the segment removed spans an angle of options.openingAngle
-    var pegShape = new Shape().arc( 0, 0, pegRadius, leftArcAngle, rightArcAngle, true );
+    var pegShape = new Shape().arc( 0, 0, pegRadius, leftArcAngle, rightArcAngle, true )
 
+    this.pegRadius = pegRadius;
     // for each peg, let's create a peg Path and a peg Shadow
     var pegPath = new Path( pegShape, { fill: PlinkoConstants.PEG_COLOR } );
     var pegShadow = new Circle( 1.4 * pegRadius, {
@@ -80,12 +82,10 @@ define( function( require ) {
         .addColorStop( 1, 'rgba(255,255,255, 0.00)' )
     } );
 
+    // create an image of the pegPath
+    pegPathToImage();
 
-    // create an image of te pegPath and pegShadow
-    pegPath.toImage( function( image ) {
-      self.pegImage = image;
-    } );
-
+    // create and image of the peg shadow.
     pegShadow.toImage( function( image ) {
       self.pegShadowImage = image;
     } );
@@ -98,10 +98,8 @@ define( function( require ) {
       var oldAngle = oldProbability * options.rangeRotationAngle;
       var changeAngle = newAngle - oldAngle;
       pegPath.rotateAround( pegPath.center, changeAngle );
-      // recreate the image of the pegPath
-      pegPath.toImage( function( image ) {
-        self.pegImage = image;
-      } );
+      // recreate the image of the peg
+      pegPathToImage();
       // update this canvas
       self.invalidatePaint();
     } );
@@ -114,7 +112,18 @@ define( function( require ) {
 
     // paint the canvas
     self.invalidatePaint();
+
+    /**
+     * peg Path to Image
+     *
+     */
+    function pegPathToImage() {
+      pegPath.toImage( function( image ) {
+        self.pegImage = image;
+      }, Math.ceil( self.pegRadius ) + 1, Math.ceil( self.pegRadius ) + 1, Math.ceil( self.pegRadius * 2 ) + 2, Math.ceil( self.pegRadius * 2 ) + 2 );
+    }
   }
+
 
   plinkoProbability.register( 'GaltonBoardCanvasNode', GaltonBoardCanvasNode );
 
@@ -162,6 +171,7 @@ define( function( require ) {
       } );
     }
   } );
-} );
+} )
+;
 // define
 
