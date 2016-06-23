@@ -132,7 +132,7 @@ define( function( require ) {
     );
 
     // put all the Balls on a separate z-layer
-    var ballsLayerNode = new BallsLayerNode( model.balls, modelViewTransform, new Property( 'ball' ), { canvasBounds: this.layoutBounds } );
+    var ballsLayerNode = new BallsLayerNode( model.balls, modelViewTransform, model.numberOfRowsProperty, new Property( 'ball' ), { canvasBounds: this.layoutBounds } );
     this.ballsLayerNode = ballsLayerNode;
 
     // handle the coming and going of the model Balls
