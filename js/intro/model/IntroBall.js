@@ -50,7 +50,7 @@ define( function( require ) {
     var delta = this.ballRadius + Math.sqrt( Math.pow( 2 * this.ballRadius, 2 ) - Math.pow( (cylinderInfo.cylinderWidth / 2) - this.ballRadius, 2 ) ); // the height separation between stacks
 
     // describes final vertical offset of ball within a bin {number}
-    this.finalBinVerticalOffset = minimumYposition + ((binStackLevel - 1) * delta) - this.ballRadius;
+    this.finalBinVerticalOffset = minimumYposition + ((binStackLevel - 1) * delta) - this.ballRadius; 
 
     // describes final horizontal offset of the ball within a bin {number}
     this.finalBinHorizontalOffset = (this.binOrientation * ((cylinderInfo.cylinderWidth / 2) - this.ballRadius));

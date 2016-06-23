@@ -14,7 +14,6 @@ define( function( require ) {
   var Circle = require( 'SCENERY/nodes/Circle' );
   var inherit = require( 'PHET_CORE/inherit' );
   var CanvasNode = require( 'SCENERY/nodes/CanvasNode' );
-  var Node = require( 'SCENERY/nodes/Node' );
   var Path = require( 'SCENERY/nodes/Path' );
   var PegInterface = require( 'PLINKO_PROBABILITY/common/model/PegInterface' );
   var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
@@ -56,7 +55,7 @@ define( function( require ) {
 
     var pegRadius = PlinkoConstants.PEG_RADIUS * 26 / 5;
     // create the shape of the peg , a disk with a segment removed, the segment removed spans an angle of options.openingAngle
-    var pegShape = new Shape().arc( 0, 0, pegRadius, leftArcAngle, rightArcAngle, true )
+    var pegShape = new Shape().arc( 0, 0, pegRadius, leftArcAngle, rightArcAngle, true );
 
     this.pegRadius = pegRadius;
     // for each peg, let's create a peg Path and a peg Shadow
