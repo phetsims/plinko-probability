@@ -90,11 +90,12 @@ define( function( require ) {
         model.histogram.reset(); // reset the histogram statistics
         model.launchedBallsNumber = 0; // reset the number of launched balls
         model.ballsToCreateNumber = 0; // reset the ball creation queue
+        model.isBallCapReachedProperty.set( false );
       }
     } );
 
     // create play Panel
-    var playPanel = new IntroPlayPanel( model.updateBallsToCreateNumber.bind( model ), model.ballModeProperty );
+    var playPanel = new IntroPlayPanel( model.updateBallsToCreateNumber.bind( model ), model.ballModeProperty, model.isBallCapReachedProperty );
 
     // create the number of balls display panel
     var numberBallsDisplay = new NumberBallsDisplay( model.histogram );

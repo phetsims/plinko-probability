@@ -33,7 +33,7 @@ define( function( require ) {
    * @param {Object} [options]
    * @constructor
    */
-  function IntroPlayPanel( updateBallsToCreateNumber, ballModeProperty, options ) {
+  function IntroPlayPanel( updateBallsToCreateNumber, ballModeProperty, isBallCapReachedProperty, options ) {
 
     // Demonstrate a common pattern for specifying options and providing default values.
     options = _.extend( {
@@ -75,7 +75,12 @@ define( function( require ) {
 
     //Creation of play button
     var playButton = new PlayButton( {
-      listener: updateBallsToCreateNumber
+      listener: updateBallsToCreateNumber,
+      enabled: true
+    } );
+
+    isBallCapReachedProperty.lazyLink( function( isBallCapReached) {
+        playButton.enabled = !isBallCapReached;
     } );
 
     //Creation of play button panel box
