@@ -68,9 +68,9 @@ define( function( require ) {
           case 'ball':
             this.balls.forEach( function( ball ) {
               // we want to cap dt fairly low so that the balls don't make a sudden jump
-              ball.step( Math.min( 0.090, dt * 5 ) ); // 90 milliseconds is the highest dt will be
+              ball.step( Math.min( 0.090, dt * 10 ) ); // 90 milliseconds is the highest dt will be
             } );
-            this.ballCreationTimeInterval = 0.050; // 50 milliseconds if we are seeing balls
+            this.ballCreationTimeInterval = .15; // 50 milliseconds if we are seeing balls
             break;
           case 'path':
             this.balls.forEach( function( ball ) {
