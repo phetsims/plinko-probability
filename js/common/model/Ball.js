@@ -17,6 +17,7 @@ define( function( require ) {
   var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
   var PropertySet = require( 'AXON/PropertySet' );
   var Vector2 = require( 'DOT/Vector2' );
+  var Events = require( 'AXON/Events' );
 
   // convenience variables
   var random = new Random();
@@ -35,10 +36,11 @@ define( function( require ) {
    * @constructor
    */
   function Ball( probability, numberOfRows, bins ) {
+    //we need events to send triggers
+    Events.call( this );
 
-    PropertySet.call( this, {
-      position: new Vector2( 0, 0 )
-    } );
+    // position vector
+    this.position = new Vector2( 0, 0 );
 
     this.probability = probability; // @private {read-only}
     this.numberOfRows = numberOfRows; // @private {read-only}
@@ -175,6 +177,7 @@ define( function( require ) {
      * @public
      */
     ballStep: function( df ) {
+      var finalPosition = this.finalBinVerticalOffset + this.pegSeparation * PlinkoConstants.PEG_HEIGHT_FRACTION_OFFSET;
       if ( this.phase === PHASE_INITIAL ) { // balls is leaving the hopper
         if ( df + this.fallenRatio < 1 ) { // if the ball has not gotten to the first peg
           this.initialPegPositionInformation(); // get the initial peg information
@@ -207,7 +210,7 @@ define( function( require ) {
       }
       if ( this.phase === PHASE_EXIT ) { // the ball has exited and it is making its way to the bin
         this.updatePosition();
-        if ( this.position.y > this.finalBinVerticalOffset ) { // if it has not fallen to its final position
+        if ( this.position.y > finalPosition ) { // if it has not fallen to its final position
 
           // the change in the fallen ratio needs to be scaled by the peg separation so that it matches the speed everywhere else
           this.fallenRatio += df * this.pegSeparation;
@@ -221,16 +224,10 @@ define( function( require ) {
       // position depends of the state of the ball
       // first update the position
       this.updatePosition();
-
-      // then add the offset for it to work
-      this.position = this.position.addXY( 0, this.pegSeparation * PlinkoConstants.PEG_HEIGHT_FRACTION_OFFSET );
-
     },
 
     /**
-     * updates the position of the ball.
-     * 
-     * @private 
+     * updates the position of the ball depending on the phase
      */
     updatePosition: function() {
       switch( this.phase ) {
@@ -271,6 +268,8 @@ define( function( require ) {
           this.position.setXY( this.finalBinHorizontalOffset, this.finalBinVerticalOffset );
           this.position.addXY( this.pegPositionX, 0 );
       }
+      // the origin in on the first peg so we need to offset the distance between the hopper and the peg
+      this.position.addXY( 0, this.pegSeparation * PlinkoConstants.PEG_HEIGHT_FRACTION_OFFSET );
     }
 
   } );
