@@ -228,8 +228,9 @@ define( function( require ) {
     },
 
     /**
-     * gets the position of the ball depending on the phase
-     * @returns {Vector2}
+     * updates the position of the ball.
+     * 
+     * @private 
      */
     updatePosition: function() {
       switch( this.phase ) {
