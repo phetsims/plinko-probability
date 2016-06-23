@@ -119,6 +119,12 @@ define( function( require ) {
         var addedBall = new IntroBall( this.probability, this.numberOfRows, this.histogram.bins, this.cylinderInfo );
         // update number of balls in the bin and the last position of the addedBall
         this.launchedBallsNumber++; // update the number of launched balls
+
+        // we want to disable the playButton when all the balls have been queued
+        if ( this.launchedBallsNumber + this.ballsToCreateNumber >= MAX_BALL_NUMBER ) {
+          this.isBallCapReachedProperty.set( true );
+        }
+
         this.histogram.updateBinCountAndOrientation( addedBall );
         this.balls.push( addedBall );
         //'exited' is triggered when the addedBall leaves the last peg on the Galton board.
