@@ -39,6 +39,7 @@ define( function( require ) {
       },
       options );
 
+    //create the radio buttons 
     var showRadioButtons = new VerticalAquaRadioButtonGroup( [
       { node: new Text( ballString, { font: PlinkoConstants.TEXT_FONT } ), property: showRadioProperty, value: 'ball' },
       { node: new Text( pathString, { font: PlinkoConstants.TEXT_FONT } ), property: showRadioProperty, value: 'path' },
