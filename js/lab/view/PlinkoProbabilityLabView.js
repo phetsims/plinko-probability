@@ -142,7 +142,7 @@ define( function( require ) {
     var soundToggleButton = new SoundToggleButton( viewProperties.isSoundEnabledProperty );
 
     // create the ballLayerNodes  (a canvas Node) that renders all the balls
-    var ballsLayerNode = new BallsLayerNode( model.balls, modelViewTransform,model.numberOfRowsProperty, model.galtonBoardRadioButtonProperty, { canvasBounds: this.layoutBounds } );
+    var ballsLayerNode = new BallsLayerNode( model.balls, modelViewTransform, model.numberOfRowsProperty, viewProperties.histogramRadioProperty, model.galtonBoardRadioButtonProperty, { canvasBounds: this.layoutBounds } );
     this.ballsLayerNode = ballsLayerNode;
 
     // create pathsLayer to keep all the TrajectoryPath
