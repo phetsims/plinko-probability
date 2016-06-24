@@ -15,7 +15,7 @@ define( function( require ) {
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
 
   /**
-   *
+   * Creates model for balls on the intro tab
    * @param {number} probability - number ranging from 0 to 1
    * @param {number} numberOfRows - an integer
    * @param {Array.<Object>} bins
@@ -35,10 +35,10 @@ define( function( require ) {
         this.binOrientation = 0; // @public (read-only)
         break;
       case 1:     // Ball makes probabilistic decision whether to end in left or right horizontal position in the bin
-        this.binOrientation = (Math.random() < 0.5) ? 1 : -1;
+        this.binOrientation = (Math.random() < 0.5) ? 1 : -1; // @public (read-only)
         break;
       case 2:     // the ball must take the opposite orientation than the last ball 
-        this.binOrientation = -lastBallBinOrientation;
+        this.binOrientation = -lastBallBinOrientation;  // @public (read-only)
         break;
       default:
         throw new Error( 'Unhandled bin direction' );
@@ -46,13 +46,17 @@ define( function( require ) {
 
     // {number} describes number of rows in the ball stack within a bin, starting at 1
     var binStackLevel = 2 * Math.floor( this.binCount / 3 ) + ((this.binCount % 3 === 0) ? 0 : 1); // number of balls per stack goes as (2,1,2,1,2...
+
+    // {number} describes lowest point of cylinder that a ball will reach (bottom of the cylinder)
     var minimumYposition = cylinderInfo.top - cylinderInfo.verticalOffset - cylinderInfo.ellipseHeight - cylinderInfo.height; // the bottom of the cylinder
+
+    // {number} describes the height difference between two balls in two adjacent rows in a ball stack
     var delta = this.ballRadius + Math.sqrt( Math.pow( 2 * this.ballRadius, 2 ) - Math.pow( (cylinderInfo.cylinderWidth / 2) - this.ballRadius, 2 ) ); // the height separation between stacks
 
-    // describes final vertical offset of ball within a bin {number}
+    // @public {number} describes final vertical offset of ball within a bin {number}
     this.finalBinVerticalOffset = minimumYposition + ((binStackLevel - 1) * delta) - this.ballRadius; 
 
-    // describes final horizontal offset of the ball within a bin {number}
+    // @public {number} describes final horizontal offset of the ball within a bin {number}
     this.finalBinHorizontalOffset = (this.binOrientation * ((cylinderInfo.cylinderWidth / 2) - this.ballRadius));
 
   }
