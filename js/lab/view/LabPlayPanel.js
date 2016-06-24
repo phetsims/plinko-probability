@@ -2,7 +2,7 @@
 
 /**
  * Scenery Node that represents a Panel with a Play/Pause and two radio buttons .
- *  
+ *
  * @author Martin Veillette (Berea College)
  */
 define( function( require ) {
@@ -60,14 +60,13 @@ define( function( require ) {
       ]
     } );
 
-    // create the icon for the continuous mode
-
-    // the ball size is not necessarily twice the radius if 
+    // the ball size is not necessarily twice the radius if
     var ballWidth = new BallRepresentationNode( BALL_RADIUS ).width;
 
+    // create the icon for the continuous mode
     var continuous = new HBox( {
       align: 'bottom',
-      spacing: -ballWidth/2, // negative spacing
+      spacing: -ballWidth / 2, // negative spacing
       children: [
         new BallRepresentationNode( BALL_RADIUS ),
         new BallRepresentationNode( BALL_RADIUS ),
