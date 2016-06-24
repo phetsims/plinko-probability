@@ -81,7 +81,7 @@ define( function( require ) {
        */
       reset: function() {
         PlinkoProbabilityCommonModel.prototype.reset.call( this );
-        this.ballsToCreateNumber = 0; // @public remove the queue of balls waiting to be created
+        this.ballsToCreateNumber = 0; // @private remove the queue of balls waiting to be created
       },
 
       /**
@@ -91,14 +91,17 @@ define( function( require ) {
        */
       updateBallsToCreateNumber: function() {
         switch( this.ballMode ) {
+          // add one ball to the queue
           case 'oneBall':
-            this.ballsToCreateNumber++; // add a ball to the queue
+            this.ballsToCreateNumber++;
             break;
 
+          // add ten ball to the queue
           case 'tenBalls':
             this.ballsToCreateNumber += 10;
             break;
 
+          // add max number of balls to the queue
           case 'allBalls':
             this.ballsToCreateNumber += MAX_BALL_NUMBER;
             break;

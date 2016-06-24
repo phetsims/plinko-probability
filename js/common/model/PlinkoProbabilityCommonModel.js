@@ -18,25 +18,26 @@ define( function( require ) {
     var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
     var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
 
-  /**
-   *
-   * @constructor
-   */
-  function PlinkoProbabilityCommonModel() {
+    /**
+     * Creates common model for Plinko Probability
+     * @constructor
+     */
+    function PlinkoProbabilityCommonModel() {
 
+      // @public
       PropertySet.call( this, {
-        probability: PlinkoConstants.BINARY_PROBABILITY_RANGE.defaultValue, // this can be a number between 0 and 1
-        histogramMode: 'count', // acceptable values are 'count' and 'fraction'
-        ballMode: 'oneBall', // acceptable values are 'oneBall' and 'continuous'
-        histogramVisible: false,
-        isBallCapReached: false, // is the maximum of balls reached?
-        numberOfRows: PlinkoConstants.ROWS_RANGE.defaultValue, /// must be an integer
-        galtonBoardRadioButton: 'ball', // Valid values are 'ball', 'path', and 'none'.
-        isPlaying: false  // false if no balls are being dropped true if they are
+        probability: PlinkoConstants.BINARY_PROBABILITY_RANGE.defaultValue, // {number} this can be a number between 0 and 1
+        histogramMode: 'count', // {string} acceptable values are 'count' and 'fraction'
+        ballMode: 'oneBall', // {string} acceptable values are 'oneBall' and 'continuous'
+        histogramVisible: false, // {boolean} is the histogram visible?
+        isBallCapReached: false, // {boolean} is the maximum of balls reached?
+        numberOfRows: PlinkoConstants.ROWS_RANGE.defaultValue, /// {number} must be an integer
+        galtonBoardRadioButton: 'ball', // { string} Valid values are 'ball', 'path', and 'none'.
+        isPlaying: false  // {boolean} false if no balls are being dropped true if they are
       } );
 
-      this.launchedBallsNumber = 0; // @public - number of current trial (current ball drop)
-      this.ballCreationTimeElapsed = 0; // @public time elapsed since last ball creation;
+      this.launchedBallsNumber = 0; // @public {number} - number of current trial (current ball drop)
+      this.ballCreationTimeElapsed = 0; // @public {number} - time elapsed since last ball creation;
 
       // create an observable array of the model balls
       this.balls = new ObservableArray(); // @public
