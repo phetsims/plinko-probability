@@ -2,7 +2,12 @@
 
 /**
  * View for the 'Plinko Probability' lab screen.
+ *
+ * @author Martin Veillette (Berea College)
+ * @author Guillermo Ramos (Berea College)
+ * @author Denzell Barnett (Berea College)
  */
+
 define( function( require ) {
   'use strict';
 
@@ -22,6 +27,7 @@ define( function( require ) {
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   var MultiLineText = require( 'SCENERY_PHET/MultiLineText' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var PegSoundGeneration = require( 'PLINKO_PROBABILITY/common/view/PegSoundGeneration' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var PropertySet = require( 'AXON/PropertySet' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
@@ -69,8 +75,11 @@ define( function( require ) {
       histogramRadio: 'counter', // Valid values are 'fraction', 'counter'
       ballRadio: 'oneBall', // Valid values are 'oneBall' and 'continuous'.
       expandedAccordionBox: false, // accordion box responsible for the statistics display
-      isTheoreticalHistogramVisible: false // property attached to the "ideal" checkbox in the statistical accordion box
+      isTheoreticalHistogramVisible: false, // property attached to the "ideal" checkbox in the statistical accordion box
+      isSoundEnabled: false
     } );
+
+    this.viewProperties = viewProperties;
 
     // create the histogram node, a bar chart, at the bottom of the Galton board
     var histogramNode = new HistogramNode(
@@ -79,6 +88,11 @@ define( function( require ) {
       modelViewTransform,
       viewProperties.isTheoreticalHistogramVisibleProperty
     );
+
+    // create the sound generator for ball hitting peg
+    var pegSoundGeneration = new PegSoundGeneration( viewProperties.isSoundEnabledProperty );
+    this.pegSoundGeneration = pegSoundGeneration;
+
 
     // create the Galton board, including the pegs and dropped shadows
     var galtonBoardCanvasNode = new GaltonBoardCanvasNode( model.galtonBoard, model.numberOfRowsProperty, model.probabilityProperty, modelViewTransform, { canvasBounds: this.layoutBounds } );
@@ -117,13 +131,15 @@ define( function( require ) {
     // create the Reset All Button in the bottom right, which resets the model and view properties
     var resetAllButton = new ResetAllButton( {
       listener: function() {
-        model.reset();
-        viewProperties.reset();
+        model.reset();  // reset the model
+        viewProperties.reset(); // reset the properties
+        pegSoundGeneration.reset(); // reset the time elapsed to 0
+
       }
     } );
 
     // Create the Sound Toggle Button at the bottom right
-    var soundToggleButton = new SoundToggleButton( model.isSoundEnabledProperty );
+    var soundToggleButton = new SoundToggleButton( viewProperties.isSoundEnabledProperty );
 
     // create the ballLayerNodes  (a canvas Node) that renders all the balls
     var ballsLayerNode = new BallsLayerNode( model.balls, modelViewTransform, model.galtonBoardRadioButtonProperty, { canvasBounds: this.layoutBounds } );
@@ -132,10 +148,15 @@ define( function( require ) {
     // create pathsLayer to keep all the TrajectoryPath
     var pathsLayer = new Node( { layerSplit: true } );
 
+
     // handle the coming and going of the balls in the model.
     model.balls.addItemAddedListener( function( addedBall ) {
       switch( model.galtonBoardRadioButtonProperty.value ) {
         case 'ball':
+          // initiates sound to play when ball hits a peg
+          addedBall.on( 'playSound', function( direction ) {
+            pegSoundGeneration.playBallHittingPegSound( direction );
+          } );
           model.balls.addItemRemovedListener( function removalListener( removedBall ) {
             if ( removedBall === addedBall ) {
               model.balls.removeItemRemovedListener( removalListener );
@@ -216,9 +237,15 @@ define( function( require ) {
   plinkoProbability.register( 'PlinkoProbabilityLabView', PlinkoProbabilityLabView );
 
   return inherit( ScreenView, PlinkoProbabilityLabView, {
+
     step: function( dt ) {
+
       // update view on model step
       this.ballsLayerNode.invalidatePaint();
+
+      // increment time for sound generation
+      this.pegSoundGeneration.step( dt );
     }
+
   } );
 } );

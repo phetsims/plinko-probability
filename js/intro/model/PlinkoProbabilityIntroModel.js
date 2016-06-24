@@ -131,10 +131,6 @@ define( function( require ) {
         addedBall.on( 'exited', function() {
           thisModel.histogram.addBallToHistogram( addedBall );
         } );
-        // triggers sound to play when ball hits a peg
-        addedBall.on( 'playSound', function() {
-          thisModel.playBallHittingPegSound( addedBall.direction );
-        } );
       }
     } );
   }

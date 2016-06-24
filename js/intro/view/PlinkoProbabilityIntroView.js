@@ -2,7 +2,12 @@
 
 /**
  * View for the 'Plinko Probability' intro screen.
+ *
+ * @author Martin Veillette (Berea College)
+ * @author Guillermo Ramos (Berea College)
+ * @author Denzell Barnett (Berea College)
  */
+
 define( function( require ) {
   'use strict';
 
@@ -21,6 +26,7 @@ define( function( require ) {
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   var NumberBallsDisplay = require( 'PLINKO_PROBABILITY/intro/view/NumberBallsDisplay' );
   var IntroPlayPanel = require( 'PLINKO_PROBABILITY/intro/view/IntroPlayPanel' );
+  var PegSoundGeneration = require( 'PLINKO_PROBABILITY/common/view/PegSoundGeneration' );
   var PropertySet = require( 'AXON/PropertySet' );
   var Property = require( 'AXON/Property' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
@@ -40,7 +46,6 @@ define( function( require ) {
   function PlinkoProbabilityIntroView( model ) {
 
     ScreenView.call( this, { layoutBounds: new Bounds2( 0, 0, 1024, 618 ) } );
-
     var galtonBoardApexPosition = new Vector2( this.layoutBounds.maxX / 2 - 80, 70 );
 
     // create the hopper and the wooden Board
@@ -61,8 +66,11 @@ define( function( require ) {
       histogramRadio: 'cylinder', // Valid values are 'counter', 'cylinder'
       ballRadio: 'oneBall', // Valid values are 'oneBall' and 'continuous'.
       expandedAccordionBox: false,
-      isTheoreticalHistogramVisible: false
+      isTheoreticalHistogramVisible: false,
+      isSoundEnabled: false
     } );
+
+    this.viewProperties = viewProperties;
 
     var histogramNode = new HistogramNode(
       viewProperties.histogramRadioProperty,
@@ -72,7 +80,10 @@ define( function( require ) {
     );
 
     // create the galton board (including the pegs)
-    var galtonBoardCanvasNode = new GaltonBoardCanvasNode( model.galtonBoard, model.numberOfRowsProperty, model.probabilityProperty, modelViewTransform, { openingAngle: 0.01, canvasBounds: viewGraphBounds} );
+    var galtonBoardCanvasNode = new GaltonBoardCanvasNode( model.galtonBoard, model.numberOfRowsProperty, model.probabilityProperty, modelViewTransform, {
+      openingAngle: 0.01,
+      canvasBounds: viewGraphBounds
+    } );
 
     // create the view for the cylinders. The Back and Front node will be put on a different z-layer
     var cylindersBackNode = new CylindersBackNode( model.numberOfRowsProperty, modelViewTransform, model.cylinderInfo );
@@ -94,6 +105,10 @@ define( function( require ) {
       }
     } );
 
+    // create the sound generator for ball hitting peg
+    var pegSoundGeneration = new PegSoundGeneration( viewProperties.isSoundEnabledProperty );
+    this.pegSoundGeneration = pegSoundGeneration;
+
     // create play Panel
     var playPanel = new IntroPlayPanel( model.updateBallsToCreateNumber.bind( model ), model.ballModeProperty, model.isBallCapReachedProperty );
 
@@ -105,11 +120,12 @@ define( function( require ) {
       listener: function() {
         model.reset(); // reset the model
         viewProperties.reset(); // reset the properties
+        pegSoundGeneration.reset(); // reset the time elapsed to 0
       }
     } );
 
-    // Create the Sound Toggle Button at the bottom right
-    var soundToggleButton = new SoundToggleButton( model.isSoundEnabledProperty );
+    // create the Sound Toggle Button at the bottom right
+    var soundToggleButton = new SoundToggleButton( viewProperties.isSoundEnabledProperty );
 
     // link the histogram radio buttons (to the left of the histogram) to toggle the visibility of the histogram and cylinders
     // link is present fot the lifetime of the sim
@@ -137,6 +153,10 @@ define( function( require ) {
 
     // handle the coming and going of the model Balls
     model.balls.addItemAddedListener( function( addedBall ) {
+      // initiates sound to play when ball hits a peg
+      addedBall.on( 'playSound', function( direction ) {
+        pegSoundGeneration.playBallHittingPegSound( direction );
+      } );
       model.balls.addItemRemovedListener( function removalListener( removedBall ) {
         if ( removedBall === addedBall ) {
           model.balls.removeItemRemovedListener( removalListener );
@@ -180,6 +200,10 @@ define( function( require ) {
     step: function( dt ) {
       // update view on model step
       this.ballsLayerNode.invalidatePaint();
+
+      // increment time for sound generation
+      this.pegSoundGeneration.step( dt );
+
     }
   } );
 

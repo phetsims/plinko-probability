@@ -184,7 +184,7 @@ define( function( require ) {
           this.phase = PHASE_FALLING; // switch the phase
           this.fallenRatio = 0; // reset the ratio
           this.updatePegPositionInformation(); // update the peg position information
-          this.trigger0( 'playSound' );  //plays sound when ball hits peg
+          this.trigger1( 'playSound', this.direction );  //plays sound when ball hits peg
         }
       }
       if ( this.phase === PHASE_FALLING ) { //ball is falling between pegs
@@ -196,7 +196,7 @@ define( function( require ) {
 
           if ( this.pegHistory.length > 1 ) { // if it is not the last peg
             this.updatePegPositionInformation(); // update the next to last peg information
-            this.trigger0( 'playSound' );  //plays sound when ball hits peg
+            this.trigger1( 'playSound', this.direction );  //plays sound when ball hits peg
           }
           else { // ball is at the top of the last peg
             this.phase = PHASE_EXIT; // switch phases
