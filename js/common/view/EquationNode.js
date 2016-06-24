@@ -45,8 +45,7 @@ define( function( require ) {
     // @private
     this.options = options;
 
-    // @private
-    this.leftHandSideOfEquationText = new SubSupText( leftHandSideOfEquation,
+    var leftHandSideOfEquationText = new SubSupText( leftHandSideOfEquation,
       {
         font: options.leftHandSideFont,
         fill: options.leftHandSideFill,
@@ -54,37 +53,38 @@ define( function( require ) {
         maxWidth: options.leftHandSideMaxWidth
       } );
 
-    // @private
-    this.equalSignText = new Text( ' = ',
+    var equalSignText = new Text( ' = ',
       {
         font: options.leftHandSideFont,
         fill: options.leftHandSideFill
       } );
 
-    // @private
-    this.rightHandSideOfEquationText = new Text( this.roundNumber( rightHandSideOfEquation ),
+    var rightHandSideOfEquationText = new Text( this.roundNumber( rightHandSideOfEquation ),
       {
         font: options.rightHandSideFont,
         fill: options.rightHandSideFill
       } );
 
+    // @private
+    this.rightHandSideOfEquationText = rightHandSideOfEquationText;
 
     var hStrut = new HStrut( options.positionOfEqualSign );
 
+    // create the mutable Equation, the right hand side is mutable
     var mutableEquationText = new Node( {
       children: [
         hStrut,
-        this.leftHandSideOfEquationText,
-        this.equalSignText,
-        this.rightHandSideOfEquationText
+        leftHandSideOfEquationText,
+        equalSignText,
+        rightHandSideOfEquationText
       ]
     } );
 
     // in general, we align the equation with respect to the equal sign (that's aesthetically pleasing)
     // but we don't want to to enforce this rule if the left hand side of the equation is too long.
-    this.leftHandSideOfEquationText.right = options.positionOfEqualSign;
-    this.equalSignText.left = this.leftHandSideOfEquationText.right;
-    this.rightHandSideOfEquationText.left = this.equalSignText.right;
+    leftHandSideOfEquationText.right = options.positionOfEqualSign;
+    equalSignText.left = leftHandSideOfEquationText.right;
+    rightHandSideOfEquationText.left = equalSignText.right;
 
     this.addChild( mutableEquationText );
   }

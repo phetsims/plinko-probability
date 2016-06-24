@@ -1,7 +1,7 @@
 // Copyright 2014-2016, University of Colorado Boulder
 
 /**
- * Model for Plinko Probability Intro
+ * Common Model for Plinko Probability
  *
  * @author Martin Veillette (Berea College)
  */
@@ -18,7 +18,10 @@ define( function( require ) {
     var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
     var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
 
-
+  /**
+   *
+   * @constructor
+   */
   function PlinkoProbabilityCommonModel() {
 
       PropertySet.call( this, {
