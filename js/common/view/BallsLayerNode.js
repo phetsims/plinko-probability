@@ -16,6 +16,9 @@ define( function( require ) {
   var PegInterface = require( 'PLINKO_PROBABILITY/common/model/PegInterface' );
   var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
 
+  //constants
+  var PHASE_COLLECTED = 3; // the ball has landed on its final position
+
   /**
    * @param {Ball[]} balls - an array of model Ball
    * @param {ModelViewTransform2} modelViewTransform - model to view transform
@@ -24,7 +27,7 @@ define( function( require ) {
    * @param {Object} options - must contain a canvasBounds attribute of type Bounds2
    * @constructor
    */
-  function BallsLayerNode( balls, modelViewTransform, numberOfRowsProperty, galtonBoardRadioButtonProperty, options ) {
+  function BallsLayerNode( balls, modelViewTransform, numberOfRowsProperty, histogramRadioProperty, galtonBoardRadioButtonProperty, options ) {
 
     assert && assert( options && options.hasOwnProperty( 'canvasBounds' ), 'No canvasBounds specified.' );
 
@@ -41,6 +44,8 @@ define( function( require ) {
     // @private
     this.galtonBoardRadioButtonProperty = galtonBoardRadioButtonProperty; // valid values are 'ball', 'path', 'none'
 
+    // @private
+    this.histogramRadioProperty = histogramRadioProperty;
     // set the default ball radius using the largest possible radius, that is the minimum number of rows.
     var defaultNumberOfRows = PlinkoConstants.ROWS_RANGE.min;
     var defaultBallRadius = modelViewTransform.modelToViewDeltaX( PegInterface.getSpacing( defaultNumberOfRows ) * PlinkoConstants.BALL_SIZE_FRACTION ); //
@@ -82,15 +87,17 @@ define( function( require ) {
       if ( self.galtonBoardRadioButtonProperty.value === 'ball' ) {
         this.balls.forEach( function( ball ) {
 
-          var ballViewPositionX = self.modelViewTransform.modelToViewX( ball.position.x );
-          var ballViewPositionY = self.modelViewTransform.modelToViewY( ball.position.y );
+          // when we are in the hitogram mode and the ball has been collected don't draw the ball
+          if ( !(self.histogramRadioProperty.value === 'counter' && ball.phase === PHASE_COLLECTED) ) {
+            var ballViewPositionX = self.modelViewTransform.modelToViewX( ball.position.x );
+            var ballViewPositionY = self.modelViewTransform.modelToViewY( ball.position.y );
 
-          context.drawImage( self.ballImage,
-            ballViewPositionX - self.ballImage.width * self.scaleFactor / 2,
-            ballViewPositionY - self.ballImage.height * self.scaleFactor / 2,
-            self.ballImage.width * self.scaleFactor,
-            self.ballImage.height * self.scaleFactor );
-
+            context.drawImage( self.ballImage,
+              ballViewPositionX - self.ballImage.width * self.scaleFactor / 2,
+              ballViewPositionY - self.ballImage.height * self.scaleFactor / 2,
+              self.ballImage.width * self.scaleFactor,
+              self.ballImage.height * self.scaleFactor );
+          }
 
         } );
       }

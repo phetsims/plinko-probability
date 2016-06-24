@@ -72,7 +72,10 @@ define( function( require ) {
     );
 
     // create the galton board (including the pegs)
-    var galtonBoardCanvasNode = new GaltonBoardCanvasNode( model.galtonBoard, model.numberOfRowsProperty, model.probabilityProperty, modelViewTransform, { openingAngle: 0.01, canvasBounds: viewGraphBounds} );
+    var galtonBoardCanvasNode = new GaltonBoardCanvasNode( model.galtonBoard, model.numberOfRowsProperty, model.probabilityProperty, modelViewTransform, {
+      openingAngle: 0.01,
+      canvasBounds: viewGraphBounds
+    } );
 
     // create the view for the cylinders. The Back and Front node will be put on a different z-layer
     var cylindersBackNode = new CylindersBackNode( model.numberOfRowsProperty, modelViewTransform, model.cylinderInfo );
@@ -132,7 +135,7 @@ define( function( require ) {
     );
 
     // put all the Balls on a separate z-layer
-    var ballsLayerNode = new BallsLayerNode( model.balls, modelViewTransform, model.numberOfRowsProperty, new Property( 'ball' ), { canvasBounds: this.layoutBounds } );
+    var ballsLayerNode = new BallsLayerNode( model.balls, modelViewTransform, model.numberOfRowsProperty, viewProperties.histogramRadioProperty, new Property( 'ball' ), { canvasBounds: this.layoutBounds } );
     this.ballsLayerNode = ballsLayerNode;
 
     // handle the coming and going of the model Balls
