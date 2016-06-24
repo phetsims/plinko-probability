@@ -162,7 +162,7 @@ define( function( require ) {
       font: Y_AXIS_LABEL_FONT,
       fill: Y_AXIS_LABEL_COLOR,
       centerY: histogramCenterY,
-      left: axisLeft - 30,
+      left: axisLeft - 30, // empirically determined
       rotation: -Math.PI / 2,   // remember down is positive in the view
       maxWidth: histogramHeight // number for y-label max height
     } );
@@ -277,16 +277,16 @@ define( function( require ) {
     /**
      * Function that update the value of the text in the banner to reflect the actual value in the bin.,
      * @param {number} numberOfRows
+     * @param {string} histogramRadioValue
      */
-    function updateTextBanner( numberOfRows ) {
+    function updateTextBanner( numberOfRows, histogramRadioValue ) {
       var numberOfBins = numberOfRows + 1;
 
       var getHistogramBin;
-      var value = histogramRadioProperty.value;
       var font;
-      var MaxBinCount;
+      var maxBinCount;
 
-      switch( value ) {
+      switch( histogramRadioValue ) {
         case 'fraction':
           getHistogramBin = histogram.getFractionalBinCount.bind( histogram );
 
@@ -302,10 +302,10 @@ define( function( require ) {
           getHistogramBin = histogram.getBinCount.bind( histogram );
 
           // font is dependent on the highest binValue
-          MaxBinCount = histogram.getMaximumBinCount();
-          if ( MaxBinCount > 999 ) {font = TINY_TINY_FONT;}
-          else if ( MaxBinCount > 99 ) {font = SMALL_FONT;}
-          else if ( MaxBinCount > 9 ) {font = NORMAL_FONT;}
+          maxBinCount = histogram.getMaximumBinCount();
+          if ( maxBinCount > 999 ) {font = TINY_TINY_FONT;}
+          else if ( maxBinCount > 99 ) {font = SMALL_FONT;}
+          else if ( maxBinCount > 9 ) {font = NORMAL_FONT;}
           else {font = LARGE_FONT;}
 
           break;
@@ -313,6 +313,7 @@ define( function( require ) {
           return; // if we are on a cylinder there is no text to update
       }
 
+      // we loop over all the bins
       for ( binIndex = 0; binIndex < MAX_NUMBER_BINS; binIndex++ ) {
 
         if ( binIndex < numberOfBins ) {
@@ -320,12 +321,13 @@ define( function( require ) {
           var binCenterX = modelViewTransform.modelToViewX( BinInterface.getBinCenterX( binIndex, numberOfBins ) );
           var binValue = getHistogramBin( binIndex ); // a number
 
-          if ( histogramRadioProperty.value === 'fraction' ) {
+          if ( histogramRadioValue === 'fraction' ) {
+            // set the appropriate number of decimal places if in fraction mode,
+            // if the number of bins is large, the width of the bin does not allow as many decimal places
             binValue = (numberOfBins > 16) ? Util.toFixed( binValue, 2 ) : Util.toFixed( binValue, 3 );
           }
 
-
-          // update position and text of the bins
+          // update position, fontsize and text of the bins
           labelsTextArray[ binIndex ].text = binValue;
           labelsTextArray[ binIndex ].setFont( font );
           labelsTextArray[ binIndex ].centerX = binCenterX;
@@ -339,16 +341,16 @@ define( function( require ) {
 
     // update the banner when a ball has been added to the histogram
     histogram.on( 'histogramUpdated', function() {
-      updateTextBanner( numberOfRowsProperty.value );
+      updateTextBanner( numberOfRowsProperty.value, histogramRadioProperty.value );
     } );
 
     // no need to unlink, present for the lifetime of the sim
-    Property.multilink( [ numberOfRowsProperty, histogramRadioProperty ], function( numberOfRows ) {
-      updateBanner( numberOfRows );
-      updateTextBanner( numberOfRows );
+    Property.multilink( [ numberOfRowsProperty, histogramRadioProperty ], function( numberOfRows, histogramRadio ) {
+      updateBanner( numberOfRows ); // update the placement of the vertical line separators
+      updateTextBanner( numberOfRows, histogramRadio ); // update the text content of each bins
     } );
 
-    updateTextBanner( numberOfRowsProperty.value );
+    updateTextBanner( numberOfRowsProperty.value, histogramRadioProperty.value );
   }
 
   plinkoProbability.register( 'XBannerNode', XBannerNode );
