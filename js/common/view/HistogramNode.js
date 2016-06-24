@@ -303,7 +303,7 @@ define( function( require ) {
 
           // font is dependent on the highest binValue
           MaxBinCount = histogram.getMaximumBinCount();
-          if ( MaxBinCount > 999 ) {font = TINY_FONT;}
+          if ( MaxBinCount > 999 ) {font = TINY_TINY_FONT;}
           else if ( MaxBinCount > 99 ) {font = SMALL_FONT;}
           else if ( MaxBinCount > 9 ) {font = NORMAL_FONT;}
           else {font = LARGE_FONT;}
