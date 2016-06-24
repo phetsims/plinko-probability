@@ -30,8 +30,8 @@ define( function( require ) {
   /**
    * Creation of play panel
    * @param {Function} updateBallsToCreateNumber - function that update the number of balls to be created
-   * @param {Property.<String>} ballModeProperty - describes the mode of the ball
-   * @param {Property.<Boolean>} isBallCapReachedProper - describes maximum amount of balls
+   * @param {Property.<string>} ballModeProperty - describes the mode of the ball
+   * @param {Property.<boolean>} isBallCapReachedProperty - describes maximum amount of balls
    * @param {Object} [options]
    * @constructor
    */

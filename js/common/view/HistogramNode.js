@@ -123,7 +123,7 @@ define( function( require ) {
     numberOfRowsProperty.link( function( numberOfRows ) {
       var numberOfBins = numberOfRows + 1;
       for ( binIndex = 0; binIndex < MAX_NUMBER_BINS; binIndex++ ) {
-        // update the visiblility of all the labels
+        // update the visibility of all the labels
         tickLabels[ binIndex ].visible = (binIndex < numberOfBins );
         // center the visible labels
         if ( tickLabels[ binIndex ].visible ) {
