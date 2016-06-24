@@ -40,6 +40,7 @@ define( function( require ) {
   var containerDOMImage = require( 'image!PLINKO_PROBABILITY/container.png' );
 
   /**
+   * Creates view for intro tab
    * @param {PlinkoProbabilityIntroModel} model
    * @constructor
    */
