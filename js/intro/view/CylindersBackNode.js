@@ -4,7 +4,10 @@
  * View representation of the top portion of the row of cylinders
  * it is the back portion of the cylinder from the viewpoint of the z-layer
  * used within the Plinko Probability Simulation
+ *
+ * @author Martin Veillette (Berea College)
  */
+
 define( function( require ) {
   'use strict';
 
@@ -27,7 +30,6 @@ define( function( require ) {
    */
   function CylindersBackNode( numberOfRowsProperty, modelViewTransform, cylinderInfo ) {
 
-
     Node.call( this );
 
     var thisNode = this;
@@ -40,7 +42,7 @@ define( function( require ) {
     // create the shape for the top of the cylinder
     var topShape = Shape.ellipse( 0, 0, ellipseWidth / 2, ellipseHeight / 2 );
 
-    // link present for the lifetime of the sim
+    // link present for the lifetime of the sim, no need to dispose
     numberOfRowsProperty.link( function( numberOfRows ) {
       assert && assert( Number.isInteger( numberOfRows ), 'numberOfRows must be an integer' );
 
@@ -48,8 +50,8 @@ define( function( require ) {
       for ( var i = 0; i < numberOfCylinders; i++ ) {
         // create and add the top of the cylinders containers
         var binCenterX = BinInterface.getBinCenterX( i, numberOfCylinders );
-        var x = modelViewTransform.modelToViewX( binCenterX );
-        var y = modelViewTransform.modelToViewY( cylinderInfo.top );
+        var x = modelViewTransform.modelToViewX( binCenterX );          // x-coordinate of bin in model units
+        var y = modelViewTransform.modelToViewY( cylinderInfo.top );    // y-coordinate of bin in model units
         var top = new Path( topShape, {
           fill: PlinkoConstants.TOP_CYLINDER_FILL_COLOR,
           stroke: PlinkoConstants.TOP_CYLINDER_STROKE_COLOR,
