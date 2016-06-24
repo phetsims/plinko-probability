@@ -12,11 +12,11 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var HStrut = require( 'SCENERY/nodes/HStrut' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var SubSupText = require( 'SCENERY_PHET/SubSupText' );
   var Text = require( 'SCENERY/nodes/Text' );
   var Util = require( 'DOT/Util' );

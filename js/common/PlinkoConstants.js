@@ -9,10 +9,10 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var Bounds2 = require( 'DOT/Bounds2' );
   var Color = require( 'SCENERY/util/Color' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var Range = require( 'DOT/Range' );
 
   var PlinkoConstants = {

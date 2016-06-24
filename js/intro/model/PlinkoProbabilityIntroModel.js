@@ -10,10 +10,10 @@ define( function( require ) {
     'use strict';
 
     // modules
-    var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
-    var IntroBall = require( 'PLINKO_PROBABILITY/intro/model/IntroBall' );
     var inherit = require( 'PHET_CORE/inherit' );
+    var IntroBall = require( 'PLINKO_PROBABILITY/intro/model/IntroBall' );
     var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
+    var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
     var PlinkoProbabilityCommonModel = require( 'PLINKO_PROBABILITY/common/model/PlinkoProbabilityCommonModel' );
 
     // constants

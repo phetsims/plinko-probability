@@ -12,7 +12,6 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var BallsLayerNode = require( 'PLINKO_PROBABILITY/common/view/BallsLayerNode' );
   var BallRadioButtonsControl = require( 'PLINKO_PROBABILITY/lab/view/BallRadioButtonsControl' );
   var Board = require( 'PLINKO_PROBABILITY/common/view/Board' );
@@ -30,6 +29,7 @@ define( function( require ) {
   var PegSoundGeneration = require( 'PLINKO_PROBABILITY/common/view/PegSoundGeneration' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var PropertySet = require( 'AXON/PropertySet' );
+  var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var SliderControlPanel = require( 'PLINKO_PROBABILITY/lab/view/SliderControlPanel' );

@@ -9,8 +9,8 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
+  var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
 
   // constants
   var BOUNDS = PlinkoConstants.HISTOGRAM_BOUNDS;

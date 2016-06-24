@@ -10,15 +10,16 @@ define( function( require ) {
     'use strict';
 
     // modules
-    var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
     var GaltonBoard = require( 'PLINKO_PROBABILITY/common/model/GaltonBoard' );
     var Histogram = require( 'PLINKO_PROBABILITY/common/model/Histogram' );
     var inherit = require( 'PHET_CORE/inherit' );
     var ObservableArray = require( 'AXON/ObservableArray' );
     var PropertySet = require( 'AXON/PropertySet' );
     var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
+    var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
 
-    function PlinkoProbabilityCommonModel() {
+
+  function PlinkoProbabilityCommonModel() {
 
       PropertySet.call( this, {
         probability: PlinkoConstants.BINARY_PROBABILITY_RANGE.defaultValue, // this can be a number between 0 and 1

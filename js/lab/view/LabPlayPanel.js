@@ -8,7 +8,6 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var BallRepresentationNode = require( 'PLINKO_PROBABILITY/common/view/BallRepresentationNode' );
   var Circle = require( 'SCENERY/nodes/Circle' );
   var HStrut = require( 'SCENERY/nodes/HStrut' );
@@ -19,6 +18,7 @@ define( function( require ) {
   var PlayButton = require( 'PLINKO_PROBABILITY/common/view/PlayButton' );
   var PauseButton = require( 'PLINKO_PROBABILITY/common/view/PauseButton' );
   var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
+  var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var VerticalAquaRadioButtonGroup = require( 'SUN/VerticalAquaRadioButtonGroup' );
 
   // constants

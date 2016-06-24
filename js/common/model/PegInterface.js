@@ -10,8 +10,8 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
+  var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var Vector2 = require( 'DOT/Vector2' );
 
   // in model coordinates, the galton board is defined as three points of a triangle

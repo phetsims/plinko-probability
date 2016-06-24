@@ -11,12 +11,12 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
+  var Color = require( 'SCENERY/util/Color' );
   var Circle = require( 'SCENERY/nodes/Circle' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Path = require( 'SCENERY/nodes/Path' );
+  var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var RoundPushButton = require( 'SUN/buttons/RoundPushButton' );
-  var Color = require( 'SCENERY/util/Color' );
   var Shape = require( 'KITE/Shape' );
 
   // constants

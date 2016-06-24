@@ -9,9 +9,9 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var RadioButtonGroup = require( 'SUN/buttons/RadioButtonGroup' );
 
 

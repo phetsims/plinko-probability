@@ -10,14 +10,14 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
+  var Events = require( 'AXON/Events' );
   var inherit = require( 'PHET_CORE/inherit' );
   var PegInterface = require( 'PLINKO_PROBABILITY/common/model/PegInterface' );
-  var Random = require( 'DOT/Random' );
+  var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
   var PropertySet = require( 'AXON/PropertySet' );
+  var Random = require( 'DOT/Random' );
   var Vector2 = require( 'DOT/Vector2' );
-  var Events = require( 'AXON/Events' );
 
   // convenience variables
   var random = new Random();
