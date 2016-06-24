@@ -54,6 +54,7 @@ define( function( require ) {
 
     ScreenView.call( this, { layoutBounds: new Bounds2( 0, 0, 1024, 618 ) } );
 
+    // the apex is the top corner of the Galton Board
     var galtonBoardApexPosition = new Vector2( this.layoutBounds.maxX / 2 - 80, 70 );
 
     // create the hopper and the Galton Board
@@ -78,8 +79,6 @@ define( function( require ) {
       isTheoreticalHistogramVisible: false, // property attached to the "ideal" checkbox in the statistical accordion box
       isSoundEnabled: false
     } );
-
-    this.viewProperties = viewProperties;
 
     // create the histogram node, a bar chart, at the bottom of the Galton board
     var histogramNode = new HistogramNode(
@@ -237,7 +236,10 @@ define( function( require ) {
   plinkoProbability.register( 'PlinkoProbabilityLabView', PlinkoProbabilityLabView );
 
   return inherit( ScreenView, PlinkoProbabilityLabView, {
-
+    /**
+     * Repaints canvas at every frame and steps through the pegSoundGenerator
+     * @param dt
+     */
     step: function( dt ) {
 
       // update view on model step
