@@ -22,7 +22,8 @@ define( function( require ) {
   
   // constants
   var PLAY_BUTTON_BASE_COLOR = new Color( 0, 224, 121 ); //light-green hue
-
+  var DEFAULT_RADIUS = PlinkoConstants.PLAY_PAUSE_BUTTON_RADIUS;
+  
   /**
    * Play Button constructor
    *

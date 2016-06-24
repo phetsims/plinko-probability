@@ -110,7 +110,6 @@ define( function( require ) {
 
     // create the pause button
     this.pauseButton = new PauseButton( {
-      baseColor: 'red',
       listener: function() {
         self.togglePlayPauseButtonVisibility(); // alternates play/pause visual state of button
         model.isPlayingProperty.set( false ); // set isPlayingProperty to false signifying that no balls are being dropped

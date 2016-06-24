@@ -11,6 +11,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var Color = require( 'SCENERY/util/Color' );
   var Circle = require( 'SCENERY/nodes/Circle' );
   var inherit = require( 'PHET_CORE/inherit' );
   var HBox = require( 'SCENERY/nodes/HBox' );
@@ -21,6 +22,7 @@ define( function( require ) {
 
   // constants
   var DEFAULT_RADIUS = PlinkoConstants.PLAY_PAUSE_BUTTON_RADIUS;
+  var PAUSE_BUTTON_BASE_COLOR =  new Color( 255, 0, 0 ); //red
 
   /**
    * @param {Object} [options] node options
@@ -29,7 +31,8 @@ define( function( require ) {
   function PauseButton( options ) {
 
     options = _.extend( {
-      radius: DEFAULT_RADIUS
+      radius: DEFAULT_RADIUS,
+      baseColor: PAUSE_BUTTON_BASE_COLOR
     }, options );
 
     // pause symbols are sized relative to the radius
