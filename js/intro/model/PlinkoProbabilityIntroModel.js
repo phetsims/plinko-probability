@@ -41,7 +41,7 @@ define( function( require ) {
         verticalOffset: 0.035, // gap between pegboard and cylinders
         top: bounds.maxY // the top of the cylinders
       };
-      this.ballsToCreateNumber = 0; // an integer number representing the number of balls in the creation queue
+      this.ballsToCreateNumber = 0; // @public {number} an integer number representing the number of balls in the creation queue
     }
 
 
@@ -50,7 +50,7 @@ define( function( require ) {
     return inherit( PlinkoProbabilityCommonModel, PlinkoProbabilityIntroModel, {
 
       /**
-       * time step function that is responsible for updating the position and status of the balls.
+       * Time step function that is responsible for updating the position and status of the balls.
        * @public
        * @param {number} dt - a small time interval
        */
@@ -76,12 +76,12 @@ define( function( require ) {
       },
 
       /**
-       * resets timer for each ball
+       * Resets timer for each ball
        * @public
        */
       reset: function() {
         PlinkoProbabilityCommonModel.prototype.reset.call( this );
-        this.ballsToCreateNumber = 0; // remove the queue of balls waiting to be created
+        this.ballsToCreateNumber = 0; // @public remove the queue of balls waiting to be created
       },
 
       /**
