@@ -283,17 +283,33 @@ define( function( require ) {
       var getHistogramBin;
       var value = histogramRadioProperty.value;
       var font;
+      var MaxBinCount;
 
       switch( value ) {
         case 'fraction':
           getHistogramBin = histogram.getFractionalBinCount.bind( histogram );
+
+          // font is dependent on the number of bins
+          if ( numberOfBins > 23 ) {font = TINY_TINY_FONT;}
+          else if ( numberOfBins > 20 ) {font = TINY_FONT;}
+          else if ( numberOfBins > 16 ) {font = SMALL_FONT;}
+          else if ( numberOfBins > 9 ) {font = NORMAL_FONT;}
+          else {font = LARGE_FONT;}
+
           break;
         case 'counter':
           getHistogramBin = histogram.getBinCount.bind( histogram );
+
+          // font is dependent on the highest binValue
+          MaxBinCount = histogram.getMaximumBinCount();
+          if ( MaxBinCount > 999 ) {font = TINY_FONT;}
+          else if ( MaxBinCount > 99 ) {font = SMALL_FONT;}
+          else if ( MaxBinCount > 9 ) {font = NORMAL_FONT;}
+          else {font = LARGE_FONT;}
+
           break;
         case 'cylinder':
-          getHistogramBin = histogram.getBinCount.bind( histogram );
-          break;
+          return; // if we are on a cylinder there is no text to update
       }
 
       for ( binIndex = 0; binIndex < MAX_NUMBER_BINS; binIndex++ ) {
@@ -305,18 +321,8 @@ define( function( require ) {
 
           if ( histogramRadioProperty.value === 'fraction' ) {
             binValue = (numberOfBins > 16) ? Util.toFixed( binValue, 2 ) : Util.toFixed( binValue, 3 );
-            if ( numberOfBins > 23 ) {font = TINY_TINY_FONT;}
-            else if ( numberOfBins > 20 ) {font = TINY_FONT;}
-            else if ( numberOfBins > 16 ) {font = SMALL_FONT;}
-            else if ( numberOfBins > 9 ) {font = NORMAL_FONT;}
-            else {font = LARGE_FONT;}
           }
-          else if ( histogramRadioProperty.value === 'counter' ) {
-            if ( binValue > 999 ) {font = TINY_FONT;}
-            else if ( binValue > 99 ) {font = SMALL_FONT;}
-            else if ( binValue > 9 ) {font = NORMAL_FONT;}
-            else {font = LARGE_FONT;}
-          }
+
 
           // update position and text of the bins
           labelsTextArray[ binIndex ].text = binValue;
