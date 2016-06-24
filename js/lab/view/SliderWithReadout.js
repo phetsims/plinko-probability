@@ -29,7 +29,7 @@ define( function( require ) {
 
   /**
    * Creates a new Slider with readout of its value
-   * @param options
+   * @param {Object} [options]
    * @constructor
    */
   function SliderWithReadout( options ) {
