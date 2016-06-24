@@ -31,6 +31,8 @@ define( function( require ) {
 
     // @private
     this.sumOfSquares = 0;
+
+    //@private
     this.variance = 0;
 
 

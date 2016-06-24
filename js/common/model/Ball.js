@@ -71,12 +71,13 @@ define( function( require ) {
     this.row = 0; // @private
 
 
-    // 'left','right'
+    // the direction in which the ball is going 'left','right'
     this.direction = 'left';  // @public {read-only}
 
     // 0 is the top of the current peg, 1 is the top of the next peg
     this.fallenRatio = 0; // @private
 
+    // contains the pegs which the ball will touch
     this.pegHistory = []; // {Array.<Object>}
 
     this.finalBinHorizontalOffset = 0; // @public describes final horizontal offset of ball within a bin {number}
@@ -121,16 +122,16 @@ define( function( require ) {
   plinkoProbability.register( 'Ball', Ball );
 
   return inherit( PropertySet, Ball, {
-    reset: function() {
-    },
 
     /**
      *
      * @param {number} dt - time interval
+     * @public
      */
     step: function( dt ) {
       this.ballStep( dt );
     },
+
     /**
      * Sends the trigger to update statistics and land
      * if the ball phase is PHASE_INITIAL otherwise it does nothing
@@ -147,6 +148,7 @@ define( function( require ) {
         this.phase = PHASE_COLLECTED;
       }
     },
+
     /**
      * this function updates the information about the peg position based on the peg history
      * @public
@@ -177,7 +179,9 @@ define( function( require ) {
      * @public
      */
     ballStep: function( df ) {
+      // the spot in which the balls will eventually land
       var finalPosition = this.finalBinVerticalOffset + this.pegSeparation * PlinkoConstants.PEG_HEIGHT_FRACTION_OFFSET;
+
       if ( this.phase === PHASE_INITIAL ) { // balls is leaving the hopper
         if ( df + this.fallenRatio < 1 ) { // if the ball has not gotten to the first peg
           this.initialPegPositionInformation(); // get the initial peg information
@@ -222,7 +226,6 @@ define( function( require ) {
       }
 
       // position depends of the state of the ball
-      // first update the position
       this.updatePosition();
     },
 
