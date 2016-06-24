@@ -22,7 +22,7 @@ define( function( require ) {
 
 
   /**
-   *
+   * Creation of top of cylinder
    * @param {Property.<number>} numberOfRowsProperty
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Object} cylinderInfo - Contains cylinder info: height, width, offset, ellipseHeight

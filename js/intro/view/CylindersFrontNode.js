@@ -17,7 +17,7 @@ define( function( require ) {
   var Shape = require( 'KITE/Shape' );
 
   /**
-   *
+   * Creation of sides of cylinder
    * @param {Property.<number>} numberOfRowsProperty
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Object} cylinderInfo - Contains cylinder info: height, width, offset, ellipseHeight
@@ -47,7 +47,7 @@ define( function( require ) {
 
     var sideLayerNode = new Node();
     this.addChild( sideLayerNode );
-    
+
     // link is present for the lifetime of the sim
     numberOfRowsProperty.link( function( numberOfRows ) {
       var numberOfTicks = numberOfRows + 1;

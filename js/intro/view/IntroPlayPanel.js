@@ -3,6 +3,7 @@
 /**
  * Scenery Node that represents a Panel with a Play Button and three radio buttons.
  *
+ * @author Martin Veillette (Berea College)
  */
 define( function( require ) {
   'use strict';
@@ -29,7 +30,8 @@ define( function( require ) {
   /**
    * Creation of play panel
    * @param {Function} updateBallsToCreateNumber - function that update the number of balls to be created
-   * @param {Property.<String>} ballModeProperty
+   * @param {Property.<String>} ballModeProperty - describes the mode of the ball
+   * @param {Property.<Boolean>} isBallCapReachedProper - describes maximum amount of balls
    * @param {Object} [options]
    * @constructor
    */
@@ -62,6 +64,7 @@ define( function( require ) {
       children: [ new BallRepresentationNode( BALL_RADIUS ), new Text( timesString + allString, fontOptions ) ]
     } );
 
+    // Creation of radio button group for ball setting
     var ballModeRadioButtons = new VerticalAquaRadioButtonGroup( [
       { node: oneBall, property: ballModeProperty, value: 'oneBall' },
       { node: tenBalls, property: ballModeProperty, value: 'tenBalls' },
@@ -79,8 +82,9 @@ define( function( require ) {
       enabled: true
     } );
 
-    isBallCapReachedProperty.lazyLink( function( isBallCapReached) {
-        playButton.enabled = !isBallCapReached;
+    // Disables play button if maximum amount of balls are dropped
+    isBallCapReachedProperty.lazyLink( function( isBallCapReached ) {
+      playButton.enabled = !isBallCapReached;
     } );
 
     //Creation of play button panel box
