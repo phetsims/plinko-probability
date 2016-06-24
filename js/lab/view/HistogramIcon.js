@@ -3,6 +3,7 @@
 /**
  * A Scenery node that depicts a histogram icon.
  *
+ * @author Martin Veillette (Berea College)
  */
 define( function( require ) {
   'use strict';

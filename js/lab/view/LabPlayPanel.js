@@ -2,7 +2,8 @@
 
 /**
  * Scenery Node that represents a Panel with a Play/Pause and two radio buttons .
- *
+ *  
+ * @author Martin Veillette (Berea College)
  */
 define( function( require ) {
   'use strict';

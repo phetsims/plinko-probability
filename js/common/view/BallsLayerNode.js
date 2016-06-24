@@ -3,7 +3,7 @@
 /**
  * Canvas Node that renders all the balls node
  *
- * @author Martin Veillette
+ * @author Martin Veillette (Berea College)
  */
 define( function( require ) {
   'use strict';

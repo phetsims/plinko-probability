@@ -4,6 +4,7 @@
  * Sound generator for the for when the balls hit the pegs.
  *
  * @author Denzell Barnett (Berea College)
+ * @author Martin Veillette (Berea College)
  */
 
 define( function( require ) {

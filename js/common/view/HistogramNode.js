@@ -3,6 +3,7 @@
 /**
  * Base type for histogram, displays a 2D grid and axes.
  *
+ * @author Martin Veillette (Berea College)
  */
 define( function( require ) {
   'use strict';
