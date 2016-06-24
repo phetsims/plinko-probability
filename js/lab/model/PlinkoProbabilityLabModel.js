@@ -70,7 +70,7 @@ define( function( require ) {
               // we want to cap dt fairly low so that the balls don't make a sudden jump
               ball.step( Math.min( 0.090, dt * 10 ) ); // 90 milliseconds is the highest dt will be
             } );
-            this.ballCreationTimeInterval = .15; // 50 milliseconds if we are seeing balls
+            this.ballCreationTimeInterval = 0.100; // 100 milliseconds if we are seeing balls
             break;
           case 'path':
             this.balls.forEach( function( ball ) {
@@ -82,7 +82,7 @@ define( function( require ) {
             this.balls.forEach( function( ball ) {
               ball.updateStatisticsAndLand();
             } );
-            this.ballCreationTimeInterval = 0.020; // 20 milliseconds if nothing is being shown
+            this.ballCreationTimeInterval = 0.015; // 15 milliseconds if nothing is being shown
             break;
           default:
             throw new Error( 'Unhandled galton Board Radio Button state: ' + this.galtonBoardRadioButton );

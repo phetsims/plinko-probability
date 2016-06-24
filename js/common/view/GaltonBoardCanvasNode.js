@@ -113,6 +113,7 @@ define( function( require ) {
     self.invalidatePaint();
 
     /**
+     * 
      * peg Path to Image
      *
      */
@@ -145,16 +146,16 @@ define( function( require ) {
       // offset the center of the shadow with respect to the peg, a bit below and to the left, empirically determined
       var offsetVector = self.modelViewTransform.modelToViewDelta( new Vector2( pegSpacing * 0.08, -pegSpacing * 0.24 ) );
 
+      // scale factor for the pegs;
+      var scale = PlinkoConstants.ROWS_RANGE.min / self.numberOfRowsProperty.value;
+
       // galtonBoard.pegs contains all the model pegs (even pegs that that are currently invisible)
       this.galtonBoard.pegs.forEach( function( peg ) {
         // render a peg only if it is visible
         if ( peg.isVisible ) {
           var pegViewPosition = self.modelViewTransform.modelToViewPosition( peg.position );
           var pegShadowPosition = pegViewPosition.plus( offsetVector );
-
-          // scale down the image
-          var scale = PlinkoConstants.ROWS_RANGE.min / self.numberOfRowsProperty.value;
-
+          
           context.drawImage( self.pegShadowImage,
             pegShadowPosition.x - self.pegShadowImage.width * scale / 2,
             pegShadowPosition.y - self.pegShadowImage.height * scale / 2,

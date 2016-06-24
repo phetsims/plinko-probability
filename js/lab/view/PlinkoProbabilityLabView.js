@@ -35,7 +35,7 @@ define( function( require ) {
   var SliderControlPanel = require( 'PLINKO_PROBABILITY/lab/view/SliderControlPanel' );
   var SoundToggleButton = require( 'SCENERY_PHET/buttons/SoundToggleButton' );
   var StatisticsDisplayAccordionBox = require( 'PLINKO_PROBABILITY/lab/view/StatisticsDisplayAccordionBox' );
-  var TrajectoryPath = require( 'PLINKO_PROBABILITY/common/view/TrajectoryPath' );
+  var TrajectoryPath = require( 'PLINKO_PROBABILITY/lab/view/TrajectoryPath' );
   var Vector2 = require( 'DOT/Vector2' );
   var VerticalRadioButtonCommon = require( 'PLINKO_PROBABILITY/common/view/VerticalRadioButtonCommon' );
 
@@ -142,7 +142,7 @@ define( function( require ) {
     var soundToggleButton = new SoundToggleButton( viewProperties.isSoundEnabledProperty );
 
     // create the ballLayerNodes  (a canvas Node) that renders all the balls
-    var ballsLayerNode = new BallsLayerNode( model.balls, modelViewTransform, model.galtonBoardRadioButtonProperty, { canvasBounds: this.layoutBounds } );
+    var ballsLayerNode = new BallsLayerNode( model.balls, modelViewTransform,model.numberOfRowsProperty, model.galtonBoardRadioButtonProperty, { canvasBounds: this.layoutBounds } );
     this.ballsLayerNode = ballsLayerNode;
 
     // create pathsLayer to keep all the TrajectoryPath

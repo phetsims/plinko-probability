@@ -32,7 +32,7 @@ define( function( require ) {
     // determine the ball orientation within the bin
     switch( this.binCount % 3 ) {
       case 0:     // a multiple of three, Ball makes decision to be centered
-        this.binOrientation = 0;
+        this.binOrientation = 0; // @public (read-only)
         break;
       case 1:     // Ball makes probabilistic decision whether to end in left or right horizontal position in the bin
         this.binOrientation = (Math.random() < 0.5) ? 1 : -1;
@@ -50,7 +50,7 @@ define( function( require ) {
     var delta = this.ballRadius + Math.sqrt( Math.pow( 2 * this.ballRadius, 2 ) - Math.pow( (cylinderInfo.cylinderWidth / 2) - this.ballRadius, 2 ) ); // the height separation between stacks
 
     // describes final vertical offset of ball within a bin {number}
-    this.finalBinVerticalOffset = minimumYposition + ((binStackLevel - 1) * delta) - this.ballRadius;
+    this.finalBinVerticalOffset = minimumYposition + ((binStackLevel - 1) * delta) - this.ballRadius; 
 
     // describes final horizontal offset of the ball within a bin {number}
     this.finalBinHorizontalOffset = (this.binOrientation * ((cylinderInfo.cylinderWidth / 2) - this.ballRadius));
