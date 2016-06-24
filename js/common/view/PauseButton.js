@@ -14,12 +14,13 @@ define( function( require ) {
   var Circle = require( 'SCENERY/nodes/Circle' );
   var inherit = require( 'PHET_CORE/inherit' );
   var HBox = require( 'SCENERY/nodes/HBox' );
+  var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var RoundPushButton = require( 'SUN/buttons/RoundPushButton' );
 
   // constants
-  var DEFAULT_RADIUS = 30;
+  var DEFAULT_RADIUS = PlinkoConstants.PLAY_PAUSE_BUTTON_RADIUS;
 
   /**
    * @param {Object} [options] node options
@@ -32,7 +33,6 @@ define( function( require ) {
     }, options );
 
     // pause symbols are sized relative to the radius
-
     var barWidth = options.radius * 0.2;
     var barHeight = options.radius;
 
@@ -42,8 +42,7 @@ define( function( require ) {
     var bar2 = bar();
     var pausePath = new HBox( { children: [ bar1, bar2 ], spacing: barWidth } );
 
-    // put the play and pause symbols inside circles so they have the same bounds,
-
+    // put the pause symbols inside a circle
     var pausedCircle = new Circle( options.radius );
     pausePath.centerX = 0;
     pausePath.centerY = 0;

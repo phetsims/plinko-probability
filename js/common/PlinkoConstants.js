@@ -71,7 +71,10 @@ define( function( require ) {
     CYLINDER_BASE_COLOR: new Color( 171, 189, 196, 0.5 ), // must be of type Color
     SIDE_CYLINDER_STROKE_COLOR: 'rgb( 120, 120, 100 )',
     TOP_CYLINDER_STROKE_COLOR: 'rgb( 120, 120, 100 )',
-    TOP_CYLINDER_FILL_COLOR: 'rgb(212, 230, 238 )'
+    TOP_CYLINDER_FILL_COLOR: 'rgb(212, 230, 238 )',
+
+    // play pause button Radius
+    PLAY_PAUSE_BUTTON_RADIUS: 30
 
   };
 

@@ -15,16 +15,16 @@ define( function( require ) {
   var Circle = require( 'SCENERY/nodes/Circle' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Path = require( 'SCENERY/nodes/Path' );
+  var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var RoundPushButton = require( 'SUN/buttons/RoundPushButton' );
   var Shape = require( 'KITE/Shape' );
-
+  
   // constants
-  var DEFAULT_RADIUS = 30;
   var PLAY_BUTTON_BASE_COLOR = new Color( 0, 224, 121 ); //light-green hue
 
   /**
-   * PlayButton constructor
+   * Play Button constructor
    *
    * @param {Object} [options] node options
    * @constructor
@@ -40,9 +40,11 @@ define( function( require ) {
     var triangleHeight = options.radius;
     var triangleWidth = options.radius * 0.8;
 
+    // create the Path of the triangle
     var playPath = new Path( new Shape().moveTo( 0, triangleHeight / 2 ).lineTo( triangleWidth, 0 ).lineTo( 0, -triangleHeight / 2 ).close(),
       { fill: 'black' } );
 
+    // put the triangle within a circle
     var playCircle = new Circle( options.radius );
     playPath.centerX = options.radius * 0.05; // move to right slightly since we don't want it exactly centered
     playPath.centerY = 0;
