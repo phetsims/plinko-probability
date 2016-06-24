@@ -30,6 +30,8 @@ define( function( require ) {
    */
   function EquationNode( leftHandSideOfEquation, rightHandSideOfEquation, options ) {
 
+    Node.call( this );
+
     options = _.extend( {
       leftHandSideFont: new PhetFont( 16 ),
       rightHandSideFont: new PhetFont( 16 ),
@@ -43,8 +45,7 @@ define( function( require ) {
     // @private
     this.options = options;
 
-    Node.call( this );
-
+    // @private
     this.leftHandSideOfEquationText = new SubSupText( leftHandSideOfEquation,
       {
         font: options.leftHandSideFont,
@@ -52,16 +53,21 @@ define( function( require ) {
         subScale: 0.5,
         maxWidth: options.leftHandSideMaxWidth
       } );
+
+    // @private
     this.equalSignText = new Text( ' = ',
       {
         font: options.leftHandSideFont,
         fill: options.leftHandSideFill
       } );
+
+    // @private
     this.rightHandSideOfEquationText = new Text( this.roundNumber( rightHandSideOfEquation ),
       {
         font: options.rightHandSideFont,
         fill: options.rightHandSideFill
       } );
+
 
     var hStrut = new HStrut( options.positionOfEqualSign );
 
@@ -87,12 +93,12 @@ define( function( require ) {
 
   return inherit( Node, EquationNode, {
     /**
-     *
-     * @param {number} number
+     * Update the value of the right side of the equation (a number)
+     * @param {value} number
      * @public
      */
-    setRightHandSideOfEquation: function( number ) {
-      this.rightHandSideOfEquationText.text = this.roundNumber( number );
+    setRightHandSideOfEquation: function( value ) {
+      this.rightHandSideOfEquationText.text = this.roundNumber( value );
     },
 
     /**
@@ -117,7 +123,7 @@ define( function( require ) {
       // 0.00011 -> 0.000
 
       // number = mantissa times 10^(exponent) where the mantissa is between 1 and 10 (or -1 to -10)
-      var exponent = Math.floor( Math.log10( Math.abs( number ) ) );
+      var exponent = Math.floor( Util.log10( Math.abs( number ) ) );
 
       var decimalPlaces;
       if ( exponent >= this.options.maxDecimalPlaces ) {

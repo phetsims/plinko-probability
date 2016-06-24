@@ -17,14 +17,8 @@ define( function( require ) {
     var ObservableArray = require( 'AXON/ObservableArray' );
     var PropertySet = require( 'AXON/PropertySet' );
     var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
-    var Sound = require( 'VIBE/Sound' );
-
-    // audio
-    var bonk1Audio = require( 'audio!PLINKO_PROBABILITY/bonk-1-for-plinko' );
-    var bonk2Audio = require( 'audio!PLINKO_PROBABILITY/bonk-2-for-plinko' );
 
     function PlinkoProbabilityCommonModel() {
-
 
       PropertySet.call( this, {
         probability: PlinkoConstants.BINARY_PROBABILITY_RANGE.defaultValue, // this can be a number between 0 and 1
@@ -34,17 +28,11 @@ define( function( require ) {
         isBallCapReached: false, // is the maximum of balls reached?
         numberOfRows: PlinkoConstants.ROWS_RANGE.defaultValue, /// must be an integer
         galtonBoardRadioButton: 'ball', // Valid values are 'ball', 'path', and 'none'.
-        isSoundEnabled: false,
         isPlaying: false  // false if no balls are being dropped true if they are
       } );
 
-      // Audio for ball hitting pegs
-      this.bonk1Sound = new Sound( bonk1Audio );  // @private
-      this.bonk2Sound = new Sound( bonk2Audio );  // @private
-
       this.launchedBallsNumber = 0; // @public - number of current trial (current ball drop)
       this.ballCreationTimeElapsed = 0; // @public time elapsed since last ball creation;
-      this.soundTimeElapsed = 0;  // @private - number used to keep track of the last sound playing
 
       // create an observable array of the model balls
       this.balls = new ObservableArray(); // @public
@@ -54,36 +42,19 @@ define( function( require ) {
 
       // create the model for the histogram
       this.histogram = new Histogram( this.numberOfRowsProperty ); // @public
-
     }
-
 
     plinkoProbability.register( 'PlinkoProbabilityCommonModel', PlinkoProbabilityCommonModel );
 
     return inherit( PropertySet, PlinkoProbabilityCommonModel, {
-
-      /**
-       * Play sound that depends on the direction of the ball
-       * @param {string} direction - acceptable values are 'left' and 'right'
-       */
-      playBallHittingPegSound: function( direction ) {
-        assert && assert( direction === 'left' || direction === 'right', 'direction should be left or right' );
-        // play sound if the previous sound was played more than some elapsed time
-        if ( this.isSoundEnabled && (this.soundTimeElapsed > PlinkoConstants.SOUND_TIME_INTERVAL) ) {
-          // will play sound based on ball's motion, left or right
-          ( direction === 'left') ? this.bonk1Sound.play() : this.bonk2Sound.play();
-          this.soundTimeElapsed = 0; // reset the time elapsed since last sound to zero
-        }
-      },
-
       /**
        * time step function that is responsible for updating the position and status of the balls.
        * @public
        * @param {number} dt - a small time interval
        */
       step: function( dt ) {
-        this.soundTimeElapsed += dt;
       },
+
       /**
        * Reset of the model attributes.
        * @public
@@ -94,7 +65,6 @@ define( function( require ) {
         this.histogram.reset(); // empty out all the model bins
         this.launchedBallsNumber = 0; // reset the number of launched balls to zero
         this.ballCreationTimeElapsed = 0;
-        this.soundTimeElapsed = 0;
       },
 
       /**

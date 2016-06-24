@@ -3,7 +3,7 @@
 /**
  * Scenery Node that displays two Radio Buttons that switches between the cylinder and histogram view
  *
- * @author Martin Veillette (Berea College)
+ * @author Denzell Barnett(Berea College)
  */
 define( function( require ) {
   'use strict';

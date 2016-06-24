@@ -112,10 +112,7 @@ define( function( require ) {
             thisModel.balls.remove( previousBall ); //removes the previous ball
           }
         } );
-        //triggers sound to play when ball hits a peg
-        addedBall.on( 'playSound', function() {
-          thisModel.playBallHittingPegSound( addedBall.direction );
-        } );
+        
       }
     } );
   }
