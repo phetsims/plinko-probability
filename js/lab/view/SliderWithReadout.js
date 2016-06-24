@@ -27,6 +27,11 @@ define( function( require ) {
   var Text = require( 'SCENERY/nodes/Text' );
   var Util = require( 'DOT/Util' );
 
+  /**
+   * Creates a new Slider with readout of its value
+   * @param options
+   * @constructor
+   */
   function SliderWithReadout( options ) {
 
     var sliderWithReadout = this;

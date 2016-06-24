@@ -35,6 +35,31 @@ define( function( require ) {
   // constants
   var IDEAL_MAX_TEXT_WIDTH = 45; // maximum length of the Ideal string
 
+  // options for the title of the panel
+  var OPTIONS_TITLE = {
+    leftHandSideFont: PlinkoConstants.TEXT_FONT_BOLD,
+    leftHandSideFill: PlinkoConstants.SAMPLE_FONT_COLOR,
+    rightHandSideFont: PlinkoConstants.TEXT_FONT_BOLD,
+    rightHandSideFill: PlinkoConstants.SAMPLE_FONT_COLOR,
+    maxDecimalPlaces: 0
+  };
+
+  // options for sample statistics
+  var OPTIONS_SAMPLE = {
+    leftHandSideFont: PlinkoConstants.TEXT_FONT,
+    leftHandSideFill: PlinkoConstants.SAMPLE_FONT_COLOR,
+    rightHandSideFont: PlinkoConstants.TEXT_FONT,
+    rightHandSideFill: PlinkoConstants.SAMPLE_FONT_COLOR
+  };
+
+  // options for the theoretical statistics
+  var OPTIONS_THEORETICAL = {
+    leftHandSideFont: PlinkoConstants.TEXT_FONT,
+    leftHandSideFill: PlinkoConstants.THEORETICAL_FONT_COLOR,
+    rightHandSideFont: PlinkoConstants.TEXT_FONT,
+    rightHandSideFill: PlinkoConstants.THEORETICAL_FONT_COLOR
+  };
+
   /**
    *
    * @param {PlinkoProbabilityLabModel} model
@@ -45,38 +70,13 @@ define( function( require ) {
    */
   function StatisticsDisplayAccordionBox( model, isTheoreticalHistogramVisibleProperty, expandedAccordionBoxProperty, options ) {
 
-    // options for the title of the panel
-    var optionsTitle = {
-      leftHandSideFont: PlinkoConstants.TEXT_FONT_BOLD,
-      leftHandSideFill: PlinkoConstants.SAMPLE_FONT_COLOR,
-      rightHandSideFont: PlinkoConstants.TEXT_FONT_BOLD,
-      rightHandSideFill: PlinkoConstants.SAMPLE_FONT_COLOR,
-      maxDecimalPlaces: 0
-    };
-
-    // options for sample statistics
-    var optionsSample = {
-      leftHandSideFont: PlinkoConstants.TEXT_FONT,
-      leftHandSideFill: PlinkoConstants.SAMPLE_FONT_COLOR,
-      rightHandSideFont: PlinkoConstants.TEXT_FONT,
-      rightHandSideFill: PlinkoConstants.SAMPLE_FONT_COLOR
-    };
-
-    // options for the theoretical statistics
-    var optionsTheoretical = {
-      leftHandSideFont: PlinkoConstants.TEXT_FONT,
-      leftHandSideFill: PlinkoConstants.THEORETICAL_FONT_COLOR,
-      rightHandSideFont: PlinkoConstants.TEXT_FONT,
-      rightHandSideFill: PlinkoConstants.THEORETICAL_FONT_COLOR
-    };
-
     // create the EquationNode(s) that will populate the panel
-    var numberLandedBallsText = new EquationNode( nString, 0, optionsTitle );
-    var sampleAverageText = new EquationNode( xOverlineString, 0, optionsSample );
-    var sampleStandardDeviationText = new EquationNode( sString, 0, optionsSample );
-    var sampleStandardDeviationOfMeanText = new EquationNode( sMeanString, 0, optionsSample );
-    var theoreticalAverageText = new EquationNode( muGreekString, 0, optionsTheoretical );
-    var theoreticalStandardDeviationText = new EquationNode( sigmaGreekString, 0, optionsTheoretical );
+    var numberLandedBallsText = new EquationNode( nString, 0, OPTIONS_TITLE );
+    var sampleAverageText = new EquationNode( xOverlineString, 0, OPTIONS_SAMPLE );
+    var sampleStandardDeviationText = new EquationNode( sString, 0, OPTIONS_SAMPLE );
+    var sampleStandardDeviationOfMeanText = new EquationNode( sMeanString, 0, OPTIONS_SAMPLE );
+    var theoreticalAverageText = new EquationNode( muGreekString, 0, OPTIONS_THEORETICAL );
+    var theoreticalStandardDeviationText = new EquationNode( sigmaGreekString, 0, OPTIONS_THEORETICAL );
 
     // link is present for the life of the simulation, no need to dispose
     Property.multilink( [ model.numberOfRowsProperty, model.probabilityProperty ], function( numberOfRows, probability ) {
@@ -109,6 +109,7 @@ define( function( require ) {
         orientation: 'horizontal',
         spacing: 5,
         children: [
+          // left side of the accordion box
           new LayoutBox( {
             spacing: 10,
             children: [
@@ -118,6 +119,7 @@ define( function( require ) {
             ],
             align: 'left'
           } ),
+          // right side of the accordion box
           new LayoutBox( {
             spacing: 5,
             children: [
