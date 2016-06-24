@@ -25,7 +25,7 @@ define( function( require ) {
 
     Node.call( this );
 
-    //  create the representation for a ball
+    //  create and add the representation for a ball
     var ballRepresentation = new Circle( radius, {
       stroke: PlinkoConstants.BALL_COLOR,
       lineWidth: 0.1 * radius,
@@ -38,11 +38,6 @@ define( function( require ) {
         .addColorStop( 0, PlinkoConstants.BALL_HIGHLIGHT_COLOR )
         .addColorStop( 1, PlinkoConstants.BALL_COLOR )
     } );
-
-
-    // create an image of the ball and add to this node.
-    //var ballImage = ballRepresentation.toDataURLNodeSynchronous();
-    //this.addChild( ballImage );
     this.addChild( ballRepresentation );
 
   }
