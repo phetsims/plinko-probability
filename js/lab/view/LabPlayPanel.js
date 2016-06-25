@@ -60,7 +60,7 @@ define( function( require ) {
       ]
     } );
 
-    // the ball size is not necessarily twice the radius if
+    // the ball size is not necessarily twice the radius
     var ballWidth = new BallRepresentationNode( BALL_RADIUS ).width;
 
     // create the icon for the continuous mode
