@@ -60,9 +60,9 @@ define( function( require ) {
         this.ballCreationTimeElapsed += dt; // we want to to keep track of the time elapsed since the last ball was created
         // we only want to create a ball if:
         // there are balls waiting in line &&
-        // the minimum time interval has passed 300 milliseconds &&
+        // the minimum time interval has passed 150 milliseconds &&
         // the number of launched balls is less than the maximum number of balls
-        if ( this.ballsToCreateNumber > 0 && this.ballCreationTimeElapsed > 0.3 && this.launchedBallsNumber < MAX_BALL_NUMBER ) {
+        if ( this.ballsToCreateNumber > 0 && this.ballCreationTimeElapsed > 0.150 && this.launchedBallsNumber < MAX_BALL_NUMBER ) {
           this.addNewBall(); // add a new ball
           this.ballCreationTimeElapsed = 0; //reset the time elapsed
           this.ballsToCreateNumber--; //remove the ball for the queue
