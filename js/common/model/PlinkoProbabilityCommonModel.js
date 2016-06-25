@@ -28,7 +28,7 @@ define( function( require ) {
       PropertySet.call( this, {
         probability: PlinkoConstants.BINARY_PROBABILITY_RANGE.defaultValue, // {number} this can be a number between 0 and 1
         histogramMode: 'count', // {string} acceptable values are 'count' and 'fraction'
-        ballMode: 'oneBall', // {string} acceptable values are 'oneBall' and 'continuous'
+        ballMode: 'oneBall', // {string} acceptable values are 'oneBall', 'tenBalls', 'allBalls' and 'continuous'
         histogramVisible: false, // {boolean} is the histogram visible?
         isBallCapReached: false, // {boolean} is the maximum of balls reached?
         numberOfRows: PlinkoConstants.ROWS_RANGE.defaultValue, /// {number} must be an integer

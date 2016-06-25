@@ -32,7 +32,6 @@ define( function( require ) {
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var SoundToggleButton = require( 'SCENERY_PHET/buttons/SoundToggleButton' );
-  var Vector2 = require( 'DOT/Vector2' );
   var VerticalRadioButtonCommon = require( 'PLINKO_PROBABILITY/common/view/VerticalRadioButtonCommon' );
 
   // images
@@ -47,31 +46,31 @@ define( function( require ) {
   function PlinkoProbabilityIntroView( model ) {
 
     ScreenView.call( this, { layoutBounds: new Bounds2( 0, 0, 1024, 618 ) } );
-    var galtonBoardApexPosition = new Vector2( this.layoutBounds.maxX / 2 - 80, 70 );
 
     // create the hopper and the wooden Board
     var hopper = new Hopper();
     var board = new Board();
 
-    hopper.centerX = galtonBoardApexPosition.x;
+    // layout the hopper and the board
+    hopper.centerX = this.layoutBounds.maxX / 2 - 80;
     hopper.top = 10;
-    var boardOffset = (board.options.bottomWidth - board.width) / 2; // horizontal displacement of board
-    board.centerX = hopper.centerX - boardOffset;
+    board.left = hopper.centerX - board.options.bottomWidth / 2;
     board.top = hopper.bottom + 10;
 
+    // create the model view transform based on the triangular board of the galton board (excluding the dropped shadow)
     var viewGraphBounds = new Bounds2( board.left, board.top, board.left + board.options.bottomWidth, board.top + board.options.height );
     var modelGraphBounds = model.galtonBoard.bounds;
     var modelViewTransform = ModelViewTransform2.createRectangleInvertedYMapping( modelGraphBounds, viewGraphBounds );
 
     var viewProperties = new PropertySet( {
       histogramRadio: 'cylinder', // Valid values are 'counter', 'cylinder'
-      ballRadio: 'oneBall', // Valid values are 'oneBall' and 'continuous'.
+      ballRadio: 'oneBall', // Valid values are 'oneBall', 'tenBalls' and 'allBalls'.
       expandedAccordionBox: false,
       isTheoreticalHistogramVisible: false,
       isSoundEnabled: false
     } );
 
-    this.viewProperties = viewProperties;
+    this.viewProperties = viewProperties; // @private
 
     var histogramNode = new HistogramNode(
       viewProperties.histogramRadioProperty,

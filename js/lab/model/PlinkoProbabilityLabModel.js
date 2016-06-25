@@ -16,7 +16,7 @@ define( function( require ) {
     var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
 
     // constants
-    var MAX_NUMBER_BALLS = 9999;
+    var MAX_NUMBER_BALLS = 9999; // max number of balls per bin
 
 
     /**

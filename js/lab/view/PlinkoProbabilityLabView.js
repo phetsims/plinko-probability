@@ -36,7 +36,6 @@ define( function( require ) {
   var SoundToggleButton = require( 'SCENERY_PHET/buttons/SoundToggleButton' );
   var StatisticsDisplayAccordionBox = require( 'PLINKO_PROBABILITY/lab/view/StatisticsDisplayAccordionBox' );
   var TrajectoryPath = require( 'PLINKO_PROBABILITY/lab/view/TrajectoryPath' );
-  var Vector2 = require( 'DOT/Vector2' );
   var VerticalRadioButtonCommon = require( 'PLINKO_PROBABILITY/common/view/VerticalRadioButtonCommon' );
 
   // images
@@ -54,20 +53,17 @@ define( function( require ) {
 
     ScreenView.call( this, { layoutBounds: new Bounds2( 0, 0, 1024, 618 ) } );
 
-    // the apex is the top corner of the Galton Board
-    var galtonBoardApexPosition = new Vector2( this.layoutBounds.maxX / 2 - 80, 70 );
-
     // create the hopper and the Galton Board
     var hopper = new Hopper();
     var board = new Board();
 
     // hopper and Galton Board positioning
-    hopper.centerX = galtonBoardApexPosition.x;
+    hopper.centerX = this.layoutBounds.maxX / 2 - 80;
     hopper.top = 10;
-    board.centerX = hopper.centerX - (board.options.bottomWidth - board.width) / 2;
+    board.left = hopper.centerX - board.options.bottomWidth / 2;
     board.top = hopper.bottom + 10;
 
-    // histogram positioning (heavily dependent on Galton Board positioning)
+    // create the model view transform based on the triangular board of the galton board (excluding the dropped shadow)
     var viewGraphBounds = new Bounds2( board.left, board.top, board.left + board.options.bottomWidth, board.top + board.options.height );
     var modelGraphBounds = model.galtonBoard.bounds;
     var modelViewTransform = ModelViewTransform2.createRectangleInvertedYMapping( modelGraphBounds, viewGraphBounds );
@@ -227,7 +223,8 @@ define( function( require ) {
         } ).show();
         // sets the play button to active.
         playPanel.setPlayButtonVisible();
-        model.isPlayingProperty.set( false ); // if pop up dialog comes on then it is not playing anymore
+        // it is not playing anymore
+        model.isPlayingProperty.set( false );
       }
     } );
 
@@ -237,12 +234,12 @@ define( function( require ) {
 
   return inherit( ScreenView, PlinkoProbabilityLabView, {
     /**
-     * Repaints canvas at every frame and steps through the pegSoundGenerator
-     * @param dt
+     * Repaints canvas for balls at every frame and steps through the pegSoundGenerator
+     * @param {number} dt
      */
     step: function( dt ) {
 
-      // update view on model step
+      // update view of the balls
       this.ballsLayerNode.invalidatePaint();
 
       // increment time for sound generation
