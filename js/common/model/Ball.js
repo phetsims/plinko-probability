@@ -179,8 +179,7 @@ define( function( require ) {
      * @public
      */
     ballStep: function( df ) {
-      // the spot in which the balls will eventually land
-      var finalPosition = this.finalBinVerticalOffset + this.pegSeparation * PlinkoConstants.PEG_HEIGHT_FRACTION_OFFSET;
+
 
       if ( this.phase === PHASE_INITIAL ) { // balls is leaving the hopper
         if ( df + this.fallenRatio < 1 ) { // if the ball has not gotten to the first peg
@@ -213,7 +212,8 @@ define( function( require ) {
         }
       }
       if ( this.phase === PHASE_EXIT ) { // the ball has exited and it is making its way to the bin
-        this.updatePosition();
+        // the position at which the balls will eventually land
+        var finalPosition = this.finalBinVerticalOffset + this.pegSeparation * PlinkoConstants.PEG_HEIGHT_FRACTION_OFFSET;
         if ( this.position.y > finalPosition ) { // if it has not fallen to its final position
 
           // the change in the fallen ratio needs to be scaled by the peg separation so that it matches the speed everywhere else
@@ -225,12 +225,13 @@ define( function( require ) {
         }
       }
 
-      // position depends of the state of the ball
+      // update the position of the ball
       this.updatePosition();
     },
 
     /**
      * updates the position of the ball depending on the phase
+     * @private
      */
     updatePosition: function() {
       switch( this.phase ) {
@@ -271,7 +272,8 @@ define( function( require ) {
           this.position.setXY( this.finalBinHorizontalOffset, this.finalBinVerticalOffset );
           this.position.addXY( this.pegPositionX, 0 );
       }
-      // the origin in on the first peg so we need to offset the distance between the hopper and the peg
+
+      // add a vertical offset, such that the balls do not reach the pegs but are over the pegs.
       this.position.addXY( 0, this.pegSeparation * PlinkoConstants.PEG_HEIGHT_FRACTION_OFFSET );
     }
 
