@@ -37,7 +37,7 @@ define( function( require ) {
   return inherit( Object, PegSoundGeneration, {
 
     /**
-     * Reset of the model attributes.
+     * Reset
      * @public
      */
     reset: function() {
@@ -45,7 +45,7 @@ define( function( require ) {
     },
 
     /**
-     * interates through view based on dt
+     * Increment time by dt
      * @param {number} dt - change in time
      * @public
      */

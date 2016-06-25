@@ -30,13 +30,13 @@ define( function( require ) {
 
 
       var bounds = PlinkoConstants.HISTOGRAM_BOUNDS;
-      var binWidth = bounds.width / (this.numberOfRows + 1); // the width of one bin is the total width divided by the number of rows
-      var cylinderWidth = 0.95 * binWidth;
+      var binWidth = bounds.width / (this.numberOfRows + 1); // the width of one bin is the total width divided by the number of columns
+      var cylinderWidth = 0.95 * binWidth; // there is a small gap between each cylinder
       var ellipseHeight = cylinderWidth * Math.sin( PERSPECTIVE_TILT ); // the height is the width times some perspective tilt
 
       this.cylinderInfo = {           // @public (read-only)
         height: bounds.height * 0.87, // we want the cylinders to be shorter than the histogram
-        cylinderWidth: cylinderWidth, // there is a small gap between each cylinder
+        cylinderWidth: cylinderWidth,
         ellipseHeight: ellipseHeight, // the height of the ellipse
         verticalOffset: 0.035, // gap between pegboard and cylinders
         top: bounds.maxY // the top of the cylinders
