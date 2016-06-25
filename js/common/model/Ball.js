@@ -42,18 +42,18 @@ define( function( require ) {
     // position vector
     this.position = new Vector2( 0, 0 );
 
-    this.probability = probability; // @private {read-only}
-    this.numberOfRows = numberOfRows; // @private {read-only}
+    this.probability = probability; // @private (read-only)
+    this.numberOfRows = numberOfRows; // @private (read-only)
 
-    this.pegSeparation = PegInterface.getSpacing( numberOfRows ); // @public {read-only}
+    this.pegSeparation = PegInterface.getSpacing( numberOfRows ); // @public (read-only)
 
-    this.ballRadius = this.pegSeparation * PlinkoConstants.BALL_SIZE_FRACTION;  // @public {read-only}
+    this.ballRadius = this.pegSeparation * PlinkoConstants.BALL_SIZE_FRACTION;  // @public (read-only)
 
     // 0 -> Initially falling
     // 1 -> Falling between pegs
     // 2 -> Out of pegs
     // 3 -> Collected
-    this.phase = PHASE_INITIAL; // @private
+    this.phase = PHASE_INITIAL; // @public (read-only)
 
     // rows and column
     /*
@@ -72,13 +72,13 @@ define( function( require ) {
 
 
     // the direction in which the ball is going 'left','right'
-    this.direction = 'left';  // @public {read-only}
+    this.direction = 'left';  // @public (read-only)
 
     // 0 is the top of the current peg, 1 is the top of the next peg
     this.fallenRatio = 0; // @private
 
     // contains the pegs which the ball will touch
-    this.pegHistory = []; // {Array.<Object>}
+    this.pegHistory = []; // @public (read-only) {Array.<Object>}
 
     this.finalBinHorizontalOffset = 0; // @public describes final horizontal offset of ball within a bin {number}
     this.finalBinVerticalOffset = 0;  // @public describes final vertical offset of ball within a bin {number}
