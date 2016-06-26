@@ -54,11 +54,10 @@ define( function( require ) {
     var rightArcAngle = -Math.PI / 2 + options.rangeRotationAngle * (probabilityProperty.value - 0.5) + options.openingAngle / 2;
 
     var pegRadius = PlinkoConstants.PEG_RADIUS * 26 / 5;
-    // create the shape of the peg , a disk with a segment removed, the segment removed spans an angle of options.openingAngle
+    // create the shape of the peg, i.e. a disk with a segment removed, the segment removed spans an angle of options.openingAngle
     var pegShape = new Shape().arc( 0, 0, pegRadius, leftArcAngle, rightArcAngle, true );
 
-    this.pegRadius = pegRadius;
-    // for each peg, let's create a peg Path and a peg Shadow
+    // create a peg Path and a peg Shadow
     var pegPath = new Path( pegShape, { fill: PlinkoConstants.PEG_COLOR } );
     var pegShadow = new Circle( 1.4 * pegRadius, {
       fill: new RadialGradient(
@@ -90,7 +89,7 @@ define( function( require ) {
     } );
 
     // no need to unlink since it is present for the lifetime of the simulation
-    // create a lazyLink  *rather than a link) since oldProbability is null at first.
+    // create a lazyLink rather than a link since oldProbability is null at first.
     probabilityProperty.lazyLink( function( newProbability, oldProbability ) {
       // rotating the underlying pegPath
       var newAngle = newProbability * options.rangeRotationAngle;
@@ -113,14 +112,13 @@ define( function( require ) {
     self.invalidatePaint();
 
     /**
-     * 
-     * peg Path to Image
-     *
+     * Convert peg Path to Image
      */
     function pegPathToImage() {
+      var pegImageHalfSize = Math.ceil( pegRadius ) + 1;
       pegPath.toImage( function( image ) {
         self.pegImage = image;
-      }, Math.ceil( self.pegRadius ) + 1, Math.ceil( self.pegRadius ) + 1, Math.ceil( self.pegRadius * 2 ) + 2, Math.ceil( self.pegRadius * 2 ) + 2 );
+      }, pegImageHalfSize, pegImageHalfSize, 2 * pegImageHalfSize, 2 * pegImageHalfSize );
     }
   }
 
@@ -138,9 +136,7 @@ define( function( require ) {
       var self = this;
 
       // Slight chance the image used isn't loaded. In that case, return & try again on next frame
-      if ( self.pegImage === null || self.pegShadowImage === null ) {
-        return;
-      }
+      if ( self.pegImage === null || self.pegShadowImage === null ) {return;}
 
       var pegSpacing = PegInterface.getSpacing( self.numberOfRowsProperty.value );
       // offset the center of the shadow with respect to the peg, a bit below and to the left, empirically determined
@@ -155,7 +151,7 @@ define( function( require ) {
         if ( peg.isVisible ) {
           var pegViewPosition = self.modelViewTransform.modelToViewPosition( peg.position );
           var pegShadowPosition = pegViewPosition.plus( offsetVector );
-          
+
           context.drawImage( self.pegShadowImage,
             pegShadowPosition.x - self.pegShadowImage.width * scale / 2,
             pegShadowPosition.y - self.pegShadowImage.height * scale / 2,
