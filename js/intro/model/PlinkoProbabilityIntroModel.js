@@ -41,9 +41,10 @@ define( function( require ) {
         verticalOffset: 0.035, // gap between pegboard and cylinders
         top: bounds.maxY // the top of the cylinders
       };
-      this.ballsToCreateNumber = 0; // @public {number} an integer number representing the number of balls in the creation queue
-    }
 
+      this.launchedBallsNumber = 0; // @public {number} - number of balls created
+      this.ballsToCreateNumber = 0; // @public {number} - an integer number representing the number of balls in the creation queue
+    }
 
     plinkoProbability.register( 'PlinkoProbabilityIntroModel', PlinkoProbabilityIntroModel );
 
@@ -55,8 +56,6 @@ define( function( require ) {
        * @param {number} dt - a small time interval
        */
       step: function( dt ) {
-        PlinkoProbabilityCommonModel.prototype.step.call( this, dt );
-
         this.ballCreationTimeElapsed += dt; // we want to to keep track of the time elapsed since the last ball was created
         // we only want to create a ball if:
         // there are balls waiting in line &&

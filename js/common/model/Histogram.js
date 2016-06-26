@@ -28,16 +28,14 @@ define( function( require ) {
 
     var thisHistogram = this;
 
-
     // @private
     this.sumOfSquares = 0;
 
-    //@private
+    // @private
     this.variance = 0;
 
-
     // @public
-    this.bins = []; // {Object[]}
+    this.bins = []; // @public {Object[]}
     this.average = 0; // @private
     this.standardDeviation = 0; // @private
     this.standardDeviationOfMean = 0; // @private
@@ -72,7 +70,8 @@ define( function( require ) {
     setBinsToZero: function() {
       this.bins = []; // reset the bin array to an empty array
       var binInfo;
-      for ( var i = 0; i < PlinkoConstants.ROWS_RANGE.max + 1; i++ ) {
+      var maxBins = PlinkoConstants.ROWS_RANGE.max + 1;
+      for ( var i = 0; i < maxBins; i++ ) {
         binInfo = {
           binCount: 0,  // number of balls that will be in the bin (including those currently falling through the galton board)
           visibleBinCount: 0,  // number of balls that are in the bin
@@ -85,7 +84,7 @@ define( function( require ) {
     /**
      * Updates the array elements for the number of balls in a bin and the horizontal final position of the last ball.
      *
-     * @param {Ball} ball
+     * @param {IntroBall||LabBall} ball
      * @public
      */
     updateBinCountAndOrientation: function( ball ) {
@@ -134,7 +133,7 @@ define( function( require ) {
 
     /**
      * Add an additional ball to the histogram to the appropriate bin and update all the relevant statistics
-     * @param {Ball} ball
+     * @param {IntroBall||LabBall} ball
      * @public
      */
     addBallToHistogram: function( ball ) {
@@ -176,10 +175,10 @@ define( function( require ) {
     /**
      * Function that returns an array of the fractional 'normalized 'occupation of a bin, i.e.
      * the fractional normalized account is done with respect to the bin with the largest count
-     * Hence at least one element of the array will return a value of 1 (unless the array is completly
+     * Hence at least one element of the array will return a value of 1 (unless the array is completely
      * filled with zeros in which case it returns an array of zeros)
      * @returns {Array.<number>}
-     * @public read-only
+     * @public (read-only)
      */
     getNormalizedSampleDistribution: function() {
       var maxCount = this.getMaximumBinCount();
