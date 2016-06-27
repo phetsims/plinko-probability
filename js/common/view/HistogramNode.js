@@ -452,7 +452,7 @@ define( function( require ) {
       function( numberOfRows, probability, isTheoreticalHistogramVisible ) {
         // update the sample histogram
         updateHistogram( sampleHistogramRectanglesArray, model.histogram.getNormalizedSampleDistribution() );
-        // set the appropriate visibility to the theroetical
+        // set the appropriate visibility to the theoretical histogram and path
         theoreticalHistogramNode.visible = isTheoreticalHistogramVisible;
         theoreticalAverageTrianglePath.visible = isTheoreticalHistogramVisible;
         // only update the theoretical average, if isTheoreticalHistogramVisible is set to visible
