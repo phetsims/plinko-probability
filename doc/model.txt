@@ -1,7 +1,7 @@
-The simulation describes the motion of a ball on a plinko board made out of pegs.
+The simulation describes the motion of a ball falling through a plinko board made out of pegs.
 
 In the intro tab, a ball has an equal probability of going to the left or right
-of the peg. The ball goes to the left or right based on a random process.
+of the peg. The ball goes to the left or right.
 The user can choose to send 1, 10 or all the balls though the plinko board (up to a
  maximum of hundred) and watch how the balls fall into the different containers
  at the bottom of the board.
