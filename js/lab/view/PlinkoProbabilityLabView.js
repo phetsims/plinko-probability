@@ -30,7 +30,6 @@ define( function( require ) {
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var PropertySet = require( 'AXON/PropertySet' );
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
-  var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var SliderControlPanel = require( 'PLINKO_PROBABILITY/lab/view/SliderControlPanel' );
