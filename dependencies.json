@@ -1,27 +1,27 @@
 {
-  "comment": "# plinko-probability 1.0.0-dev.3 Tue May 31 2016 08:58:39 GMT-0600 (MDT)",
+  "comment": "# plinko-probability 1.0.0-dev.5 Mon Jun 27 2016 11:36:27 GMT-0400 (Eastern Daylight Time)",
   "assert": {
     "sha": "7d27130a4d27da15aa7f8a21bbfb9245288c1b44",
     "branch": "master"
   },
   "axon": {
-    "sha": "1f8073474acc627fb24ff7766cb837928cfb374c",
+    "sha": "b71cc337f6748ee080e97b50497f05972b498de0",
     "branch": "master"
   },
   "brand": {
-    "sha": "bb1cfcc63c3d007d800ede089994d8705db6d47b",
+    "sha": "f0b1f7da85f87b9626562bea7fe69197fa81f05f",
     "branch": "master"
   },
   "chipper": {
-    "sha": "a01a8e0f000fd53eaba1cb0d912ae16521b6c2af",
+    "sha": "e044eccd6b6c25ee7e1360c068444d191eeedf8c",
     "branch": "master"
   },
   "dot": {
-    "sha": "04efe0bcba227b3a0a75a734313fc0d92469aa8d",
+    "sha": "c9c05a5a62b9551a5d87b9f31b062c1676e18853",
     "branch": "master"
   },
   "joist": {
-    "sha": "76d9aa21721aa8ee62ce7b8c5f7ad08981241901",
+    "sha": "fa5db70c989bd64381fb8d994bbd94c4ae333b61",
     "branch": "master"
   },
   "kite": {
@@ -37,27 +37,27 @@
     "branch": "master"
   },
   "plinko-probability": {
-    "sha": "02182a8925d45716c79a2474c452987f313dec58",
+    "sha": "af3b08d042f8abef58837cc6670f3354cd5633df",
     "branch": "master"
   },
   "scenery": {
-    "sha": "30a080091cf58cae387a69f4a3522f9d4c0fbe04",
+    "sha": "4476eb958b8e19367bd12c7e50636328058f077a",
     "branch": "master"
   },
   "scenery-phet": {
-    "sha": "124a6a033406e8addd6a09cb1a0608e148581dda",
+    "sha": "52b783d9ea0b4d0dda0a1c6f685dbb8a541d9fdf",
     "branch": "master"
   },
   "sherpa": {
-    "sha": "e1b3c84b4f51328893008890fc462c32b8ec9278",
+    "sha": "77506dc331eb1c6e3509ceb17076c4b8a9bbee4a",
     "branch": "master"
   },
   "sun": {
-    "sha": "9ae0a8e110692ad798ef476a8f8e67b5de0faed0",
+    "sha": "0d7e743b1a91cae1a38f56b15393143a26ecb158",
     "branch": "master"
   },
   "tandem": {
-    "sha": "0e40c775bba846e5c9f5003d79c0a5d095671759",
+    "sha": "b3c68afaf8511b008b264a5829a40711c753b629",
     "branch": "master"
   }
 }
