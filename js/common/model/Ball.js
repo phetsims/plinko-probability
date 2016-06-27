@@ -15,7 +15,6 @@ define( function( require ) {
   var PegInterface = require( 'PLINKO_PROBABILITY/common/model/PegInterface' );
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
-  var PropertySet = require( 'AXON/PropertySet' );
   var Random = require( 'DOT/Random' );
   var Vector2 = require( 'DOT/Vector2' );
 
@@ -40,7 +39,7 @@ define( function( require ) {
     Events.call( this );
 
     // position vector
-    this.position = new Vector2( 0, 0 );
+    this.position = new Vector2( 0, 0 ); // @public (read-only)
 
     this.probability = probability; // @private (read-only)
     this.numberOfRows = numberOfRows; // @private (read-only)
@@ -110,7 +109,7 @@ define( function( require ) {
     // bin position of the ball {number}
     this.binIndex = columnNumber;
 
-    // @private (read-only)
+    // @public (read-only)
     // binCount {number} indicates the number of balls in a specific cylinder
     this.binCount = bins[ columnNumber ].binCount;
 
@@ -121,7 +120,7 @@ define( function( require ) {
 
   plinkoProbability.register( 'Ball', Ball );
 
-  return inherit( PropertySet, Ball, {
+  return inherit( Events, Ball, {
 
     /**
      *
@@ -175,11 +174,10 @@ define( function( require ) {
     /**
      *
      * Updates the position of the ball
-     * @param {number} df - the time difference in seconds
+     * @param {number} df - fraction of falling between pegs
      * @public
      */
     ballStep: function( df ) {
-
 
       if ( this.phase === PHASE_INITIAL ) { // balls is leaving the hopper
         if ( df + this.fallenRatio < 1 ) { // if the ball has not gotten to the first peg
@@ -193,7 +191,7 @@ define( function( require ) {
           this.trigger1( 'playSound', this.direction );  //plays sound when ball hits peg
         }
       }
-      if ( this.phase === PHASE_FALLING ) { //ball is falling between pegs
+      else if ( this.phase === PHASE_FALLING ) { //ball is falling between pegs
         if ( df + this.fallenRatio < 1 ) { // if ball has not reached the next peg
           this.fallenRatio += df; // fall some more
         }
@@ -211,7 +209,7 @@ define( function( require ) {
           }
         }
       }
-      if ( this.phase === PHASE_EXIT ) { // the ball has exited and it is making its way to the bin
+      else if ( this.phase === PHASE_EXIT ) { // the ball has exited and it is making its way to the bin
         // the position at which the balls will eventually land
         var finalPosition = this.finalBinVerticalOffset + this.pegSeparation * PlinkoConstants.PEG_HEIGHT_FRACTION_OFFSET;
         if ( this.position.y > finalPosition ) { // if it has not fallen to its final position
