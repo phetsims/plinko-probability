@@ -16,7 +16,6 @@ define( function( require ) {
   var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
 
-
   /**
    *
    * @param {Property.<number>} numberOfRowsProperty
@@ -28,18 +27,15 @@ define( function( require ) {
 
     var thisHistogram = this;
 
-    // @private
-    this.sumOfSquares = 0;
-
-    // @private
-    this.variance = 0;
-
-    // @public
     this.bins = []; // @public {Object[]}
-    this.average = 0; // @private
-    this.standardDeviation = 0; // @private
-    this.standardDeviationOfMean = 0; // @private
-    this.landedBallsNumber = 0; // @private
+    this.average = 0; // @public (read-only)
+    this.standardDeviation = 0; // @public (read-only)
+    this.standardDeviationOfMean = 0; // @public (read-only)
+    this.landedBallsNumber = 0; // @public (read-only)
+
+    // convenience variables
+    this.sumOfSquares = 0; // @private
+    this.variance = 0; // @private
 
     // initialized all the bins to zero.
     this.setBinsToZero();
@@ -103,9 +99,11 @@ define( function( require ) {
 
       // convenience variable
       var N = this.landedBallsNumber;
+
       this.average = ((N - 1) * this.average + binIndex) / N;
       this.sumOfSquares += binIndex * binIndex;
-      // the variance and standard deviations exist only when the number of ball is larger than 1
+
+      // the variance and standard deviations exist only when the number of balls is larger than 1
       if ( N > 1 ) {
         this.variance = (this.sumOfSquares - N * this.average * this.average) / (N - 1);
         this.standardDeviation = Math.sqrt( this.variance );
@@ -160,7 +158,7 @@ define( function( require ) {
      * The fraction is smaller than one but the sum of all fractions add up to one
      * @param {number} binIndex - an integer
      * @returns {number}
-     * @public
+     * @public (read-only)
      */
     getFractionalBinCount: function( binIndex ) {
       if ( this.landedBallsNumber > 0 ) {
@@ -194,6 +192,7 @@ define( function( require ) {
      * Function that returns the maximum value of all the balls in the bins
      * This includes the balls that still traveling through the GaltonBoard
      * @returns {number}
+     * @public (read-only)
      */
     getMaximumActualBinCount: function() {
       var maxCount = 0;
@@ -207,7 +206,7 @@ define( function( require ) {
      * Function that returns the maximum visible value of the balls in the bins
      * This does not include the balls that are still traveling through the GaltonBoard
      * @returns {number}
-     * @public
+     * @public (read-only)
      */
     getMaximumBinCount: function() {
       var maxCount = 0;

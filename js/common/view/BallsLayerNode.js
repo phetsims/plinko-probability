@@ -1,7 +1,7 @@
 // Copyright 2002-2016, University of Colorado Boulder
 
 /**
- * Canvas Node that renders all the balls node
+ * Canvas Node that renders all the scenery balls
  *
  * @author Martin Veillette (Berea College)
  */
@@ -59,6 +59,7 @@ define( function( require ) {
       self.ballImage = image;
     } );
 
+
     numberOfRowsProperty.link( function( numberOfRows ) {
       self.scaleFactor = defaultNumberOfRows / numberOfRows;
     } );
@@ -88,7 +89,7 @@ define( function( require ) {
       if ( self.galtonBoardRadioButtonProperty.value === 'ball' ) {
         this.balls.forEach( function( ball ) {
 
-          // when we are in the hitogram mode and the ball has been collected don't draw the ball
+          // when we are in the histogram mode and the ball has been collected don't draw the ball
           if ( !(self.histogramRadioProperty.value === 'counter' && ball.phase === PHASE_COLLECTED) ) {
             var ballViewPositionX = self.modelViewTransform.modelToViewX( ball.position.x );
             var ballViewPositionY = self.modelViewTransform.modelToViewY( ball.position.y );

@@ -19,6 +19,7 @@ define( function( require ) {
 
     /**
      * Function that returns the center x coordinate of a bin with index binIndex
+     * @public (read-only)
      * @param {number} binIndex - index associated with the bin, the index may range from 0 to numberOfBins-1
      * @param {number} numberOfBins - the number of bins on the screen
      * @returns {number}
@@ -30,6 +31,7 @@ define( function( require ) {
 
     /**
      * Function that returns the left position of a bin
+     * @public (read-only)
      * @param {number} binIndex
      * @param {number} numberOfBins - the number of bins on the screen
      * @returns {number}
@@ -41,6 +43,7 @@ define( function( require ) {
 
     /**
      * Function that returns the minimum X value, i.e. the leftmost position of all the bins
+     * @public (read-only)
      * @returns {number}
      */
     getMinX: function() {
@@ -49,6 +52,7 @@ define( function( require ) {
 
     /**
      * Function that returns the center X value of the bins, i.e. the center position of all the bins
+     * @public (read-only)
      * @returns {number}
      */
     getCenterX: function() {
@@ -57,6 +61,7 @@ define( function( require ) {
 
     /**
      * Function that returns the minimum Y value, i.e. the bottom position of all the bins
+     * @public (read-only)
      * @returns {number}
      */
     getMinY: function() {
@@ -66,6 +71,7 @@ define( function( require ) {
     /**
      * Function that returns the x position (in model coordinates() associated with
      * the average (mean) value of the histogram.
+     * @public (read-only)
      * @param {number} value
      * @param {number} numberOfBins - the number of bins on the screen
      * @returns {number}

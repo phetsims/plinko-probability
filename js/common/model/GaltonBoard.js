@@ -47,10 +47,10 @@ define( function( require ) {
 
       galtonBoard.pegs.forEach( function( peg ) {
         // for performance reasons, we don't throw out the pegs, we simply update their visibility
-        peg.isVisible = PegInterface.getIsVisible( peg.rowNumber, numberOfRows );
+        peg.isVisible = PegInterface.getIsVisible( peg.rowNumber, numberOfRows );  // @public (read-only)
         if ( peg.isVisible ) {
           // update the position of the pegs on the Galton Board.
-          peg.position = PegInterface.getPosition( peg.rowNumber, peg.columnNumber, numberOfRows );
+          peg.position = PegInterface.getPosition( peg.rowNumber, peg.columnNumber, numberOfRows ); // @public (read-only)
         }
       } );
     } );

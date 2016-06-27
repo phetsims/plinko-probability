@@ -45,7 +45,7 @@ define( function( require ) {
     /**
      * Function that returns the X position of a peg with index rowNumber and column Number
      * The position is given in the model view (with respect to the galton board)
-     * @public
+     * @public (read-only)
      * @param {number} rowNumber
      * @param {number} columnNumber
      * @param {number} numberOfRows
