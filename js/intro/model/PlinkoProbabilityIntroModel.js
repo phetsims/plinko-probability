@@ -123,7 +123,7 @@ define( function( require ) {
         this.launchedBallsNumber++; // update the number of launched balls
 
         // we want to disable the playButton when all the balls have been queued
-        if ( this.launchedBallsNumber + this.ballsToCreateNumber >= MAX_BALL_NUMBER ) {
+        if ( this.launchedBallsNumber + this.ballsToCreateNumber > MAX_BALL_NUMBER ) {
           this.isBallCapReachedProperty.set( true );
         }
 
