@@ -30,6 +30,7 @@ define( function( require ) {
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var PropertySet = require( 'AXON/PropertySet' );
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
+  var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var SliderControlPanel = require( 'PLINKO_PROBABILITY/lab/view/SliderControlPanel' );
@@ -64,9 +65,9 @@ define( function( require ) {
     board.top = hopper.bottom + 10;
 
     // create the model view transform based on the triangular board of the galton board (excluding the dropped shadow)
-    var viewGraphBounds = new Bounds2( board.left, board.top, board.left + board.options.bottomWidth, board.top + board.options.height );
-    var modelGraphBounds = model.galtonBoard.bounds;
-    var modelViewTransform = ModelViewTransform2.createRectangleInvertedYMapping( modelGraphBounds, viewGraphBounds );
+    var viewTriangularBoardBounds = new Bounds2( board.left, board.top, board.left + board.options.bottomWidth, board.top + board.options.height );
+    var modelTriangularBoardBounds = model.galtonBoard.bounds;
+    var modelViewTransform = ModelViewTransform2.createRectangleInvertedYMapping( modelTriangularBoardBounds, viewTriangularBoardBounds );
 
     var viewProperties = new PropertySet( {
       histogramRadio: 'counter', // Valid values are 'fraction', 'counter'
@@ -88,9 +89,8 @@ define( function( require ) {
     var pegSoundGeneration = new PegSoundGeneration( viewProperties.isSoundEnabledProperty );
     this.pegSoundGeneration = pegSoundGeneration;
 
-
     // create the Galton board, including the pegs and dropped shadows
-    var galtonBoardCanvasNode = new GaltonBoardCanvasNode( model.galtonBoard, model.numberOfRowsProperty, model.probabilityProperty, modelViewTransform, { canvasBounds: this.layoutBounds } );
+    var galtonBoardCanvasNode = new GaltonBoardCanvasNode( model.galtonBoard, model.numberOfRowsProperty, model.probabilityProperty, modelViewTransform, { canvasBounds: viewTriangularBoardBounds } );
     // create three radio buttons next to the hopper
 
     var ballRadioButtonsControl = new BallRadioButtonsControl( model.galtonBoardRadioButtonProperty );
@@ -136,8 +136,10 @@ define( function( require ) {
     // Create the Sound Toggle Button at the bottom right
     var soundToggleButton = new SoundToggleButton( viewProperties.isSoundEnabledProperty );
 
+    var ballCanvasBounds= viewTriangularBoardBounds.dilated( 20 ); // bounds are slightly larger than the galton board itself
     // create the ballLayerNodes  (a canvas Node) that renders all the balls
-    var ballsLayerNode = new BallsLayerNode( model.balls, modelViewTransform, model.numberOfRowsProperty, viewProperties.histogramRadioProperty, model.galtonBoardRadioButtonProperty, { canvasBounds: this.layoutBounds } );
+    var ballsLayerNode = new BallsLayerNode( model.balls, modelViewTransform, model.numberOfRowsProperty, viewProperties.histogramRadioProperty, model.galtonBoardRadioButtonProperty,
+      { canvasBounds: ballCanvasBounds } );
     this.ballsLayerNode = ballsLayerNode;
 
     // create pathsLayer to keep all the TrajectoryPath

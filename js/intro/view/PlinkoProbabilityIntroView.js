@@ -25,6 +25,7 @@ define( function( require ) {
   var IntroPlayPanel = require( 'PLINKO_PROBABILITY/intro/view/IntroPlayPanel' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   var NumberBallsDisplay = require( 'PLINKO_PROBABILITY/intro/view/NumberBallsDisplay' );
+  var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var PegSoundGeneration = require( 'PLINKO_PROBABILITY/common/view/PegSoundGeneration' );
   var PropertySet = require( 'AXON/PropertySet' );
@@ -58,9 +59,9 @@ define( function( require ) {
     board.top = hopper.bottom + 10;
 
     // create the model view transform based on the triangular board of the galton board (excluding the dropped shadow)
-    var viewGraphBounds = new Bounds2( board.left, board.top, board.left + board.options.bottomWidth, board.top + board.options.height );
-    var modelGraphBounds = model.galtonBoard.bounds;
-    var modelViewTransform = ModelViewTransform2.createRectangleInvertedYMapping( modelGraphBounds, viewGraphBounds );
+    var viewTriangularBoardBounds = new Bounds2( board.left, board.top, board.left + board.options.bottomWidth, board.top + board.options.height );
+    var modelTriangularBoardBounds = model.galtonBoard.bounds;
+    var modelViewTransform = ModelViewTransform2.createRectangleInvertedYMapping( modelTriangularBoardBounds, viewTriangularBoardBounds );
 
     var viewProperties = new PropertySet( {
       histogramRadio: 'cylinder', // Valid values are 'counter', 'cylinder'
@@ -82,7 +83,7 @@ define( function( require ) {
     // create the galton board (including the pegs)
     var galtonBoardCanvasNode = new GaltonBoardCanvasNode( model.galtonBoard, model.numberOfRowsProperty, model.probabilityProperty, modelViewTransform, {
       openingAngle: 0.01,
-      canvasBounds: viewGraphBounds
+      canvasBounds: viewTriangularBoardBounds
     } );
 
     // create the view for the cylinders. The Back and Front node will be put on a different z-layer
@@ -147,8 +148,14 @@ define( function( require ) {
       }
     );
 
+    // 
+    var histogramModelBounds = PlinkoConstants.HISTOGRAM_BOUNDS;
+    var ballModelBounds = model.galtonBoard.bounds.union( histogramModelBounds );
+    var ballViewBounds = modelViewTransform.modelToViewBounds( ballModelBounds ).dilated( 20 );
+
     // put all the Balls on a separate z-layer
-    var ballsLayerNode = new BallsLayerNode( model.balls, modelViewTransform, model.numberOfRowsProperty, viewProperties.histogramRadioProperty, new Property( 'ball' ), { canvasBounds: this.layoutBounds } );
+    var ballsLayerNode = new BallsLayerNode( model.balls, modelViewTransform, model.numberOfRowsProperty, viewProperties.histogramRadioProperty, new Property( 'ball' ),
+      { canvasBounds: ballViewBounds } );
     this.ballsLayerNode = ballsLayerNode;
 
     // handle the coming and going of the model Balls
