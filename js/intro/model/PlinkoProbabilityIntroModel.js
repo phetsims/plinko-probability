@@ -63,13 +63,10 @@ define( function( require ) {
         // the number of launched balls is less than the maximum number of balls
         if ( this.ballsToCreateNumber > 0 && this.ballCreationTimeElapsed > 0.150 && this.launchedBallsNumber < MAX_BALL_NUMBER ) {
           this.addNewBall(); // add a new ball
-          this.ballCreationTimeElapsed = 0; //reset the time elapsed
-          this.ballsToCreateNumber--; //remove the ball for the queue
         }
 
         this.balls.forEach( function( ball ) {
           // we want to cap the dt so that the balls don't make a big jump
-
           ball.step( Math.min( 0.1, dt * 5 ) );
         } );
       },
@@ -81,6 +78,7 @@ define( function( require ) {
       reset: function() {
         PlinkoProbabilityCommonModel.prototype.reset.call( this );
         this.ballsToCreateNumber = 0; // @private remove the queue of balls waiting to be created
+        this.launchedBallsNumber = 0; // reset the number of launched balls to zero
       },
 
       /**
@@ -119,11 +117,14 @@ define( function( require ) {
         var thisModel = this;
         // create a new ball
         var addedBall = new IntroBall( this.probability, this.numberOfRows, this.histogram.bins, this.cylinderInfo );
-        // update number of balls in the bin and the last position of the addedBall
-        this.launchedBallsNumber++; // update the number of launched balls
+
+        this.launchedBallsNumber++; // increment the number of launched balls
+        this.ballsToCreateNumber--; // decrease the number of balls in the queue
+
+        this.ballCreationTimeElapsed = 0; //reset the time elapsed since the launched of the last ball
 
         // we want to disable the playButton when all the balls have been queued
-        if ( this.launchedBallsNumber + this.ballsToCreateNumber > MAX_BALL_NUMBER ) {
+        if ( this.launchedBallsNumber + this.ballsToCreateNumber >= MAX_BALL_NUMBER ) {
           this.isBallCapReachedProperty.set( true );
         }
 

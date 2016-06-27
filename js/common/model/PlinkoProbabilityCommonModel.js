@@ -57,7 +57,6 @@ define( function( require ) {
         PropertySet.prototype.reset.call( this );
         this.balls.clear(); // clear all the model balls
         this.histogram.reset(); // empty out all the model bins
-        this.launchedBallsNumber = 0; // reset the number of launched balls to zero
         this.ballCreationTimeElapsed = 0;
       }
 
