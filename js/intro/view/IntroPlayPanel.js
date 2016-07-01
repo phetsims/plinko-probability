@@ -48,7 +48,8 @@ define( function( require ) {
       },
       options );
 
-    var fontOptions = { font: PlinkoConstants.PANEL_FONT };
+    // @private options for text in panel radio buttons
+    var fontOptions = { font: PlinkoConstants.PANEL_FONT, maxWidth :190};
 
     // Creation of radio button icons
     var oneBall = new HBox( {

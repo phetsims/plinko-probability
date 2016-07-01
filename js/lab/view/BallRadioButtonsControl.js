@@ -39,11 +39,14 @@ define( function( require ) {
       },
       options );
 
+    // @private gives properties for text in panel for radio buttons
+    var fontOptions = { font: PlinkoConstants.TEXT_FONT, maxWidth: 190 };
+
     //create the radio buttons 
     var showRadioButtons = new VerticalAquaRadioButtonGroup( [
-      { node: new Text( ballString, { font: PlinkoConstants.TEXT_FONT } ), property: showRadioProperty, value: 'ball' },
-      { node: new Text( pathString, { font: PlinkoConstants.TEXT_FONT } ), property: showRadioProperty, value: 'path' },
-      { node: new Text( noneString, { font: PlinkoConstants.TEXT_FONT } ), property: showRadioProperty, value: 'none' }
+      { node: new Text( ballString, fontOptions ), property: showRadioProperty, value: 'ball' },
+      { node: new Text( pathString, fontOptions ), property: showRadioProperty, value: 'path' },
+      { node: new Text( noneString, fontOptions ), property: showRadioProperty, value: 'none' }
     ], options );
 
     this.addChild( showRadioButtons );
