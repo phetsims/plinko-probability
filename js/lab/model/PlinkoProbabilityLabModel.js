@@ -20,7 +20,7 @@ define( function( require ) {
 
   // creates query parameter that lowers the maximum amount of balls for testing purposes.
   if ( phet.chipper.getQueryParameter( 'lowerBallMaximum' ) ) {
-    MAX_NUMBER_BALLS= 25;
+    MAX_NUMBER_BALLS = 25;
   }
 
   /**
@@ -39,6 +39,13 @@ define( function( require ) {
 
     // These need to be linked until the end of the simulation
     this.galtonBoardRadioButtonProperty.link( function() {
+      // when the balls gets created it adds itself to the histogram
+      // so when we clear the balls we should remove them from the histogram
+      thisModel.balls.forEach( function( ball ) {
+        thisModel.histogram.bins[ ball.binIndex ].binCount--;
+      } );
+
+      // remove all the balls 
       thisModel.balls.clear(); // clear the balls
     } );
 
