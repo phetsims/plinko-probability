@@ -14,6 +14,9 @@
     "requirejs": "~2.1.8"
   },
   "phet": {
-    "requirejsNamespace": "PLINKO_PROBABILITY"
+    "requirejsNamespace": "PLINKO_PROBABILITY",
+    "phetLibs": [
+      "vibe"
+    ]
   }
 }
