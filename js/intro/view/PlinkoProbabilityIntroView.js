@@ -210,7 +210,6 @@ define( function( require ) {
 
       // increment time for sound generation
       this.pegSoundGeneration.step( dt );
-
     }
   } );
 

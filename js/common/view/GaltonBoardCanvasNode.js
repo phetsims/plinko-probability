@@ -19,6 +19,7 @@ define( function( require ) {
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var RadialGradient = require( 'SCENERY/util/RadialGradient' );
   var Shape = require( 'KITE/Shape' );
+  var Timer = require( 'PHET_CORE/Timer' );
   var Vector2 = require( 'DOT/Vector2' );
 
   /**
@@ -135,8 +136,16 @@ define( function( require ) {
     paintCanvas: function( context ) {
       var self = this;
 
-      // Slight chance the image used isn't loaded. In that case, return & try again on next frame
-      if ( self.pegImage === null || self.pegShadowImage === null ) {return;}
+      // Slight chance the image used isn't loaded.
+      if ( !self.pegImage || !self.pegShadowImage ) {
+        console.log(self.pegImage);
+        console.log(self.pegShadowImage);
+
+        // Timer delay interval added in case image isn't loaded when it is called.
+        return Timer.setTimeout( function() {
+          self.invalidatePaint();
+        }, 10 );
+      }
 
       var pegSpacing = PegInterface.getSpacing( self.numberOfRowsProperty.value );
       // offset the center of the shadow with respect to the peg, a bit below and to the left, empirically determined
@@ -169,5 +178,4 @@ define( function( require ) {
   } );
 } )
 ;
-// define
 
