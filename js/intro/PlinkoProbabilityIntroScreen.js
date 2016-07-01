@@ -7,6 +7,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
@@ -19,20 +20,9 @@ define( function( require ) {
   // strings
   var plinkoProbabilityIntroTitleScreenString = require( 'string!PLINKO_PROBABILITY/plinkoProbabilityIntroTitleScreen' );
 
-  /**
-   * Creates the icon for this screen.
-   * @returns {Node}
-   */
-  var createScreenIcon = function() {
-    //determined by aspect ratio
-    var width = Screen.HOME_SCREEN_ICON_SIZE.width;
-    var height = Screen.HOME_SCREEN_ICON_SIZE.height;
-
-    //TODO Lab Icon
-    var background = new Rectangle( 0, 0, width, height, { fill: 'white' } );
-    return new Node( { children: [ background ] } );
-
-  };
+  // image
+  var homescreenIconImage = require( 'image!PLINKO_PROBABILITY/intro-homescreen-icon.png' );
+  var navbarIconImage = require( 'image!PLINKO_PROBABILITY/intro-navbar-icon.png' );
 
   function PlinkoProbabilityIntroScreen() {
 
@@ -41,10 +31,11 @@ define( function( require ) {
 
     Screen.call( this,
       plinkoProbabilityIntroTitleScreenString,
-      createScreenIcon(), // no icon, single-screen sim
+      new Image( homescreenIconImage ),
       function() { return new PlinkoProbabilityIntroModel(); },
       function( model ) { return new PlinkoProbabilityIntroView( model ); }, {
-        backgroundColor: PlinkoConstants.BACKGROUND_COLOR
+        backgroundColor: PlinkoConstants.BACKGROUND_COLOR,
+        navigationBarIcon: new Image( navbarIconImage )
       }
     );
   }
