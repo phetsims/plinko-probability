@@ -138,9 +138,6 @@ define( function( require ) {
 
       // Slight chance the image used isn't loaded.
       if ( !self.pegImage || !self.pegShadowImage ) {
-        console.log(self.pegImage);
-        console.log(self.pegShadowImage);
-
         // Timer delay interval added in case image isn't loaded when it is called.
         return Timer.setTimeout( function() {
           self.invalidatePaint();
