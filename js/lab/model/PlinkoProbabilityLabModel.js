@@ -17,6 +17,8 @@ define( function( require ) {
 
   // constants
   var MAX_NUMBER_BALLS = 9999; // max number of balls per bin
+  var PHASE_LANDED = 3;
+  var PHASE_EXIT = 2;
 
   // creates query parameter that lowers the maximum amount of balls for testing purposes.
   if ( phet.chipper.getQueryParameter( 'lowerBallMaximum' ) ) {
@@ -39,10 +41,14 @@ define( function( require ) {
 
     // These need to be linked until the end of the simulation
     this.galtonBoardRadioButtonProperty.link( function() {
-      // when the balls gets created it adds itself to the histogram
+      // when the balls gets created it adds itself to the histogram binCount
       // so when we clear the balls we should remove them from the histogram
       thisModel.balls.forEach( function( ball ) {
-        thisModel.histogram.bins[ ball.binIndex ].binCount--;
+        // we don't want to remove balls if the have exited or landed
+        if ( !(ball.phase === PHASE_LANDED || ball.phase === PHASE_EXIT) ) {
+          //remove the ball from the binCount
+          thisModel.histogram.bins[ ball.binIndex ].binCount--;
+        }
       } );
 
       // remove all the balls 
