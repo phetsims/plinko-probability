@@ -81,7 +81,7 @@ define( function( require ) {
       var self = this;
 
       // Slight chance the image used isn't loaded. In that case, return & try again on next frame
-      if ( self.ballImage === null ) {
+      if ( !self.ballImage ) {
         return;
       }
 
