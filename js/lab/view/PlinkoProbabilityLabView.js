@@ -92,6 +92,8 @@ define( function( require ) {
     var galtonBoardCanvasNode = new GaltonBoardCanvasNode( model.galtonBoard, model.numberOfRowsProperty, model.probabilityProperty, modelViewTransform, { canvasBounds: viewTriangularBoardBounds } );
     // create three radio buttons next to the hopper
 
+    this.galtonBoardCanvasNode = galtonBoardCanvasNode;
+
     var ballRadioButtonsControl = new BallRadioButtonsControl( model.galtonBoardRadioButtonProperty );
 
     // create the two radio buttons that can toggle between 'fraction and 'counter' mode
@@ -135,7 +137,7 @@ define( function( require ) {
     // Create the Sound Toggle Button at the bottom right
     var soundToggleButton = new SoundToggleButton( viewProperties.isSoundEnabledProperty );
 
-    var ballCanvasBounds= viewTriangularBoardBounds.dilated( 20 ); // bounds are slightly larger than the galton board itself
+    var ballCanvasBounds = viewTriangularBoardBounds.dilated( 20 ); // bounds are slightly larger than the galton board itself
     // create the ballLayerNodes  (a canvas Node) that renders all the balls
     var ballsLayerNode = new BallsLayerNode( model.balls, modelViewTransform, model.numberOfRowsProperty, viewProperties.histogramRadioProperty, model.galtonBoardRadioButtonProperty,
       { canvasBounds: ballCanvasBounds } );
@@ -239,7 +241,10 @@ define( function( require ) {
      * @param {number} dt
      */
     step: function( dt ) {
-
+      // Checks if the galtonBoard has been initially painted and if not then paint it.
+      if ( !this.galtonBoardCanvasNode.isInitiallyPainted ) {
+        this.galtonBoardCanvasNode.invalidatePaint();
+      }
       // update view of the balls
       this.ballsLayerNode.invalidatePaint();
 

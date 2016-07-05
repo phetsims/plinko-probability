@@ -86,6 +86,8 @@ define( function( require ) {
       canvasBounds: viewTriangularBoardBounds
     } );
 
+    this.galtonBoardCanvasNode = galtonBoardCanvasNode;
+
     // create the view for the cylinders. The Back and Front node will be put on a different z-layer
     var cylindersBackNode = new CylindersBackNode( model.numberOfRowsProperty, modelViewTransform, model.cylinderInfo );
     var cylindersFrontNode = new CylindersFrontNode( model.numberOfRowsProperty, modelViewTransform, model.cylinderInfo );
@@ -205,6 +207,10 @@ define( function( require ) {
 
   return inherit( ScreenView, PlinkoProbabilityIntroView, {
     step: function( dt ) {
+      // Checks if the galtonBoard has been initially painted and if not then paint it.
+      if ( !this.galtonBoardCanvasNode.isInitiallyPainted ) {
+        this.galtonBoardCanvasNode.invalidatePaint();
+      }
       // update view on model step
       this.ballsLayerNode.invalidatePaint();
 

@@ -19,7 +19,6 @@ define( function( require ) {
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var RadialGradient = require( 'SCENERY/util/RadialGradient' );
   var Shape = require( 'KITE/Shape' );
-  var Timer = require( 'PHET_CORE/Timer' );
   var Vector2 = require( 'DOT/Vector2' );
 
   /**
@@ -46,6 +45,9 @@ define( function( require ) {
     this.galtonBoard = galtonBoard;
     this.numberOfRowsProperty = numberOfRowsProperty;
     this.modelViewTransform = modelViewTransform;
+
+    // @public {boolean} - flag that indicates whether an image object has been painted for the first time
+    this.isInitiallyPainted = false;
 
     // use a canvas node to optimize performance on the iPad
     CanvasNode.call( this, options );
@@ -136,12 +138,13 @@ define( function( require ) {
     paintCanvas: function( context ) {
       var self = this;
 
-      // Slight chance the image used isn't loaded.
-      if ( !self.pegImage || !self.pegShadowImage ) {
-        // Timer delay interval added in case image isn't loaded when it is called.
-        return Timer.setTimeout( function() {
-          self.invalidatePaint();
-        }, 10 );
+      /*Slight chance the image used isn't loaded. We have a condition that states if the 
+       peg and pegshadow images have yet to be painted then paint the images. Otherwise do nothing.*/
+      if ( (!self.pegImage || !self.pegShadowImage) && !self.isInitiallyPainted ) {
+        return;
+      }
+      else {
+        self.isInitiallyPainted = true;
       }
 
       var pegSpacing = PegInterface.getSpacing( self.numberOfRowsProperty.value );
