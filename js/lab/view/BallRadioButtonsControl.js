@@ -30,7 +30,7 @@ define( function( require ) {
   function BallRadioButtonsControl( showRadioProperty, options ) {
 
     Node.call( this );
-    // Demonstrate a common pattern for specifying options and providing default values.
+    
     options = _.extend( {
         spacing: 10, // vertical separation of the buttons
         padding: 3, // horizontal padding
@@ -39,7 +39,6 @@ define( function( require ) {
       },
       options );
 
-    // @private gives properties for text in panel for radio buttons
     var fontOptions = { font: PlinkoConstants.TEXT_FONT, maxWidth: 190 };
 
     //create the radio buttons 
