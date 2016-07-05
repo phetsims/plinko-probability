@@ -1,7 +1,11 @@
 // Copyright 2014-2015, University of Colorado Boulder
 
 /**
- * Model for Ball in Plinko Probability
+ * Ball Model for intro tab in Plinko Probability
+ * This model inherits from the common ball and adds the information needed
+ * to place the ball correctly in the cylinder
+ * The ball determines it's position based on the position of the last ball
+ * it also calculates the height it should fall so that we get the a natural stack look.
  *
  * @author Martin Veillette (Berea College)
  */
