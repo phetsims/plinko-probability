@@ -29,6 +29,8 @@ define( function( require ) {
    */
   function BallRadioButtonsControl( showRadioProperty, options ) {
 
+    Node.call( this );
+    
     options = _.extend( {
         spacing: 10, // vertical separation of the buttons
         padding: 3, // horizontal padding
