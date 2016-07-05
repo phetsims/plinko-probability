@@ -37,7 +37,6 @@ define( function( require ) {
    */
   function IntroPlayPanel( updateBallsToCreateNumber, ballModeProperty, isBallCapReachedProperty, options ) {
 
-    // Demonstrate a common pattern for specifying options and providing default values.
     options = _.extend( {
         xMargin: 7,
         yMargin: 15,
@@ -48,8 +47,7 @@ define( function( require ) {
       },
       options );
 
-    // @private options for text in panel radio buttons
-    var fontOptions = { font: PlinkoConstants.PANEL_FONT, maxWidth :190};
+    var fontOptions = { font: PlinkoConstants.PANEL_FONT, maxWidth: 190 };
 
     // Creation of radio button icons
     var oneBall = new HBox( {
