@@ -174,7 +174,7 @@ define( function( require ) {
     /**
      *
      * Updates the peg information (rowNumber, columnNumber, and location) used for determining ball position
-     * check and changes the phase of the ball PHASE_INITIAL, PHASE_FALLING, PHASE_EXITED and PHASE_LANDED
+     * check and changes the phase of the ball PHASE_INITIAL, PHASE_FALLING, PHASE_EXITED and PHASE_COLLECTED
      * Plays a sounds when the ball hits a peg
      * Emits when the ball has exited so that it can be added to statistics
      * Emits when the ball has landed so that it doesn't get painted when it doesn't need to
@@ -235,6 +235,10 @@ define( function( require ) {
 
     /**
      * updates the position of the ball depending on the phase
+     * PHASE_INTIAL: Drops in a straight line until it reaches the first peg
+     * PHASE_FALLING: Mimics a bounce by using a parabolic fall
+     * PHASE_EXIT: Falls in a straigh line below the pegs until it reached its final position
+     * PHASE_COLLECTED: lands in its finalPosition
      * @private
      */
     updatePosition: function() {
