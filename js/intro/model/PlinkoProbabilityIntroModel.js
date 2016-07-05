@@ -20,11 +20,6 @@ define( function( require ) {
     var MAX_BALL_NUMBER = 100;
     var PERSPECTIVE_TILT = Math.PI / 1.4; // in radians
 
-    // creates query parameter that lowers the maximum amount of balls for testing purposes.
-    if ( phet.chipper.getQueryParameter( 'lowerBallMaximum' ) ) {
-      MAX_BALL_NUMBER= 25;
-    }
-
     /**
      * Main model of the first tab (intro tab) of the plinko probability simulation
      * @constructor

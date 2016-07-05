@@ -19,12 +19,7 @@ define( function( require ) {
   var MAX_NUMBER_BALLS = 9999; // max number of balls per bin
   var PHASE_LANDED = 3;
   var PHASE_EXIT = 2;
-
-  // creates query parameter that lowers the maximum amount of balls for testing purposes.
-  if ( phet.chipper.getQueryParameter( 'lowerBallMaximum' ) ) {
-    MAX_NUMBER_BALLS = 25;
-  }
-
+  
   /**
    * Main model of the second tab (lab tab) of the plinko probability simulation
    * @constructor

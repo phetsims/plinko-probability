@@ -12,32 +12,20 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var BallsLayerNode = require( 'PLINKO_PROBABILITY/common/view/BallsLayerNode' );
   var Board = require( 'PLINKO_PROBABILITY/common/view/Board' );
   var Bounds2 = require( 'DOT/Bounds2' );
-  var CylindersBackNode = require( 'PLINKO_PROBABILITY/intro/view/CylindersBackNode' );
-  var CylindersFrontNode = require( 'PLINKO_PROBABILITY/intro/view/CylindersFrontNode' );
   var EraserButton = require( 'SCENERY_PHET/buttons/EraserButton' );
-  var GaltonBoardCanvasNode = require( 'PLINKO_PROBABILITY/common/view/GaltonBoardCanvasNode' );
   var HistogramNode = require( 'PLINKO_PROBABILITY/common/view/HistogramNode' );
   var Hopper = require( 'PLINKO_PROBABILITY/common/view/Hopper' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var IntroPlayPanel = require( 'PLINKO_PROBABILITY/intro/view/IntroPlayPanel' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
-  var NumberBallsDisplay = require( 'PLINKO_PROBABILITY/intro/view/NumberBallsDisplay' );
-  var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var PegSoundGeneration = require( 'PLINKO_PROBABILITY/common/view/PegSoundGeneration' );
   var PropertySet = require( 'AXON/PropertySet' );
-  var Property = require( 'AXON/Property' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var SoundToggleButton = require( 'SCENERY_PHET/buttons/SoundToggleButton' );
-  var VerticalRadioButtonCommon = require( 'PLINKO_PROBABILITY/common/view/VerticalRadioButtonCommon' );
 
-  // images
-  var counterDOMImage = require( 'image!PLINKO_PROBABILITY/counter.png' );
-  var containerDOMImage = require( 'image!PLINKO_PROBABILITY/container.png' );
 
   /**
    * Creates common view for the tabs
@@ -103,11 +91,9 @@ define( function( require ) {
     } );
 
 
-
     // create the sound generator for ball hitting peg
     var pegSoundGeneration = new PegSoundGeneration( viewProperties.isSoundEnabledProperty );
     this.pegSoundGeneration = pegSoundGeneration;
-
 
 
     // create the Reset All Button at the bottom right, which resets the model
@@ -137,7 +123,7 @@ define( function( require ) {
 
     // needed to layout the radioButtons of each tab
     this.histogramRadioButtonsControlBottom = eraserButton.top - 16;
-    this.histogramRadioButtonsControlLeft= eraserButton.left;
+    this.histogramRadioButtonsControlLeft = eraserButton.left;
     resetAllButton.right = this.layoutBounds.maxX - 10;
     resetAllButton.bottom = this.layoutBounds.maxY - 10;
     soundToggleButton.right = resetAllButton.left - 20;

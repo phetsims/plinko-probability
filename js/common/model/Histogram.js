@@ -15,6 +15,10 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
+  var Random = require( 'DOT/Random' );
+
+  // convenience variable
+  var random = new Random();
 
   /**
    *
@@ -36,6 +40,7 @@ define( function( require ) {
     // convenience variables
     this.sumOfSquares = 0; // @private
     this.variance = 0; // @private
+    this.numberOfRowsProperty = numberOfRowsProperty; // @private
 
     // initialized all the bins to zero.
     this.setBinsToZero();
@@ -59,6 +64,51 @@ define( function( require ) {
       this.trigger0( 'histogramUpdated' );
       this.trigger0( 'statisticsUpdated' );
     },
+    /**
+     * Used in the "ballsOnScreen" query parameter to set an initial amount of balls within the histogram.
+     * @public
+     * @param ballsOnScreen {number} - user inputted query parameter for the amount of balls the histogram is initiallized with
+     */
+    prepopulate: function( ballsOnScreen ) {
+
+      // temporarily stores the binCount for each bin in an empty array.
+      var tempBins = [];
+      for ( var tempBinIndex = 0; tempBinIndex < (this.numberOfRowsProperty.value + 1); tempBinIndex++ ) {
+        tempBins[ tempBinIndex ] = 0;
+      }
+
+      // determines probability of balls falling through galton board
+      for ( var ballIndex = 0; ballIndex < ballsOnScreen; ballIndex++ ) {
+        var columnNumber = 0;
+        // the path of the balls through the pegs of the galton board  is determined for the prepopulated balls only
+        for ( var rowNumber = 0; rowNumber <= this.numberOfRowsProperty.value; rowNumber++ ) {
+          var direction = (random.random() > 0.5) ? 'left' : 'right';
+
+          // increment the column number of the next row, but not for the last row
+          if ( rowNumber < this.numberOfRowsProperty.value ) {
+            columnNumber += (direction === 'left') ? 0 : 1;
+          }
+        }
+        // updates the binCount of a bin at a specific index
+        tempBins[ columnNumber ]++;
+
+      }
+
+      // takes values in temporary bin array and translates them into our bin array
+      for ( tempBinIndex = 0; tempBinIndex < (this.numberOfRowsProperty.value + 1); tempBinIndex++ ) {
+        this.bins[ tempBinIndex ] = {
+          binCount: tempBins[ tempBinIndex ],  // number of balls that will be in the bin (including those currently falling through the galton board)
+          visibleBinCount: tempBins[ tempBinIndex ],  // number of balls that are in the bin
+          orientation: 0 // 0 is center, 1 is right, -1 is left
+        };
+      }
+
+      // now we update the view and generate our statistics
+      this.initialStatistics();
+      this.trigger0( 'histogramUpdated' );
+      this.trigger0( 'statisticsUpdated' );
+    },
+
     /**
      * Sets the value of all bins in the histogram to zero.
      * @private
@@ -114,6 +164,29 @@ define( function( require ) {
         this.standardDeviation = 0;
         this.standardDeviationOfMean = 0;
       }
+    },
+    /**
+     * Determines the histogram's statistics due to adding an initial amount of balls on screen via the "ballOnScreen" query parameter
+     * @private
+     */
+    initialStatistics: function() {
+      var totalNumberOfBalls = 0;
+      var sum = 0;
+      var sumOfSquares = 0;
+
+      this.bins.forEach( function( bin, binIndex ) {
+        totalNumberOfBalls += bin.binCount;
+        sum += bin.binCount * binIndex;
+        sumOfSquares += bin.binCount * binIndex * binIndex;
+      } );
+      
+      // create readable statistics for the statistics accordion box
+      this.sumOfSquares = sumOfSquares;
+      this.landedBallsNumber = totalNumberOfBalls;
+      this.average = sum / totalNumberOfBalls;
+      this.variance = (sumOfSquares - (this.average * this.average * totalNumberOfBalls)) / (totalNumberOfBalls - 1);
+      this.standardDeviation = Math.sqrt( this.variance );
+      this.standardDeviationOfMean = this.standardDeviation / Math.sqrt( totalNumberOfBalls );
     },
 
     /**
