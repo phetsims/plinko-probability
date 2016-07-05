@@ -1,7 +1,9 @@
 // Copyright 2014-2015, University of Colorado Boulder
 
 /**
- * Model for Ball in Plinko Probability
+ * Ball model for lab tab in Plinko Probability
+ * This ball inherits from the common ball model
+ * This sets the vertical location in which the ball should disappear
  *
  * @author Martin Veillette (Berea College)
  */
@@ -26,7 +28,7 @@ define( function( require ) {
     Ball.call( this, probability, numberOfRows, bins );
     var bounds = PlinkoConstants.HISTOGRAM_BOUNDS;
     //describes the minimumYposition the ball will take
-    var minimumYposition = bounds.maxY - 6 * this.ballRadius ; // let the ball fall a small distance below the top of the histogram.
+    var minimumYposition = bounds.maxY - 6 * this.ballRadius; // let the ball fall a small distance below the top of the histogram.
 
     // describes final vertical position offset (measure from the bottom of the galton board) of ball within a bin {number}
     this.finalBinVerticalOffset = minimumYposition;
