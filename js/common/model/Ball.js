@@ -160,6 +160,7 @@ define( function( require ) {
       this.pegPositionY = peg.positionY; // y position of the peg based on the column, row, and number of of rows
       this.direction = peg.direction; // whether the ball went left or right
     },
+    
     /**
      * this function gets the first peg position
      * @public
@@ -171,6 +172,7 @@ define( function( require ) {
       this.pegPositionX = peg.positionX; // x position of the peg based on the column, row, and number of of rows
       this.pegPositionY = peg.positionY; // y position of the peg based on the column, row, and number of of rows
     },
+
     /**
      *
      * Updates the peg information (rowNumber, columnNumber, and location) used for determining ball position
@@ -288,4 +290,3 @@ define( function( require ) {
   } );
 
 } );
-
