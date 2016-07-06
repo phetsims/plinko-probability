@@ -7,7 +7,6 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var BinInterface = require( 'PLINKO_PROBABILITY/common/model/BinInterface' );
   var inherit = require( 'PHET_CORE/inherit' );
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
   var Node = require( 'SCENERY/nodes/Node' );
@@ -15,6 +14,9 @@ define( function( require ) {
   var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var Shape = require( 'KITE/Shape' );
+
+  // constants
+  var BOUNDS = PlinkoConstants.HISTOGRAM_BOUNDS;
 
   /**
    * Creation of sides of cylinder
@@ -26,6 +28,8 @@ define( function( require ) {
   function CylindersFrontNode( numberOfRowsProperty, modelViewTransform, cylinderInfo ) {
 
     Node.call( this );
+
+    var thisNode = this;
 
     // convenience variable for placing the object inn the view
     var ellipseWidth = modelViewTransform.modelToViewDeltaX( cylinderInfo.cylinderWidth );
@@ -52,7 +56,7 @@ define( function( require ) {
     numberOfRowsProperty.link( function( numberOfRows ) {
       var numberOfTicks = numberOfRows + 1;
       for ( var i = 0; i < numberOfTicks; i++ ) {
-        var binCenterX = BinInterface.getBinCenterX( i, numberOfTicks );
+        var binCenterX = thisNode.getBinCenterX( i, numberOfTicks );
         var x = modelViewTransform.modelToViewX( binCenterX );
         var y = modelViewTransform.modelToViewY( cylinderInfo.top );
 
@@ -71,5 +75,20 @@ define( function( require ) {
 
   plinkoProbability.register( 'CylindersFrontNode', CylindersFrontNode );
 
-  return inherit( Node, CylindersFrontNode );
+  return inherit( Node, CylindersFrontNode, {
+
+      /**
+       * Function that returns the center x coordinate of a bin with index binIndex
+       * @public (read-only)
+       * @param {number} binIndex - index associated with the bin, the index may range from 0 to numberOfBins-1
+       * @param {number} numberOfBins - the number of bins on the screen
+       * @returns {number}
+       */
+      getBinCenterX: function( binIndex, numberOfBins ) {
+        // We consider numberOfBins-1 because we consider the most left bin the first bin out of the total number of bins
+        assert && assert( binIndex <= numberOfBins - 1 );
+        return ((binIndex + 1 / 2) / numberOfBins) * BOUNDS.width + BOUNDS.minX;
+      }
+    }
+  );
 } );

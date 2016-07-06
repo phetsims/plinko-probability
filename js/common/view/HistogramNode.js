@@ -9,7 +9,6 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var BinInterface = require( 'PLINKO_PROBABILITY/common/model/BinInterface' );
   var Color = require( 'SCENERY/util/Color' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Line = require( 'SCENERY/nodes/Line' );
@@ -75,18 +74,19 @@ define( function( require ) {
 
   /**
    * Scenery Node that create the labels at the tick marks and the X axis label.
-   *
+   * @param {Histogram} histogram
    * @param {Property.<number>} numberOfRowsProperty
    * @param {ModelViewTransform2} modelViewTransform
    * @constructor
    */
-  function XAxisNode( numberOfRowsProperty, modelViewTransform ) {
+  function XAxisNode( histogram, numberOfRowsProperty, modelViewTransform ) {
 
     Node.call( this );
 
+
     // position of the axis
-    var axisCenterX = modelViewTransform.modelToViewX( BinInterface.getCenterX() );
-    var axisBottom = modelViewTransform.modelToViewY( BinInterface.getMinY() );
+    var axisCenterX = modelViewTransform.modelToViewX( histogram.getCenterX() );
+    var axisBottom = modelViewTransform.modelToViewY( histogram.getMinY() );
 
     // create layer to store tick labels
     var tickLabelsLayer = new Node();
@@ -127,7 +127,7 @@ define( function( require ) {
         tickLabels[ binIndex ].visible = (binIndex < numberOfBins );
         // center the visible labels
         if ( tickLabels[ binIndex ].visible ) {
-          tickLabels[ binIndex ].centerX = modelViewTransform.modelToViewX( BinInterface.getBinCenterX( binIndex, numberOfBins ) );
+          tickLabels[ binIndex ].centerX = modelViewTransform.modelToViewX( histogram.getBinCenterX( binIndex, numberOfBins ) );
         }
       }
     } );
@@ -144,15 +144,16 @@ define( function( require ) {
 
   /**
    * Scenery Node that create a Y axis label
+   * @param {Histogram} histogram
    * @param {Property.<string>} histogramRadioProperty
    * @param {ModelViewTransform2} modelViewTransform
    * @constructor
    */
-  function YAxisNode( histogramRadioProperty, modelViewTransform ) {
+  function YAxisNode( histogram, histogramRadioProperty, modelViewTransform ) {
 
     Node.call( this );
 
-    var axisLeft = modelViewTransform.modelToViewX( BinInterface.getMinX() );
+    var axisLeft = modelViewTransform.modelToViewX( histogram.getMinX() );
 
     //Sets max width of y-axis label to histogram height.
     var histogramHeight = Math.abs( modelViewTransform.modelToViewDeltaY( HISTOGRAM_BOUNDS.height ) );
@@ -261,7 +262,7 @@ define( function( require ) {
       var numberOfBins = numberOfRows + 1;
       // start on bin 1 rather than zero since the left side of the '0th' bin is the y-axis
       for ( var binIndex = 1; binIndex < numberOfBins; binIndex++ ) {
-        var x = modelViewTransform.modelToViewX( BinInterface.getBinLeft( binIndex, numberOfBins ) );
+        var x = modelViewTransform.modelToViewX( histogram.getBinLeft( binIndex, numberOfBins ) );
         verticalLinesArray[ binIndex ].setLine(
           x,
           minY,
@@ -280,6 +281,7 @@ define( function( require ) {
      * @param {string} histogramRadioValue
      */
     function updateTextBanner( numberOfRows, histogramRadioValue ) {
+
       var numberOfBins = numberOfRows + 1;
 
       var getHistogramBin;
@@ -323,7 +325,7 @@ define( function( require ) {
 
         if ( binIndex < numberOfBins ) {
           labelsTextArray[ binIndex ].visible = true;
-          var binCenterX = modelViewTransform.modelToViewX( BinInterface.getBinCenterX( binIndex, numberOfBins ) );
+          var binCenterX = modelViewTransform.modelToViewX( histogram.getBinCenterX( binIndex, numberOfBins ) );
           var binValue = getHistogramBin( binIndex ); // a number
 
           if ( histogramRadioValue === 'fraction' ) {
@@ -367,12 +369,13 @@ define( function( require ) {
 //----------------------------------------------------------------------------------------
 
   /**
+   * @param {Histogram} histogram
    * @param {PlinkoProbabilityCommonModel} model
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Property.<boolean>} isTheoreticalHistogramVisibleProperty
    * @constructor
    */
-  function HistogramBarNode( model, modelViewTransform, isTheoreticalHistogramVisibleProperty ) {
+  function HistogramBarNode( histogram, model, modelViewTransform, isTheoreticalHistogramVisibleProperty ) {
 
     Node.call( this );
 
@@ -477,7 +480,7 @@ define( function( require ) {
      */
     function updateTrianglePosition( path, average ) {
       var numberOfBins = model.numberOfRowsProperty.value + 1;
-      path.centerX = modelViewTransform.modelToViewX( BinInterface.getValuePosition( average, numberOfBins ) );
+      path.centerX = modelViewTransform.modelToViewX( histogram.getValuePosition( average, numberOfBins ) );
     }
 
     /**
@@ -554,7 +557,6 @@ define( function( require ) {
 
   /**
    * Constructor for Histogram Node
-   *
    * @param {Property.<string>} histogramRadioProperty
    * @param {PlinkoProbabilityCommonModel} model
    * @param {ModelViewTransform2} modelViewTransform
@@ -566,10 +568,10 @@ define( function( require ) {
     Node.call( this, {
         children: [
           new BackgroundNode( modelViewTransform ),
-          new XAxisNode( model.numberOfRowsProperty, modelViewTransform ),
-          new YAxisNode( histogramRadioProperty, modelViewTransform ),
+          new XAxisNode( model.histogram, model.numberOfRowsProperty, modelViewTransform ),
+          new YAxisNode( model.histogram, histogramRadioProperty, modelViewTransform ),
           new XBannerNode( model.histogram, model.numberOfRowsProperty, histogramRadioProperty, modelViewTransform ),
-          new HistogramBarNode( model, modelViewTransform, isTheoreticalHistogramVisibleProperty )
+          new HistogramBarNode( model.histogram, model, modelViewTransform, isTheoreticalHistogramVisibleProperty )
         ]
       }
     );
