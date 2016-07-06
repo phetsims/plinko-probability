@@ -12,6 +12,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var BallsLayerNode = require( 'PLINKO_PROBABILITY/common/view/BallsLayerNode' );
   var Board = require( 'PLINKO_PROBABILITY/common/view/Board' );
   var Bounds2 = require( 'DOT/Bounds2' );
   var EraserButton = require( 'SCENERY_PHET/buttons/EraserButton' );
@@ -19,6 +20,7 @@ define( function( require ) {
   var Hopper = require( 'PLINKO_PROBABILITY/common/view/Hopper' );
   var inherit = require( 'PHET_CORE/inherit' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
+  var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var PegSoundGeneration = require( 'PLINKO_PROBABILITY/common/view/PegSoundGeneration' );
   var PropertySet = require( 'AXON/PropertySet' );
@@ -90,17 +92,26 @@ define( function( require ) {
       }
     } );
 
+    var histogramModelBounds = PlinkoConstants.HISTOGRAM_BOUNDS;
+    var ballModelBounds = model.galtonBoard.bounds.union( histogramModelBounds );
+    var ballViewBounds = this.modelViewTransform.modelToViewBounds( ballModelBounds ).dilated( 20 );
+
+    // create the ballLayerNodes  (a canvas Node) that renders all the balls
+    var ballsLayerNode = new BallsLayerNode( model.balls, modelViewTransform, model.numberOfRowsProperty, viewProperties.histogramRadioProperty, model.galtonBoardRadioButtonProperty,
+      { canvasBounds: ballViewBounds } );
+    this.ballsLayerNode = ballsLayerNode;
 
     // create the sound generator for ball hitting peg
     var pegSoundGeneration = new PegSoundGeneration( viewProperties.isSoundEnabledProperty );
     this.pegSoundGeneration = pegSoundGeneration;
 
-
+    var thisModel = this;
     // create the Reset All Button at the bottom right, which resets the model
     var resetAllButton = new ResetAllButton( {
       listener: function() {
         model.reset(); // reset the model
         viewProperties.reset(); // reset the properties
+        thisModel.reset();
         pegSoundGeneration.reset(); // reset the time elapsed to 0
       }
     } );
@@ -111,6 +122,7 @@ define( function( require ) {
 
     // add children to the scene graph
     this.addChild( board );
+    this.addChild( ballsLayerNode );
     this.addChild( eraserButton );
     this.addChild( soundToggleButton );
     this.addChild( resetAllButton );
@@ -143,6 +155,12 @@ define( function( require ) {
 
       // increment time for sound generation
       this.pegSoundGeneration.step( dt );
+    },
+    /**
+     * reset function
+     */
+    reset: function() {
+
     }
   } );
 
