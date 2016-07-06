@@ -41,7 +41,7 @@ define( function( require ) {
 
         title: '', // (string) title above the numerical display
         titleMaxWidth: 110,  //(number) describes max width of title text
-        patternValueUnit: '{0}', // eg. '{0}  {1}'  {0} is the value and {1} is the unitString
+        patternValueUnit: '{0} {1}', // eg. '{0}  {1}'  {0} is the value and {1} is the unitString
         unitString: 'm',  // will not be used if patterValueUnit does not make use of the {1} element
 
         readOutFill: 'white', // color of the background rectangular readout fill

@@ -54,6 +54,7 @@ define( function( require ) {
       valueProperty: rowsProperty,
       range: PlinkoConstants.ROWS_RANGE,
       decimalPlaces: 0,
+      patternValueUnit: '{0}',
       slider: {
         trackSize: trackSize,
         tick: {
@@ -73,6 +74,7 @@ define( function( require ) {
       titleMaxWidth: options.minWidth,
       valueProperty: binaryProbabilityProperty,
       range: PlinkoConstants.BINARY_PROBABILITY_RANGE,
+      patternValueUnit: '{0}',
       decimalPlaces: 2,
       slider: {
         trackSize: trackSize,
