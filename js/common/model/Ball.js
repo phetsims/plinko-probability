@@ -12,7 +12,6 @@ define( function( require ) {
   // modules
   var Events = require( 'AXON/Events' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var PegInterface = require( 'PLINKO_PROBABILITY/common/model/PegInterface' );
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
   var Random = require( 'DOT/Random' );
@@ -44,7 +43,7 @@ define( function( require ) {
     this.probability = probability; // @private (read-only)
     this.numberOfRows = numberOfRows; // @private (read-only)
 
-    this.pegSeparation = PegInterface.getSpacing( numberOfRows ); // @public (read-only)
+    this.pegSeparation = this.getSpacing( numberOfRows ); // @public (read-only)
 
     this.ballRadius = this.pegSeparation * PlinkoConstants.BALL_SIZE_FRACTION;  // @public (read-only)
 
@@ -92,8 +91,8 @@ define( function( require ) {
       direction = (random.random() > probability) ? 'left' : 'right';
       peg = {
         rowNumber: rowNumber, // an integer starting at zero
-        positionX: PegInterface.getPositionX( rowNumber, columnNumber, numberOfRows ),
-        positionY: PegInterface.getPositionY( rowNumber, columnNumber, numberOfRows ),
+        positionX: this.getPegPositionX( rowNumber, columnNumber, numberOfRows ),
+        positionY: this.getPegPositionY( rowNumber, columnNumber, numberOfRows ),
         direction: direction // direction to the next peg
       };
 
@@ -121,6 +120,42 @@ define( function( require ) {
   plinkoProbability.register( 'Ball', Ball );
 
   return inherit( Events, Ball, {
+
+    /**
+     * Function that returns the horizontal spacing between two pegs on the same row
+     * The distance is given in the model view (with respect to the galton board)
+     * @public (read-only)
+     * @param {number} numberOfRows
+     * @returns {number}
+     */
+    getSpacing: function( numberOfRows ) {
+      return 1 / (numberOfRows + 1 );
+    },
+
+    /**
+     * Function that returns the X position of a peg with index rowNumber and column Number
+     * The position is given in the model view (with respect to the galton board)
+     * @public (read-only)
+     * @param {number} rowNumber
+     * @param {number} columnNumber
+     * @param {number} numberOfRows
+     * @returns {number}
+     */
+    getPegPositionX: function( rowNumber, columnNumber, numberOfRows ) {
+      return (-rowNumber / 2 + columnNumber) / (numberOfRows + 1 );
+    },
+    /**
+     * Function that returns the Y position of a peg with index rowNumber and column Number
+     * The position is given in the model view (with respect to the galton board)
+     * @public (read-only)
+     * @param {number} rowNumber
+     * @param {number} columnNumber
+     * @param {number} numberOfRows
+     * @returns {number}
+     */
+    getPegPositionY: function( rowNumber, columnNumber, numberOfRows ) {
+      return (-rowNumber - 2 * PlinkoConstants.PEG_HEIGHT_FRACTION_OFFSET) / (numberOfRows + 1 );
+    },
 
     /**
      *
@@ -160,7 +195,7 @@ define( function( require ) {
       this.pegPositionY = peg.positionY; // y position of the peg based on the column, row, and number of of rows
       this.direction = peg.direction; // whether the ball went left or right
     },
-    
+
     /**
      * this function gets the first peg position
      * @public

@@ -14,7 +14,6 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var CanvasNode = require( 'SCENERY/nodes/CanvasNode' );
   var Path = require( 'SCENERY/nodes/Path' );
-  var PegInterface = require( 'PLINKO_PROBABILITY/common/model/PegInterface' );
   var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var RadialGradient = require( 'SCENERY/util/RadialGradient' );
@@ -131,6 +130,17 @@ define( function( require ) {
   return inherit( CanvasNode, GaltonBoardCanvasNode, {
 
     /**
+     * Function that returns the horizontal spacing between two pegs on the same row
+     * The distance is given in the model view (with respect to the galton board)
+     * @public (read-only)
+     * @param {number} numberOfRows
+     * @returns {number}
+     */
+    getSpacing: function( numberOfRows ) {
+      return 1 / (numberOfRows + 1 );
+    },
+
+    /**
      * @param {CanvasRenderingContext2D} context
      * @override
      * @private
@@ -147,7 +157,7 @@ define( function( require ) {
         self.isInitiallyPainted = true;
       }
 
-      var pegSpacing = PegInterface.getSpacing( self.numberOfRowsProperty.value );
+      var pegSpacing = self.getSpacing( self.numberOfRowsProperty.value );
       // offset the center of the shadow with respect to the peg, a bit below and to the left, empirically determined
       var offsetVector = self.modelViewTransform.modelToViewDelta( new Vector2( pegSpacing * 0.08, -pegSpacing * 0.24 ) );
 

@@ -10,9 +10,9 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var PegInterface = require( 'PLINKO_PROBABILITY/common/model/PegInterface' );
   var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
+  var Vector2 = require( 'DOT/Vector2' );
 
 
   /**
@@ -47,10 +47,10 @@ define( function( require ) {
 
       galtonBoard.pegs.forEach( function( peg ) {
         // for performance reasons, we don't throw out the pegs, we simply update their visibility
-        peg.isVisible = PegInterface.getIsVisible( peg.rowNumber, numberOfRows );  // @public (read-only)
+        peg.isVisible = galtonBoard.getIsVisible( peg.rowNumber, numberOfRows );  // @public (read-only)
         if ( peg.isVisible ) {
           // update the position of the pegs on the Galton Board.
-          peg.position = PegInterface.getPosition( peg.rowNumber, peg.columnNumber, numberOfRows ); // @public (read-only)
+          peg.position = galtonBoard.getPosition( peg.rowNumber, peg.columnNumber, numberOfRows ); // @public (read-only)
         }
       } );
     } );
@@ -58,5 +58,63 @@ define( function( require ) {
 
   plinkoProbability.register( 'GaltonBoard', GaltonBoard );
 
-  return inherit( Object, GaltonBoard );
+  return inherit( Object, GaltonBoard, {
+
+      /**
+       * Function that returns the x and y coordinates of a peg in reference to the galton board
+       * @public (read-only)
+       * @param {number} rowNumber - integer starting at zero
+       * @param {number} columnNumber - index of the column, integer starting at zero
+       * @param {number} numberOfRows - the number of rows on the screen
+       * @returns {Vector2}
+       */
+      getPosition: function( rowNumber, columnNumber, numberOfRows ) {
+        return new Vector2( -rowNumber / 2 + columnNumber, -rowNumber - 2 * PlinkoConstants.PEG_HEIGHT_FRACTION_OFFSET ).divideScalar( numberOfRows + 1 );
+      },
+      /**
+       * Function that returns the visibility status of a peg on the galton board
+       * @public (read-only)
+       * @param {number} rowNumber - index of row, integer starting at zero
+       * @param {number} numberOfRows - number of rows
+       * @returns {boolean}
+       */
+      getIsVisible: function( rowNumber, numberOfRows ) {
+        return (rowNumber < numberOfRows);
+      },
+      /**
+       * Function that returns the X position of a peg with index rowNumber and column Number
+       * The position is given in the model view (with respect to the galton board)
+       * @public (read-only)
+       * @param {number} rowNumber
+       * @param {number} columnNumber
+       * @param {number} numberOfRows
+       * @returns {number}
+       */
+      getPositionX: function( rowNumber, columnNumber, numberOfRows ) {
+        return (-rowNumber / 2 + columnNumber) / (numberOfRows + 1 );
+      },
+      /**
+       * Function that returns the Y position of a peg with index rowNumber and column Number
+       * The position is given in the model view (with respect to the galton board)
+       * @public (read-only)
+       * @param {number} rowNumber
+       * @param {number} columnNumber
+       * @param {number} numberOfRows
+       * @returns {number}
+       */
+      getPositionY: function( rowNumber, columnNumber, numberOfRows ) {
+        return (-rowNumber - 2 * PlinkoConstants.PEG_HEIGHT_FRACTION_OFFSET) / (numberOfRows + 1 );
+      },
+      /**
+       * Function that returns the horizontal spacing between two pegs on the same row
+       * The distance is given in the model view (with respect to the galton board)
+       * @public (read-only)
+       * @param {number} numberOfRows
+       * @returns {number}
+       */
+      getSpacing: function( numberOfRows ) {
+        return 1 / (numberOfRows + 1 );
+      }
+    }
+  );
 } );
