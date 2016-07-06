@@ -25,7 +25,8 @@ define( function( require ) {
      * @returns {number}
      */
     getBinCenterX: function( binIndex, numberOfBins ) {
-      assert && assert( binIndex <= numberOfBins );
+      // We consider numberOfBins-1 because we consider the most left bin the first bin out of the total number of bins
+      assert && assert( binIndex <= numberOfBins - 1 );
       return ((binIndex + 1 / 2) / numberOfBins) * BOUNDS.width + BOUNDS.minX;
     },
 
