@@ -12,7 +12,6 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var BallsLayerNode = require( 'PLINKO_PROBABILITY/common/view/BallsLayerNode' );
   var BallRadioButtonsControl = require( 'PLINKO_PROBABILITY/lab/view/BallRadioButtonsControl' );
   var Dialog = require( 'JOIST/Dialog' );
   var GaltonBoardCanvasNode = require( 'PLINKO_PROBABILITY/common/view/GaltonBoardCanvasNode' );
@@ -78,12 +77,6 @@ define( function( require ) {
     var sliderControlPanel = new SliderControlPanel( model.numberOfRowsProperty, model.probabilityProperty, { minWidth: statisticsDisplayAccordionBox.width } );
 
 
-    var ballCanvasBounds = this.viewTriangularBoardBounds.dilated( 20 ); // bounds are slightly larger than the galton board itself
-    // create the ballLayerNodes  (a canvas Node) that renders all the balls
-    var ballsLayerNode = new BallsLayerNode( model.balls, this.modelViewTransform, model.numberOfRowsProperty, this.viewProperties.histogramRadioProperty, model.galtonBoardRadioButtonProperty,
-      { canvasBounds: ballCanvasBounds } );
-    this.ballsLayerNode = ballsLayerNode;
-
     // create pathsLayer to keep all the TrajectoryPath
     var pathsLayer = new Node( { layerSplit: true } );
 
@@ -127,8 +120,6 @@ define( function( require ) {
     this.addChild( sliderControlPanel );
     this.addChild( statisticsDisplayAccordionBox );
     this.addChild( galtonBoardCanvasNode );
-    this.addChild( ballsLayerNode );
-    this.moveChildToFront( this.histogramNode );
     this.addChild( pathsLayer );
 
     // layout the children
@@ -163,5 +154,12 @@ define( function( require ) {
 
   plinkoProbability.register( 'PlinkoProbabilityLabView', PlinkoProbabilityLabView );
 
-  return inherit( PlinkoProbabilityCommonView, PlinkoProbabilityLabView );
+  return inherit( PlinkoProbabilityCommonView, PlinkoProbabilityLabView, {
+    /**
+     * resets the histogram radio property to be counter
+     */
+    reset: function() {
+      this.viewProperties.histogramRadioProperty.set('counter');
+    }
+  } );
 } );

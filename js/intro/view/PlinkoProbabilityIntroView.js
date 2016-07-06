@@ -12,17 +12,14 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var BallsLayerNode = require( 'PLINKO_PROBABILITY/common/view/BallsLayerNode' );
   var CylindersBackNode = require( 'PLINKO_PROBABILITY/intro/view/CylindersBackNode' );
   var CylindersFrontNode = require( 'PLINKO_PROBABILITY/intro/view/CylindersFrontNode' );
   var GaltonBoardCanvasNode = require( 'PLINKO_PROBABILITY/common/view/GaltonBoardCanvasNode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var IntroPlayPanel = require( 'PLINKO_PROBABILITY/intro/view/IntroPlayPanel' );
   var NumberBallsDisplay = require( 'PLINKO_PROBABILITY/intro/view/NumberBallsDisplay' );
-  var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var PlinkoProbabilityCommonView = require( 'PLINKO_PROBABILITY/common/view/PlinkoProbabilityCommonView' );
-  var Property = require( 'AXON/Property' );
   var VerticalRadioButtonCommon = require( 'PLINKO_PROBABILITY/common/view/VerticalRadioButtonCommon' );
 
   // images
@@ -81,16 +78,6 @@ define( function( require ) {
       }
     );
 
-
-    var histogramModelBounds = PlinkoConstants.HISTOGRAM_BOUNDS;
-    var ballModelBounds = model.galtonBoard.bounds.union( histogramModelBounds );
-    var ballViewBounds = this.modelViewTransform.modelToViewBounds( ballModelBounds ).dilated( 20 );
-
-    // put all the Balls on a separate z-layer
-    var ballsLayerNode = new BallsLayerNode( model.balls, this.modelViewTransform, model.numberOfRowsProperty, this.viewProperties.histogramRadioProperty, new Property( 'ball' ),
-      { canvasBounds: ballViewBounds } );
-    this.ballsLayerNode = ballsLayerNode;
-
     // handle the coming and going of the model Balls
     model.balls.addItemAddedListener( function( addedBall ) {
       // initiates sound to play when ball hits a peg
@@ -110,8 +97,7 @@ define( function( require ) {
     this.addChild( numberBallsDisplay );
     this.addChild( galtonBoardCanvasNode );
     this.addChild( cylindersBackNode );
-    this.addChild( ballsLayerNode );
-    this.moveChildToFront( this.histogramNode );
+    this.moveChildToBack( cylindersBackNode );
     this.addChild( cylindersFrontNode );
 
     // layout the children nodes on the scene graph

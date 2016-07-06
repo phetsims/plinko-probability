@@ -27,6 +27,7 @@ define( function( require ) {
     function PlinkoProbabilityIntroModel() {
 
       PlinkoProbabilityCommonModel.call( this );
+      this.addProperty( 'galtonBoardRadioButton', 'ball'); // acceptable value 'ball'
 
 
       var bounds = PlinkoConstants.HISTOGRAM_BOUNDS;
