@@ -29,7 +29,7 @@ define( function( require ) {
   function NumberBallsDisplay( histogram, options ) {
 
     options = _.extend( {
-        minWidth: 209,
+        minWidth: 214, // left border of panel is aligned with the left border of the play panel.
         align: 'left'
       },
       options );

@@ -90,7 +90,7 @@ define( function( require ) {
     var playAndRadioButtonBox = new HBox( {
       spacing: 0,
       children: [
-        new HStrut( 15 ),     // spacing between left panel margin and play button
+        new HStrut( 20 ),     // spacing between left panel margin and play button
         playButton,
         new HStrut( 25 ),     // spacing between play button and radio buttons
         ballModeRadioButtons,

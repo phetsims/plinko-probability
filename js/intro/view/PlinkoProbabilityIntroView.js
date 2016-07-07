@@ -20,6 +20,7 @@ define( function( require ) {
   var NumberBallsDisplay = require( 'PLINKO_PROBABILITY/intro/view/NumberBallsDisplay' );
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var PlinkoProbabilityCommonView = require( 'PLINKO_PROBABILITY/common/view/PlinkoProbabilityCommonView' );
+  var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
   var VerticalRadioButtonCommon = require( 'PLINKO_PROBABILITY/common/view/VerticalRadioButtonCommon' );
 
   // images
@@ -103,9 +104,9 @@ define( function( require ) {
     // layout the children nodes on the scene graph
     histogramRadioButtonsControl.bottom = this.histogramRadioButtonsControlBottom;
     histogramRadioButtonsControl.left = this.histogramRadioButtonsControlLeft;
-    playPanel.right = this.layoutBounds.maxX - 40;
-    playPanel.top = 10;
-    numberBallsDisplay.top = playPanel.bottom + 283;
+    playPanel.right = this.layoutBounds.maxX - PlinkoConstants.PANEL_RIGHT_PADDING;
+    playPanel.top = PlinkoConstants.PANEL_VERTICAL_SPACING;
+    numberBallsDisplay.top = playPanel.bottom + 245;
     numberBallsDisplay.right = playPanel.right;
   }
 

@@ -35,6 +35,8 @@ define( function( require ) {
     MAJOR_TICK_FONT: new PhetFont( { size: 16 } ),
 
     // panels
+    PANEL_VERTICAL_SPACING: 10,
+    PANEL_RIGHT_PADDING: 40,
     CONTROL_PANEL_CORNER_RADIUS: 10,
     SMALL_PANEL_CORNER_RADIUS: 5,
     CONTROL_PANEL_BACKGROUND_COLOR: 'rgb(255, 245, 238)',

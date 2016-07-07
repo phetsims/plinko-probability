@@ -22,6 +22,7 @@ define( function( require ) {
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var PlinkoProbabilityCommonView = require( 'PLINKO_PROBABILITY/common/view/PlinkoProbabilityCommonView' );
+  var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
   var PlinkoProbabilityQueryParameters = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityQueryParameters' );
   var SliderControlPanel = require( 'PLINKO_PROBABILITY/lab/view/SliderControlPanel' );
   var StatisticsDisplayAccordionBox = require( 'PLINKO_PROBABILITY/lab/view/StatisticsDisplayAccordionBox' );
@@ -125,13 +126,13 @@ define( function( require ) {
     // layout the children
     histogramRadioButtonsControl.bottom = this.histogramRadioButtonsControlBottom;
     histogramRadioButtonsControl.left = this.histogramRadioButtonsControlLeft;
-    playPanel.right = this.layoutBounds.maxX - 50;        // determines slider control panel and statistical display position
+    playPanel.right = this.layoutBounds.maxX - PlinkoConstants.PANEL_RIGHT_PADDING;        // determines slider control panel and statistical display position
     playPanel.top = 10;
     ballRadioButtonsControl.left = this.hopperRight + 47;     // dependent on hopper position
     ballRadioButtonsControl.top = HOPPER_TOP;
-    sliderControlPanel.top = playPanel.bottom + 10;
+    sliderControlPanel.top = playPanel.bottom + PlinkoConstants.PANEL_VERTICAL_SPACING;
     sliderControlPanel.right = playPanel.right;
-    statisticsDisplayAccordionBox.top = sliderControlPanel.bottom + 10;
+    statisticsDisplayAccordionBox.top = sliderControlPanel.bottom + PlinkoConstants.PANEL_VERTICAL_SPACING;
     statisticsDisplayAccordionBox.right = playPanel.right;
 
     // no need to dispose of this link
@@ -159,7 +160,7 @@ define( function( require ) {
      * resets the histogram radio property to be counter
      */
     reset: function() {
-      this.viewProperties.histogramRadioProperty.set('counter');
+      this.viewProperties.histogramRadioProperty.set( 'counter' );
     }
   } );
 } );
