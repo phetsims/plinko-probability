@@ -124,7 +124,6 @@ define( function( require ) {
     }
   }
 
-
   plinkoProbability.register( 'GaltonBoardCanvasNode', GaltonBoardCanvasNode );
 
   return inherit( CanvasNode, GaltonBoardCanvasNode, {

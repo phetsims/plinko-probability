@@ -29,7 +29,6 @@ define( function( require ) {
       PlinkoProbabilityCommonModel.call( this );
       this.addProperty( 'galtonBoardRadioButton', 'ball'); // acceptable value 'ball'
 
-
       var bounds = PlinkoConstants.HISTOGRAM_BOUNDS;
       var binWidth = bounds.width / (this.numberOfRows + 1); // the width of one bin is the total width divided by the number of columns
       var cylinderWidth = 0.95 * binWidth; // there is a small gap between each cylinder
@@ -140,6 +139,4 @@ define( function( require ) {
   }
 )
 ;
-
-
 

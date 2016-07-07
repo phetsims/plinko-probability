@@ -74,7 +74,6 @@ define( function( require ) {
       touchAreaXDilation: 5
     } );
 
-
     //Creation of play button
     var playButton = new PlayButton( {
       listener: updateBallsToCreateNumber,

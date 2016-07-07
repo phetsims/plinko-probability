@@ -14,7 +14,6 @@ define( function( require ) {
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var Vector2 = require( 'DOT/Vector2' );
 
-
   /**
    * @param {Property.<number>} numberOfRowsProperty - number of rows of pegs
    * @constructor

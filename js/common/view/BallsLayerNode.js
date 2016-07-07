@@ -58,7 +58,6 @@ define( function( require ) {
       self.ballImage = image;
     } );
 
-
     numberOfRowsProperty.link( function( numberOfRows ) {
       self.scaleFactor = defaultNumberOfRows / numberOfRows;
     } );

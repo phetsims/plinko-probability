@@ -67,7 +67,6 @@ define( function( require ) {
   // model histogram bounds
   var HISTOGRAM_BOUNDS = PlinkoConstants.HISTOGRAM_BOUNDS;
 
-
 //----------------------------------------------------------------------------------------
 // x-axis (horizontal)
 //----------------------------------------------------------------------------------------
@@ -82,7 +81,6 @@ define( function( require ) {
   function XAxisNode( histogram, numberOfRowsProperty, modelViewTransform ) {
 
     Node.call( this );
-
 
     // position of the axis
     var axisCenterX = modelViewTransform.modelToViewX( histogram.getCenterX() );

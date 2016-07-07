@@ -28,7 +28,6 @@ define( function( require ) {
   var ScreenView = require( 'JOIST/ScreenView' );
   var SoundToggleButton = require( 'SCENERY_PHET/buttons/SoundToggleButton' );
 
-
   /**
    * Creates common view for the tabs
    * @param {PlinkoProbabilityIntroModel} model
@@ -118,7 +117,6 @@ define( function( require ) {
 
     // create the Sound Toggle Button at the bottom right
     var soundToggleButton = new SoundToggleButton( viewProperties.isSoundEnabledProperty );
-
 
     // add children to the scene graph
     this.addChild( board );

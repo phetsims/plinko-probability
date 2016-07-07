@@ -88,7 +88,6 @@ define( function( require ) {
       spacing: 13  // vertical spacing between radio buttons
     } );
 
-
     // create the play button
     this.playButton = new PlayButton( {
       listener: function() {
@@ -128,7 +127,6 @@ define( function( require ) {
     // add the play and pause button
     playPlayPauseButton.addChild( this.playButton );
     playPlayPauseButton.addChild( this.pauseButton );
-
 
     // create the content of the panel, with the play pause button and the radio buttons
     var startVBox = new HBox( {

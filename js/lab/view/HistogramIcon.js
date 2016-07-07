@@ -14,7 +14,6 @@ define( function( require ) {
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
 
-
   /**
    * @param {Object} [options]
    * @constructor

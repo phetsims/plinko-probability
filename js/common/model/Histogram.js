@@ -292,7 +292,7 @@ define( function( require ) {
       return maxCount;
     },
     
-     
+    
     /**
      * Function that returns the center x coordinate of a bin with index binIndex
      * @public (read-only)

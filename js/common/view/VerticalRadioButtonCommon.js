@@ -14,7 +14,6 @@ define( function( require ) {
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var RadioButtonGroup = require( 'SUN/buttons/RadioButtonGroup' );
 
-
   // constants
   var ICON_WIDTH = 35;
 
@@ -29,7 +28,6 @@ define( function( require ) {
    * @constructor
    */
   function VerticalRadioButtonCommon( histogramRadioProperty, topDOMImage, bottomDOMImage, topValue, bottomValue, options ) {
-
 
     options = _.extend( {
         spacing: 5, // vertical separation of the buttons
@@ -48,7 +46,6 @@ define( function( require ) {
     topImage.scale( ICON_WIDTH / topImage.width );
     var bottomImage = new Image( bottomDOMImage );
     bottomImage.scale( ICON_WIDTH / bottomImage.width );
-
 
     RadioButtonGroup.call( this, histogramRadioProperty, [
       { value: topValue, node: topImage },

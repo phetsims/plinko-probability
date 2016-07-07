@@ -65,5 +65,3 @@ define( function( require ) {
 )
 ;
 
-
-

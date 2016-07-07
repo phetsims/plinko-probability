@@ -63,7 +63,6 @@ define( function( require ) {
 
     this.addChild( slantedShadowPath );
 
-
     // Pass options through to the parent class.
     this.mutate( options );
   }

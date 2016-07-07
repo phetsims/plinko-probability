@@ -42,7 +42,6 @@ define( function( require ) {
       maxDecimalPlaces: 0
     };
 
-
     var numberLandedBallsText = new EquationNode( nString, 0, optionsTitle );
 
     histogram.on( 'statisticsUpdated', function() {

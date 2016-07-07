@@ -19,7 +19,6 @@ define( function( require ) {
 
     BACKGROUND_COLOR: 'rgb(186,231,249)',
 
-
     GALTON_BOARD_BOUNDS: new Bounds2( -1 / 2, -1, 1 / 2, 0 ),
 
     HISTOGRAM_BOUNDS: new Bounds2( -1 / 2, -1.70, 1 / 2, -1.03 ),
@@ -29,7 +28,6 @@ define( function( require ) {
     // font sizes and weight (for statistics display node)
     TEXT_FONT: new PhetFont( { size: 18 } ), // default font for text
     TEXT_FONT_BOLD: new PhetFont( { size: 22, weight: 'bold' } ), // default font for bold font (N=)
-
 
     CHECK_BOX_TEXT_FONT: new PhetFont( { size: 16 } ),
     MAJOR_TICK_FONT: new PhetFont( { size: 16 } ),

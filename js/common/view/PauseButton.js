@@ -39,7 +39,6 @@ define( function( require ) {
     var barWidth = options.radius * 0.2;
     var barHeight = options.radius;
 
-
     var bar = function() { return new Rectangle( 0, 0, barWidth, barHeight, { fill: 'black' } ); };
     var bar1 = bar();
     var bar2 = bar();

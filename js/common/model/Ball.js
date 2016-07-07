@@ -68,7 +68,6 @@ define( function( require ) {
     // 0 is the topmost
     this.row = 0; // @private
 
-
     // the direction in which the ball is going 'left','right'
     this.direction = 'left';  // @public (read-only)
 
@@ -274,7 +273,7 @@ define( function( require ) {
      * updates the position of the ball depending on the phase
      * PHASE_INTIAL: Drops in a straight line until it reaches the first peg
      * PHASE_FALLING: Mimics a bounce by using a parabolic fall
-     * PHASE_EXIT: Falls in a straigh line below the pegs until it reached its final position
+     * PHASE_EXIT: Falls in a straight line below the pegs until it reached its final position
      * PHASE_COLLECTED: lands in its finalPosition
      * @private
      */

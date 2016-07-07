@@ -33,7 +33,6 @@ define( function( require ) {
     this.addProperty( 'isPlaying', false );
     this.addProperty( 'galtonBoardRadioButton', 'ball' );  // acceptable values are 'ball', 'path, 'none'
 
-
     // These need to be linked until the end of the simulation
     this.galtonBoardRadioButtonProperty.link( function() {
       // when the balls gets created it adds itself to the histogram binCount
@@ -156,7 +155,6 @@ define( function( require ) {
       return Math.sqrt( numberOfRows * probability * (1 - probability) );
     },
 
-
     /**
      * Function that returns the binomial coefficient, equivalent to (in Latex) ${n\choose k}$
      * usually expressed as "n choose k". It is the coefficient of the x^k term in the polynomial
@@ -238,6 +236,4 @@ define( function( require ) {
     }
   } );
 } );
-
-
 

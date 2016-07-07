@@ -77,10 +77,8 @@ define( function( require ) {
     // create slider panel that can modify properties of the galton board (number of rows and the binary probability)
     var sliderControlPanel = new SliderControlPanel( model.numberOfRowsProperty, model.probabilityProperty, { minWidth: statisticsDisplayAccordionBox.width } );
 
-
     // create pathsLayer to keep all the TrajectoryPath
     var pathsLayer = new Node( { layerSplit: true } );
-
 
     // handle the coming and going of the balls in the model.
     model.balls.addItemAddedListener( function( addedBall ) {
@@ -112,7 +110,6 @@ define( function( require ) {
           throw new Error( 'Unhandled galton Board Radio Button state: ' + model.galtonBoardRadioButtonProperty.value );
       }
     } );
-
 
     // adding children to the scene graph
     this.addChild( histogramRadioButtonsControl );
