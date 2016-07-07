@@ -133,7 +133,7 @@ define( function( require ) {
     /**
      * Updates the array elements for the number of balls in a bin and the horizontal final position of the last ball.
      *
-     * @param {IntroBall||LabBall} ball
+     * @param {IntroBall|LabBall} ball
      * @public
      */
     updateBinCountAndOrientation: function( ball ) {
@@ -207,7 +207,7 @@ define( function( require ) {
 
     /**
      * Add an additional ball to the histogram to the appropriate bin and update all the relevant statistics
-     * @param {IntroBall||LabBall} ball
+     * @param {IntroBall|LabBall} ball
      * @public
      */
     addBallToHistogram: function( ball ) {
@@ -301,8 +301,7 @@ define( function( require ) {
      * @returns {number}
      */
     getBinCenterX: function( binIndex, numberOfBins ) {
-      // We consider numberOfBins-1 because we consider the most left bin the first bin out of the total number of bins
-      assert && assert( binIndex <= numberOfBins - 1 );
+      assert && assert( binIndex < numberOfBins , 'The binIndex must be smaller than the total number of bins' );
       return ((binIndex + 1 / 2) / numberOfBins) * BOUNDS.width + BOUNDS.minX;
     },
 
@@ -314,7 +313,7 @@ define( function( require ) {
      * @returns {number}
      */
     getBinLeft: function( binIndex, numberOfBins ) {
-      assert && assert( binIndex <= numberOfBins );
+      assert && assert( binIndex < numberOfBins, 'The binIndex must be smaller than the total number of bins'  );
       return (binIndex / numberOfBins) * BOUNDS.width + BOUNDS.minX;
     },
 
@@ -354,7 +353,7 @@ define( function( require ) {
      * @returns {number}
      */
     getValuePosition: function( value, numberOfBins ) {
-      assert && assert( value <= numberOfBins && value >= 0, 'the average should be between 0 and the max number of bins' );
+      assert && assert( value < numberOfBins && value >= 0, 'the average should range from 0 and the max number of bins -1' );
       return ((value + 1 / 2) / numberOfBins) * BOUNDS.width + BOUNDS.minX;
     }
   
