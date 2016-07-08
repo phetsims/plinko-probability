@@ -10,7 +10,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var Events = require( 'AXON/Events' );
+  var Emitter = require( 'AXON/Emitter' );
   var inherit = require( 'PHET_CORE/inherit' );
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
@@ -34,8 +34,6 @@ define( function( require ) {
    * @constructor
    */
   function Ball( probability, numberOfRows, bins ) {
-    //we need events to send triggers
-    Events.call( this );
 
     // position vector
     this.position = new Vector2( 0, 0 ); // @public (read-only)
@@ -52,6 +50,10 @@ define( function( require ) {
     // 2 -> Out of pegs
     // 3 -> Collected
     this.phase = PHASE_INITIAL; // @public (read-only)
+
+    this.ballHittingPegEmitter = new Emitter(); // @public
+    this.ballOutOfPegsEmitter = new Emitter(); // @public 
+    this.ballCollectedEmitter = new Emitter(); // @public
 
     // rows and column
     /*
@@ -79,6 +81,7 @@ define( function( require ) {
 
     this.finalBinHorizontalOffset = 0; // @public describes final horizontal offset of ball within a bin {number}
     this.finalBinVerticalOffset = 0;  // @public describes final vertical offset of ball within a bin {number}
+
 
     var direction;  // 'left', 'right'
     var rowNumber;
@@ -118,7 +121,7 @@ define( function( require ) {
 
   plinkoProbability.register( 'Ball', Ball );
 
-  return inherit( Events, Ball, {
+  return inherit( Object, Ball, {
 
     /**
      * Function that returns the horizontal spacing between two pegs on the same row
@@ -169,13 +172,14 @@ define( function( require ) {
      * Sends the trigger to update statistics and land
      * if the ball phase is PHASE_INITIAL otherwise it does nothing
      * changes the phase to COLLECTED to make sure the triggers only get sent once
+     * The ball will not be stepped in through the intermediate steps (i.e. Falling between peg)
      * @public
      */
     updateStatisticsAndLand: function() {
       if ( this.phase === PHASE_INITIAL ) {
         // send triggers
-        this.trigger0( 'exited' );
-        this.trigger0( 'landed' );
+        this.ballOutOfPegsEmitter.emit();
+        this.ballCollectedEmitter.emit();
 
         //changes phase
         this.phase = PHASE_COLLECTED;
@@ -230,7 +234,7 @@ define( function( require ) {
           this.phase = PHASE_FALLING; // switch the phase
           this.fallenRatio = 0; // reset the ratio
           this.updatePegPositionInformation(); // update the peg position information
-          this.trigger1( 'playSound', this.direction );  //plays sound when ball hits peg
+          this.ballHittingPegEmitter.emit1( this.direction ); // can play a sound when ball hits peg;
         }
       }
       else if ( this.phase === PHASE_FALLING ) { //ball is falling between pegs
@@ -242,12 +246,12 @@ define( function( require ) {
 
           if ( this.pegHistory.length > 1 ) { // if it is not the last peg
             this.updatePegPositionInformation(); // update the next to last peg information
-            this.trigger1( 'playSound', this.direction );  //plays sound when ball hits peg
+            this.ballHittingPegEmitter.emit1( this.direction ); // can play a sound when ball hits peg;
           }
           else { // ball is at the top of the last peg
             this.phase = PHASE_EXIT; // switch phases
             this.updatePegPositionInformation(); // update the last peg information
-            this.trigger0( 'exited' );
+            this.ballOutOfPegsEmitter.emit()
           }
         }
       }
@@ -261,7 +265,7 @@ define( function( require ) {
         }
         else {
           this.phase = PHASE_COLLECTED; // switch phases
-          this.trigger0( 'landed' ); // mark the ball for removal
+          this.ballCollectedEmitter.emit(); // mark the ball for removal
         }
       }
 

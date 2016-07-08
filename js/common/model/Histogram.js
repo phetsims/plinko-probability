@@ -11,7 +11,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var Events = require( 'AXON/Events' );
+  var Emitter = require( 'AXON/Emitter' );
   var inherit = require( 'PHET_CORE/inherit' );
   var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
@@ -30,7 +30,6 @@ define( function( require ) {
    */
   function Histogram( numberOfRowsProperty ) {
 
-    Events.call( this );
 
     var thisHistogram = this;
 
@@ -48,6 +47,9 @@ define( function( require ) {
     // initialized all the bins to zero.
     this.setBinsToZero();
 
+    // emitters;
+    this.histogramUpdatedEmitter = new Emitter(); // @public
+
     // link is present for the lifetime of the sim
     numberOfRowsProperty.link( function() {
       thisHistogram.reset(); // if the number of rows change then reset the histogram
@@ -56,7 +58,7 @@ define( function( require ) {
 
   plinkoProbability.register( 'Histogram', Histogram );
 
-  return inherit( Events, Histogram, {
+  return inherit( Object, Histogram, {
     /**
      * @public
      * sets all the binCounts to 0 and resets the statistics
@@ -64,8 +66,7 @@ define( function( require ) {
     reset: function() {
       this.setBinsToZero();
       this.resetStatistics();
-      this.trigger0( 'histogramUpdated' );
-      this.trigger0( 'statisticsUpdated' );
+      this.histogramUpdatedEmitter.emit();
     },
     /**
      * Used in the "ballsOnScreen" query parameter to set an initial amount of balls within the histogram.
@@ -108,8 +109,8 @@ define( function( require ) {
 
       // now we update the view and generate our statistics
       this.initialStatistics();
-      this.trigger0( 'histogramUpdated' );
-      this.trigger0( 'statisticsUpdated' );
+      this.histogramUpdatedEmitter.emit();
+
     },
 
     /**
@@ -182,7 +183,7 @@ define( function( require ) {
         sum += bin.binCount * binIndex;
         sumOfSquares += bin.binCount * binIndex * binIndex;
       } );
-      
+
       // create readable statistics for the statistics accordion box
       this.sumOfSquares = sumOfSquares;
       this.landedBallsNumber = totalNumberOfBalls;
@@ -214,8 +215,7 @@ define( function( require ) {
       // @private
       this.bins[ ball.binIndex ].visibleBinCount++;
       this.updateStatistics( ball.binIndex );
-      this.trigger0( 'histogramUpdated' );
-      this.trigger0( 'statisticsUpdated' );
+      this.histogramUpdatedEmitter.emit();
     },
 
     /**
@@ -291,8 +291,8 @@ define( function( require ) {
       } );
       return maxCount;
     },
-    
-    
+
+
     /**
      * Function that returns the center x coordinate of a bin with index binIndex
      * @public (read-only)
@@ -301,7 +301,7 @@ define( function( require ) {
      * @returns {number}
      */
     getBinCenterX: function( binIndex, numberOfBins ) {
-      assert && assert( binIndex < numberOfBins , 'The binIndex must be smaller than the total number of bins' );
+      assert && assert( binIndex < numberOfBins, 'The binIndex must be smaller than the total number of bins' );
       return ((binIndex + 1 / 2) / numberOfBins) * BOUNDS.width + BOUNDS.minX;
     },
 
@@ -313,7 +313,7 @@ define( function( require ) {
      * @returns {number}
      */
     getBinLeft: function( binIndex, numberOfBins ) {
-      assert && assert( binIndex < numberOfBins, 'The binIndex must be smaller than the total number of bins'  );
+      assert && assert( binIndex < numberOfBins, 'The binIndex must be smaller than the total number of bins' );
       return (binIndex / numberOfBins) * BOUNDS.width + BOUNDS.minX;
     },
 
@@ -356,8 +356,6 @@ define( function( require ) {
       assert && assert( value < numberOfBins && value >= 0, 'the average should range from 0 and the max number of bins -1' );
       return ((value + 1 / 2) / numberOfBins) * BOUNDS.width + BOUNDS.minX;
     }
-  
-
   } );
 } );
 

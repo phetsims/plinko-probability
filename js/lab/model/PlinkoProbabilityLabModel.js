@@ -19,7 +19,7 @@ define( function( require ) {
   var MAX_NUMBER_BALLS = 9999; // max number of balls per bin
   var PHASE_LANDED = 3;
   var PHASE_EXIT = 2;
-  
+
   /**
    * Main model of the second tab (lab tab) of the plinko probability simulation
    * @constructor
@@ -117,18 +117,21 @@ define( function( require ) {
       if ( thisModel.histogram.getMaximumActualBinCount() >= MAX_NUMBER_BALLS ) {
         thisModel.isBallCapReached = true;
       }
-      addedBall.on( 'exited', function() {
+      // ballOutOfPegsEmitter is emitted when the addedBall leaves the last peg on the Galton board.
+      addedBall.ballOutOfPegsEmitter.addListener( function ballOutOfPegsListener() {
         thisModel.histogram.addBallToHistogram( addedBall );
+        addedBall.ballOutOfPegsEmitter.removeListener( ballOutOfPegsListener );
       } );
+
       // when the ball lands remove the one that came before it
-      addedBall.on( 'landed', function() {
+      addedBall.ballCollectedEmitter.addListener( function removeBallListener() {
         var previousBallIndex = thisModel.balls.indexOf( addedBall ) - 1; // gets the index of the ball before
         if ( previousBallIndex > -1 ) {
           var previousBall = thisModel.balls.get( previousBallIndex ); // gets the last ball object
           thisModel.balls.remove( previousBall ); //removes the previous ball
         }
+        addedBall.ballCollectedEmitter.removeListener( removeBallListener ); 
       } );
-
     },
 
     /**

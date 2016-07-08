@@ -86,7 +86,8 @@ define( function( require ) {
     } );
 
     // update the statistics display after a ball landed in the bins.
-    model.histogram.on( 'statisticsUpdated', function() {
+    // no need to remove Listener, present for the lifetime of the simulation
+    model.histogram.histogramUpdatedEmitter.addListener( function() {
       numberLandedBallsText.setRightHandSideOfEquation( model.histogram.landedBallsNumber );
       sampleAverageText.setRightHandSideOfEquation( model.histogram.average );
       sampleStandardDeviationText.setRightHandSideOfEquation( model.histogram.standardDeviation );

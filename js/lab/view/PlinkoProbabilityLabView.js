@@ -85,11 +85,13 @@ define( function( require ) {
       switch( model.galtonBoardRadioButtonProperty.value ) {
         case 'ball':
           // initiates sound to play when ball hits a peg
-          addedBall.on( 'playSound', function( direction ) {
+          var ballHittingPegListener = function( direction ) {
             thisModel.pegSoundGeneration.playBallHittingPegSound( direction );
-          } );
+          };
+          addedBall.ballHittingPegEmitter.addListener( ballHittingPegListener );
           model.balls.addItemRemovedListener( function removalListener( removedBall ) {
             if ( removedBall === addedBall ) {
+              addedBall.ballHittingPegEmitter.removeListener( ballHittingPegListener );
               model.balls.removeItemRemovedListener( removalListener );
             }
           } );

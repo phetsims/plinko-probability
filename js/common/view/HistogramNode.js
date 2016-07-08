@@ -345,7 +345,8 @@ define( function( require ) {
     }
 
     // update the banner when a ball has been added to the histogram
-    histogram.on( 'histogramUpdated', function() {
+    // no need to remove listener, present for the lifetime of the sim
+    histogram.histogramUpdatedEmitter.addListener( function() {
       updateTextBanner( numberOfRowsProperty.value, histogramRadioProperty.value );
     } );
 
@@ -464,7 +465,7 @@ define( function( require ) {
       } );
 
     // update the histogram when a model ball has exited the galton board
-    model.histogram.on( 'histogramUpdated', function() {
+    model.histogram.histogramUpdatedEmitter.addListener( function() {
       // update the height of bins of histogram
       updateHeightOfHistogram( sampleHistogramRectanglesArray, model.histogram.getNormalizedSampleDistribution() );
       // update the position of the indicator for sample average

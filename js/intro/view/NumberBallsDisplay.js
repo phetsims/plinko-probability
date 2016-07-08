@@ -44,7 +44,7 @@ define( function( require ) {
 
     var numberLandedBallsText = new EquationNode( nString, 0, optionsTitle );
 
-    histogram.on( 'statisticsUpdated', function() {
+    histogram.histogramUpdatedEmitter.addListener( function() {
       numberLandedBallsText.setRightHandSideOfEquation( histogram.landedBallsNumber );
     } );
 

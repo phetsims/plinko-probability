@@ -82,12 +82,15 @@ define( function( require ) {
     // handle the coming and going of the model Balls
     model.balls.addItemAddedListener( function( addedBall ) {
       // initiates sound to play when ball hits a peg
-      addedBall.on( 'playSound', function( direction ) {
+      var ballHittingPegListener = function( direction ) {
         thisModel.pegSoundGeneration.playBallHittingPegSound( direction );
-      } );
+      };
+      addedBall.ballHittingPegEmitter.addListener( ballHittingPegListener );
       model.balls.addItemRemovedListener( function removalListener( removedBall ) {
         if ( removedBall === addedBall ) {
+          addedBall.ballHittingPegEmitter.removeListener( ballHittingPegListener );
           model.balls.removeItemRemovedListener( removalListener );
+
         }
       } );
     } );
