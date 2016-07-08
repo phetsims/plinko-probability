@@ -27,6 +27,11 @@ define( function( require ) {
   var Text = require( 'SCENERY/nodes/Text' );
   var Util = require( 'DOT/Util' );
 
+  // strings
+  // NOTE: these should be moved to translatable strings if generalized to common code
+  var patternValueUnitString = '{0} {1}';
+  var unitString = 'm';
+  //
   /**
    * Creates a new Slider with readout of its value
    * @param {Object} [options]
@@ -41,8 +46,8 @@ define( function( require ) {
 
         title: '', // (string) title above the numerical display
         titleMaxWidth: 110,  //(number) describes max width of title text
-        patternValueUnit: '{0} {1}', // eg. '{0}  {1}'  {0} is the value and {1} is the unitString
-        unitString: 'm',  // will not be used if patterValueUnit does not make use of the {1} element
+        patternValueUnit: patternValueUnitString,
+        unitString: unitString,  // will not be used if patterValueUnit does not make use of the {1} element
 
         readOutFill: 'white', // color of the background rectangular readout fill
         readOutStroke: 'black', // color of the stroke around the background rectangle readout
@@ -70,7 +75,7 @@ define( function( require ) {
         trackSize: new Dimension2( 140, 2 ),
         trackFill: 'black',
         // custom thumb
-        thumbSize: new Dimension2( 22, 38 ), // size of the slider 
+        thumbSize: new Dimension2( 22, 38 ), // size of the slider
         thumbFillEnabled: 'rgb(50,145,184)',
         thumbFillHighlighted: 'rgb(71,207,255)',
         // custom ticks
