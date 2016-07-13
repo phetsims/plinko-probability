@@ -82,7 +82,6 @@ define( function( require ) {
     this.finalBinHorizontalOffset = 0; // @public describes final horizontal offset of ball within a bin {number}
     this.finalBinVerticalOffset = 0;  // @public describes final vertical offset of ball within a bin {number}
 
-
     var direction;  // 'left', 'right'
     var rowNumber;
     var columnNumber = 0;
@@ -275,7 +274,7 @@ define( function( require ) {
 
     /**
      * updates the position of the ball depending on the phase
-     * PHASE_INTIAL: Drops in a straight line until it reaches the first peg
+     * PHASE_INITIAL: Drops in a straight line until it reaches the first peg
      * PHASE_FALLING: Mimics a bounce by using a parabolic fall
      * PHASE_EXIT: Falls in a straight line below the pegs until it reached its final position
      * PHASE_COLLECTED: lands in its finalPosition
@@ -324,7 +323,5 @@ define( function( require ) {
       // add a vertical offset, such that the balls do not reach the pegs but are over the pegs.
       this.position.addXY( 0, this.pegSeparation * PlinkoConstants.PEG_HEIGHT_FRACTION_OFFSET );
     }
-
   } );
-
 } );
