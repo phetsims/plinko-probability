@@ -21,7 +21,7 @@ define( function( require ) {
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var Property = require( 'AXON/Property' );
-  var Range = require( 'DOT/Range' );
+  var RangeWithValue = require( 'DOT/RangeWithValue' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var Text = require( 'SCENERY/nodes/Text' );
@@ -42,7 +42,7 @@ define( function( require ) {
     var sliderWithReadout = this;
     options = _.extend( {
         valueProperty: new Property( 0.5 ), // property of the slider
-        range: new Range( 0, 1 ), // range of the property
+        range: new RangeWithValue( 0, 1 ), // range of the property
 
         title: '', // (string) title above the numerical display
         titleMaxWidth: 110,  //(number) describes max width of title text
