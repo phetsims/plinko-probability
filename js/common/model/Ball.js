@@ -251,7 +251,7 @@ define( function( require ) {
           else { // ball is at the top of the last peg
             this.phase = PHASE_EXIT; // switch phases
             this.updatePegPositionInformation(); // update the last peg information
-            this.ballOutOfPegsEmitter.emit()
+            this.ballOutOfPegsEmitter.emit();
           }
         }
       }
