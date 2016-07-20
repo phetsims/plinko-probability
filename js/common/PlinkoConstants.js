@@ -13,7 +13,7 @@ define( function( require ) {
   var Color = require( 'SCENERY/util/Color' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
-  var Range = require( 'DOT/Range' );
+  var RangeWithValue = require( 'DOT/RangeWithValue' );
 
   var PlinkoConstants = {
 
@@ -47,8 +47,8 @@ define( function( require ) {
     SAMPLE_FONT_COLOR: 'rgb(237,28,36)',
     THEORETICAL_FONT_COLOR: 'blue',
 
-    BINARY_PROBABILITY_RANGE: new Range( 0, 1, 0.5 ),
-    ROWS_RANGE: new Range( 5, 26, 12 ),
+    BINARY_PROBABILITY_RANGE: new RangeWithValue( 0, 1, 0.5 ),
+    ROWS_RANGE: new RangeWithValue( 5, 26, 12 ),
 
     // constants for the ball and the pegs
     BALL_COLOR: 'rgb(237,28,36)', // color of the Ball.
