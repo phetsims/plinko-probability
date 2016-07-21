@@ -63,7 +63,7 @@ define( function( require ) {
     var viewProperties = new PropertySet( {
       histogramRadio: 'cylinder', // Valid values are 'counter', 'cylinder' to be determined by the view of each tab
       ballRadio: 'oneBall', // Valid values are 'oneBall', 'tenBalls' and 'allBalls'.
-      expandedAccordionBox: false,
+      expandedAccordionBox: true,
       isTheoreticalHistogramVisible: false,
       isSoundEnabled: false
     } );
