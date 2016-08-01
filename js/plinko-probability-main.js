@@ -17,13 +17,10 @@ define( function( require ) {
 
   var simOptions = {
     credits: {
-      // TODO: fill in credits
-      leadDesign: '',
-      softwareDevelopment: '',
-      team: '',
-      qualityAssurance: '',
-      graphicArts: '',
-      thanks: ''
+      leadDesign: 'Michael Dubson, Amanda McGarry',
+      softwareDevelopment: 'Denzell Barnett, Guillermo Ramos-Macias, Martin Veillette',
+      team: 'Karina K. Hensberry, Trish Loeblein, Ariel Paul, Kathy Perkins',
+      qualityAssurance: 'Ben Roberts, Steele Dalton, Amanda Davis'
     }
   };
 
