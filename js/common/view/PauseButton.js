@@ -22,7 +22,7 @@ define( function( require ) {
 
   // constants
   var DEFAULT_RADIUS = PlinkoConstants.PLAY_PAUSE_BUTTON_RADIUS;
-  var PAUSE_BUTTON_BASE_COLOR =  new Color( 255, 0, 0 ); //red
+  var PAUSE_BUTTON_BASE_COLOR = new Color( 255, 0, 0 ); //red
 
   /**
    * @param {Object} [options] node options
@@ -42,15 +42,13 @@ define( function( require ) {
     var bar = function() { return new Rectangle( 0, 0, barWidth, barHeight, { fill: 'black' } ); };
     var bar1 = bar();
     var bar2 = bar();
-    var pausePath = new HBox( { children: [ bar1, bar2 ], spacing: barWidth } );
+    var pausePath = new HBox( { children: [ bar1, bar2 ], spacing: barWidth, pickable: false } );
 
     // put the pause symbols inside a circle
-    var pausedCircle = new Circle( options.radius );
     pausePath.centerX = 0;
     pausePath.centerY = 0;
-    pausedCircle.addChild( pausePath );
 
-    RoundPushButton.call( this, _.extend( { content: pausedCircle }, options ) );
+    RoundPushButton.call( this, _.extend( { content: pausePath }, options ) );
   }
 
   plinkoProbability.register( 'PauseButton', PauseButton );

@@ -18,12 +18,13 @@ define( function( require ) {
   var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var RoundPushButton = require( 'SUN/buttons/RoundPushButton' );
+  var RoundButtonView = require( 'SUN/buttons/RoundButtonView' );
   var Shape = require( 'KITE/Shape' );
-  
+
   // constants
   var PLAY_BUTTON_BASE_COLOR = new Color( 0, 224, 121 ); //light-green hue
   var DEFAULT_RADIUS = PlinkoConstants.PLAY_PAUSE_BUTTON_RADIUS;
-  
+
   /**
    * Play Button constructor
    *
@@ -43,15 +44,13 @@ define( function( require ) {
 
     // create the Path of the triangle
     var playPath = new Path( new Shape().moveTo( 0, triangleHeight / 2 ).lineTo( triangleWidth, 0 ).lineTo( 0, -triangleHeight / 2 ).close(),
-      { fill: 'black' } );
+      { fill: 'black', pickable:false } );
 
     // put the triangle within a circle
-    var playCircle = new Circle( options.radius );
     playPath.centerX = options.radius * 0.05; // move to right slightly since we don't want it exactly centered
     playPath.centerY = 0;
-    playCircle.addChild( playPath );
 
-    RoundPushButton.call( this, _.extend( { content: playCircle }, options ) );
+    RoundPushButton.call( this, _.extend( { content: playPath }, options ) );
   }
 
   plinkoProbability.register( 'PlayButton', PlayButton );
