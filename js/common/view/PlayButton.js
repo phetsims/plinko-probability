@@ -16,6 +16,7 @@ define( function( require ) {
   var Path = require( 'SCENERY/nodes/Path' );
   var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
+  var RoundButtonView = require( 'SUN/buttons/RoundButtonView' );
   var RoundPushButton = require( 'SUN/buttons/RoundPushButton' );
   var Shape = require( 'KITE/Shape' );
 
@@ -33,7 +34,8 @@ define( function( require ) {
 
     options = _.extend( {
       radius: DEFAULT_RADIUS,
-      baseColor: PLAY_BUTTON_BASE_COLOR
+      baseColor: PLAY_BUTTON_BASE_COLOR,
+      buttonAppearanceStrategy: RoundButtonView.flatAppearanceStrategy
     }, options );
 
     // play symbol is sized relative to the radius
@@ -42,9 +44,9 @@ define( function( require ) {
 
     // create the Path of the triangle
     var playPath = new Path( new Shape().moveTo( 0, triangleHeight / 2 ).lineTo( triangleWidth, 0 ).lineTo( 0, -triangleHeight / 2 ).close(),
-      { fill: 'black', pickable:false } );
+      { fill: 'black', pickable: false } );
 
-    // put the triangle within a circle
+    // layout
     playPath.centerX = options.radius * 0.05; // move to right slightly since we don't want it exactly centered
     playPath.centerY = 0;
 

@@ -17,6 +17,7 @@ define( function( require ) {
   var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  var RoundButtonView = require( 'SUN/buttons/RoundButtonView' );
   var RoundPushButton = require( 'SUN/buttons/RoundPushButton' );
 
   // constants
@@ -31,7 +32,8 @@ define( function( require ) {
 
     options = _.extend( {
       radius: DEFAULT_RADIUS,
-      baseColor: PAUSE_BUTTON_BASE_COLOR
+      baseColor: PAUSE_BUTTON_BASE_COLOR,
+      buttonAppearanceStrategy: RoundButtonView.flatAppearanceStrategy
     }, options );
 
     // pause symbols are sized relative to the radius
@@ -41,9 +43,9 @@ define( function( require ) {
     var bar = function() { return new Rectangle( 0, 0, barWidth, barHeight, { fill: 'black' } ); };
     var bar1 = bar();
     var bar2 = bar();
-    var pausePath = new HBox( { children: [ bar1, bar2 ], spacing: barWidth, pickable: false } );
+    var pausePath = new HBox( { children: [ bar1, bar2 ], spacing: barWidth, pickable: false} );
 
-    // put the pause symbols inside a circle
+    // layout
     pausePath.centerX = 0;
     pausePath.centerY = 0;
 
