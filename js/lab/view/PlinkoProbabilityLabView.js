@@ -75,7 +75,9 @@ define( function( require ) {
     var playPanel = new LabPlayPanel( model, model.ballModeProperty, { minWidth: statisticsDisplayAccordionBox.width } );
 
     // create slider panel that can modify properties of the galton board (number of rows and the binary probability)
-    var sliderControlPanel = new SliderControlPanel( model.numberOfRowsProperty, model.probabilityProperty, { minWidth: statisticsDisplayAccordionBox.width } );
+    var sliderControlPanel = new SliderControlPanel( model.numberOfRowsProperty, model.probabilityProperty, {
+      minWidth: statisticsDisplayAccordionBox.width
+    } );
 
     // create pathsLayer to keep all the TrajectoryPath
     var pathsLayer = new Node( { layerSplit: true } );

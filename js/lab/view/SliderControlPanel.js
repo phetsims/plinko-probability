@@ -36,10 +36,10 @@ define( function( require ) {
   function SliderControlPanel( rowsProperty, binaryProbabilityProperty, options ) {
 
     options = _.extend( {
+      align: 'center',
       fill: 'white',
       xMargin: 10,
       yMargin: 8,
-      minWidth: 200,
       resize: false // prevent sliders from causing a resize when thumb is at min or max
     }, options );
 
@@ -63,11 +63,11 @@ define( function( require ) {
     var rowsControl = new NumberControl( rowsString, rowsProperty, PlinkoConstants.ROWS_RANGE, {
       layoutFunction: NumberControl.createLayoutFunction3(),
       titleFont: PlinkoConstants.PANEL_FONT,
-      titleMaxWidth: options.minWidth,
+      titleMaxWidth: SLIDER_TRACK_SIZE.width,
       valueFont: PlinkoConstants.PANEL_READOUT_FONT,
       decimalPlaces: 0,
       delta: 1,
-      SLIDER_TRACK_SIZE: SLIDER_TRACK_SIZE,
+      trackSize: SLIDER_TRACK_SIZE,
       majorTicks: rowsMajorTicks
     } );
 
@@ -87,11 +87,11 @@ define( function( require ) {
     var binaryProbabilityControl = new NumberControl( binaryProbabilityString, binaryProbabilityProperty, PlinkoConstants.BINARY_PROBABILITY_RANGE, {
       layoutFunction: NumberControl.createLayoutFunction3(),
       titleFont: PlinkoConstants.PANEL_FONT,
-      titleMaxWidth: options.minWidth,
+      titleMaxWidth: SLIDER_TRACK_SIZE.width,
       valueFont: PlinkoConstants.PANEL_READOUT_FONT,
       decimalPlaces: 2,
       delta: 0.01,
-      SLIDER_TRACK_SIZE: SLIDER_TRACK_SIZE,
+      trackSize: SLIDER_TRACK_SIZE,
       majorTicks: binaryProbabilityMajorTicks
     } );
 
