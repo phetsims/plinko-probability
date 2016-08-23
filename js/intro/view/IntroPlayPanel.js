@@ -38,14 +38,13 @@ define( function( require ) {
   function IntroPlayPanel( updateBallsToCreateNumber, ballModeProperty, isBallCapReachedProperty, options ) {
 
     options = _.extend( {
-        xMargin: 7,
-        yMargin: 15,
-        stroke: 'black',
-        lineWidth: 1,
-        minWidth: 0.1,
-        titleToControlsVerticalSpace: 5
-      },
-      options );
+      xMargin: 7,
+      yMargin: 15,
+      stroke: 'black',
+      lineWidth: 1,
+      minWidth: 0.1,
+      titleToControlsVerticalSpace: 5
+    }, options );
 
     var fontOptions = { font: PlinkoConstants.PANEL_FONT, maxWidth: 190 };
 

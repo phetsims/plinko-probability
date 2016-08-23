@@ -43,7 +43,6 @@ define( function( require ) {
       resize: false // prevent sliders from causing a resize when thumb is at min or max
     }, options );
 
-
     // major tick labels for slider that controls number of rows
     assert && assert( Util.isInteger( PlinkoConstants.ROWS_RANGE.min ), 'integer required: ' + PlinkoConstants.ROWS_RANGE.min );
     assert && assert( Util.isInteger( PlinkoConstants.ROWS_RANGE.max ), 'integer required: ' + PlinkoConstants.ROWS_RANGE.max );

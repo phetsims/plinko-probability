@@ -29,10 +29,9 @@ define( function( require ) {
   function NumberBallsDisplay( histogram, options ) {
 
     options = _.extend( {
-        minWidth: 214, // left border of panel is aligned with the left border of the play panel.
-        align: 'left'
-      },
-      options );
+      minWidth: 214, // left border of panel is aligned with the left border of the play panel.
+      align: 'left'
+    }, options );
 
     var optionsTitle = {
       leftHandSideFont: PlinkoConstants.TEXT_FONT_BOLD,

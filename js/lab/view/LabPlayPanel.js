@@ -35,16 +35,15 @@ define( function( require ) {
   function LabPlayPanel( model, ballRadioProperty, options ) {
 
     var self = this;
-    // Demonstrate a common pattern for specifying options and providing default values.
+
     options = _.extend( {
-        xMargin: 10,
-        yMargin: 10,
-        stroke: 'black',
-        lineWidth: 1,
-        minWidth: 0,
-        titleToControlsVerticalSpace: 5
-      },
-      options );
+      xMargin: 10,
+      yMargin: 10,
+      stroke: 'black',
+      lineWidth: 1,
+      minWidth: 0,
+      titleToControlsVerticalSpace: 5
+    }, options );
 
     // create the icon for oneBall mode, a representation for a ball
     var oneBall = new BallRepresentationNode( BALL_RADIUS );
