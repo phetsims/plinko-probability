@@ -1,30 +1,33 @@
 // Copyright 2014-2015, University of Colorado Boulder
 
 /**
- * Control Panel for two sliders: rows slider  and binary Probability slider
+ * Control panel rows and binary probability.
  *
  * @author Martin Veillette (Berea College)
+ * @author Chris Malley (PixelZoom, Inc.)
  */
-
 define( function( require ) {
   'use strict';
 
   // modules
   var Dimension2 = require( 'DOT/Dimension2' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Node = require( 'SCENERY/nodes/Node' );
   var Panel = require( 'SUN/Panel' );
   var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
-  var SliderWithReadout = require( 'PLINKO_PROBABILITY/lab/view/SliderWithReadout' );
+  var NumberControl = require( 'SCENERY_PHET/NumberControl' );
+  var Text = require( 'SCENERY/nodes/Text' );
   var Util = require( 'DOT/Util' );
+  var VBox = require( 'SCENERY/nodes/VBox' );
 
   // strings
   var rowsString = require( 'string!PLINKO_PROBABILITY/rows' );
   var binaryProbabilityString = require( 'string!PLINKO_PROBABILITY/binaryProbability' );
 
+  // constants
+  var SLIDER_TRACK_SIZE = new Dimension2( 170, 2 );
+  
   /**
-   * Constructor for a control panel with two sliders
    * @param {Property.<number>} rowsProperty
    * @param {Property.<number>} binaryProbabilityProperty
    * @param {Object} [options]
@@ -32,74 +35,77 @@ define( function( require ) {
    */
   function SliderControlPanel( rowsProperty, binaryProbabilityProperty, options ) {
 
-    Node.call( this );
     options = _.extend( {
-        fill: 'white',
-        xMargin: 0,
-        yMargin: 8,
-        minWidth: 200
-      },
-      options );
+      fill: 'white',
+      xMargin: 10,
+      yMargin: 8,
+      minWidth: 200,
+      resize: false // prevent sliders from causing a resize when thumb is at min or max
+    }, options );
 
-    // tracksize for the slider
-    var trackSize = new Dimension2( 170, 2 );
 
-    // create the slider for the rows
-    var rowsSlider = new SliderWithReadout( {
-      buttonStep: 1,
-      title: rowsString,
+    // major tick labels for slider that controls number of rows
+    assert && assert( Util.isInteger( PlinkoConstants.ROWS_RANGE.min ), 'integer required: ' + PlinkoConstants.ROWS_RANGE.min );
+    assert && assert( Util.isInteger( PlinkoConstants.ROWS_RANGE.max ), 'integer required: ' + PlinkoConstants.ROWS_RANGE.max );
+    var tickLabelOptions = {
+      font: PlinkoConstants.MAJOR_TICK_FONT
+    };
+    var rowsMajorTicks = [ {
+      value: PlinkoConstants.ROWS_RANGE.min,
+      label: new Text( PlinkoConstants.ROWS_RANGE.min, tickLabelOptions )
+    }, {
+      value: PlinkoConstants.ROWS_RANGE.max,
+      label: new Text( PlinkoConstants.ROWS_RANGE.max, tickLabelOptions )
+    }
+    ];
+
+    // control for number of rows
+    var rowsControl = new NumberControl( rowsString, rowsProperty, PlinkoConstants.ROWS_RANGE, {
+      layoutFunction: NumberControl.createLayoutFunction3(),
       titleFont: PlinkoConstants.PANEL_FONT,
-      displayFont: PlinkoConstants.PANEL_READOUT_FONT, // font for the numerical display
       titleMaxWidth: options.minWidth,
-      valueProperty: rowsProperty,
-      range: PlinkoConstants.ROWS_RANGE,
+      valueFont: PlinkoConstants.PANEL_READOUT_FONT,
       decimalPlaces: 0,
-      patternValueUnit: '{0}',
-      slider: {
-        trackSize: trackSize,
-        tick: {
-          step: PlinkoConstants.ROWS_RANGE.getLength(),
-          minText: Util.toFixed( PlinkoConstants.ROWS_RANGE.min, 0 ),
-          maxText: Util.toFixed( PlinkoConstants.ROWS_RANGE.max, 0 )
-        }
-      }
+      delta: 1,
+      SLIDER_TRACK_SIZE: SLIDER_TRACK_SIZE,
+      majorTicks: rowsMajorTicks
     } );
 
-    // create the slider for the binary probability
-    var binaryProbabilitySlider = new SliderWithReadout( {
-      buttonStep: 0.01,
-      title: binaryProbabilityString,
+    // major tick labels for slider that controls binary probability
+    assert && assert( Util.isInteger( PlinkoConstants.BINARY_PROBABILITY_RANGE.min ), 'integer required: ' + PlinkoConstants.BINARY_PROBABILITY_RANGE.min );
+    assert && assert( Util.isInteger( PlinkoConstants.BINARY_PROBABILITY_RANGE.max ), 'integer required: ' + PlinkoConstants.BINARY_PROBABILITY_RANGE.max );
+    var binaryProbabilityMajorTicks = [ {
+      value: PlinkoConstants.BINARY_PROBABILITY_RANGE.min,
+      label: new Text( PlinkoConstants.BINARY_PROBABILITY_RANGE.min, tickLabelOptions )
+    }, {
+      value: PlinkoConstants.ROWS_RANGE.max,
+      label: new Text( PlinkoConstants.BINARY_PROBABILITY_RANGE.max, tickLabelOptions )
+    }
+    ];
+
+    // control for the binary probability
+    var binaryProbabilityControl = new NumberControl( binaryProbabilityString, binaryProbabilityProperty, PlinkoConstants.BINARY_PROBABILITY_RANGE, {
+      layoutFunction: NumberControl.createLayoutFunction3(),
       titleFont: PlinkoConstants.PANEL_FONT,
-      displayFont: PlinkoConstants.PANEL_READOUT_FONT, // font for the numerical display
       titleMaxWidth: options.minWidth,
-      valueProperty: binaryProbabilityProperty,
-      range: PlinkoConstants.BINARY_PROBABILITY_RANGE,
-      patternValueUnit: '{0}',
+      valueFont: PlinkoConstants.PANEL_READOUT_FONT,
       decimalPlaces: 2,
-      slider: {
-        trackSize: trackSize,
-        tick: {
-          step: PlinkoConstants.BINARY_PROBABILITY_RANGE.getLength(),
-          minText: Util.toFixed( PlinkoConstants.BINARY_PROBABILITY_RANGE.min, 0 ),
-          maxText: Util.toFixed( PlinkoConstants.BINARY_PROBABILITY_RANGE.max, 0 )
-        }
-      }
+      delta: 0.01,
+      SLIDER_TRACK_SIZE: SLIDER_TRACK_SIZE,
+      majorTicks: binaryProbabilityMajorTicks
     } );
 
-    // layout the two sliders
-    binaryProbabilitySlider.centerX = rowsSlider.centerX;
-    binaryProbabilitySlider.top = rowsSlider.bottom + 25;
-
-    // create and add the panel that contains the two sliders
-    var contentPanel = new Node( {
-      children: [ rowsSlider, binaryProbabilitySlider ]
+    var contentNode = new VBox( {
+      resize: false, // prevent sliders from causing a resize when thumb is at min or max
+      align: 'center',
+      spacing: 25,
+      children: [ rowsControl, binaryProbabilityControl ]
     } );
-    var panel = new Panel( contentPanel, options );
-    this.addChild( panel );
 
+    Panel.call( this, contentNode, options );
   }
 
   plinkoProbability.register( 'SliderControlPanel', SliderControlPanel );
 
-  return inherit( Node, SliderControlPanel );
+  return inherit( Panel, SliderControlPanel );
 } );

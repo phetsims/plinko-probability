@@ -41,7 +41,7 @@ define( function( require ) {
     BALL_RADIUS: 8, // radius of the Ball for Play panel
 
     PANEL_FONT: new PhetFont( 18 ),
-    PANEL_READOUT_FONT: new PhetFont( { size: 14 } ),
+    PANEL_READOUT_FONT: new PhetFont( { size: 18 } ),
 
     PANEL_BACKGROUND_COLOR: 'white',
     SAMPLE_FONT_COLOR: 'rgb(237,28,36)',
