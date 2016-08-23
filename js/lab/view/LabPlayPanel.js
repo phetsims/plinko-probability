@@ -37,6 +37,7 @@ define( function( require ) {
     var self = this;
 
     options = _.extend( {
+      align: 'center',
       xMargin: 10,
       yMargin: 10,
       stroke: 'black',

@@ -38,6 +38,7 @@ define( function( require ) {
   function IntroPlayPanel( updateBallsToCreateNumber, ballModeProperty, isBallCapReachedProperty, options ) {
 
     options = _.extend( {
+      align: 'center',
       xMargin: 7,
       yMargin: 15,
       stroke: 'black',
