@@ -52,6 +52,7 @@ define( function( require ) {
     /**
      * Reset of the model attributes.
      * @public
+     * @override
      */
     reset: function() {
       PropertySet.prototype.reset.call( this );
