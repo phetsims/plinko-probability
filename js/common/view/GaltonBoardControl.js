@@ -42,6 +42,7 @@ define( function( require ) {
     // create the icons for the radio buttons
     var topImage = new Image( topImage );
     topImage.scale( ICON_WIDTH / topImage.width );
+
     var bottomImage = new Image( bottomImage );
     bottomImage.scale( ICON_WIDTH / bottomImage.width );
 
