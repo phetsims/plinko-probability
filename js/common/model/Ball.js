@@ -56,14 +56,14 @@ define( function( require ) {
 
     // rows and column
     /*
-     the pegs are assigned a row and column ( the columns are left aligned)
-     the row and column numbers start at zero
-     they are arranged in the following manner
-
-     X
-     X X
-     X X X
-     X X X X
+     * the pegs are assigned a row and column ( the columns are left aligned)
+     * the row and column numbers start at zero
+     * they are arranged in the following manner
+     *
+     *   X
+     *   X X
+     *   X X X
+     *   X X X X
      */
 
     // 0 is the topmost
