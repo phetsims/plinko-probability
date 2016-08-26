@@ -29,11 +29,21 @@ define( function( require ) {
 
     // @public
     PropertySet.call( this, {
-      probability: PlinkoConstants.BINARY_PROBABILITY_RANGE.defaultValue, // {number} this can be a number between 0 and 1
-      ballMode: 'oneBall', // {string} see BALL_MODE_VALUES
-      hopperMode: 'ball', // {string} what comes out of the hopper above the Galton board, see HOPPER_MODE_VALUES
-      isBallCapReached: false, // {boolean} is the maximum of balls reached?
-      numberOfRows: PlinkoConstants.ROWS_RANGE.defaultValue /// {number} must be an integer
+
+      // {number} this can be a number between 0 and 1
+      probability: PlinkoConstants.BINARY_PROBABILITY_RANGE.defaultValue,
+
+      // {string} controls how many balls are dispensed when the 'play' button is pressed, see BALL_MODE_VALUES
+      ballMode: 'oneBall',
+
+      // {string} controls what comes out of the hopper above the Galton board, see HOPPER_MODE_VALUES
+      hopperMode: 'ball',
+
+      // {boolean} is the maximum number of balls reached?
+      isBallCapReached: false,
+
+      // {number} number of rows in the Galton board, must be an integer
+      numberOfRows: PlinkoConstants.ROWS_RANGE.defaultValue
     } );
 
     // validate string values
