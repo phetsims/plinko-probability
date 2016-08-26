@@ -31,12 +31,11 @@ define( function( require ) {
     Node.call( this );
 
     options = _.extend( {
-        spacing: 10, // vertical separation of the buttons
-        padding: 3, // horizontal padding
-        radius: 7, //radius of the circle of the Radio Button
-        touchAreaXDilation: 5
-      },
-      options );
+      spacing: 10, // vertical separation of the buttons
+      padding: 3, // horizontal padding
+      radius: 7, //radius of the circle of the Radio Button
+      touchAreaXDilation: 5
+    }, options );
 
     var fontOptions = { font: PlinkoConstants.TEXT_FONT, maxWidth: 190 };
 
