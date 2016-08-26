@@ -29,11 +29,11 @@ define( function( require ) {
 
     var bounds = PlinkoConstants.HISTOGRAM_BOUNDS;
 
-    //describes the minimumYposition the ball will take
-    var minimumYposition = bounds.maxY - 6 * this.ballRadius; // let the ball fall a small distance below the top of the histogram.
+    //describes the minimum y position the ball will take
+    var yMin = bounds.maxY - 6 * this.ballRadius; // let the ball fall a small distance below the top of the histogram.
 
     // describes final vertical position offset (measure from the bottom of the galton board) of ball within a bin {number}
-    this.finalBinVerticalOffset = minimumYposition;
+    this.finalBinVerticalOffset = yMin;
 
     // describes final horizontal offset (measured from the middle position) of ball within a bin {number}
     this.finalBinHorizontalOffset = 0;
