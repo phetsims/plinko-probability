@@ -22,7 +22,7 @@ define( function( require ) {
       leadDesign: 'Michael Dubson, Amanda McGarry',
       softwareDevelopment: 'Denzell Barnett, Guillermo Ramos-Macias, Martin Veillette',
       team: 'Karina K. Hensberry, Trish Loeblein, Ariel Paul, Kathy Perkins',
-      qualityAssurance: 'Ben Roberts, Steele Dalton, Amanda Davis'
+      qualityAssurance: 'Steele Dalton, Amanda Davis, Ben Roberts'
     }
   };
 
