@@ -24,6 +24,7 @@ define( function( require ) {
    * @constructor
    */
   function PegSoundGeneration( isSoundEnabledProperty ) {
+
     // Audio for ball hitting pegs
     this.bonk1Sound = new Sound( bonk1Audio );  // @private
     this.bonk2Sound = new Sound( bonk2Audio );  // @private
@@ -66,6 +67,5 @@ define( function( require ) {
         this.soundTimeElapsed = 0; // reset the time elapsed since last sound to zero
       }
     }
-
   } );
 } );
