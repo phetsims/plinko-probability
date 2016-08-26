@@ -40,15 +40,15 @@ define( function( require ) {
     }, options );
 
     // create the icons for the radio buttons
-    var topImage = new Image( topImage );
-    topImage.scale( ICON_WIDTH / topImage.width );
+    var topNode = new Image( topImage );
+    topImage.scale( ICON_WIDTH / topNode.width );
 
-    var bottomImage = new Image( bottomImage );
-    bottomImage.scale( ICON_WIDTH / bottomImage.width );
+    var bottomNode = new Image( bottomImage );
+    bottomImage.scale( ICON_WIDTH / bottomNode.width );
 
     RadioButtonGroup.call( this, histogramRadioProperty, [
-      { value: topValue, node: topImage },
-      { value: bottomValue, node: bottomImage }
+      { value: topValue, node: topNode },
+      { value: bottomValue, node: bottomNode }
     ], options );
   }
 
