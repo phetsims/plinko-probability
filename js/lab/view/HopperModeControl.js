@@ -22,11 +22,11 @@ define( function( require ) {
   var pathString = require( 'string!PLINKO_PROBABILITY/path' );
 
   /**
-   * @param {Property.<string>} showRadioProperty - Valid values are 'ball', 'path', and 'none'.
+   * @param {Property.<string>} hopperModeProperty
    * @param {Object} [options]
    * @constructor
    */
-  function BallRadioButtonsControl( showRadioProperty, options ) {
+  function HopperModeControl( hopperModeProperty, options ) {
 
     Node.call( this );
 
@@ -40,18 +40,18 @@ define( function( require ) {
 
     var fontOptions = { font: PlinkoConstants.TEXT_FONT, maxWidth: 190 };
 
-    //create the radio buttons
+    // create the radio buttons
     var showRadioButtons = new VerticalAquaRadioButtonGroup( [
-      { node: new Text( ballString, fontOptions ), property: showRadioProperty, value: 'ball' },
-      { node: new Text( pathString, fontOptions ), property: showRadioProperty, value: 'path' },
-      { node: new Text( noneString, fontOptions ), property: showRadioProperty, value: 'none' }
+      { node: new Text( ballString, fontOptions ), property: hopperModeProperty, value: 'ball' },
+      { node: new Text( pathString, fontOptions ), property: hopperModeProperty, value: 'path' },
+      { node: new Text( noneString, fontOptions ), property: hopperModeProperty, value: 'none' }
     ], options );
 
     this.addChild( showRadioButtons );
   }
 
-  plinkoProbability.register( 'BallRadioButtonsControl', BallRadioButtonsControl );
+  plinkoProbability.register( 'HopperModeControl', HopperModeControl );
 
-  return inherit( Node, BallRadioButtonsControl );
+  return inherit( Node, HopperModeControl );
 } );
 

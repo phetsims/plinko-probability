@@ -11,7 +11,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var BallRadioButtonsControl = require( 'PLINKO_PROBABILITY/lab/view/BallRadioButtonsControl' );
+  var HopperModeControl = require( 'PLINKO_PROBABILITY/lab/view/HopperModeControl' );
   var Dialog = require( 'JOIST/Dialog' );
   var GaltonBoardNode = require( 'PLINKO_PROBABILITY/common/view/GaltonBoardNode' );
   var HistogramModeControl = require( 'PLINKO_PROBABILITY/common/view/HistogramModeControl' );
@@ -51,7 +51,7 @@ define( function( require ) {
     this.galtonBoardNode = galtonBoardNode; // @protected required by supertype
 
     // create three radio buttons next to the hopper
-    var ballRadioButtonsControl = new BallRadioButtonsControl( model.hopperModeProperty );
+    var hopperModeControl = new HopperModeControl( model.hopperModeProperty );
 
     // create the two radio buttons that can toggle between 'fraction and 'counter' mode
     this.viewProperties.histogramModeProperty.set( 'counter' );
@@ -116,7 +116,7 @@ define( function( require ) {
 
     // adding children to the scene graph
     this.addChild( histogramModeControl );
-    this.addChild( ballRadioButtonsControl );
+    this.addChild( hopperModeControl );
     this.addChild( playPanel );
     this.addChild( sliderControlPanel );
     this.addChild( statisticsDisplayAccordionBox );
@@ -128,8 +128,8 @@ define( function( require ) {
     histogramModeControl.left = this.histogramModeControlLeft;
     playPanel.right = this.layoutBounds.maxX - PlinkoConstants.PANEL_RIGHT_PADDING; // determines slider control panel and statistical display position
     playPanel.top = 10;
-    ballRadioButtonsControl.left = this.hopperRight + 47; // dependent on hopper position
-    ballRadioButtonsControl.top = HOPPER_TOP;
+    hopperModeControl.left = this.hopperRight + 47; // dependent on hopper position
+    hopperModeControl.top = HOPPER_TOP;
     sliderControlPanel.top = playPanel.bottom + PlinkoConstants.PANEL_VERTICAL_SPACING;
     sliderControlPanel.right = playPanel.right;
     statisticsDisplayAccordionBox.top = sliderControlPanel.bottom + PlinkoConstants.PANEL_VERTICAL_SPACING;
