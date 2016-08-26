@@ -22,7 +22,6 @@ define( function( require ) {
   var pathString = require( 'string!PLINKO_PROBABILITY/path' );
 
   /**
-   *
    * @param {Property.<string>} showRadioProperty - Valid values are 'ball', 'path', and 'none'.
    * @param {Object} [options]
    * @constructor

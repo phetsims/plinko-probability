@@ -23,8 +23,6 @@ define( function( require ) {
     Node.call( this );
 
     options = _.extend( {
-      // defaults
-
       binNumber: 5,
       binWidth: 6,
       binHeightMax: 10,

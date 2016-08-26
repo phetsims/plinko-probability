@@ -158,6 +158,7 @@ define( function( require ) {
 
     /**
      * resets the histogram radio property to be counter
+     * @public
      */
     reset: function() {
       this.viewProperties.histogramRadioProperty.set( 'counter' );
