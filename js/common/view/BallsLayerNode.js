@@ -46,6 +46,7 @@ define( function( require ) {
 
     // @private
     this.histogramRadioProperty = histogramRadioProperty;
+
     // set the default ball radius using the largest possible radius, that is the minimum number of rows.
     var defaultNumberOfRows = PlinkoConstants.ROWS_RANGE.min;
     var defaultBallRadius = modelViewTransform.modelToViewDeltaX( self.getSpacing( defaultNumberOfRows ) * PlinkoConstants.BALL_SIZE_FRACTION ); //
