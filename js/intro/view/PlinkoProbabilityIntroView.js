@@ -43,7 +43,7 @@ define( function( require ) {
 
     this.galtonBoardNode = galtonBoardNode; // @protected required by supertype
 
-    // // create the view for the cylinders. The Back and Front node will be put on a different z-layer
+    // create the view for the cylinders. The Back and Front node will be put on a different z-layer
     var cylindersBackNode = new CylindersBackNode( model.numberOfRowsProperty, this.modelViewTransform, model.cylinderInfo );
     var cylindersFrontNode = new CylindersFrontNode( model.numberOfRowsProperty, this.modelViewTransform, model.cylinderInfo );
 
