@@ -17,6 +17,10 @@ define( function( require ) {
   var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
 
+  // constants
+  var HISTOGRAM_MODE_VALUES = [ 'counter', 'cylinder', 'fraction' ]; // values for histogramModeProperty
+  var BALL_MODE_VALUES = [ 'oneBall', 'tenBalls', 'allBalls', 'continuous' ]; // values for ballModeProperty
+
   /**
    * Creates common model for Plinko Probability
    * @constructor
@@ -26,10 +30,18 @@ define( function( require ) {
     // @public
     PropertySet.call( this, {
       probability: PlinkoConstants.BINARY_PROBABILITY_RANGE.defaultValue, // {number} this can be a number between 0 and 1
-      histogramMode: 'count', // {string} acceptable values are 'count', 'fraction' and 'cylinder'
-      ballMode: 'oneBall', // {string} acceptable values are 'oneBall', 'tenBalls', 'allBalls' and 'continuous'
+      histogramMode: 'counter', // {string} see HISTOGRAM_MODE_VALUES
+      ballMode: 'oneBall', // {string} see BALL_MODE_VALUES
       isBallCapReached: false, // {boolean} is the maximum of balls reached?
       numberOfRows: PlinkoConstants.ROWS_RANGE.defaultValue /// {number} must be an integer
+    } );
+
+    // validate string values
+    this.histogramModeProperty.link( function( histogramMode ) {
+      assert && assert( _.contains( HISTOGRAM_MODE_VALUES, histogramMode ), 'invalid histogramMode: ' + histogramMode );
+    } );
+    this.ballModeProperty.link( function( ballMode ) {
+      assert && assert( _.contains( BALL_MODE_VALUES, ballMode ), 'invalid ballMode: ' + ballMode );
     } );
 
     this.ballCreationTimeElapsed = 0; // @public {number} - time elapsed since last ball creation;

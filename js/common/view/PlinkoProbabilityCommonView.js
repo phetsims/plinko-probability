@@ -29,7 +29,7 @@ define( function( require ) {
 
   // constants
   var HISTOGRAM_RADIO_VALUES = [ 'counter', 'cylinder', 'fraction' ]; // values for histogramRadioProperty
-  var BALL_RADIO_VALUES = [ 'oneBall', 'tenBalls', 'allBalls' ]; // values for ballRadioProperty
+  var BALL_RADIO_VALUES = [ 'oneBall', 'tenBalls', 'allBalls', 'continuous' ]; // values for ballRadioProperty
 
   /**
    * Creates common view for the tabs
