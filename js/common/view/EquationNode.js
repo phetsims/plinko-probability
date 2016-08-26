@@ -44,25 +44,22 @@ define( function( require ) {
     // @private
     this.options = options;
 
-    var leftHandSideOfEquationText = new SubSupText( leftHandSideOfEquation,
-      {
-        font: options.leftHandSideFont,
-        fill: options.leftHandSideFill,
-        subScale: 0.5,
-        maxWidth: options.leftHandSideMaxWidth
-      } );
+    var leftHandSideOfEquationText = new SubSupText( leftHandSideOfEquation, {
+      font: options.leftHandSideFont,
+      fill: options.leftHandSideFill,
+      subScale: 0.5,
+      maxWidth: options.leftHandSideMaxWidth
+    } );
 
-    var equalSignText = new Text( ' = ',
-      {
-        font: options.leftHandSideFont,
-        fill: options.leftHandSideFill
-      } );
+    var equalSignText = new Text( ' = ', {
+      font: options.leftHandSideFont,
+      fill: options.leftHandSideFill
+    } );
 
-    var rightHandSideOfEquationText = new Text( this.roundNumber( rightHandSideOfEquation ),
-      {
-        font: options.rightHandSideFont,
-        fill: options.rightHandSideFill
-      } );
+    var rightHandSideOfEquationText = new Text( this.roundNumber( rightHandSideOfEquation ), {
+      font: options.rightHandSideFont,
+      fill: options.rightHandSideFill
+    } );
 
     // @private
     this.rightHandSideOfEquationText = rightHandSideOfEquationText;
