@@ -39,7 +39,7 @@ define( function( require ) {
         this.binOrientation = 0; // @public (read-only)
         break;
       case 1: // Ball makes probabilistic decision whether to end in left or right horizontal position in the bin
-        this.binOrientation = ( phet.joist.random.nextDouble() < 0.5 ) ? 1 : -1; // @public (read-only)
+        this.binOrientation = ( phet.joist.random.nextBoolean() ? 1 : -1 ); // @public (read-only)
         break;
       case 2: // the ball must take the opposite orientation than the last ball
         this.binOrientation = -lastBallBinOrientation; // @public (read-only)

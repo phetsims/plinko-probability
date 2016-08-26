@@ -81,7 +81,7 @@ define( function( require ) {
         var columnNumber = 0;
         // the path of the balls through the pegs of the galton board  is determined for the prepopulated balls only
         for ( var rowNumber = 0; rowNumber <= this.numberOfRowsProperty.value; rowNumber++ ) {
-          var direction = ( phet.joist.random.random() > 0.5 ) ? 'left' : 'right';
+          var direction = ( phet.joist.random.nextBoolean() ? 'left' : 'right' );
 
           // increment the column number of the next row, but not for the last row
           if ( rowNumber < this.numberOfRowsProperty.value ) {
