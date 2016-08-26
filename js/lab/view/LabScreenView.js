@@ -26,7 +26,7 @@ define( function( require ) {
   var SliderControlPanel = require( 'PLINKO_PROBABILITY/lab/view/SliderControlPanel' );
   var StatisticsDisplayAccordionBox = require( 'PLINKO_PROBABILITY/lab/view/StatisticsDisplayAccordionBox' );
   var TrajectoryPath = require( 'PLINKO_PROBABILITY/lab/view/TrajectoryPath' );
-  var VerticalRadioButtonCommon = require( 'PLINKO_PROBABILITY/common/view/VerticalRadioButtonCommon' );
+  var GaltonBoardControl = require( 'PLINKO_PROBABILITY/common/view/GaltonBoardControl' );
 
   // images
   var counterDOMImage = require( 'image!PLINKO_PROBABILITY/counter.png' );
@@ -55,7 +55,7 @@ define( function( require ) {
 
     // create the two radio buttons that can toggle between 'fraction and 'counter' mode
     this.viewProperties.histogramRadioProperty.set( 'counter' );
-    var histogramRadioButtonsControl = new VerticalRadioButtonCommon( this.viewProperties.histogramRadioProperty, counterDOMImage, fractionDOMImage, 'counter', 'fraction', {
+    var galtonBoardControl = new GaltonBoardControl( this.viewProperties.histogramRadioProperty, counterDOMImage, fractionDOMImage, 'counter', 'fraction', {
       buttonContentYMargin: 13
     } );
 
@@ -115,7 +115,7 @@ define( function( require ) {
     } );
 
     // adding children to the scene graph
-    this.addChild( histogramRadioButtonsControl );
+    this.addChild( galtonBoardControl );
     this.addChild( ballRadioButtonsControl );
     this.addChild( playPanel );
     this.addChild( sliderControlPanel );
@@ -124,8 +124,8 @@ define( function( require ) {
     this.addChild( pathsLayer );
 
     // layout the children
-    histogramRadioButtonsControl.bottom = this.histogramRadioButtonsControlBottom;
-    histogramRadioButtonsControl.left = this.histogramRadioButtonsControlLeft;
+    galtonBoardControl.bottom = this.galtonBoardControlBottom;
+    galtonBoardControl.left = this.galtonBoardControlLeft;
     playPanel.right = this.layoutBounds.maxX - PlinkoConstants.PANEL_RIGHT_PADDING; // determines slider control panel and statistical display position
     playPanel.top = 10;
     ballRadioButtonsControl.left = this.hopperRight + 47; // dependent on hopper position

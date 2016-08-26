@@ -13,6 +13,7 @@ define( function( require ) {
   // modules
   var CylindersBackNode = require( 'PLINKO_PROBABILITY/intro/view/CylindersBackNode' );
   var CylindersFrontNode = require( 'PLINKO_PROBABILITY/intro/view/CylindersFrontNode' );
+  var GaltonBoardControl = require( 'PLINKO_PROBABILITY/common/view/GaltonBoardControl' );
   var GaltonBoardNode = require( 'PLINKO_PROBABILITY/common/view/GaltonBoardNode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var IntroPlayPanel = require( 'PLINKO_PROBABILITY/intro/view/IntroPlayPanel' );
@@ -20,7 +21,6 @@ define( function( require ) {
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var PlinkoProbabilityCommonView = require( 'PLINKO_PROBABILITY/common/view/PlinkoProbabilityCommonView' );
   var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
-  var VerticalRadioButtonCommon = require( 'PLINKO_PROBABILITY/common/view/VerticalRadioButtonCommon' );
 
   // images
   var counterDOMImage = require( 'image!PLINKO_PROBABILITY/counter.png' );
@@ -49,7 +49,7 @@ define( function( require ) {
 
     // create the histogram radio buttons at the left of the histogram/cylinders
     this.viewProperties.histogramRadioProperty.set( 'cylinder' );
-    var histogramRadioButtonsControl = new VerticalRadioButtonCommon( this.viewProperties.histogramRadioProperty, counterDOMImage, containerDOMImage, 'counter', 'cylinder' );
+    var galtonBoardControl = new GaltonBoardControl( this.viewProperties.histogramRadioProperty, counterDOMImage, containerDOMImage, 'counter', 'cylinder' );
 
     // create play Panel
     var playPanel = new IntroPlayPanel( model.updateBallsToCreateNumber.bind( model ), model.ballModeProperty, model.isBallCapReachedProperty );
@@ -95,7 +95,7 @@ define( function( require ) {
     } );
 
     // add children to the scene graph
-    this.addChild( histogramRadioButtonsControl );
+    this.addChild( galtonBoardControl );
     this.addChild( playPanel );
     this.addChild( numberBallsDisplay );
     this.addChild( galtonBoardNode );
@@ -104,8 +104,8 @@ define( function( require ) {
     this.addChild( cylindersFrontNode );
 
     // layout the children nodes on the scene graph
-    histogramRadioButtonsControl.bottom = this.histogramRadioButtonsControlBottom;
-    histogramRadioButtonsControl.left = this.histogramRadioButtonsControlLeft;
+    galtonBoardControl.bottom = this.galtonBoardControlBottom;
+    galtonBoardControl.left = this.galtonBoardControlLeft;
     playPanel.right = this.layoutBounds.maxX - PlinkoConstants.PANEL_RIGHT_PADDING;
     playPanel.top = PlinkoConstants.PANEL_VERTICAL_SPACING;
     numberBallsDisplay.top = playPanel.bottom + 245;

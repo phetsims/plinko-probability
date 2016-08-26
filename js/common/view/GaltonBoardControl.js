@@ -1,7 +1,7 @@
 // Copyright 2015, University of Colorado Boulder
 
 /**
- * Scenery Node that displays two Radio Buttons that switches between the cylinder and histogram view
+ * Controls which representation is displayed at the output (bottom) of the Galton board.
  *
  * @author Denzell Barnett(Berea College)
  */
@@ -26,7 +26,7 @@ define( function( require ) {
    * @param {Object} [options]
    * @constructor
    */
-  function VerticalRadioButtonCommon( histogramRadioProperty, topDOMImage, bottomDOMImage, topValue, bottomValue, options ) {
+  function GaltonBoardControl( histogramRadioProperty, topDOMImage, bottomDOMImage, topValue, bottomValue, options ) {
 
     options = _.extend( {
       spacing: 5, // vertical separation of the buttons
@@ -51,8 +51,8 @@ define( function( require ) {
     ], options );
   }
 
-  plinkoProbability.register( 'VerticalRadioButtonCommon', VerticalRadioButtonCommon );
+  plinkoProbability.register( 'GaltonBoardControl', GaltonBoardControl );
 
-  return inherit( RadioButtonGroup, VerticalRadioButtonCommon );
+  return inherit( RadioButtonGroup, GaltonBoardControl );
 } );
 

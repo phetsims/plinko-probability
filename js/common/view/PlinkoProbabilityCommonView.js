@@ -142,9 +142,9 @@ define( function( require ) {
     eraserButton.bottom = this.layoutBounds.maxY - 55;
     eraserButton.left = 40;
 
-    // needed to layout the radioButtons of each tab
-    this.histogramRadioButtonsControlBottom = eraserButton.top - 16;
-    this.histogramRadioButtonsControlLeft = eraserButton.left;
+    // @protected needed to layout the radioButtons of each tab
+    this.galtonBoardControlBottom = eraserButton.top - 16;
+    this.galtonBoardControlLeft = eraserButton.left;
     resetAllButton.right = this.layoutBounds.maxX - 10;
     resetAllButton.bottom = this.layoutBounds.maxY - 10;
     soundToggleButton.right = resetAllButton.left - 20;
