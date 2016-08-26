@@ -26,7 +26,7 @@ define( function( require ) {
 
   // constants
   var SLIDER_TRACK_SIZE = new Dimension2( 170, 2 );
-  
+
   /**
    * @param {Property.<number>} rowsProperty
    * @param {Property.<number>} binaryProbabilityProperty
@@ -55,8 +55,7 @@ define( function( require ) {
     }, {
       value: PlinkoConstants.ROWS_RANGE.max,
       label: new Text( PlinkoConstants.ROWS_RANGE.max, tickLabelOptions )
-    }
-    ];
+    } ];
 
     // control for number of rows
     var rowsControl = new NumberControl( rowsString, rowsProperty, PlinkoConstants.ROWS_RANGE, {
@@ -79,8 +78,7 @@ define( function( require ) {
     }, {
       value: PlinkoConstants.ROWS_RANGE.max,
       label: new Text( PlinkoConstants.BINARY_PROBABILITY_RANGE.max, tickLabelOptions )
-    }
-    ];
+    } ];
 
     // control for the binary probability
     var binaryProbabilityControl = new NumberControl( binaryProbabilityString, binaryProbabilityProperty, PlinkoConstants.BINARY_PROBABILITY_RANGE, {
@@ -108,3 +106,4 @@ define( function( require ) {
 
   return inherit( Panel, SliderControlPanel );
 } );
+

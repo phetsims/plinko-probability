@@ -129,8 +129,11 @@ define( function( require ) {
               new LayoutBox( {
                 orientation: 'horizontal',
                 children: [ new HStrut( 30 ), histogramCheckBox ]
-              } ) ], align: 'left'
-          } ) ]
+              } )
+            ],
+            align: 'left'
+          } )
+        ]
       } ),
       _.extend( {
         cornerRadius: 10,
@@ -143,7 +146,7 @@ define( function( require ) {
         titleNode: numberLandedBallsText,
         titleAlignX: 'left',
         titleXMargin: 5,
-//        titleYMargin: 0,
+        //        titleYMargin: 0,
         contentXMargin: 8,
         contentYMargin: 10,
         minWidth: 0
@@ -164,3 +167,4 @@ define( function( require ) {
     }
   } );
 } );
+

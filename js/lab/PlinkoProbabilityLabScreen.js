@@ -26,8 +26,10 @@ define( function( require ) {
     Screen.call( this,
       plinkoProbabilityLabTitleScreenString,
       new Image( homescreenIconImage ),
-      function() { return new PlinkoProbabilityLabModel(); },
-      function( model ) { return new PlinkoProbabilityLabView( model ); }, {
+      function() {
+        return new PlinkoProbabilityLabModel(); },
+      function( model ) {
+        return new PlinkoProbabilityLabView( model ); }, {
         backgroundColor: PlinkoConstants.BACKGROUND_COLOR,
         navigationBarIcon: new Image( navbarIconImage )
       }
@@ -38,3 +40,4 @@ define( function( require ) {
 
   return inherit( Screen, PlinkoProbabilityLabScreen );
 } );
+

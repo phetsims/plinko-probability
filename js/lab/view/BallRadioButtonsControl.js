@@ -30,7 +30,7 @@ define( function( require ) {
   function BallRadioButtonsControl( showRadioProperty, options ) {
 
     Node.call( this );
-    
+
     options = _.extend( {
         spacing: 10, // vertical separation of the buttons
         padding: 3, // horizontal padding
@@ -41,7 +41,7 @@ define( function( require ) {
 
     var fontOptions = { font: PlinkoConstants.TEXT_FONT, maxWidth: 190 };
 
-    //create the radio buttons 
+    //create the radio buttons
     var showRadioButtons = new VerticalAquaRadioButtonGroup( [
       { node: new Text( ballString, fontOptions ), property: showRadioProperty, value: 'ball' },
       { node: new Text( pathString, fontOptions ), property: showRadioProperty, value: 'path' },
@@ -55,3 +55,4 @@ define( function( require ) {
 
   return inherit( Node, BallRadioButtonsControl );
 } );
+

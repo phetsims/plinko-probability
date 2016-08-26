@@ -30,11 +30,11 @@ define( function( require ) {
     this.addProperty( 'galtonBoardRadioButton', 'ball' ); // acceptable value 'ball'
 
     var bounds = PlinkoConstants.HISTOGRAM_BOUNDS;
-    var binWidth = bounds.width / (this.numberOfRows + 1); // the width of one bin is the total width divided by the number of columns
+    var binWidth = bounds.width / ( this.numberOfRows + 1 ); // the width of one bin is the total width divided by the number of columns
     var cylinderWidth = 0.95 * binWidth; // there is a small gap between each cylinder
     var ellipseHeight = cylinderWidth * Math.sin( PERSPECTIVE_TILT ); // the height is the width times some perspective tilt
 
-    this.cylinderInfo = {           // @public (read-only)
+    this.cylinderInfo = { // @public (read-only)
       height: bounds.height * 0.87, // we want the cylinders to be shorter than the histogram
       cylinderWidth: cylinderWidth,
       ellipseHeight: ellipseHeight, // the height of the ellipse
@@ -87,18 +87,18 @@ define( function( require ) {
      * @private
      */
     updateBallsToCreateNumber: function() {
-      switch( this.ballMode ) {
+      switch ( this.ballMode ) {
         // add one ball to the queue
         case 'oneBall':
           this.ballsToCreateNumber++;
           break;
 
-        // add ten ball to the queue
+          // add ten ball to the queue
         case 'tenBalls':
           this.ballsToCreateNumber += 10;
           break;
 
-        // add max number of balls to the queue
+          // add max number of balls to the queue
         case 'allBalls':
           this.ballsToCreateNumber += MAX_BALL_NUMBER;
           break;
@@ -130,7 +130,7 @@ define( function( require ) {
 
       this.histogram.updateBinCountAndOrientation( addedBall );
       this.balls.push( addedBall );
-      
+
       // ballOutOfPegsEmitter is emitted when the addedBall leaves the last peg on the Galton board.
       addedBall.ballOutOfPegsEmitter.addListener( function ballOutOfPegsListener() {
         thisModel.histogram.addBallToHistogram( addedBall );

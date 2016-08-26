@@ -77,7 +77,7 @@ define( function( require ) {
 
       // temporarily stores the binCount for each bin in an empty array.
       var tempBins = [];
-      for ( var tempBinIndex = 0; tempBinIndex < (this.numberOfRowsProperty.value + 1); tempBinIndex++ ) {
+      for ( var tempBinIndex = 0; tempBinIndex < ( this.numberOfRowsProperty.value + 1 ); tempBinIndex++ ) {
         tempBins[ tempBinIndex ] = 0;
       }
 
@@ -86,11 +86,11 @@ define( function( require ) {
         var columnNumber = 0;
         // the path of the balls through the pegs of the galton board  is determined for the prepopulated balls only
         for ( var rowNumber = 0; rowNumber <= this.numberOfRowsProperty.value; rowNumber++ ) {
-          var direction = (random.random() > 0.5) ? 'left' : 'right';
+          var direction = ( random.random() > 0.5 ) ? 'left' : 'right';
 
           // increment the column number of the next row, but not for the last row
           if ( rowNumber < this.numberOfRowsProperty.value ) {
-            columnNumber += (direction === 'left') ? 0 : 1;
+            columnNumber += ( direction === 'left' ) ? 0 : 1;
           }
         }
         // updates the binCount of a bin at a specific index
@@ -99,10 +99,10 @@ define( function( require ) {
       }
 
       // takes values in temporary bin array and translates them into our bin array
-      for ( tempBinIndex = 0; tempBinIndex < (this.numberOfRowsProperty.value + 1); tempBinIndex++ ) {
+      for ( tempBinIndex = 0; tempBinIndex < ( this.numberOfRowsProperty.value + 1 ); tempBinIndex++ ) {
         this.bins[ tempBinIndex ] = {
-          binCount: tempBins[ tempBinIndex ],  // number of balls that will be in the bin (including those currently falling through the galton board)
-          visibleBinCount: tempBins[ tempBinIndex ],  // number of balls that are in the bin
+          binCount: tempBins[ tempBinIndex ], // number of balls that will be in the bin (including those currently falling through the galton board)
+          visibleBinCount: tempBins[ tempBinIndex ], // number of balls that are in the bin
           orientation: 0 // 0 is center, 1 is right, -1 is left
         };
       }
@@ -123,8 +123,8 @@ define( function( require ) {
       var maxBins = PlinkoConstants.ROWS_RANGE.max + 1;
       for ( var i = 0; i < maxBins; i++ ) {
         binInfo = {
-          binCount: 0,  // number of balls that will be in the bin (including those currently falling through the galton board)
-          visibleBinCount: 0,  // number of balls that are in the bin
+          binCount: 0, // number of balls that will be in the bin (including those currently falling through the galton board)
+          visibleBinCount: 0, // number of balls that are in the bin
           orientation: 0 // 0 is center, 1 is right, -1 is left
         };
         this.bins.push( binInfo );
@@ -154,16 +154,15 @@ define( function( require ) {
       // convenience variable
       var N = this.landedBallsNumber;
 
-      this.average = ((N - 1) * this.average + binIndex) / N;
+      this.average = ( ( N - 1 ) * this.average + binIndex ) / N;
       this.sumOfSquares += binIndex * binIndex;
 
       // the variance and standard deviations exist only when the number of balls is larger than 1
       if ( N > 1 ) {
-        this.variance = (this.sumOfSquares - N * this.average * this.average) / (N - 1);
+        this.variance = ( this.sumOfSquares - N * this.average * this.average ) / ( N - 1 );
         this.standardDeviation = Math.sqrt( this.variance );
         this.standardDeviationOfMean = this.standardDeviation / Math.sqrt( N );
-      }
-      else {
+      } else {
         this.variance = 0;
         this.standardDeviation = 0;
         this.standardDeviationOfMean = 0;
@@ -188,7 +187,7 @@ define( function( require ) {
       this.sumOfSquares = sumOfSquares;
       this.landedBallsNumber = totalNumberOfBalls;
       this.average = sum / totalNumberOfBalls;
-      this.variance = (sumOfSquares - (this.average * this.average * totalNumberOfBalls)) / (totalNumberOfBalls - 1);
+      this.variance = ( sumOfSquares - ( this.average * this.average * totalNumberOfBalls ) ) / ( totalNumberOfBalls - 1 );
       this.standardDeviation = Math.sqrt( this.variance );
       this.standardDeviationOfMean = this.standardDeviation / Math.sqrt( totalNumberOfBalls );
     },
@@ -239,8 +238,7 @@ define( function( require ) {
     getFractionalBinCount: function( binIndex ) {
       if ( this.landedBallsNumber > 0 ) {
         return this.bins[ binIndex ].visibleBinCount / this.landedBallsNumber; // fraction is smaller than one
-      }
-      else {
+      } else {
         // no balls are present
         return 0;
       }
@@ -302,7 +300,7 @@ define( function( require ) {
      */
     getBinCenterX: function( binIndex, numberOfBins ) {
       assert && assert( binIndex < numberOfBins, 'The binIndex must be smaller than the total number of bins' );
-      return ((binIndex + 1 / 2) / numberOfBins) * BOUNDS.width + BOUNDS.minX;
+      return ( ( binIndex + 1 / 2 ) / numberOfBins ) * BOUNDS.width + BOUNDS.minX;
     },
 
     /**
@@ -314,7 +312,7 @@ define( function( require ) {
      */
     getBinLeft: function( binIndex, numberOfBins ) {
       assert && assert( binIndex < numberOfBins, 'The binIndex must be smaller than the total number of bins' );
-      return (binIndex / numberOfBins) * BOUNDS.width + BOUNDS.minX;
+      return ( binIndex / numberOfBins ) * BOUNDS.width + BOUNDS.minX;
     },
 
     /**
@@ -354,7 +352,7 @@ define( function( require ) {
      */
     getValuePosition: function( value, numberOfBins ) {
       assert && assert( value < numberOfBins && value >= 0, 'the average should range from 0 and the max number of bins -1' );
-      return ((value + 1 / 2) / numberOfBins) * BOUNDS.width + BOUNDS.minX;
+      return ( ( value + 1 / 2 ) / numberOfBins ) * BOUNDS.width + BOUNDS.minX;
     }
   } );
 } );

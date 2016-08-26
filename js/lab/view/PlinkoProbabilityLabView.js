@@ -84,7 +84,7 @@ define( function( require ) {
 
     // handle the coming and going of the balls in the model.
     model.balls.addItemAddedListener( function( addedBall ) {
-      switch( model.galtonBoardRadioButtonProperty.value ) {
+      switch ( model.galtonBoardRadioButtonProperty.value ) {
         case 'ball':
           // initiates sound to play when ball hits a peg
           var ballHittingPegListener = function( direction ) {
@@ -127,9 +127,9 @@ define( function( require ) {
     // layout the children
     histogramRadioButtonsControl.bottom = this.histogramRadioButtonsControlBottom;
     histogramRadioButtonsControl.left = this.histogramRadioButtonsControlLeft;
-    playPanel.right = this.layoutBounds.maxX - PlinkoConstants.PANEL_RIGHT_PADDING;        // determines slider control panel and statistical display position
+    playPanel.right = this.layoutBounds.maxX - PlinkoConstants.PANEL_RIGHT_PADDING; // determines slider control panel and statistical display position
     playPanel.top = 10;
-    ballRadioButtonsControl.left = this.hopperRight + 47;     // dependent on hopper position
+    ballRadioButtonsControl.left = this.hopperRight + 47; // dependent on hopper position
     ballRadioButtonsControl.top = HOPPER_TOP;
     sliderControlPanel.top = playPanel.bottom + PlinkoConstants.PANEL_VERTICAL_SPACING;
     sliderControlPanel.right = playPanel.right;
@@ -165,3 +165,4 @@ define( function( require ) {
     }
   } );
 } );
+

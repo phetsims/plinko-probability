@@ -35,34 +35,34 @@ define( function( require ) {
     var lastBallBinOrientation = bins[ this.binIndex ].orientation;
 
     // determine the ball orientation within the bin
-    switch( this.binCount % 3 ) {
-      case 0:     // a multiple of three, Ball makes decision to be centered
+    switch ( this.binCount % 3 ) {
+      case 0: // a multiple of three, Ball makes decision to be centered
         this.binOrientation = 0; // @public (read-only)
         break;
-      case 1:     // Ball makes probabilistic decision whether to end in left or right horizontal position in the bin
-        this.binOrientation = (Math.random() < 0.5) ? 1 : -1; // @public (read-only)
+      case 1: // Ball makes probabilistic decision whether to end in left or right horizontal position in the bin
+        this.binOrientation = ( Math.random() < 0.5 ) ? 1 : -1; // @public (read-only)
         break;
-      case 2:     // the ball must take the opposite orientation than the last ball 
-        this.binOrientation = -lastBallBinOrientation;  // @public (read-only)
+      case 2: // the ball must take the opposite orientation than the last ball
+        this.binOrientation = -lastBallBinOrientation; // @public (read-only)
         break;
       default:
         throw new Error( 'Unhandled bin direction' );
     }
 
     // {number} describes number of rows in the ball stack within a bin, starting at 1
-    var binStackLevel = 2 * Math.floor( this.binCount / 3 ) + ((this.binCount % 3 === 0) ? 0 : 1); // number of balls per stack goes as (2,1,2,1,2...
+    var binStackLevel = 2 * Math.floor( this.binCount / 3 ) + ( ( this.binCount % 3 === 0 ) ? 0 : 1 ); // number of balls per stack goes as (2,1,2,1,2...
 
     // {number} describes lowest point of cylinder that a ball will reach (bottom of the cylinder)
     var minimumYposition = cylinderInfo.top - cylinderInfo.verticalOffset - cylinderInfo.ellipseHeight - cylinderInfo.height; // the bottom of the cylinder
 
     // {number} describes the height difference between two balls in two adjacent rows in a ball stack
-    var delta = this.ballRadius + Math.sqrt( Math.pow( 2 * this.ballRadius, 2 ) - Math.pow( (cylinderInfo.cylinderWidth / 2) - this.ballRadius, 2 ) ); // the height separation between stacks
+    var delta = this.ballRadius + Math.sqrt( Math.pow( 2 * this.ballRadius, 2 ) - Math.pow( ( cylinderInfo.cylinderWidth / 2 ) - this.ballRadius, 2 ) ); // the height separation between stacks
 
     // @public {number} describes final vertical offset of ball within a bin {number}
-    this.finalBinVerticalOffset = minimumYposition + ((binStackLevel - 1) * delta) - this.ballRadius; 
+    this.finalBinVerticalOffset = minimumYposition + ( ( binStackLevel - 1 ) * delta ) - this.ballRadius;
 
     // @public {number} describes final horizontal offset of the ball within a bin {number}
-    this.finalBinHorizontalOffset = (this.binOrientation * ((cylinderInfo.cylinderWidth / 2) - this.ballRadius));
+    this.finalBinHorizontalOffset = ( this.binOrientation * ( ( cylinderInfo.cylinderWidth / 2 ) - this.ballRadius ) );
 
   }
 
@@ -71,3 +71,4 @@ define( function( require ) {
   return inherit( Ball, IntroBall );
 
 } );
+

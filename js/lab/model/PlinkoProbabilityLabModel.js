@@ -31,7 +31,7 @@ define( function( require ) {
     PlinkoProbabilityCommonModel.call( this );
 
     this.addProperty( 'isPlaying', false );
-    this.addProperty( 'galtonBoardRadioButton', 'ball' );  // acceptable values are 'ball', 'path, 'none'
+    this.addProperty( 'galtonBoardRadioButton', 'ball' ); // acceptable values are 'ball', 'path, 'none'
 
     // These need to be linked until the end of the simulation
     this.galtonBoardRadioButtonProperty.link( function() {
@@ -39,13 +39,13 @@ define( function( require ) {
       // so when we clear the balls we should remove them from the histogram
       thisModel.balls.forEach( function( ball ) {
         // we don't want to remove balls if the have exited or landed
-        if ( !(ball.phase === PHASE_LANDED || ball.phase === PHASE_EXIT) ) {
+        if ( !( ball.phase === PHASE_LANDED || ball.phase === PHASE_EXIT ) ) {
           //remove the ball from the binCount
           thisModel.histogram.bins[ ball.binIndex ].binCount--;
         }
       } );
 
-      // remove all the balls 
+      // remove all the balls
       thisModel.balls.clear(); // clear the balls
     } );
 
@@ -79,7 +79,7 @@ define( function( require ) {
         this.ballCreationTimeElapsed = 0; // reset the elapsed time
       }
 
-      switch( this.galtonBoardRadioButton ) {
+      switch ( this.galtonBoardRadioButton ) {
         case 'ball':
           this.balls.forEach( function( ball ) {
             // we want to cap dt fairly low so that the balls don't make a sudden jump
@@ -130,7 +130,7 @@ define( function( require ) {
           var previousBall = thisModel.balls.get( previousBallIndex ); // gets the last ball object
           thisModel.balls.remove( previousBall ); //removes the previous ball
         }
-        addedBall.ballCollectedEmitter.removeListener( removeBallListener ); 
+        addedBall.ballCollectedEmitter.removeListener( removeBallListener );
       } );
     },
 
@@ -155,7 +155,7 @@ define( function( require ) {
      */
     getTheoreticalStandardDeviation: function( numberOfRows, probability ) {
       assert && assert( numberOfRows % 1 === 0, 'number of rows should be an integer' );
-      return Math.sqrt( numberOfRows * probability * (1 - probability) );
+      return Math.sqrt( numberOfRows * probability * ( 1 - probability ) );
     },
 
     /**

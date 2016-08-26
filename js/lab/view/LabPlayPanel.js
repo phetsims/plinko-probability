@@ -85,7 +85,7 @@ define( function( require ) {
       radius: 8,
       touchAreaXDilation: 5,
       align: 'left',
-      spacing: 13  // vertical spacing between radio buttons
+      spacing: 13 // vertical spacing between radio buttons
     } );
 
     // create the play button
@@ -93,13 +93,11 @@ define( function( require ) {
       listener: function() {
         if ( model.isBallCapReached ) {
           model.isBallCapReachedProperty.notifyObserversStatic();
-        }
-        else {
+        } else {
           if ( ballRadioProperty.value === 'continuous' ) {
             self.togglePlayPauseButtonVisibility(); // alternates play/pause visual state of button
             model.isPlayingProperty.set( true ); //set isPlayingProperty to true signifying that balls are being dropped
-          }
-          else {
+          } else {
             model.addNewBall(); // if it is not continuous then we assume it is at 'oneBall'
           }
         }
@@ -116,10 +114,9 @@ define( function( require ) {
 
     // link the ballRadioProperty to the state of the playPauseButton
     ballRadioProperty.link( function() {
-        model.isPlayingProperty.set( false ); // if the radio buttons change then we would like to change the playing property
-        self.setPlayButtonVisible(); // show the play button
-      }
-    );
+      model.isPlayingProperty.set( false ); // if the radio buttons change then we would like to change the playing property
+      self.setPlayButtonVisible(); // show the play button
+    } );
 
     // create a separate node to hold the play and pause button
     var playPlayPauseButton = new Node();
@@ -163,3 +160,4 @@ define( function( require ) {
     }
   } );
 } );
+

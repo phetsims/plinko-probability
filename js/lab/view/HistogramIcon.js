@@ -36,13 +36,12 @@ define( function( require ) {
     // Add the bins
     for ( var i = 0; i < options.binNumber; i++ ) {
 
-      var height = 4 * options.binHeightMax * (i + 1) / options.binNumber * (1 - (i) / options.binNumber);
-      var rectangle = new Rectangle( i * options.binWidth, -height, options.binWidth, height,
-        {
-          fill: options.binFill,
-          lineWidth: options.binLineWidth,
-          stroke: options.binStroke
-        } );
+      var height = 4 * options.binHeightMax * ( i + 1 ) / options.binNumber * ( 1 - ( i ) / options.binNumber );
+      var rectangle = new Rectangle( i * options.binWidth, -height, options.binWidth, height, {
+        fill: options.binFill,
+        lineWidth: options.binLineWidth,
+        stroke: options.binStroke
+      } );
       this.addChild( rectangle );
     }
 
@@ -53,5 +52,5 @@ define( function( require ) {
   plinkoProbability.register( 'HistogramIcon', HistogramIcon );
 
   return inherit( Node, HistogramIcon );
-} )
-;
+} );
+

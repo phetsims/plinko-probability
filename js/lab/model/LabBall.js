@@ -43,3 +43,4 @@ define( function( require ) {
   return inherit( Ball, LabBall );
 
 } );
+

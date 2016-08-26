@@ -18,18 +18,17 @@ define( function( require ) {
 
   // creates query parameter that lowers the maximum amount of balls for testing purposes.
   if ( getQueryParameter( 'ballsOnScreen' ) ) {
-    var ballsOnScreen = parseFloat( ( getQueryParameter( 'ballsOnScreen' )) );
+    var ballsOnScreen = parseFloat( ( getQueryParameter( 'ballsOnScreen' ) ) );
     ballsOnScreen = Math.floor( ballsOnScreen );
     ballsOnScreenFlag = true;
   }
   var PlinkoProbabilityQueryParameters = {
-    
     BALLS_ON_SCREEN: ballsOnScreen,
     BALLS_ON_SCREEN_FLAG: ballsOnScreenFlag
-
   };
 
   plinkoProbability.register( 'PlinkoProbabilityQueryParameters', PlinkoProbabilityQueryParameters );
 
   return PlinkoProbabilityQueryParameters;
 } );
+

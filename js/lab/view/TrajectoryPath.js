@@ -30,7 +30,7 @@ define( function( require ) {
 
     // The trajectory path will be some vertical distance above the pegs.
     // create a vertical offset that is a fraction of the peg separation.
-    var verticalOffset = ball.pegSeparation / 2 ;
+    var verticalOffset = ball.pegSeparation / 2;
 
     // create the shape of the trajectory
     var shape = new Shape();
@@ -38,11 +38,11 @@ define( function( require ) {
     // starting point of the shape is above the first peg plus some vertical offset.
     shape.moveTo(
       ball.pegHistory[ 0 ].positionX,
-      ball.pegHistory[ 0 ].positionY+ ball.pegSeparation);
+      ball.pegHistory[ 0 ].positionY + ball.pegSeparation );
 
     // add linear segments to the shape.
     ball.pegHistory.forEach( function( peg ) {
-      shape.lineTo( peg.positionX, peg.positionY+verticalOffset );
+      shape.lineTo( peg.positionX, peg.positionY + verticalOffset );
     } );
 
     Path.call( this, modelViewTransform.modelToViewShape( shape ), pathOptions );
@@ -53,3 +53,4 @@ define( function( require ) {
 
   return inherit( Path, TrajectoryPath );
 } );
+
