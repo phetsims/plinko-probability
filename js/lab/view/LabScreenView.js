@@ -14,6 +14,7 @@ define( function( require ) {
   var BallRadioButtonsControl = require( 'PLINKO_PROBABILITY/lab/view/BallRadioButtonsControl' );
   var Dialog = require( 'JOIST/Dialog' );
   var GaltonBoardNode = require( 'PLINKO_PROBABILITY/common/view/GaltonBoardNode' );
+  var HistogramModeControl = require( 'PLINKO_PROBABILITY/common/view/HistogramModeControl' );
   var inherit = require( 'PHET_CORE/inherit' );
   var LabPlayPanel = require( 'PLINKO_PROBABILITY/lab/view/LabPlayPanel' );
   var MultiLineText = require( 'SCENERY_PHET/MultiLineText' );
@@ -26,7 +27,6 @@ define( function( require ) {
   var SliderControlPanel = require( 'PLINKO_PROBABILITY/lab/view/SliderControlPanel' );
   var StatisticsDisplayAccordionBox = require( 'PLINKO_PROBABILITY/lab/view/StatisticsDisplayAccordionBox' );
   var TrajectoryPath = require( 'PLINKO_PROBABILITY/lab/view/TrajectoryPath' );
-  var GaltonBoardControl = require( 'PLINKO_PROBABILITY/common/view/GaltonBoardControl' );
 
   // images
   var counterImage = require( 'image!PLINKO_PROBABILITY/counter.png' );
@@ -55,7 +55,7 @@ define( function( require ) {
 
     // create the two radio buttons that can toggle between 'fraction and 'counter' mode
     this.viewProperties.histogramModeProperty.set( 'counter' );
-    var galtonBoardControl = new GaltonBoardControl( this.viewProperties.histogramModeProperty, counterImage, fractionImage, 'counter', 'fraction', {
+    var histogramModeControl = new HistogramModeControl( this.viewProperties.histogramModeProperty, counterImage, fractionImage, 'counter', 'fraction', {
       buttonContentYMargin: 13
     } );
 
@@ -115,7 +115,7 @@ define( function( require ) {
     } );
 
     // adding children to the scene graph
-    this.addChild( galtonBoardControl );
+    this.addChild( histogramModeControl );
     this.addChild( ballRadioButtonsControl );
     this.addChild( playPanel );
     this.addChild( sliderControlPanel );
@@ -124,8 +124,8 @@ define( function( require ) {
     this.addChild( pathsLayer );
 
     // layout the children
-    galtonBoardControl.bottom = this.galtonBoardControlBottom;
-    galtonBoardControl.left = this.galtonBoardControlLeft;
+    histogramModeControl.bottom = this.histogramModeControlBottom;
+    histogramModeControl.left = this.histogramModeControlLeft;
     playPanel.right = this.layoutBounds.maxX - PlinkoConstants.PANEL_RIGHT_PADDING; // determines slider control panel and statistical display position
     playPanel.top = 10;
     ballRadioButtonsControl.left = this.hopperRight + 47; // dependent on hopper position

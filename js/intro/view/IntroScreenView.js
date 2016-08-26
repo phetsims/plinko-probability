@@ -13,8 +13,8 @@ define( function( require ) {
   // modules
   var CylindersBackNode = require( 'PLINKO_PROBABILITY/intro/view/CylindersBackNode' );
   var CylindersFrontNode = require( 'PLINKO_PROBABILITY/intro/view/CylindersFrontNode' );
-  var GaltonBoardControl = require( 'PLINKO_PROBABILITY/common/view/GaltonBoardControl' );
   var GaltonBoardNode = require( 'PLINKO_PROBABILITY/common/view/GaltonBoardNode' );
+  var HistogramModeControl = require( 'PLINKO_PROBABILITY/common/view/HistogramModeControl' );
   var inherit = require( 'PHET_CORE/inherit' );
   var IntroPlayPanel = require( 'PLINKO_PROBABILITY/intro/view/IntroPlayPanel' );
   var NumberBallsDisplay = require( 'PLINKO_PROBABILITY/intro/view/NumberBallsDisplay' );
@@ -49,7 +49,7 @@ define( function( require ) {
 
     // create the histogram radio buttons at the left of the histogram/cylinders
     this.viewProperties.histogramModeProperty.set( 'cylinder' );
-    var galtonBoardControl = new GaltonBoardControl( this.viewProperties.histogramModeProperty, counterImage, cylinderImage, 'counter', 'cylinder' );
+    var histogramModeControl = new HistogramModeControl( this.viewProperties.histogramModeProperty, counterImage, cylinderImage, 'counter', 'cylinder' );
 
     // create play Panel
     var playPanel = new IntroPlayPanel( model.updateBallsToCreateNumber.bind( model ), model.ballModeProperty, model.isBallCapReachedProperty );
@@ -95,7 +95,7 @@ define( function( require ) {
     } );
 
     // add children to the scene graph
-    this.addChild( galtonBoardControl );
+    this.addChild( histogramModeControl );
     this.addChild( playPanel );
     this.addChild( numberBallsDisplay );
     this.addChild( galtonBoardNode );
@@ -104,8 +104,8 @@ define( function( require ) {
     this.addChild( cylindersFrontNode );
 
     // layout the children nodes on the scene graph
-    galtonBoardControl.bottom = this.galtonBoardControlBottom;
-    galtonBoardControl.left = this.galtonBoardControlLeft;
+    histogramModeControl.bottom = this.histogramModeControlBottom;
+    histogramModeControl.left = this.histogramModeControlLeft;
     playPanel.right = this.layoutBounds.maxX - PlinkoConstants.PANEL_RIGHT_PADDING;
     playPanel.top = PlinkoConstants.PANEL_VERTICAL_SPACING;
     numberBallsDisplay.top = playPanel.bottom + 245;

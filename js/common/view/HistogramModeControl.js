@@ -1,7 +1,8 @@
 // Copyright 2015, University of Colorado Boulder
 
 /**
- * Controls which representation is displayed at the output (bottom) of the Galton board.
+ * Controls the values of the 'histogram mode' Property, which determines the representation 
+ * that is displayed at the output (bottom) of the Galton board.
  *
  * @author Denzell Barnett(Berea College)
  */
@@ -26,7 +27,7 @@ define( function( require ) {
    * @param {Object} [options]
    * @constructor
    */
-  function GaltonBoardControl( histogramModeProperty, topImage, bottomImage, topValue, bottomValue, options ) {
+  function HistogramModeControl( histogramModeProperty, topImage, bottomImage, topValue, bottomValue, options ) {
 
     options = _.extend( {
       spacing: 5, // vertical separation of the buttons
@@ -52,8 +53,8 @@ define( function( require ) {
     ], options );
   }
 
-  plinkoProbability.register( 'GaltonBoardControl', GaltonBoardControl );
+  plinkoProbability.register( 'HistogramModeControl', HistogramModeControl );
 
-  return inherit( RadioButtonGroup, GaltonBoardControl );
+  return inherit( RadioButtonGroup, HistogramModeControl );
 } );
 
