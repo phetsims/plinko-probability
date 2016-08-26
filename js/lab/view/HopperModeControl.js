@@ -11,6 +11,7 @@ define( function( require ) {
   // imports
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var Text = require( 'SCENERY/nodes/Text' );
@@ -31,13 +32,13 @@ define( function( require ) {
     Node.call( this );
 
     options = _.extend( {
-      spacing: 10, // vertical separation of the buttons
+      spacing: 12, // vertical separation of the buttons
       padding: 3, // horizontal padding
-      radius: 7, //radius of the circle of the Radio Button
-      touchAreaXDilation: 5
+      radius: 10, //radius of the circle of the Radio Button
+      touchAreaXDilation: 10
     }, options );
 
-    var fontOptions = { font: PlinkoConstants.TEXT_FONT, maxWidth: 190 };
+    var fontOptions = { font: new PhetFont( 20 ), maxWidth: 250 };
 
     // create the radio buttons
     var showRadioButtons = new VerticalAquaRadioButtonGroup( [
