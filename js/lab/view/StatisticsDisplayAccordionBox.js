@@ -5,7 +5,6 @@
  *
  * @author Martin Veillette (Berea College)
  */
-
 define( function( require ) {
   'use strict';
 
@@ -158,6 +157,7 @@ define( function( require ) {
   plinkoProbability.register( 'StatisticsDisplayAccordionBox', StatisticsDisplayAccordionBox );
 
   return inherit( AccordionBox, StatisticsDisplayAccordionBox, {
+
     /**
      * resets the panel to the unexpanded state
      * @public

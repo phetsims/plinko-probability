@@ -46,7 +46,6 @@ define( function( require ) {
     } );
 
     Path.call( this, modelViewTransform.modelToViewShape( shape ), pathOptions );
-
   }
 
   plinkoProbability.register( 'TrajectoryPath', TrajectoryPath );

@@ -2,6 +2,8 @@
 
 /**
  * The main Plinko Probability Intro screen
+ *
+ * @author Martin Veillette (Berea College)
  */
 define( function( require ) {
   'use strict';

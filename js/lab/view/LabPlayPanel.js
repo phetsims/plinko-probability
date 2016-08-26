@@ -140,6 +140,7 @@ define( function( require ) {
   plinkoProbability.register( 'LabPlayPanel', LabPlayPanel );
 
   return inherit( Panel, LabPlayPanel, {
+
     /**
      * toggle the visibility of the play and pause button
      * @public

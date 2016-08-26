@@ -2,6 +2,8 @@
 
 /**
  * Main entry point for the 'Plinko Probability' sim.
+ *
+ * @author Martin Veillette (Berea College)
  */
 define( function( require ) {
   'use strict';

@@ -25,7 +25,6 @@ define( function( require ) {
    * @param {Object} [options]
    * @constructor
    */
-
   function NumberBallsDisplay( histogram, options ) {
 
     options = _.extend( {
@@ -48,7 +47,6 @@ define( function( require ) {
     } );
 
     Panel.call( this, numberLandedBallsText, options );
-
   }
 
   plinkoProbability.register( 'NumberBallsDisplay', NumberBallsDisplay );

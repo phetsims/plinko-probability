@@ -2,6 +2,8 @@
 
 /**
  * View representation of the front cylinders (the side part of the cylinder) used within the Plinko Probability Simulation
+ *
+ * @author Martin Veillette (Berea College)
  */
 define( function( require ) {
   'use strict';

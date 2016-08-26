@@ -6,7 +6,6 @@
  *
  * @author Martin Veillette (Berea College)
  */
-
 define( function( require ) {
   'use strict';
 
@@ -29,7 +28,6 @@ define( function( require ) {
    * @constructor
    */
   function Histogram( numberOfRowsProperty ) {
-
 
     var thisHistogram = this;
 
@@ -59,6 +57,7 @@ define( function( require ) {
   plinkoProbability.register( 'Histogram', Histogram );
 
   return inherit( Object, Histogram, {
+
     /**
      * @public
      * sets all the binCounts to 0 and resets the statistics
@@ -68,6 +67,7 @@ define( function( require ) {
       this.resetStatistics();
       this.histogramUpdatedEmitter.emit();
     },
+
     /**
      * Used in the "ballsOnScreen" query parameter to set an initial amount of balls within the histogram.
      * @public
@@ -168,6 +168,7 @@ define( function( require ) {
         this.standardDeviationOfMean = 0;
       }
     },
+
     /**
      * Determines the histogram's statistics due to adding an initial amount of balls on screen via the "ballOnScreen" query parameter
      * @private
@@ -289,7 +290,6 @@ define( function( require ) {
       } );
       return maxCount;
     },
-
 
     /**
      * Function that returns the center x coordinate of a bin with index binIndex

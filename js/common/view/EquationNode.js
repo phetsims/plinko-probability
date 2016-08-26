@@ -22,7 +22,6 @@ define( function( require ) {
   var Util = require( 'DOT/Util' );
 
   /**
-   *
    * @param {string} leftHandSideOfEquation - the string that should appear on the left hand side of the equation
    * @param {number} rightHandSideOfEquation - the value (number) that should appear on the right hand side
    * @param {Object} [options]
@@ -92,6 +91,7 @@ define( function( require ) {
   plinkoProbability.register( 'EquationNode', EquationNode );
 
   return inherit( Node, EquationNode, {
+
     /**
      * Update the value of the right side of the equation (a number)
      * @param {number} value

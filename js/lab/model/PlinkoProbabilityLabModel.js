@@ -5,7 +5,6 @@
  *
  * @author Martin Veillette (Berea College)
  */
-
 define( function( require ) {
   'use strict';
 
@@ -67,6 +66,7 @@ define( function( require ) {
   plinkoProbability.register( 'PlinkoProbabilityLabModel', PlinkoProbabilityLabModel );
 
   return inherit( PlinkoProbabilityCommonModel, PlinkoProbabilityLabModel, {
+
     /**
      * time step function that is  responsible for creating and updating the position and status of the balls
      * @public
@@ -102,7 +102,6 @@ define( function( require ) {
         default:
           throw new Error( 'Unhandled galton Board Radio Button state: ' + this.galtonBoardRadioButton );
       }
-
     },
 
     /**

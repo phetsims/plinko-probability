@@ -7,7 +7,6 @@
  * @author Guillermo Ramos (Berea College)
  * @author Denzell Barnett (Berea College)
  */
-
 define( function( require ) {
   'use strict';
 
@@ -116,5 +115,4 @@ define( function( require ) {
   plinkoProbability.register( 'PlinkoProbabilityIntroView', PlinkoProbabilityIntroView );
 
   return inherit( PlinkoProbabilityCommonView, PlinkoProbabilityIntroView );
-
 } );

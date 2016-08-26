@@ -7,7 +7,6 @@
  * @author Guillermo Ramos (Berea College)
  * @author Denzell Barnett (Berea College)
  */
-
 define( function( require ) {
   'use strict';
 
@@ -143,6 +142,7 @@ define( function( require ) {
   plinkoProbability.register( 'PlinkoProbabilityCommonView', PlinkoProbabilityCommonView );
 
   return inherit( ScreenView, PlinkoProbabilityCommonView, {
+
     step: function( dt ) {
       // Checks if the galtonBoard has been initially painted and if not then paint it.
       if ( !this.galtonBoardCanvasNode.isInitiallyPainted ) {
@@ -154,11 +154,12 @@ define( function( require ) {
       // increment time for sound generation
       this.pegSoundGeneration.step( dt );
     },
+
     /**
      * reset function
      */
     reset: function() {
-
+      //TODO this function does nothing and (I beleive) is optional, delete it?
     }
   } );
 

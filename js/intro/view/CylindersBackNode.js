@@ -7,7 +7,6 @@
  *
  * @author Martin Veillette (Berea College)
  */
-
 define( function( require ) {
   'use strict';
 
@@ -62,7 +61,6 @@ define( function( require ) {
         thisNode.addChild( top );
       }
     } );
-
   }
 
   plinkoProbability.register( 'CylindersBackNode', CylindersBackNode );

@@ -70,6 +70,7 @@ define( function( require ) {
     getPosition: function( rowNumber, columnNumber, numberOfRows ) {
       return new Vector2( -rowNumber / 2 + columnNumber, -rowNumber - 2 * PlinkoConstants.PEG_HEIGHT_FRACTION_OFFSET ).divideScalar( numberOfRows + 1 );
     },
+
     /**
      * Function that returns the visibility status of a peg on the galton board
      * @public (read-only)
@@ -80,6 +81,7 @@ define( function( require ) {
     getIsVisible: function( rowNumber, numberOfRows ) {
       return ( rowNumber < numberOfRows );
     },
+
     /**
      * Function that returns the X position of a peg with index rowNumber and column Number
      * The position is given in the model view (with respect to the galton board)
@@ -92,6 +94,7 @@ define( function( require ) {
     getPositionX: function( rowNumber, columnNumber, numberOfRows ) {
       return ( -rowNumber / 2 + columnNumber ) / ( numberOfRows + 1 );
     },
+
     /**
      * Function that returns the Y position of a peg with index rowNumber and column Number
      * The position is given in the model view (with respect to the galton board)
@@ -104,6 +107,7 @@ define( function( require ) {
     getPositionY: function( rowNumber, columnNumber, numberOfRows ) {
       return ( -rowNumber - 2 * PlinkoConstants.PEG_HEIGHT_FRACTION_OFFSET ) / ( numberOfRows + 1 );
     },
+
     /**
      * Function that returns the horizontal spacing between two pegs on the same row
      * The distance is given in the model view (with respect to the galton board)

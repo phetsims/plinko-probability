@@ -10,7 +10,6 @@
  *
  * @author Martin Veillette (Berea College)
  */
-
 define( function( require ) {
   'use strict';
 
@@ -63,12 +62,10 @@ define( function( require ) {
 
     // @public {number} describes final horizontal offset of the ball within a bin {number}
     this.finalBinHorizontalOffset = ( this.binOrientation * ( ( cylinderInfo.cylinderWidth / 2 ) - this.ballRadius ) );
-
   }
 
   plinkoProbability.register( 'IntroBall', IntroBall );
 
   return inherit( Ball, IntroBall );
-
 } );
 

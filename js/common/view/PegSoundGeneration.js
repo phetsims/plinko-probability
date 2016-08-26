@@ -6,7 +6,6 @@
  * @author Denzell Barnett (Berea College)
  * @author Martin Veillette (Berea College)
  */
-
 define( function( require ) {
   'use strict';
 

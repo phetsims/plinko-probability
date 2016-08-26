@@ -5,7 +5,6 @@
  *
  * @author Martin Veillette (Berea College)
  */
-
 define( function( require ) {
   'use strict';
 
@@ -105,7 +104,6 @@ define( function( require ) {
 
         default:
           throw new Error( 'Unhandled galton Board Radio Button state: ' + this.galtonBoardRadioButton );
-
       }
     },
 

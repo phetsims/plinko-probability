@@ -3,6 +3,8 @@
 /*
  * RequireJS configuration file for the 'Plinko Probability' sim.
  * Paths are relative to the location of this file.
+ *
+ * @author Martin Veillette (Berea College)
  */
 require.config( {
 

@@ -7,7 +7,6 @@
  * @author Guillermo Ramos (Berea College)
  * @author Denzell Barnett (Berea College)
  */
-
 define( function( require ) {
   'use strict';
 
@@ -151,12 +150,12 @@ define( function( require ) {
         model.isPlayingProperty.set( false );
       }
     } );
-
   }
 
   plinkoProbability.register( 'PlinkoProbabilityLabView', PlinkoProbabilityLabView );
 
   return inherit( PlinkoProbabilityCommonView, PlinkoProbabilityLabView, {
+
     /**
      * resets the histogram radio property to be counter
      */

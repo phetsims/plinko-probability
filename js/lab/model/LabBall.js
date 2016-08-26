@@ -7,7 +7,6 @@
  *
  * @author Martin Veillette (Berea College)
  */
-
 define( function( require ) {
   'use strict';
 
@@ -25,8 +24,11 @@ define( function( require ) {
    * @constructor
    */
   function LabBall( probability, numberOfRows, bins ) {
+
     Ball.call( this, probability, numberOfRows, bins );
+
     var bounds = PlinkoConstants.HISTOGRAM_BOUNDS;
+
     //describes the minimumYposition the ball will take
     var minimumYposition = bounds.maxY - 6 * this.ballRadius; // let the ball fall a small distance below the top of the histogram.
 
@@ -35,7 +37,6 @@ define( function( require ) {
 
     // describes final horizontal offset (measured from the middle position) of ball within a bin {number}
     this.finalBinHorizontalOffset = 0;
-
   }
 
   plinkoProbability.register( 'LabBall', LabBall );

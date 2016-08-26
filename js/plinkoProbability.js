@@ -2,6 +2,8 @@
 
 /**
  * Creates the namespace for this simulation.
+ *
+ * @author Martin Veillette (Berea College)
  */
 define( function( require ) {
   'use strict';

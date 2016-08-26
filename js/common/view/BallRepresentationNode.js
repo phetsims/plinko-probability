@@ -39,7 +39,6 @@ define( function( require ) {
         .addColorStop( 1, PlinkoConstants.BALL_COLOR )
     } );
     this.addChild( ballRepresentation );
-
   }
 
   plinkoProbability.register( 'BallRepresentationNode', BallRepresentationNode );
