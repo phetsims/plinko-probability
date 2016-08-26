@@ -143,7 +143,12 @@ define( function( require ) {
 
   return inherit( ScreenView, PlinkoProbabilityCommonView, {
 
+    /**
+     * @param dt
+     * @public
+     */
     step: function( dt ) {
+
       // Checks if the galtonBoard has been initially painted and if not then paint it.
       if ( !this.galtonBoardCanvasNode.isInitiallyPainted ) {
         this.galtonBoardCanvasNode.invalidatePaint();
@@ -157,10 +162,10 @@ define( function( require ) {
 
     /**
      * reset function
+     * @public
      */
     reset: function() {
-      //TODO this function does nothing and (I beleive) is optional, delete it?
+      //TODO this function does nothing and (I believe) is optional, delete it?
     }
   } );
-
 } );
