@@ -144,6 +144,7 @@ define( function( require ) {
     getPegPositionX: function( rowNumber, columnNumber, numberOfRows ) {
       return (-rowNumber / 2 + columnNumber) / (numberOfRows + 1 );
     },
+
     /**
      * Function that returns the Y position of a peg with index rowNumber and column Number
      * The position is given in the model view (with respect to the galton board)
@@ -281,7 +282,10 @@ define( function( require ) {
      */
     updatePosition: function() {
       switch( this.phase ) {
-        case PHASE_INITIAL: // ball left the hopper
+
+        // ball left the hopper
+        case PHASE_INITIAL:
+
           // we only want this to move one peg distance down
           // set the position be at some point between the hopper and the first peg
           this.position.setXY( 0, (1 - this.fallenRatio) );  // {Vector2} describes motion of ball within bin in PHASE_INITIAL
@@ -293,7 +297,9 @@ define( function( require ) {
           this.position.addXY( this.pegPositionX, this.pegPositionY );
           break;
 
-        case PHASE_FALLING: // ball is falling through the pegs
+        // ball is falling through the pegs
+        case PHASE_FALLING:
+
           // steer the ball to the left or right depending on this.direction
           var shift = (this.direction === 'left') ? -0.5 : 0.5;
 
@@ -310,11 +316,15 @@ define( function( require ) {
           }
           this.position.addXY( this.pegPositionX, this.pegPositionY );
           break;
-        case PHASE_EXIT: // the ball is exiting the pegs and making its way to the bin
+
+        // the ball is exiting the pegs and making its way to the bin
+        case PHASE_EXIT:
           this.position.setXY( this.finalBinHorizontalOffset, -this.fallenRatio );
           this.position.addXY( this.pegPositionX, this.pegPositionY );
           break;
-        case PHASE_COLLECTED: // the ball has landed to its final position
+
+        // the ball has landed to its final position
+        case PHASE_COLLECTED:
           this.position.setXY( this.finalBinHorizontalOffset, this.finalBinVerticalOffset );
           this.position.addXY( this.pegPositionX, 0 );
       }
