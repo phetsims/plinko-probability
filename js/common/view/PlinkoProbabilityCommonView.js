@@ -27,9 +27,13 @@ define( function( require ) {
   var ScreenView = require( 'JOIST/ScreenView' );
   var SoundToggleButton = require( 'SCENERY_PHET/buttons/SoundToggleButton' );
 
+  // constants
+  var HISTOGRAM_RADIO_VALUES = [ 'counter', 'cylinder', 'fraction' ]; // values for histogramRadioProperty
+  var BALL_RADIO_VALUES = [ 'oneBall', 'tenBalls', 'allBalls' ]; // values for ballRadioProperty
+
   /**
    * Creates common view for the tabs
-   * @param {PlinkoProbabilityIntroModel} model
+   * @param {PlinkoProbabilityCommonModel} model
    * @constructor
    */
   function PlinkoProbabilityCommonView( model ) {
@@ -60,11 +64,19 @@ define( function( require ) {
     this.modelViewTransform = modelViewTransform;
 
     var viewProperties = new PropertySet( {
-      histogramRadio: 'cylinder', // Valid values are 'counter', 'cylinder' to be determined by the view of each tab
-      ballRadio: 'oneBall', // Valid values are 'oneBall', 'tenBalls' and 'allBalls'.
+      histogramRadio: 'cylinder', // {string} see HISTOGRAM_RADIO_VALUES
+      ballRadio: 'oneBall', // {string} see BALL_RADIO_VALUES
       expandedAccordionBox: true,
       isTheoreticalHistogramVisible: false,
       isSoundEnabled: false
+    } );
+
+    // validate string values
+    viewProperties.histogramRadioProperty.link( function( histogramRadio ) {
+      assert && assert( _.contains( HISTOGRAM_RADIO_VALUES, histogramRadio ), 'invalid histogramRadio: ' + histogramRadio );
+    } );
+    viewProperties.ballRadioProperty.link( function( ballRadio ) {
+      assert && assert( _.contains( BALL_RADIO_VALUES, ballRadio ), 'invalid ballRadio: ' + ballRadio );
     } );
 
     this.viewProperties = viewProperties; // @private

@@ -18,7 +18,7 @@ define( function( require ) {
   var ICON_WIDTH = 35;
 
   /**
-   * @param {Property.<string>} histogramRadioProperty - Valid values are 'cylinder', 'number'.
+   * @param {Property.<string>} histogramRadioProperty
    * @param {DOMImage} topDOMImage - represents top icon to be created
    * @param {DOMImage} bottomDOMImage - represents bottom icon to be created
    * @param {string} topValue - represents value of top icon image value
