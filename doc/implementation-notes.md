@@ -1,4 +1,4 @@
-Implementation notes for plinko-probability
+# Plinko Probability - implementation notes
 
 This simulation is separated into two sections, the lab and intro model
 

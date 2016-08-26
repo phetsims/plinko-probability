@@ -1,3 +1,5 @@
+# Plinko Probability - model description
+
 The simulation describes the motion of a ball falling through a plinko board made out of pegs.
 
 In the intro tab, a ball has an equal probability of going to the left or right
