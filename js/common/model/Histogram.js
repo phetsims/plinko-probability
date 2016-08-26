@@ -59,8 +59,8 @@ define( function( require ) {
   return inherit( Object, Histogram, {
 
     /**
-     * @public
      * sets all the binCounts to 0 and resets the statistics
+     * @public
      */
     reset: function() {
       this.setBinsToZero();
@@ -110,7 +110,6 @@ define( function( require ) {
       // now we update the view and generate our statistics
       this.initialStatistics();
       this.histogramUpdatedEmitter.emit();
-
     },
 
     /**
@@ -212,7 +211,6 @@ define( function( require ) {
      * @public
      */
     addBallToHistogram: function( ball ) {
-      // @private
       this.bins[ ball.binIndex ].visibleBinCount++;
       this.updateStatistics( ball.binIndex );
       this.histogramUpdatedEmitter.emit();
@@ -234,7 +232,7 @@ define( function( require ) {
      * The fraction is smaller than one but the sum of all fractions add up to one
      * @param {number} binIndex - an integer
      * @returns {number}
-     * @public (read-only)
+     * @public
      */
     getFractionalBinCount: function( binIndex ) {
       if ( this.landedBallsNumber > 0 ) {
@@ -251,7 +249,7 @@ define( function( require ) {
      * Hence at least one element of the array will return a value of 1 (unless the array is completely
      * filled with zeros in which case it returns an array of zeros)
      * @returns {Array.<number>}
-     * @public (read-only)
+     * @public
      */
     getNormalizedSampleDistribution: function() {
       var maxCount = this.getMaximumBinCount();
@@ -267,7 +265,7 @@ define( function( require ) {
      * Function that returns the maximum value of all the balls in the bins
      * This includes the balls that still traveling through the GaltonBoard
      * @returns {number}
-     * @public (read-only)
+     * @public
      */
     getMaximumActualBinCount: function() {
       var maxCount = 0;
@@ -281,7 +279,7 @@ define( function( require ) {
      * Function that returns the maximum visible value of the balls in the bins
      * This does not include the balls that are still traveling through the GaltonBoard
      * @returns {number}
-     * @public (read-only)
+     * @public
      */
     getMaximumBinCount: function() {
       var maxCount = 0;
@@ -293,7 +291,7 @@ define( function( require ) {
 
     /**
      * Function that returns the center x coordinate of a bin with index binIndex
-     * @public (read-only)
+     * @public
      * @param {number} binIndex - index associated with the bin, the index may range from 0 to numberOfBins-1
      * @param {number} numberOfBins - the number of bins on the screen
      * @returns {number}
@@ -305,7 +303,7 @@ define( function( require ) {
 
     /**
      * Function that returns the left position of a bin
-     * @public (read-only)
+     * @public
      * @param {number} binIndex
      * @param {number} numberOfBins - the number of bins on the screen
      * @returns {number}
@@ -317,7 +315,7 @@ define( function( require ) {
 
     /**
      * Function that returns the minimum X value, i.e. the leftmost position of all the bins
-     * @public (read-only)
+     * @public
      * @returns {number}
      */
     getMinX: function() {
@@ -326,7 +324,7 @@ define( function( require ) {
 
     /**
      * Function that returns the center X value of the bins, i.e. the center position of all the bins
-     * @public (read-only)
+     * @public
      * @returns {number}
      */
     getCenterX: function() {
@@ -335,7 +333,7 @@ define( function( require ) {
 
     /**
      * Function that returns the minimum Y value, i.e. the bottom position of all the bins
-     * @public (read-only)
+     * @public
      * @returns {number}
      */
     getMinY: function() {
@@ -345,7 +343,7 @@ define( function( require ) {
     /**
      * Function that returns the x position (in model coordinates() associated with
      * the average (mean) value of the histogram.
-     * @public (read-only)
+     * @public
      * @param {number} value
      * @param {number} numberOfBins - the number of bins on the screen
      * @returns {number}

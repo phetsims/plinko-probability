@@ -124,7 +124,7 @@ define( function( require ) {
     /**
      * Function that returns the horizontal spacing between two pegs on the same row
      * The distance is given in the model view (with respect to the galton board)
-     * @public (read-only)
+     * @public
      * @param {number} numberOfRows
      * @returns {number}
      */
@@ -135,7 +135,7 @@ define( function( require ) {
     /**
      * Function that returns the X position of a peg with index rowNumber and column Number
      * The position is given in the model view (with respect to the galton board)
-     * @public (read-only)
+     * @public
      * @param {number} rowNumber
      * @param {number} columnNumber
      * @param {number} numberOfRows
@@ -148,7 +148,7 @@ define( function( require ) {
     /**
      * Function that returns the Y position of a peg with index rowNumber and column Number
      * The position is given in the model view (with respect to the galton board)
-     * @public (read-only)
+     * @public
      * @param {number} rowNumber
      * @param {number} columnNumber
      * @param {number} numberOfRows

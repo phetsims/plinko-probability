@@ -72,7 +72,7 @@ define( function( require ) {
     /**
      * Function that returns the horizontal spacing between two pegs on the same row
      * The distance is given in the model view (with respect to the galton board)
-     * @public (read-only)
+     * @public
      * @param {number} numberOfRows
      * @returns {number}
      */
@@ -108,9 +108,8 @@ define( function( require ) {
               self.ballImage.width * self.scaleFactor,
               self.ballImage.height * self.scaleFactor );
           }
-
         } );
       }
     }
   } );
-} ); // define
+} );
