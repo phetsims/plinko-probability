@@ -1,7 +1,7 @@
 // Copyright 2015, University of Colorado Boulder
 
 /**
- * Scenery node for the representation of a ball. For performance reason, the ball is added as a Scenery Image instead of a Circle.
+ * Scenery node that represents a ball.
  *
  * @author Martin Veillette (Berea College)
  */
@@ -17,7 +17,6 @@ define( function( require ) {
   var RadialGradient = require( 'SCENERY/util/RadialGradient' );
 
   /**
-   * Constructor for the representation of a ball
    * @param {number} radius - in view coordinates
    * @constructor
    */
