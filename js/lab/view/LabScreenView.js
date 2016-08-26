@@ -51,7 +51,7 @@ define( function( require ) {
     this.galtonBoardNode = galtonBoardNode; // @protected required by supertype
 
     // create three radio buttons next to the hopper
-    var ballRadioButtonsControl = new BallRadioButtonsControl( model.galtonBoardRadioButtonProperty );
+    var ballRadioButtonsControl = new BallRadioButtonsControl( model.hopperModeProperty );
 
     // create the two radio buttons that can toggle between 'fraction and 'counter' mode
     this.viewProperties.histogramModeProperty.set( 'counter' );
@@ -83,7 +83,7 @@ define( function( require ) {
 
     // handle the coming and going of the balls in the model.
     model.balls.addItemAddedListener( function( addedBall ) {
-      switch ( model.galtonBoardRadioButtonProperty.value ) {
+      switch ( model.hopperModeProperty.value ) {
         case 'ball':
           // initiates sound to play when ball hits a peg
           var ballHittingPegListener = function( direction ) {
@@ -110,7 +110,7 @@ define( function( require ) {
         case 'none':
           break;
         default:
-          throw new Error( 'Unhandled galton Board Radio Button state: ' + model.galtonBoardRadioButtonProperty.value );
+          throw new Error( 'Unhandled galton Board Radio Button state: ' + model.hopperModeProperty.value );
       }
     } );
 

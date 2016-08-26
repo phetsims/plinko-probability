@@ -23,11 +23,11 @@ define( function( require ) {
    * @param {ModelViewTransform2} modelViewTransform - model to view transform
    * @param {Property.<number>} numberOfRowsProperty - number of rows
    * @param {Property.<string>} histogramModeProperty
-   * @param {Property.<string>} galtonBoardRadioButtonProperty - valid values are 'ball', 'path', and 'none'
+   * @param {Property.<string>} hopperModeProperty'
    * @param {Object} options - must contain a canvasBounds attribute of type Bounds2
    * @constructor
    */
-  function BallsLayerNode( balls, modelViewTransform, numberOfRowsProperty, histogramModeProperty, galtonBoardRadioButtonProperty, options ) {
+  function BallsLayerNode( balls, modelViewTransform, numberOfRowsProperty, histogramModeProperty, hopperModeProperty, options ) {
 
     assert && assert( options && options.hasOwnProperty( 'canvasBounds' ), 'No canvasBounds specified.' );
 
@@ -37,15 +37,9 @@ define( function( require ) {
 
     // @private
     this.balls = balls;
-
-    // @private - model to view coordinate transform
     this.modelViewTransform = modelViewTransform;
-
-    // @private
-    this.galtonBoardRadioButtonProperty = galtonBoardRadioButtonProperty; // valid values are 'ball', 'path', 'none'
-
-    // @private
     this.histogramModeProperty = histogramModeProperty;
+    this.hopperModeProperty = hopperModeProperty;
 
     // set the default ball radius using the largest possible radius, that is the minimum number of rows.
     var defaultNumberOfRows = PlinkoConstants.ROWS_RANGE.min;
@@ -95,7 +89,7 @@ define( function( require ) {
       }
 
       // render all balls only if 'ball' is the current mode of the Galton Board
-      if ( self.galtonBoardRadioButtonProperty.value === 'ball' ) {
+      if ( self.hopperModeProperty.value === 'ball' ) {
         this.balls.forEach( function( ball ) {
 
           // when we are in the histogram mode and the ball has been collected don't draw the ball

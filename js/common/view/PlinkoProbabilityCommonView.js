@@ -102,7 +102,7 @@ define( function( require ) {
     var ballViewBounds = this.modelViewTransform.modelToViewBounds( ballModelBounds ).dilated( 20 );
 
     // create the ballLayerNodes  (a canvas Node) that renders all the balls
-    var ballsLayerNode = new BallsLayerNode( model.balls, modelViewTransform, model.numberOfRowsProperty, viewProperties.histogramModeProperty, model.galtonBoardRadioButtonProperty,
+    var ballsLayerNode = new BallsLayerNode( model.balls, modelViewTransform, model.numberOfRowsProperty, viewProperties.histogramModeProperty, model.hopperModeProperty,
       { canvasBounds: ballViewBounds } );
     this.ballsLayerNode = ballsLayerNode;
 

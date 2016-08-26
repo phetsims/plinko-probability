@@ -29,11 +29,11 @@ define( function( require ) {
 
     PlinkoProbabilityCommonModel.call( this );
 
+    // @public
     this.addProperty( 'isPlaying', false );
-    this.addProperty( 'galtonBoardRadioButton', 'ball' ); // acceptable values are 'ball', 'path, 'none'
 
-    // These need to be linked until the end of the simulation
-    this.galtonBoardRadioButtonProperty.link( function() {
+    this.hopperModeProperty.link( function( hopperMode ) {
+
       // when the balls gets created it adds itself to the histogram binCount
       // so when we clear the balls we should remove them from the histogram
       thisModel.balls.forEach( function( ball ) {
@@ -79,7 +79,7 @@ define( function( require ) {
         this.ballCreationTimeElapsed = 0; // reset the elapsed time
       }
 
-      switch ( this.galtonBoardRadioButton ) {
+      switch ( this.hopperModeProperty.value ) {
         case 'ball':
           this.balls.forEach( function( ball ) {
             // we want to cap dt fairly low so that the balls don't make a sudden jump
@@ -100,7 +100,7 @@ define( function( require ) {
           this.ballCreationTimeInterval = 0.015; // 15 milliseconds if nothing is being shown
           break;
         default:
-          throw new Error( 'Unhandled galton Board Radio Button state: ' + this.galtonBoardRadioButton );
+          throw new Error( 'invalid hopperMode: ' + this.hopperModeProperty.value );
       }
     },
 
