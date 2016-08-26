@@ -30,20 +30,28 @@ define( function( require ) {
     Ball.call( this, probability, numberOfRows, bins );
 
     // let's find the ball horizontal orientation of the top ball within a cylinder
-    // binOrientation {number||null} takes values -1 (left), 0 (center), 1 (right) or null (no ball are present)
     var lastBallBinOrientation = bins[ this.binIndex ].orientation;
 
-    // determine the ball orientation within the bin
+    // @public (read-only) the ball's orientation within the bin
+    // Values are: -1 (left), 0 (center), 1 (right) or null (no ball are present)
+    this.binOrientation = 0;
     switch ( this.binCount % 3 ) {
-      case 0: // a multiple of three, Ball makes decision to be centered
+
+      // a multiple of three, Ball makes decision to be centered
+      case 0:
         this.binOrientation = 0; // @public (read-only)
         break;
-      case 1: // Ball makes probabilistic decision whether to end in left or right horizontal position in the bin
-        this.binOrientation = ( phet.joist.random.nextBoolean() ? 1 : -1 ); // @public (read-only)
+
+      // Ball makes probabilistic decision whether to end in left or right horizontal position in the bin
+      case 1:
+        this.binOrientation = ( phet.joist.random.nextBoolean() ? 1 : -1 );
         break;
-      case 2: // the ball must take the opposite orientation than the last ball
-        this.binOrientation = -lastBallBinOrientation; // @public (read-only)
+
+      // the ball must take the opposite orientation than the last ball
+      case 2:
+        this.binOrientation = -lastBallBinOrientation;
         break;
+
       default:
         throw new Error( 'Unhandled bin direction' );
     }
