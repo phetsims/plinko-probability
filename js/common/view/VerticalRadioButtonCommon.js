@@ -29,16 +29,15 @@ define( function( require ) {
   function VerticalRadioButtonCommon( histogramRadioProperty, topDOMImage, bottomDOMImage, topValue, bottomValue, options ) {
 
     options = _.extend( {
-        spacing: 5, // vertical separation of the buttons
-        cornerRadius: 10,
-        baseColor: 'white',
-        buttonContentXMargin: 5,
-        buttonContentYMargin: 5,
-        selectedStroke: 'black',
-        deselectedLineWidth: 1,
-        selectedLineWidth: 2
-      },
-      options );
+      spacing: 5, // vertical separation of the buttons
+      cornerRadius: 10,
+      baseColor: 'white',
+      buttonContentXMargin: 5,
+      buttonContentYMargin: 5,
+      selectedStroke: 'black',
+      deselectedLineWidth: 1,
+      selectedLineWidth: 2
+    }, options );
 
     // create the icons for the radio buttons
     var topImage = new Image( topDOMImage );
@@ -50,7 +49,6 @@ define( function( require ) {
       { value: topValue, node: topImage },
       { value: bottomValue, node: bottomImage }
     ], options );
-
   }
 
   plinkoProbability.register( 'VerticalRadioButtonCommon', VerticalRadioButtonCommon );
