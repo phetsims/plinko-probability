@@ -159,8 +159,10 @@ define( function( require ) {
     /**
      * resets the histogram radio property to be counter
      * @public
+     * @override
      */
     reset: function() {
+      PlinkoProbabilityCommonView.prototype.reset.call( this );
       this.viewProperties.histogramRadioProperty.set( 'counter' );
     }
   } );

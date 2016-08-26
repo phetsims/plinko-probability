@@ -103,13 +103,13 @@ define( function( require ) {
     var pegSoundGeneration = new PegSoundGeneration( viewProperties.isSoundEnabledProperty );
     this.pegSoundGeneration = pegSoundGeneration;
 
-    var thisModel = this;
+    var thisView = this;
     // create the Reset All Button at the bottom right, which resets the model
     var resetAllButton = new ResetAllButton( {
       listener: function() {
         model.reset(); // reset the model
         viewProperties.reset(); // reset the properties
-        thisModel.reset();
+        thisView.reset();
         pegSoundGeneration.reset(); // reset the time elapsed to 0
       }
     } );
@@ -161,11 +161,11 @@ define( function( require ) {
     },
 
     /**
-     * reset function
+     * Reset function. The base type implementation does nothing. But reset is called by
+     * the Reset All button listener and may be overridden in subtypes.  So it seemed
+     * appropriate to include a no-op function here.
      * @public
      */
-    reset: function() {
-      //TODO this function does nothing and (I believe) is optional, delete it?
-    }
+    reset: function() {}
   } );
 } );
