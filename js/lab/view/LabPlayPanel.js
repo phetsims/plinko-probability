@@ -27,7 +27,7 @@ define( function( require ) {
 
   /**
    * Responsible for the panel that contains the play/pause button and amount of balls to be released.
-   * @param {PlinkoProbabilityCommonModel} model
+   * @param {LabModel} model
    * @param {Property.<string>} ballModeProperty
    * @param {Object} [options]
    * @constructor

@@ -61,7 +61,7 @@ define( function( require ) {
 
   /**
    *
-   * @param {PlinkoProbabilityLabModel} model
+   * @param {LabModel} model
    * @param {Property.<boolean>} isTheoreticalHistogramVisibleProperty
    * @param {Property.<boolean>} expandedAccordionBoxProperty
    * @param {Object} [options]
