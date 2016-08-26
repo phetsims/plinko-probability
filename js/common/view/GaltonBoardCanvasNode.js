@@ -32,10 +32,9 @@ define( function( require ) {
   function GaltonBoardCanvasNode( galtonBoard, numberOfRowsProperty, probabilityProperty, modelViewTransform, options ) {
 
     options = _.extend( {
-        openingAngle: Math.PI / 2, //  opening angle of the pegs, it is used for the segment that is removed from a round peg.
-        rangeRotationAngle: Math.PI / 2 // range of rotation of the peg, when going from binaryProbability 0 to 1.
-      },
-      options );
+      openingAngle: Math.PI / 2, //  opening angle of the pegs, it is used for the segment that is removed from a round peg.
+      rangeRotationAngle: Math.PI / 2 // range of rotation of the peg, when going from binaryProbability 0 to 1.
+    }, options );
 
     var self = this;
 
@@ -131,7 +130,7 @@ define( function( require ) {
     /**
      * Function that returns the horizontal spacing between two pegs on the same row
      * The distance is given in the model view (with respect to the galton board)
-     * @public (read-only)
+     * @public
      * @param {number} numberOfRows
      * @returns {number}
      */
@@ -185,6 +184,5 @@ define( function( require ) {
       } );
     }
   } );
-} )
-;
+} );
 
