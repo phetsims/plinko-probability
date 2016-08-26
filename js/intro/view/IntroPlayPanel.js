@@ -9,7 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var BallRepresentationNode = require( 'PLINKO_PROBABILITY/common/view/BallRepresentationNode' );
+  var BallNode = require( 'PLINKO_PROBABILITY/common/view/BallNode' );
   var HStrut = require( 'SCENERY/nodes/HStrut' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -52,15 +52,15 @@ define( function( require ) {
     // Creation of radio button icons
     var oneBall = new HBox( {
       spacing: BALL_RADIUS / 2,
-      children: [ new BallRepresentationNode( BALL_RADIUS ), new Text( timesString + '1', fontOptions ) ]
+      children: [ new BallNode( BALL_RADIUS ), new Text( timesString + '1', fontOptions ) ]
     } );
     var tenBalls = new HBox( {
       spacing: BALL_RADIUS / 2,
-      children: [ new BallRepresentationNode( BALL_RADIUS ), new Text( timesString + '10', fontOptions ) ]
+      children: [ new BallNode( BALL_RADIUS ), new Text( timesString + '10', fontOptions ) ]
     } );
     var allBalls = new HBox( {
       spacing: BALL_RADIUS / 2,
-      children: [ new BallRepresentationNode( BALL_RADIUS ), new Text( timesString + allString, fontOptions ) ]
+      children: [ new BallNode( BALL_RADIUS ), new Text( timesString + allString, fontOptions ) ]
     } );
 
     // Creation of radio button group for ball setting

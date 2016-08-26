@@ -9,7 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var BallRepresentationNode = require( 'PLINKO_PROBABILITY/common/view/BallRepresentationNode' );
+  var BallNode = require( 'PLINKO_PROBABILITY/common/view/BallNode' );
   var Circle = require( 'SCENERY/nodes/Circle' );
   var HStrut = require( 'SCENERY/nodes/HStrut' );
   var HBox = require( 'SCENERY/nodes/HBox' );
@@ -47,7 +47,7 @@ define( function( require ) {
     }, options );
 
     // create the icon for oneBall mode, a representation for a ball
-    var oneBall = new BallRepresentationNode( BALL_RADIUS );
+    var oneBall = new BallNode( BALL_RADIUS );
 
     // create an ellipsis (the punctuation mark, not the geometrical shape)
     var threeDots = new HBox( {
@@ -61,18 +61,18 @@ define( function( require ) {
     } );
 
     // the ball size is not necessarily twice the radius
-    var ballWidth = new BallRepresentationNode( BALL_RADIUS ).width;
+    var ballWidth = new BallNode( BALL_RADIUS ).width;
 
     // create the icon for the continuous mode
     var continuous = new HBox( {
       align: 'bottom',
       spacing: -ballWidth / 2, // negative spacing
       children: [
-        new BallRepresentationNode( BALL_RADIUS ),
-        new BallRepresentationNode( BALL_RADIUS ),
-        new BallRepresentationNode( BALL_RADIUS ),
-        new BallRepresentationNode( BALL_RADIUS ),
-        new BallRepresentationNode( BALL_RADIUS ),
+        new BallNode( BALL_RADIUS ),
+        new BallNode( BALL_RADIUS ),
+        new BallNode( BALL_RADIUS ),
+        new BallNode( BALL_RADIUS ),
+        new BallNode( BALL_RADIUS ),
         threeDots
       ]
     } );

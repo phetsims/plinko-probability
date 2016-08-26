@@ -20,7 +20,7 @@ define( function( require ) {
    * @param {number} radius - in view coordinates
    * @constructor
    */
-  function BallRepresentationNode( radius ) {
+  function BallNode( radius ) {
 
     Node.call( this );
 
@@ -40,7 +40,7 @@ define( function( require ) {
     this.addChild( ballRepresentation );
   }
 
-  plinkoProbability.register( 'BallRepresentationNode', BallRepresentationNode );
+  plinkoProbability.register( 'BallNode', BallNode );
 
-  return inherit( Node, BallRepresentationNode );
+  return inherit( Node, BallNode );
 } );

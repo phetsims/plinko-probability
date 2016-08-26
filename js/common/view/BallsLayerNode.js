@@ -9,7 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var BallRepresentationNode = require( 'PLINKO_PROBABILITY/common/view/BallRepresentationNode' );
+  var BallNode = require( 'PLINKO_PROBABILITY/common/view/BallNode' );
   var CanvasNode = require( 'SCENERY/nodes/CanvasNode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
@@ -51,10 +51,10 @@ define( function( require ) {
     var defaultBallRadius = modelViewTransform.modelToViewDeltaX( self.getSpacing( defaultNumberOfRows ) * PlinkoConstants.BALL_SIZE_FRACTION ); //
 
     // create a single ball image to use for rendering all balls - asynchronous
-    var ball = new BallRepresentationNode( defaultBallRadius );
+    var ballNode = new BallNode( defaultBallRadius );
 
     // create an image of the ball representation
-    ball.toImage( function( image ) {
+    ballNode.toImage( function( image ) {
       self.ballImage = image;
     } );
 
