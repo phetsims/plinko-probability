@@ -29,8 +29,8 @@ define( function( require ) {
   var GaltonBoardControl = require( 'PLINKO_PROBABILITY/common/view/GaltonBoardControl' );
 
   // images
-  var counterDOMImage = require( 'image!PLINKO_PROBABILITY/counter.png' );
-  var fractionDOMImage = require( 'image!PLINKO_PROBABILITY/fraction.png' );
+  var counterImage = require( 'image!PLINKO_PROBABILITY/counter.png' );
+  var fractionImage = require( 'image!PLINKO_PROBABILITY/fraction.png' );
 
   // strings
   var outOfBallsString = require( 'string!PLINKO_PROBABILITY/outOfBalls' );
@@ -55,7 +55,7 @@ define( function( require ) {
 
     // create the two radio buttons that can toggle between 'fraction and 'counter' mode
     this.viewProperties.histogramRadioProperty.set( 'counter' );
-    var galtonBoardControl = new GaltonBoardControl( this.viewProperties.histogramRadioProperty, counterDOMImage, fractionDOMImage, 'counter', 'fraction', {
+    var galtonBoardControl = new GaltonBoardControl( this.viewProperties.histogramRadioProperty, counterImage, fractionImage, 'counter', 'fraction', {
       buttonContentYMargin: 13
     } );
 

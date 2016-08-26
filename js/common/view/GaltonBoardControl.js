@@ -19,14 +19,14 @@ define( function( require ) {
 
   /**
    * @param {Property.<string>} histogramRadioProperty
-   * @param {DOMImage} topDOMImage - represents top icon to be created
-   * @param {DOMImage} bottomDOMImage - represents bottom icon to be created
+   * @param {HTMLImageElement} topImage - represents top icon to be created
+   * @param {HTMLImageElement} bottomImage - represents bottom icon to be created
    * @param {string} topValue - represents value of top icon image value
    * @param {string} bottomValue - represents value of bottom icon image value
    * @param {Object} [options]
    * @constructor
    */
-  function GaltonBoardControl( histogramRadioProperty, topDOMImage, bottomDOMImage, topValue, bottomValue, options ) {
+  function GaltonBoardControl( histogramRadioProperty, topImage, bottomImage, topValue, bottomValue, options ) {
 
     options = _.extend( {
       spacing: 5, // vertical separation of the buttons
@@ -40,9 +40,9 @@ define( function( require ) {
     }, options );
 
     // create the icons for the radio buttons
-    var topImage = new Image( topDOMImage );
+    var topImage = new Image( topImage );
     topImage.scale( ICON_WIDTH / topImage.width );
-    var bottomImage = new Image( bottomDOMImage );
+    var bottomImage = new Image( bottomImage );
     bottomImage.scale( ICON_WIDTH / bottomImage.width );
 
     RadioButtonGroup.call( this, histogramRadioProperty, [
