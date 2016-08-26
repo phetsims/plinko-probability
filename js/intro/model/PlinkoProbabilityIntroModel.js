@@ -73,6 +73,7 @@ define( function( require ) {
     /**
      * Resets timer for each ball
      * @public
+     * @override
      */
     reset: function() {
       PlinkoProbabilityCommonModel.prototype.reset.call( this );

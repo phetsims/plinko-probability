@@ -67,18 +67,17 @@ define( function( require ) {
 
   return inherit( Node, CylindersBackNode, {
 
-      /**
-       * Function that returns the center x coordinate of a bin with index binIndex
-       * @public (read-only)
-       * @param {number} binIndex - index associated with the bin, the index may range from 0 to numberOfBins-1
-       * @param {number} numberOfBins - the number of bins on the screen
-       * @returns {number}
-       */
-      getBinCenterX: function( binIndex, numberOfBins ) {
-        // We consider numberOfBins-1 because we consider the most left bin the first bin out of the total number of bins
-        assert && assert( binIndex <= numberOfBins - 1 );
-        return ((binIndex + 1 / 2) / numberOfBins) * BOUNDS.width + BOUNDS.minX;
-      }
+    /**
+     * Function that returns the center x coordinate of a bin with index binIndex
+     * @public (read-only)
+     * @param {number} binIndex - index associated with the bin, the index may range from 0 to numberOfBins-1
+     * @param {number} numberOfBins - the number of bins on the screen
+     * @returns {number}
+     */
+    getBinCenterX: function( binIndex, numberOfBins ) {
+      // We consider numberOfBins-1 because we consider the most left bin the first bin out of the total number of bins
+      assert && assert( binIndex <= numberOfBins - 1 );
+      return ((binIndex + 1 / 2) / numberOfBins) * BOUNDS.width + BOUNDS.minX;
     }
-  );
+  } );
 } );
