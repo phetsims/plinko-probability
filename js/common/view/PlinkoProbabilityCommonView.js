@@ -28,7 +28,7 @@ define( function( require ) {
   var SoundToggleButton = require( 'SCENERY_PHET/buttons/SoundToggleButton' );
 
   // constants
-  var HISTOGRAM_RADIO_VALUES = [ 'counter', 'cylinder', 'fraction' ]; // values for histogramRadioProperty
+  var HISTOGRAM_MODE_VALUES = [ 'counter', 'cylinder', 'fraction' ]; // values for histogramModeProperty
 
   /**
    * Creates common view for the tabs
@@ -63,21 +63,21 @@ define( function( require ) {
     this.modelViewTransform = modelViewTransform;
 
     var viewProperties = new PropertySet( {
-      histogramRadio: 'cylinder', // {string} see HISTOGRAM_RADIO_VALUES
+      histogramMode: 'cylinder', // {string} see HISTOGRAM_MODE_VALUES
       expandedAccordionBox: true,
       isTheoreticalHistogramVisible: false,
       isSoundEnabled: false
     } );
 
     // validate string values
-    viewProperties.histogramRadioProperty.link( function( histogramRadio ) {
-      assert && assert( _.contains( HISTOGRAM_RADIO_VALUES, histogramRadio ), 'invalid histogramRadio: ' + histogramRadio );
+    viewProperties.histogramModeProperty.link( function( histogramMode ) {
+      assert && assert( _.contains( HISTOGRAM_MODE_VALUES, histogramMode ), 'invalid histogramMode: ' + histogramMode );
     } );
 
     this.viewProperties = viewProperties; // @private
 
     var histogramNode = new HistogramNode(
-      viewProperties.histogramRadioProperty,
+      viewProperties.histogramModeProperty,
       model,
       modelViewTransform,
       viewProperties.isTheoreticalHistogramVisibleProperty
@@ -102,7 +102,7 @@ define( function( require ) {
     var ballViewBounds = this.modelViewTransform.modelToViewBounds( ballModelBounds ).dilated( 20 );
 
     // create the ballLayerNodes  (a canvas Node) that renders all the balls
-    var ballsLayerNode = new BallsLayerNode( model.balls, modelViewTransform, model.numberOfRowsProperty, viewProperties.histogramRadioProperty, model.galtonBoardRadioButtonProperty,
+    var ballsLayerNode = new BallsLayerNode( model.balls, modelViewTransform, model.numberOfRowsProperty, viewProperties.histogramModeProperty, model.galtonBoardRadioButtonProperty,
       { canvasBounds: ballViewBounds } );
     this.ballsLayerNode = ballsLayerNode;
 

@@ -18,7 +18,7 @@ define( function( require ) {
   var ICON_WIDTH = 35;
 
   /**
-   * @param {Property.<string>} histogramRadioProperty
+   * @param {Property.<string>} histogramModeProperty
    * @param {HTMLImageElement} topImage - represents top icon to be created
    * @param {HTMLImageElement} bottomImage - represents bottom icon to be created
    * @param {string} topValue - represents value of top icon image value
@@ -26,7 +26,7 @@ define( function( require ) {
    * @param {Object} [options]
    * @constructor
    */
-  function GaltonBoardControl( histogramRadioProperty, topImage, bottomImage, topValue, bottomValue, options ) {
+  function GaltonBoardControl( histogramModeProperty, topImage, bottomImage, topValue, bottomValue, options ) {
 
     options = _.extend( {
       spacing: 5, // vertical separation of the buttons
@@ -46,7 +46,7 @@ define( function( require ) {
     var bottomNode = new Image( bottomImage );
     bottomNode.scale( ICON_WIDTH / bottomNode.width );
 
-    RadioButtonGroup.call( this, histogramRadioProperty, [
+    RadioButtonGroup.call( this, histogramModeProperty, [
       { value: topValue, node: topNode },
       { value: bottomValue, node: bottomNode }
     ], options );

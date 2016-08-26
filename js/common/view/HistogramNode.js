@@ -69,20 +69,20 @@ define( function( require ) {
 
   /**
    * Constructor for Histogram Node
-   * @param {Property.<string>} histogramRadioProperty
+   * @param {Property.<string>} histogramModeProperty
    * @param {PlinkoProbabilityCommonModel} model
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Property.<boolean>} isTheoreticalHistogramVisibleProperty
    * @constructor
    */
-  function HistogramNode( histogramRadioProperty, model, modelViewTransform, isTheoreticalHistogramVisibleProperty ) {
+  function HistogramNode( histogramModeProperty, model, modelViewTransform, isTheoreticalHistogramVisibleProperty ) {
 
     Node.call( this, {
         children: [
           new BackgroundNode( modelViewTransform ),
           new XAxisNode( model.histogram, model.numberOfRowsProperty, modelViewTransform ),
-          new YAxisNode( model.histogram, histogramRadioProperty, modelViewTransform ),
-          new XBannerNode( model.histogram, model.numberOfRowsProperty, histogramRadioProperty, modelViewTransform ),
+          new YAxisNode( model.histogram, histogramModeProperty, modelViewTransform ),
+          new XBannerNode( model.histogram, model.numberOfRowsProperty, histogramModeProperty, modelViewTransform ),
           new HistogramBarNode( model.histogram, model, modelViewTransform, isTheoreticalHistogramVisibleProperty )
         ]
       }
@@ -168,11 +168,11 @@ define( function( require ) {
   /**
    * Scenery Node that create a Y axis label
    * @param {Histogram} histogram
-   * @param {Property.<string>} histogramRadioProperty
+   * @param {Property.<string>} histogramModeProperty
    * @param {ModelViewTransform2} modelViewTransform
    * @constructor
    */
-  function YAxisNode( histogram, histogramRadioProperty, modelViewTransform ) {
+  function YAxisNode( histogram, histogramModeProperty, modelViewTransform ) {
 
     Node.call( this );
 
@@ -193,7 +193,7 @@ define( function( require ) {
     this.addChild( yLabelNode );
 
     // no need to unlink present for the lifetime of the sim
-    histogramRadioProperty.link( function( value ) {
+    histogramModeProperty.link( function( value ) {
       switch( value ) {
         case 'fraction':
           yLabelNode.text = fractionString;
@@ -237,11 +237,11 @@ define( function( require ) {
   /**
    * @param {Histogram} histogram
    * @param {Property.<number>} numberOfRowsProperty
-   * @param {Property.<string>} histogramRadioProperty
+   * @param {Property.<string>} histogramModeProperty
    * @param {ModelViewTransform2} modelViewTransform
    * @constructor
    */
-  function XBannerNode( histogram, numberOfRowsProperty, histogramRadioProperty, modelViewTransform ) {
+  function XBannerNode( histogram, numberOfRowsProperty, histogramModeProperty, modelViewTransform ) {
 
     Node.call( this );
 
@@ -300,9 +300,9 @@ define( function( require ) {
     /**
      * Function that update the value of the text in the banner to reflect the actual value in the bin.,
      * @param {number} numberOfRows
-     * @param {string} histogramRadioValue
+     * @param {string} histogramMode
      */
-    function updateTextBanner( numberOfRows, histogramRadioValue ) {
+    function updateTextBanner( numberOfRows, histogramMode ) {
 
       var numberOfBins = numberOfRows + 1;
 
@@ -310,7 +310,7 @@ define( function( require ) {
       var font;
       var maxBinCount;
 
-      switch( histogramRadioValue ) {
+      switch( histogramMode ) {
         case 'fraction':
           getHistogramBin = histogram.getFractionalBinCount.bind( histogram );
 
@@ -350,7 +350,7 @@ define( function( require ) {
           var binCenterX = modelViewTransform.modelToViewX( histogram.getBinCenterX( binIndex, numberOfBins ) );
           var binValue = getHistogramBin( binIndex ); // a number
 
-          if ( histogramRadioValue === 'fraction' ) {
+          if ( histogramMode === 'fraction' ) {
             // set the appropriate number of decimal places if in fraction mode,
             // if the number of bins is large, the width of the bin does not allow as many decimal places
             binValue = (numberOfBins > 16) ? Util.toFixed( binValue, 2 ) : Util.toFixed( binValue, 3 );
@@ -371,16 +371,16 @@ define( function( require ) {
     // update the banner when a ball has been added to the histogram
     // no need to remove listener, present for the lifetime of the sim
     histogram.histogramUpdatedEmitter.addListener( function() {
-      updateTextBanner( numberOfRowsProperty.value, histogramRadioProperty.value );
+      updateTextBanner( numberOfRowsProperty.value, histogramModeProperty.value );
     } );
 
     // no need to unlink, present for the lifetime of the sim
-    Property.multilink( [ numberOfRowsProperty, histogramRadioProperty ], function( numberOfRows, histogramRadio ) {
+    Property.multilink( [ numberOfRowsProperty, histogramModeProperty ], function( numberOfRows, histogramMode ) {
       updateBanner( numberOfRows ); // update the placement of the vertical line separators
-      updateTextBanner( numberOfRows, histogramRadio ); // update the text content of each bins
+      updateTextBanner( numberOfRows, histogramMode ); // update the text content of each bins
     } );
 
-    updateTextBanner( numberOfRowsProperty.value, histogramRadioProperty.value );
+    updateTextBanner( numberOfRowsProperty.value, histogramModeProperty.value );
   }
 
   plinkoProbability.register( 'XBannerNode', XBannerNode );

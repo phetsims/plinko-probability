@@ -48,8 +48,8 @@ define( function( require ) {
     var cylindersFrontNode = new CylindersFrontNode( model.numberOfRowsProperty, this.modelViewTransform, model.cylinderInfo );
 
     // create the histogram radio buttons at the left of the histogram/cylinders
-    this.viewProperties.histogramRadioProperty.set( 'cylinder' );
-    var galtonBoardControl = new GaltonBoardControl( this.viewProperties.histogramRadioProperty, counterImage, cylinderImage, 'counter', 'cylinder' );
+    this.viewProperties.histogramModeProperty.set( 'cylinder' );
+    var galtonBoardControl = new GaltonBoardControl( this.viewProperties.histogramModeProperty, counterImage, cylinderImage, 'counter', 'cylinder' );
 
     // create play Panel
     var playPanel = new IntroPlayPanel( model.updateBallsToCreateNumber.bind( model ), model.ballModeProperty, model.isBallCapReachedProperty );
@@ -60,8 +60,8 @@ define( function( require ) {
     // link the histogram radio buttons (to the left of the histogram) to toggle the visibility of the histogram and cylinders
     // link is present fot the lifetime of the sim
     var thisModel = this;
-    this.viewProperties.histogramRadioProperty.link( function( histogramRadio ) {
-        switch( histogramRadio ) {
+    this.viewProperties.histogramModeProperty.link( function( histogramMode ) {
+        switch( histogramMode ) {
           case 'counter':
             thisModel.histogramNode.visible = true;
             cylindersBackNode.visible = false;
@@ -73,7 +73,7 @@ define( function( require ) {
             cylindersFrontNode.visible = true;
             break;
           default:
-            throw new Error( 'Unhandled Button state: ' + histogramRadio );
+            throw new Error( 'Unhandled Button state: ' + histogramMode );
         }
       }
     );

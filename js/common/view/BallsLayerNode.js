@@ -22,12 +22,12 @@ define( function( require ) {
    * @param {Ball[]} balls - an array of model Ball
    * @param {ModelViewTransform2} modelViewTransform - model to view transform
    * @param {Property.<number>} numberOfRowsProperty - number of rows
-   * @param {Property.<string>} histogramRadioProperty - valid values are 'counter', 'cylinder', and 'fraction
+   * @param {Property.<string>} histogramModeProperty
    * @param {Property.<string>} galtonBoardRadioButtonProperty - valid values are 'ball', 'path', and 'none'
    * @param {Object} options - must contain a canvasBounds attribute of type Bounds2
    * @constructor
    */
-  function BallsLayerNode( balls, modelViewTransform, numberOfRowsProperty, histogramRadioProperty, galtonBoardRadioButtonProperty, options ) {
+  function BallsLayerNode( balls, modelViewTransform, numberOfRowsProperty, histogramModeProperty, galtonBoardRadioButtonProperty, options ) {
 
     assert && assert( options && options.hasOwnProperty( 'canvasBounds' ), 'No canvasBounds specified.' );
 
@@ -45,7 +45,7 @@ define( function( require ) {
     this.galtonBoardRadioButtonProperty = galtonBoardRadioButtonProperty; // valid values are 'ball', 'path', 'none'
 
     // @private
-    this.histogramRadioProperty = histogramRadioProperty;
+    this.histogramModeProperty = histogramModeProperty;
 
     // set the default ball radius using the largest possible radius, that is the minimum number of rows.
     var defaultNumberOfRows = PlinkoConstants.ROWS_RANGE.min;
@@ -99,7 +99,7 @@ define( function( require ) {
         this.balls.forEach( function( ball ) {
 
           // when we are in the histogram mode and the ball has been collected don't draw the ball
-          if ( !(self.histogramRadioProperty.value === 'counter' && ball.phase === PHASE_COLLECTED) ) {
+          if ( !(self.histogramModeProperty.value === 'counter' && ball.phase === PHASE_COLLECTED) ) {
             var ballViewPositionX = self.modelViewTransform.modelToViewX( ball.position.x );
             var ballViewPositionY = self.modelViewTransform.modelToViewY( ball.position.y );
 

@@ -54,8 +54,8 @@ define( function( require ) {
     var ballRadioButtonsControl = new BallRadioButtonsControl( model.galtonBoardRadioButtonProperty );
 
     // create the two radio buttons that can toggle between 'fraction and 'counter' mode
-    this.viewProperties.histogramRadioProperty.set( 'counter' );
-    var galtonBoardControl = new GaltonBoardControl( this.viewProperties.histogramRadioProperty, counterImage, fractionImage, 'counter', 'fraction', {
+    this.viewProperties.histogramModeProperty.set( 'counter' );
+    var galtonBoardControl = new GaltonBoardControl( this.viewProperties.histogramModeProperty, counterImage, fractionImage, 'counter', 'fraction', {
       buttonContentYMargin: 13
     } );
 
@@ -163,7 +163,7 @@ define( function( require ) {
      */
     reset: function() {
       PlinkoProbabilityCommonView.prototype.reset.call( this );
-      this.viewProperties.histogramRadioProperty.set( 'counter' );
+      this.viewProperties.histogramModeProperty.set( 'counter' );
     }
   } );
 } );
