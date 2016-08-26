@@ -1,7 +1,7 @@
 // Copyright 2015, University of Colorado Boulder
 
 /**
- * The main Plinko Probability Intro screen
+ * The 'Intro' screen
  *
  * @author Martin Veillette (Berea College)
  */

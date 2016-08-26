@@ -1,7 +1,7 @@
 // Copyright 2014-2015, University of Colorado Boulder
 
 /**
- * View for the 'Plinko Probability' lab screen.
+ * ScreenView for the 'Lab' screen
  *
  * @author Martin Veillette (Berea College)
  * @author Guillermo Ramos (Berea College)

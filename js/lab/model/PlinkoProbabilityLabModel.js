@@ -1,7 +1,7 @@
 // Copyright 2014-2015, University of Colorado Boulder
 
 /**
- * Model for Plinko Probability Lab
+ * Model for the 'Lab' screen
  *
  * @author Martin Veillette (Berea College)
  */

@@ -1,7 +1,7 @@
 // Copyright 2015, University of Colorado Boulder
 
 /**
- * The main Plinko Probability Lab screen
+ * The 'Lab' screen
  */
 define( function( require ) {
   'use strict';
