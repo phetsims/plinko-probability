@@ -24,7 +24,7 @@ define( function( require ) {
 
   // images
   var counterImage = require( 'image!PLINKO_PROBABILITY/counter.png' );
-  var containerImage = require( 'image!PLINKO_PROBABILITY/container.png' );
+  var cylinderImage = require( 'image!PLINKO_PROBABILITY/cylinder.png' );
 
   /**
    * Creates view for intro tab
@@ -49,7 +49,7 @@ define( function( require ) {
 
     // create the histogram radio buttons at the left of the histogram/cylinders
     this.viewProperties.histogramRadioProperty.set( 'cylinder' );
-    var galtonBoardControl = new GaltonBoardControl( this.viewProperties.histogramRadioProperty, counterImage, containerImage, 'counter', 'cylinder' );
+    var galtonBoardControl = new GaltonBoardControl( this.viewProperties.histogramRadioProperty, counterImage, cylinderImage, 'counter', 'cylinder' );
 
     // create play Panel
     var playPanel = new IntroPlayPanel( model.updateBallsToCreateNumber.bind( model ), model.ballModeProperty, model.isBallCapReachedProperty );
