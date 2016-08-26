@@ -29,7 +29,6 @@ define( function( require ) {
 
   // constants
   var HISTOGRAM_RADIO_VALUES = [ 'counter', 'cylinder', 'fraction' ]; // values for histogramRadioProperty
-  var BALL_RADIO_VALUES = [ 'oneBall', 'tenBalls', 'allBalls', 'continuous' ]; // values for ballRadioProperty
 
   /**
    * Creates common view for the tabs
@@ -65,7 +64,6 @@ define( function( require ) {
 
     var viewProperties = new PropertySet( {
       histogramRadio: 'cylinder', // {string} see HISTOGRAM_RADIO_VALUES
-      ballRadio: 'oneBall', // {string} see BALL_RADIO_VALUES
       expandedAccordionBox: true,
       isTheoreticalHistogramVisible: false,
       isSoundEnabled: false
@@ -74,9 +72,6 @@ define( function( require ) {
     // validate string values
     viewProperties.histogramRadioProperty.link( function( histogramRadio ) {
       assert && assert( _.contains( HISTOGRAM_RADIO_VALUES, histogramRadio ), 'invalid histogramRadio: ' + histogramRadio );
-    } );
-    viewProperties.ballRadioProperty.link( function( ballRadio ) {
-      assert && assert( _.contains( BALL_RADIO_VALUES, ballRadio ), 'invalid ballRadio: ' + ballRadio );
     } );
 
     this.viewProperties = viewProperties; // @private

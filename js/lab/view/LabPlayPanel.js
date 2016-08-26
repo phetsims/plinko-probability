@@ -28,11 +28,11 @@ define( function( require ) {
   /**
    * Responsible for the panel that contains the play/pause button and amount of balls to be released.
    * @param {PlinkoProbabilityCommonModel} model
-   * @param {Property.<String>} ballRadioProperty
+   * @param {Property.<string>} ballModeProperty
    * @param {Object} [options]
    * @constructor
    */
-  function LabPlayPanel( model, ballRadioProperty, options ) {
+  function LabPlayPanel( model, ballModeProperty, options ) {
 
     var self = this;
 
@@ -79,8 +79,8 @@ define( function( require ) {
 
     // create the vertical radio group buttons for the one ball and continuous mode.
     var ballModeRadioButtons = new VerticalAquaRadioButtonGroup( [
-      { node: oneBall, property: ballRadioProperty, value: 'oneBall' },
-      { node: continuous, property: ballRadioProperty, value: 'continuous' }
+      { node: oneBall, property: ballModeProperty, value: 'oneBall' },
+      { node: continuous, property: ballModeProperty, value: 'continuous' }
     ], {
       radius: 8,
       touchAreaXDilation: 5,
@@ -94,7 +94,7 @@ define( function( require ) {
         if ( model.isBallCapReached ) {
           model.isBallCapReachedProperty.notifyObserversStatic();
         } else {
-          if ( ballRadioProperty.value === 'continuous' ) {
+          if ( ballModeProperty.value === 'continuous' ) {
             self.togglePlayPauseButtonVisibility(); // alternates play/pause visual state of button
             model.isPlayingProperty.set( true ); //set isPlayingProperty to true signifying that balls are being dropped
           } else {
@@ -112,8 +112,8 @@ define( function( require ) {
       }
     } );
 
-    // link the ballRadioProperty to the state of the playPauseButton
-    ballRadioProperty.link( function() {
+    // link the ballModeProperty to the state of the playPauseButton
+    ballModeProperty.link( function() {
       model.isPlayingProperty.set( false ); // if the radio buttons change then we would like to change the playing property
       self.setPlayButtonVisible(); // show the play button
     } );
