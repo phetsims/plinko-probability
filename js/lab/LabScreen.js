@@ -11,8 +11,8 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
-  var PlinkoProbabilityLabModel = require( 'PLINKO_PROBABILITY/lab/model/PlinkoProbabilityLabModel' );
-  var PlinkoProbabilityLabView = require( 'PLINKO_PROBABILITY/lab/view/PlinkoProbabilityLabView' );
+  var LabModel = require( 'PLINKO_PROBABILITY/lab/model/LabModel' );
+  var LabScreenView = require( 'PLINKO_PROBABILITY/lab/view/LabScreenView' );
   var Screen = require( 'JOIST/Screen' );
 
   // strings
@@ -22,22 +22,25 @@ define( function( require ) {
   var homescreenIconImage = require( 'image!PLINKO_PROBABILITY/lab-homescreen-icon.png' );
   var navbarIconImage = require( 'image!PLINKO_PROBABILITY/lab-navbar-icon.png' );
 
-  function PlinkoProbabilityLabScreen() {
+  /**
+   * @constructor
+   */
+  function LabScreen() {
     Screen.call( this,
       plinkoProbabilityLabTitleScreenString,
       new Image( homescreenIconImage ),
       function() {
-        return new PlinkoProbabilityLabModel(); },
+        return new LabModel(); },
       function( model ) {
-        return new PlinkoProbabilityLabView( model ); }, {
+        return new LabScreenView( model ); }, {
         backgroundColor: PlinkoConstants.BACKGROUND_COLOR,
         navigationBarIcon: new Image( navbarIconImage )
       }
     );
   }
 
-  plinkoProbability.register( 'PlinkoProbabilityLabScreen', PlinkoProbabilityLabScreen );
+  plinkoProbability.register( 'LabScreen', LabScreen );
 
-  return inherit( Screen, PlinkoProbabilityLabScreen );
+  return inherit( Screen, LabScreen );
 } );
 

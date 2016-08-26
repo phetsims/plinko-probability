@@ -20,10 +20,9 @@ define( function( require ) {
   var PERSPECTIVE_TILT = Math.PI / 1.4; // in radians
 
   /**
-   * Main model of the first tab (intro tab) of the plinko probability simulation
    * @constructor
    */
-  function PlinkoProbabilityIntroModel() {
+  function IntroModel() {
 
     PlinkoProbabilityCommonModel.call( this );
     this.addProperty( 'galtonBoardRadioButton', 'ball' ); // acceptable value 'ball'
@@ -45,9 +44,9 @@ define( function( require ) {
     this.ballsToCreateNumber = 0; // @public {number} - an integer number representing the number of balls in the creation queue
   }
 
-  plinkoProbability.register( 'PlinkoProbabilityIntroModel', PlinkoProbabilityIntroModel );
+  plinkoProbability.register( 'IntroModel', IntroModel );
 
-  return inherit( PlinkoProbabilityCommonModel, PlinkoProbabilityIntroModel, {
+  return inherit( PlinkoProbabilityCommonModel, IntroModel, {
 
     /**
      * Time step function that is responsible for updating the position and status of the balls.

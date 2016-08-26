@@ -37,10 +37,10 @@ define( function( require ) {
   var HOPPER_TOP = 10;
 
   /**
-   * @param {PlinkoProbabilityLabModel} model
+   * @param {LabModel} model
    * @constructor
    */
-  function PlinkoProbabilityLabView( model ) {
+  function LabScreenView( model ) {
 
     PlinkoProbabilityCommonView.call( this, model );
 
@@ -152,9 +152,9 @@ define( function( require ) {
     } );
   }
 
-  plinkoProbability.register( 'PlinkoProbabilityLabView', PlinkoProbabilityLabView );
+  plinkoProbability.register( 'LabScreenView', LabScreenView );
 
-  return inherit( PlinkoProbabilityCommonView, PlinkoProbabilityLabView, {
+  return inherit( PlinkoProbabilityCommonView, LabScreenView, {
 
     /**
      * resets the histogram radio property to be counter

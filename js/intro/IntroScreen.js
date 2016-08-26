@@ -11,10 +11,10 @@ define( function( require ) {
   // modules
   var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var IntroModel = require( 'PLINKO_PROBABILITY/intro/model/IntroModel' );
+  var IntroScreenView = require( 'PLINKO_PROBABILITY/intro/view/IntroScreenView' );
   var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
-  var PlinkoProbabilityIntroModel = require( 'PLINKO_PROBABILITY/intro/model/PlinkoProbabilityIntroModel' );
-  var PlinkoProbabilityIntroView = require( 'PLINKO_PROBABILITY/intro/view/PlinkoProbabilityIntroView' );
   var Screen = require( 'JOIST/Screen' );
 
   // strings
@@ -24,19 +24,19 @@ define( function( require ) {
   var homescreenIconImage = require( 'image!PLINKO_PROBABILITY/intro-homescreen-icon.png' );
   var navbarIconImage = require( 'image!PLINKO_PROBABILITY/intro-navbar-icon.png' );
 
-  function PlinkoProbabilityIntroScreen() {
+  function IntroScreen() {
     Screen.call( this,
       plinkoProbabilityIntroTitleScreenString,
       new Image( homescreenIconImage ),
-      function() { return new PlinkoProbabilityIntroModel(); },
-      function( model ) { return new PlinkoProbabilityIntroView( model ); }, {
+      function() { return new IntroModel(); },
+      function( model ) { return new IntroScreenView( model ); }, {
         backgroundColor: PlinkoConstants.BACKGROUND_COLOR,
         navigationBarIcon: new Image( navbarIconImage )
       }
     );
   }
 
-  plinkoProbability.register( 'PlinkoProbabilityIntroScreen', PlinkoProbabilityIntroScreen );
+  plinkoProbability.register( 'IntroScreen', IntroScreen );
 
-  return inherit( Screen, PlinkoProbabilityIntroScreen );
+  return inherit( Screen, IntroScreen );
 } );

@@ -23,7 +23,7 @@ define( function( require ) {
    * Main model of the second tab (lab tab) of the plinko probability simulation
    * @constructor
    */
-  function PlinkoProbabilityLabModel() {
+  function LabModel() {
 
     var thisModel = this;
 
@@ -63,9 +63,9 @@ define( function( require ) {
     this.ballCreationTimeInterval = 0; // time we want to pass before we created a new ball
   }
 
-  plinkoProbability.register( 'PlinkoProbabilityLabModel', PlinkoProbabilityLabModel );
+  plinkoProbability.register( 'LabModel', LabModel );
 
-  return inherit( PlinkoProbabilityCommonModel, PlinkoProbabilityLabModel, {
+  return inherit( PlinkoProbabilityCommonModel, LabModel, {
 
     /**
      * time step function that is  responsible for creating and updating the position and status of the balls

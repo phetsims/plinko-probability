@@ -28,10 +28,10 @@ define( function( require ) {
 
   /**
    * Creates view for intro tab
-   * @param {PlinkoProbabilityIntroModel} model
+   * @param {IntroModel} model
    * @constructor
    */
-  function PlinkoProbabilityIntroView( model ) {
+  function IntroScreenView( model ) {
 
     PlinkoProbabilityCommonView.call( this, model );
 
@@ -112,7 +112,7 @@ define( function( require ) {
     numberBallsDisplay.right = playPanel.right;
   }
 
-  plinkoProbability.register( 'PlinkoProbabilityIntroView', PlinkoProbabilityIntroView );
+  plinkoProbability.register( 'IntroScreenView', IntroScreenView );
 
-  return inherit( PlinkoProbabilityCommonView, PlinkoProbabilityIntroView );
+  return inherit( PlinkoProbabilityCommonView, IntroScreenView );
 } );
