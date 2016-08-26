@@ -34,9 +34,10 @@ define( function( require ) {
   }
 
   SimLauncher.launch( function() {
-    var sim = new Sim( plinkoProbabilityTitleString, [ new PlinkoProbabilityIntroScreen(),
-      new PlinkoProbabilityLabScreen() ], simOptions );
+    var sim = new Sim(
+      plinkoProbabilityTitleString,
+      [ new PlinkoProbabilityIntroScreen(), new PlinkoProbabilityLabScreen() ],
+      simOptions );
     sim.start();
-
   } );
 } );
