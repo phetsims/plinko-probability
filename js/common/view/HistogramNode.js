@@ -67,6 +67,32 @@ define( function( require ) {
   // model histogram bounds
   var HISTOGRAM_BOUNDS = PlinkoConstants.HISTOGRAM_BOUNDS;
 
+  /**
+   * Constructor for Histogram Node
+   * @param {Property.<string>} histogramRadioProperty
+   * @param {PlinkoProbabilityCommonModel} model
+   * @param {ModelViewTransform2} modelViewTransform
+   * @param {Property.<boolean>} isTheoreticalHistogramVisibleProperty
+   * @constructor
+   */
+  function HistogramNode( histogramRadioProperty, model, modelViewTransform, isTheoreticalHistogramVisibleProperty ) {
+
+    Node.call( this, {
+        children: [
+          new BackgroundNode( modelViewTransform ),
+          new XAxisNode( model.histogram, model.numberOfRowsProperty, modelViewTransform ),
+          new YAxisNode( model.histogram, histogramRadioProperty, modelViewTransform ),
+          new XBannerNode( model.histogram, model.numberOfRowsProperty, histogramRadioProperty, modelViewTransform ),
+          new HistogramBarNode( model.histogram, model, modelViewTransform, isTheoreticalHistogramVisibleProperty )
+        ]
+      }
+    );
+  }
+
+  plinkoProbability.register( 'HistogramNode', HistogramNode );
+
+  inherit( Node, HistogramNode );
+
   //----------------------------------------------------------------------------------------
   // x-axis (horizontal)
   //----------------------------------------------------------------------------------------
@@ -209,7 +235,6 @@ define( function( require ) {
   //----------------------------------------------------------------------------------------
 
   /**
-   *
    * @param {Histogram} histogram
    * @param {Property.<number>} numberOfRowsProperty
    * @param {Property.<string>} histogramRadioProperty
@@ -519,7 +544,6 @@ define( function( require ) {
     }
 
     /**
-     *
      * @param {Array.<Rectangle>} rectanglesArray
      * @param {Array.<number>} bins
      */
@@ -553,29 +577,5 @@ define( function( require ) {
 
   inherit( Node, HistogramBarNode );
 
-  /**
-   * Constructor for Histogram Node
-   * @param {Property.<string>} histogramRadioProperty
-   * @param {PlinkoProbabilityCommonModel} model
-   * @param {ModelViewTransform2} modelViewTransform
-   * @param {Property.<boolean>} isTheoreticalHistogramVisibleProperty
-   * @constructor
-   */
-  function HistogramNode( histogramRadioProperty, model, modelViewTransform, isTheoreticalHistogramVisibleProperty ) {
-
-    Node.call( this, {
-        children: [
-          new BackgroundNode( modelViewTransform ),
-          new XAxisNode( model.histogram, model.numberOfRowsProperty, modelViewTransform ),
-          new YAxisNode( model.histogram, histogramRadioProperty, modelViewTransform ),
-          new XBannerNode( model.histogram, model.numberOfRowsProperty, histogramRadioProperty, modelViewTransform ),
-          new HistogramBarNode( model.histogram, model, modelViewTransform, isTheoreticalHistogramVisibleProperty )
-        ]
-      }
-    );
-  }
-
-  plinkoProbability.register( 'HistogramNode', HistogramNode );
-
-  return inherit( Node, HistogramNode );
+  return HistogramNode;
 } );
