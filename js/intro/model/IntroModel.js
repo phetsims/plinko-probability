@@ -103,7 +103,7 @@ define( function( require ) {
           break;
 
         default:
-          throw new Error( 'Unhandled galton Board Radio Button state: ' + this.galtonBoardRadioButton );
+          throw new Error( 'invalid ballMode: ' + this.ballMode );
       }
     },
 
