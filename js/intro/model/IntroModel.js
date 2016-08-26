@@ -86,18 +86,19 @@ define( function( require ) {
      * @private
      */
     updateBallsToCreateNumber: function() {
-      switch ( this.ballMode ) {
+      switch( this.ballMode ) {
+
         // add one ball to the queue
         case 'oneBall':
           this.ballsToCreateNumber++;
           break;
 
-          // add ten ball to the queue
+        // add ten ball to the queue
         case 'tenBalls':
           this.ballsToCreateNumber += 10;
           break;
 
-          // add max number of balls to the queue
+        // add max number of balls to the queue
         case 'allBalls':
           this.ballsToCreateNumber += MAX_BALL_NUMBER;
           break;
