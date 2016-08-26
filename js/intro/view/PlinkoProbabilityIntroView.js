@@ -13,7 +13,7 @@ define( function( require ) {
   // modules
   var CylindersBackNode = require( 'PLINKO_PROBABILITY/intro/view/CylindersBackNode' );
   var CylindersFrontNode = require( 'PLINKO_PROBABILITY/intro/view/CylindersFrontNode' );
-  var GaltonBoardCanvasNode = require( 'PLINKO_PROBABILITY/common/view/GaltonBoardCanvasNode' );
+  var GaltonBoardNode = require( 'PLINKO_PROBABILITY/common/view/GaltonBoardNode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var IntroPlayPanel = require( 'PLINKO_PROBABILITY/intro/view/IntroPlayPanel' );
   var NumberBallsDisplay = require( 'PLINKO_PROBABILITY/intro/view/NumberBallsDisplay' );
@@ -36,12 +36,12 @@ define( function( require ) {
     PlinkoProbabilityCommonView.call( this, model );
 
     // create the galton board (including the pegs)
-    var galtonBoardCanvasNode = new GaltonBoardCanvasNode( model.galtonBoard, model.numberOfRowsProperty, model.probabilityProperty, this.modelViewTransform, {
+    var galtonBoardNode = new GaltonBoardNode( model.galtonBoard, model.numberOfRowsProperty, model.probabilityProperty, this.modelViewTransform, {
       openingAngle: 0.01,
       canvasBounds: this.viewTriangularBoardBounds
     } );
 
-    this.galtonBoardCanvasNode = galtonBoardCanvasNode;
+    this.galtonBoardNode = galtonBoardNode; // @protected required by supertype
 
     // // create the view for the cylinders. The Back and Front node will be put on a different z-layer
     var cylindersBackNode = new CylindersBackNode( model.numberOfRowsProperty, this.modelViewTransform, model.cylinderInfo );
@@ -98,7 +98,7 @@ define( function( require ) {
     this.addChild( histogramRadioButtonsControl );
     this.addChild( playPanel );
     this.addChild( numberBallsDisplay );
-    this.addChild( galtonBoardCanvasNode );
+    this.addChild( galtonBoardNode );
     this.addChild( cylindersBackNode );
     this.moveChildToBack( cylindersBackNode );
     this.addChild( cylindersFrontNode );

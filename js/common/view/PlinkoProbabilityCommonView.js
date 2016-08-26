@@ -150,8 +150,8 @@ define( function( require ) {
     step: function( dt ) {
 
       // Checks if the galtonBoard has been initially painted and if not then paint it.
-      if ( !this.galtonBoardCanvasNode.isInitiallyPainted ) {
-        this.galtonBoardCanvasNode.invalidatePaint();
+      if ( !this.galtonBoardNode.isInitiallyPainted ) {
+        this.galtonBoardNode.invalidatePaint();
       }
       // update view on model step
       this.ballsLayerNode.invalidatePaint();

@@ -29,7 +29,7 @@ define( function( require ) {
    * @param {Object} [options]
    * @constructor
    */
-  function GaltonBoardCanvasNode( galtonBoard, numberOfRowsProperty, probabilityProperty, modelViewTransform, options ) {
+  function GaltonBoardNode( galtonBoard, numberOfRowsProperty, probabilityProperty, modelViewTransform, options ) {
 
     options = _.extend( {
       openingAngle: Math.PI / 2, //  opening angle of the pegs, it is used for the segment that is removed from a round peg.
@@ -123,9 +123,9 @@ define( function( require ) {
     }
   }
 
-  plinkoProbability.register( 'GaltonBoardCanvasNode', GaltonBoardCanvasNode );
+  plinkoProbability.register( 'GaltonBoardNode', GaltonBoardNode );
 
-  return inherit( CanvasNode, GaltonBoardCanvasNode, {
+  return inherit( CanvasNode, GaltonBoardNode, {
 
     /**
      * Function that returns the horizontal spacing between two pegs on the same row

@@ -13,7 +13,7 @@ define( function( require ) {
   // modules
   var BallRadioButtonsControl = require( 'PLINKO_PROBABILITY/lab/view/BallRadioButtonsControl' );
   var Dialog = require( 'JOIST/Dialog' );
-  var GaltonBoardCanvasNode = require( 'PLINKO_PROBABILITY/common/view/GaltonBoardCanvasNode' );
+  var GaltonBoardNode = require( 'PLINKO_PROBABILITY/common/view/GaltonBoardNode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var LabPlayPanel = require( 'PLINKO_PROBABILITY/lab/view/LabPlayPanel' );
   var MultiLineText = require( 'SCENERY_PHET/MultiLineText' );
@@ -47,8 +47,8 @@ define( function( require ) {
     var thisModel = this;
 
     // the galton board is different in the lab tab and in the intro tab. They need different options passed
-    var galtonBoardCanvasNode = new GaltonBoardCanvasNode( model.galtonBoard, model.numberOfRowsProperty, model.probabilityProperty, this.modelViewTransform, { canvasBounds: this.viewTriangularBoardBounds } );
-    this.galtonBoardCanvasNode = galtonBoardCanvasNode;
+    var galtonBoardNode = new GaltonBoardNode( model.galtonBoard, model.numberOfRowsProperty, model.probabilityProperty, this.modelViewTransform, { canvasBounds: this.viewTriangularBoardBounds } );
+    this.galtonBoardNode = galtonBoardNode; // @protected required by supertype
 
     // create three radio buttons next to the hopper
     var ballRadioButtonsControl = new BallRadioButtonsControl( model.galtonBoardRadioButtonProperty );
@@ -120,7 +120,7 @@ define( function( require ) {
     this.addChild( playPanel );
     this.addChild( sliderControlPanel );
     this.addChild( statisticsDisplayAccordionBox );
-    this.addChild( galtonBoardCanvasNode );
+    this.addChild( galtonBoardNode );
     this.addChild( pathsLayer );
 
     // layout the children
