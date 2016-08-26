@@ -13,11 +13,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
-  var Random = require( 'DOT/Random' );
   var Vector2 = require( 'DOT/Vector2' );
-
-  // convenience variables
-  var random = new Random();
 
   // constants
   var PHASE_INITIAL = 0;         // ball leaving hopper
@@ -26,7 +22,6 @@ define( function( require ) {
   var PHASE_COLLECTED = 3;       // ball lands in final position
 
   /**
-   *
    * @param {number} probability - number ranging from 0 to 1
    * @param {number} numberOfRows - an integer
    * @param {Array.<Object>} bins
@@ -88,7 +83,7 @@ define( function( require ) {
 
     // the path of the balls through the pegs of the galton board  is determined
     for ( rowNumber = 0; rowNumber <= numberOfRows; rowNumber++ ) {
-      direction = (random.random() > probability) ? 'left' : 'right';
+      direction = ( phet.joist.random.random() > probability) ? 'left' : 'right';
       peg = {
         rowNumber: rowNumber, // an integer starting at zero
         positionX: this.getPegPositionX( rowNumber, columnNumber, numberOfRows ),

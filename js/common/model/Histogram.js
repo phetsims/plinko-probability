@@ -14,16 +14,11 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
-  var Random = require( 'DOT/Random' );
 
   // constants
   var BOUNDS = PlinkoConstants.HISTOGRAM_BOUNDS;
 
-  // convenience variable
-  var random = new Random();
-
   /**
-   *
    * @param {Property.<number>} numberOfRowsProperty
    * @constructor
    */
@@ -86,7 +81,7 @@ define( function( require ) {
         var columnNumber = 0;
         // the path of the balls through the pegs of the galton board  is determined for the prepopulated balls only
         for ( var rowNumber = 0; rowNumber <= this.numberOfRowsProperty.value; rowNumber++ ) {
-          var direction = ( random.random() > 0.5 ) ? 'left' : 'right';
+          var direction = ( phet.joist.random.random() > 0.5 ) ? 'left' : 'right';
 
           // increment the column number of the next row, but not for the last row
           if ( rowNumber < this.numberOfRowsProperty.value ) {
