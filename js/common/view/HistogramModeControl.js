@@ -20,14 +20,14 @@ define( function( require ) {
 
   /**
    * @param {Property.<string>} histogramModeProperty
-   * @param {HTMLImageElement} topImage - represents top icon to be created
-   * @param {HTMLImageElement} bottomImage - represents bottom icon to be created
-   * @param {string} topValue - represents value of top icon image value
-   * @param {string} bottomValue - represents value of bottom icon image value
+   * @param {string} topValue - value associated with top radio button
+   * @param {HTMLImageElement} topImage - image used to create icon for top radio button
+   * @param {string} bottomValue - value associated with bottom radio button
+   * @param {HTMLImageElement} bottomImage - image used to create icon for bottom radio button
    * @param {Object} [options]
    * @constructor
    */
-  function HistogramModeControl( histogramModeProperty, topImage, bottomImage, topValue, bottomValue, options ) {
+  function HistogramModeControl( histogramModeProperty, topValue, topImage, bottomValue, bottomImage, options ) {
 
     options = _.extend( {
       spacing: 5, // vertical separation of the buttons

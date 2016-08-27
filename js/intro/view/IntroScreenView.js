@@ -49,7 +49,7 @@ define( function( require ) {
 
     // create the histogram radio buttons at the left of the histogram/cylinders
     this.viewProperties.histogramModeProperty.set( 'cylinder' );
-    var histogramModeControl = new HistogramModeControl( this.viewProperties.histogramModeProperty, counterImage, cylinderImage, 'counter', 'cylinder' );
+    var histogramModeControl = new HistogramModeControl( this.viewProperties.histogramModeProperty, 'counter', counterImage, 'cylinder', cylinderImage );
 
     // create play Panel
     var playPanel = new IntroPlayPanel( model.updateBallsToCreateNumber.bind( model ), model.ballModeProperty, model.isBallCapReachedProperty );
