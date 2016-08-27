@@ -10,9 +10,9 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var CanvasNode = require( 'SCENERY/nodes/CanvasNode' );
   var Circle = require( 'SCENERY/nodes/Circle' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var CanvasNode = require( 'SCENERY/nodes/CanvasNode' );
   var Path = require( 'SCENERY/nodes/Path' );
   var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
