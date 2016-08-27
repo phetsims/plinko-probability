@@ -1,7 +1,7 @@
 // Copyright 2014-2016, University of Colorado Boulder
 
 /**
- * Common Model (base type) for Plinko Probability
+ * Common model (base type) for Plinko Probability
  *
  * @author Martin Veillette (Berea College)
  */
