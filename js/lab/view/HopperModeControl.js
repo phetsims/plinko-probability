@@ -21,6 +21,9 @@ define( function( require ) {
   var noneString = require( 'string!PLINKO_PROBABILITY/none' );
   var pathString = require( 'string!PLINKO_PROBABILITY/path' );
 
+  // constants
+  var LABEL_OPTIONS = { font: new PhetFont( 20 ), maxWidth: 175 };
+
   /**
    * @param {Property.<string>} hopperModeProperty
    * @param {Object} [options]
@@ -37,13 +40,11 @@ define( function( require ) {
       touchAreaXDilation: 10
     }, options );
 
-    var fontOptions = { font: new PhetFont( 20 ), maxWidth: 175 };
-
     // create the radio buttons
     var showRadioButtons = new VerticalAquaRadioButtonGroup( [
-      { node: new Text( ballString, fontOptions ), property: hopperModeProperty, value: 'ball' },
-      { node: new Text( pathString, fontOptions ), property: hopperModeProperty, value: 'path' },
-      { node: new Text( noneString, fontOptions ), property: hopperModeProperty, value: 'none' }
+      { node: new Text( ballString, LABEL_OPTIONS ), property: hopperModeProperty, value: 'ball' },
+      { node: new Text( pathString, LABEL_OPTIONS ), property: hopperModeProperty, value: 'path' },
+      { node: new Text( noneString, LABEL_OPTIONS ), property: hopperModeProperty, value: 'none' }
     ], options );
 
     this.addChild( showRadioButtons );
