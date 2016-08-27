@@ -92,13 +92,16 @@ define( function( require ) {
     // no need to unlink since it is present for the lifetime of the simulation
     // create a lazyLink rather than a link since oldProbability is null at first.
     probabilityProperty.lazyLink( function( newProbability, oldProbability ) {
-      // rotating the underlying pegPath
+
+      // rotate the underlying pegPath
       var newAngle = newProbability * options.rangeRotationAngle;
       var oldAngle = oldProbability * options.rangeRotationAngle;
       var changeAngle = newAngle - oldAngle;
       pegPath.rotateAround( pegPath.center, changeAngle );
+
       // recreate the image of the peg
       pegPathToImage();
+
       // update this canvas
       self.invalidatePaint();
     } );
