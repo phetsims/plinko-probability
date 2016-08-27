@@ -37,7 +37,7 @@ define( function( require ) {
       touchAreaXDilation: 10
     }, options );
 
-    var fontOptions = { font: new PhetFont( 20 ), maxWidth: 250 };
+    var fontOptions = { font: new PhetFont( 20 ), maxWidth: 175 };
 
     // create the radio buttons
     var showRadioButtons = new VerticalAquaRadioButtonGroup( [
