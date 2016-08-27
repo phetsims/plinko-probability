@@ -29,11 +29,11 @@ define( function( require ) {
 
   /**
    * @param {Property.<number>} rowsProperty
-   * @param {Property.<number>} binaryProbabilityProperty
+   * @param {Property.<number>} probabilityProperty
    * @param {Object} [options]
    * @constructor
    */
-  function SliderControlPanel( rowsProperty, binaryProbabilityProperty, options ) {
+  function SliderControlPanel( rowsProperty, probabilityProperty, options ) {
 
     options = _.extend( {
       align: 'center',
@@ -72,7 +72,7 @@ define( function( require ) {
     // major tick labels for slider that controls binary probability
     assert && assert( Util.isInteger( PlinkoConstants.BINARY_PROBABILITY_RANGE.min ), 'integer required: ' + PlinkoConstants.BINARY_PROBABILITY_RANGE.min );
     assert && assert( Util.isInteger( PlinkoConstants.BINARY_PROBABILITY_RANGE.max ), 'integer required: ' + PlinkoConstants.BINARY_PROBABILITY_RANGE.max );
-    var binaryProbabilityMajorTicks = [ {
+    var probabilityMajorTicks = [ {
       value: PlinkoConstants.BINARY_PROBABILITY_RANGE.min,
       label: new Text( PlinkoConstants.BINARY_PROBABILITY_RANGE.min, tickLabelOptions )
     }, {
@@ -81,7 +81,7 @@ define( function( require ) {
     } ];
 
     // control for the binary probability
-    var binaryProbabilityControl = new NumberControl( binaryProbabilityString, binaryProbabilityProperty, PlinkoConstants.BINARY_PROBABILITY_RANGE, {
+    var probabilityControl = new NumberControl( binaryProbabilityString, probabilityProperty, PlinkoConstants.BINARY_PROBABILITY_RANGE, {
       layoutFunction: NumberControl.createLayoutFunction3(),
       titleFont: PlinkoConstants.PANEL_FONT,
       titleMaxWidth: SLIDER_TRACK_SIZE.width,
@@ -89,14 +89,14 @@ define( function( require ) {
       decimalPlaces: 2,
       delta: 0.01,
       trackSize: SLIDER_TRACK_SIZE,
-      majorTicks: binaryProbabilityMajorTicks
+      majorTicks: probabilityMajorTicks
     } );
 
     var contentNode = new VBox( {
       resize: false, // prevent sliders from causing a resize when thumb is at min or max
       align: 'center',
       spacing: 25,
-      children: [ rowsControl, binaryProbabilityControl ]
+      children: [ rowsControl, probabilityControl ]
     } );
 
     Panel.call( this, contentNode, options );

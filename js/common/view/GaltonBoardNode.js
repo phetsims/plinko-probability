@@ -33,7 +33,7 @@ define( function( require ) {
 
     options = _.extend( {
       openingAngle: Math.PI / 2, //  opening angle of the pegs, it is used for the segment that is removed from a round peg.
-      rangeRotationAngle: Math.PI / 2 // range of rotation of the peg, when going from binaryProbability 0 to 1.
+      rangeRotationAngle: Math.PI / 2 // range of rotation of the peg, when going from probability 0 to 1.
     }, options );
 
     var self = this;
