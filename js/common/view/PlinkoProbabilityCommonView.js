@@ -140,7 +140,7 @@ define( function( require ) {
     // @protected needed to layout the radioButtons of each tab
     this.histogramModeControlBottom = eraserButton.top - 16;
     this.histogramModeControlLeft = eraserButton.left;
-    resetAllButton.right = this.layoutBounds.maxX - 10;
+    resetAllButton.right = this.layoutBounds.maxX - PlinkoConstants.PANEL_RIGHT_PADDING;
     resetAllButton.bottom = this.layoutBounds.maxY - 10;
     soundToggleButton.right = resetAllButton.left - 20;
     soundToggleButton.centerY = resetAllButton.centerY;
