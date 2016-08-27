@@ -85,7 +85,9 @@ define( function( require ) {
       titleXMargin: 5,
       contentXMargin: 8,
       contentYMargin: 10,
-      minWidth: 0
+      minWidth: 0,
+      buttonTouchAreaXDilation: 10,
+      buttonTouchAreaYDilation: 10
     }, options );
 
     // create the EquationNode(s) that will populate the panel
