@@ -19,12 +19,12 @@ define( function( require ) {
   var LabPlayPanel = require( 'PLINKO_PROBABILITY/lab/view/LabPlayPanel' );
   var MultiLineText = require( 'SCENERY_PHET/MultiLineText' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var PegControls = require( 'PLINKO_PROBABILITY/lab/view/PegControls' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var PlinkoProbabilityCommonView = require( 'PLINKO_PROBABILITY/common/view/PlinkoProbabilityCommonView' );
   var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
   var PlinkoProbabilityQueryParameters = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityQueryParameters' );
-  var SliderControlPanel = require( 'PLINKO_PROBABILITY/lab/view/SliderControlPanel' );
   var StatisticsAccordionBox = require( 'PLINKO_PROBABILITY/lab/view/StatisticsAccordionBox' );
   var TrajectoryPath = require( 'PLINKO_PROBABILITY/lab/view/TrajectoryPath' );
 
@@ -73,8 +73,8 @@ define( function( require ) {
     // create play Panel
     var playPanel = new LabPlayPanel( model, model.ballModeProperty, { minWidth: statisticsAccordionBox.width } );
 
-    // create slider panel that can modify properties of the galton board (number of rows and the binary probability)
-    var sliderControlPanel = new SliderControlPanel( model.numberOfRowsProperty, model.probabilityProperty, {
+    // controls that modify the pegs in the galton board
+    var pegControls = new PegControls( model.numberOfRowsProperty, model.probabilityProperty, {
       minWidth: statisticsAccordionBox.width
     } );
 
@@ -118,7 +118,7 @@ define( function( require ) {
     this.addChild( histogramModeControl );
     this.addChild( hopperModeControl );
     this.addChild( playPanel );
-    this.addChild( sliderControlPanel );
+    this.addChild( pegControls );
     this.addChild( statisticsAccordionBox );
     this.addChild( galtonBoardNode );
     this.addChild( pathsLayer );
@@ -130,9 +130,9 @@ define( function( require ) {
     playPanel.top = 10;
     hopperModeControl.left = this.hopperRight + 47; // dependent on hopper position
     hopperModeControl.top = HOPPER_TOP;
-    sliderControlPanel.top = playPanel.bottom + PlinkoConstants.PANEL_VERTICAL_SPACING;
-    sliderControlPanel.right = playPanel.right;
-    statisticsAccordionBox.top = sliderControlPanel.bottom + PlinkoConstants.PANEL_VERTICAL_SPACING;
+    pegControls.top = playPanel.bottom + PlinkoConstants.PANEL_VERTICAL_SPACING;
+    pegControls.right = playPanel.right;
+    statisticsAccordionBox.top = pegControls.bottom + PlinkoConstants.PANEL_VERTICAL_SPACING;
     statisticsAccordionBox.right = playPanel.right;
 
     // no need to dispose of this link

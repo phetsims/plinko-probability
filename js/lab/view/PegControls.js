@@ -1,7 +1,7 @@
 // Copyright 2014-2015, University of Colorado Boulder
 
 /**
- * Control panel rows and binary probability.
+ * Controls that affect the pegs in the Galton board.
  *
  * @author Martin Veillette (Berea College)
  * @author Chris Malley (PixelZoom, Inc.)
@@ -33,7 +33,7 @@ define( function( require ) {
    * @param {Object} [options]
    * @constructor
    */
-  function SliderControlPanel( rowsProperty, probabilityProperty, options ) {
+  function PegControls( rowsProperty, probabilityProperty, options ) {
 
     options = _.extend( {
       align: 'center',
@@ -102,8 +102,8 @@ define( function( require ) {
     Panel.call( this, contentNode, options );
   }
 
-  plinkoProbability.register( 'SliderControlPanel', SliderControlPanel );
+  plinkoProbability.register( 'PegControls', PegControls );
 
-  return inherit( Panel, SliderControlPanel );
+  return inherit( Panel, PegControls );
 } );
 
