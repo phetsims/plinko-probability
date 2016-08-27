@@ -25,7 +25,7 @@ define( function( require ) {
   var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
   var PlinkoProbabilityQueryParameters = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityQueryParameters' );
   var SliderControlPanel = require( 'PLINKO_PROBABILITY/lab/view/SliderControlPanel' );
-  var StatisticsDisplayAccordionBox = require( 'PLINKO_PROBABILITY/lab/view/StatisticsDisplayAccordionBox' );
+  var StatisticsAccordionBox = require( 'PLINKO_PROBABILITY/lab/view/StatisticsAccordionBox' );
   var TrajectoryPath = require( 'PLINKO_PROBABILITY/lab/view/TrajectoryPath' );
 
   // images
@@ -60,7 +60,7 @@ define( function( require ) {
     } );
 
     // create an accordion box that displays sample and theoretical statistics related to the histogram
-    var statisticsDisplayAccordionBox = new StatisticsDisplayAccordionBox(
+    var statisticsAccordionBox = new StatisticsAccordionBox(
       model,
       this.viewProperties.isTheoreticalHistogramVisibleProperty,
       this.viewProperties.expandedAccordionBoxProperty );
@@ -71,11 +71,11 @@ define( function( require ) {
     }
 
     // create play Panel
-    var playPanel = new LabPlayPanel( model, model.ballModeProperty, { minWidth: statisticsDisplayAccordionBox.width } );
+    var playPanel = new LabPlayPanel( model, model.ballModeProperty, { minWidth: statisticsAccordionBox.width } );
 
     // create slider panel that can modify properties of the galton board (number of rows and the binary probability)
     var sliderControlPanel = new SliderControlPanel( model.numberOfRowsProperty, model.probabilityProperty, {
-      minWidth: statisticsDisplayAccordionBox.width
+      minWidth: statisticsAccordionBox.width
     } );
 
     // create pathsLayer to keep all the TrajectoryPath
@@ -119,7 +119,7 @@ define( function( require ) {
     this.addChild( hopperModeControl );
     this.addChild( playPanel );
     this.addChild( sliderControlPanel );
-    this.addChild( statisticsDisplayAccordionBox );
+    this.addChild( statisticsAccordionBox );
     this.addChild( galtonBoardNode );
     this.addChild( pathsLayer );
 
@@ -132,8 +132,8 @@ define( function( require ) {
     hopperModeControl.top = HOPPER_TOP;
     sliderControlPanel.top = playPanel.bottom + PlinkoConstants.PANEL_VERTICAL_SPACING;
     sliderControlPanel.right = playPanel.right;
-    statisticsDisplayAccordionBox.top = sliderControlPanel.bottom + PlinkoConstants.PANEL_VERTICAL_SPACING;
-    statisticsDisplayAccordionBox.right = playPanel.right;
+    statisticsAccordionBox.top = sliderControlPanel.bottom + PlinkoConstants.PANEL_VERTICAL_SPACING;
+    statisticsAccordionBox.right = playPanel.right;
 
     // no need to dispose of this link
     model.isBallCapReachedProperty.lazyLink( function( isBallCapReached ) {
