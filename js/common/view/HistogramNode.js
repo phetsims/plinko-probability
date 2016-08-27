@@ -69,7 +69,7 @@ define( function( require ) {
 
   /**
    * Constructor for Histogram Node
-   * @param {Property.<string>} histogramModeProperty
+   * @param {Property.<string>} histogramModeProperty - see PlinkoProbabilityCommonView
    * @param {PlinkoProbabilityCommonModel} model
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Property.<boolean>} isTheoreticalHistogramVisibleProperty

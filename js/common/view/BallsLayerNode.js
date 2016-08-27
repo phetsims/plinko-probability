@@ -22,8 +22,8 @@ define( function( require ) {
    * @param {Ball[]} balls - an array of model Ball
    * @param {ModelViewTransform2} modelViewTransform - model to view transform
    * @param {Property.<number>} numberOfRowsProperty - number of rows
-   * @param {Property.<string>} histogramModeProperty
-   * @param {Property.<string>} hopperModeProperty'
+   * @param {Property.<string>} histogramModeProperty - see PlinkoProbabilityCommonView
+   * @param {Property.<string>} hopperModeProperty - see PlinkoProbabilityCommonModel
    * @param {Object} options - must contain a canvasBounds attribute of type Bounds2
    * @constructor
    */

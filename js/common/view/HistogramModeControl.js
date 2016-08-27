@@ -19,7 +19,7 @@ define( function( require ) {
   var ICON_WIDTH = 35;
 
   /**
-   * @param {Property.<string>} histogramModeProperty
+   * @param {Property.<string>} histogramModeProperty - see PlinkoProbabilityCommonView
    * @param {string} topValue - value associated with top radio button
    * @param {HTMLImageElement} topImage - image used to create icon for top radio button
    * @param {string} bottomValue - value associated with bottom radio button

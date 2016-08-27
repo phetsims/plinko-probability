@@ -25,7 +25,7 @@ define( function( require ) {
   var LABEL_OPTIONS = { font: new PhetFont( 20 ), maxWidth: 175 };
 
   /**
-   * @param {Property.<string>} hopperModeProperty
+   * @param {Property.<string>} hopperModeProperty - see PlinkoProbabilityCommonModel
    * @param {Object} [options]
    * @constructor
    */
