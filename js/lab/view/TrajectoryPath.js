@@ -1,7 +1,7 @@
 // Copyright 2015, University of Colorado Boulder
 
 /**
- * Scenery view for the path line  followed by a ball on the Galton board.
+ * Scenery view for the path line followed by a ball on the Galton board.
  *
  * @author Martin Veillette (Berea College)
  */
