@@ -13,7 +13,7 @@ define( function( require ) {
   var EquationNode = require( 'PLINKO_PROBABILITY/common/view/EquationNode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Panel = require( 'SUN/Panel' );
-  var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
+  var PlinkoProbabilityConstants = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityConstants' );
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
 
   // strings
@@ -33,10 +33,10 @@ define( function( require ) {
     }, options );
 
     var optionsTitle = {
-      leftHandSideFont: PlinkoConstants.TEXT_FONT_BOLD,
-      leftHandSideFill: PlinkoConstants.SAMPLE_FONT_COLOR,
-      rightHandSideFont: PlinkoConstants.TEXT_FONT_BOLD,
-      rightHandSideFill: PlinkoConstants.SAMPLE_FONT_COLOR,
+      leftHandSideFont: PlinkoProbabilityConstants.TEXT_FONT_BOLD,
+      leftHandSideFill: PlinkoProbabilityConstants.SAMPLE_FONT_COLOR,
+      rightHandSideFont: PlinkoProbabilityConstants.TEXT_FONT_BOLD,
+      rightHandSideFill: PlinkoProbabilityConstants.SAMPLE_FONT_COLOR,
       maxDecimalPlaces: 0
     };
 

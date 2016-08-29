@@ -10,7 +10,7 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
+  var PlinkoProbabilityConstants = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityConstants' );
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var Vector2 = require( 'DOT/Vector2' );
 
@@ -23,14 +23,14 @@ define( function( require ) {
     var galtonBoard = this;
 
     // @public
-    this.bounds = PlinkoConstants.GALTON_BOARD_BOUNDS;
+    this.bounds = PlinkoProbabilityConstants.GALTON_BOARD_BOUNDS;
 
     var rowNumber; // {number} a non negative integer
     var columnNumber; // {number} a non negative  integer
     this.pegs = []; // @public (read-only)
 
     // creates all the pegs (up to the maximum number of possible rows)
-    for ( rowNumber = 0; rowNumber <= PlinkoConstants.ROWS_RANGE.max; rowNumber++ ) {
+    for ( rowNumber = 0; rowNumber <= PlinkoProbabilityConstants.ROWS_RANGE.max; rowNumber++ ) {
       for ( columnNumber = 0; columnNumber <= rowNumber; columnNumber++ ) {
         var peg = {
           rowNumber: rowNumber, // an integer starting at zero
@@ -68,7 +68,7 @@ define( function( require ) {
      * @returns {Vector2}
      */
     getPosition: function( rowNumber, columnNumber, numberOfRows ) {
-      return new Vector2( -rowNumber / 2 + columnNumber, -rowNumber - 2 * PlinkoConstants.PEG_HEIGHT_FRACTION_OFFSET ).divideScalar( numberOfRows + 1 );
+      return new Vector2( -rowNumber / 2 + columnNumber, -rowNumber - 2 * PlinkoProbabilityConstants.PEG_HEIGHT_FRACTION_OFFSET ).divideScalar( numberOfRows + 1 );
     },
 
     /**
@@ -105,7 +105,7 @@ define( function( require ) {
      * @returns {number}
      */
     getPositionY: function( rowNumber, columnNumber, numberOfRows ) {
-      return ( -rowNumber - 2 * PlinkoConstants.PEG_HEIGHT_FRACTION_OFFSET ) / ( numberOfRows + 1 );
+      return ( -rowNumber - 2 * PlinkoProbabilityConstants.PEG_HEIGHT_FRACTION_OFFSET ) / ( numberOfRows + 1 );
     },
 
     /**

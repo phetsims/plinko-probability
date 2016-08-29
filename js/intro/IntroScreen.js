@@ -13,7 +13,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var IntroModel = require( 'PLINKO_PROBABILITY/intro/model/IntroModel' );
   var IntroScreenView = require( 'PLINKO_PROBABILITY/intro/view/IntroScreenView' );
-  var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
+  var PlinkoProbabilityConstants = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityConstants' );
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var Screen = require( 'JOIST/Screen' );
 
@@ -30,7 +30,7 @@ define( function( require ) {
       new Image( homescreenIconImage ),
       function() { return new IntroModel(); },
       function( model ) { return new IntroScreenView( model ); }, {
-        backgroundColor: PlinkoConstants.BACKGROUND_COLOR,
+        backgroundColor: PlinkoProbabilityConstants.BACKGROUND_COLOR,
         navigationBarIcon: new Image( navbarIconImage )
       }
     );

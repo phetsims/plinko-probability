@@ -13,7 +13,7 @@ define( function( require ) {
   // modules
   var Ball = require( 'PLINKO_PROBABILITY/common/model/Ball' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
+  var PlinkoProbabilityConstants = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityConstants' );
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
 
   /**
@@ -27,7 +27,7 @@ define( function( require ) {
 
     Ball.call( this, probability, numberOfRows, bins );
 
-    var bounds = PlinkoConstants.HISTOGRAM_BOUNDS;
+    var bounds = PlinkoProbabilityConstants.HISTOGRAM_BOUNDS;
 
     //describes the minimum y position the ball will take
     var yMin = bounds.maxY - 6 * this.ballRadius; // let the ball fall a small distance below the top of the histogram.

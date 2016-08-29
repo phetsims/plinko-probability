@@ -14,7 +14,7 @@ define( function( require ) {
   var Circle = require( 'SCENERY/nodes/Circle' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Path = require( 'SCENERY/nodes/Path' );
-  var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
+  var PlinkoProbabilityConstants = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityConstants' );
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var RadialGradient = require( 'SCENERY/util/RadialGradient' );
   var Shape = require( 'KITE/Shape' );
@@ -54,12 +54,12 @@ define( function( require ) {
     var leftArcAngle = -Math.PI / 2 + options.rangeRotationAngle * (probabilityProperty.value - 0.5) - options.openingAngle / 2;
     var rightArcAngle = -Math.PI / 2 + options.rangeRotationAngle * (probabilityProperty.value - 0.5) + options.openingAngle / 2;
 
-    var pegRadius = PlinkoConstants.PEG_RADIUS * 26 / 5;
+    var pegRadius = PlinkoProbabilityConstants.PEG_RADIUS * 26 / 5;
     // create the shape of the peg, i.e. a disk with a segment removed, the segment removed spans an angle of options.openingAngle
     var pegShape = new Shape().arc( 0, 0, pegRadius, leftArcAngle, rightArcAngle, true );
 
     // create a peg Path and a peg Shadow
-    var pegPath = new Path( pegShape, { fill: PlinkoConstants.PEG_COLOR } );
+    var pegPath = new Path( pegShape, { fill: PlinkoProbabilityConstants.PEG_COLOR } );
     var pegShadow = new Circle( 1.4 * pegRadius, {
       fill: new RadialGradient(
         pegRadius * 0.3,
@@ -163,7 +163,7 @@ define( function( require ) {
       var offsetVector = self.modelViewTransform.modelToViewDelta( new Vector2( pegSpacing * 0.08, -pegSpacing * 0.24 ) );
 
       // scale factor for the pegs;
-      var scale = PlinkoConstants.ROWS_RANGE.min / self.numberOfRowsProperty.value;
+      var scale = PlinkoProbabilityConstants.ROWS_RANGE.min / self.numberOfRowsProperty.value;
 
       // galtonBoard.pegs contains all the model pegs (even pegs that that are currently invisible)
       this.galtonBoard.pegs.forEach( function( peg ) {

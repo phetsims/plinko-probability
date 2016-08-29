@@ -11,7 +11,7 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var Path = require( 'SCENERY/nodes/Path' );
-  var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
+  var PlinkoProbabilityConstants = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityConstants' );
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var Shape = require( 'KITE/Shape' );
 
@@ -24,7 +24,7 @@ define( function( require ) {
   function TrajectoryPath( ball, modelViewTransform ) {
 
     var pathOptions = {
-      stroke: PlinkoConstants.BALL_COLOR,
+      stroke: PlinkoProbabilityConstants.BALL_COLOR,
       lineWidth: 2
     };
 

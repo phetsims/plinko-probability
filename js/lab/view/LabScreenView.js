@@ -23,7 +23,7 @@ define( function( require ) {
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var PlinkoProbabilityCommonView = require( 'PLINKO_PROBABILITY/common/view/PlinkoProbabilityCommonView' );
-  var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
+  var PlinkoProbabilityConstants = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityConstants' );
   var PlinkoProbabilityQueryParameters = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityQueryParameters' );
   var StatisticsAccordionBox = require( 'PLINKO_PROBABILITY/lab/view/StatisticsAccordionBox' );
   var TrajectoryPath = require( 'PLINKO_PROBABILITY/lab/view/TrajectoryPath' );
@@ -126,13 +126,13 @@ define( function( require ) {
     // layout the children
     histogramModeControl.bottom = this.histogramModeControlBottom;
     histogramModeControl.left = this.histogramModeControlLeft;
-    playPanel.right = this.layoutBounds.maxX - PlinkoConstants.PANEL_RIGHT_PADDING; // determines slider control panel and statistical display position
+    playPanel.right = this.layoutBounds.maxX - PlinkoProbabilityConstants.PANEL_RIGHT_PADDING; // determines slider control panel and statistical display position
     playPanel.top = 10;
     hopperModeControl.left = this.hopperRight + 47; // dependent on hopper position
     hopperModeControl.top = HOPPER_TOP;
-    pegControls.top = playPanel.bottom + PlinkoConstants.PANEL_VERTICAL_SPACING;
+    pegControls.top = playPanel.bottom + PlinkoProbabilityConstants.PANEL_VERTICAL_SPACING;
     pegControls.right = playPanel.right;
-    statisticsAccordionBox.top = pegControls.bottom + PlinkoConstants.PANEL_VERTICAL_SPACING;
+    statisticsAccordionBox.top = pegControls.bottom + PlinkoProbabilityConstants.PANEL_VERTICAL_SPACING;
     statisticsAccordionBox.right = playPanel.right;
 
     // no need to dispose of this link

@@ -13,12 +13,12 @@ define( function( require ) {
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Path = require( 'SCENERY/nodes/Path' );
-  var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
+  var PlinkoProbabilityConstants = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityConstants' );
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var Shape = require( 'KITE/Shape' );
 
   // constants
-  var BOUNDS = PlinkoConstants.HISTOGRAM_BOUNDS;
+  var BOUNDS = PlinkoProbabilityConstants.HISTOGRAM_BOUNDS;
 
   /**
    * Creation of sides of cylinder
@@ -49,7 +49,7 @@ define( function( require ) {
       .close();
 
     // create the linear fill gradient for the cylinder
-    var sideFill = new LinearGradient( -ellipseWidth / 2, 0, ellipseWidth / 2, 0 ).addColorStop( 0.0, PlinkoConstants.CYLINDER_BASE_COLOR.colorUtilsDarker( 0.7 ) ).addColorStop( 0.5, PlinkoConstants.CYLINDER_BASE_COLOR ).addColorStop( 1, PlinkoConstants.CYLINDER_BASE_COLOR.colorUtilsBrighter( 0.5 ) );
+    var sideFill = new LinearGradient( -ellipseWidth / 2, 0, ellipseWidth / 2, 0 ).addColorStop( 0.0, PlinkoProbabilityConstants.CYLINDER_BASE_COLOR.colorUtilsDarker( 0.7 ) ).addColorStop( 0.5, PlinkoProbabilityConstants.CYLINDER_BASE_COLOR ).addColorStop( 1, PlinkoProbabilityConstants.CYLINDER_BASE_COLOR.colorUtilsBrighter( 0.5 ) );
 
     var sideLayerNode = new Node();
     this.addChild( sideLayerNode );
@@ -65,7 +65,7 @@ define( function( require ) {
         // create and add the path for side of the cylinder
         var side = new Path( sideShape, {
           fill: sideFill,
-          stroke: PlinkoConstants.SIDE_CYLINDER_STROKE_COLOR,
+          stroke: PlinkoProbabilityConstants.SIDE_CYLINDER_STROKE_COLOR,
           centerX: x,
           top: y + verticalOffset + ellipseHeight / 2
         } );

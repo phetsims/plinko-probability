@@ -15,7 +15,7 @@ define( function( require ) {
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var RangeWithValue = require( 'DOT/RangeWithValue' );
 
-  var PlinkoConstants = {
+  var PlinkoProbabilityConstants = {
 
     BACKGROUND_COLOR: 'rgb(186,231,249)',
 
@@ -78,7 +78,7 @@ define( function( require ) {
 
   };
 
-  plinkoProbability.register( 'PlinkoConstants', PlinkoConstants );
+  plinkoProbability.register( 'PlinkoProbabilityConstants', PlinkoProbabilityConstants );
 
-  return PlinkoConstants;
+  return PlinkoProbabilityConstants;
 } );

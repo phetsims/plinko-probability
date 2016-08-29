@@ -14,7 +14,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var ObservableArray = require( 'AXON/ObservableArray' );
   var PropertySet = require( 'AXON/PropertySet' );
-  var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
+  var PlinkoProbabilityConstants = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityConstants' );
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
 
   // constants
@@ -31,7 +31,7 @@ define( function( require ) {
     PropertySet.call( this, {
 
       // {number} this can be a number between 0 and 1
-      probability: PlinkoConstants.BINARY_PROBABILITY_RANGE.defaultValue,
+      probability: PlinkoProbabilityConstants.BINARY_PROBABILITY_RANGE.defaultValue,
 
       // {string} controls how many balls are dispensed when the 'play' button is pressed, see BALL_MODE_VALUES
       ballMode: 'oneBall',
@@ -43,7 +43,7 @@ define( function( require ) {
       isBallCapReached: false,
 
       // {number} number of rows in the Galton board, must be an integer
-      numberOfRows: PlinkoConstants.ROWS_RANGE.defaultValue
+      numberOfRows: PlinkoProbabilityConstants.ROWS_RANGE.defaultValue
     } );
 
     // validate string values

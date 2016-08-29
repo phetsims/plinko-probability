@@ -12,11 +12,11 @@ define( function( require ) {
   // modules
   var Emitter = require( 'AXON/Emitter' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
+  var PlinkoProbabilityConstants = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityConstants' );
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
 
   // constants
-  var BOUNDS = PlinkoConstants.HISTOGRAM_BOUNDS;
+  var BOUNDS = PlinkoProbabilityConstants.HISTOGRAM_BOUNDS;
 
   /**
    * @param {Property.<number>} numberOfRowsProperty
@@ -114,7 +114,7 @@ define( function( require ) {
     setBinsToZero: function() {
       this.bins = []; // reset the bin array to an empty array
       var binInfo;
-      var maxBins = PlinkoConstants.ROWS_RANGE.max + 1;
+      var maxBins = PlinkoProbabilityConstants.ROWS_RANGE.max + 1;
       for ( var i = 0; i < maxBins; i++ ) {
         binInfo = {
           binCount: 0, // number of balls that will be in the bin (including those currently falling through the galton board)

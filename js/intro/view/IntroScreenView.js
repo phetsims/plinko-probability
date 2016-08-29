@@ -20,7 +20,7 @@ define( function( require ) {
   var NumberBallsDisplay = require( 'PLINKO_PROBABILITY/intro/view/NumberBallsDisplay' );
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var PlinkoProbabilityCommonView = require( 'PLINKO_PROBABILITY/common/view/PlinkoProbabilityCommonView' );
-  var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
+  var PlinkoProbabilityConstants = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityConstants' );
 
   // images
   var counterImage = require( 'image!PLINKO_PROBABILITY/counter.png' );
@@ -106,8 +106,8 @@ define( function( require ) {
     // layout the children nodes on the scene graph
     histogramModeControl.bottom = this.histogramModeControlBottom;
     histogramModeControl.left = this.histogramModeControlLeft;
-    playPanel.right = this.layoutBounds.maxX - PlinkoConstants.PANEL_RIGHT_PADDING;
-    playPanel.top = PlinkoConstants.PANEL_VERTICAL_SPACING;
+    playPanel.right = this.layoutBounds.maxX - PlinkoProbabilityConstants.PANEL_RIGHT_PADDING;
+    playPanel.top = PlinkoProbabilityConstants.PANEL_VERTICAL_SPACING;
     numberBallsDisplay.top = playPanel.bottom + 245;
     numberBallsDisplay.right = playPanel.right;
   }

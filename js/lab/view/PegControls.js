@@ -13,7 +13,7 @@ define( function( require ) {
   var Dimension2 = require( 'DOT/Dimension2' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Panel = require( 'SUN/Panel' );
-  var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
+  var PlinkoProbabilityConstants = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityConstants' );
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var NumberControl = require( 'SCENERY_PHET/NumberControl' );
   var Text = require( 'SCENERY/nodes/Text' );
@@ -44,25 +44,25 @@ define( function( require ) {
     }, options );
 
     // major tick labels for slider that controls number of rows
-    assert && assert( Util.isInteger( PlinkoConstants.ROWS_RANGE.min ), 'integer required: ' + PlinkoConstants.ROWS_RANGE.min );
-    assert && assert( Util.isInteger( PlinkoConstants.ROWS_RANGE.max ), 'integer required: ' + PlinkoConstants.ROWS_RANGE.max );
+    assert && assert( Util.isInteger( PlinkoProbabilityConstants.ROWS_RANGE.min ), 'integer required: ' + PlinkoProbabilityConstants.ROWS_RANGE.min );
+    assert && assert( Util.isInteger( PlinkoProbabilityConstants.ROWS_RANGE.max ), 'integer required: ' + PlinkoProbabilityConstants.ROWS_RANGE.max );
     var tickLabelOptions = {
-      font: PlinkoConstants.MAJOR_TICK_FONT
+      font: PlinkoProbabilityConstants.MAJOR_TICK_FONT
     };
     var rowsMajorTicks = [ {
-      value: PlinkoConstants.ROWS_RANGE.min,
-      label: new Text( PlinkoConstants.ROWS_RANGE.min, tickLabelOptions )
+      value: PlinkoProbabilityConstants.ROWS_RANGE.min,
+      label: new Text( PlinkoProbabilityConstants.ROWS_RANGE.min, tickLabelOptions )
     }, {
-      value: PlinkoConstants.ROWS_RANGE.max,
-      label: new Text( PlinkoConstants.ROWS_RANGE.max, tickLabelOptions )
+      value: PlinkoProbabilityConstants.ROWS_RANGE.max,
+      label: new Text( PlinkoProbabilityConstants.ROWS_RANGE.max, tickLabelOptions )
     } ];
 
     // control for number of rows
-    var rowsControl = new NumberControl( rowsString, rowsProperty, PlinkoConstants.ROWS_RANGE, {
+    var rowsControl = new NumberControl( rowsString, rowsProperty, PlinkoProbabilityConstants.ROWS_RANGE, {
       layoutFunction: NumberControl.createLayoutFunction3(),
-      titleFont: PlinkoConstants.PANEL_FONT,
+      titleFont: PlinkoProbabilityConstants.PANEL_FONT,
       titleMaxWidth: SLIDER_TRACK_SIZE.width,
-      valueFont: PlinkoConstants.PANEL_READOUT_FONT,
+      valueFont: PlinkoProbabilityConstants.PANEL_READOUT_FONT,
       decimalPlaces: 0,
       delta: 1,
       trackSize: SLIDER_TRACK_SIZE,
@@ -70,22 +70,22 @@ define( function( require ) {
     } );
 
     // major tick labels for slider that controls binary probability
-    assert && assert( Util.isInteger( PlinkoConstants.BINARY_PROBABILITY_RANGE.min ), 'integer required: ' + PlinkoConstants.BINARY_PROBABILITY_RANGE.min );
-    assert && assert( Util.isInteger( PlinkoConstants.BINARY_PROBABILITY_RANGE.max ), 'integer required: ' + PlinkoConstants.BINARY_PROBABILITY_RANGE.max );
+    assert && assert( Util.isInteger( PlinkoProbabilityConstants.BINARY_PROBABILITY_RANGE.min ), 'integer required: ' + PlinkoProbabilityConstants.BINARY_PROBABILITY_RANGE.min );
+    assert && assert( Util.isInteger( PlinkoProbabilityConstants.BINARY_PROBABILITY_RANGE.max ), 'integer required: ' + PlinkoProbabilityConstants.BINARY_PROBABILITY_RANGE.max );
     var probabilityMajorTicks = [ {
-      value: PlinkoConstants.BINARY_PROBABILITY_RANGE.min,
-      label: new Text( PlinkoConstants.BINARY_PROBABILITY_RANGE.min, tickLabelOptions )
+      value: PlinkoProbabilityConstants.BINARY_PROBABILITY_RANGE.min,
+      label: new Text( PlinkoProbabilityConstants.BINARY_PROBABILITY_RANGE.min, tickLabelOptions )
     }, {
-      value: PlinkoConstants.ROWS_RANGE.max,
-      label: new Text( PlinkoConstants.BINARY_PROBABILITY_RANGE.max, tickLabelOptions )
+      value: PlinkoProbabilityConstants.ROWS_RANGE.max,
+      label: new Text( PlinkoProbabilityConstants.BINARY_PROBABILITY_RANGE.max, tickLabelOptions )
     } ];
 
     // control for the binary probability
-    var probabilityControl = new NumberControl( binaryProbabilityString, probabilityProperty, PlinkoConstants.BINARY_PROBABILITY_RANGE, {
+    var probabilityControl = new NumberControl( binaryProbabilityString, probabilityProperty, PlinkoProbabilityConstants.BINARY_PROBABILITY_RANGE, {
       layoutFunction: NumberControl.createLayoutFunction3(),
-      titleFont: PlinkoConstants.PANEL_FONT,
+      titleFont: PlinkoProbabilityConstants.PANEL_FONT,
       titleMaxWidth: SLIDER_TRACK_SIZE.width,
-      valueFont: PlinkoConstants.PANEL_READOUT_FONT,
+      valueFont: PlinkoProbabilityConstants.PANEL_READOUT_FONT,
       decimalPlaces: 2,
       delta: 0.01,
       trackSize: SLIDER_TRACK_SIZE,

@@ -19,7 +19,7 @@ define( function( require ) {
   var Hopper = require( 'PLINKO_PROBABILITY/common/view/Hopper' );
   var inherit = require( 'PHET_CORE/inherit' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
-  var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
+  var PlinkoProbabilityConstants = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityConstants' );
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var PegSoundGeneration = require( 'PLINKO_PROBABILITY/common/view/PegSoundGeneration' );
   var PropertySet = require( 'AXON/PropertySet' );
@@ -97,7 +97,7 @@ define( function( require ) {
       }
     } );
 
-    var histogramModelBounds = PlinkoConstants.HISTOGRAM_BOUNDS;
+    var histogramModelBounds = PlinkoProbabilityConstants.HISTOGRAM_BOUNDS;
     var ballModelBounds = model.galtonBoard.bounds.union( histogramModelBounds );
     var ballViewBounds = this.modelViewTransform.modelToViewBounds( ballModelBounds ).dilated( 20 );
 
@@ -140,7 +140,7 @@ define( function( require ) {
     // @protected needed to layout the radioButtons of each tab
     this.histogramModeControlBottom = eraserButton.top - 16;
     this.histogramModeControlLeft = eraserButton.left;
-    resetAllButton.right = this.layoutBounds.maxX - PlinkoConstants.PANEL_RIGHT_PADDING;
+    resetAllButton.right = this.layoutBounds.maxX - PlinkoProbabilityConstants.PANEL_RIGHT_PADDING;
     resetAllButton.bottom = this.layoutBounds.maxY - 10;
     soundToggleButton.right = resetAllButton.left - 20;
     soundToggleButton.centerY = resetAllButton.centerY;

@@ -14,12 +14,12 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Path = require( 'SCENERY/nodes/Path' );
-  var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
+  var PlinkoProbabilityConstants = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityConstants' );
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var Shape = require( 'KITE/Shape' );
 
   // constants
-  var BOUNDS = PlinkoConstants.HISTOGRAM_BOUNDS;
+  var BOUNDS = PlinkoProbabilityConstants.HISTOGRAM_BOUNDS;
 
   /**
    * Creation of top of cylinder
@@ -53,8 +53,8 @@ define( function( require ) {
         var x = modelViewTransform.modelToViewX( binCenterX );          // x-coordinate of bin in model units
         var y = modelViewTransform.modelToViewY( cylinderInfo.top );    // y-coordinate of bin in model units
         var top = new Path( topShape, {
-          fill: PlinkoConstants.TOP_CYLINDER_FILL_COLOR,
-          stroke: PlinkoConstants.TOP_CYLINDER_STROKE_COLOR,
+          fill: PlinkoProbabilityConstants.TOP_CYLINDER_FILL_COLOR,
+          stroke: PlinkoProbabilityConstants.TOP_CYLINDER_STROKE_COLOR,
           centerX: x,
           top: y + verticalOffset
         } );

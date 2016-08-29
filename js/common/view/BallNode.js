@@ -12,7 +12,7 @@ define( function( require ) {
   var Circle = require( 'SCENERY/nodes/Circle' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
+  var PlinkoProbabilityConstants = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityConstants' );
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var RadialGradient = require( 'SCENERY/util/RadialGradient' );
 
@@ -26,7 +26,7 @@ define( function( require ) {
 
     //  create and add the representation for a ball
     var ballRepresentation = new Circle( radius, {
-      stroke: PlinkoConstants.BALL_COLOR,
+      stroke: PlinkoProbabilityConstants.BALL_COLOR,
       lineWidth: 0.1 * radius,
       fill: new RadialGradient( -radius * 0.4,  // gives ball white glare
         -radius * 0.4,
@@ -34,8 +34,8 @@ define( function( require ) {
         radius * 0.1,
         -radius * 0.3,
         radius * 0.6 )
-        .addColorStop( 0, PlinkoConstants.BALL_HIGHLIGHT_COLOR )
-        .addColorStop( 1, PlinkoConstants.BALL_COLOR )
+        .addColorStop( 0, PlinkoProbabilityConstants.BALL_HIGHLIGHT_COLOR )
+        .addColorStop( 1, PlinkoProbabilityConstants.BALL_COLOR )
     } );
     this.addChild( ballRepresentation );
   }

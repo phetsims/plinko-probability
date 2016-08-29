@@ -15,7 +15,7 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var Path = require( 'SCENERY/nodes/Path' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
+  var PlinkoProbabilityConstants = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityConstants' );
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var Property = require( 'AXON/Property' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
@@ -27,7 +27,7 @@ define( function( require ) {
   // constants
   //----------------------------------------------------------------------------------------
 
-  var MAX_NUMBER_BINS = PlinkoConstants.ROWS_RANGE.max + 1; /// there is one more bin than rows;
+  var MAX_NUMBER_BINS = PlinkoProbabilityConstants.ROWS_RANGE.max + 1; /// there is one more bin than rows;
 
   // background of histogram
   var GRID_BACKGROUND_FILL = 'white';
@@ -65,7 +65,7 @@ define( function( require ) {
   var TRIANGLE_WIDTH = 20;
 
   // model histogram bounds
-  var HISTOGRAM_BOUNDS = PlinkoConstants.HISTOGRAM_BOUNDS;
+  var HISTOGRAM_BOUNDS = PlinkoProbabilityConstants.HISTOGRAM_BOUNDS;
 
   /**
    * Constructor for Histogram Node
@@ -221,7 +221,7 @@ define( function( require ) {
   function BackgroundNode( modelViewTransform ) {
     Node.call( this );
 
-    var backgroundNode = new Rectangle( modelViewTransform.modelToViewBounds( PlinkoConstants.HISTOGRAM_BOUNDS ),
+    var backgroundNode = new Rectangle( modelViewTransform.modelToViewBounds( PlinkoProbabilityConstants.HISTOGRAM_BOUNDS ),
       { fill: GRID_BACKGROUND_FILL, lineWidth: GRID_BACKGROUND_LINE_WIDTH, stroke: GRID_BACKGROUND_STROKE } );
     this.addChild( backgroundNode );
   }
@@ -430,15 +430,15 @@ define( function( require ) {
     for ( var i = 0; i < MAX_NUMBER_BINS; i++ ) {
       // creates rectangles with a nominal height of 1, so that scenery doesn't throw a fit
       var nominalSampleHistogramRectangle = new Rectangle( 0, 0, bannerWidth, 1, {
-        fill: PlinkoConstants.HISTOGRAM_BAR_COLOR_FILL,
-        stroke: PlinkoConstants.HISTOGRAM_BAR_COLOR_STROKE,
+        fill: PlinkoProbabilityConstants.HISTOGRAM_BAR_COLOR_FILL,
+        stroke: PlinkoProbabilityConstants.HISTOGRAM_BAR_COLOR_STROKE,
         lineWidth: 2,
         visible: false
       } );
       // create nominal rectangles
       // height of rectangles will be updated through an update function
       var nominalTheoreticalHistogramRectangle = new Rectangle( 0, 0, bannerWidth, 1, {
-        stroke: PlinkoConstants.BINOMIAL_DISTRIBUTION_BAR_COLOR_STROKE,
+        stroke: PlinkoProbabilityConstants.BINOMIAL_DISTRIBUTION_BAR_COLOR_STROKE,
         lineWidth: 2,
         visible: false
       } );
@@ -457,13 +457,13 @@ define( function( require ) {
     // create and add triangle indicators for the sample and theoretical averages
     var sampleAverageTrianglePath = new Path( triangleShape,
       {
-        fill: PlinkoConstants.HISTOGRAM_BAR_COLOR_FILL,
-        stroke: PlinkoConstants.HISTOGRAM_BAR_COLOR_STROKE,
+        fill: PlinkoProbabilityConstants.HISTOGRAM_BAR_COLOR_FILL,
+        stroke: PlinkoProbabilityConstants.HISTOGRAM_BAR_COLOR_STROKE,
         lineWidth: 2
       } );
     var theoreticalAverageTrianglePath = new Path( triangleShape,
       {
-        stroke: PlinkoConstants.BINOMIAL_DISTRIBUTION_BAR_COLOR_STROKE,
+        stroke: PlinkoProbabilityConstants.BINOMIAL_DISTRIBUTION_BAR_COLOR_STROKE,
         fill: 'rgba(0,0,0,0)', // transparent
         lineWidth: 2
       } );

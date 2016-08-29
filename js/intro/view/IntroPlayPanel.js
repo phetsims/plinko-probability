@@ -15,13 +15,13 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Panel = require( 'SUN/Panel' );
   var PlayButton = require( 'PLINKO_PROBABILITY/common/view/PlayButton' );
-  var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
+  var PlinkoProbabilityConstants = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityConstants' );
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var Text = require( 'SCENERY/nodes/Text' );
   var VerticalAquaRadioButtonGroup = require( 'SUN/VerticalAquaRadioButtonGroup' );
 
   // constants
-  var BALL_RADIUS = PlinkoConstants.BALL_RADIUS;
+  var BALL_RADIUS = PlinkoProbabilityConstants.BALL_RADIUS;
 
   // strings
   var allString = require( 'string!PLINKO_PROBABILITY/all' );
@@ -47,7 +47,7 @@ define( function( require ) {
       titleToControlsVerticalSpace: 5
     }, options );
 
-    var fontOptions = { font: PlinkoConstants.PANEL_FONT, maxWidth: 190 };
+    var fontOptions = { font: PlinkoProbabilityConstants.PANEL_FONT, maxWidth: 190 };
 
     // Creation of radio button icons
     var oneBall = new HBox( {

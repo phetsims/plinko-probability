@@ -9,7 +9,7 @@ define( function( require ) {
   // modules
   var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
+  var PlinkoProbabilityConstants = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityConstants' );
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var LabModel = require( 'PLINKO_PROBABILITY/lab/model/LabModel' );
   var LabScreenView = require( 'PLINKO_PROBABILITY/lab/view/LabScreenView' );
@@ -33,7 +33,7 @@ define( function( require ) {
         return new LabModel(); },
       function( model ) {
         return new LabScreenView( model ); }, {
-        backgroundColor: PlinkoConstants.BACKGROUND_COLOR,
+        backgroundColor: PlinkoProbabilityConstants.BACKGROUND_COLOR,
         navigationBarIcon: new Image( navbarIconImage )
       }
     );

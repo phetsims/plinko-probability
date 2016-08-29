@@ -11,7 +11,7 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var IntroBall = require( 'PLINKO_PROBABILITY/intro/model/IntroBall' );
-  var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
+  var PlinkoProbabilityConstants = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityConstants' );
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var PlinkoProbabilityCommonModel = require( 'PLINKO_PROBABILITY/common/model/PlinkoProbabilityCommonModel' );
 
@@ -26,7 +26,7 @@ define( function( require ) {
 
     PlinkoProbabilityCommonModel.call( this );
 
-    var bounds = PlinkoConstants.HISTOGRAM_BOUNDS;
+    var bounds = PlinkoProbabilityConstants.HISTOGRAM_BOUNDS;
     var binWidth = bounds.width / ( this.numberOfRows + 1 ); // the width of one bin is the total width divided by the number of columns
     var cylinderWidth = 0.95 * binWidth; // there is a small gap between each cylinder
     var ellipseHeight = cylinderWidth * Math.sin( PERSPECTIVE_TILT ); // the height is the width times some perspective tilt

@@ -16,7 +16,7 @@ define( function( require ) {
   var HBox = require( 'SCENERY/nodes/HBox' );
   var HStrut = require( 'SCENERY/nodes/HStrut' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
+  var PlinkoProbabilityConstants = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityConstants' );
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var Property = require( 'AXON/Property' );
   var Text = require( 'SCENERY/nodes/Text' );
@@ -37,27 +37,27 @@ define( function( require ) {
 
   // options for the title of the panel
   var OPTIONS_TITLE = {
-    leftHandSideFont: PlinkoConstants.TEXT_FONT_BOLD,
-    leftHandSideFill: PlinkoConstants.SAMPLE_FONT_COLOR,
-    rightHandSideFont: PlinkoConstants.TEXT_FONT_BOLD,
-    rightHandSideFill: PlinkoConstants.SAMPLE_FONT_COLOR,
+    leftHandSideFont: PlinkoProbabilityConstants.TEXT_FONT_BOLD,
+    leftHandSideFill: PlinkoProbabilityConstants.SAMPLE_FONT_COLOR,
+    rightHandSideFont: PlinkoProbabilityConstants.TEXT_FONT_BOLD,
+    rightHandSideFill: PlinkoProbabilityConstants.SAMPLE_FONT_COLOR,
     maxDecimalPlaces: 0
   };
 
   // options for sample statistics
   var OPTIONS_SAMPLE = {
-    leftHandSideFont: PlinkoConstants.TEXT_FONT,
-    leftHandSideFill: PlinkoConstants.SAMPLE_FONT_COLOR,
-    rightHandSideFont: PlinkoConstants.TEXT_FONT,
-    rightHandSideFill: PlinkoConstants.SAMPLE_FONT_COLOR
+    leftHandSideFont: PlinkoProbabilityConstants.TEXT_FONT,
+    leftHandSideFill: PlinkoProbabilityConstants.SAMPLE_FONT_COLOR,
+    rightHandSideFont: PlinkoProbabilityConstants.TEXT_FONT,
+    rightHandSideFill: PlinkoProbabilityConstants.SAMPLE_FONT_COLOR
   };
 
   // options for the theoretical statistics
   var OPTIONS_THEORETICAL = {
-    leftHandSideFont: PlinkoConstants.TEXT_FONT,
-    leftHandSideFill: PlinkoConstants.THEORETICAL_FONT_COLOR,
-    rightHandSideFont: PlinkoConstants.TEXT_FONT,
-    rightHandSideFill: PlinkoConstants.THEORETICAL_FONT_COLOR
+    leftHandSideFont: PlinkoProbabilityConstants.TEXT_FONT,
+    leftHandSideFill: PlinkoProbabilityConstants.THEORETICAL_FONT_COLOR,
+    rightHandSideFont: PlinkoProbabilityConstants.TEXT_FONT,
+    rightHandSideFill: PlinkoProbabilityConstants.THEORETICAL_FONT_COLOR
   };
 
   /**
@@ -74,7 +74,7 @@ define( function( require ) {
 
     options = _.extend( {
       cornerRadius: 10,
-      fill: PlinkoConstants.PANEL_BACKGROUND_COLOR,
+      fill: PlinkoProbabilityConstants.PANEL_BACKGROUND_COLOR,
       buttonXMargin: 10,
       buttonYMargin: 10,
       expandedProperty: expandedAccordionBoxProperty,
@@ -119,7 +119,7 @@ define( function( require ) {
       spacing: 5,
       children: [
         new HistogramIcon(),
-        new Text( idealString, { font: PlinkoConstants.PANEL_READOUT_FONT, maxWidth: IDEAL_MAX_TEXT_WIDTH } )
+        new Text( idealString, { font: PlinkoProbabilityConstants.PANEL_READOUT_FONT, maxWidth: IDEAL_MAX_TEXT_WIDTH } )
       ]
     } );
 

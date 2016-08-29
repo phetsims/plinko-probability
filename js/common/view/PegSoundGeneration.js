@@ -11,7 +11,7 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
+  var PlinkoProbabilityConstants = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityConstants' );
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var Sound = require( 'VIBE/Sound' );
 
@@ -63,7 +63,7 @@ define( function( require ) {
       assert && assert( direction === 'left' || direction === 'right', 'direction should be left or right' );
 
       // play sound if the previous sound was played more than some elapsed time
-      if ( this.isSoundEnabledProperty.value && (this.soundTimeElapsed > PlinkoConstants.SOUND_TIME_INTERVAL) ) {
+      if ( this.isSoundEnabledProperty.value && (this.soundTimeElapsed > PlinkoProbabilityConstants.SOUND_TIME_INTERVAL) ) {
 
         // will play sound based on ball's motion, left or right
         ( direction === 'left') ? this.bonk1Sound.play() : this.bonk2Sound.play();

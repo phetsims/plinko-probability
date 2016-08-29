@@ -14,7 +14,7 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var Path = require( 'SCENERY/nodes/Path' );
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
-  var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
+  var PlinkoProbabilityConstants = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityConstants' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Shape = require( 'KITE/Shape' );
 
@@ -48,7 +48,7 @@ define( function( require ) {
     this.addChild( boardPath );
 
     // produces the bottom dropped shadow on the Galton Board
-    var boardShadowRectangleGradient = new LinearGradient( options.bottomWidth / 2, options.height, options.bottomWidth / 2, options.height + 10 ).addColorStop( 0.00, options.shadowFill ).addColorStop( 0.20, options.shadowFill ).addColorStop( 1.00, PlinkoConstants.BACKGROUND_COLOR );
+    var boardShadowRectangleGradient = new LinearGradient( options.bottomWidth / 2, options.height, options.bottomWidth / 2, options.height + 10 ).addColorStop( 0.00, options.shadowFill ).addColorStop( 0.20, options.shadowFill ).addColorStop( 1.00, PlinkoProbabilityConstants.BACKGROUND_COLOR );
     var horizontalRectangle = new Rectangle( boardPath.left + 4, boardPath.bottom, boardPath.width + 8, 10, 5, 50, { fill: boardShadowRectangleGradient } );
     this.addChild( horizontalRectangle );
 
@@ -58,7 +58,7 @@ define( function( require ) {
       .lineToRelative( 10, 0 )
       .lineToRelative( -options.bottomWidth / 2, -options.height )
       .close();
-    var boardSlantedGradient = new LinearGradient( options.bottomWidth / 4, options.height / 2, options.bottomWidth / 4 + 5, options.height / 2 - 5 ).addColorStop( 0.00, options.shadowFill ).addColorStop( 0.20, options.shadowFill ).addColorStop( 1.00, PlinkoConstants.BACKGROUND_COLOR );
+    var boardSlantedGradient = new LinearGradient( options.bottomWidth / 4, options.height / 2, options.bottomWidth / 4 + 5, options.height / 2 - 5 ).addColorStop( 0.00, options.shadowFill ).addColorStop( 0.20, options.shadowFill ).addColorStop( 1.00, PlinkoProbabilityConstants.BACKGROUND_COLOR );
     var slantedShadowPath = new Path( slantedShadowShape, { fill: boardSlantedGradient } );
 
     this.addChild( slantedShadowPath );

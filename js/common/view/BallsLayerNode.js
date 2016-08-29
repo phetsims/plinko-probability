@@ -12,7 +12,7 @@ define( function( require ) {
   var BallNode = require( 'PLINKO_PROBABILITY/common/view/BallNode' );
   var CanvasNode = require( 'SCENERY/nodes/CanvasNode' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
+  var PlinkoProbabilityConstants = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityConstants' );
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
 
   //constants
@@ -42,8 +42,8 @@ define( function( require ) {
     this.hopperModeProperty = hopperModeProperty;
 
     // set the default ball radius using the largest possible radius, that is the minimum number of rows.
-    var defaultNumberOfRows = PlinkoConstants.ROWS_RANGE.min;
-    var defaultBallRadius = modelViewTransform.modelToViewDeltaX( self.getSpacing( defaultNumberOfRows ) * PlinkoConstants.BALL_SIZE_FRACTION ); //
+    var defaultNumberOfRows = PlinkoProbabilityConstants.ROWS_RANGE.min;
+    var defaultBallRadius = modelViewTransform.modelToViewDeltaX( self.getSpacing( defaultNumberOfRows ) * PlinkoProbabilityConstants.BALL_SIZE_FRACTION ); //
 
     // create a single ball image to use for rendering all balls - asynchronous
     var ballNode = new BallNode( defaultBallRadius );

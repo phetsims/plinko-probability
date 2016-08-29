@@ -12,7 +12,7 @@ define( function( require ) {
   var Emitter = require( 'AXON/Emitter' );
   var inherit = require( 'PHET_CORE/inherit' );
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
-  var PlinkoConstants = require( 'PLINKO_PROBABILITY/common/PlinkoConstants' );
+  var PlinkoProbabilityConstants = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityConstants' );
   var Vector2 = require( 'DOT/Vector2' );
 
   // constants
@@ -37,7 +37,7 @@ define( function( require ) {
 
     this.pegSeparation = this.getSpacing( numberOfRows ); // @public (read-only)
 
-    this.ballRadius = this.pegSeparation * PlinkoConstants.BALL_SIZE_FRACTION;  // @public (read-only)
+    this.ballRadius = this.pegSeparation * PlinkoProbabilityConstants.BALL_SIZE_FRACTION;  // @public (read-only)
 
     // 0 -> Initially falling
     // 1 -> Falling between pegs
@@ -150,7 +150,7 @@ define( function( require ) {
      * @returns {number}
      */
     getPegPositionY: function( rowNumber, columnNumber, numberOfRows ) {
-      return (-rowNumber - 2 * PlinkoConstants.PEG_HEIGHT_FRACTION_OFFSET) / (numberOfRows + 1 );
+      return (-rowNumber - 2 * PlinkoProbabilityConstants.PEG_HEIGHT_FRACTION_OFFSET) / (numberOfRows + 1 );
     },
 
     /**
@@ -251,7 +251,7 @@ define( function( require ) {
       }
       else if ( this.phase === PHASE_EXIT ) { // the ball has exited and it is making its way to the bin
         // the position at which the balls will eventually land
-        var finalPosition = this.finalBinVerticalOffset + this.pegSeparation * PlinkoConstants.PEG_HEIGHT_FRACTION_OFFSET;
+        var finalPosition = this.finalBinVerticalOffset + this.pegSeparation * PlinkoProbabilityConstants.PEG_HEIGHT_FRACTION_OFFSET;
         if ( this.position.y > finalPosition ) { // if it has not fallen to its final position
 
           // the change in the fallen ratio needs to be scaled by the peg separation so that it matches the speed everywhere else
@@ -325,7 +325,7 @@ define( function( require ) {
       }
 
       // add a vertical offset, such that the balls do not reach the pegs but are over the pegs.
-      this.position.addXY( 0, this.pegSeparation * PlinkoConstants.PEG_HEIGHT_FRACTION_OFFSET );
+      this.position.addXY( 0, this.pegSeparation * PlinkoProbabilityConstants.PEG_HEIGHT_FRACTION_OFFSET );
     }
   } );
 } );
