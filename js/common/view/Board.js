@@ -60,12 +60,15 @@ define( function( require ) {
     this.addChild( faceNode );
 
     // bottom shadow
-    var bottomShadowGradient = new LinearGradient( width / 2, height, width / 2, height + 10 )
+    var bottomShadowHeight = 10;
+    var bottomShadowGradient = new LinearGradient( 0, 0, 0, bottomShadowHeight )
       .addColorStop( 0.00, options.shadowFill )
       .addColorStop( 0.20, options.shadowFill )
       .addColorStop( 1.00, PlinkoProbabilityConstants.BACKGROUND_COLOR );
-    var bottomShadowNode = new Rectangle( faceNode.left + 4, faceNode.bottom, faceNode.width + 8, 10, 5, 50, {
-      fill: bottomShadowGradient
+    var bottomShadowNode = new Rectangle( 0, 0, faceNode.width + 8, bottomShadowHeight, 5, 50, {
+      fill: bottomShadowGradient,
+      left: faceNode.left + 4,
+      top: faceNode.bottom
     } );
     this.addChild( bottomShadowNode );
 
