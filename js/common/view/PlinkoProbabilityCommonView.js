@@ -11,7 +11,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var BallsLayerNode = require( 'PLINKO_PROBABILITY/common/view/BallsLayerNode' );
+  var BallsNode = require( 'PLINKO_PROBABILITY/common/view/BallsNode' );
   var Board = require( 'PLINKO_PROBABILITY/common/view/Board' );
   var Bounds2 = require( 'DOT/Bounds2' );
   var EraserButton = require( 'SCENERY_PHET/buttons/EraserButton' );
@@ -101,9 +101,9 @@ define( function( require ) {
     var ballViewBounds = this.modelViewTransform.modelToViewBounds( ballModelBounds ).dilated( 20 );
 
     // create the ballLayerNodes  (a canvas Node) that renders all the balls
-    var ballsLayerNode = new BallsLayerNode( model.balls, modelViewTransform, model.numberOfRowsProperty, viewProperties.histogramModeProperty, model.hopperModeProperty,
+    var ballsNode = new BallsNode( model.balls, modelViewTransform, model.numberOfRowsProperty, viewProperties.histogramModeProperty, model.hopperModeProperty,
       { canvasBounds: ballViewBounds } );
-    this.ballsLayerNode = ballsLayerNode;
+    this.ballsNode = ballsNode;
 
     // create the sound generator for ball hitting peg
     var pegSoundGeneration = new PegSoundGeneration( viewProperties.isSoundEnabledProperty );
@@ -125,7 +125,7 @@ define( function( require ) {
 
     // add children to the scene graph
     this.addChild( board );
-    this.addChild( ballsLayerNode );
+    this.addChild( ballsNode );
     this.addChild( eraserButton );
     this.addChild( soundToggleButton );
     this.addChild( resetAllButton );
@@ -160,7 +160,7 @@ define( function( require ) {
         this.galtonBoardNode.invalidatePaint();
       }
       // update view on model step
-      this.ballsLayerNode.invalidatePaint();
+      this.ballsNode.invalidatePaint();
 
       // increment time for sound generation
       this.pegSoundGeneration.step( dt );

@@ -28,7 +28,7 @@ define( function( require ) {
    * @param {Object} options - must contain a canvasBounds attribute of type Bounds2
    * @constructor
    */
-  function BallsLayerNode( balls, modelViewTransform, numberOfRowsProperty, histogramModeProperty, hopperModeProperty, options ) {
+  function BallsNode( balls, modelViewTransform, numberOfRowsProperty, histogramModeProperty, hopperModeProperty, options ) {
 
     assert && assert( options && options.hasOwnProperty( 'canvasBounds' ), 'No canvasBounds specified.' );
 
@@ -61,9 +61,9 @@ define( function( require ) {
     this.invalidatePaint();
   }
 
-  plinkoProbability.register( 'BallsLayerNode', BallsLayerNode );
+  plinkoProbability.register( 'BallsNode', BallsNode );
 
-  return inherit( CanvasNode, BallsLayerNode, {
+  return inherit( CanvasNode, BallsNode, {
 
     /**
      * @param {CanvasRenderingContext2D} context
