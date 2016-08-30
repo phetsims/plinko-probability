@@ -34,7 +34,9 @@ define( function( require ) {
 
   // strings
   var outOfBallsString = require( 'string!PLINKO_PROBABILITY/outOfBalls' );
-  var HOPPER_TOP = 10;
+
+  // constants
+  var PANEL_FIXED_WIDTH = 220; // determined empirically
 
   /**
    * @param {LabModel} model
@@ -42,52 +44,77 @@ define( function( require ) {
    */
   function LabScreenView( model ) {
 
+    var thisView = this;
+
     PlinkoProbabilityCommonView.call( this, model, {
       histogramMode: 'counter'
     } );
-
-    var thisView = this;
 
     // pegs on the Galton board
     var pegsNode = new PegsNode( model.galtonBoard, model.numberOfRowsProperty, model.probabilityProperty, this.modelViewTransform, {
       canvasBounds: this.viewTriangularBoardBounds
     } );
 
-    // create three radio buttons next to the hopper
-    var hopperModeControl = new HopperModeControl( model.hopperModeProperty );
-
-    // create the two radio buttons that can toggle between 'fraction and 'counter' mode
-    var histogramModeControl = new HistogramModeControl( this.viewProperties.histogramModeProperty, 'counter', counterImage, 'fraction', fractionImage, {
-      buttonContentYMargin: 13
+    // radio buttons to right of the hopper
+    var hopperModeControl = new HopperModeControl( model.hopperModeProperty, {
+      left: this.hopper.right + 47,
+      top: this.hopper.top
     } );
 
-    // create an accordion box that displays sample and theoretical statistics related to the histogram
-    var statisticsAccordionBox = new StatisticsAccordionBox(
-      model,
-      this.viewProperties.isTheoreticalHistogramVisibleProperty,
-      this.viewProperties.expandedAccordionBoxProperty );
+    // radio buttons that can toggle between 'fraction and 'counter' mode
+    var histogramModeControl = new HistogramModeControl( this.viewProperties.histogramModeProperty, 'counter', counterImage, 'fraction', fractionImage, {
+      buttonContentYMargin: 13,
+      bottom: this.eraserButton.top - 16,
+      left: this.eraserButton.left
+    } );
 
     // we call pre populate here because the histogram would be created by now
     if ( PlinkoProbabilityQueryParameters.POPULATE_HISTOGRAM ) {
       model.histogram.prepopulate( PlinkoProbabilityQueryParameters.POPULATE_HISTOGRAM );
     }
 
-    // create play Panel
+    // Play panel, at top right
     var playPanel = new LabPlayPanel( model, model.ballModeProperty, {
-      minWidth: statisticsAccordionBox.width
+      minWidth: PANEL_FIXED_WIDTH,
+      maxWidth: PANEL_FIXED_WIDTH,
+      right: this.layoutBounds.maxX - PlinkoProbabilityConstants.PANEL_RIGHT_PADDING,
+      top: 10
     } );
 
-    // controls that modify the pegs in the galton board
+    // controls that modify the pegs in the galton board, below the Play panel
     var pegControls = new PegControls( model.numberOfRowsProperty, model.probabilityProperty, {
-      minWidth: statisticsAccordionBox.width
+      minWidth: PANEL_FIXED_WIDTH,
+      maxWidth: PANEL_FIXED_WIDTH,
+      top: playPanel.bottom + PlinkoProbabilityConstants.PANEL_VERTICAL_SPACING,
+      right: playPanel.right
     } );
+
+    // statistics panel, below peg controls
+    var statisticsAccordionBox = new StatisticsAccordionBox( model,
+      this.viewProperties.isTheoreticalHistogramVisibleProperty,
+      this.viewProperties.expandedAccordionBoxProperty, {
+        minWidth: PANEL_FIXED_WIDTH,
+        maxWidth: PANEL_FIXED_WIDTH,
+        top: pegControls.bottom + PlinkoProbabilityConstants.PANEL_VERTICAL_SPACING,
+        right: playPanel.right
+      } );
 
     // create pathsLayer to keep all the TrajectoryPath
     var pathsLayer = new Node( { layerSplit: true } );
 
+    // rendering order
+    this.addChild( histogramModeControl );
+    this.addChild( hopperModeControl );
+    this.addChild( playPanel );
+    this.addChild( pegControls );
+    this.addChild( statisticsAccordionBox );
+    this.addChild( pegsNode );
+    this.addChild( pathsLayer );
+
     // handle the coming and going of the balls in the model.
     model.balls.addItemAddedListener( function( addedBall ) {
-      switch ( model.hopperModeProperty.value ) {
+      switch( model.hopperModeProperty.value ) {
+
         case 'ball':
           // initiates sound to play when ball hits a peg
           var ballHittingPegListener = function( direction ) {
@@ -101,6 +128,7 @@ define( function( require ) {
             }
           } );
           break;
+
         case 'path':
           var addedTrajectoryPath = new TrajectoryPath( addedBall, thisView.modelViewTransform );
           pathsLayer.addChild( addedTrajectoryPath );
@@ -111,34 +139,14 @@ define( function( require ) {
             }
           } );
           break;
+
         case 'none':
           break;
+
         default:
-          throw new Error( 'Unhandled galton Board Radio Button state: ' + model.hopperModeProperty.value );
+          throw new Error( 'Unhandled hopperMode: ' + model.hopperModeProperty.value );
       }
     } );
-
-    // adding children to the scene graph
-    this.addChild( histogramModeControl );
-    this.addChild( hopperModeControl );
-    this.addChild( playPanel );
-    this.addChild( pegControls );
-    this.addChild( statisticsAccordionBox );
-    this.addChild( pegsNode );
-    this.addChild( pathsLayer );
-
-    //TODO move layout to Node options
-    // layout the children
-    histogramModeControl.bottom = this.eraserButton.top - 16;
-    histogramModeControl.left = this.eraserButton.left;
-    playPanel.right = this.layoutBounds.maxX - PlinkoProbabilityConstants.PANEL_RIGHT_PADDING; // determines slider control panel and statistical display position
-    playPanel.top = 10;
-    hopperModeControl.left = this.hopper.right + 47;
-    hopperModeControl.top = HOPPER_TOP;
-    pegControls.top = playPanel.bottom + PlinkoProbabilityConstants.PANEL_VERTICAL_SPACING;
-    pegControls.right = playPanel.right;
-    statisticsAccordionBox.top = pegControls.bottom + PlinkoProbabilityConstants.PANEL_VERTICAL_SPACING;
-    statisticsAccordionBox.right = playPanel.right;
 
     //TODO test this
     // no need to dispose of this link
