@@ -38,6 +38,20 @@ define( function( require ) {
 
     ScreenView.call( this, { layoutBounds: new Bounds2( 0, 0, 1024, 618 ) } );
 
+    // view-specific Properties
+    var viewProperties = new PropertySet( {
+      histogramMode: 'cylinder', // {string} see HISTOGRAM_MODE_VALUES
+      expandedAccordionBox: true,
+      isTheoreticalHistogramVisible: false,
+      isSoundEnabled: false
+    } );
+    this.viewProperties = viewProperties; // @protected
+
+    // validate string values
+    viewProperties.histogramModeProperty.link( function( histogramMode ) {
+      assert && assert( _.contains( HISTOGRAM_MODE_VALUES, histogramMode ), 'invalid histogramMode: ' + histogramMode );
+    } );
+
     // create the hopper and the wooden Board
     var hopper = new Hopper();
     var board = new Board();
@@ -60,20 +74,6 @@ define( function( require ) {
     // @protected
     this.viewTriangularBoardBounds = viewTriangularBoardBounds;
     this.modelViewTransform = modelViewTransform;
-
-    var viewProperties = new PropertySet( {
-      histogramMode: 'cylinder', // {string} see HISTOGRAM_MODE_VALUES
-      expandedAccordionBox: true,
-      isTheoreticalHistogramVisible: false,
-      isSoundEnabled: false
-    } );
-
-    // validate string values
-    viewProperties.histogramModeProperty.link( function( histogramMode ) {
-      assert && assert( _.contains( HISTOGRAM_MODE_VALUES, histogramMode ), 'invalid histogramMode: ' + histogramMode );
-    } );
-
-    this.viewProperties = viewProperties; // @private
 
     var histogramNode = new HistogramNode(
       viewProperties.histogramModeProperty,
