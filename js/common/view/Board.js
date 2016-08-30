@@ -33,16 +33,16 @@ define( function( require ) {
     }, options );
 
     // @public (read-only)
-    this.options= options;
+    this.options = options;
 
-    // create the triangular shape of the board
+    // triangular shape of the board
     var boardShape = new Shape().moveTo( 0, 0 )
       .lineTo( options.bottomWidth / 2, options.height )
       .lineTo( -options.bottomWidth / 2, options.height )
       .close();
 
-    // create the gradient on face of Galton Board
-    var boardRectangleGradient = new LinearGradient( -options.bottomWidth / 2, 0, options.bottomWidth / 2, 0 )
+    // board face
+    var faceGradient = new LinearGradient( -options.bottomWidth / 2, 0, options.bottomWidth / 2, 0 )
       .addColorStop( 0.0112, '#FBEFD0' )
       .addColorStop( 0.1742, '#FADBA2' )
       .addColorStop( 0.2978, '#FAE3B0' )
@@ -50,37 +50,35 @@ define( function( require ) {
       .addColorStop( 0.6573, '#F0D3A1' )
       .addColorStop( 0.7809, '#FBEED2' )
       .addColorStop( 0.9607, '#F9E2BA' );
-    var boardPath = new Path( boardShape, {
-      fill: boardRectangleGradient,
-      centerX: 0,
-      top: 0
+    var faceNode = new Path( boardShape, {
+      fill: faceGradient
     } );
-    this.addChild( boardPath );
+    this.addChild( faceNode );
 
-    // produces the bottom dropped shadow on the Galton Board
-    var boardShadowRectangleGradient = new LinearGradient( options.bottomWidth / 2, options.height, options.bottomWidth / 2, options.height + 10 )
+    // bottom shadow
+    var bottomShadowGradient = new LinearGradient( options.bottomWidth / 2, options.height, options.bottomWidth / 2, options.height + 10 )
       .addColorStop( 0.00, options.shadowFill )
       .addColorStop( 0.20, options.shadowFill )
       .addColorStop( 1.00, PlinkoProbabilityConstants.BACKGROUND_COLOR );
-    var horizontalRectangle = new Rectangle( boardPath.left + 4, boardPath.bottom, boardPath.width + 8, 10, 5, 50, {
-      fill: boardShadowRectangleGradient
+    var bottomShadowNode = new Rectangle( faceNode.left + 4, faceNode.bottom, faceNode.width + 8, 10, 5, 50, {
+      fill: bottomShadowGradient
     } );
-    this.addChild( horizontalRectangle );
+    this.addChild( bottomShadowNode );
 
-    // create the dropped shadow to the right of the galton board
-    var slantedShadowShape = new Shape().moveTo( 4, 4 )
+    // right shadow
+    var rightShadowShape = new Shape().moveTo( 4, 4 )
       .lineToRelative( options.bottomWidth / 2, options.height )
       .lineToRelative( 10, 0 )
       .lineToRelative( -options.bottomWidth / 2, -options.height )
       .close();
-    var boardSlantedGradient = new LinearGradient( options.bottomWidth / 4, options.height / 2, options.bottomWidth / 4 + 5, options.height / 2 - 5 )
+    var rightShadowGradient = new LinearGradient( options.bottomWidth / 4, options.height / 2, options.bottomWidth / 4 + 5, options.height / 2 - 5 )
       .addColorStop( 0.00, options.shadowFill )
       .addColorStop( 0.20, options.shadowFill )
       .addColorStop( 1.00, PlinkoProbabilityConstants.BACKGROUND_COLOR );
-    var slantedShadowPath = new Path( slantedShadowShape, {
-      fill: boardSlantedGradient
+    var rightShadowNode = new Path( rightShadowShape, {
+      fill: rightShadowGradient
     } );
-    this.addChild( slantedShadowPath );
+    this.addChild( rightShadowNode );
 
     this.mutate( options );
   }
