@@ -73,7 +73,9 @@ define( function( require ) {
     }
 
     // create play Panel
-    var playPanel = new LabPlayPanel( model, model.ballModeProperty, { minWidth: statisticsAccordionBox.width } );
+    var playPanel = new LabPlayPanel( model, model.ballModeProperty, {
+      minWidth: statisticsAccordionBox.width
+    } );
 
     // controls that modify the pegs in the galton board
     var pegControls = new PegControls( model.numberOfRowsProperty, model.probabilityProperty, {
