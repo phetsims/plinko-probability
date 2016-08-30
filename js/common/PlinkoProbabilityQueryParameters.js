@@ -4,6 +4,7 @@
  * Query parameters supported by this simulation.
  *
  * @author Denzell Barnett
+ * @author Chris Malley (PixelZoom, Inc.)
  */
 define( function( require ) {
   'use strict';
@@ -13,18 +14,10 @@ define( function( require ) {
 
   var getQueryParameter = phet.chipper.getQueryParameter;
 
-  // @private {boolean} we need a flag to call prepopulate() after the histogram is created
-  var ballsOnScreenFlag = false;
-
-  // creates query parameter that lowers the maximum amount of balls for testing purposes.
-  if ( getQueryParameter( 'ballsOnScreen' ) ) {
-    var ballsOnScreen = parseFloat( ( getQueryParameter( 'ballsOnScreen' ) ) );
-    ballsOnScreen = Math.floor( ballsOnScreen );
-    ballsOnScreenFlag = true;
-  }
   var PlinkoProbabilityQueryParameters = {
-    BALLS_ON_SCREEN: ballsOnScreen,
-    BALLS_ON_SCREEN_FLAG: ballsOnScreenFlag
+
+    // number of balls to put in the histogram at startup, e.g. populateHistogram=20
+    POPULATE_HISTOGRAM: getQueryParameter( 'populateHistogram' ) && parseInt( getQueryParameter( 'populateHistogram' ) )
   };
 
   plinkoProbability.register( 'PlinkoProbabilityQueryParameters', PlinkoProbabilityQueryParameters );
