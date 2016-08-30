@@ -10,14 +10,12 @@ define( function( require ) {
 
   // modules
   var BallNode = require( 'PLINKO_PROBABILITY/common/view/BallNode' );
+  var BallPhase = require( 'PLINKO_PROBABILITY/common/model/BallPhase' );
   var CanvasNode = require( 'SCENERY/nodes/CanvasNode' );
   var GaltonBoard = require( 'PLINKO_PROBABILITY/common/model/GaltonBoard' );
   var inherit = require( 'PHET_CORE/inherit' );
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var PlinkoProbabilityConstants = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityConstants' );
-
-  //constants
-  var PHASE_COLLECTED = 3; // the ball has landed on its final position
 
   /**
    * @param {Ball[]} balls - an array of model Ball
@@ -83,7 +81,7 @@ define( function( require ) {
         this.balls.forEach( function( ball ) {
 
           // when we are in the histogram mode and the ball has been collected don't draw the ball
-          if ( !(self.histogramModeProperty.value === 'counter' && ball.phase === PHASE_COLLECTED) ) {
+          if ( !(self.histogramModeProperty.value === 'counter' && ball.phase === BallPhase.COLLECTED) ) {
             var ballViewPositionX = self.modelViewTransform.modelToViewX( ball.position.x );
             var ballViewPositionY = self.modelViewTransform.modelToViewY( ball.position.y );
 

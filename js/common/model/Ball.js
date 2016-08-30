@@ -9,18 +9,13 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var BallPhase = require( 'PLINKO_PROBABILITY/common/model/BallPhase' );
   var Emitter = require( 'AXON/Emitter' );
   var GaltonBoard = require( 'PLINKO_PROBABILITY/common/model/GaltonBoard' );
   var inherit = require( 'PHET_CORE/inherit' );
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var PlinkoProbabilityConstants = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityConstants' );
   var Vector2 = require( 'DOT/Vector2' );
-
-  // constants
-  var PHASE_INITIAL = 0;         // ball leaving hopper
-  var PHASE_FALLING = 1;         // ball falling within bounds of board
-  var PHASE_EXIT = 2;            // ball exits the lower bounds of board and enters the bins
-  var PHASE_COLLECTED = 3;       // ball lands in final position
 
   /**
    * @param {number} probability - number ranging from 0 to 1
@@ -40,7 +35,7 @@ define( function( require ) {
 
     this.ballRadius = this.pegSeparation * PlinkoProbabilityConstants.BALL_SIZE_FRACTION;  // @public (read-only)
 
-    this.phase = PHASE_INITIAL; // @public (read-only) see PHASE_* constants
+    this.phase = BallPhase.INITIAL; // @public (read-only), see BallPhase
 
     this.ballHittingPegEmitter = new Emitter(); // @public
     this.ballOutOfPegsEmitter = new Emitter(); // @public 
@@ -151,20 +146,20 @@ define( function( require ) {
 
     /**
      * Sends the trigger to update statistics and land
-     * if the ball phase is PHASE_INITIAL otherwise it does nothing
-     * changes the phase to PHASE_COLLECTED to make sure the triggers only get sent once
+     * if the ball phase is BallPhase.INITIAL otherwise it does nothing
+     * changes the phase to BallPhase.COLLECTED to make sure the triggers only get sent once
      * The ball will not be stepped in through the intermediate steps (i.e. Falling between peg)
      *
      * @public
      */
     updateStatisticsAndLand: function() {
-      if ( this.phase === PHASE_INITIAL ) {
+      if ( this.phase === BallPhase.INITIAL ) {
         // send triggers
         this.ballOutOfPegsEmitter.emit();
         this.ballCollectedEmitter.emit();
 
         //changes phase
-        this.phase = PHASE_COLLECTED;
+        this.phase = BallPhase.COLLECTED;
       }
     },
 
@@ -209,19 +204,19 @@ define( function( require ) {
      */
     ballStep: function( df ) {
 
-      if ( this.phase === PHASE_INITIAL ) { // balls is leaving the hopper
+      if ( this.phase === BallPhase.INITIAL ) { // balls is leaving the hopper
         if ( df + this.fallenRatio < 1 ) { // if the ball has not gotten to the first peg
           this.initialPegPositionInformation(); // get the initial peg information
           this.fallenRatio += df; // fall some more
         }
         else {
-          this.phase = PHASE_FALLING; // switch the phase
+          this.phase = BallPhase.FALLING; // switch the phase
           this.fallenRatio = 0; // reset the ratio
           this.updatePegPositionInformation(); // update the peg position information
           this.ballHittingPegEmitter.emit1( this.direction ); // can play a sound when ball hits peg;
         }
       }
-      else if ( this.phase === PHASE_FALLING ) { //ball is falling between pegs
+      else if ( this.phase === BallPhase.FALLING ) { //ball is falling between pegs
         if ( df + this.fallenRatio < 1 ) { // if ball has not reached the next peg
           this.fallenRatio += df; // fall some more
         }
@@ -233,13 +228,13 @@ define( function( require ) {
             this.ballHittingPegEmitter.emit1( this.direction ); // can play a sound when ball hits peg;
           }
           else { // ball is at the top of the last peg
-            this.phase = PHASE_EXIT; // switch phases
+            this.phase = BallPhase.EXITED; // switch phases
             this.updatePegPositionInformation(); // update the last peg information
             this.ballOutOfPegsEmitter.emit();
           }
         }
       }
-      else if ( this.phase === PHASE_EXIT ) { // the ball has exited and it is making its way to the bin
+      else if ( this.phase === BallPhase.EXITED ) { // the ball has exited and it is making its way to the bin
         // the position at which the balls will eventually land
         var finalPosition = this.finalBinVerticalOffset + this.pegSeparation * PlinkoProbabilityConstants.PEG_HEIGHT_FRACTION_OFFSET;
         if ( this.position.y > finalPosition ) { // if it has not fallen to its final position
@@ -249,7 +244,7 @@ define( function( require ) {
           this.fallenRatio += 2 * df * this.pegSeparation;
         }
         else {
-          this.phase = PHASE_COLLECTED; // switch phases
+          this.phase = BallPhase.COLLECTED; // switch phases
           this.ballCollectedEmitter.emit(); // mark the ball for removal
         }
       }
@@ -267,7 +262,7 @@ define( function( require ) {
       switch( this.phase ) {
 
         // ball left the hopper
-        case PHASE_INITIAL:
+        case BallPhase.INITIAL:
 
           // we only want this to move one peg distance down
           // set the position be at some point between the hopper and the first peg
@@ -281,7 +276,7 @@ define( function( require ) {
           break;
 
         // ball is falling through the pegs
-        case PHASE_FALLING:
+        case BallPhase.FALLING:
 
           // steer the ball to the left or right depending on this.direction
           var shift = (this.direction === 'left') ? -0.5 : 0.5;
@@ -301,13 +296,13 @@ define( function( require ) {
           break;
 
         // the ball is exiting the pegs and making its way to the bin
-        case PHASE_EXIT:
+        case BallPhase.EXITED:
           this.position.setXY( this.finalBinHorizontalOffset, -this.fallenRatio );
           this.position.addXY( this.pegPositionX, this.pegPositionY );
           break;
 
         // the ball has landed to its final position
-        case PHASE_COLLECTED:
+        case BallPhase.COLLECTED:
           this.position.setXY( this.finalBinHorizontalOffset, this.finalBinVerticalOffset );
           this.position.addXY( this.pegPositionX, 0 );
       }

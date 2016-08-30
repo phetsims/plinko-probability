@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var BallPhase = require( 'PLINKO_PROBABILITY/common/model/BallPhase' );
   var LabBall = require( 'PLINKO_PROBABILITY/lab/model/LabBall' );
   var inherit = require( 'PHET_CORE/inherit' );
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
@@ -16,8 +17,6 @@ define( function( require ) {
 
   // constants
   var MAX_NUMBER_BALLS = 9999; // max number of balls per bin
-  var PHASE_LANDED = 3;
-  var PHASE_EXIT = 2;
 
   /**
    * @constructor
@@ -37,7 +36,7 @@ define( function( require ) {
       // so when we clear the balls we should remove them from the histogram
       thisModel.balls.forEach( function( ball ) {
         // we don't want to remove balls if the have exited or landed
-        if ( !( ball.phase === PHASE_LANDED || ball.phase === PHASE_EXIT ) ) {
+        if ( !( ball.phase === BallPhase.COLLECTED || ball.phase === BallPhase.EXITED ) ) {
           //remove the ball from the binCount
           thisModel.histogram.bins[ ball.binIndex ].binCount--;
         }
