@@ -32,17 +32,23 @@ define( function( require ) {
 
   /**
    * @param {PlinkoProbabilityCommonModel} model
+   * @param {Object} [options]
    * @constructor
    */
-  function PlinkoProbabilityCommonView( model ) {
+  function PlinkoProbabilityCommonView( model, options ) {
+
+    options = _.extend( {
+      layoutBounds: new Bounds2( 0, 0, 1024, 618 ),
+      histogramMode: 'cylinder' // {string} see HISTOGRAM_MODE_VALUES
+    }, options );
 
     var thisView = this;
 
-    ScreenView.call( this, { layoutBounds: new Bounds2( 0, 0, 1024, 618 ) } );
+    ScreenView.call( this, options );
 
     // view-specific Properties
     var viewProperties = new PropertySet( {
-      histogramMode: 'cylinder', // {string} see HISTOGRAM_MODE_VALUES
+      histogramMode: options.histogramMode,
       expandedAccordionBox: true,
       isTheoreticalHistogramVisible: false,
       isSoundEnabled: false

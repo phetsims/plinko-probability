@@ -42,7 +42,9 @@ define( function( require ) {
    */
   function LabScreenView( model ) {
 
-    PlinkoProbabilityCommonView.call( this, model );
+    PlinkoProbabilityCommonView.call( this, model, {
+      histogramMode: 'counter'
+    } );
 
     var thisModel = this;
 
@@ -55,7 +57,6 @@ define( function( require ) {
     var hopperModeControl = new HopperModeControl( model.hopperModeProperty );
 
     // create the two radio buttons that can toggle between 'fraction and 'counter' mode
-    this.viewProperties.histogramModeProperty.set( 'counter' );
     var histogramModeControl = new HistogramModeControl( this.viewProperties.histogramModeProperty, 'counter', counterImage, 'fraction', fractionImage, {
       buttonContentYMargin: 13
     } );
@@ -124,6 +125,7 @@ define( function( require ) {
     this.addChild( pegsNode );
     this.addChild( pathsLayer );
 
+    //TODO move layout to Node options
     // layout the children
     histogramModeControl.bottom = this.eraserButton.top - 16;
     histogramModeControl.left = this.eraserButton.left;
@@ -136,6 +138,7 @@ define( function( require ) {
     statisticsAccordionBox.top = pegControls.bottom + PlinkoProbabilityConstants.PANEL_VERTICAL_SPACING;
     statisticsAccordionBox.right = playPanel.right;
 
+    //TODO test this
     // no need to dispose of this link
     model.isBallCapReachedProperty.lazyLink( function( isBallCapReached ) {
       // pops up a dialog box when the number of balls is reached.
@@ -155,16 +158,6 @@ define( function( require ) {
 
   plinkoProbability.register( 'LabScreenView', LabScreenView );
 
-  return inherit( PlinkoProbabilityCommonView, LabScreenView, {
-
-    /**
-     * @public
-     * @override
-     */
-    reset: function() {
-      PlinkoProbabilityCommonView.prototype.reset.call( this );
-      this.viewProperties.histogramModeProperty.set( 'counter' );
-    }
-  } );
+  return inherit( PlinkoProbabilityCommonView, LabScreenView );
 } );
 
