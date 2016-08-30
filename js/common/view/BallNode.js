@@ -20,9 +20,7 @@ define( function( require ) {
    */
   function BallNode( radius ) {
     ShadedSphereNode.call( this, 2 * radius, {
-      mainColor: PlinkoProbabilityConstants.BALL_COLOR,
-      stroke: PlinkoProbabilityConstants.BALL_COLOR,
-      lineWidth: 0.1 * radius
+      mainColor: PlinkoProbabilityConstants.BALL_COLOR
     } );
   }
 
