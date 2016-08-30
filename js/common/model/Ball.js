@@ -271,7 +271,7 @@ define( function( require ) {
 
           // we only want this to move one peg distance down
           // set the position be at some point between the hopper and the first peg
-          this.position.setXY( 0, (1 - this.fallenRatio) );  // {Vector2} describes motion of ball within bin in PHASE_INITIAL
+          this.position.setXY( 0, (1 - this.fallenRatio) );
 
           // scale it so that it does not move too much
           this.position.multiplyScalar( this.pegSeparation );
