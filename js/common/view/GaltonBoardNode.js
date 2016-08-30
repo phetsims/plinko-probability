@@ -82,14 +82,11 @@ define( function( require ) {
         .addColorStop( 1, 'rgba(255,255,255, 0.00)' )
     } );
 
-    //TODO why the pegImageHalfSize stuff?
     // Create an image of the peg. This happens asynchronously.
-    var pegImageHalfSize = Math.ceil( options.pegRadius ) + 1;
     pegNode.toImage( function( image ) {
       self.pegImage = image;
-      console.log( 'pegImage.width=' + self.pegImage.width + ', height=' + self.pegImage.height );//XXX
       self.invalidatePaint();
-    }, pegImageHalfSize, pegImageHalfSize, 2 * pegImageHalfSize, 2 * pegImageHalfSize );
+    } );
 
     // Create an image of the peg shadow. This happens asynchronously.
     shadowNode.toImage( function( image ) {
@@ -144,6 +141,7 @@ define( function( require ) {
         return;
       }
 
+      // compute values that remain constant in for loop
       var pegScale = PlinkoProbabilityConstants.ROWS_RANGE.min / self.numberOfRowsProperty.value;
       var pegWidth = pegScale * self.pegImage.width;
       var pegHeight = pegScale * self.pegImage.height;
@@ -153,7 +151,7 @@ define( function( require ) {
       // probability 0.5 has the flat part of the peg facing up
       var pegAngle = -( Math.PI / 4 ) + ( this.probabilityProperty.get() * Math.PI / 2 );
       
-      // shadow offset, a bit below and to the left, determined empirically
+      // shadow offset, a bit below and to the right, determined empirically
       var pegSpacing = self.getSpacing( self.numberOfRowsProperty.value );
       var shadowOffset = self.modelViewTransform.modelToViewDelta( new Vector2( pegSpacing * 0.08, -pegSpacing * 0.24 ) );
 
