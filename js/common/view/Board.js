@@ -19,6 +19,9 @@ define( function( require ) {
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Shape = require( 'KITE/Shape' );
 
+  // constants
+  var BOTTOM_SHADOW_HEIGHT = 10;
+
   /**
    * @param {Object} [options]
    * @constructor
@@ -60,12 +63,11 @@ define( function( require ) {
     this.addChild( faceNode );
 
     // bottom shadow
-    var bottomShadowHeight = 10;
-    var bottomShadowGradient = new LinearGradient( 0, 0, 0, bottomShadowHeight )
+    var bottomShadowGradient = new LinearGradient( 0, 0, 0, BOTTOM_SHADOW_HEIGHT )
       .addColorStop( 0.00, options.shadowFill )
       .addColorStop( 0.20, options.shadowFill )
       .addColorStop( 1.00, PlinkoProbabilityConstants.BACKGROUND_COLOR );
-    var bottomShadowNode = new Rectangle( 0, 0, faceNode.width + 8, bottomShadowHeight, 5, 50, {
+    var bottomShadowNode = new Rectangle( 0, 0, faceNode.width + 8, BOTTOM_SHADOW_HEIGHT, 5, 50, {
       fill: bottomShadowGradient,
       left: faceNode.left + 4,
       top: faceNode.bottom
