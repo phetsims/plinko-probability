@@ -248,8 +248,9 @@ define( function( require ) {
         var finalPosition = this.finalBinVerticalOffset + this.pegSeparation * PlinkoProbabilityConstants.PEG_HEIGHT_FRACTION_OFFSET;
         if ( this.position.y > finalPosition ) { // if it has not fallen to its final position
 
-          // the change in the fallen ratio needs to be scaled by the peg separation so that it matches the speed everywhere else
-          this.fallenRatio += df * this.pegSeparation;
+          // The change in the fallen ratio needs to be scaled by the peg separation so that it matches the speed everywhere else.
+          // Multiply by 2 to make the balls fall a bit faster once they've entered the bins, see #63
+          this.fallenRatio += 2 * df * this.pegSeparation;
         }
         else {
           this.phase = PHASE_COLLECTED; // switch phases
