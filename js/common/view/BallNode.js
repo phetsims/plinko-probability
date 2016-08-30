@@ -1,4 +1,4 @@
-// Copyright 2015, University of Colorado Boulder
+// Copyright 2015-2016, University of Colorado Boulder
 
 /**
  * Scenery node that represents a ball.
@@ -11,7 +11,6 @@ define( function( require ) {
   // modules
   var Circle = require( 'SCENERY/nodes/Circle' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Node = require( 'SCENERY/nodes/Node' );
   var PlinkoProbabilityConstants = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityConstants' );
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var RadialGradient = require( 'SCENERY/util/RadialGradient' );
@@ -22,25 +21,21 @@ define( function( require ) {
    */
   function BallNode( radius ) {
 
-    Node.call( this );
+    // gives the ball a specular highlight
+    var gradient = new RadialGradient(
+      -radius * 0.4, -radius * 0.4, 0,  // x0, y0, r0
+      radius * 0.1, -radius * 0.3, radius * 0.6 ) // x1, y1, r1
+      .addColorStop( 0, PlinkoProbabilityConstants.BALL_HIGHLIGHT_COLOR )
+      .addColorStop( 1, PlinkoProbabilityConstants.BALL_COLOR );
 
-    //  create and add the representation for a ball
-    var ballRepresentation = new Circle( radius, {
+    Circle.call( this, radius, {
       stroke: PlinkoProbabilityConstants.BALL_COLOR,
       lineWidth: 0.1 * radius,
-      fill: new RadialGradient( -radius * 0.4,  // gives ball white glare
-        -radius * 0.4,
-        0,
-        radius * 0.1,
-        -radius * 0.3,
-        radius * 0.6 )
-        .addColorStop( 0, PlinkoProbabilityConstants.BALL_HIGHLIGHT_COLOR )
-        .addColorStop( 1, PlinkoProbabilityConstants.BALL_COLOR )
+      fill: gradient
     } );
-    this.addChild( ballRepresentation );
   }
 
   plinkoProbability.register( 'BallNode', BallNode );
 
-  return inherit( Node, BallNode );
+  return inherit( Circle, BallNode );
 } );
