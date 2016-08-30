@@ -1,8 +1,9 @@
 // Copyright 2014-2015, University of Colorado Boulder
 
 /**
- * View for the Galton Board ( also known as a bean machine). It consists in a triangular lattice of pegs.
- * Rendering is done by Canvas Node
+ * View for the Galton Board (also known as a bean machine).
+ * It consists of a triangular lattice of pegs.
+ * Implemented using CanvasNode as a performance optimization on iPad.
  *
  * @author Martin Veillette (Berea College)
  */
@@ -32,8 +33,7 @@ define( function( require ) {
   function GaltonBoardNode( galtonBoard, numberOfRowsProperty, probabilityProperty, modelViewTransform, options ) {
 
     options = _.extend( {
-      openingAngle: Math.PI / 2, //  opening angle of the pegs, it is used for the segment that is removed from a round peg.
-      rangeRotationAngle: Math.PI / 2 // range of rotation of the peg, when going from probability 0 to 1.
+      rotatePegs: true // pegs have a flat surface whose orientation changes with probability
     }, options );
 
     var self = this;
@@ -42,25 +42,27 @@ define( function( require ) {
     this.options = options;
     this.galtonBoard = galtonBoard;
     this.numberOfRowsProperty = numberOfRowsProperty;
+    this.probabilityProperty = probabilityProperty;
     this.modelViewTransform = modelViewTransform;
 
-    // @public {boolean} - flag that indicates whether an image object has been painted for the first time
-    this.isInitiallyPainted = false;
-
-    // use a canvas node to optimize performance on the iPad
     CanvasNode.call( this, options );
 
-    // the peg orientation should be facing up when the probability is 50%
-    var leftArcAngle = -Math.PI / 2 + options.rangeRotationAngle * (probabilityProperty.value - 0.5) - options.openingAngle / 2;
-    var rightArcAngle = -Math.PI / 2 + options.rangeRotationAngle * (probabilityProperty.value - 0.5) + options.openingAngle / 2;
-
+    //TODO why this computation? Why not just set PEG_RADIUS to desired value?
     var pegRadius = PlinkoProbabilityConstants.PEG_RADIUS * 26 / 5;
-    // create the shape of the peg, i.e. a disk with a segment removed, the segment removed spans an angle of options.openingAngle
-    var pegShape = new Shape().arc( 0, 0, pegRadius, leftArcAngle, rightArcAngle, true );
+    
+    var pegShape;
+    if ( options.rotatePegs ) {
 
-    // create a peg Path and a peg Shadow
-    var pegPath = new Path( pegShape, { fill: PlinkoProbabilityConstants.PEG_COLOR } );
-    var pegShadow = new Circle( 1.4 * pegRadius, {
+      // flat surface pointing up
+      pegShape = new Shape().arc( 0, 0, pegRadius, -0.75 * Math.PI, -0.25 * Math.PI, true );
+    }
+    else {
+      pegShape = new Shape().circle( 0, 0, pegRadius );
+    }
+
+    var pegNode = new Path( pegShape, { fill: PlinkoProbabilityConstants.PEG_COLOR } );
+
+    var shadowNode = new Circle( 1.4 * pegRadius, {
       fill: new RadialGradient(
         pegRadius * 0.3,
         pegRadius * 0.5,
@@ -81,49 +83,36 @@ define( function( require ) {
         .addColorStop( 1, 'rgba(255,255,255, 0.00)' )
     } );
 
-    // create an image of the pegPath
-    pegPathToImage();
+    //TODO why the pegImageHalfSize stuff?
+    // Create an image of the peg. This happens asynchronously.
+    var pegImageHalfSize = Math.ceil( pegRadius ) + 1;
+    pegNode.toImage( function( image ) {
+      self.pegImage = image;
+      self.invalidatePaint();
+    }, pegImageHalfSize, pegImageHalfSize, 2 * pegImageHalfSize, 2 * pegImageHalfSize );
 
-    // create and image of the peg shadow.
-    pegShadow.toImage( function( image ) {
-      self.pegShadowImage = image;
-    } );
-
-    // no need to unlink since it is present for the lifetime of the simulation
-    // create a lazyLink rather than a link since oldProbability is null at first.
-    probabilityProperty.lazyLink( function( newProbability, oldProbability ) {
-
-      // rotate the underlying pegPath
-      var newAngle = newProbability * options.rangeRotationAngle;
-      var oldAngle = oldProbability * options.rangeRotationAngle;
-      var changeAngle = newAngle - oldAngle;
-      pegPath.rotateAround( pegPath.center, changeAngle );
-
-      // recreate the image of the peg
-      pegPathToImage();
-
-      // update this canvas
+    // Create an image of the peg shadow. This happens asynchronously.
+    shadowNode.toImage( function( image ) {
+      self.shadowImage = image;
       self.invalidatePaint();
     } );
 
-    // update the canvas when the number of rows changes
-    // no need to unlink since it is present for the lifetime of the simulation
+    // Rotate the pegs when probability changes, but only if they have a flat surface.
+    // No need to unlink since this instance is present for the lifetime of the simulation.
+    if ( options.rotatePegs ) {
+      probabilityProperty.lazyLink( function() {
+        self.invalidatePaint();
+      } );
+    }
+
+    // Update the number of pegs.
+    // No need to unlink since this instance is present for the lifetime of the simulation.
     numberOfRowsProperty.lazyLink( function() {
       self.invalidatePaint();
     } );
 
     // paint the canvas
     self.invalidatePaint();
-
-    /**
-     * Convert peg Path to Image
-     */
-    function pegPathToImage() {
-      var pegImageHalfSize = Math.ceil( pegRadius ) + 1;
-      pegPath.toImage( function( image ) {
-        self.pegImage = image;
-      }, pegImageHalfSize, pegImageHalfSize, 2 * pegImageHalfSize, 2 * pegImageHalfSize );
-    }
   }
 
   plinkoProbability.register( 'GaltonBoardNode', GaltonBoardNode );
@@ -147,42 +136,45 @@ define( function( require ) {
      * @private
      */
     paintCanvas: function( context ) {
+
       var self = this;
 
-      /*Slight chance the image used isn't loaded. We have a condition that states if the 
-       peg and pegshadow images have yet to be painted then paint the images. Otherwise do nothing.*/
-      if ( (!self.pegImage || !self.pegShadowImage) && !self.isInitiallyPainted ) {
+      // images are created asynchronously by toImage, so they may not be available yet
+      if ( !self.pegImage || !self.shadowImage ) {
         return;
       }
-      else {
-        self.isInitiallyPainted = true;
-      }
 
+      var pegScale = PlinkoProbabilityConstants.ROWS_RANGE.min / self.numberOfRowsProperty.value;
+      var pegWidth = pegScale * self.pegImage.width;
+      var pegHeight = pegScale * self.pegImage.height;
+      var shadowWidth = pegScale * self.shadowImage.width;
+      var shadowHeight = pegScale * self.shadowImage.height;
+
+      // probability 0.5 has the flat part of the peg facing up
+      var pegAngle = -( Math.PI / 4 ) + ( this.probabilityProperty.get() * Math.PI / 2 );
+      
+      // shadow offset, a bit below and to the left, determined empirically
       var pegSpacing = self.getSpacing( self.numberOfRowsProperty.value );
-      // offset the center of the shadow with respect to the peg, a bit below and to the left, empirically determined
-      var offsetVector = self.modelViewTransform.modelToViewDelta( new Vector2( pegSpacing * 0.08, -pegSpacing * 0.24 ) );
-
-      // scale factor for the pegs;
-      var scale = PlinkoProbabilityConstants.ROWS_RANGE.min / self.numberOfRowsProperty.value;
+      var shadowOffset = self.modelViewTransform.modelToViewDelta( new Vector2( pegSpacing * 0.08, -pegSpacing * 0.24 ) );
 
       // galtonBoard.pegs contains all the model pegs (even pegs that that are currently invisible)
       this.galtonBoard.pegs.forEach( function( peg ) {
-        // render a peg only if it is visible
         if ( peg.isVisible ) {
-          var pegViewPosition = self.modelViewTransform.modelToViewPosition( peg.position );
-          var pegShadowPosition = pegViewPosition.plus( offsetVector );
+          
+          var pegPosition = self.modelViewTransform.modelToViewPosition( peg.position );
+          var shadowPosition = pegPosition.plus( shadowOffset );
 
-          context.drawImage( self.pegShadowImage,
-            pegShadowPosition.x - self.pegShadowImage.width * scale / 2,
-            pegShadowPosition.y - self.pegShadowImage.height * scale / 2,
-            self.pegShadowImage.width * scale,
-            self.pegShadowImage.height * scale );
+          // shadow
+          context.drawImage( self.shadowImage, 
+            shadowPosition.x - shadowWidth / 2, shadowPosition.y - shadowHeight / 2,
+            shadowWidth, shadowHeight );
 
-          context.drawImage( self.pegImage,
-            pegViewPosition.x - self.pegImage.width * scale / 2,
-            pegViewPosition.y - self.pegImage.height * scale / 2,
-            self.pegImage.width * scale,
-            self.pegImage.height * scale );
+          // rotated peg
+          context.save();
+          context.translate( pegPosition.x, pegPosition.y );
+          context.rotate( pegAngle );
+          context.drawImage( self.pegImage, -pegWidth / 2, -pegHeight / 2, pegWidth, pegHeight );
+          context.restore();
         }
       } );
     }

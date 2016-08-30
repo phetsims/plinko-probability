@@ -37,7 +37,7 @@ define( function( require ) {
 
     // create the galton board (including the pegs)
     var galtonBoardNode = new GaltonBoardNode( model.galtonBoard, model.numberOfRowsProperty, model.probabilityProperty, this.modelViewTransform, {
-      openingAngle: 0.01,
+      rotatePegs: false, // pegs do not rotate as probability changes, so they do not have a flat surface
       canvasBounds: this.viewTriangularBoardBounds
     } );
 
