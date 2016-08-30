@@ -17,8 +17,8 @@ define( function( require ) {
   var HopperModeControl = require( 'PLINKO_PROBABILITY/lab/view/HopperModeControl' );
   var inherit = require( 'PHET_CORE/inherit' );
   var LabPlayPanel = require( 'PLINKO_PROBABILITY/lab/view/LabPlayPanel' );
-  var MultiLineText = require( 'SCENERY_PHET/MultiLineText' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var Panel = require( 'SUN/Panel' );
   var PegControls = require( 'PLINKO_PROBABILITY/lab/view/PegControls' );
   var PegsNode = require( 'PLINKO_PROBABILITY/common/view/PegsNode' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
@@ -27,6 +27,7 @@ define( function( require ) {
   var PlinkoProbabilityConstants = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityConstants' );
   var PlinkoProbabilityQueryParameters = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityQueryParameters' );
   var StatisticsAccordionBox = require( 'PLINKO_PROBABILITY/lab/view/StatisticsAccordionBox' );
+  var Text = require( 'SCENERY/nodes/Text' );
   var TrajectoryPath = require( 'PLINKO_PROBABILITY/lab/view/TrajectoryPath' );
 
   // images
@@ -152,15 +153,33 @@ define( function( require ) {
     //TODO test this
     // no need to dispose of this link
     model.isBallCapReachedProperty.lazyLink( function( isBallCapReached ) {
+
       // pops up a dialog box when the number of balls is reached.
       if ( isBallCapReached ) {
-        new Dialog( new MultiLineText( outOfBallsString, { font: new PhetFont( 50 ) } ), {
+
+        var messageNode = new Text( outOfBallsString, {
+          font: new PhetFont( 25 ),
+          maxWidth: 350
+        } );
+
+        // WORKAROUND: Intermediate panel needed to workaround problem that occurs when using
+        // xMargin and yMargin options for Dialog, see https://github.com/phetsims/joist/issues/346
+        var dialogContent = new Panel( messageNode, {
+          fill: null,
+          stroke: null,
+          xMargin: 40,
+          yMargin: 30
+        } );
+
+        new Dialog( dialogContent, {
           modal: true,
-          // focusable so it can be dismissed
-          focusable: true
+          focusable: true // so it can be dismissed
         } ).show();
+
+        //TODO this isn't working
         // sets the play button to active.
         playPanel.setPlayButtonVisible();
+
         // it is not playing anymore
         model.isPlayingProperty.set( false );
       }
