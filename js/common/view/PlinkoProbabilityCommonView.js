@@ -36,6 +36,8 @@ define( function( require ) {
    */
   function PlinkoProbabilityCommonView( model ) {
 
+    var thisView = this;
+
     ScreenView.call( this, { layoutBounds: new Bounds2( 0, 0, 1024, 618 ) } );
 
     // view-specific Properties
@@ -52,18 +54,18 @@ define( function( require ) {
       assert && assert( _.contains( HISTOGRAM_MODE_VALUES, histogramMode ), 'invalid histogramMode: ' + histogramMode );
     } );
 
-    // create the hopper and the wooden Board
-    var hopper = new Hopper();
-    var board = new Board();
+    var hopper = new Hopper( {
+      centerX: this.layoutBounds.maxX / 2 - 80,
+      top: 10
+    } );
 
-    // layout the hopper and the board
-    hopper.centerX = this.layoutBounds.maxX / 2 - 80;
-    hopper.top = 10;
-    board.left = hopper.centerX - board.size.width / 2;
-    board.top = hopper.bottom + 10;
+    var board = new Board( {
+      x: hopper.centerX,
+      top: hopper.bottom + 10
+    } );
 
     // @protected
-    // needed to layout the position of the ball radio buttons in the lab tab
+    // needed to layout the position of the ball radio buttons in the Lab screen
     this.hopperRight = hopper.right;
 
     // create the model view transform based on the triangular board of the galton board (excluding the dropped shadow)
@@ -93,35 +95,38 @@ define( function( require ) {
         model.launchedBallsNumber = 0; // reset the number of launched balls
         model.ballsToCreateNumber = 0; // reset the ball creation queue
         model.isBallCapReachedProperty.set( false );
-      }
+      },
+      bottom: this.layoutBounds.maxY - 55,
+      left: 40
     } );
 
     var histogramModelBounds = PlinkoProbabilityConstants.HISTOGRAM_BOUNDS;
     var ballModelBounds = model.galtonBoard.bounds.union( histogramModelBounds );
     var ballViewBounds = this.modelViewTransform.modelToViewBounds( ballModelBounds ).dilated( 20 );
 
-    // create the ballLayerNodes  (a canvas Node) that renders all the balls
+    // renders all the balls
     var ballsNode = new BallsNode( model.balls, modelViewTransform, model.numberOfRowsProperty, viewProperties.histogramModeProperty, model.hopperModeProperty,
       { canvasBounds: ballViewBounds } );
     this.ballsNode = ballsNode;
 
-    // create the sound generator for ball hitting peg
-    var pegSoundGeneration = new PegSoundGeneration( viewProperties.isSoundEnabledProperty );
-    this.pegSoundGeneration = pegSoundGeneration;
+    // @protected sound generator for ball hitting peg
+    this.pegSoundGeneration = new PegSoundGeneration( viewProperties.isSoundEnabledProperty );
 
-    var thisView = this;
-    // create the Reset All Button at the bottom right, which resets the model
+    // Reset All Button at bottom right
     var resetAllButton = new ResetAllButton( {
       listener: function() {
-        model.reset(); // reset the model
-        viewProperties.reset(); // reset the properties
+        model.reset();
         thisView.reset();
-        pegSoundGeneration.reset(); // reset the time elapsed to 0
-      }
+      },
+      right: this.layoutBounds.maxX - PlinkoProbabilityConstants.PANEL_RIGHT_PADDING,
+      bottom: this.layoutBounds.maxY - 10
     } );
 
-    // create the Sound Toggle Button at the bottom right
-    var soundToggleButton = new SoundToggleButton( viewProperties.isSoundEnabledProperty );
+    // sound toggle button at bottom right
+    var soundToggleButton = new SoundToggleButton( viewProperties.isSoundEnabledProperty, {
+      right: resetAllButton.left - 20,
+      centerY: resetAllButton.centerY
+    } );
 
     // add children to the scene graph
     this.addChild( board );
@@ -132,17 +137,9 @@ define( function( require ) {
     this.addChild( histogramNode );
     this.addChild( hopper );
 
-    // layout the children nodes on the scene graph
-    eraserButton.bottom = this.layoutBounds.maxY - 55;
-    eraserButton.left = 40;
-
     // @protected needed to layout the radioButtons of each tab
     this.histogramModeControlBottom = eraserButton.top - 16;
     this.histogramModeControlLeft = eraserButton.left;
-    resetAllButton.right = this.layoutBounds.maxX - PlinkoProbabilityConstants.PANEL_RIGHT_PADDING;
-    resetAllButton.bottom = this.layoutBounds.maxY - 10;
-    soundToggleButton.right = resetAllButton.left - 20;
-    soundToggleButton.centerY = resetAllButton.centerY;
   }
 
   plinkoProbability.register( 'PlinkoProbabilityCommonView', PlinkoProbabilityCommonView );
@@ -168,6 +165,9 @@ define( function( require ) {
      * appropriate to include a no-op function here.
      * @public
      */
-    reset: function() {}
+    reset: function() {
+      this.viewProperties.reset();
+      this.pegSoundGeneration.reset();
+    }
   } );
 } );
