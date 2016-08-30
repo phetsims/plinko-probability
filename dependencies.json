@@ -1,5 +1,5 @@
 {
-  "comment": "# plinko-probability 1.0.0-dev.8 Mon Aug 29 2016 20:01:58 GMT-0600 (MDT)",
+  "comment": "# plinko-probability 1.0.0-dev.9 Tue Aug 30 2016 09:34:24 GMT-0600 (MDT)",
   "assert": {
     "sha": "7d27130a4d27da15aa7f8a21bbfb9245288c1b44",
     "branch": "master"
@@ -13,7 +13,7 @@
     "branch": "master"
   },
   "chipper": {
-    "sha": "1e279c0c3e1c1020ded0a8d3a7fee3898b2bf8cc",
+    "sha": "972ce2546255abef411993d9af1f33f94a1845aa",
     "branch": "master"
   },
   "dot": {
@@ -37,7 +37,7 @@
     "branch": "master"
   },
   "plinko-probability": {
-    "sha": "a07871ee62a4e6b4d7f1a2cbb413b3cba07bcd62",
+    "sha": "f1ad501b6f81ff5aee40188ac1193dcb12502b89",
     "branch": "master"
   },
   "scenery": {
@@ -45,7 +45,7 @@
     "branch": "master"
   },
   "scenery-phet": {
-    "sha": "668576cf3afa4f44d1c360ce554f55dfa8eef7bb",
+    "sha": "25be8c387ca5c75637947d60a560d80221ec1d92",
     "branch": "master"
   },
   "sherpa": {
