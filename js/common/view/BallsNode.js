@@ -79,7 +79,7 @@ define( function( require ) {
         return;
       }
 
-      // render all balls only if 'ball' is the current mode of the Galton Board
+      // render all balls only if 'ball' is the current hopper mode
       if ( self.hopperModeProperty.value === 'ball' ) {
         this.balls.forEach( function( ball ) {
 
