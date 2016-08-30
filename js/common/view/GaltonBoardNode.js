@@ -34,7 +34,8 @@ define( function( require ) {
   function GaltonBoardNode( galtonBoard, numberOfRowsProperty, probabilityProperty, modelViewTransform, options ) {
 
     options = _.extend( {
-      rotatePegs: true // pegs have a flat surface whose orientation changes with probability
+      rotatePegs: true, // pegs have a flat surface whose orientation changes with probability
+      pegRadius: 19 // radius of pegs when the number of rows is the default value
     }, options );
 
     var self = this;
@@ -48,29 +49,26 @@ define( function( require ) {
 
     CanvasNode.call( this, options );
 
-    //TODO why this computation? Why not just set PEG_RADIUS to desired value?
-    var pegRadius = PlinkoProbabilityConstants.PEG_RADIUS * 26 / 5;
-    
     var pegShape;
     if ( options.rotatePegs ) {
 
       // flat surface pointing up
-      pegShape = new Shape().arc( 0, 0, pegRadius, -0.75 * Math.PI, -0.25 * Math.PI, true );
+      pegShape = new Shape().arc( 0, 0, options.pegRadius, -0.75 * Math.PI, -0.25 * Math.PI, true );
     }
     else {
-      pegShape = new Shape().circle( 0, 0, pegRadius );
+      pegShape = new Shape().circle( 0, 0, options.pegRadius );
     }
 
     var pegNode = new Path( pegShape, { fill: PlinkoProbabilityConstants.PEG_COLOR } );
 
-    var shadowNode = new Circle( 1.4 * pegRadius, {
+    var shadowNode = new Circle( 1.4 * options.pegRadius, {
       fill: new RadialGradient(
-        pegRadius * 0.3,
-        pegRadius * 0.5,
+        options.pegRadius * 0.3,
+        options.pegRadius * 0.5,
         0,
-        pegRadius * 0.1,
-        -pegRadius * 0.6,
-        pegRadius * 1.4
+        options.pegRadius * 0.1,
+        -options.pegRadius * 0.6,
+        options.pegRadius * 1.4
       )
         .addColorStop( 0, 'rgba(0,0,0,1)' )
         .addColorStop( 0.1809, 'rgba(3,3,3, 0.8191)' )
@@ -86,9 +84,10 @@ define( function( require ) {
 
     //TODO why the pegImageHalfSize stuff?
     // Create an image of the peg. This happens asynchronously.
-    var pegImageHalfSize = Math.ceil( pegRadius ) + 1;
+    var pegImageHalfSize = Math.ceil( options.pegRadius ) + 1;
     pegNode.toImage( function( image ) {
       self.pegImage = image;
+      console.log( 'pegImage.width=' + self.pegImage.width + ', height=' + self.pegImage.height );//XXX
       self.invalidatePaint();
     }, pegImageHalfSize, pegImageHalfSize, 2 * pegImageHalfSize, 2 * pegImageHalfSize );
 
