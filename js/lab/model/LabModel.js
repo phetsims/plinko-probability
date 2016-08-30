@@ -17,7 +17,7 @@ define( function( require ) {
   var PlinkoProbabilityQueryParameters = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityQueryParameters' );
 
   // constants
-  var MAX_NUMBER_BALLS = PlinkoProbabilityQueryParameters.MAX_BALLS || 9999; // max number of balls per bin
+  var MAX_BALLS = PlinkoProbabilityQueryParameters.MAX_BALLS || 9999; // max number of balls *per bin*
 
   /**
    * @constructor
@@ -114,7 +114,7 @@ define( function( require ) {
       var addedBall = new LabBall( this.probability, this.numberOfRows, this.histogram.bins );
       this.histogram.bins[ addedBall.binIndex ].binCount++; //update the bin count of the bins
       this.balls.push( addedBall ); // add the ball to the observable array
-      if ( thisModel.histogram.getMaximumActualBinCount() >= MAX_NUMBER_BALLS ) {
+      if ( thisModel.histogram.getMaximumActualBinCount() >= MAX_BALLS ) {
         thisModel.isBallCapReached = true;
       }
       // ballOutOfPegsEmitter is emitted when the addedBall leaves the last peg on the Galton board.
