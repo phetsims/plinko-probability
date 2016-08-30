@@ -46,7 +46,7 @@ define( function( require ) {
       histogramMode: 'counter'
     } );
 
-    var thisModel = this;
+    var thisView = this;
 
     // pegs on the Galton board
     var pegsNode = new PegsNode( model.galtonBoard, model.numberOfRowsProperty, model.probabilityProperty, this.modelViewTransform, {
@@ -89,7 +89,7 @@ define( function( require ) {
         case 'ball':
           // initiates sound to play when ball hits a peg
           var ballHittingPegListener = function( direction ) {
-            thisModel.pegSoundGeneration.playBallHittingPegSound( direction );
+            thisView.pegSoundGeneration.playBallHittingPegSound( direction );
           };
           addedBall.ballHittingPegEmitter.addListener( ballHittingPegListener );
           model.balls.addItemRemovedListener( function removalListener( removedBall ) {
@@ -100,7 +100,7 @@ define( function( require ) {
           } );
           break;
         case 'path':
-          var addedTrajectoryPath = new TrajectoryPath( addedBall, thisModel.modelViewTransform );
+          var addedTrajectoryPath = new TrajectoryPath( addedBall, thisView.modelViewTransform );
           pathsLayer.addChild( addedTrajectoryPath );
           model.balls.addItemRemovedListener( function removalListener( removedBall ) {
             if ( removedBall === addedBall ) {
