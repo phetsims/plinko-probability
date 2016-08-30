@@ -83,13 +83,13 @@ define( function( require ) {
 
     // Create an image of the peg. This happens asynchronously.
     pegNode.toImage( function( image ) {
-      self.pegImage = image;
+      self.pegImage = image; // @private
       self.invalidatePaint();
     } );
 
     // Create an image of the peg shadow. This happens asynchronously.
     shadowNode.toImage( function( image ) {
-      self.shadowImage = image;
+      self.shadowImage = image; // @private
       self.invalidatePaint();
     } );
 
