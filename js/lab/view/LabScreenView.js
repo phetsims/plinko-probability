@@ -12,9 +12,9 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var HopperModeControl = require( 'PLINKO_PROBABILITY/lab/view/HopperModeControl' );
   var Dialog = require( 'JOIST/Dialog' );
   var HistogramModeControl = require( 'PLINKO_PROBABILITY/common/view/HistogramModeControl' );
+  var HopperModeControl = require( 'PLINKO_PROBABILITY/lab/view/HopperModeControl' );
   var inherit = require( 'PHET_CORE/inherit' );
   var LabPlayPanel = require( 'PLINKO_PROBABILITY/lab/view/LabPlayPanel' );
   var MultiLineText = require( 'SCENERY_PHET/MultiLineText' );
