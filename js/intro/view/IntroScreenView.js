@@ -33,6 +33,8 @@ define( function( require ) {
    */
   function IntroScreenView( model ) {
 
+    var thisView = this;
+
     PlinkoProbabilityCommonView.call( this, model );
 
     // pegs on the Galton board
@@ -64,9 +66,17 @@ define( function( require ) {
       right: playPanel.right
     } );
 
+    // rendering order
+    this.addChild( histogramModeControl );
+    this.addChild( playPanel );
+    this.addChild( numberBallsDisplay );
+    this.addChild( pegsNode );
+    this.addChild( cylindersBackNode );
+    this.moveChildToBack( cylindersBackNode );
+    this.addChild( cylindersFrontNode );
+
     // link the histogram radio buttons to toggle the visibility of the histogram and cylinders
     // link is present fot the lifetime of the sim
-    var thisView = this;
     this.viewProperties.histogramModeProperty.link( function( histogramMode ) {
       switch( histogramMode ) {
         case 'counter':
@@ -101,15 +111,6 @@ define( function( require ) {
         }
       } );
     } );
-
-    // rendering order
-    this.addChild( histogramModeControl );
-    this.addChild( playPanel );
-    this.addChild( numberBallsDisplay );
-    this.addChild( pegsNode );
-    this.addChild( cylindersBackNode );
-    this.moveChildToBack( cylindersBackNode );
-    this.addChild( cylindersFrontNode );
   }
 
   plinkoProbability.register( 'IntroScreenView', IntroScreenView );
