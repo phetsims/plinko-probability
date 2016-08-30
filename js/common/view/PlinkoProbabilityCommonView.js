@@ -6,6 +6,7 @@
  * @author Martin Veillette (Berea College)
  * @author Guillermo Ramos (Berea College)
  * @author Denzell Barnett (Berea College)
+ * @author Chris Malley (PixelZoom, Inc.)
  */
 define( function( require ) {
   'use strict';
