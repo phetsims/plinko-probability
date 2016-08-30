@@ -28,8 +28,6 @@ define( function( require ) {
    */
   function Board( options ) {
 
-    Node.call( this );
-
     options = _.extend( {
       size: new Dimension2( 600, 300 ), // triangle base width x height
       shadowFill: 'rgb(136,136,136)'
@@ -60,7 +58,6 @@ define( function( require ) {
     var faceNode = new Path( boardShape, {
       fill: faceGradient
     } );
-    this.addChild( faceNode );
 
     // bottom shadow
     var bottomShadowGradient = new LinearGradient( 0, 0, 0, BOTTOM_SHADOW_HEIGHT )
@@ -72,7 +69,6 @@ define( function( require ) {
       left: faceNode.left + 4,
       top: faceNode.bottom
     } );
-    this.addChild( bottomShadowNode );
 
     // right shadow
     var rightShadowShape = new Shape().moveTo( 4, 4 )
@@ -87,9 +83,11 @@ define( function( require ) {
     var rightShadowNode = new Path( rightShadowShape, {
       fill: rightShadowGradient
     } );
-    this.addChild( rightShadowNode );
 
-    this.mutate( options );
+    // shadows behind face
+    options.children = [ bottomShadowNode, rightShadowNode, faceNode ];
+
+    Node.call( this, options );
   }
 
   plinkoProbability.register( 'Board', Board );
