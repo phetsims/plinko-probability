@@ -125,11 +125,11 @@ define( function( require ) {
     this.addChild( pathsLayer );
 
     // layout the children
-    histogramModeControl.bottom = this.histogramModeControlBottom;
-    histogramModeControl.left = this.histogramModeControlLeft;
+    histogramModeControl.bottom = this.eraserButton.top - 16;
+    histogramModeControl.left = this.eraserButton.left;
     playPanel.right = this.layoutBounds.maxX - PlinkoProbabilityConstants.PANEL_RIGHT_PADDING; // determines slider control panel and statistical display position
     playPanel.top = 10;
-    hopperModeControl.left = this.hopperRight + 47; // dependent on hopper position
+    hopperModeControl.left = this.hopper.right + 47;
     hopperModeControl.top = HOPPER_TOP;
     pegControls.top = playPanel.bottom + PlinkoProbabilityConstants.PANEL_VERTICAL_SPACING;
     pegControls.right = playPanel.right;

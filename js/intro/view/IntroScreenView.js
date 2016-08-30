@@ -102,8 +102,8 @@ define( function( require ) {
     this.addChild( cylindersFrontNode );
 
     // layout the children nodes on the scene graph
-    histogramModeControl.bottom = this.histogramModeControlBottom;
-    histogramModeControl.left = this.histogramModeControlLeft;
+    histogramModeControl.bottom = this.eraserButton.top - 16;
+    histogramModeControl.left = this.eraserButton.left;
     playPanel.right = this.layoutBounds.maxX - PlinkoProbabilityConstants.PANEL_RIGHT_PADDING;
     playPanel.top = PlinkoProbabilityConstants.PANEL_VERTICAL_SPACING;
     numberBallsDisplay.top = playPanel.bottom + 245;

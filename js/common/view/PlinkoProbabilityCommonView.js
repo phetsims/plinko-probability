@@ -64,10 +64,6 @@ define( function( require ) {
       top: hopper.bottom + 10
     } );
 
-    // @protected
-    // needed to layout the position of the ball radio buttons in the Lab screen
-    this.hopperRight = hopper.right;
-
     // create the model view transform based on the triangular board of the galton board (excluding the dropped shadow)
     var viewTriangularBoardBounds = new Bounds2( board.left, board.top, board.left + board.size.width, board.top + board.size.height );
     var modelTriangularBoardBounds = model.galtonBoard.bounds;
@@ -85,7 +81,6 @@ define( function( require ) {
     );
     this.histogramNode = histogramNode;
 
-    // create the eraser button
     var eraserButton = new EraserButton( {
       iconWidth: 22,
       scale: 1.4,
@@ -137,9 +132,9 @@ define( function( require ) {
     this.addChild( histogramNode );
     this.addChild( hopper );
 
-    // @protected needed to layout the radioButtons of each tab
-    this.histogramModeControlBottom = eraserButton.top - 16;
-    this.histogramModeControlLeft = eraserButton.left;
+    // @protected needed for layout in subtypes
+    this.hopper = hopper;
+    this.eraserButton = eraserButton;
   }
 
   plinkoProbability.register( 'PlinkoProbabilityCommonView', PlinkoProbabilityCommonView );
