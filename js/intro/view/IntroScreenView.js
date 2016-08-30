@@ -46,7 +46,6 @@ define( function( require ) {
     var cylindersFrontNode = new CylindersFrontNode( model.numberOfRowsProperty, this.modelViewTransform, model.cylinderInfo );
 
     // Histogram mode radio buttons, above the eraser button
-    this.viewProperties.histogramModeProperty.set( 'cylinder' ); //TODO does this reset properly?
     var histogramModeControl = new HistogramModeControl( this.viewProperties.histogramModeProperty, 'counter', counterImage, 'cylinder', cylinderImage, {
       bottom: this.eraserButton.top - 16,
       left: this.eraserButton.left
