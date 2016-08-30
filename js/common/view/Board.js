@@ -42,7 +42,7 @@ define( function( require ) {
     var width = options.size.width;
     var height = options.size.height;
 
-    // triangular shape of the board
+    // triangular shape of the board, origin at top center
     var boardShape = new Shape().moveTo( 0, 0 )
       .lineTo( width / 2, height )
       .lineTo( -width / 2, height )
