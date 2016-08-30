@@ -6,6 +6,7 @@
  * Implemented using CanvasNode as a performance optimization on iPad.
  *
  * @author Martin Veillette (Berea College)
+ * @author Chris Malley (PixelZoom, Inc.)
  */
 define( function( require ) {
   'use strict';
