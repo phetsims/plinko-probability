@@ -1,7 +1,7 @@
 // Copyright 2014-2015, University of Colorado Boulder
 
 /**
- * Ball Model for intro tab in Plinko Probability
+ * Ball model for Intro screen of Plinko Probability
  * This model inherits from the common ball and adds the information needed
  * to place the ball correctly in the cylinder
  * The ball determines its position based on the position and direction in the cylinder
@@ -19,7 +19,6 @@ define( function( require ) {
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
 
   /**
-   * Creates model for balls on the intro tab
    * @param {number} probability - number ranging from 0 to 1
    * @param {number} numberOfRows - an integer
    * @param {Array.<Object>} bins

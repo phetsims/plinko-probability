@@ -36,16 +36,12 @@ define( function( require ) {
 
   return inherit( Object, PegSoundGeneration, {
 
-    /**
-     * Reset
-     * @public
-     */
+    // @public
     reset: function() {
       this.soundTimeElapsed = 0;
     },
 
     /**
-     * Increment time by dt
      * @param {number} dt - change in time
      * @public
      */
@@ -55,6 +51,7 @@ define( function( require ) {
 
     /**
      * Play sound that depends on the direction of the ball
+     *
      * @param {string} direction - acceptable values are 'left' and 'right'
      * @public
      */

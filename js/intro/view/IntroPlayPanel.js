@@ -28,7 +28,6 @@ define( function( require ) {
   var timesString = '\u00D7'; // multiplication Sign
 
   /**
-   * Creation of play panel
    * @param {Function} updateBallsToCreateNumber - function that update the number of balls to be created
    * @param {Property.<string>} ballModeProperty - see PlinkoProbabilityCommonModel
    * @param {Property.<boolean>} isBallCapReachedProperty - describes maximum amount of balls

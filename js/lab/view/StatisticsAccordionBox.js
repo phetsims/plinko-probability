@@ -61,7 +61,6 @@ define( function( require ) {
   };
 
   /**
-   *
    * @param {LabModel} model
    * @param {Property.<boolean>} isTheoreticalHistogramVisibleProperty
    * @param {Property.<boolean>} expandedAccordionBoxProperty
@@ -162,10 +161,7 @@ define( function( require ) {
 
   return inherit( AccordionBox, StatisticsAccordionBox, {
 
-    /**
-     * resets the panel to the unexpanded state
-     * @public
-     */
+    // @public
     reset: function() {
       this.expandedProperty.reset();
     }

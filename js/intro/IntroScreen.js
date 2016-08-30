@@ -24,6 +24,9 @@ define( function( require ) {
   var homescreenIconImage = require( 'image!PLINKO_PROBABILITY/intro-homescreen-icon.png' );
   var navbarIconImage = require( 'image!PLINKO_PROBABILITY/intro-navbar-icon.png' );
 
+  /**
+   * @constructor
+   */
   function IntroScreen() {
     Screen.call( this,
       plinkoProbabilityIntroTitleScreenString,

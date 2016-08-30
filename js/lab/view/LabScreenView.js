@@ -159,7 +159,6 @@ define( function( require ) {
   return inherit( PlinkoProbabilityCommonView, LabScreenView, {
 
     /**
-     * resets the histogram radio property to be counter
      * @public
      * @override
      */

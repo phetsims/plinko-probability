@@ -99,6 +99,7 @@ define( function( require ) {
 
   /**
    * Scenery Node that create the labels at the tick marks and the X axis label.
+   *
    * @param {Histogram} histogram
    * @param {Property.<number>} numberOfRowsProperty
    * @param {ModelViewTransform2} modelViewTransform
@@ -167,6 +168,7 @@ define( function( require ) {
 
   /**
    * Scenery Node that create a Y axis label
+   *
    * @param {Histogram} histogram
    * @param {Property.<string>} histogramModeProperty
    * @param {ModelViewTransform2} modelViewTransform
@@ -498,6 +500,7 @@ define( function( require ) {
 
     /**
      * Set the position of the triangle Path based on the average value
+     *
      * @param {Path} path
      * @param {number} average
      */

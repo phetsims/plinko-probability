@@ -20,7 +20,6 @@ define( function( require ) {
   var nString = require( 'string!PLINKO_PROBABILITY/n' );
 
   /**
-   * Creates display for number of balls that have fallen
    * @param {Histogram} histogram
    * @param {Object} [options]
    * @constructor

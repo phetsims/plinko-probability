@@ -49,8 +49,9 @@ define( function( require ) {
 
     /**
      * Time step function that is responsible for updating the position and status of the balls.
+     *
+     * @param {number} dt - time interval
      * @public
-     * @param {number} dt - a small time interval
      */
     step: function( dt ) {
       this.ballCreationTimeElapsed += dt; // we want to to keep track of the time elapsed since the last ball was created
@@ -69,9 +70,8 @@ define( function( require ) {
     },
 
     /**
-     * Resets timer for each ball
-     * @public
      * @override
+     * @public
      */
     reset: function() {
       PlinkoProbabilityCommonModel.prototype.reset.call( this );
@@ -82,6 +82,7 @@ define( function( require ) {
     /**
      * This function updates the number of balls to be launched which depends on the status of ballMode
      * The cap of of the maximum number of balls to be launches is enforced by the step() function.
+     *
      * @private
      */
     updateBallsToCreateNumber: function() {
@@ -109,6 +110,7 @@ define( function( require ) {
 
     /**
      * Add a new Ball to the model
+     *
      * @private
      */
     addNewBall: function() {

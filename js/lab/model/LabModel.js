@@ -20,7 +20,6 @@ define( function( require ) {
   var PHASE_EXIT = 2;
 
   /**
-   * Main model of the second tab (lab tab) of the plinko probability simulation
    * @constructor
    */
   function LabModel() {
@@ -68,12 +67,13 @@ define( function( require ) {
   return inherit( PlinkoProbabilityCommonModel, LabModel, {
 
     /**
-     * time step function that is  responsible for creating and updating the position and status of the balls
+     * @param {number} dt - time interval
      * @public
-     * @param {number} dt
      */
     step: function( dt ) {
+
       this.ballCreationTimeElapsed += dt; // we don't want balls to drop too quickly so we keep track of the interval
+
       if ( this.isPlaying && this.ballCreationTimeElapsed > this.ballCreationTimeInterval ) { // if the play button is pressed and the interval is greater than some interval
         this.addNewBall(); // add a new ball
         this.ballCreationTimeElapsed = 0; // reset the elapsed time
@@ -106,6 +106,7 @@ define( function( require ) {
 
     /**
      * Add a new Ball to the model
+     *
      * @private
      */
     addNewBall: function() {
@@ -135,10 +136,11 @@ define( function( require ) {
 
     /**
      * Function that returns the theoretical average of the binomial distribution
+     *
      * @param {number} numberOfRows - an integer
      * @param {number} probability - ranges from 0 to 1
      * @returns {number}
-     * @public (read-only)
+     * @public
      */
     getTheoreticalAverage: function( numberOfRows, probability ) {
       assert && assert( numberOfRows % 1 === 0, 'number of rows should be an integer' );
@@ -147,10 +149,11 @@ define( function( require ) {
 
     /**
      * Function that calculates the theoretical standard deviation of the binomial distribution
+     *
      * @param {number} numberOfRows - an integer
      * @param {number} probability - ranges from 0 to 1
      * @returns {number}
-     * @public (read-only)
+     * @public
      */
     getTheoreticalStandardDeviation: function( numberOfRows, probability ) {
       assert && assert( numberOfRows % 1 === 0, 'number of rows should be an integer' );
@@ -161,8 +164,7 @@ define( function( require ) {
      * Function that returns the binomial coefficient, equivalent to (in Latex) ${n\choose k}$
      * usually expressed as "n choose k". It is the coefficient of the x^k term in the polynomial
      * expansion of the binomial power (1 + x)^n. It is related to the Pascal triangle.
-     *
-     * see http://en.wikipedia.org/wiki/Binomial_coefficient
+     * See http://en.wikipedia.org/wiki/Binomial_coefficient
      *
      * @param {number} n - the number of rows
      * @param {number} k - the bin number
@@ -185,8 +187,7 @@ define( function( require ) {
     /**
      * Function that returns the theoretical probability that a ball in in a galton box with 'n' rows (or layers)
      * ends up in the bin number 'k' given the success  probability of every event is 'p'.
-     *
-     * see http://en.wikipedia.org/wiki/Binomial_distribution
+     * See http://en.wikipedia.org/wiki/Binomial_distribution
      *
      * @param {number} n - the number of rows, must be an integer > 0
      * @param {number} k - the bin number - an integer between 0 and n
@@ -204,8 +205,7 @@ define( function( require ) {
     /**
      *  Function that returns the theoretical probabilities of the binomial distribution
      *  i.e. P(n,k,p) of a binomial distribution in array form
-     *
-     *  see http://en.wikipedia.org/wiki/Binomial_distribution
+     *  See http://en.wikipedia.org/wiki/Binomial_distribution
      *
      * @returns {Array.<number>}
      * @private
@@ -226,7 +226,7 @@ define( function( require ) {
      *  The binomial distribution is normalized in the sense that the largest coefficient of the array will be one.
      *
      * @returns {Array.<number>}
-     * @public (read-only)
+     * @public
      */
     getNormalizedBinomialDistribution: function() {
       var binomialCoefficientsArray = this.getBinomialDistribution();

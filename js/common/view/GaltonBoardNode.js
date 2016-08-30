@@ -24,7 +24,6 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
 
   /**
-   *
    * @param {GaltonBoard} galtonBoard
    * @param {Property.<number>} numberOfRowsProperty - an integer
    * @param {Property.<number>} probabilityProperty - a number ranging from 0 to 1

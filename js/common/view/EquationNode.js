@@ -90,6 +90,7 @@ define( function( require ) {
 
     /**
      * Update the value of the right side of the equation (a number)
+     *
      * @param {number} value
      * @public
      */

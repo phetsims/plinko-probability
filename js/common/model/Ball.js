@@ -120,11 +120,12 @@ define( function( require ) {
     /**
      * Function that returns the X position of a peg with index rowNumber and column Number
      * The position is given in the model view (with respect to the galton board)
-     * @public
+     *
      * @param {number} rowNumber
      * @param {number} columnNumber
      * @param {number} numberOfRows
      * @returns {number}
+     * @public
      */
     getPegPositionX: function( rowNumber, columnNumber, numberOfRows ) {
       return (-rowNumber / 2 + columnNumber) / (numberOfRows + 1 );
@@ -133,18 +134,18 @@ define( function( require ) {
     /**
      * Function that returns the Y position of a peg with index rowNumber and column Number
      * The position is given in the model view (with respect to the galton board)
-     * @public
+     *
      * @param {number} rowNumber
      * @param {number} columnNumber
      * @param {number} numberOfRows
      * @returns {number}
+     * @public
      */
     getPegPositionY: function( rowNumber, columnNumber, numberOfRows ) {
       return (-rowNumber - 2 * PlinkoProbabilityConstants.PEG_HEIGHT_FRACTION_OFFSET) / (numberOfRows + 1 );
     },
 
     /**
-     *
      * @param {number} dt - time interval
      * @public
      */
@@ -157,6 +158,7 @@ define( function( require ) {
      * if the ball phase is PHASE_INITIAL otherwise it does nothing
      * changes the phase to COLLECTED to make sure the triggers only get sent once
      * The ball will not be stepped in through the intermediate steps (i.e. Falling between peg)
+     *
      * @public
      */
     updateStatisticsAndLand: function() {
@@ -172,6 +174,7 @@ define( function( require ) {
 
     /**
      * this function updates the information about the peg position based on the peg history
+     *
      * @public
      */
     updatePegPositionInformation: function() {
@@ -185,6 +188,7 @@ define( function( require ) {
 
     /**
      * this function gets the first peg position
+     *
      * @public
      */
     initialPegPositionInformation: function() {
@@ -263,6 +267,7 @@ define( function( require ) {
      * PHASE_FALLING: Mimics a bounce by using a parabolic fall
      * PHASE_EXIT: Falls in a straight line below the pegs until it reached its final position
      * PHASE_COLLECTED: lands in its finalPosition
+     *
      * @private
      */
     updatePosition: function() {

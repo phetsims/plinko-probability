@@ -31,7 +31,6 @@ define( function( require ) {
   var HISTOGRAM_MODE_VALUES = [ 'counter', 'cylinder', 'fraction' ]; // values for histogramModeProperty
 
   /**
-   * Creates common view for the tabs
    * @param {PlinkoProbabilityCommonModel} model
    * @constructor
    */

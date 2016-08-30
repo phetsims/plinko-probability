@@ -26,7 +26,6 @@ define( function( require ) {
   var BALL_RADIUS = PlinkoProbabilityConstants.BALL_RADIUS;
 
   /**
-   * Responsible for the panel that contains the play/pause button and amount of balls to be released.
    * @param {LabModel} model
    * @param {Property.<string>} ballModeProperty - see PlinkoProbabilityCommonModel
    * @param {Object} [options]
@@ -142,7 +141,8 @@ define( function( require ) {
   return inherit( Panel, LabPlayPanel, {
 
     /**
-     * toggle the visibility of the play and pause button
+     * Toggle the visibility of the play and pause button
+     *
      * @public
      */
     togglePlayPauseButtonVisibility: function() {
@@ -152,7 +152,8 @@ define( function( require ) {
     },
 
     /**
-     * sets the visibility of the play pause button to play
+     * Sets the visibility of the play pause button to play
+     *
      * @public
      */
     setPlayButtonVisible: function() {

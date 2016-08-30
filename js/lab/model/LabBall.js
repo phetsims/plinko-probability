@@ -17,10 +17,9 @@ define( function( require ) {
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
 
   /**
-   *
    * @param {number} probability - number ranging from 0 to 1
    * @param {number} numberOfRows - an integer
-   * @param {Array.<Object>} bins
+   * @param {Object[]} bins
    * @constructor
    */
   function LabBall( probability, numberOfRows, bins ) {

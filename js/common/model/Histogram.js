@@ -65,8 +65,9 @@ define( function( require ) {
 
     /**
      * Used in the "ballsOnScreen" query parameter to set an initial amount of balls within the histogram.
+     *
+     * @param ballsOnScreen {number} - user inputted query parameter for the amount of balls the histogram is initialized with
      * @public
-     * @param ballsOnScreen {number} - user inputted query parameter for the amount of balls the histogram is initiallized with
      */
     prepopulate: function( ballsOnScreen ) {
 
@@ -109,6 +110,7 @@ define( function( require ) {
 
     /**
      * Sets the value of all bins in the histogram to zero.
+     *
      * @private
      */
     setBinsToZero: function() {
@@ -164,7 +166,9 @@ define( function( require ) {
     },
 
     /**
-     * Determines the histogram's statistics due to adding an initial amount of balls on screen via the "ballOnScreen" query parameter
+     * Determines the histogram's statistics due to adding an initial amount of balls on screen
+     * via the "ballOnScreen" query parameter
+     *
      * @private
      */
     initialStatistics: function() {
@@ -189,6 +193,7 @@ define( function( require ) {
 
     /**
      *  Resets all the statistics data to zero
+     *
      *  @private
      */
     resetStatistics: function() {
@@ -202,6 +207,7 @@ define( function( require ) {
 
     /**
      * Add an additional ball to the histogram to the appropriate bin and update all the relevant statistics
+     *
      * @param {IntroBall|LabBall} ball
      * @public
      */
@@ -214,6 +220,7 @@ define( function( require ) {
     /**
      * Function that returns the number of counts in a bin
      * The count is a non-negative integer
+     *
      * @param {number} binIndex
      * @returns {number}
      * @public
@@ -225,6 +232,7 @@ define( function( require ) {
     /**
      * Function that returns the fractional occupation of a bin
      * The fraction is smaller than one but the sum of all fractions add up to one
+     *
      * @param {number} binIndex - an integer
      * @returns {number}
      * @public
@@ -243,6 +251,7 @@ define( function( require ) {
      * the fractional normalized account is done with respect to the bin with the largest count
      * Hence at least one element of the array will return a value of 1 (unless the array is completely
      * filled with zeros in which case it returns an array of zeros)
+     *
      * @returns {Array.<number>}
      * @public
      */
@@ -259,6 +268,7 @@ define( function( require ) {
     /**
      * Function that returns the maximum value of all the balls in the bins
      * This includes the balls that still traveling through the GaltonBoard
+     *
      * @returns {number}
      * @public
      */
@@ -273,6 +283,7 @@ define( function( require ) {
     /**
      * Function that returns the maximum visible value of the balls in the bins
      * This does not include the balls that are still traveling through the GaltonBoard
+     *
      * @returns {number}
      * @public
      */
@@ -286,10 +297,11 @@ define( function( require ) {
 
     /**
      * Function that returns the center x coordinate of a bin with index binIndex
-     * @public
+     *
      * @param {number} binIndex - index associated with the bin, the index may range from 0 to numberOfBins-1
      * @param {number} numberOfBins - the number of bins on the screen
      * @returns {number}
+     * @public
      */
     getBinCenterX: function( binIndex, numberOfBins ) {
       assert && assert( binIndex < numberOfBins, 'The binIndex must be smaller than the total number of bins' );
@@ -298,10 +310,11 @@ define( function( require ) {
 
     /**
      * Function that returns the left position of a bin
-     * @public
+     *
      * @param {number} binIndex
      * @param {number} numberOfBins - the number of bins on the screen
      * @returns {number}
+     * @public
      */
     getBinLeft: function( binIndex, numberOfBins ) {
       assert && assert( binIndex < numberOfBins, 'The binIndex must be smaller than the total number of bins' );
@@ -310,8 +323,9 @@ define( function( require ) {
 
     /**
      * Function that returns the minimum X value, i.e. the leftmost position of all the bins
-     * @public
+     *
      * @returns {number}
+     * @public
      */
     getMinX: function() {
       return BOUNDS.minX;
@@ -319,8 +333,9 @@ define( function( require ) {
 
     /**
      * Function that returns the center X value of the bins, i.e. the center position of all the bins
-     * @public
+     *
      * @returns {number}
+     * @public
      */
     getCenterX: function() {
       return BOUNDS.centerX;
@@ -328,6 +343,7 @@ define( function( require ) {
 
     /**
      * Function that returns the minimum Y value, i.e. the bottom position of all the bins
+     *
      * @public
      * @returns {number}
      */
@@ -338,10 +354,11 @@ define( function( require ) {
     /**
      * Function that returns the x position (in model coordinates() associated with
      * the average (mean) value of the histogram.
-     * @public
+     *
      * @param {number} value
      * @param {number} numberOfBins - the number of bins on the screen
      * @returns {number}
+     * @public
      */
     getValuePosition: function( value, numberOfBins ) {
       assert && assert( value < numberOfBins && value >= 0, 'the average should range from 0 and the max number of bins -1' );

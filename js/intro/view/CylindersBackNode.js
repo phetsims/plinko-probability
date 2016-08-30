@@ -22,7 +22,6 @@ define( function( require ) {
   var BOUNDS = PlinkoProbabilityConstants.HISTOGRAM_BOUNDS;
 
   /**
-   * Creation of top of cylinder
    * @param {Property.<number>} numberOfRowsProperty
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Object} cylinderInfo - Contains cylinder info: height, width, offset, ellipseHeight
@@ -69,10 +68,11 @@ define( function( require ) {
 
     /**
      * Function that returns the center x coordinate of a bin with index binIndex
-     * @public (read-only)
+     *
      * @param {number} binIndex - index associated with the bin, the index may range from 0 to numberOfBins-1
      * @param {number} numberOfBins - the number of bins on the screen
      * @returns {number}
+     * @public (read-only)
      */
     getBinCenterX: function( binIndex, numberOfBins ) {
       // We consider numberOfBins-1 because we consider the most left bin the first bin out of the total number of bins

@@ -24,8 +24,6 @@ define( function( require ) {
   var DEFAULT_RADIUS = PlinkoProbabilityConstants.PLAY_PAUSE_BUTTON_RADIUS;
 
   /**
-   * Play Button constructor
-   *
    * @param {Object} [options] node options
    * @constructor
    */
