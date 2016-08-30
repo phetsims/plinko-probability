@@ -47,7 +47,9 @@ define( function( require ) {
     var thisModel = this;
 
     // the galton board is different in the lab tab and in the intro tab. They need different options passed
-    var galtonBoardNode = new GaltonBoardNode( model.galtonBoard, model.numberOfRowsProperty, model.probabilityProperty, this.modelViewTransform, { canvasBounds: this.viewTriangularBoardBounds } );
+    var galtonBoardNode = new GaltonBoardNode( model.galtonBoard, model.numberOfRowsProperty, model.probabilityProperty, this.modelViewTransform, {
+      canvasBounds: this.viewTriangularBoardBounds
+    } );
     this.galtonBoardNode = galtonBoardNode; // @protected required by supertype
 
     // create three radio buttons next to the hopper
