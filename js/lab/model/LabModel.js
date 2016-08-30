@@ -14,9 +14,10 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var PlinkoProbabilityCommonModel = require( 'PLINKO_PROBABILITY/common/model/PlinkoProbabilityCommonModel' );
+  var PlinkoProbabilityQueryParameters = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityQueryParameters' );
 
   // constants
-  var MAX_NUMBER_BALLS = 9999; // max number of balls per bin
+  var MAX_NUMBER_BALLS = PlinkoProbabilityQueryParameters.MAX_BALLS || 9999; // max number of balls per bin
 
   /**
    * @constructor
