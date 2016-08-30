@@ -1,8 +1,7 @@
 // Copyright 2014-2015, University of Colorado Boulder
 
 /**
- * View for the Galton Board (also known as a bean machine).
- * It consists of a triangular lattice of pegs.
+ * Renders a triangular lattice of pegs for a Galton board.
  * Implemented using CanvasNode as a performance optimization on iPad.
  *
  * @author Martin Veillette (Berea College)
@@ -31,7 +30,7 @@ define( function( require ) {
    * @param {Object} [options]
    * @constructor
    */
-  function GaltonBoardNode( galtonBoard, numberOfRowsProperty, probabilityProperty, modelViewTransform, options ) {
+  function PegsNode( galtonBoard, numberOfRowsProperty, probabilityProperty, modelViewTransform, options ) {
 
     options = _.extend( {
       rotatePegs: true, // pegs have a flat surface whose orientation changes with probability
@@ -112,9 +111,9 @@ define( function( require ) {
     self.invalidatePaint();
   }
 
-  plinkoProbability.register( 'GaltonBoardNode', GaltonBoardNode );
+  plinkoProbability.register( 'PegsNode', PegsNode );
 
-  return inherit( CanvasNode, GaltonBoardNode, {
+  return inherit( CanvasNode, PegsNode, {
 
     /**
      * @param {CanvasRenderingContext2D} context

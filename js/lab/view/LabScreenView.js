@@ -13,13 +13,13 @@ define( function( require ) {
   // modules
   var HopperModeControl = require( 'PLINKO_PROBABILITY/lab/view/HopperModeControl' );
   var Dialog = require( 'JOIST/Dialog' );
-  var GaltonBoardNode = require( 'PLINKO_PROBABILITY/common/view/GaltonBoardNode' );
   var HistogramModeControl = require( 'PLINKO_PROBABILITY/common/view/HistogramModeControl' );
   var inherit = require( 'PHET_CORE/inherit' );
   var LabPlayPanel = require( 'PLINKO_PROBABILITY/lab/view/LabPlayPanel' );
   var MultiLineText = require( 'SCENERY_PHET/MultiLineText' );
   var Node = require( 'SCENERY/nodes/Node' );
   var PegControls = require( 'PLINKO_PROBABILITY/lab/view/PegControls' );
+  var PegsNode = require( 'PLINKO_PROBABILITY/common/view/PegsNode' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var PlinkoProbabilityCommonView = require( 'PLINKO_PROBABILITY/common/view/PlinkoProbabilityCommonView' );
@@ -46,11 +46,10 @@ define( function( require ) {
 
     var thisModel = this;
 
-    // the galton board is different in the lab tab and in the intro tab. They need different options passed
-    var galtonBoardNode = new GaltonBoardNode( model.galtonBoard, model.numberOfRowsProperty, model.probabilityProperty, this.modelViewTransform, {
+    // pegs on the Galton board
+    var pegsNode = new PegsNode( model.galtonBoard, model.numberOfRowsProperty, model.probabilityProperty, this.modelViewTransform, {
       canvasBounds: this.viewTriangularBoardBounds
     } );
-    this.galtonBoardNode = galtonBoardNode; // @protected required by supertype
 
     // create three radio buttons next to the hopper
     var hopperModeControl = new HopperModeControl( model.hopperModeProperty );
@@ -122,7 +121,7 @@ define( function( require ) {
     this.addChild( playPanel );
     this.addChild( pegControls );
     this.addChild( statisticsAccordionBox );
-    this.addChild( galtonBoardNode );
+    this.addChild( pegsNode );
     this.addChild( pathsLayer );
 
     // layout the children

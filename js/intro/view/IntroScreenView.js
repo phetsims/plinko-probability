@@ -13,11 +13,11 @@ define( function( require ) {
   // modules
   var CylindersBackNode = require( 'PLINKO_PROBABILITY/intro/view/CylindersBackNode' );
   var CylindersFrontNode = require( 'PLINKO_PROBABILITY/intro/view/CylindersFrontNode' );
-  var GaltonBoardNode = require( 'PLINKO_PROBABILITY/common/view/GaltonBoardNode' );
   var HistogramModeControl = require( 'PLINKO_PROBABILITY/common/view/HistogramModeControl' );
   var inherit = require( 'PHET_CORE/inherit' );
   var IntroPlayPanel = require( 'PLINKO_PROBABILITY/intro/view/IntroPlayPanel' );
   var NumberBallsDisplay = require( 'PLINKO_PROBABILITY/intro/view/NumberBallsDisplay' );
+  var PegsNode = require( 'PLINKO_PROBABILITY/common/view/PegsNode' );
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var PlinkoProbabilityCommonView = require( 'PLINKO_PROBABILITY/common/view/PlinkoProbabilityCommonView' );
   var PlinkoProbabilityConstants = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityConstants' );
@@ -35,13 +35,11 @@ define( function( require ) {
 
     PlinkoProbabilityCommonView.call( this, model );
 
-    // create the galton board (including the pegs)
-    var galtonBoardNode = new GaltonBoardNode( model.galtonBoard, model.numberOfRowsProperty, model.probabilityProperty, this.modelViewTransform, {
+    // pegs on the Galton board
+    var pegsNode = new PegsNode( model.galtonBoard, model.numberOfRowsProperty, model.probabilityProperty, this.modelViewTransform, {
       rotatePegs: false, // pegs do not rotate as probability changes, so they do not have a flat surface
       canvasBounds: this.viewTriangularBoardBounds
     } );
-
-    this.galtonBoardNode = galtonBoardNode; // @protected required by supertype
 
     // create the view for the cylinders. The Back and Front node will be put on a different z-layer
     var cylindersBackNode = new CylindersBackNode( model.numberOfRowsProperty, this.modelViewTransform, model.cylinderInfo );
@@ -98,7 +96,7 @@ define( function( require ) {
     this.addChild( histogramModeControl );
     this.addChild( playPanel );
     this.addChild( numberBallsDisplay );
-    this.addChild( galtonBoardNode );
+    this.addChild( pegsNode );
     this.addChild( cylindersBackNode );
     this.moveChildToBack( cylindersBackNode );
     this.addChild( cylindersFrontNode );
