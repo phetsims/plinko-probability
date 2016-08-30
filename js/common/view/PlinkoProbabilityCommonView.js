@@ -100,8 +100,10 @@ define( function( require ) {
     var ballViewBounds = this.modelViewTransform.modelToViewBounds( ballModelBounds ).dilated( 20 );
 
     // renders all the balls
-    var ballsNode = new BallsNode( model.balls, modelViewTransform, model.numberOfRowsProperty, viewProperties.histogramModeProperty, model.hopperModeProperty,
-      { canvasBounds: ballViewBounds } );
+    var ballsNode = new BallsNode( model.balls, modelViewTransform, model.numberOfRowsProperty,
+      viewProperties.histogramModeProperty, model.hopperModeProperty, {
+        canvasBounds: ballViewBounds
+      } );
     this.ballsNode = ballsNode;
 
     // @protected sound generator for ball hitting peg
@@ -158,6 +160,7 @@ define( function( require ) {
      * Reset function. The base type implementation does nothing. But reset is called by
      * the Reset All button listener and may be overridden in subtypes.  So it seemed
      * appropriate to include a no-op function here.
+     *
      * @public
      */
     reset: function() {
