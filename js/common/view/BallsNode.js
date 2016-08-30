@@ -52,6 +52,7 @@ define( function( require ) {
     // create an image of the ball representation
     ballNode.toImage( function( image ) {
       self.ballImage = image;
+      self.invalidatePaint(); // results in call to paintCanvas
     } );
 
     numberOfRowsProperty.link( function( numberOfRows ) {
@@ -73,7 +74,7 @@ define( function( require ) {
     paintCanvas: function( context ) {
       var self = this;
 
-      // Slight chance the image used isn't loaded. In that case, return & try again on next frame
+      // image is created asynchronously by toImage, so it may not be available yet
       if ( !self.ballImage ) {
         return;
       }
