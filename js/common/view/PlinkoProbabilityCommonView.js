@@ -45,7 +45,7 @@ define( function( require ) {
     // layout the hopper and the board
     hopper.centerX = this.layoutBounds.maxX / 2 - 80;
     hopper.top = 10;
-    board.left = hopper.centerX - board.options.bottomWidth / 2;
+    board.left = hopper.centerX - board.size.width / 2;
     board.top = hopper.bottom + 10;
 
     // @protected
@@ -53,7 +53,7 @@ define( function( require ) {
     this.hopperRight = hopper.right;
 
     // create the model view transform based on the triangular board of the galton board (excluding the dropped shadow)
-    var viewTriangularBoardBounds = new Bounds2( board.left, board.top, board.left + board.options.bottomWidth, board.top + board.options.height );
+    var viewTriangularBoardBounds = new Bounds2( board.left, board.top, board.left + board.size.width, board.top + board.size.height );
     var modelTriangularBoardBounds = model.galtonBoard.bounds;
     var modelViewTransform = ModelViewTransform2.createRectangleInvertedYMapping( modelTriangularBoardBounds, viewTriangularBoardBounds );
 

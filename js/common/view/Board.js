@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var Dimension2 = require( 'DOT/Dimension2' );
   var inherit = require( 'PHET_CORE/inherit' );
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
   var Node = require( 'SCENERY/nodes/Node' );
@@ -27,22 +28,25 @@ define( function( require ) {
     Node.call( this );
 
     options = _.extend( {
-      height: 300,
-      bottomWidth: 600,
+      size: new Dimension2( 600, 300 ), // triangle base width x height
       shadowFill: 'rgb(136,136,136)'
     }, options );
 
-    // @public (read-only)
-    this.options = options;
+    // @public (read-only) so we have the size of the board without gradients
+    this.size = options.size;
+
+    // local vars to improve readability
+    var width = options.size.width;
+    var height = options.size.height;
 
     // triangular shape of the board
     var boardShape = new Shape().moveTo( 0, 0 )
-      .lineTo( options.bottomWidth / 2, options.height )
-      .lineTo( -options.bottomWidth / 2, options.height )
+      .lineTo( width / 2, height )
+      .lineTo( -width / 2, height )
       .close();
 
     // board face
-    var faceGradient = new LinearGradient( -options.bottomWidth / 2, 0, options.bottomWidth / 2, 0 )
+    var faceGradient = new LinearGradient( -width / 2, 0, width / 2, 0 )
       .addColorStop( 0.0112, '#FBEFD0' )
       .addColorStop( 0.1742, '#FADBA2' )
       .addColorStop( 0.2978, '#FAE3B0' )
@@ -56,7 +60,7 @@ define( function( require ) {
     this.addChild( faceNode );
 
     // bottom shadow
-    var bottomShadowGradient = new LinearGradient( options.bottomWidth / 2, options.height, options.bottomWidth / 2, options.height + 10 )
+    var bottomShadowGradient = new LinearGradient( width / 2, height, width / 2, height + 10 )
       .addColorStop( 0.00, options.shadowFill )
       .addColorStop( 0.20, options.shadowFill )
       .addColorStop( 1.00, PlinkoProbabilityConstants.BACKGROUND_COLOR );
@@ -67,11 +71,11 @@ define( function( require ) {
 
     // right shadow
     var rightShadowShape = new Shape().moveTo( 4, 4 )
-      .lineToRelative( options.bottomWidth / 2, options.height )
+      .lineToRelative( width / 2, height )
       .lineToRelative( 10, 0 )
-      .lineToRelative( -options.bottomWidth / 2, -options.height )
+      .lineToRelative( -width / 2, -height )
       .close();
-    var rightShadowGradient = new LinearGradient( options.bottomWidth / 4, options.height / 2, options.bottomWidth / 4 + 5, options.height / 2 - 5 )
+    var rightShadowGradient = new LinearGradient( width / 4, height / 2, width / 4 + 5, height / 2 - 5 )
       .addColorStop( 0.00, options.shadowFill )
       .addColorStop( 0.20, options.shadowFill )
       .addColorStop( 1.00, PlinkoProbabilityConstants.BACKGROUND_COLOR );
