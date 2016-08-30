@@ -4,6 +4,7 @@
  * A Scenery node that depicts a wooden triangular board.
  *
  * @author Martin Veillette (Berea College)
+ * @author Chris Malley (PixelZoom, Inc.)
  */
 define( function( require ) {
   'use strict';
