@@ -106,16 +106,18 @@ define( function( require ) {
      */
     getPositionY: function( rowNumber, columnNumber, numberOfRows ) {
       return ( -rowNumber - 2 * PlinkoProbabilityConstants.PEG_HEIGHT_FRACTION_OFFSET ) / ( numberOfRows + 1 );
-    },
+    }
+  }, {
 
     /**
-     * Function that returns the horizontal spacing between two pegs on the same row
-     * The distance is given in the model view (with respect to the galton board)
-     * @public
+     * Gets the horizontal spacing between two pegs on the same row on the Galton board.
+     *
      * @param {number} numberOfRows
      * @returns {number}
+     * @public
+     * @static
      */
-    getSpacing: function( numberOfRows ) {
+    getPegSpacing: function( numberOfRows ) {
       return 1 / ( numberOfRows + 1 );
     }
   } );

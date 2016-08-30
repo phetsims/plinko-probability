@@ -10,6 +10,7 @@ define( function( require ) {
 
   // modules
   var Emitter = require( 'AXON/Emitter' );
+  var GaltonBoard = require( 'PLINKO_PROBABILITY/common/model/GaltonBoard' );
   var inherit = require( 'PHET_CORE/inherit' );
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var PlinkoProbabilityConstants = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityConstants' );
@@ -35,7 +36,7 @@ define( function( require ) {
     this.probability = probability; // @private (read-only)
     this.numberOfRows = numberOfRows; // @private (read-only)
 
-    this.pegSeparation = this.getSpacing( numberOfRows ); // @public (read-only)
+    this.pegSeparation = GaltonBoard.getPegSpacing( numberOfRows ); // @public (read-only)
 
     this.ballRadius = this.pegSeparation * PlinkoProbabilityConstants.BALL_SIZE_FRACTION;  // @public (read-only)
 
@@ -115,17 +116,6 @@ define( function( require ) {
   plinkoProbability.register( 'Ball', Ball );
 
   return inherit( Object, Ball, {
-
-    /**
-     * Function that returns the horizontal spacing between two pegs on the same row
-     * The distance is given in the model view (with respect to the galton board)
-     * @public
-     * @param {number} numberOfRows
-     * @returns {number}
-     */
-    getSpacing: function( numberOfRows ) {
-      return 1 / (numberOfRows + 1 );
-    },
 
     /**
      * Function that returns the X position of a peg with index rowNumber and column Number

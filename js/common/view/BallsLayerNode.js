@@ -11,6 +11,7 @@ define( function( require ) {
   // modules
   var BallNode = require( 'PLINKO_PROBABILITY/common/view/BallNode' );
   var CanvasNode = require( 'SCENERY/nodes/CanvasNode' );
+  var GaltonBoard = require( 'PLINKO_PROBABILITY/common/model/GaltonBoard' );
   var inherit = require( 'PHET_CORE/inherit' );
   var PlinkoProbabilityConstants = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityConstants' );
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
@@ -43,7 +44,7 @@ define( function( require ) {
 
     // set the default ball radius using the largest possible radius, that is the minimum number of rows.
     var defaultNumberOfRows = PlinkoProbabilityConstants.ROWS_RANGE.min;
-    var defaultBallRadius = modelViewTransform.modelToViewDeltaX( self.getSpacing( defaultNumberOfRows ) * PlinkoProbabilityConstants.BALL_SIZE_FRACTION ); //
+    var defaultBallRadius = modelViewTransform.modelToViewDeltaX( GaltonBoard.getPegSpacing( defaultNumberOfRows ) * PlinkoProbabilityConstants.BALL_SIZE_FRACTION );
 
     // create a single ball image to use for rendering all balls - asynchronous
     var ballNode = new BallNode( defaultBallRadius );
@@ -63,17 +64,6 @@ define( function( require ) {
   plinkoProbability.register( 'BallsLayerNode', BallsLayerNode );
 
   return inherit( CanvasNode, BallsLayerNode, {
-
-    /**
-     * Function that returns the horizontal spacing between two pegs on the same row
-     * The distance is given in the model view (with respect to the galton board)
-     * @public
-     * @param {number} numberOfRows
-     * @returns {number}
-     */
-    getSpacing: function( numberOfRows ) {
-      return 1 / (numberOfRows + 1 );
-    },
 
     /**
      * @param {CanvasRenderingContext2D} context

@@ -14,6 +14,7 @@ define( function( require ) {
   // modules
   var CanvasNode = require( 'SCENERY/nodes/CanvasNode' );
   var Circle = require( 'SCENERY/nodes/Circle' );
+  var GaltonBoard = require( 'PLINKO_PROBABILITY/common/model/GaltonBoard' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Path = require( 'SCENERY/nodes/Path' );
   var PlinkoProbabilityConstants = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityConstants' );
@@ -141,7 +142,7 @@ define( function( require ) {
       var pegAngle = -( Math.PI / 4 ) + ( this.probabilityProperty.get() * Math.PI / 2 );
       
       // shadow offset, a bit below and to the right, determined empirically
-      var pegSpacing = self.galtonBoard.getSpacing( self.numberOfRowsProperty.value );
+      var pegSpacing = GaltonBoard.getPegSpacing( self.numberOfRowsProperty.value );
       var shadowOffset = self.modelViewTransform.modelToViewDelta( new Vector2( pegSpacing * 0.08, -pegSpacing * 0.24 ) );
 
       // galtonBoard.pegs contains all the model pegs (even pegs that that are currently invisible)
