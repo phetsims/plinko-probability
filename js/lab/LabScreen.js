@@ -9,8 +9,8 @@ define( function( require ) {
   // modules
   var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var PlinkoProbabilityConstants = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityConstants' );
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
+  var PlinkoProbabilityConstants = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityConstants' );
   var LabModel = require( 'PLINKO_PROBABILITY/lab/model/LabModel' );
   var LabScreenView = require( 'PLINKO_PROBABILITY/lab/view/LabScreenView' );
   var Screen = require( 'JOIST/Screen' );

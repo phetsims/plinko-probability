@@ -13,8 +13,8 @@ define( function( require ) {
   var CanvasNode = require( 'SCENERY/nodes/CanvasNode' );
   var GaltonBoard = require( 'PLINKO_PROBABILITY/common/model/GaltonBoard' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var PlinkoProbabilityConstants = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityConstants' );
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
+  var PlinkoProbabilityConstants = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityConstants' );
 
   //constants
   var PHASE_COLLECTED = 3; // the ball has landed on its final position

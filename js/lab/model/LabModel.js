@@ -11,8 +11,8 @@ define( function( require ) {
   // modules
   var LabBall = require( 'PLINKO_PROBABILITY/lab/model/LabBall' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var PlinkoProbabilityCommonModel = require( 'PLINKO_PROBABILITY/common/model/PlinkoProbabilityCommonModel' );
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
+  var PlinkoProbabilityCommonModel = require( 'PLINKO_PROBABILITY/common/model/PlinkoProbabilityCommonModel' );
 
   // constants
   var MAX_NUMBER_BALLS = 9999; // max number of balls per bin

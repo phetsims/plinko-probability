@@ -13,8 +13,8 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var IntroModel = require( 'PLINKO_PROBABILITY/intro/model/IntroModel' );
   var IntroScreenView = require( 'PLINKO_PROBABILITY/intro/view/IntroScreenView' );
-  var PlinkoProbabilityConstants = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityConstants' );
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
+  var PlinkoProbabilityConstants = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityConstants' );
   var Screen = require( 'JOIST/Screen' );
 
   // strings
