@@ -20,7 +20,10 @@ define( function( require ) {
   var Shape = require( 'KITE/Shape' );
 
   // constants
+  var RIGHT_SHADOW_WIDTH = 10;
   var BOTTOM_SHADOW_HEIGHT = 10;
+  var SHADOW_X_OFFSET = 4;
+  var SHADOW_Y_OFFSET = 4;
 
   /**
    * @param {Object} [options]
@@ -66,22 +69,24 @@ define( function( require ) {
       .addColorStop( 1.00, PlinkoProbabilityConstants.BACKGROUND_COLOR );
     var bottomShadowNode = new Rectangle( 0, 0, faceNode.width + 8, BOTTOM_SHADOW_HEIGHT, 5, 50, {
       fill: bottomShadowGradient,
-      left: faceNode.left + 4,
+      left: faceNode.left + SHADOW_X_OFFSET,
       top: faceNode.bottom
     } );
 
     // right shadow
-    var rightShadowShape = new Shape().moveTo( 4, 4 )
-      .lineToRelative( width / 2, height )
-      .lineToRelative( 10, 0 )
-      .lineToRelative( -width / 2, -height )
+    var rightShadowShape = new Shape().moveTo( 0, 0 )
+      .lineTo( RIGHT_SHADOW_WIDTH, 0 )
+      .lineTo( width / 2 + RIGHT_SHADOW_WIDTH, height )
+      .lineTo( width / 2, height )
       .close();
-    var rightShadowGradient = new LinearGradient( width / 4, height / 2, width / 4 + 5, height / 2 - 5 )
+    var rightShadowGradient = new LinearGradient( 0, 0, RIGHT_SHADOW_WIDTH / 2, -RIGHT_SHADOW_WIDTH /2 )
       .addColorStop( 0.00, options.shadowFill )
       .addColorStop( 0.20, options.shadowFill )
       .addColorStop( 1.00, PlinkoProbabilityConstants.BACKGROUND_COLOR );
     var rightShadowNode = new Path( rightShadowShape, {
-      fill: rightShadowGradient
+      fill: rightShadowGradient,
+      left: faceNode.centerX + SHADOW_X_OFFSET,
+      top: faceNode.top + SHADOW_Y_OFFSET
     } );
 
     // shadows behind face
