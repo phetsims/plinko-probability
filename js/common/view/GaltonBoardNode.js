@@ -117,17 +117,6 @@ define( function( require ) {
   return inherit( CanvasNode, GaltonBoardNode, {
 
     /**
-     * Function that returns the horizontal spacing between two pegs on the same row
-     * The distance is given in the model view (with respect to the galton board)
-     * @public
-     * @param {number} numberOfRows
-     * @returns {number}
-     */
-    getSpacing: function( numberOfRows ) {
-      return 1 / (numberOfRows + 1 );
-    },
-
-    /**
      * @param {CanvasRenderingContext2D} context
      * @override
      * @private
@@ -152,7 +141,7 @@ define( function( require ) {
       var pegAngle = -( Math.PI / 4 ) + ( this.probabilityProperty.get() * Math.PI / 2 );
       
       // shadow offset, a bit below and to the right, determined empirically
-      var pegSpacing = self.getSpacing( self.numberOfRowsProperty.value );
+      var pegSpacing = self.galtonBoard.getSpacing( self.numberOfRowsProperty.value );
       var shadowOffset = self.modelViewTransform.modelToViewDelta( new Vector2( pegSpacing * 0.08, -pegSpacing * 0.24 ) );
 
       // galtonBoard.pegs contains all the model pegs (even pegs that that are currently invisible)
