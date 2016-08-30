@@ -59,10 +59,9 @@ define( function( require ) {
       top: PlinkoProbabilityConstants.PANEL_VERTICAL_SPACING
     } );
 
-    //TODO magic number 245 positions this at the same place as panel on Lab screen
-    // Number of balls panel, right center-ish
+    // Number of balls panel, at right, top aligned with cylinders
     var numberBallsDisplay = new NumberBallsDisplay( model.histogram, {
-      top: playPanel.bottom + 245,
+      top: cylindersFrontNode.top,
       right: playPanel.right
     } );
 
