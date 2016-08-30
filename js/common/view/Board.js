@@ -63,7 +63,7 @@ define( function( require ) {
       fill: faceGradient
     } );
 
-    // bottom shadow
+    // bottom shadow, a rectangle below the board
     var bottomShadowGradient = new LinearGradient( 0, 0, 0, BOTTOM_SHADOW_HEIGHT )
       .addColorStop( 0.00, options.shadowFill )
       .addColorStop( 0.20, options.shadowFill )
@@ -74,7 +74,7 @@ define( function( require ) {
       top: faceNode.bottom
     } );
 
-    // right shadow
+    // right shadow, a diagonal strip along the right edge of the triangle
     var rightShadowShape = new Shape().moveTo( 0, 0 )
       .lineTo( RIGHT_SHADOW_WIDTH, 0 )
       .lineTo( width / 2 + RIGHT_SHADOW_WIDTH, height )
