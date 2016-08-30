@@ -41,58 +41,69 @@ define( function( require ) {
       canvasBounds: this.viewTriangularBoardBounds
     } );
 
-    // create the view for the cylinders. The Back and Front node will be put on a different z-layer
+    // cylinders (bins) below the board
     var cylindersBackNode = new CylindersBackNode( model.numberOfRowsProperty, this.modelViewTransform, model.cylinderInfo );
     var cylindersFrontNode = new CylindersFrontNode( model.numberOfRowsProperty, this.modelViewTransform, model.cylinderInfo );
 
-    // create the histogram radio buttons at the left of the histogram/cylinders
-    this.viewProperties.histogramModeProperty.set( 'cylinder' );
-    var histogramModeControl = new HistogramModeControl( this.viewProperties.histogramModeProperty, 'counter', counterImage, 'cylinder', cylinderImage );
+    // Histogram mode radio buttons, above the eraser button
+    this.viewProperties.histogramModeProperty.set( 'cylinder' ); //TODO does this reset properly?
+    var histogramModeControl = new HistogramModeControl( this.viewProperties.histogramModeProperty, 'counter', counterImage, 'cylinder', cylinderImage, {
+      bottom: this.eraserButton.top - 16,
+      left: this.eraserButton.left
+    } );
 
-    // create play Panel
-    var playPanel = new IntroPlayPanel( model.updateBallsToCreateNumber.bind( model ), model.ballModeProperty, model.isBallCapReachedProperty );
+    // Play panel, at upper right
+    var playPanel = new IntroPlayPanel( model.updateBallsToCreateNumber.bind( model ), model.ballModeProperty, model.isBallCapReachedProperty, {
+      right: this.layoutBounds.maxX - PlinkoProbabilityConstants.PANEL_RIGHT_PADDING,
+      top: PlinkoProbabilityConstants.PANEL_VERTICAL_SPACING
+    } );
 
-    // create the number of balls display panel
-    var numberBallsDisplay = new NumberBallsDisplay( model.histogram );
+    //TODO magic number 245 positions this at the same place as panel on Lab screen
+    // Number of balls panel, right center-ish
+    var numberBallsDisplay = new NumberBallsDisplay( model.histogram, {
+      top: playPanel.bottom + 245,
+      right: playPanel.right
+    } );
 
-    // link the histogram radio buttons (to the left of the histogram) to toggle the visibility of the histogram and cylinders
+    // link the histogram radio buttons to toggle the visibility of the histogram and cylinders
     // link is present fot the lifetime of the sim
-    var thisModel = this;
+    var thisView = this;
     this.viewProperties.histogramModeProperty.link( function( histogramMode ) {
-        switch( histogramMode ) {
-          case 'counter':
-            thisModel.histogramNode.visible = true;
-            cylindersBackNode.visible = false;
-            cylindersFrontNode.visible = false;
-            break;
-          case 'cylinder':
-            thisModel.histogramNode.visible = false;
-            cylindersBackNode.visible = true;
-            cylindersFrontNode.visible = true;
-            break;
-          default:
-            throw new Error( 'Unhandled Button state: ' + histogramMode );
-        }
+      switch( histogramMode ) {
+        case 'counter':
+          thisView.histogramNode.visible = true;
+          cylindersBackNode.visible = false;
+          cylindersFrontNode.visible = false;
+          break;
+        case 'cylinder':
+          thisView.histogramNode.visible = false;
+          cylindersBackNode.visible = true;
+          cylindersFrontNode.visible = true;
+          break;
+        default:
+          throw new Error( 'Unhandled histogramMode: ' + histogramMode );
       }
-    );
+    } );
 
     // handle the coming and going of the model Balls
     model.balls.addItemAddedListener( function( addedBall ) {
-      // initiates sound to play when ball hits a peg
+      
+      // play sound when ball hits a peg
       var ballHittingPegListener = function( direction ) {
-        thisModel.pegSoundGeneration.playBallHittingPegSound( direction );
+        thisView.pegSoundGeneration.playBallHittingPegSound( direction );
       };
+      
       addedBall.ballHittingPegEmitter.addListener( ballHittingPegListener );
+      
       model.balls.addItemRemovedListener( function removalListener( removedBall ) {
         if ( removedBall === addedBall ) {
           addedBall.ballHittingPegEmitter.removeListener( ballHittingPegListener );
           model.balls.removeItemRemovedListener( removalListener );
-
         }
       } );
     } );
 
-    // add children to the scene graph
+    // rendering order
     this.addChild( histogramModeControl );
     this.addChild( playPanel );
     this.addChild( numberBallsDisplay );
@@ -100,14 +111,6 @@ define( function( require ) {
     this.addChild( cylindersBackNode );
     this.moveChildToBack( cylindersBackNode );
     this.addChild( cylindersFrontNode );
-
-    // layout the children nodes on the scene graph
-    histogramModeControl.bottom = this.eraserButton.top - 16;
-    histogramModeControl.left = this.eraserButton.left;
-    playPanel.right = this.layoutBounds.maxX - PlinkoProbabilityConstants.PANEL_RIGHT_PADDING;
-    playPanel.top = PlinkoProbabilityConstants.PANEL_VERTICAL_SPACING;
-    numberBallsDisplay.top = playPanel.bottom + 245;
-    numberBallsDisplay.right = playPanel.right;
   }
 
   plinkoProbability.register( 'IntroScreenView', IntroScreenView );
