@@ -70,7 +70,7 @@ define( function( require ) {
     }
 
     // Play panel, at top right
-    var playPanel = new LabPlayPanel( model, model.ballModeProperty, {
+    var playPanel = new LabPlayPanel( model, model.ballModeProperty, model.isBallCapReachedProperty, {
       minWidth: PANEL_FIXED_WIDTH,
       maxWidth: PANEL_FIXED_WIDTH,
       right: this.layoutBounds.maxX - PlinkoProbabilityConstants.PANEL_RIGHT_PADDING,
@@ -153,7 +153,6 @@ define( function( require ) {
         // pop up a dialog
         new OutOfBallsDialog().show();
 
-        //TODO this isn't working
         // sets the play button to active.
         playPanel.setPlayButtonVisible();
 

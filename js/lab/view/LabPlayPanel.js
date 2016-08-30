@@ -28,10 +28,11 @@ define( function( require ) {
   /**
    * @param {LabModel} model
    * @param {Property.<string>} ballModeProperty - see PlinkoProbabilityCommonModel
+   * @param {Property.<boolean>} isBallCapReachedProperty - describes maximum amount of balls
    * @param {Object} [options]
    * @constructor
    */
-  function LabPlayPanel( model, ballModeProperty, options ) {
+  function LabPlayPanel( model, ballModeProperty, isBallCapReachedProperty, options ) {
 
     var self = this;
 
@@ -134,6 +135,11 @@ define( function( require ) {
     } );
 
     Panel.call( this, startVBox, options );
+
+    // Disables play button if maximum amount of balls are dropped
+    isBallCapReachedProperty.lazyLink( function( isBallCapReached ) {
+      self.playButton.enabled = !isBallCapReached;
+    } );
   }
 
   plinkoProbability.register( 'LabPlayPanel', LabPlayPanel );
