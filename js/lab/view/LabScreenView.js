@@ -68,8 +68,8 @@ define( function( require ) {
       this.viewProperties.expandedAccordionBoxProperty );
 
     // we call pre populate here because the histogram would be created by now
-    if ( PlinkoProbabilityQueryParameters.PREPOPULATE_HISTOGRAM ) {
-      model.histogram.prepopulate( PlinkoProbabilityQueryParameters.PREPOPULATE_HISTOGRAM );
+    if ( PlinkoProbabilityQueryParameters.BALLS_ON_SCREEN_FLAG ) {
+      model.histogram.prepopulate( PlinkoProbabilityQueryParameters.BALLS_ON_SCREEN );
     }
 
     // create play Panel
