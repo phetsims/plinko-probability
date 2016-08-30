@@ -156,7 +156,7 @@ define( function( require ) {
     /**
      * Sends the trigger to update statistics and land
      * if the ball phase is PHASE_INITIAL otherwise it does nothing
-     * changes the phase to COLLECTED to make sure the triggers only get sent once
+     * changes the phase to PHASE_COLLECTED to make sure the triggers only get sent once
      * The ball will not be stepped in through the intermediate steps (i.e. Falling between peg)
      *
      * @public
