@@ -84,13 +84,13 @@ define( function( require ) {
     // Create an image of the peg. This happens asynchronously.
     pegNode.toImage( function( image ) {
       self.pegImage = image; // @private
-      self.invalidatePaint();
+      self.invalidatePaint(); // calls paintCanvas
     } );
 
     // Create an image of the peg shadow. This happens asynchronously.
     shadowNode.toImage( function( image ) {
       self.shadowImage = image; // @private
-      self.invalidatePaint();
+      self.invalidatePaint(); // calls paintCanvas
     } );
 
     // Rotate the pegs when probability changes, but only if they have a flat surface.
@@ -107,7 +107,7 @@ define( function( require ) {
       self.invalidatePaint();
     } );
 
-    // paint the canvas
+    // calls paintCanvas
     self.invalidatePaint();
   }
 

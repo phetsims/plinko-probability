@@ -50,13 +50,14 @@ define( function( require ) {
     var ballNode = new BallNode( defaultBallRadius );
     ballNode.toImage( function( image ) {
       self.ballImage = image; // @private
-      self.invalidatePaint(); // results in call to paintCanvas
+      self.invalidatePaint(); // calls paintCanvas
     } );
 
     numberOfRowsProperty.link( function( numberOfRows ) {
       self.scaleFactor = defaultNumberOfRows / numberOfRows;
     } );
 
+    // calls paintCanvas
     this.invalidatePaint();
   }
 
