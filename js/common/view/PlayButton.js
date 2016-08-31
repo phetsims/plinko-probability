@@ -40,7 +40,11 @@ define( function( require ) {
     var triangleWidth = options.radius * 0.8;
 
     // create the Path of the triangle
-    var playPath = new Path( new Shape().moveTo( 0, triangleHeight / 2 ).lineTo( triangleWidth, 0 ).lineTo( 0, -triangleHeight / 2 ).close(),
+    var playPath = new Path( new Shape()
+        .moveTo( 0, triangleHeight / 2 )
+        .lineTo( triangleWidth, 0 )
+        .lineTo( 0, -triangleHeight / 2 )
+        .close(),
       { fill: 'black', pickable: false } );
 
     // layout
