@@ -20,10 +20,6 @@ define( function( require ) {
   var RoundButtonView = require( 'SUN/buttons/RoundButtonView' );
   var RoundPushButton = require( 'SUN/buttons/RoundPushButton' );
 
-  // constants
-  var DEFAULT_RADIUS = PlinkoProbabilityConstants.PLAY_PAUSE_BUTTON_RADIUS;
-  var PAUSE_BUTTON_BASE_COLOR = new Color( 255, 0, 0 ); //red
-
   /**
    * @param {Object} [options] node options
    * @constructor
@@ -31,8 +27,8 @@ define( function( require ) {
   function PauseButton( options ) {
 
     options = _.extend( {
-      radius: DEFAULT_RADIUS,
-      baseColor: PAUSE_BUTTON_BASE_COLOR,
+      radius: PlinkoProbabilityConstants.PLAY_PAUSE_BUTTON_RADIUS,
+      baseColor: 'red',
       buttonAppearanceStrategy: RoundButtonView.flatAppearanceStrategy
     }, options );
 
@@ -40,14 +36,12 @@ define( function( require ) {
     var barWidth = options.radius * 0.2;
     var barHeight = options.radius;
 
-    var bar = function() { return new Rectangle( 0, 0, barWidth, barHeight, { fill: 'black' } ); };
-    var bar1 = bar();
-    var bar2 = bar();
-    var pausePath = new HBox( { children: [ bar1, bar2 ], spacing: barWidth, pickable: false} );
+    var createBar = function() { return new Rectangle( 0, 0, barWidth, barHeight, { fill: 'black' } ); };
 
-    // layout
-    pausePath.centerX = 0;
-    pausePath.centerY = 0;
+    var pausePath = new HBox( {
+      children: [ createBar(), createBar() ],
+      spacing: barWidth
+    } );
 
     RoundPushButton.call( this, _.extend( { content: pausePath }, options ) );
   }
