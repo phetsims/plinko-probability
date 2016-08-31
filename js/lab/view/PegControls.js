@@ -69,7 +69,8 @@ define( function( require ) {
       delta: 1,
       trackSize: SLIDER_TRACK_SIZE,
       majorTicks: rowsMajorTicks,
-      tickLabelSpacing: 2
+      majorTickLength: 18,
+      tickLabelSpacing: 1
     } );
 
     // major tick labels for slider that controls binary probability
@@ -92,7 +93,9 @@ define( function( require ) {
       decimalPlaces: 2,
       delta: 0.01,
       trackSize: SLIDER_TRACK_SIZE,
-      majorTicks: probabilityMajorTicks
+      majorTicks: probabilityMajorTicks,
+      majorTickLength: 18,
+      tickLabelSpacing: 1
     } );
 
     var contentNode = new VBox( {
