@@ -59,14 +59,17 @@ define( function( require ) {
 
     // control for number of rows
     var rowsControl = new NumberControl( rowsString, rowsProperty, PlinkoProbabilityConstants.ROWS_RANGE, {
-      layoutFunction: NumberControl.createLayoutFunction3(),
+      layoutFunction: NumberControl.createLayoutFunction3( {
+        ySpacing: 3
+      } ),
       titleFont: PlinkoProbabilityConstants.PANEL_FONT,
       titleMaxWidth: SLIDER_TRACK_SIZE.width,
       valueFont: PlinkoProbabilityConstants.PANEL_READOUT_FONT,
       decimalPlaces: 0,
       delta: 1,
       trackSize: SLIDER_TRACK_SIZE,
-      majorTicks: rowsMajorTicks
+      majorTicks: rowsMajorTicks,
+      tickLabelSpacing: 2
     } );
 
     // major tick labels for slider that controls binary probability
@@ -95,7 +98,7 @@ define( function( require ) {
     var contentNode = new VBox( {
       resize: false, // prevent sliders from causing a resize when thumb is at min or max
       align: 'center',
-      spacing: 25,
+      spacing: 20,
       children: [ rowsControl, probabilityControl ]
     } );
 

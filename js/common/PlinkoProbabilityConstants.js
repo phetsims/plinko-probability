@@ -33,7 +33,7 @@ define( function( require ) {
     MAJOR_TICK_FONT: new PhetFont( { size: 16 } ),
 
     // panels
-    PANEL_VERTICAL_SPACING: 10,
+    PANEL_VERTICAL_SPACING: 7,
     PANEL_RIGHT_PADDING: 30,
     CONTROL_PANEL_CORNER_RADIUS: 10,
     SMALL_PANEL_CORNER_RADIUS: 5,
