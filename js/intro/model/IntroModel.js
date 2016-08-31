@@ -16,7 +16,7 @@ define( function( require ) {
   var PlinkoProbabilityConstants = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityConstants' );
 
   // constants
-  var MAX_BALL_NUMBER = 100;
+  var MAX_BALLS = 100;
   var PERSPECTIVE_TILT = Math.PI / 1.4; // in radians
 
   /**
@@ -59,7 +59,7 @@ define( function( require ) {
       // there are balls waiting in line &&
       // the minimum time interval has passed 150 milliseconds &&
       // the number of launched balls is less than the maximum number of balls
-      if ( this.ballsToCreateNumber > 0 && this.ballCreationTimeElapsed > 0.150 && this.launchedBallsNumber < MAX_BALL_NUMBER ) {
+      if ( this.ballsToCreateNumber > 0 && this.ballCreationTimeElapsed > 0.150 && this.launchedBallsNumber < MAX_BALLS ) {
         this.addNewBall(); // add a new ball
       }
 
@@ -100,7 +100,7 @@ define( function( require ) {
 
         // add max number of balls to the queue
         case 'allBalls':
-          this.ballsToCreateNumber += MAX_BALL_NUMBER;
+          this.ballsToCreateNumber += MAX_BALLS;
           break;
 
         default:
@@ -124,7 +124,7 @@ define( function( require ) {
       this.ballCreationTimeElapsed = 0; //reset the time elapsed since the launched of the last ball
 
       // we want to disable the playButton when all the balls have been queued
-      if ( this.launchedBallsNumber + this.ballsToCreateNumber >= MAX_BALL_NUMBER ) {
+      if ( this.launchedBallsNumber + this.ballsToCreateNumber >= MAX_BALLS ) {
         this.isBallCapReachedProperty.set( true );
       }
 
