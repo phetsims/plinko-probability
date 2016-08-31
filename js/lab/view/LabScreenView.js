@@ -59,7 +59,6 @@ define( function( require ) {
 
     // radio buttons that can toggle between 'fraction and 'counter' mode
     var histogramModeControl = new HistogramModeControl( this.viewProperties.histogramModeProperty, 'counter', counterImage, 'fraction', fractionImage, {
-      buttonContentYMargin: 13,
       bottom: this.eraserButton.top - 16,
       left: this.eraserButton.left
     } );
