@@ -32,9 +32,6 @@ define( function( require ) {
   var nString = require( 'string!PLINKO_PROBABILITY/n' );
   var idealString = require( 'string!PLINKO_PROBABILITY/ideal' );
 
-  // constants
-  var IDEAL_MAX_TEXT_WIDTH = 45; // maximum length of the Ideal string
-
   // options for the title of the panel
   var OPTIONS_TITLE = {
     leftHandSideFont: PlinkoProbabilityConstants.TEXT_FONT_BOLD,
@@ -120,12 +117,16 @@ define( function( require ) {
     } );
 
     // create the histogram icon with the text underneath it.
+    var histogramIcon = new HistogramIcon();
     var histogramCheckBoxIcon = new VBox( {
       align: 'center',
       spacing: 5,
       children: [
-        new HistogramIcon(),
-        new Text( idealString, { font: PlinkoProbabilityConstants.PANEL_READOUT_FONT, maxWidth: IDEAL_MAX_TEXT_WIDTH } )
+        histogramIcon,
+        new Text( idealString, {
+          font: PlinkoProbabilityConstants.PANEL_READOUT_FONT,
+          maxWidth: 1.5 * histogramIcon.width // i18n, determined empirically
+        } )
       ]
     } );
 
