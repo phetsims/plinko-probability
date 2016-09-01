@@ -16,25 +16,25 @@ define( function( require ) {
   var Screen = require( 'JOIST/Screen' );
 
   // strings
-  var plinkoProbabilityLabTitleScreenString = require( 'string!PLINKO_PROBABILITY/plinkoProbabilityLabTitleScreen' );
+  var screenLabString = require( 'string!PLINKO_PROBABILITY/screen.lab' );
 
   // image
-  var homescreenIconImage = require( 'image!PLINKO_PROBABILITY/lab-homescreen-icon.png' );
-  var navbarIconImage = require( 'image!PLINKO_PROBABILITY/lab-navbar-icon.png' );
+  var labHomescreenIcon = require( 'image!PLINKO_PROBABILITY/lab-homescreen-icon.png' );
+  var labNavbarIcon = require( 'image!PLINKO_PROBABILITY/lab-navbar-icon.png' );
 
   /**
    * @constructor
    */
   function LabScreen() {
     Screen.call( this,
-      plinkoProbabilityLabTitleScreenString,
-      new Image( homescreenIconImage ),
+      screenLabString,
+      new Image( labHomescreenIcon ),
       function() {
         return new LabModel(); },
       function( model ) {
         return new LabScreenView( model ); }, {
         backgroundColor: PlinkoProbabilityConstants.BACKGROUND_COLOR,
-        navigationBarIcon: new Image( navbarIconImage )
+        navigationBarIcon: new Image( labNavbarIcon )
       }
     );
   }

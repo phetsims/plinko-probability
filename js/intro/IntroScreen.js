@@ -18,23 +18,23 @@ define( function( require ) {
   var Screen = require( 'JOIST/Screen' );
 
   // strings
-  var plinkoProbabilityIntroTitleScreenString = require( 'string!PLINKO_PROBABILITY/plinkoProbabilityIntroTitleScreen' );
+  var screenIntroString = require( 'string!PLINKO_PROBABILITY/screen.intro' );
 
   // image
-  var homescreenIconImage = require( 'image!PLINKO_PROBABILITY/intro-homescreen-icon.png' );
-  var navbarIconImage = require( 'image!PLINKO_PROBABILITY/intro-navbar-icon.png' );
+  var introHomescreenIcon = require( 'image!PLINKO_PROBABILITY/intro-homescreen-icon.png' );
+  var introNavbarIcon = require( 'image!PLINKO_PROBABILITY/intro-navbar-icon.png' );
 
   /**
    * @constructor
    */
   function IntroScreen() {
     Screen.call( this,
-      plinkoProbabilityIntroTitleScreenString,
-      new Image( homescreenIconImage ),
+      screenIntroString,
+      new Image( introHomescreenIcon ),
       function() { return new IntroModel(); },
       function( model ) { return new IntroScreenView( model ); }, {
         backgroundColor: PlinkoProbabilityConstants.BACKGROUND_COLOR,
-        navigationBarIcon: new Image( navbarIconImage )
+        navigationBarIcon: new Image( introNavbarIcon )
       }
     );
   }

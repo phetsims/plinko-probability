@@ -2,10 +2,10 @@
   "plinko-probability.title": {
     "value": "Plinko Probability"
   },
-  "plinkoProbabilityLabTitleScreen": {
+  "screen.lab": {
     "value": "Lab"
   },
-  "plinkoProbabilityIntroTitleScreen": {
+  "screen.intro": {
     "value": "Intro"
   },
   "all": {
