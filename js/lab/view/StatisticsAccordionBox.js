@@ -14,7 +14,6 @@ define( function( require ) {
   var EquationNode = require( 'PLINKO_PROBABILITY/common/view/EquationNode' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var HistogramIcon = require( 'PLINKO_PROBABILITY/lab/view/HistogramIcon' );
-  var HStrut = require( 'SCENERY/nodes/HStrut' );
   var inherit = require( 'PHET_CORE/inherit' );
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var PlinkoProbabilityConstants = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityConstants' );
