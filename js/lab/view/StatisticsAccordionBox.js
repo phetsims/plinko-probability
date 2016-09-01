@@ -141,7 +141,7 @@ define( function( require ) {
 
         // left side of the accordion box
         new VBox( {
-          align: 'left',
+          align: 'right',
           spacing: CONTENT_Y_SPACING,
           children: [
             sampleAverageText,
@@ -152,14 +152,12 @@ define( function( require ) {
 
         // right side of the accordion box
         new VBox( {
-          align: 'left',
+          align: 'right',
           spacing: CONTENT_Y_SPACING,
           children: [
             theoreticalAverageText,
             theoreticalStandardDeviationText,
-            new HBox( {
-              children: [ new HStrut( 30 ), histogramCheckBox ]
-            } )
+            histogramCheckBox
           ]
         } )
       ]
