@@ -32,6 +32,9 @@ define( function( require ) {
   var nString = require( 'string!PLINKO_PROBABILITY/n' );
   var idealString = require( 'string!PLINKO_PROBABILITY/ideal' );
 
+  // constants
+  var CONTENT_Y_SPACING = 10; // vertical spacing of elements in the accordion box's content
+
   // options for the title of the panel
   var OPTIONS_TITLE = {
     leftHandSideFont: PlinkoProbabilityConstants.TEXT_FONT_BOLD,
@@ -132,7 +135,6 @@ define( function( require ) {
 
     var histogramCheckBox = new CheckBox( histogramCheckBoxIcon, isTheoreticalHistogramVisibleProperty );
 
-    var Y_SPACING = 10;
     var contentNode = new HBox( {
       spacing: 5,
       align: 'top',
@@ -141,7 +143,7 @@ define( function( require ) {
         // left side of the accordion box
         new VBox( {
           align: 'left',
-          spacing: Y_SPACING,
+          spacing: CONTENT_Y_SPACING,
           children: [
             sampleAverageText,
             sampleStandardDeviationText,
@@ -152,7 +154,7 @@ define( function( require ) {
         // right side of the accordion box
         new VBox( {
           align: 'left',
-          spacing: Y_SPACING,
+          spacing: CONTENT_Y_SPACING,
           children: [
             theoreticalAverageText,
             theoreticalStandardDeviationText,
