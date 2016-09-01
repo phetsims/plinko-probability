@@ -23,13 +23,13 @@ define( function( require ) {
   var VBox = require( 'SCENERY/nodes/VBox' );
 
   // strings
-  var muGreekString = require( 'string!PLINKO_PROBABILITY/muGreek' );
-  var sigmaGreekString = require( 'string!PLINKO_PROBABILITY/sigmaGreek' );
-  var xBarString = require( 'string!PLINKO_PROBABILITY/xBar' );
-  var sString = require( 'string!PLINKO_PROBABILITY/s' );
-  var sMeanString = require( 'string!PLINKO_PROBABILITY/sMean' );
-  var nString = require( 'string!PLINKO_PROBABILITY/n' );
   var idealString = require( 'string!PLINKO_PROBABILITY/ideal' );
+  var muGreekString = require( 'string!PLINKO_PROBABILITY/muGreek' );
+  var nString = require( 'string!PLINKO_PROBABILITY/n' );
+  var sigmaGreekString = require( 'string!PLINKO_PROBABILITY/sigmaGreek' );
+  var sMeanString = require( 'string!PLINKO_PROBABILITY/sMean' );
+  var sString = require( 'string!PLINKO_PROBABILITY/s' );
+  var xBarString = require( 'string!PLINKO_PROBABILITY/xBar' );
 
   // constants
   var CONTENT_Y_SPACING = 10; // vertical spacing of elements in the accordion box's content
