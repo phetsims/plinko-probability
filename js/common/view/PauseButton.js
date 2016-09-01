@@ -28,6 +28,7 @@ define( function( require ) {
     options = _.extend( {
       radius: PlinkoProbabilityConstants.PLAY_PAUSE_BUTTON_RADIUS,
       baseColor: 'red',
+      barColor: 'black',
       buttonAppearanceStrategy: RoundButtonView.flatAppearanceStrategy
     }, options );
 
@@ -35,7 +36,9 @@ define( function( require ) {
     var barWidth = options.radius * 0.2;
     var barHeight = options.radius;
 
-    var createBar = function() { return new Rectangle( 0, 0, barWidth, barHeight, { fill: 'black' } ); };
+    var createBar = function() {
+      return new Rectangle( 0, 0, barWidth, barHeight, { fill: options.barColor } );
+    };
 
     var pausePath = new HBox( {
       children: [ createBar(), createBar() ],
