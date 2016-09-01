@@ -25,7 +25,7 @@ define( function( require ) {
   // strings
   var muGreekString = require( 'string!PLINKO_PROBABILITY/muGreek' );
   var sigmaGreekString = require( 'string!PLINKO_PROBABILITY/sigmaGreek' );
-  var xOverlineString = require( 'string!PLINKO_PROBABILITY/xOverline' );
+  var xBarString = require( 'string!PLINKO_PROBABILITY/xBar' );
   var sString = require( 'string!PLINKO_PROBABILITY/s' );
   var sMeanString = require( 'string!PLINKO_PROBABILITY/sMean' );
   var nString = require( 'string!PLINKO_PROBABILITY/n' );
@@ -96,7 +96,7 @@ define( function( require ) {
     }, options );
 
     // create the EquationNode(s) that will populate the panel
-    var sampleAverageText = new EquationNode( xOverlineString, 0, OPTIONS_SAMPLE );
+    var sampleAverageText = new EquationNode( xBarString, 0, OPTIONS_SAMPLE );
     var sampleStandardDeviationText = new EquationNode( sString, 0, OPTIONS_SAMPLE );
     var sampleStandardDeviationOfMeanText = new EquationNode( sMeanString, 0, OPTIONS_SAMPLE );
     var theoreticalAverageText = new EquationNode( muGreekString, 0, OPTIONS_THEORETICAL );
