@@ -26,9 +26,8 @@ define( function( require ) {
   var muGreekString = require( 'string!PLINKO_PROBABILITY/muGreek' );
   var sigmaGreekString = require( 'string!PLINKO_PROBABILITY/sigmaGreek' );
   var xOverlineString = require( 'string!PLINKO_PROBABILITY/xOverline' );
-  var meanString = require( 'string!PLINKO_PROBABILITY/mean' );
   var sString = require( 'string!PLINKO_PROBABILITY/s' );
-  var sMeanString = sString + '<sub>' + meanString + '</sub>';
+  var sMeanString = require( 'string!PLINKO_PROBABILITY/sMean' );
   var nString = require( 'string!PLINKO_PROBABILITY/n' );
   var idealString = require( 'string!PLINKO_PROBABILITY/ideal' );
 

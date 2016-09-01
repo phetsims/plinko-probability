@@ -32,6 +32,9 @@
   "s": {
     "value": "s"
   },
+  "sMean": {
+    "value": "s<sub>mean</sub>"
+  },
   "ball": {
     "value": "Ball"
   },
@@ -40,9 +43,6 @@
   },
   "none": {
     "value": "None"
-  },
-  "mean": {
-    "value": "mean"
   },
   "ideal": {
     "value": "Ideal"
