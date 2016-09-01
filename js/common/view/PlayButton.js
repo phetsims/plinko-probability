@@ -18,14 +18,15 @@ define( function( require ) {
   var Shape = require( 'KITE/Shape' );
 
   /**
-   * @param {Object} [options] node options
+   * @param {Object} [options]
    * @constructor
    */
   function PlayButton( options ) {
 
     options = _.extend( {
       radius: PlinkoProbabilityConstants.PLAY_PAUSE_BUTTON_RADIUS,
-      baseColor: 'rgb( 0, 224, 121 )' // light green
+      baseColor: 'rgb( 0, 224, 121 )', // light green
+      iconColor: 'black'
     }, options );
 
     // triangle is sized relative to the radius
@@ -39,8 +40,7 @@ define( function( require ) {
       .close();
 
     var triangleNode = new Path( triangleShape, {
-      fill: 'black',
-      pickable: false
+      fill: options.iconColor
     } );
 
     // move to right slightly, since we don't want it exactly centered

@@ -19,7 +19,7 @@ define( function( require ) {
   var RoundPushButton = require( 'SUN/buttons/RoundPushButton' );
 
   /**
-   * @param {Object} [options] node options
+   * @param {Object} [options]
    * @constructor
    */
   function PauseButton( options ) {
@@ -27,7 +27,7 @@ define( function( require ) {
     options = _.extend( {
       radius: PlinkoProbabilityConstants.PLAY_PAUSE_BUTTON_RADIUS,
       baseColor: 'red',
-      barColor: 'black'
+      iconColor: 'black'
     }, options );
 
     // pause symbols are sized relative to the radius
@@ -35,7 +35,7 @@ define( function( require ) {
     var barHeight = options.radius;
 
     var createBar = function() {
-      return new Rectangle( 0, 0, barWidth, barHeight, { fill: options.barColor } );
+      return new Rectangle( 0, 0, barWidth, barHeight, { fill: options.iconColor } );
     };
 
     var iconNode = new HBox( {
