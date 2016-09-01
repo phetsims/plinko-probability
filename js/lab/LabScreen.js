@@ -19,8 +19,8 @@ define( function( require ) {
   var screenLabString = require( 'string!PLINKO_PROBABILITY/screen.lab' );
 
   // image
-  var labHomescreenIcon = require( 'image!PLINKO_PROBABILITY/lab-homescreen-icon.png' );
-  var labNavbarIcon = require( 'image!PLINKO_PROBABILITY/lab-navbar-icon.png' );
+  var labHomescreenImage = require( 'image!PLINKO_PROBABILITY/lab-homescreen.png' );
+  var labNavbarImage = require( 'image!PLINKO_PROBABILITY/lab-navbar.png' );
 
   /**
    * @constructor
@@ -28,13 +28,13 @@ define( function( require ) {
   function LabScreen() {
     Screen.call( this,
       screenLabString,
-      new Image( labHomescreenIcon ),
+      new Image( labHomescreenImage ),
       function() {
         return new LabModel(); },
       function( model ) {
         return new LabScreenView( model ); }, {
         backgroundColor: PlinkoProbabilityConstants.BACKGROUND_COLOR,
-        navigationBarIcon: new Image( labNavbarIcon )
+        navigationBarIcon: new Image( labNavbarImage )
       }
     );
   }

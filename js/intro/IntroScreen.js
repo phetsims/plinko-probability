@@ -21,8 +21,8 @@ define( function( require ) {
   var screenIntroString = require( 'string!PLINKO_PROBABILITY/screen.intro' );
 
   // image
-  var introHomescreenIcon = require( 'image!PLINKO_PROBABILITY/intro-homescreen-icon.png' );
-  var introNavbarIcon = require( 'image!PLINKO_PROBABILITY/intro-navbar-icon.png' );
+  var introHomescreenImage = require( 'image!PLINKO_PROBABILITY/intro-homescreen.png' );
+  var introNavbarImage = require( 'image!PLINKO_PROBABILITY/intro-navbar.png' );
 
   /**
    * @constructor
@@ -30,11 +30,11 @@ define( function( require ) {
   function IntroScreen() {
     Screen.call( this,
       screenIntroString,
-      new Image( introHomescreenIcon ),
+      new Image( introHomescreenImage ),
       function() { return new IntroModel(); },
       function( model ) { return new IntroScreenView( model ); }, {
         backgroundColor: PlinkoProbabilityConstants.BACKGROUND_COLOR,
-        navigationBarIcon: new Image( introNavbarIcon )
+        navigationBarIcon: new Image( introNavbarImage )
       }
     );
   }
