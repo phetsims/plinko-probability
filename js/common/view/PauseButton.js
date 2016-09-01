@@ -6,17 +6,16 @@
  * @author Sam Reid
  * @author Martin Veillette
  */
-
 define( function( require ) {
   'use strict';
 
   // modules
-  var HBox = require( 'SCENERY/nodes/HBox' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var Path = require( 'SCENERY/nodes/Path' );
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var PlinkoProbabilityConstants = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityConstants' );
-  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var RoundPushButton = require( 'SUN/buttons/RoundPushButton' );
+  var Shape = require( 'KITE/Shape' );
 
   /**
    * @param {Object} [options]
@@ -30,17 +29,16 @@ define( function( require ) {
       iconColor: 'black'
     }, options );
 
-    // pause symbols are sized relative to the radius
+    // pause symbol is sized relative to the radius
     var barWidth = options.radius * 0.2;
     var barHeight = options.radius;
 
-    var createBar = function() {
-      return new Rectangle( 0, 0, barWidth, barHeight, { fill: options.iconColor } );
-    };
+    var iconShape = new Shape()
+      .rect( 0, 0, barWidth, barHeight )
+      .rect( 2 * barWidth, 0, barWidth, barHeight );
 
-    var iconNode = new HBox( {
-      children: [ createBar(), createBar() ],
-      spacing: barWidth
+    var iconNode = new Path( iconShape, {
+      fill: options.iconColor
     } );
 
     assert && assert( !options.content );
