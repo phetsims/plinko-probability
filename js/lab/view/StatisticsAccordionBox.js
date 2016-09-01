@@ -72,22 +72,28 @@ define( function( require ) {
     var numberLandedBallsText = new EquationNode( nString, 0, OPTIONS_TITLE );
 
     options = _.extend( {
-      buttonLength: 20,
-      cornerRadius: 10,
+
       fill: PlinkoProbabilityConstants.PANEL_BACKGROUND_COLOR,
-      buttonXMargin: 10,
-      buttonYMargin: 10,
-      expandedProperty: expandedAccordionBoxProperty,
-      resize: false,
-      buttonAlign: 'right',
+      cornerRadius: 10,
+
+      // title
       titleNode: numberLandedBallsText,
       titleAlignX: 'left',
       titleXMargin: 5,
-      contentXMargin: 8,
-      contentYMargin: 10,
-      minWidth: 0,
+
+      // expand/collapse button
+      expandedProperty: expandedAccordionBoxProperty,
+      buttonLength: 20,
+      buttonAlign: 'right',
+      buttonXMargin: 10,
+      buttonYMargin: 10,
       buttonTouchAreaXDilation: 10,
-      buttonTouchAreaYDilation: 10
+      buttonTouchAreaYDilation: 10,
+
+      // content
+      contentXMargin: 8,
+      contentYMargin: 10
+
     }, options );
 
     // create the EquationNode(s) that will populate the panel
