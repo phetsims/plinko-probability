@@ -50,10 +50,10 @@
   "outOfBalls": {
     "value": "Out of balls!"
   },
-  "muGreek": {
+  "mu": {
     "value": "\u03BC"
   },
-  "sigmaGreek": {
+  "sigma": {
     "value": "\u03C3"
   },
   "xBar": {

@@ -24,9 +24,9 @@ define( function( require ) {
 
   // strings
   var idealString = require( 'string!PLINKO_PROBABILITY/ideal' );
-  var muGreekString = require( 'string!PLINKO_PROBABILITY/muGreek' );
+  var muString = require( 'string!PLINKO_PROBABILITY/mu' );
   var nString = require( 'string!PLINKO_PROBABILITY/n' );
-  var sigmaGreekString = require( 'string!PLINKO_PROBABILITY/sigmaGreek' );
+  var sigmaString = require( 'string!PLINKO_PROBABILITY/sigma' );
   var sMeanString = require( 'string!PLINKO_PROBABILITY/sMean' );
   var sString = require( 'string!PLINKO_PROBABILITY/s' );
   var xBarString = require( 'string!PLINKO_PROBABILITY/xBar' );
@@ -99,8 +99,8 @@ define( function( require ) {
     var sampleAverageText = new EquationNode( xBarString, 0, OPTIONS_SAMPLE );
     var sampleStandardDeviationText = new EquationNode( sString, 0, OPTIONS_SAMPLE );
     var sampleStandardDeviationOfMeanText = new EquationNode( sMeanString, 0, OPTIONS_SAMPLE );
-    var theoreticalAverageText = new EquationNode( muGreekString, 0, OPTIONS_THEORETICAL );
-    var theoreticalStandardDeviationText = new EquationNode( sigmaGreekString, 0, OPTIONS_THEORETICAL );
+    var theoreticalAverageText = new EquationNode( muString, 0, OPTIONS_THEORETICAL );
+    var theoreticalStandardDeviationText = new EquationNode( sigmaString, 0, OPTIONS_THEORETICAL );
 
     // link is present for the life of the simulation, no need to dispose
     Property.multilink( [ model.numberOfRowsProperty, model.probabilityProperty ], function( numberOfRows, probability ) {
