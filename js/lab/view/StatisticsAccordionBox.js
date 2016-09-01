@@ -72,6 +72,7 @@ define( function( require ) {
     var numberLandedBallsText = new EquationNode( nString, 0, OPTIONS_TITLE );
 
     options = _.extend( {
+      buttonLength: 20,
       cornerRadius: 10,
       fill: PlinkoProbabilityConstants.PANEL_BACKGROUND_COLOR,
       buttonXMargin: 10,
