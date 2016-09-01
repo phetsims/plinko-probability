@@ -28,7 +28,8 @@ define( function( require ) {
 
     options = _.extend( {
       minWidth: 214, // left border of panel is aligned with the left border of the play panel.
-      align: 'left'
+      align: 'left',
+      yMargin: 7.5
     }, options );
 
     var optionsTitle = {

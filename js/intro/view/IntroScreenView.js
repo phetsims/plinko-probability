@@ -27,6 +27,9 @@ define( function( require ) {
   var counterImage = require( 'image!PLINKO_PROBABILITY/counter.png' );
   var cylinderImage = require( 'image!PLINKO_PROBABILITY/cylinder.png' );
 
+  // constants
+  var MIN_PANEL_WIDTH = 220; // see #77
+
   /**
    * Creates view for intro tab
    * @param {IntroModel} model
@@ -56,13 +59,15 @@ define( function( require ) {
 
     // Play panel, at upper right
     var playPanel = new IntroPlayPanel( model.updateBallsToCreateNumber.bind( model ), model.ballModeProperty, model.isBallCapReachedProperty, {
+      minWidth: MIN_PANEL_WIDTH,
       right: this.layoutBounds.maxX - PlinkoProbabilityConstants.PANEL_RIGHT_PADDING,
-      top: PlinkoProbabilityConstants.PANEL_VERTICAL_SPACING
+      top: 10
     } );
 
     // Number of balls panel, at right, top aligned with cylinders
     var numberBallsDisplay = new NumberBallsDisplay( model.histogram, {
-      top: cylindersFrontNode.top,
+      minWidth: MIN_PANEL_WIDTH,
+      top: 360, // hack to align with StatisticsAccordionBox in LabScreenView, see #77
       right: playPanel.right
     } );
 
