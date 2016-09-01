@@ -15,7 +15,6 @@ define( function( require ) {
   var Path = require( 'SCENERY/nodes/Path' );
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var PlinkoProbabilityConstants = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityConstants' );
-  var RoundButtonView = require( 'SUN/buttons/RoundButtonView' );
   var RoundPushButton = require( 'SUN/buttons/RoundPushButton' );
   var Shape = require( 'KITE/Shape' );
 
@@ -31,8 +30,7 @@ define( function( require ) {
 
     options = _.extend( {
       radius: DEFAULT_RADIUS,
-      baseColor: PLAY_BUTTON_BASE_COLOR,
-      buttonAppearanceStrategy: RoundButtonView.flatAppearanceStrategy
+      baseColor: PLAY_BUTTON_BASE_COLOR
     }, options );
 
     // play symbol is sized relative to the radius

@@ -16,7 +16,6 @@ define( function( require ) {
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var PlinkoProbabilityConstants = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityConstants' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  var RoundButtonView = require( 'SUN/buttons/RoundButtonView' );
   var RoundPushButton = require( 'SUN/buttons/RoundPushButton' );
 
   /**
@@ -28,8 +27,7 @@ define( function( require ) {
     options = _.extend( {
       radius: PlinkoProbabilityConstants.PLAY_PAUSE_BUTTON_RADIUS,
       baseColor: 'red',
-      barColor: 'black',
-      buttonAppearanceStrategy: RoundButtonView.flatAppearanceStrategy
+      barColor: 'black'
     }, options );
 
     // pause symbols are sized relative to the radius
