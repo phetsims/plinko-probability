@@ -38,12 +38,15 @@ define( function( require ) {
       return new Rectangle( 0, 0, barWidth, barHeight, { fill: options.barColor } );
     };
 
-    var pausePath = new HBox( {
+    var iconNode = new HBox( {
       children: [ createBar(), createBar() ],
       spacing: barWidth
     } );
 
-    RoundPushButton.call( this, _.extend( { content: pausePath }, options ) );
+    assert && assert( !options.content );
+    options.content = iconNode;
+    
+    RoundPushButton.call( this, options );
   }
 
   plinkoProbability.register( 'PauseButton', PauseButton );

@@ -10,17 +10,12 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var Color = require( 'SCENERY/util/Color' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Path = require( 'SCENERY/nodes/Path' );
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var PlinkoProbabilityConstants = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityConstants' );
   var RoundPushButton = require( 'SUN/buttons/RoundPushButton' );
   var Shape = require( 'KITE/Shape' );
-
-  // constants
-  var PLAY_BUTTON_BASE_COLOR = new Color( 0, 224, 121 ); //light-green hue
-  var DEFAULT_RADIUS = PlinkoProbabilityConstants.PLAY_PAUSE_BUTTON_RADIUS;
 
   /**
    * @param {Object} [options] node options
@@ -29,27 +24,29 @@ define( function( require ) {
   function PlayButton( options ) {
 
     options = _.extend( {
-      radius: DEFAULT_RADIUS,
-      baseColor: PLAY_BUTTON_BASE_COLOR
+      radius: PlinkoProbabilityConstants.PLAY_PAUSE_BUTTON_RADIUS,
+      baseColor: 'rgb( 0, 224, 121 )' // light green
     }, options );
 
-    // play symbol is sized relative to the radius
+    // triangle is sized relative to the radius
     var triangleHeight = options.radius;
     var triangleWidth = options.radius * 0.8;
 
-    // create the Path of the triangle
-    var playPath = new Path( new Shape()
-        .moveTo( 0, triangleHeight / 2 )
-        .lineTo( triangleWidth, 0 )
-        .lineTo( 0, -triangleHeight / 2 )
-        .close(),
-      { fill: 'black', pickable: false } );
+    var triangleShape = new Shape()
+      .moveTo( 0, triangleHeight / 2 )
+      .lineTo( triangleWidth, 0 )
+      .lineTo( 0, -triangleHeight / 2 )
+      .close();
 
-    // layout
-    playPath.centerX = options.radius * 0.05; // move to right slightly since we don't want it exactly centered
-    playPath.centerY = 0;
+    var triangleNode = new Path( triangleShape, {
+      fill: 'black',
+      pickable: false
+    } );
 
-    RoundPushButton.call( this, _.extend( { content: playPath }, options ) );
+    assert && assert( !options.content );
+    options.content = triangleNode;
+
+    RoundPushButton.call( this, options );
   }
 
   plinkoProbability.register( 'PlayButton', PlayButton );
