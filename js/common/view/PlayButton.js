@@ -43,6 +43,9 @@ define( function( require ) {
       pickable: false
     } );
 
+    // move to right slightly, since we don't want it exactly centered
+    options.xContentOffset = 0.1 * triangleNode.width;
+
     assert && assert( !options.content );
     options.content = triangleNode;
 
