@@ -124,14 +124,16 @@ define( function( require ) {
 
     var histogramCheckBox = new CheckBox( histogramCheckBoxIcon, isTheoreticalHistogramVisibleProperty );
 
+    var Y_SPACING = 10;
     var contentNode = new HBox( {
       spacing: 5,
+      align: 'top',
       children: [
 
         // left side of the accordion box
         new VBox( {
           align: 'left',
-          spacing: 10,
+          spacing: Y_SPACING,
           children: [
             sampleAverageText,
             sampleStandardDeviationText,
@@ -142,7 +144,7 @@ define( function( require ) {
         // right side of the accordion box
         new VBox( {
           align: 'left',
-          spacing: 5,
+          spacing: Y_SPACING,
           children: [
             theoreticalAverageText,
             theoreticalStandardDeviationText,
