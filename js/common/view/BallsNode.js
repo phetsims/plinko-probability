@@ -42,7 +42,7 @@ define( function( require ) {
     var minRows = PlinkoProbabilityConstants.ROWS_RANGE.min;
     var defaultBallRadius = modelViewTransform.modelToViewDeltaX( GaltonBoard.getPegSpacing( minRows ) * PlinkoProbabilityConstants.BALL_SIZE_FRACTION );
 
-    // Create an image of the ball, to bw used for rendering all balls. This happens asynchronously.
+    // Create an image of the ball, used for rendering all balls. This happens asynchronously.
     var ballNode = new BallNode( defaultBallRadius );
     ballNode.toImage( function( image ) {
       self.ballImage = image; // @private
