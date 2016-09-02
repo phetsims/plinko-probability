@@ -141,6 +141,12 @@ define( function( require ) {
     this.addChild( histogramNode );
     this.addChild( hopper );
 
+    // Hide BallsNode when the hopper mode is not 'ball'.
+    // unlink unnecessary since this instance exists for the lifetime of the sim.
+    model.hopperModeProperty.link( function( hopperMode ) {
+      ballsNode.visible = ( hopperMode === 'ball' );
+    } );
+
     // @protected needed for layout in subtypes
     this.hopper = hopper;
     this.eraserButton = eraserButton;
