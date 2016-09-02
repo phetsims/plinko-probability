@@ -39,8 +39,8 @@ define( function( require ) {
     this.histogramModeProperty = histogramModeProperty;
 
     // set the default ball radius using the largest possible radius, that is the minimum number of rows.
-    var defaultNumberOfRows = PlinkoProbabilityConstants.ROWS_RANGE.min;
-    var defaultBallRadius = modelViewTransform.modelToViewDeltaX( GaltonBoard.getPegSpacing( defaultNumberOfRows ) * PlinkoProbabilityConstants.BALL_SIZE_FRACTION );
+    var minRows = PlinkoProbabilityConstants.ROWS_RANGE.min;
+    var defaultBallRadius = modelViewTransform.modelToViewDeltaX( GaltonBoard.getPegSpacing( minRows ) * PlinkoProbabilityConstants.BALL_SIZE_FRACTION );
 
     // Create an image of the ball, to bw used for rendering all balls. This happens asynchronously.
     var ballNode = new BallNode( defaultBallRadius );
@@ -52,7 +52,7 @@ define( function( require ) {
     // Adjust size of the balls based on the number of rows in the Galton board.
     // unlink unnecessary, instance exists for the lifetime of the sim.
     numberOfRowsProperty.link( function( numberOfRows ) {
-      self.scaleFactor = defaultNumberOfRows / numberOfRows;
+      self.scaleFactor = minRows / numberOfRows;
       self.invalidatePaint(); // calls paintCanvas
     } );
 
