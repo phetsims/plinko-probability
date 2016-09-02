@@ -49,8 +49,10 @@ define( function( require ) {
       self.invalidatePaint(); // calls paintCanvas
     } );
 
+    // Adjust size of the balls based on the number of rows in the Galton board
     numberOfRowsProperty.link( function( numberOfRows ) {
       self.scaleFactor = defaultNumberOfRows / numberOfRows;
+      self.invalidatePaint(); // calls paintCanvas
     } );
 
     // calls paintCanvas
