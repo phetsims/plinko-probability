@@ -107,10 +107,9 @@ define( function( require ) {
     var ballViewBounds = this.modelViewTransform.modelToViewBounds( ballModelBounds ).dilated( 20 );
 
     // renders all the balls
-    var ballsNode = new BallsNode( model.balls, modelViewTransform, model.numberOfRowsProperty,
-      viewProperties.histogramModeProperty, model.hopperModeProperty, {
-        canvasBounds: ballViewBounds
-      } );
+    var ballsNode = new BallsNode( model.balls, model.numberOfRowsProperty, viewProperties.histogramModeProperty, modelViewTransform, {
+      canvasBounds: ballViewBounds
+    } );
     this.ballsNode = ballsNode;
 
     // @protected sound generator for ball hitting peg
