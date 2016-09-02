@@ -58,6 +58,13 @@ define( function( require ) {
 
     // create an observable array of the model balls
     this.balls = new ObservableArray(); // @public
+    var self = this;
+    this.balls.addItemAddedListener( function() {
+      console.log( '+ ' + self.balls.length );
+    } );
+    this.balls.addItemRemovedListener( function() {
+      console.log( '- ' + self.balls.length );
+    } );
 
     // create the model for the Galton Board which describes the position of the pegs and their visibility
     this.galtonBoard = new GaltonBoard( this.numberOfRowsProperty ); // @public
