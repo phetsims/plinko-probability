@@ -69,6 +69,7 @@ define( function( require ) {
      * @private
      */
     paintCanvas: function( context ) {
+      console.log( 'BallsNode.paintCanvas' );//XXX
       var self = this;
 
       // image is created asynchronously by toImage, so it may not be available yet

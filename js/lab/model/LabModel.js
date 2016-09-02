@@ -110,13 +110,17 @@ define( function( require ) {
      * @private
      */
     addNewBall: function() {
+
       var thisModel = this;
+
       var addedBall = new LabBall( this.probability, this.numberOfRows, this.histogram.bins );
       this.histogram.bins[ addedBall.binIndex ].binCount++; //update the bin count of the bins
       this.balls.push( addedBall ); // add the ball to the observable array
+
       if ( thisModel.histogram.getMaximumActualBinCount() >= MAX_BALLS ) {
         thisModel.isBallCapReached = true;
       }
+
       // ballOutOfPegsEmitter is emitted when the addedBall leaves the last peg on the Galton board.
       addedBall.ballOutOfPegsEmitter.addListener( function ballOutOfPegsListener() {
         thisModel.histogram.addBallToHistogram( addedBall );
