@@ -59,13 +59,13 @@ define( function( require ) {
     var binStackLevel = 2 * Math.floor( this.binCount / 3 ) + ( ( this.binCount % 3 === 0 ) ? 0 : 1 ); // number of balls per stack goes as (2,1,2,1,2...
 
     // {number} describes lowest point of cylinder that a ball will reach (bottom of the cylinder)
-    var minimumYposition = cylinderInfo.top - cylinderInfo.verticalOffset - cylinderInfo.ellipseHeight - cylinderInfo.height; // the bottom of the cylinder
+    var yMinimum = cylinderInfo.top - cylinderInfo.verticalOffset - cylinderInfo.ellipseHeight - cylinderInfo.height; // the bottom of the cylinder
 
     // {number} describes the height difference between two balls in two adjacent rows in a ball stack
     var delta = this.ballRadius + Math.sqrt( Math.pow( 2 * this.ballRadius, 2 ) - Math.pow( ( cylinderInfo.cylinderWidth / 2 ) - this.ballRadius, 2 ) ); // the height separation between stacks
 
     // @public {number} describes final vertical offset of ball within a bin {number}
-    this.finalBinVerticalOffset = minimumYposition + ( ( binStackLevel - 1 ) * delta ) - this.ballRadius;
+    this.finalBinVerticalOffset = yMinimum + ( ( binStackLevel - 1 ) * delta ) - this.ballRadius;
 
     // @public {number} describes final horizontal offset of the ball within a bin {number}
     this.finalBinHorizontalOffset = ( this.binOrientation * ( ( cylinderInfo.cylinderWidth / 2 ) - this.ballRadius ) );
