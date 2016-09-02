@@ -49,7 +49,8 @@ define( function( require ) {
       self.invalidatePaint(); // calls paintCanvas
     } );
 
-    // Adjust size of the balls based on the number of rows in the Galton board
+    // Adjust size of the balls based on the number of rows in the Galton board.
+    // unlink unnecessary, instance exists for the lifetime of the sim.
     numberOfRowsProperty.link( function( numberOfRows ) {
       self.scaleFactor = defaultNumberOfRows / numberOfRows;
       self.invalidatePaint(); // calls paintCanvas
