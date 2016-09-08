@@ -53,7 +53,7 @@ define( function( require ) {
       assert && assert( _.contains( HOPPER_MODE_VALUES, hopperMode ), 'invalid hopperMode: ' + hopperMode );
     } );
 
-    this.ballCreationTimeElapsed = 0; // @public {number} - time elapsed since last ball creation;
+    this.ballCreationTimeElapsed = 0; // @public {number} - time elapsed since last ball creation
     this.balls = new ObservableArray(); // @public
     this.galtonBoard = new GaltonBoard( this.numberOfRowsProperty ); // @public
     this.histogram = new Histogram( this.numberOfRowsProperty ); // @public
