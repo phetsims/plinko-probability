@@ -22,7 +22,6 @@ define( function( require ) {
   var HOPPER_MODE_VALUES = [ 'ball', 'path', 'none' ]; // values for hopperModeProperty
 
   /**
-   * Creates common model for Plinko Probability
    * @constructor
    */
   function PlinkoProbabilityCommonModel() {
@@ -55,21 +54,8 @@ define( function( require ) {
     } );
 
     this.ballCreationTimeElapsed = 0; // @public {number} - time elapsed since last ball creation;
-
-    // create an observable array of the model balls
     this.balls = new ObservableArray(); // @public
-    var self = this;
-    this.balls.addItemAddedListener( function() {
-      console.log( '+ ' + self.balls.length );
-    } );
-    this.balls.addItemRemovedListener( function() {
-      console.log( '- ' + self.balls.length );
-    } );
-
-    // create the model for the Galton Board which describes the position of the pegs and their visibility
     this.galtonBoard = new GaltonBoard( this.numberOfRowsProperty ); // @public
-
-    // create the model for the histogram
     this.histogram = new Histogram( this.numberOfRowsProperty ); // @public
   }
 
@@ -78,8 +64,6 @@ define( function( require ) {
   return inherit( PropertySet, PlinkoProbabilityCommonModel, {
 
     /**
-     * Reset of the model attributes.
-     *
      * @override
      * @public
      */
