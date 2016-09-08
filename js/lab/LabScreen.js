@@ -23,19 +23,22 @@ define( function( require ) {
   var labNavbarImage = require( 'image!PLINKO_PROBABILITY/lab-navbar.png' );
 
   /**
+   * @param {Object} [options]
    * @constructor
    */
-  function LabScreen() {
+  function LabScreen( options ) {
+
+    options = _.extend( {
+      backgroundColor: PlinkoProbabilityConstants.BACKGROUND_COLOR,
+      navigationBarIcon: new Image( labNavbarImage )
+    }, options );
+
     Screen.call( this,
       screenLabString,
       new Image( labHomescreenImage ),
-      function() {
-        return new LabModel(); },
-      function( model ) {
-        return new LabScreenView( model ); }, {
-        backgroundColor: PlinkoProbabilityConstants.BACKGROUND_COLOR,
-        navigationBarIcon: new Image( labNavbarImage )
-      }
+      function() { return new LabModel(); },
+      function( model ) { return new LabScreenView( model ); },
+      options
     );
   }
 
