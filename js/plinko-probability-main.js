@@ -27,10 +27,7 @@ define( function( require ) {
   };
 
   SimLauncher.launch( function() {
-    var sim = new Sim(
-      plinkoProbabilityTitleString,
-      [ new IntroScreen(), new LabScreen() ],
-      simOptions );
+    var sim = new Sim( plinkoProbabilityTitleString, [ new IntroScreen(), new LabScreen() ], simOptions );
     sim.start();
   } );
 } );
