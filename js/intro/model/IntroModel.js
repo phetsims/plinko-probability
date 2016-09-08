@@ -54,7 +54,10 @@ define( function( require ) {
      * @public
      */
     step: function( dt ) {
-      this.ballCreationTimeElapsed += dt; // we want to to keep track of the time elapsed since the last ball was created
+
+      // Keep track of the time elapsed since the last ball was created
+      this.ballCreationTimeElapsed += dt;
+
       // we only want to create a ball if:
       // there are balls waiting in line &&
       // the minimum time interval has passed 150 milliseconds &&
@@ -64,7 +67,7 @@ define( function( require ) {
       }
 
       this.balls.forEach( function( ball ) {
-        // we want to cap the dt so that the balls don't make a big jump
+        // Cap the dt so that the balls don't make a big jump
         ball.step( Math.min( 0.1, dt * 5 ) );
       } );
     },
@@ -80,7 +83,7 @@ define( function( require ) {
     },
 
     /**
-     * This function updates the number of balls to be launched which depends on the status of ballMode
+     * This function updates the number of balls to be launched which depends on the status of ballMode.
      * The cap of of the maximum number of balls to be launches is enforced by the step() function.
      *
      * @private
@@ -114,7 +117,9 @@ define( function( require ) {
      * @private
      */
     addNewBall: function() {
+
       var thisModel = this;
+
       // create a new ball
       var addedBall = new IntroBall( this.probability, this.numberOfRows, this.histogram.bins, this.cylinderInfo );
 
@@ -123,7 +128,7 @@ define( function( require ) {
 
       this.ballCreationTimeElapsed = 0; //reset the time elapsed since the launched of the last ball
 
-      // we want to disable the playButton when all the balls have been queued
+      // Disable the playButton when all the balls have been queued
       if ( this.launchedBallsNumber + this.ballsToCreateNumber >= MAX_BALLS ) {
         this.isBallCapReachedProperty.set( true );
       }
