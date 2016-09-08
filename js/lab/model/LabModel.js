@@ -33,11 +33,11 @@ define( function( require ) {
 
     this.hopperModeProperty.link( function( hopperMode ) {
 
-      // when the balls gets created it adds itself to the histogram binCount
-      // so when we clear the balls we should remove them from the histogram
+      // When balls get created, they add themselves to the histogram binCount.
+      // So when we clear the balls, we need to remove them from the histogram.
       thisModel.balls.forEach( function( ball ) {
-        // we don't want to remove balls if the have exited or landed
-        if ( !( ball.phase === BallPhase.COLLECTED || ball.phase === BallPhase.EXITED ) ) {
+        // Don't remove balls if they have exited the board or landed in a bin
+        if ( !( ball.phase === BallPhase.EXITED || ball.phase === BallPhase.COLLECTED ) ) {
           //remove the ball from the binCount
           thisModel.histogram.bins[ ball.binIndex ].binCount--;
         }
@@ -74,31 +74,36 @@ define( function( require ) {
 
       this.ballCreationTimeElapsed += dt; // we don't want balls to drop too quickly so we keep track of the interval
 
-      if ( this.isPlaying && this.ballCreationTimeElapsed > this.ballCreationTimeInterval ) { // if the play button is pressed and the interval is greater than some interval
+      // if the play button is pressed and the interval is greater than some interval...
+      if ( this.isPlaying && this.ballCreationTimeElapsed > this.ballCreationTimeInterval ) {
         this.addNewBall(); // add a new ball
         this.ballCreationTimeElapsed = 0; // reset the elapsed time
       }
 
       switch ( this.hopperModeProperty.value ) {
+
         case 'ball':
           this.balls.forEach( function( ball ) {
-            // we want to cap dt fairly low so that the balls don't make a sudden jump
-            ball.step( Math.min( 0.090, dt * 10 ) ); // 90 milliseconds is the highest dt will be
+            // Cap dt fairly low (90 ms max) so that the balls don't make a sudden jump
+            ball.step( Math.min( 0.090, dt * 10 ) );
           } );
           this.ballCreationTimeInterval = 0.100; // 100 milliseconds if we are seeing balls
           break;
+
         case 'path':
           this.balls.forEach( function( ball ) {
             ball.updateStatisticsAndLand();
           } );
           this.ballCreationTimeInterval = 0.050; // 50 milliseconds if we are seeing paths
           break;
+
         case 'none':
           this.balls.forEach( function( ball ) {
             ball.updateStatisticsAndLand();
           } );
           this.ballCreationTimeInterval = 0.015; // 15 milliseconds if nothing is being shown
           break;
+
         default:
           throw new Error( 'invalid hopperMode: ' + this.hopperModeProperty.value );
       }
@@ -176,7 +181,8 @@ define( function( require ) {
      * @private
      */
     getBinomialCoefficient: function( n, k ) {
-      // we want (n)*(n-1)*(n-2)..(n-k+1) divided by (k)*(k-1)*(k-2)...*2*1
+
+      // (n)*(n-1)*(n-2)..(n-k+1) divided by (k)*(k-1)*(k-2)...*2*1
       var coefficient = 1;
       var i;
       for ( i = n - k + 1; i <= n; i++ ) {
