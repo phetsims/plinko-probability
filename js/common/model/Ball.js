@@ -257,6 +257,10 @@ define( function( require ) {
         case BallPhase.COLLECTED:
           this.position.setXY( this.finalBinHorizontalOffset, this.finalBinVerticalOffset );
           this.position.addXY( this.pegPositionX, 0 );
+          break;
+
+        default:
+          throw new Error( 'invalid phase: ' + this.phase );
       }
 
       // add a vertical offset, such that the balls do not reach the pegs but are over the pegs.
