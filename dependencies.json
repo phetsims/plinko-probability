@@ -1,5 +1,5 @@
 {
-  "comment": "# plinko-probability 1.0.0-dev.12 Fri Sep 09 2016 14:01:16 GMT-0600 (MDT)",
+  "comment": "# plinko-probability 1.0.0-dev.13 Fri Sep 09 2016 14:46:42 GMT-0600 (MDT)",
   "assert": {
     "sha": "7d27130a4d27da15aa7f8a21bbfb9245288c1b44",
     "branch": "master"
@@ -37,7 +37,7 @@
     "branch": "master"
   },
   "plinko-probability": {
-    "sha": "b03696700172f27a06f33e278d871f09a11a1515",
+    "sha": "9513192590852536bf9a01c9de95da01ed4be7ba",
     "branch": "master"
   },
   "scenery": {
