@@ -51,7 +51,7 @@ define( function( require ) {
     // view-specific Properties
     var viewProperties = new PropertySet( {
       histogramMode: options.histogramMode,
-      expandedAccordionBox: true,
+      expandedAccordionBox: false,
       isTheoreticalHistogramVisible: false,
       isSoundEnabled: false
     } );
