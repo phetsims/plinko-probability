@@ -104,7 +104,7 @@ define( function( require ) {
       }
 
       // now we update the view and generate our statistics
-      this.initialStatistics();
+      this.initializeStatistics();
       this.histogramUpdatedEmitter.emit();
     },
 
@@ -166,12 +166,11 @@ define( function( require ) {
     },
 
     /**
-     * Determines the histogram's statistics due to adding an initial amount of balls on screen
-     * via the "ballOnScreen" query parameter
-     *
+     * Initializes statistics based on what's in the bins.
      * @private
      */
-    initialStatistics: function() {
+    initializeStatistics: function() {
+
       var totalNumberOfBalls = 0;
       var sum = 0;
       var sumOfSquares = 0;
@@ -182,7 +181,6 @@ define( function( require ) {
         sumOfSquares += bin.binCount * binIndex * binIndex;
       } );
 
-      // create readable statistics for the statistics accordion box
       this.sumOfSquares = sumOfSquares;
       this.landedBallsNumber = totalNumberOfBalls;
       this.average = sum / totalNumberOfBalls;
@@ -192,9 +190,9 @@ define( function( require ) {
     },
 
     /**
-     *  Resets all the statistics data to zero
+     * Resets all the statistics data to zero
      *
-     *  @private
+     * @private
      */
     resetStatistics: function() {
       this.landedBallsNumber = 0;
@@ -206,7 +204,7 @@ define( function( require ) {
     },
 
     /**
-     * Add an additional ball to the histogram to the appropriate bin and update all the relevant statistics
+     * Add an additional ball to the appropriate bin and update all the relevant statistics
      *
      * @param {Ball} ball
      * @public
@@ -352,7 +350,7 @@ define( function( require ) {
     },
 
     /**
-     * Function that returns the x position (in model coordinates() associated with
+     * Function that returns the x position (in model coordinates) associated with
      * the average (mean) value of the histogram.
      *
      * @param {number} value
