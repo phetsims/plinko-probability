@@ -130,7 +130,7 @@ define( function( require ) {
     /**
      * Updates the array elements for the number of balls in a bin and the horizontal final position of the last ball.
      *
-     * @param {IntroBall|LabBall} ball
+     * @param {Ball} ball
      * @public
      */
     updateBinCountAndOrientation: function( ball ) {
@@ -208,7 +208,7 @@ define( function( require ) {
     /**
      * Add an additional ball to the histogram to the appropriate bin and update all the relevant statistics
      *
-     * @param {IntroBall|LabBall} ball
+     * @param {Ball} ball
      * @public
      */
     addBallToHistogram: function( ball ) {
