@@ -72,7 +72,11 @@ define( function( require ) {
      */
     step: function( dt ) {
 
-      this.ballCreationTimeElapsed += dt; // we don't want balls to drop too quickly so we keep track of the interval
+      var self = this;
+      this.someBallMoved = false;
+
+      // we don't want balls to drop too quickly so we keep track of the interval
+      this.ballCreationTimeElapsed += dt;
 
       // if the play button is pressed and the interval is greater than some interval...
       if ( this.isPlaying && this.ballCreationTimeElapsed > this.ballCreationTimeInterval ) {
@@ -85,7 +89,8 @@ define( function( require ) {
         case 'ball':
           this.balls.forEach( function( ball ) {
             // Cap dt fairly low (90 ms max) so that the balls don't make a sudden jump
-            ball.step( Math.min( 0.090, dt * 10 ) );
+            var ballMoved = ball.step( Math.min( 0.090, dt * 10 ) );
+            self.someBallMoved = ( ballMoved || self.someBallMoved );
           } );
           this.ballCreationTimeInterval = 0.100; // 100 milliseconds if we are seeing balls
           break;

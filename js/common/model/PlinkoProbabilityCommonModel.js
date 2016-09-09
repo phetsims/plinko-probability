@@ -57,6 +57,12 @@ define( function( require ) {
     this.balls = new ObservableArray(); // @public
     this.galtonBoard = new GaltonBoard( this.numberOfRowsProperty ); // @public
     this.histogram = new Histogram( this.numberOfRowsProperty ); // @public
+
+    // @public Indicates whether some ball has moved since the previous time step.
+    // The view uses this to decide whether to call BallsNode.invalidatePaint.
+    // This is an odd approach, necessitated by the fact that this sim doesn't follow the MVC pattern.
+    // See https://github.com/phetsims/plinko-probability/issues/62 for details.
+    this.someBallMoved = false;
   }
 
   plinkoProbability.register( 'PlinkoProbabilityCommonModel', PlinkoProbabilityCommonModel );
@@ -72,6 +78,7 @@ define( function( require ) {
       this.balls.clear(); // clear all the model balls
       this.histogram.reset(); // empty out all the model bins
       this.ballCreationTimeElapsed = 0;
+      this.someBallMoved = false;
     }
   } );
 } );

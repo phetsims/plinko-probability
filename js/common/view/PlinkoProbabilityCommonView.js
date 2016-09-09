@@ -44,6 +44,7 @@ define( function( require ) {
     }, options );
 
     var thisView = this;
+    this.model = model; // @private
 
     ScreenView.call( this, options );
 
@@ -146,6 +147,14 @@ define( function( require ) {
       ballsNode.visible = ( hopperMode === 'ball' );
     } );
 
+    // When switching to show bins, repaint the balls.
+    // unlink unnecessary since this instance exists for the lifetime of the sim.
+    viewProperties.histogramModeProperty.link( function( histogramMode ) {
+      if ( histogramMode === 'cylinder' ) {
+        thisView.ballsNode.invalidatePaint();
+      }
+    } );
+
     // @protected needed for layout in subtypes
     this.hopper = hopper;
     this.eraserButton = eraserButton;
@@ -161,8 +170,10 @@ define( function( require ) {
      */
     step: function( dt ) {
 
-      // update view on model step
-      this.ballsNode.invalidatePaint();
+      // If some ball has moved, then update the view. See https://github.com/phetsims/plinko-probability/issues/62
+      if ( this.model.someBallMoved ) {
+        this.ballsNode.invalidatePaint();
+      }
 
       // increment time for sound generation
       this.pegSoundGeneration.step( dt );

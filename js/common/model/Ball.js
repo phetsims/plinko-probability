@@ -138,10 +138,11 @@ define( function( require ) {
 
     /**
      * @param {number} dt - time interval
+     * @returns {boolean} true if the ball moved, false if it didn't move
      * @public
      */
     step: function( dt ) {
-      this.ballStep( dt );
+      return this.ballStep( dt );
     },
 
     /**
@@ -153,11 +154,16 @@ define( function( require ) {
      * updates the position of the ball
      *
      * @param {number} df - fraction of falling between pegs
+     * @returns {boolean} true if the ball moved, false if it didn't move
      * @private
      */
     ballStep: function( df ) {
 
-      if ( this.phase === BallPhase.INITIAL ) { // balls is leaving the hopper
+      if ( this.phase === BallPhase.COLLECTED ) {
+        // do nothing, the ball is at rest in a bin
+        return false;
+      }
+      else if ( this.phase === BallPhase.INITIAL ) { // balls is leaving the hopper
         if ( df + this.fallenRatio < 1 ) { // if the ball has not gotten to the first peg
           this.initializePegPosition(); // get the initial peg information
           this.fallenRatio += df; // fall some more
@@ -204,6 +210,7 @@ define( function( require ) {
 
       // update the position of the ball
       this.updatePosition();
+      return true;
     },
 
     /**
