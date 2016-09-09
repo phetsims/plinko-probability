@@ -25,19 +25,18 @@ define( function( require ) {
   var introNavbarImage = require( 'image!PLINKO_PROBABILITY/intro-navbar.png' );
 
   /**
-   * @param {Object} [options]
    * @constructor
    */
-  function IntroScreen( options ) {
+  function IntroScreen() {
 
-    options = _.extend( {
+    var options = {
+      name: screenIntroString,
       backgroundColor: PlinkoProbabilityConstants.BACKGROUND_COLOR,
+      homeScreenIcon: new Image( introHomescreenImage ),
       navigationBarIcon: new Image( introNavbarImage )
-    }, options );
+    };
 
     Screen.call( this,
-      screenIntroString,
-      new Image( introHomescreenImage ),
       function() { return new IntroModel(); },
       function( model ) { return new IntroScreenView( model ); },
       options );
