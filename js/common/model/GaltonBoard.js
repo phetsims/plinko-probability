@@ -46,10 +46,10 @@ define( function( require ) {
 
       galtonBoard.pegs.forEach( function( peg ) {
         // for performance reasons, we don't throw out the pegs, we simply update their visibility
-        peg.isVisible = galtonBoard.getIsVisible( peg.rowNumber, numberOfRows ); // @public (read-only)
+        peg.isVisible = isPegVisible( peg.rowNumber, numberOfRows );
         if ( peg.isVisible ) {
           // update the position of the pegs on the Galton Board.
-          peg.position = galtonBoard.getPosition( peg.rowNumber, peg.columnNumber, numberOfRows ); // @public (read-only)
+          peg.position = getPegPosition( peg.rowNumber, peg.columnNumber, numberOfRows );
         }
       } );
     } );
@@ -57,33 +57,35 @@ define( function( require ) {
 
   plinkoProbability.register( 'GaltonBoard', GaltonBoard );
 
-  return inherit( Object, GaltonBoard, {
+  /**
+   * Gets the x and y coordinates of a peg, in reference to the galton board.
+   *
+   * @param {number} rowNumber - integer starting at zero
+   * @param {number} columnNumber - index of the column, integer starting at zero
+   * @param {number} numberOfRows - the number of rows on the screen
+   * @returns {Vector2}
+   * @public
+   */
+  var getPegPosition = function( rowNumber, columnNumber, numberOfRows ) {
+    return new Vector2(
+      -rowNumber / 2 + columnNumber,
+      -rowNumber - 2 * PlinkoProbabilityConstants.PEG_HEIGHT_FRACTION_OFFSET )
+      .divideScalar( numberOfRows + 1 );
+  };
 
-    /**
-     * Function that returns the x and y coordinates of a peg in reference to the galton board
-     *
-     * @param {number} rowNumber - integer starting at zero
-     * @param {number} columnNumber - index of the column, integer starting at zero
-     * @param {number} numberOfRows - the number of rows on the screen
-     * @returns {Vector2}
-     * @public
-     */
-    getPosition: function( rowNumber, columnNumber, numberOfRows ) {
-      return new Vector2( -rowNumber / 2 + columnNumber, -rowNumber - 2 * PlinkoProbabilityConstants.PEG_HEIGHT_FRACTION_OFFSET ).divideScalar( numberOfRows + 1 );
-    },
+  /**
+   * Is the specified peg visible?
+   *
+   * @param {number} rowNumber - index of row, integer starting at zero
+   * @param {number} numberOfRows - number of rows
+   * @returns {boolean}
+   * @public
+   */
+  var isPegVisible = function( rowNumber, numberOfRows ) {
+    return ( rowNumber < numberOfRows );
+  };
 
-    /**
-     * Function that returns the visibility status of a peg on the galton board
-     *
-     * @param {number} rowNumber - index of row, integer starting at zero
-     * @param {number} numberOfRows - number of rows
-     * @returns {boolean}
-     * @public
-     */
-    getIsVisible: function( rowNumber, numberOfRows ) {
-      return ( rowNumber < numberOfRows );
-    }
-  }, {
+  return inherit( Object, GaltonBoard, {}, {
 
     /**
      * Gets the horizontal spacing between two pegs on the same row on the Galton board.
