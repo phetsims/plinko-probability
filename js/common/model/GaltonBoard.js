@@ -82,34 +82,6 @@ define( function( require ) {
      */
     getIsVisible: function( rowNumber, numberOfRows ) {
       return ( rowNumber < numberOfRows );
-    },
-
-    /**
-     * Function that returns the X position of a peg with index rowNumber and column Number
-     * The position is given in the model view (with respect to the galton board)
-     *
-     * @param {number} rowNumber
-     * @param {number} columnNumber
-     * @param {number} numberOfRows
-     * @returns {number}
-     * @public
-     */
-    getPositionX: function( rowNumber, columnNumber, numberOfRows ) {
-      return ( -rowNumber / 2 + columnNumber ) / ( numberOfRows + 1 );
-    },
-
-    /**
-     * Function that returns the Y position of a peg with index rowNumber and column Number
-     * The position is given in the model view (with respect to the galton board)
-     *
-     * @param {number} rowNumber
-     * @param {number} columnNumber
-     * @param {number} numberOfRows
-     * @returns {number}
-     * @public
-     */
-    getPositionY: function( rowNumber, columnNumber, numberOfRows ) {
-      return ( -rowNumber - 2 * PlinkoProbabilityConstants.PEG_HEIGHT_FRACTION_OFFSET ) / ( numberOfRows + 1 );
     }
   }, {
 
