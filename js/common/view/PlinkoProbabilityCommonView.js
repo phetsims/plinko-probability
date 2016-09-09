@@ -189,6 +189,7 @@ define( function( require ) {
     reset: function() {
       this.viewProperties.reset();
       this.pegSoundGeneration.reset();
+      this.ballsNode.invalidatePaint();
     }
   } );
 } );
