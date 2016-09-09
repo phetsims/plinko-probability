@@ -76,17 +76,15 @@ define( function( require ) {
    * @constructor
    */
   function HistogramNode( histogramModeProperty, model, modelViewTransform, isTheoreticalHistogramVisibleProperty ) {
-
     Node.call( this, {
-        children: [
-          new BackgroundNode( modelViewTransform ),
-          new XAxisNode( model.histogram, model.numberOfRowsProperty, modelViewTransform ),
-          new YAxisNode( model.histogram, histogramModeProperty, modelViewTransform ),
-          new XBannerNode( model.histogram, model.numberOfRowsProperty, histogramModeProperty, modelViewTransform ),
-          new HistogramBarNode( model.histogram, model, modelViewTransform, isTheoreticalHistogramVisibleProperty )
-        ]
-      }
-    );
+      children: [
+        new BackgroundNode( modelViewTransform ),
+        new XAxisNode( model.histogram, model.numberOfRowsProperty, modelViewTransform ),
+        new YAxisNode( model.histogram, histogramModeProperty, modelViewTransform ),
+        new XBannerNode( model.histogram, model.numberOfRowsProperty, histogramModeProperty, modelViewTransform ),
+        new HistogramBarNode( model.histogram, model, modelViewTransform, isTheoreticalHistogramVisibleProperty )
+      ]
+    } );
   }
 
   plinkoProbability.register( 'HistogramNode', HistogramNode );
@@ -163,7 +161,7 @@ define( function( require ) {
   inherit( Node, XAxisNode );
 
   //----------------------------------------------------------------------------------------
-  //  Y label
+  //  y-axis (vertical)
   //----------------------------------------------------------------------------------------
 
   /**
@@ -183,6 +181,7 @@ define( function( require ) {
     //Sets max width of y-axis label to histogram height.
     var histogramHeight = Math.abs( modelViewTransform.modelToViewDeltaY( HISTOGRAM_BOUNDS.height ) );
     var histogramCenterY = modelViewTransform.modelToViewY( HISTOGRAM_BOUNDS.centerY );
+
     // create and add the Y axis label
     var yLabelNode = new Text( '', {
       font: Y_AXIS_LABEL_FONT,
@@ -226,16 +225,16 @@ define( function( require ) {
    * @constructor
    */
   function BackgroundNode( modelViewTransform ) {
-    Node.call( this );
-
-    var backgroundNode = new Rectangle( modelViewTransform.modelToViewBounds( PlinkoProbabilityConstants.HISTOGRAM_BOUNDS ),
-      { fill: GRID_BACKGROUND_FILL, lineWidth: GRID_BACKGROUND_LINE_WIDTH, stroke: GRID_BACKGROUND_STROKE } );
-    this.addChild( backgroundNode );
+    Rectangle.call( this, modelViewTransform.modelToViewBounds( PlinkoProbabilityConstants.HISTOGRAM_BOUNDS ), {
+      fill: GRID_BACKGROUND_FILL,
+      lineWidth: GRID_BACKGROUND_LINE_WIDTH,
+      stroke: GRID_BACKGROUND_STROKE
+    } );
   }
 
   plinkoProbability.register( 'BackgroundNode', BackgroundNode );
 
-  inherit( Node, BackgroundNode );
+  inherit( Rectangle, BackgroundNode );
 
   //----------------------------------------------------------------------------------------
   //  X Banner
@@ -259,12 +258,11 @@ define( function( require ) {
 
     var bannerWidth = maxX - minX;
 
-    var bannerBackgroundNode = new Rectangle( minX, minY, bannerWidth, BANNER_HEIGHT,
-      {
-        fill: BANNER_BACKGROUND_COLOR,
-        lineWidth: GRID_BACKGROUND_LINE_WIDTH,
-        stroke: GRID_BACKGROUND_STROKE
-      } );
+    var bannerBackgroundNode = new Rectangle( minX, minY, bannerWidth, BANNER_HEIGHT, {
+      fill: BANNER_BACKGROUND_COLOR,
+      lineWidth: GRID_BACKGROUND_LINE_WIDTH,
+      stroke: GRID_BACKGROUND_STROKE
+    } );
     this.addChild( bannerBackgroundNode );
 
     var linesLayerNode = new Node();
