@@ -345,6 +345,9 @@ define( function( require ) {
           break;
         case 'cylinder':
           return; // if we are on a cylinder there is no text to update
+
+        default:
+          throw new Error( 'invalid histogramMode: ' + histogramMode );
       }
 
       // we loop over all the bins
