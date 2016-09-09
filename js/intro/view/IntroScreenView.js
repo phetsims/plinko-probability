@@ -95,7 +95,7 @@ define( function( require ) {
           cylindersFrontNode.visible = true;
           break;
         default:
-          throw new Error( 'Unhandled histogramMode: ' + histogramMode );
+          throw new Error( 'unsupported histogramMode: ' + histogramMode );
       }
     } );
 

@@ -195,14 +195,19 @@ define( function( require ) {
     this.addChild( yLabelNode );
 
     // no need to unlink present for the lifetime of the sim
-    histogramModeProperty.link( function( value ) {
-      switch( value ) {
+    histogramModeProperty.link( function( histogramMode ) {
+      switch( histogramMode ) {
         case 'fraction':
           yLabelNode.text = fractionString;
           break;
         case 'counter':
           yLabelNode.text = countString;
           break;
+        case 'cylinder':
+          // do nothing
+          break;
+        default:
+          throw new Error( 'invalid histogramMode: ' + histogramMode );
       }
       yLabelNode.centerY = histogramCenterY; // center y-label text based on content
     } );

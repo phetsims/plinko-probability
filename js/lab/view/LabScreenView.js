@@ -139,7 +139,7 @@ define( function( require ) {
           break;
 
         default:
-          throw new Error( 'Unhandled hopperMode: ' + model.hopperModeProperty.value );
+          throw new Error( 'invalid hopperMode: ' + model.hopperModeProperty.value );
       }
     } );
 
