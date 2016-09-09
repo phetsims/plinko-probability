@@ -26,16 +26,10 @@ define( function( require ) {
 
     Ball.call( this, probability, numberOfRows, bins );
 
-    var bounds = PlinkoProbabilityConstants.HISTOGRAM_BOUNDS;
-
-    //describes the minimum y position the ball will take
-    var yMinimum = bounds.maxY - 6 * this.ballRadius; // let the ball fall a small distance below the top of the histogram.
-
-    // describes final vertical position offset (measure from the bottom of the galton board) of ball within a bin {number}
-    this.finalBinVerticalOffset = yMinimum;
-
-    // describes final horizontal offset (measured from the middle position) of ball within a bin {number}
-    this.finalBinHorizontalOffset = 0;
+    // @public Describes the final vertical offset (measured from the bottom of the galton board) of ball within a bin.
+    // The value is a small distance below the top of the histogram.
+    // This field is owned by the supertype, but set here because it depends on other things computed in Ball.
+    this.finalBinVerticalOffset = PlinkoProbabilityConstants.HISTOGRAM_BOUNDS.maxY - 6 * this.ballRadius;
   }
 
   plinkoProbability.register( 'LabBall', LabBall );

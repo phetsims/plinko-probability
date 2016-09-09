@@ -26,6 +26,7 @@ define( function( require ) {
    * @constructor
    */
   function IntroBall( probability, numberOfRows, bins, cylinderInfo ) {
+
     Ball.call( this, probability, numberOfRows, bins );
 
     // let's find the ball horizontal orientation of the top ball within a cylinder
@@ -59,15 +60,17 @@ define( function( require ) {
     var binStackLevel = 2 * Math.floor( this.binCount / 3 ) + ( ( this.binCount % 3 === 0 ) ? 0 : 1 ); // number of balls per stack goes as (2,1,2,1,2...
 
     // {number} describes lowest point of cylinder that a ball will reach (bottom of the cylinder)
-    var yMinimum = cylinderInfo.top - cylinderInfo.verticalOffset - cylinderInfo.ellipseHeight - cylinderInfo.height; // the bottom of the cylinder
+    var yMinimum = cylinderInfo.top - cylinderInfo.verticalOffset - cylinderInfo.ellipseHeight - cylinderInfo.height;
 
     // {number} describes the height difference between two balls in two adjacent rows in a ball stack
-    var delta = this.ballRadius + Math.sqrt( Math.pow( 2 * this.ballRadius, 2 ) - Math.pow( ( cylinderInfo.cylinderWidth / 2 ) - this.ballRadius, 2 ) ); // the height separation between stacks
+    var deltaY = this.ballRadius + Math.sqrt( Math.pow( 2 * this.ballRadius, 2 ) - Math.pow( ( cylinderInfo.cylinderWidth / 2 ) - this.ballRadius, 2 ) );
 
     // @public {number} describes final vertical offset of ball within a bin {number}
-    this.finalBinVerticalOffset = yMinimum + ( ( binStackLevel - 1 ) * delta ) - this.ballRadius;
+    // This field is owned by the supertype, but set here because it depends on other things computed in Ball.
+    this.finalBinVerticalOffset = yMinimum + ( ( binStackLevel - 1 ) * deltaY ) - this.ballRadius;
 
     // @public {number} describes final horizontal offset of the ball within a bin {number}
+    // This field is owned by the supertype, but set here because it depends on other things computed in Ball.
     this.finalBinHorizontalOffset = ( this.binOrientation * ( ( cylinderInfo.cylinderWidth / 2 ) - this.ballRadius ) );
   }
 
