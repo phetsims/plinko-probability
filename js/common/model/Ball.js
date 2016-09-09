@@ -78,8 +78,8 @@ define( function( require ) {
       direction = ( phet.joist.random.nextDouble() > probability) ? 'left' : 'right';
       peg = {
         rowNumber: rowNumber, // an integer starting at zero
-        positionX: this.getPegPositionX( rowNumber, columnNumber, numberOfRows ),
-        positionY: this.getPegPositionY( rowNumber, columnNumber, numberOfRows ),
+        positionX: getPegPositionX( rowNumber, columnNumber, numberOfRows ),
+        positionY: getPegPositionY( rowNumber, columnNumber, numberOfRows ),
         direction: direction // direction to the next peg
       };
 
@@ -106,35 +106,35 @@ define( function( require ) {
 
   plinkoProbability.register( 'Ball', Ball );
 
+  /**
+   * Function that returns the X position of a peg with index rowNumber and column Number
+   * The position is given in the model view (with respect to the galton board)
+   *
+   * @param {number} rowNumber
+   * @param {number} columnNumber
+   * @param {number} numberOfRows
+   * @returns {number}
+   * @public
+   */
+  var getPegPositionX = function( rowNumber, columnNumber, numberOfRows ) {
+    return (-rowNumber / 2 + columnNumber) / (numberOfRows + 1 );
+  };
+  
+  /**
+   * Function that returns the Y position of a peg with index rowNumber and column Number
+   * The position is given in the model view (with respect to the galton board)
+   *
+   * @param {number} rowNumber
+   * @param {number} columnNumber
+   * @param {number} numberOfRows
+   * @returns {number}
+   * @public
+   */
+  var getPegPositionY = function( rowNumber, columnNumber, numberOfRows ) {
+    return (-rowNumber - 2 * PlinkoProbabilityConstants.PEG_HEIGHT_FRACTION_OFFSET) / (numberOfRows + 1 );
+  };
+      
   return inherit( Object, Ball, {
-
-    /**
-     * Function that returns the X position of a peg with index rowNumber and column Number
-     * The position is given in the model view (with respect to the galton board)
-     *
-     * @param {number} rowNumber
-     * @param {number} columnNumber
-     * @param {number} numberOfRows
-     * @returns {number}
-     * @public
-     */
-    getPegPositionX: function( rowNumber, columnNumber, numberOfRows ) {
-      return (-rowNumber / 2 + columnNumber) / (numberOfRows + 1 );
-    },
-
-    /**
-     * Function that returns the Y position of a peg with index rowNumber and column Number
-     * The position is given in the model view (with respect to the galton board)
-     *
-     * @param {number} rowNumber
-     * @param {number} columnNumber
-     * @param {number} numberOfRows
-     * @returns {number}
-     * @public
-     */
-    getPegPositionY: function( rowNumber, columnNumber, numberOfRows ) {
-      return (-rowNumber - 2 * PlinkoProbabilityConstants.PEG_HEIGHT_FRACTION_OFFSET) / (numberOfRows + 1 );
-    },
 
     /**
      * @param {number} dt - time interval
@@ -145,32 +145,42 @@ define( function( require ) {
     },
 
     /**
-     * Sends the trigger to update statistics and land
-     * if the ball phase is BallPhase.INITIAL otherwise it does nothing
-     * changes the phase to BallPhase.COLLECTED to make sure the triggers only get sent once
-     * The ball will not be stepped in through the intermediate steps (i.e. Falling between peg)
+     * Sends the trigger to update statistics and land.
+     * If the ball phase is BallPhase.INITIAL it does nothing.
+     * Otherwise notifies observers and changes the phase to BallPhase.COLLECTED to make sure the triggers only get sent once.
+     * The ball will not be stepped through the other intermediate phases.
      *
      * @public
      */
     updateStatisticsAndLand: function() {
       if ( this.phase === BallPhase.INITIAL ) {
+
         // send triggers
         this.ballOutOfPegsEmitter.emit();
         this.ballCollectedEmitter.emit();
 
-        //changes phase
+        // change phase to indicate that ball has landed in bin
         this.phase = BallPhase.COLLECTED;
       }
     },
 
     /**
-     * this function updates the information about the peg position based on the peg history
-     *
-     * @public
+     * Initializes the peg position.
+     * @private
      */
-    updatePegPositionInformation: function() {
-      var peg;
-      peg = this.pegHistory.shift();
+    initializePegPosition: function() {
+      var peg = this.pegHistory[ 0 ]; // get the first peg from the peg history
+      this.row = peg.rowNumber; // 0 is the left most
+      this.pegPositionX = peg.positionX; // x position of the peg based on the column, row, and number of of rows
+      this.pegPositionY = peg.positionY; // y position of the peg based on the column, row, and number of of rows
+    },
+
+    /**
+     * Updates the peg position.
+     * @private
+     */
+    updatePegPosition: function() {
+      var peg = this.pegHistory.shift();
       this.row = peg.rowNumber; // 0 is the leftmost
       this.pegPositionX = peg.positionX; // x position of the peg based on the column, row, and number of of rows
       this.pegPositionY = peg.positionY; // y position of the peg based on the column, row, and number of of rows
@@ -178,20 +188,6 @@ define( function( require ) {
     },
 
     /**
-     * this function gets the first peg position
-     *
-     * @public
-     */
-    initialPegPositionInformation: function() {
-      var peg;
-      peg = this.pegHistory[ 0 ]; // get the first peg from the peg history
-      this.row = peg.rowNumber; // 0 is the left most
-      this.pegPositionX = peg.positionX; // x position of the peg based on the column, row, and number of of rows
-      this.pegPositionY = peg.positionY; // y position of the peg based on the column, row, and number of of rows
-    },
-
-    /**
-     *
      * Updates the peg information (rowNumber, columnNumber, and location) used for determining ball position
      * check and changes the phase of the ball.
      * Plays a sounds when the ball hits a peg
@@ -200,19 +196,19 @@ define( function( require ) {
      * updates the position of the ball
      *
      * @param {number} df - fraction of falling between pegs
-     * @public
+     * @private
      */
     ballStep: function( df ) {
 
       if ( this.phase === BallPhase.INITIAL ) { // balls is leaving the hopper
         if ( df + this.fallenRatio < 1 ) { // if the ball has not gotten to the first peg
-          this.initialPegPositionInformation(); // get the initial peg information
+          this.initializePegPosition(); // get the initial peg information
           this.fallenRatio += df; // fall some more
         }
         else {
           this.phase = BallPhase.FALLING; // switch the phase
           this.fallenRatio = 0; // reset the ratio
-          this.updatePegPositionInformation(); // update the peg position information
+          this.updatePegPosition(); // update the peg position information
           this.ballHittingPegEmitter.emit1( this.direction ); // can play a sound when ball hits peg;
         }
       }
@@ -224,12 +220,12 @@ define( function( require ) {
           this.fallenRatio = 0; // reset the fallen ratio
 
           if ( this.pegHistory.length > 1 ) { // if it is not the last peg
-            this.updatePegPositionInformation(); // update the next to last peg information
+            this.updatePegPosition(); // update the next to last peg information
             this.ballHittingPegEmitter.emit1( this.direction ); // can play a sound when ball hits peg;
           }
           else { // ball is at the top of the last peg
             this.phase = BallPhase.EXITED; // switch phases
-            this.updatePegPositionInformation(); // update the last peg information
+            this.updatePegPosition(); // update the last peg information
             this.ballOutOfPegsEmitter.emit();
           }
         }
@@ -255,7 +251,6 @@ define( function( require ) {
 
     /**
      * Updates the position of the ball depending on the phase.
-     *
      * @private
      */
     updatePosition: function() {
