@@ -119,7 +119,7 @@ define( function( require ) {
   var getPegPositionX = function( rowNumber, columnNumber, numberOfRows ) {
     return (-rowNumber / 2 + columnNumber) / (numberOfRows + 1 );
   };
-  
+
   /**
    * Function that returns the Y position of a peg with index rowNumber and column Number
    * The position is given in the model view (with respect to the galton board)
@@ -133,7 +133,7 @@ define( function( require ) {
   var getPegPositionY = function( rowNumber, columnNumber, numberOfRows ) {
     return (-rowNumber - 2 * PlinkoProbabilityConstants.PEG_HEIGHT_FRACTION_OFFSET) / (numberOfRows + 1 );
   };
-      
+
   return inherit( Object, Ball, {
 
     /**
@@ -142,49 +142,6 @@ define( function( require ) {
      */
     step: function( dt ) {
       this.ballStep( dt );
-    },
-
-    /**
-     * Sends the trigger to update statistics and land.
-     * If the ball phase is BallPhase.INITIAL it does nothing.
-     * Otherwise notifies observers and changes the phase to BallPhase.COLLECTED to make sure the triggers only get sent once.
-     * The ball will not be stepped through the other intermediate phases.
-     *
-     * @public
-     */
-    updateStatisticsAndLand: function() {
-      if ( this.phase === BallPhase.INITIAL ) {
-
-        // send triggers
-        this.ballOutOfPegsEmitter.emit();
-        this.ballCollectedEmitter.emit();
-
-        // change phase to indicate that ball has landed in bin
-        this.phase = BallPhase.COLLECTED;
-      }
-    },
-
-    /**
-     * Initializes the peg position.
-     * @private
-     */
-    initializePegPosition: function() {
-      var peg = this.pegHistory[ 0 ]; // get the first peg from the peg history
-      this.row = peg.rowNumber; // 0 is the left most
-      this.pegPositionX = peg.positionX; // x position of the peg based on the column, row, and number of of rows
-      this.pegPositionY = peg.positionY; // y position of the peg based on the column, row, and number of of rows
-    },
-
-    /**
-     * Updates the peg position.
-     * @private
-     */
-    updatePegPosition: function() {
-      var peg = this.pegHistory.shift();
-      this.row = peg.rowNumber; // 0 is the leftmost
-      this.pegPositionX = peg.positionX; // x position of the peg based on the column, row, and number of of rows
-      this.pegPositionY = peg.positionY; // y position of the peg based on the column, row, and number of of rows
-      this.direction = peg.direction; // whether the ball went left or right
     },
 
     /**
@@ -304,6 +261,49 @@ define( function( require ) {
 
       // add a vertical offset, such that the balls do not reach the pegs but are over the pegs.
       this.position.addXY( 0, this.pegSeparation * PlinkoProbabilityConstants.PEG_HEIGHT_FRACTION_OFFSET );
+    },
+
+    /**
+     * Sends the trigger to update statistics and land.
+     * If the ball phase is BallPhase.INITIAL it does nothing.
+     * Otherwise notifies observers and changes the phase to BallPhase.COLLECTED to make sure the triggers only get sent once.
+     * The ball will not be stepped through the other intermediate phases.
+     *
+     * @public
+     */
+    updateStatisticsAndLand: function() {
+      if ( this.phase === BallPhase.INITIAL ) {
+
+        // send triggers
+        this.ballOutOfPegsEmitter.emit();
+        this.ballCollectedEmitter.emit();
+
+        // change phase to indicate that ball has landed in bin
+        this.phase = BallPhase.COLLECTED;
+      }
+    },
+
+    /**
+     * Initializes the peg position.
+     * @private
+     */
+    initializePegPosition: function() {
+      var peg = this.pegHistory[ 0 ]; // get the first peg from the peg history
+      this.row = peg.rowNumber; // 0 is the left most
+      this.pegPositionX = peg.positionX; // x position of the peg based on the column, row, and number of of rows
+      this.pegPositionY = peg.positionY; // y position of the peg based on the column, row, and number of of rows
+    },
+
+    /**
+     * Updates the peg position.
+     * @private
+     */
+    updatePegPosition: function() {
+      var peg = this.pegHistory.shift();
+      this.row = peg.rowNumber; // 0 is the leftmost
+      this.pegPositionX = peg.positionX; // x position of the peg based on the column, row, and number of of rows
+      this.pegPositionY = peg.positionY; // y position of the peg based on the column, row, and number of of rows
+      this.direction = peg.direction; // whether the ball went left or right
     }
   } );
 } );
