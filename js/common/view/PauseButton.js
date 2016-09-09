@@ -26,7 +26,8 @@ define( function( require ) {
     options = _.extend( {
       radius: PlinkoProbabilityConstants.PLAY_PAUSE_BUTTON_RADIUS,
       baseColor: 'red',
-      iconColor: 'black'
+      iconColor: 'black',
+      buttonAppearanceStrategy: PlinkoProbabilityConstants.PLAY_PAUSE_BUTTON_APPEARANCE_STRATEGY
     }, options );
 
     // pause symbol is sized relative to the radius

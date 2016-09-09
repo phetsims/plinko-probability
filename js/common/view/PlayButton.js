@@ -26,7 +26,8 @@ define( function( require ) {
     options = _.extend( {
       radius: PlinkoProbabilityConstants.PLAY_PAUSE_BUTTON_RADIUS,
       baseColor: 'rgb( 0, 224, 121 )', // light green
-      iconColor: 'black'
+      iconColor: 'black',
+      buttonAppearanceStrategy: PlinkoProbabilityConstants.PLAY_PAUSE_BUTTON_APPEARANCE_STRATEGY
     }, options );
 
     // triangle is sized relative to the radius
