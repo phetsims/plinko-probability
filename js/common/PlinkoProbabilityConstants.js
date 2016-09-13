@@ -13,6 +13,7 @@ define( function( require ) {
   var Color = require( 'SCENERY/util/Color' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
+  var PlinkoProbabilityQueryParameters = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityQueryParameters' );
   var RangeWithValue = require( 'DOT/RangeWithValue' );
   var RoundButtonView = require( 'SUN/buttons/RoundButtonView' );
 
@@ -75,8 +76,9 @@ define( function( require ) {
 
     // play pause buttons
     PLAY_PAUSE_BUTTON_RADIUS: 30,
-    PLAY_PAUSE_BUTTON_APPEARANCE_STRATEGY: RoundButtonView.flatAppearanceStrategy // see issue #26
-
+    PLAY_PAUSE_BUTTON_APPEARANCE_STRATEGY: PlinkoProbabilityQueryParameters.PLAY_3D ?
+                                           RoundButtonView.threeDAppearanceStrategy :
+                                           RoundButtonView.flatAppearanceStrategy // see issue #26
   };
 
   plinkoProbability.register( 'PlinkoProbabilityConstants', PlinkoProbabilityConstants );

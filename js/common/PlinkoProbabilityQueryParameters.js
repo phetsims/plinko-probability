@@ -20,7 +20,10 @@ define( function( require ) {
     MAX_BALLS: getQueryParameter( 'maxBalls' ) && parseInt( getQueryParameter( 'maxBalls' ), 10 ),
 
     // number of balls to put in the histogram at startup, e.g. populateHistogram=20
-    POPULATE_HISTOGRAM: getQueryParameter( 'populateHistogram' ) && parseInt( getQueryParameter( 'populateHistogram' ), 10 )
+    POPULATE_HISTOGRAM: getQueryParameter( 'populateHistogram' ) && parseInt( getQueryParameter( 'populateHistogram' ), 10 ),
+
+    // Uses 3D appearance for the Play button, see https://github.com/phetsims/plinko-probability/issues/26
+    PLAY_3D: getQueryParameter( 'play3d' )
   };
 
   plinkoProbability.register( 'PlinkoProbabilityQueryParameters', PlinkoProbabilityQueryParameters );
