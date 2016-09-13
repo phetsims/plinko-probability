@@ -1,11 +1,11 @@
 {
-  "comment": "# plinko-probability 1.0.0-dev.13 Fri Sep 09 2016 14:46:42 GMT-0600 (MDT)",
+  "comment": "# plinko-probability 1.0.0-dev.14 Tue Sep 13 2016 13:40:06 GMT-0600 (MDT)",
   "assert": {
     "sha": "7d27130a4d27da15aa7f8a21bbfb9245288c1b44",
     "branch": "master"
   },
   "axon": {
-    "sha": "b4404f00ef0bc210d9a5eaef3ef6e62153def751",
+    "sha": "e01926086217b84c39cca1e7515fc2999e6bb541",
     "branch": "master"
   },
   "brand": {
@@ -13,19 +13,19 @@
     "branch": "master"
   },
   "chipper": {
-    "sha": "4bd8c2af1882e42773218fc432bcce596d6dad6d",
+    "sha": "9f0bb7ca086127582a4b907cb502629442b51a72",
     "branch": "master"
   },
   "dot": {
-    "sha": "23b13772fe60b19cd4d3b8e75ac177ff5dcec594",
+    "sha": "394365987f8653dba5a82b9ceac29b9eb3e32be9",
     "branch": "master"
   },
   "joist": {
-    "sha": "70d344d644815e95d71fb37efb2dd68e5d7574bb",
+    "sha": "752d3a03954e9b5c4489d5134b3cfaf095d05ca4",
     "branch": "master"
   },
   "kite": {
-    "sha": "3b656b9a455ced42b9af90a15a25446b248490ab",
+    "sha": "733028991124bcea81c36b315f00e18453ba3d7b",
     "branch": "master"
   },
   "phet-core": {
@@ -37,15 +37,19 @@
     "branch": "master"
   },
   "plinko-probability": {
-    "sha": "9513192590852536bf9a01c9de95da01ed4be7ba",
+    "sha": "137240fa105f7cba1c8b276213613ab5af70a76d",
+    "branch": "master"
+  },
+  "query-string-machine": {
+    "sha": "20686a62194e53ce7f5c0905926e5c1cad8bf643",
     "branch": "master"
   },
   "scenery": {
-    "sha": "cee9ad579b557b1b008ecdc8b492c2c34792ab87",
+    "sha": "e78ee4135712f253beaef864204eefa64dfa4fcb",
     "branch": "master"
   },
   "scenery-phet": {
-    "sha": "9d87b6245aef39b5d14da2b9b20a930c2be7ce93",
+    "sha": "f0fc9ae838b8744281b76d3f576271b82ce33a8a",
     "branch": "master"
   },
   "sherpa": {
@@ -53,7 +57,7 @@
     "branch": "master"
   },
   "sun": {
-    "sha": "10af95af0cde148f13f746d4e24ddd6ca5ea0f92",
+    "sha": "459de68bbcecf72c45ab1dde36d901b4d1f3c1c4",
     "branch": "master"
   },
   "tandem": {
