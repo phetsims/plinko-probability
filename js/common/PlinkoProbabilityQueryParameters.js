@@ -16,7 +16,8 @@ define( function( require ) {
 
   var PlinkoProbabilityQueryParameters = {
 
-    // maximum number of balls that can be in any 1 bin in the Lab screen, e.g. maxBalls=10
+    // Maximum number of balls that can be in any 1 bin in the Lab screen, e.g. maxBalls=10
+    // Use this to test the 'Out of Balls!' dialog without having to wait an eternity.
     MAX_BALLS: getQueryParameter( 'maxBalls' ) && parseInt( getQueryParameter( 'maxBalls' ), 10 ),
 
     // number of balls to put in the histogram at startup, e.g. populateHistogram=20
