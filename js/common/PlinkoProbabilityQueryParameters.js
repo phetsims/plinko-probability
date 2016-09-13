@@ -20,7 +20,8 @@ define( function( require ) {
     // Use this to test the 'Out of Balls!' dialog without having to wait an eternity.
     MAX_BALLS: getQueryParameter( 'maxBalls' ) && parseInt( getQueryParameter( 'maxBalls' ), 10 ),
 
-    // number of balls to put in the histogram at startup, e.g. populateHistogram=20
+    // Number of balls to put in the histogram at startup, e.g. populateHistogram=20
+    // Use this to quickly test the histogram.
     POPULATE_HISTOGRAM: getQueryParameter( 'populateHistogram' ) && parseInt( getQueryParameter( 'populateHistogram' ), 10 ),
 
     // Uses 3D appearance for the Play button, see https://github.com/phetsims/plinko-probability/issues/26
