@@ -116,17 +116,6 @@ define( function( require ) {
         }
       } );
     } );
-
-    //TODO #26 temporary - try 3D Play button in a different location
-    var PlayButton = require( 'PLINKO_PROBABILITY/common/view/PlayButton' );
-    var RoundButtonView = require( 'SUN/buttons/RoundButtonView' );
-    this.addChild( new PlayButton( {
-      buttonAppearanceStrategy: RoundButtonView.threeDAppearanceStrategy,
-      listener: model.updateBallsToCreateNumber.bind( model ),
-      enabled: true,
-      centerX: this.eraserButton.centerX,
-      top: this.eraserButton.bottom + 4
-    } ) );
   }
 
   plinkoProbability.register( 'IntroScreenView', IntroScreenView );
