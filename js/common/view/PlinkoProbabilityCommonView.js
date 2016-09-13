@@ -154,8 +154,7 @@ define( function( require ) {
       ballsNode.invalidatePaint();
     } );
 
-    // @protected used by subtypes
-    this.ballsNode = ballsNode;
+    // @protected used for layout by subtypes
     this.hopper = hopper;
     this.eraserButton = eraserButton;
   }
