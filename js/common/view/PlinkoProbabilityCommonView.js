@@ -81,6 +81,15 @@ define( function( require ) {
     this.viewTriangularBoardBounds = viewTriangularBoardBounds;
     this.modelViewTransform = modelViewTransform;
 
+    var histogramModelBounds = PlinkoProbabilityConstants.HISTOGRAM_BOUNDS;
+    var ballModelBounds = model.galtonBoard.bounds.union( histogramModelBounds );
+    var ballViewBounds = this.modelViewTransform.modelToViewBounds( ballModelBounds ).dilated( 20 );
+
+    // renders all the balls
+    var ballsNode = new BallsNode( model.balls, model.numberOfRowsProperty, viewProperties.histogramModeProperty, modelViewTransform, {
+      canvasBounds: ballViewBounds
+    } );
+
     var histogramNode = new HistogramNode(
       viewProperties.histogramModeProperty,
       model,
@@ -92,26 +101,10 @@ define( function( require ) {
     var eraserButton = new EraserButton( {
       iconWidth: 22,
       scale: 1.4,
-      listener: function() {
-        model.balls.clear(); // clear the balls on the galton board
-        model.histogram.reset(); // reset the histogram statistics
-        model.launchedBallsNumber = 0; // reset the number of launched balls
-        model.ballsToCreateNumber = 0; // reset the ball creation queue
-        model.isBallCapReachedProperty.set( false );
-      },
+      listener: function() { model.erase(); },
       bottom: this.layoutBounds.maxY - 55,
       left: 40
     } );
-
-    var histogramModelBounds = PlinkoProbabilityConstants.HISTOGRAM_BOUNDS;
-    var ballModelBounds = model.galtonBoard.bounds.union( histogramModelBounds );
-    var ballViewBounds = this.modelViewTransform.modelToViewBounds( ballModelBounds ).dilated( 20 );
-
-    // renders all the balls
-    var ballsNode = new BallsNode( model.balls, model.numberOfRowsProperty, viewProperties.histogramModeProperty, modelViewTransform, {
-      canvasBounds: ballViewBounds
-    } );
-    this.ballsNode = ballsNode;
 
     // @protected sound generator for ball hitting peg
     this.pegSoundGeneration = new PegSoundGeneration( viewProperties.isSoundEnabledProperty );
@@ -151,11 +144,18 @@ define( function( require ) {
     // unlink unnecessary since this instance exists for the lifetime of the sim.
     viewProperties.histogramModeProperty.link( function( histogramMode ) {
       if ( histogramMode === 'cylinder' ) {
-        thisView.ballsNode.invalidatePaint();
+        ballsNode.invalidatePaint();
       }
     } );
 
-    // @protected needed for layout in subtypes
+    // Repaint ballsNode when balls have moved.
+    // See https://github.com/phetsims/plinko-probability/issues/62
+    model.ballsMovedEmitter.addListener( function() {
+      ballsNode.invalidatePaint();
+    } );
+
+    // @protected used by subtypes
+    this.ballsNode = ballsNode;
     this.hopper = hopper;
     this.eraserButton = eraserButton;
   }
@@ -169,11 +169,6 @@ define( function( require ) {
      * @public
      */
     step: function( dt ) {
-
-      // If some ball has moved, then update the view. See https://github.com/phetsims/plinko-probability/issues/62
-      if ( this.model.someBallMoved ) {
-        this.ballsNode.invalidatePaint();
-      }
 
       // increment time for sound generation
       this.pegSoundGeneration.step( dt );
@@ -189,7 +184,6 @@ define( function( require ) {
     reset: function() {
       this.viewProperties.reset();
       this.pegSoundGeneration.reset();
-      this.ballsNode.invalidatePaint();
     }
   } );
 } );

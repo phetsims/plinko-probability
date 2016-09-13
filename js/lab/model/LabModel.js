@@ -72,9 +72,6 @@ define( function( require ) {
      */
     step: function( dt ) {
 
-      var self = this;
-      this.someBallMoved = false;
-
       // we don't want balls to drop too quickly so we keep track of the interval
       this.ballCreationTimeElapsed += dt;
 
@@ -87,11 +84,20 @@ define( function( require ) {
       switch ( this.hopperModeProperty.value ) {
 
         case 'ball':
+
+          // Move balls
+          var ballsMoved = false;
+          var dtCapped = Math.min( 0.090, dt * 10 ); // Cap the dt so that the balls don't make a big jump
           this.balls.forEach( function( ball ) {
-            // Cap dt fairly low (90 ms max) so that the balls don't make a sudden jump
-            var ballMoved = ball.step( Math.min( 0.090, dt * 10 ) );
-            self.someBallMoved = ( ballMoved || self.someBallMoved );
+            var ballMoved = ball.step( dtCapped );
+            ballsMoved = ( ballMoved || ballsMoved );
           } );
+
+          // Notify if balls moved
+          if ( ballsMoved ) {
+            this.ballsMovedEmitter.emit();
+          }
+
           this.ballCreationTimeInterval = 0.100; // 100 milliseconds if we are seeing balls
           break;
 

@@ -55,9 +55,6 @@ define( function( require ) {
      */
     step: function( dt ) {
 
-      var self = this;
-      this.someBallMoved = false;
-
       // Keep track of the time elapsed since the last ball was created
       this.ballCreationTimeElapsed += dt;
 
@@ -69,11 +66,18 @@ define( function( require ) {
         this.addNewBall(); // add a new ball
       }
 
+      // Move balls
+      var ballsMoved = false;
+      var dtCapped = Math.min( 0.1, dt * 5 ); // Cap the dt so that the balls don't make a big jump
       this.balls.forEach( function( ball ) {
-        // Cap the dt so that the balls don't make a big jump
-        var ballMoved = ball.step( Math.min( 0.1, dt * 5 ) );
-        self.someBallMoved = ( ballMoved || self.someBallMoved );
+        var ballMoved = ball.step( dtCapped );
+        ballsMoved = ( ballMoved || ballsMoved );
       } );
+
+      // Notify if balls moved
+      if ( ballsMoved ) {
+        this.ballsMovedEmitter.emit();
+      }
     },
 
     /**

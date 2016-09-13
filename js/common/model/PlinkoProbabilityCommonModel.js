@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var Emitter = require( 'AXON/Emitter' );
   var GaltonBoard = require( 'PLINKO_PROBABILITY/common/model/GaltonBoard' );
   var Histogram = require( 'PLINKO_PROBABILITY/common/model/Histogram' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -58,11 +59,9 @@ define( function( require ) {
     this.galtonBoard = new GaltonBoard( this.numberOfRowsProperty ); // @public
     this.histogram = new Histogram( this.numberOfRowsProperty ); // @public
 
-    // @public Indicates whether some ball has moved since the previous time step.
-    // The view uses this to decide whether to call BallsNode.invalidatePaint.
-    // This is an odd approach, necessitated by the fact that this sim doesn't follow the MVC pattern.
+    // @public Fires when one or more balls moves.
     // See https://github.com/phetsims/plinko-probability/issues/62 for details.
-    this.someBallMoved = false;
+    this.ballsMovedEmitter = new Emitter();
   }
 
   plinkoProbability.register( 'PlinkoProbabilityCommonModel', PlinkoProbabilityCommonModel );
@@ -70,6 +69,8 @@ define( function( require ) {
   return inherit( PropertySet, PlinkoProbabilityCommonModel, {
 
     /**
+     * Called when the 'Reset All' button is pressed.
+     *
      * @override
      * @public
      */
@@ -78,7 +79,21 @@ define( function( require ) {
       this.balls.clear(); // clear all the model balls
       this.histogram.reset(); // empty out all the model bins
       this.ballCreationTimeElapsed = 0;
-      this.someBallMoved = false;
+      this.ballsMovedEmitter.emit();
+    },
+
+    /**
+     * Called when the erase button is pressed.
+     *
+     * @public
+     */
+    erase: function() {
+      this.balls.clear(); // clear the balls on the galton board
+      this.histogram.reset(); // reset the histogram statistics
+      this.launchedBallsNumber = 0; // reset the number of launched balls
+      this.ballsToCreateNumber = 0; // reset the ball creation queue
+      this.isBallCapReachedProperty.set( false );
+      this.ballsMovedEmitter.emit();
     }
   } );
 } );
