@@ -124,8 +124,8 @@ define( function( require ) {
       buttonAppearanceStrategy: RoundButtonView.threeDAppearanceStrategy,
       listener: model.updateBallsToCreateNumber.bind( model ),
       enabled: true,
-      left: this.layoutBounds.left + 10,
-      bottom: this.layoutBounds.botto - 10
+      centerX: this.eraserButton.centerX,
+      top: this.eraserButton.bottom + 4
     } ) );
   }
 
