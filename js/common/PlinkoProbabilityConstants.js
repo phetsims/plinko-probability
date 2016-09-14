@@ -50,6 +50,8 @@ define( function( require ) {
     THEORETICAL_FONT_COLOR: 'blue',
 
     BINARY_PROBABILITY_RANGE: new RangeWithValue( 0, 1, 0.5 ),
+
+    //TODO Bad things happen if ROWS_RANGE.min is !== 5. See https://github.com/phetsims/plinko-probability/issues/84
     ROWS_RANGE: new RangeWithValue( 5, 26, 12 ),
 
     // constants for the ball and the pegs
