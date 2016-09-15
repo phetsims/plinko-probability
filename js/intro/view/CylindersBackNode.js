@@ -31,7 +31,7 @@ define( function( require ) {
 
     Node.call( this );
 
-    var thisNode = this;
+    var self = this;
 
     // convenience variables
     var ellipseWidth = modelViewTransform.modelToViewDeltaX( cylinderInfo.cylinderWidth );
@@ -48,7 +48,7 @@ define( function( require ) {
       var numberOfCylinders = numberOfRows + 1;
       for ( var i = 0; i < numberOfCylinders; i++ ) {
         // create and add the top of the cylinders containers
-        var binCenterX = thisNode.getBinCenterX( i, numberOfCylinders );
+        var binCenterX = self.getBinCenterX( i, numberOfCylinders );
         var x = modelViewTransform.modelToViewX( binCenterX );          // x-coordinate of bin in model units
         var y = modelViewTransform.modelToViewY( cylinderInfo.top );    // y-coordinate of bin in model units
         var top = new Path( topShape, {
@@ -57,7 +57,7 @@ define( function( require ) {
           centerX: x,
           top: y + verticalOffset
         } );
-        thisNode.addChild( top );
+        self.addChild( top );
       }
     } );
   }

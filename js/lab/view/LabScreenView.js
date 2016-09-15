@@ -40,7 +40,7 @@ define( function( require ) {
    */
   function LabScreenView( model ) {
 
-    var thisView = this;
+    var self = this;
 
     PlinkoProbabilityCommonView.call( this, model, {
       histogramMode: 'counter'
@@ -113,7 +113,7 @@ define( function( require ) {
         case 'ball':
           // initiates sound to play when ball hits a peg
           var ballHittingPegListener = function( direction ) {
-            thisView.pegSoundGeneration.playBallHittingPegSound( direction );
+            self.pegSoundGeneration.playBallHittingPegSound( direction );
           };
           addedBall.ballHittingPegEmitter.addListener( ballHittingPegListener );
           model.balls.addItemRemovedListener( function removalListener( removedBall ) {
@@ -125,7 +125,7 @@ define( function( require ) {
           break;
 
         case 'path':
-          var addedTrajectoryPath = new TrajectoryPath( addedBall, thisView.modelViewTransform );
+          var addedTrajectoryPath = new TrajectoryPath( addedBall, self.modelViewTransform );
           pathsLayer.addChild( addedTrajectoryPath );
           model.balls.addItemRemovedListener( function removalListener( removedBall ) {
             if ( removedBall === addedBall ) {

@@ -30,7 +30,7 @@ define( function( require ) {
 
     Node.call( this );
 
-    var thisNode = this;
+    var self = this;
 
     // convenience variable for placing the object inn the view
     var ellipseWidth = modelViewTransform.modelToViewDeltaX( cylinderInfo.cylinderWidth );
@@ -57,7 +57,7 @@ define( function( require ) {
     numberOfRowsProperty.link( function( numberOfRows ) {
       var numberOfTicks = numberOfRows + 1;
       for ( var i = 0; i < numberOfTicks; i++ ) {
-        var binCenterX = thisNode.getBinCenterX( i, numberOfTicks );
+        var binCenterX = self.getBinCenterX( i, numberOfTicks );
         var x = modelViewTransform.modelToViewX( binCenterX );
         var y = modelViewTransform.modelToViewY( cylinderInfo.top );
 

@@ -24,8 +24,6 @@ define( function( require ) {
    */
   function Histogram( numberOfRowsProperty ) {
 
-    var thisHistogram = this;
-
     this.bins = []; // @public {Object[]}
     this.average = 0; // @public (read-only)
     this.standardDeviation = 0; // @public (read-only)
@@ -44,8 +42,9 @@ define( function( require ) {
     this.histogramUpdatedEmitter = new Emitter(); // @public
 
     // link is present for the lifetime of the sim
+    var self = this;
     numberOfRowsProperty.link( function() {
-      thisHistogram.reset(); // if the number of rows change then reset the histogram
+      self.reset(); // if the number of rows change then reset the histogram
     } );
   }
 

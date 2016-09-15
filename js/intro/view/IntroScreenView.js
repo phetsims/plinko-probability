@@ -37,7 +37,7 @@ define( function( require ) {
    */
   function IntroScreenView( model ) {
 
-    var thisView = this;
+    var self = this;
 
     PlinkoProbabilityCommonView.call( this, model );
 
@@ -85,12 +85,12 @@ define( function( require ) {
     this.viewProperties.histogramModeProperty.link( function( histogramMode ) {
       switch( histogramMode ) {
         case 'counter':
-          thisView.histogramNode.visible = true;
+          self.histogramNode.visible = true;
           cylindersBackNode.visible = false;
           cylindersFrontNode.visible = false;
           break;
         case 'cylinder':
-          thisView.histogramNode.visible = false;
+          self.histogramNode.visible = false;
           cylindersBackNode.visible = true;
           cylindersFrontNode.visible = true;
           break;
@@ -104,7 +104,7 @@ define( function( require ) {
       
       // play sound when ball hits a peg
       var ballHittingPegListener = function( direction ) {
-        thisView.pegSoundGeneration.playBallHittingPegSound( direction );
+        self.pegSoundGeneration.playBallHittingPegSound( direction );
       };
       
       addedBall.ballHittingPegEmitter.addListener( ballHittingPegListener );

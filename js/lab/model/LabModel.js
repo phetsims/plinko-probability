@@ -24,7 +24,7 @@ define( function( require ) {
    */
   function LabModel() {
 
-    var thisModel = this;
+    var self = this;
 
     PlinkoProbabilityCommonModel.call( this );
 
@@ -35,28 +35,28 @@ define( function( require ) {
 
       // When balls get created, they add themselves to the histogram binCount.
       // So when we clear the balls, we need to remove them from the histogram.
-      thisModel.balls.forEach( function( ball ) {
+      self.balls.forEach( function( ball ) {
         // Don't remove balls if they have exited the board or landed in a bin
         if ( !( ball.phase === BallPhase.EXITED || ball.phase === BallPhase.COLLECTED ) ) {
           //remove the ball from the binCount
-          thisModel.histogram.bins[ ball.binIndex ].binCount--;
+          self.histogram.bins[ ball.binIndex ].binCount--;
         }
       } );
 
       // remove all the balls
-      thisModel.balls.clear(); // clear the balls
+      self.balls.clear(); // clear the balls
     } );
 
     this.probabilityProperty.link( function() {
-      thisModel.balls.clear(); // clear the balls
-      thisModel.histogram.reset(); // reset histogram statistics
-      thisModel.isBallCapReached = false;
+      self.balls.clear(); // clear the balls
+      self.histogram.reset(); // reset histogram statistics
+      self.isBallCapReached = false;
     } );
 
     this.numberOfRowsProperty.link( function() {
-      thisModel.balls.clear();
-      thisModel.histogram.reset();
-      thisModel.isBallCapReached = false;
+      self.balls.clear();
+      self.histogram.reset();
+      self.isBallCapReached = false;
     } );
 
     this.ballCreationTimeInterval = 0; // time we want to pass before we created a new ball
@@ -127,28 +127,28 @@ define( function( require ) {
      */
     addNewBall: function() {
 
-      var thisModel = this;
+      var self = this;
 
       var addedBall = new LabBall( this.probability, this.numberOfRows, this.histogram.bins );
       this.histogram.bins[ addedBall.binIndex ].binCount++; //update the bin count of the bins
       this.balls.push( addedBall ); // add the ball to the observable array
 
-      if ( thisModel.histogram.getMaximumActualBinCount() >= MAX_BALLS ) {
-        thisModel.isBallCapReached = true;
+      if ( self.histogram.getMaximumActualBinCount() >= MAX_BALLS ) {
+        self.isBallCapReached = true;
       }
 
       // ballOutOfPegsEmitter is emitted when the addedBall leaves the last peg on the Galton board.
       addedBall.ballOutOfPegsEmitter.addListener( function ballOutOfPegsListener() {
-        thisModel.histogram.addBallToHistogram( addedBall );
+        self.histogram.addBallToHistogram( addedBall );
         addedBall.ballOutOfPegsEmitter.removeListener( ballOutOfPegsListener );
       } );
 
       // when the ball lands remove the one that came before it
       addedBall.ballCollectedEmitter.addListener( function removeBallListener() {
-        var previousBallIndex = thisModel.balls.indexOf( addedBall ) - 1; // gets the index of the ball before
+        var previousBallIndex = self.balls.indexOf( addedBall ) - 1; // gets the index of the ball before
         if ( previousBallIndex > -1 ) {
-          var previousBall = thisModel.balls.get( previousBallIndex ); // gets the last ball object
-          thisModel.balls.remove( previousBall ); //removes the previous ball
+          var previousBall = self.balls.get( previousBallIndex ); // gets the last ball object
+          self.balls.remove( previousBall ); //removes the previous ball
         }
         addedBall.ballCollectedEmitter.removeListener( removeBallListener );
       } );

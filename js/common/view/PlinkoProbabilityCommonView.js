@@ -43,7 +43,6 @@ define( function( require ) {
       histogramMode: 'cylinder' // {string} see HISTOGRAM_MODE_VALUES
     }, options );
 
-    var thisView = this;
     this.model = model; // @private
 
     ScreenView.call( this, options );
@@ -110,10 +109,11 @@ define( function( require ) {
     this.pegSoundGeneration = new PegSoundGeneration( viewProperties.isSoundEnabledProperty );
 
     // Reset All Button at bottom right
+    var self = this;
     var resetAllButton = new ResetAllButton( {
       listener: function() {
         model.reset();
-        thisView.reset();
+        self.reset();
       },
       right: this.layoutBounds.maxX - PlinkoProbabilityConstants.PANEL_RIGHT_PADDING,
       bottom: this.layoutBounds.maxY - 10

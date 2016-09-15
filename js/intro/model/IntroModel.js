@@ -126,8 +126,6 @@ define( function( require ) {
      */
     addNewBall: function() {
 
-      var thisModel = this;
-
       // create a new ball
       var addedBall = new IntroBall( this.probability, this.numberOfRows, this.histogram.bins, this.cylinderInfo );
 
@@ -145,8 +143,9 @@ define( function( require ) {
       this.balls.push( addedBall );
 
       // ballOutOfPegsEmitter is emitted when the addedBall leaves the last peg on the Galton board.
+      var self = this;
       addedBall.ballOutOfPegsEmitter.addListener( function ballOutOfPegsListener() {
-        thisModel.histogram.addBallToHistogram( addedBall );
+        self.histogram.addBallToHistogram( addedBall );
         addedBall.ballOutOfPegsEmitter.removeListener( ballOutOfPegsListener );
       } );
     }

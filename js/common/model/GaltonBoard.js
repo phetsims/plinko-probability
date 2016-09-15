@@ -20,8 +20,6 @@ define( function( require ) {
    */
   function GaltonBoard( numberOfRowsProperty ) {
 
-    var galtonBoard = this;
-
     // @public
     this.bounds = PlinkoProbabilityConstants.GALTON_BOARD_BOUNDS;
 
@@ -42,9 +40,10 @@ define( function( require ) {
 
     // link the numberOrRows to adjust the spacing between pegs (and size)
     // link is present for the lifetime of the sum
+    var self = this;
     numberOfRowsProperty.link( function( numberOfRows ) {
 
-      galtonBoard.pegs.forEach( function( peg ) {
+      self.pegs.forEach( function( peg ) {
         // for performance reasons, we don't throw out the pegs, we simply update their visibility
         peg.isVisible = isPegVisible( peg.rowNumber, numberOfRows );
         if ( peg.isVisible ) {
