@@ -96,7 +96,7 @@ define( function( require ) {
      * @static
      */
     getPegSpacing: function( numberOfRows ) {
-      return 1 / ( numberOfRows + 1 );
+      return PlinkoProbabilityConstants.GALTON_BOARD_BOUNDS.width / ( numberOfRows + 1 );
     }
   } );
 } );
