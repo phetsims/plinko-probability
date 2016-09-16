@@ -9,7 +9,7 @@
 • pegs - the things that the balls bounce off of on the board
 • bins - the cylinders below the board, where balls stack up
 • histogram - the graph below the board (occupies same space as bins)
-• histogram mode bottons - the buttons to the left of the histogram, above the eraser button
+• histogram mode buttons - the buttons to the left of the histogram, above the eraser button
 • statistics panel - on the Lab screen, the panel that can be expanded/collapsed to show statistics
 • play mode buttons - the radio buttons to the right of the green Play button
 
