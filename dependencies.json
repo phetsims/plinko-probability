@@ -1,11 +1,11 @@
 {
-  "comment": "# plinko-probability 1.0.0-dev.16 Tue Sep 13 2016 14:39:42 GMT-0600 (MDT)",
+  "comment": "# plinko-probability 1.0.0-dev.17 Fri Sep 16 2016 11:40:07 GMT-0600 (MDT)",
   "assert": {
     "sha": "7d27130a4d27da15aa7f8a21bbfb9245288c1b44",
     "branch": "master"
   },
   "axon": {
-    "sha": "e01926086217b84c39cca1e7515fc2999e6bb541",
+    "sha": "c3471525660a01530770063adfe2565689ce1472",
     "branch": "master"
   },
   "brand": {
@@ -13,55 +13,55 @@
     "branch": "master"
   },
   "chipper": {
-    "sha": "9f0bb7ca086127582a4b907cb502629442b51a72",
+    "sha": "0a87ea78d533a44faa2e38ca990fecfadac1bb73",
     "branch": "master"
   },
   "dot": {
-    "sha": "394365987f8653dba5a82b9ceac29b9eb3e32be9",
+    "sha": "0f3c240ac5b1197ed9ca8c2d1c39b578ba369e13",
     "branch": "master"
   },
   "joist": {
-    "sha": "752d3a03954e9b5c4489d5134b3cfaf095d05ca4",
+    "sha": "d227c832cb48b5ac97cb4c89753af34de0461395",
     "branch": "master"
   },
   "kite": {
-    "sha": "733028991124bcea81c36b315f00e18453ba3d7b",
+    "sha": "441620fa4d1f09d7fa6ea7f4f959d03de404492f",
     "branch": "master"
   },
   "phet-core": {
-    "sha": "c48bf32035dc5a4ed092ad611012fcbdeb5c6351",
+    "sha": "f52cdc12ccccaff17d5715d4172d214af277dc09",
     "branch": "master"
   },
   "phetcommon": {
-    "sha": "83ea84c8d9fc089e8d8ad139874366c868404152",
+    "sha": "94663bfd7c2b0e4932d23ee02da7ceeb9b5b9c62",
     "branch": "master"
   },
   "plinko-probability": {
-    "sha": "cbd8dd295d955999fdf24c072e117204c76bf6c0",
+    "sha": "9f50c52ea41f84c4f526da86fd7c6cbd6a88606e",
     "branch": "master"
   },
   "query-string-machine": {
-    "sha": "20686a62194e53ce7f5c0905926e5c1cad8bf643",
+    "sha": "05231e54a60c79502166d7bba26301fe8b668772",
     "branch": "master"
   },
   "scenery": {
-    "sha": "e78ee4135712f253beaef864204eefa64dfa4fcb",
+    "sha": "a88236fe5892f519b7c0fa41b3d9892ade009761",
     "branch": "master"
   },
   "scenery-phet": {
-    "sha": "f0fc9ae838b8744281b76d3f576271b82ce33a8a",
+    "sha": "84b9ff1e4905e54968b615c10c916ed5503731c7",
     "branch": "master"
   },
   "sherpa": {
-    "sha": "bcc28cd6e710446f4be153ad006e9a02eb412e8c",
+    "sha": "affd30ea07bae4acf2cd19eb02481fb55efd7b06",
     "branch": "master"
   },
   "sun": {
-    "sha": "459de68bbcecf72c45ab1dde36d901b4d1f3c1c4",
+    "sha": "d0d631020fe9d85107f395962f21560a68e0a38d",
     "branch": "master"
   },
   "tandem": {
-    "sha": "4a8edbc97f8b0900831da9ca1b83b7f312ce0cd4",
+    "sha": "794274024f929d28c6a9d72defec21078b503db4",
     "branch": "master"
   },
   "vibe": {
