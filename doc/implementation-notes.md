@@ -1,5 +1,20 @@
 # Plinko Probability - implementation notes
 
+## Terminology
+
+• Galton board, or "the board" - the triangular area
+• hopper - the thing above the center of the board
+• hopper mode buttons - the radio buttons to the right of the hopper on the Lab screen
+• balls - the spheres that fall out of the hopper and bounce around on the board
+• pegs - the things that the balls bounce off of on the board
+• bins - the cylinders below the board, where balls stack up
+• histogram - the graph below the board (occupies same space as bins)
+• histogram mode bottons - the buttons to the left of the histogram, above the eraser button
+• statistics panel - on the Lab screen, the panel that can be expanded/collapsed to show statistics
+• play mode buttons - the radio buttons to the right of the green Play button
+
+## Overview
+
 The Galton Board is created with all of the possible pegs.
 Each of the pegs is given a row and a column and are evenly spaced.
 The peg separation is determined by the number of rows displayed.
