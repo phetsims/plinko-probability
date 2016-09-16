@@ -1,71 +1,71 @@
 {
-  "comment": "# plinko-probability 1.0.0-dev.18 Fri Sep 16 2016 12:13:50 GMT-0600 (MDT)",
+  "comment": "# plinko-probability 1.0.0-rc.1 Fri Sep 16 2016 13:27:58 GMT-0600 (MDT)",
   "assert": {
     "sha": "7d27130a4d27da15aa7f8a21bbfb9245288c1b44",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "axon": {
-    "sha": "c3471525660a01530770063adfe2565689ce1472",
-    "branch": "master"
+    "sha": "e01926086217b84c39cca1e7515fc2999e6bb541",
+    "branch": "HEAD"
   },
   "brand": {
     "sha": "f0b1f7da85f87b9626562bea7fe69197fa81f05f",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "chipper": {
-    "sha": "0a87ea78d533a44faa2e38ca990fecfadac1bb73",
-    "branch": "master"
+    "sha": "07058555426e7ba2b63c2390c5dc3c19554e4c50",
+    "branch": "HEAD"
   },
   "dot": {
-    "sha": "0f3c240ac5b1197ed9ca8c2d1c39b578ba369e13",
-    "branch": "master"
+    "sha": "394365987f8653dba5a82b9ceac29b9eb3e32be9",
+    "branch": "HEAD"
   },
   "joist": {
-    "sha": "d227c832cb48b5ac97cb4c89753af34de0461395",
-    "branch": "master"
+    "sha": "b513b5ee1164a47d5baad7abd29591c7fadbe899",
+    "branch": "HEAD"
   },
   "kite": {
-    "sha": "441620fa4d1f09d7fa6ea7f4f959d03de404492f",
-    "branch": "master"
+    "sha": "733028991124bcea81c36b315f00e18453ba3d7b",
+    "branch": "HEAD"
   },
   "phet-core": {
-    "sha": "f52cdc12ccccaff17d5715d4172d214af277dc09",
-    "branch": "master"
+    "sha": "c48bf32035dc5a4ed092ad611012fcbdeb5c6351",
+    "branch": "HEAD"
   },
   "phetcommon": {
-    "sha": "94663bfd7c2b0e4932d23ee02da7ceeb9b5b9c62",
-    "branch": "master"
+    "sha": "83ea84c8d9fc089e8d8ad139874366c868404152",
+    "branch": "HEAD"
   },
   "plinko-probability": {
-    "sha": "8aeccc45b45f4087aa044f6fb00a88600dbea31f",
-    "branch": "master"
+    "sha": "3a105d26ac09077ade25c359d0894c64cd402a4e",
+    "branch": "1.0"
   },
   "query-string-machine": {
     "sha": "05231e54a60c79502166d7bba26301fe8b668772",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "scenery": {
-    "sha": "a88236fe5892f519b7c0fa41b3d9892ade009761",
-    "branch": "master"
+    "sha": "e78ee4135712f253beaef864204eefa64dfa4fcb",
+    "branch": "HEAD"
   },
   "scenery-phet": {
-    "sha": "84b9ff1e4905e54968b615c10c916ed5503731c7",
-    "branch": "master"
+    "sha": "f0fc9ae838b8744281b76d3f576271b82ce33a8a",
+    "branch": "HEAD"
   },
   "sherpa": {
-    "sha": "affd30ea07bae4acf2cd19eb02481fb55efd7b06",
-    "branch": "master"
+    "sha": "bcc28cd6e710446f4be153ad006e9a02eb412e8c",
+    "branch": "HEAD"
   },
   "sun": {
-    "sha": "d0d631020fe9d85107f395962f21560a68e0a38d",
-    "branch": "master"
+    "sha": "f2bd9d60cd649fc2c873815bef82a7bcb590ceb2",
+    "branch": "HEAD"
   },
   "tandem": {
-    "sha": "794274024f929d28c6a9d72defec21078b503db4",
-    "branch": "master"
+    "sha": "d369b847dad15a3d32270318c58d482755a45168",
+    "branch": "HEAD"
   },
   "vibe": {
     "sha": "b422db9ca26db3273d4f827a96f1267a7fd738c7",
-    "branch": "master"
+    "branch": "HEAD"
   }
 }
