@@ -16,11 +16,11 @@ define( function( require ) {
 
   var PlinkoProbabilityQueryParameters = {
 
-    // Maximum number of balls in the Intro screen.
+    // Maximum number of balls in the Intro screen, e.g. maxBallsIntro=150
     // Used to test overflow of bins.
     MAX_BALLS_INTRO: getQueryParameter( 'maxBallsIntro' ) && parseInt( getQueryParameter( 'maxBallsIntro' ), 10 ),
 
-    // Maximum number of balls that can be in any 1 bin in the Lab screen, e.g. maxBalls=10
+    // Maximum number of balls that can be in any 1 bin in the Lab screen, e.g. maxBallsLab=10
     // Use this to test the 'Out of Balls!' dialog without having to wait an eternity.
     MAX_BALLS_LAB: getQueryParameter( 'maxBallsLab' ) && parseInt( getQueryParameter( 'maxBallsLab' ), 10 ),
 
