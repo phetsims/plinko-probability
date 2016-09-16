@@ -539,22 +539,22 @@ define( function( require ) {
      * Function that solely update the Height of the bars of the histogram
      *  (and not their visibility)
      * @param {Array.<Rectangle>} rectanglesArray
-     * @param {Array.<number>} bins
+     * @param {Array.<number>} binValues
      */
-    function updateHeightOfHistogram( rectanglesArray, bins ) {
+    function updateHeightOfHistogram( rectanglesArray, binValues ) {
       var i;
       var numberOfBins = model.numberOfRowsProperty.value + 1;
       for ( i = 0; i < numberOfBins; i++ ) {
         // update the height of the rectangles that are visible
-        rectanglesArray[ i ].setRectHeightFromBottom( maxBarHeight * bins[ i ] );
+        rectanglesArray[ i ].setRectHeightFromBottom( maxBarHeight * binValues[ i ] );
       }
     }
 
     /**
      * @param {Array.<Rectangle>} rectanglesArray
-     * @param {Array.<number>} bins
+     * @param {Array.<number>} binValues
      */
-    function updateHistogram( rectanglesArray, bins ) {
+    function updateHistogram( rectanglesArray, binValues ) {
       var i;
       var numberOfBins = model.numberOfRowsProperty.value + 1;
       var xSpacing = bannerWidth / numberOfBins;
@@ -566,9 +566,9 @@ define( function( require ) {
           // update the height of the rectangles that are visible.
           rectanglesArray[ i ].setRect(
             minX + (i) * xSpacing,
-            maxY - maxBarHeight * bins[ i ],
+            maxY - maxBarHeight * binValues[ i ],
             xSpacing,
-            maxBarHeight * bins[ i ]
+            maxBarHeight * binValues[ i ]
           );
         }
         else {
