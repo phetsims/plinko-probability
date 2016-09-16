@@ -463,18 +463,16 @@ define( function( require ) {
       .close();
 
     // create and add triangle indicators for the sample and theoretical averages
-    var sampleAverageTrianglePath = new Path( triangleShape,
-      {
-        fill: PlinkoProbabilityConstants.HISTOGRAM_BAR_COLOR_FILL,
-        stroke: PlinkoProbabilityConstants.HISTOGRAM_BAR_COLOR_STROKE,
-        lineWidth: 2
-      } );
-    var theoreticalAverageTrianglePath = new Path( triangleShape,
-      {
-        stroke: PlinkoProbabilityConstants.BINOMIAL_DISTRIBUTION_BAR_COLOR_STROKE,
-        fill: 'rgba(0,0,0,0)', // transparent
-        lineWidth: 2
-      } );
+    var sampleAverageTrianglePath = new Path( triangleShape, {
+      fill: PlinkoProbabilityConstants.HISTOGRAM_BAR_COLOR_FILL,
+      stroke: PlinkoProbabilityConstants.HISTOGRAM_BAR_COLOR_STROKE,
+      lineWidth: 2
+    } );
+    var theoreticalAverageTrianglePath = new Path( triangleShape, {
+      stroke: PlinkoProbabilityConstants.BINOMIAL_DISTRIBUTION_BAR_COLOR_STROKE,
+      fill: 'rgba(0,0,0,0)', // transparent
+      lineWidth: 2
+    } );
     this.addChild( sampleAverageTrianglePath );
     this.addChild( theoreticalAverageTrianglePath );
 
