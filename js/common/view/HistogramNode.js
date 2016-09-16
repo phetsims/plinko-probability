@@ -434,7 +434,7 @@ define( function( require ) {
     var theoreticalHistogramRectanglesArray = [];
 
     // create and add the two arrays of rectangles
-    // initialize the height, the fill and strokes of the rectangle, set visibility to false
+    // initialize the height, fill and strokes of the rectangle, set visibility to false
     for ( var i = 0; i < MAX_NUMBER_BINS; i++ ) {
       // creates rectangles with a nominal height of 1, so that scenery doesn't throw a fit
       var nominalSampleHistogramRectangle = new Rectangle( 0, 0, bannerWidth, 1, {
