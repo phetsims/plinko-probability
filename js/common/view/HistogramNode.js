@@ -545,8 +545,9 @@ define( function( require ) {
       var i;
       var numberOfBins = model.numberOfRowsProperty.value + 1;
       for ( i = 0; i < numberOfBins; i++ ) {
-        // update the height of the rectangles that are visible
-        rectanglesArray[ i ].setRectHeightFromBottom( maxBarHeight * binValues[ i ] );
+        var barHeight = maxBarHeight * binValues[ i ];
+        rectanglesArray[ i ].visible = ( barHeight > 0 ); // zero-height bars are invisible, see #87
+        rectanglesArray[ i ].setRectHeightFromBottom( barHeight );
       }
     }
 
@@ -561,14 +562,17 @@ define( function( require ) {
       // update ALL rectangles
       for ( i = 0; i < MAX_NUMBER_BINS; i++ ) {
         if ( i < numberOfBins ) {
-          // set the rectangles to visible;
-          rectanglesArray[ i ].visible = true;
-          // update the height of the rectangles that are visible.
+
+          var barHeight = maxBarHeight * binValues[ i ];
+
+          // zero-height bars are invisible, see #87
+          rectanglesArray[ i ].visible = ( barHeight > 0 );
+
           rectanglesArray[ i ].setRect(
             minX + (i) * xSpacing,
             maxY - maxBarHeight * binValues[ i ],
             xSpacing,
-            maxBarHeight * binValues[ i ]
+            barHeight
           );
         }
         else {
