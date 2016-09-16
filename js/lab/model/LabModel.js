@@ -17,7 +17,7 @@ define( function( require ) {
   var PlinkoProbabilityQueryParameters = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityQueryParameters' );
 
   // constants
-  var MAX_BALLS = PlinkoProbabilityQueryParameters.MAX_BALLS || 9999; // max number of balls *per bin*
+  var MAX_BALLS = PlinkoProbabilityQueryParameters.MAX_BALLS_LAB || 9999; // max number of balls *per bin*
 
   /**
    * @constructor

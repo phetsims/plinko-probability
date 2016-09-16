@@ -14,9 +14,10 @@ define( function( require ) {
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var PlinkoProbabilityCommonModel = require( 'PLINKO_PROBABILITY/common/model/PlinkoProbabilityCommonModel' );
   var PlinkoProbabilityConstants = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityConstants' );
+  var PlinkoProbabilityQueryParameters = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityQueryParameters' );
 
   // constants
-  var MAX_BALLS = 100;
+  var MAX_BALLS = PlinkoProbabilityQueryParameters.MAX_BALLS_INTRO || 100;
   var PERSPECTIVE_TILT = Math.PI / 1.4; // in radians
 
   /**

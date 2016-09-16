@@ -83,6 +83,7 @@ define( function( require ) {
     // link the histogram radio buttons to toggle the visibility of the histogram and cylinders
     // link is present fot the lifetime of the sim
     this.viewProperties.histogramModeProperty.link( function( histogramMode ) {
+      self.ballsNode.invalidatePaint();
       switch( histogramMode ) {
         case 'counter':
           self.histogramNode.visible = true;
