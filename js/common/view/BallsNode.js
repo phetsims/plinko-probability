@@ -35,24 +35,18 @@ define( function( require ) {
 
     // @private
     this.balls = balls;
-    this.modelViewTransform = modelViewTransform;
+    this.numberOfRowsProperty = numberOfRowsProperty;
     this.histogramModeProperty = histogramModeProperty;
+    this.modelViewTransform = modelViewTransform;
 
     // set the default ball radius using the largest possible radius, that is the minimum number of rows.
-    var minRows = PlinkoProbabilityConstants.ROWS_RANGE.min;
-    var defaultBallRadius = modelViewTransform.modelToViewDeltaX( GaltonBoard.getPegSpacing( minRows ) * PlinkoProbabilityConstants.BALL_SIZE_FRACTION );
+    var defaultBallRadius = modelViewTransform.modelToViewDeltaX(
+      GaltonBoard.getPegSpacing( PlinkoProbabilityConstants.ROWS_RANGE.min ) * PlinkoProbabilityConstants.BALL_SIZE_FRACTION );
 
     // Create an image of the ball, used for rendering all balls. This happens asynchronously.
     var ballNode = new BallNode( defaultBallRadius );
     ballNode.toImage( function( image ) {
       self.ballImage = image; // @private
-      self.invalidatePaint(); // calls paintCanvas
-    } );
-
-    // Adjust size of the balls based on the number of rows in the Galton board.
-    // unlink unnecessary, instance exists for the lifetime of the sim.
-    numberOfRowsProperty.link( function( numberOfRows ) {
-      self.scaleFactor = minRows / numberOfRows;
       self.invalidatePaint(); // calls paintCanvas
     } );
 
@@ -71,11 +65,13 @@ define( function( require ) {
      */
     paintCanvas: function( context ) {
 
-      var self = this;
-
       // image is created asynchronously by toImage, so it may not be available yet
-      if ( !self.ballImage ) { return; }
+      if ( !this.ballImage ) { return; }
 
+      // Adjust size of the balls based on the number of rows in the Galton board.
+      var scaleFactor = PlinkoProbabilityConstants.ROWS_RANGE.min / this.numberOfRowsProperty.get();
+
+      var self = this;
       this.balls.forEach( function( ball ) {
 
         // don't draw balls in bins (cylinders) when the bins aren't visible
@@ -85,10 +81,10 @@ define( function( require ) {
           var ballViewPositionY = self.modelViewTransform.modelToViewY( ball.position.y );
 
           context.drawImage( self.ballImage,
-            ballViewPositionX - self.ballImage.width * self.scaleFactor / 2,
-            ballViewPositionY - self.ballImage.height * self.scaleFactor / 2,
-            self.ballImage.width * self.scaleFactor,
-            self.ballImage.height * self.scaleFactor );
+            ballViewPositionX - self.ballImage.width * scaleFactor / 2,
+            ballViewPositionY - self.ballImage.height * scaleFactor / 2,
+            self.ballImage.width * scaleFactor,
+            self.ballImage.height * scaleFactor );
         }
       } );
     }

@@ -62,6 +62,10 @@ define( function( require ) {
     // @public Fires when one or more balls moves.
     // See https://github.com/phetsims/plinko-probability/issues/62 for details.
     this.ballsMovedEmitter = new Emitter();
+
+    var eraseThis = this.erase.bind( this );
+    this.probabilityProperty.link( eraseThis );
+    this.numberOfRowsProperty.link( eraseThis );
   }
 
   plinkoProbability.register( 'PlinkoProbabilityCommonModel', PlinkoProbabilityCommonModel );
@@ -76,10 +80,7 @@ define( function( require ) {
      */
     reset: function() {
       PropertySet.prototype.reset.call( this );
-      this.balls.clear(); // clear all the model balls
-      this.histogram.reset(); // empty out all the model bins
-      this.ballCreationTimeElapsed = 0;
-      this.ballsMovedEmitter.emit();
+      this.erase();
     },
 
     /**
@@ -90,8 +91,6 @@ define( function( require ) {
     erase: function() {
       this.balls.clear(); // clear the balls on the galton board
       this.histogram.reset(); // reset the histogram statistics
-      this.launchedBallsNumber = 0; // reset the number of launched balls
-      this.ballsToCreateNumber = 0; // reset the ball creation queue
       this.isBallCapReachedProperty.set( false );
       this.ballsMovedEmitter.emit();
     }
