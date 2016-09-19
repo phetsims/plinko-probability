@@ -47,18 +47,6 @@ define( function( require ) {
       self.balls.clear(); // clear the balls
     } );
 
-    this.probabilityProperty.link( function() {
-      self.balls.clear(); // clear the balls
-      self.histogram.reset(); // reset histogram statistics
-      self.isBallCapReached = false;
-    } );
-
-    this.numberOfRowsProperty.link( function() {
-      self.balls.clear();
-      self.histogram.reset();
-      self.isBallCapReached = false;
-    } );
-
     this.ballCreationTimeInterval = 0; // time we want to pass before we created a new ball
   }
 

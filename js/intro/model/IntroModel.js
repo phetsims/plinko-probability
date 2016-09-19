@@ -40,8 +40,9 @@ define( function( require ) {
       top: bounds.maxY // the top of the cylinders
     };
 
-    this.launchedBallsNumber = 0; // @public {number} - number of balls created
-    this.ballsToCreateNumber = 0; // @public {number} - an integer number representing the number of balls in the creation queue
+    // @private
+    this.launchedBallsNumber = 0; // number of balls created
+    this.ballsToCreateNumber = 0; // number of balls in the creation queue
   }
 
   plinkoProbability.register( 'IntroModel', IntroModel );
@@ -85,10 +86,10 @@ define( function( require ) {
      * @override
      * @public
      */
-    reset: function() {
-      PlinkoProbabilityCommonModel.prototype.reset.call( this );
-      this.ballsToCreateNumber = 0; // @private remove the queue of balls waiting to be created
-      this.launchedBallsNumber = 0; // reset the number of launched balls to zero
+    erase: function() {
+      PlinkoProbabilityCommonModel.prototype.erase.call( this );
+      this.ballsToCreateNumber = 0;
+      this.launchedBallsNumber = 0;
     },
 
     /**
