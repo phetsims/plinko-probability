@@ -18,6 +18,7 @@
 The Galton Board is created with all of the possible pegs.
 Each of the pegs is given a row and a column and are evenly spaced.
 The peg separation is determined by the number of rows displayed.
+The display of pegs is optimized by using CanvasNode, see PegsNode.
 
 There is a Ball object with the knowledge of its position and intended position.
 When an ball instance is created we generate a probability for a path.
@@ -30,7 +31,7 @@ As the step function gets called, the ball goes through each of the four phases,
 on the path that it 'chose' at its creation. Finally, it ends up at the histogram and it is added to the
 statistics of the histogram.
 
-The display of balls is optimized using CanvasNode, see BallsNode.
+The display of balls is optimized by using CanvasNode, see BallsNode.
 A single ball image (scaled to fit the space between pegs on the Galton board) is used
 to render all balls.
 
@@ -39,7 +40,8 @@ It also holds an array, where each element is the number of balls in a bin.
 Each time a ball exits the Galton Board, one of the bins is incremented by one.
 These numbers are then used to calculate the mean, variance, standard deviation.
 
-The view model takes the position of the model ball, transforms it and makes the view appear.
-
+A model-view transform is used to map between model and view coordinate frames.
+This transform is created in PlinkoProbabilityCommonView, by mapping the bounds of
+the Galton board model to bounds of the Galton board view.
 
 
