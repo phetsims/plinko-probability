@@ -35,7 +35,7 @@ define( function( require ) {
     // convenience variable for placing the object inn the view
     var ellipseWidth = modelViewTransform.modelToViewDeltaX( cylinderInfo.cylinderWidth );
     var ellipseHeight = Math.abs( modelViewTransform.modelToViewDeltaY( cylinderInfo.ellipseHeight ) );
-    var cylinderHeight = Math.abs( modelViewTransform.modelToViewDeltaY( cylinderInfo.height ) );
+    var cylinderHeight = Math.abs( modelViewTransform.modelToViewDeltaY( cylinderInfo.cylinderHeight ) );
     var verticalOffset = -modelViewTransform.modelToViewDeltaY( cylinderInfo.verticalOffset );
 
     // create side shape of the cylinder

@@ -33,8 +33,8 @@ define( function( require ) {
     var ellipseHeight = cylinderWidth * Math.sin( PERSPECTIVE_TILT ); // the height is the width times some perspective tilt
 
     this.cylinderInfo = { // @public (read-only)
-      height: bounds.height * 0.87, // we want the cylinders to be shorter than the histogram
       cylinderWidth: cylinderWidth,
+      cylinderHeight: bounds.height * 0.87, // we want the cylinders to be shorter than the histogram
       ellipseHeight: ellipseHeight, // the height of the ellipse
       verticalOffset: 0.035, // gap between pegboard and cylinders
       top: bounds.maxY // the top of the cylinders
