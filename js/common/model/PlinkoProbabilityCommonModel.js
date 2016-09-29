@@ -14,7 +14,7 @@ define( function( require ) {
   var Histogram = require( 'PLINKO_PROBABILITY/common/model/Histogram' );
   var inherit = require( 'PHET_CORE/inherit' );
   var ObservableArray = require( 'AXON/ObservableArray' );
-  var PropertySet = require( 'AXON/PropertySet' );
+  var Property = require( 'AXON/Property' );
   var PlinkoProbabilityConstants = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityConstants' );
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
 
@@ -27,24 +27,20 @@ define( function( require ) {
    */
   function PlinkoProbabilityCommonModel() {
 
-    // @public
-    PropertySet.call( this, {
+    // @public {number} this can be a number between 0 and 1
+    this.probabilityProperty = new Property( PlinkoProbabilityConstants.BINARY_PROBABILITY_RANGE.defaultValue );
 
-      // {number} this can be a number between 0 and 1
-      probability: PlinkoProbabilityConstants.BINARY_PROBABILITY_RANGE.defaultValue,
+    // @public {string} controls how many balls are dispensed when the 'play' button is pressed, see BALL_MODE_VALUES
+    this.ballModeProperty = new Property( 'oneBall' );
 
-      // {string} controls how many balls are dispensed when the 'play' button is pressed, see BALL_MODE_VALUES
-      ballMode: 'oneBall',
+    // {string} controls what comes out of the hopper above the Galton board, see HOPPER_MODE_VALUES
+    this.hopperModeProperty = new Property( 'ball' );
 
-      // {string} controls what comes out of the hopper above the Galton board, see HOPPER_MODE_VALUES
-      hopperMode: 'ball',
+    // {boolean} is the maximum number of balls reached?
+    this.isBallCapReachedProperty = new Property( false );
 
-      // {boolean} is the maximum number of balls reached?
-      isBallCapReached: false,
-
-      // {number} number of rows in the Galton board, must be an integer
-      numberOfRows: PlinkoProbabilityConstants.ROWS_RANGE.defaultValue
-    } );
+    // {number} number of rows in the Galton board, must be an integer
+    this.numberOfRowsProperty = new Property( PlinkoProbabilityConstants.ROWS_RANGE.defaultValue );
 
     // validate string values
     this.ballModeProperty.link( function( ballMode ) {
@@ -70,7 +66,7 @@ define( function( require ) {
 
   plinkoProbability.register( 'PlinkoProbabilityCommonModel', PlinkoProbabilityCommonModel );
 
-  return inherit( PropertySet, PlinkoProbabilityCommonModel, {
+  return inherit( Object, PlinkoProbabilityCommonModel, {
 
     /**
      * Called when the 'Reset All' button is pressed.
@@ -79,7 +75,11 @@ define( function( require ) {
      * @public
      */
     reset: function() {
-      PropertySet.prototype.reset.call( this );
+      this.probabilityProperty.reset();
+      this.ballModeProperty.reset();
+      this.hopperModeProperty.reset();
+      this.isBallCapReachedProperty.reset();
+      this.numberOfRowsProperty.reset();
       this.erase();
     },
 

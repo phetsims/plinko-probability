@@ -379,7 +379,7 @@ define( function( require ) {
     // update the banner when a ball has been added to the histogram
     // no need to remove listener, present for the lifetime of the sim
     histogram.histogramUpdatedEmitter.addListener( function() {
-      updateTextBanner( numberOfRowsProperty.value, histogramModeProperty.value );
+      updateTextBanner( numberOfRowsProperty.get(), histogramModeProperty.get() );
     } );
 
     // no need to unlink, present for the lifetime of the sim
@@ -388,7 +388,7 @@ define( function( require ) {
       updateTextBanner( numberOfRows, histogramMode ); // update the text content of each bins
     } );
 
-    updateTextBanner( numberOfRowsProperty.value, histogramModeProperty.value );
+    updateTextBanner( numberOfRowsProperty.get(), histogramModeProperty.get() );
   }
 
   plinkoProbability.register( 'XBannerNode', XBannerNode );
@@ -509,7 +509,7 @@ define( function( require ) {
      * @param {number} average
      */
     function updateTrianglePosition( path, average ) {
-      var numberOfBins = model.numberOfRowsProperty.value + 1;
+      var numberOfBins = model.numberOfRowsProperty.get() + 1;
       path.centerX = modelViewTransform.modelToViewX( histogram.getValuePosition( average, numberOfBins ) );
     }
 
@@ -518,8 +518,8 @@ define( function( require ) {
      * the theoretical average value
      */
     function updateTheoreticalAverageTriangle() {
-      var average = model.getTheoreticalAverage( model.numberOfRowsProperty.value, model.probabilityProperty.value );
-      theoreticalAverageTrianglePath.visible = isTheoreticalHistogramVisibleProperty.value;
+      var average = model.getTheoreticalAverage( model.numberOfRowsProperty.get(), model.probabilityProperty.get() );
+      theoreticalAverageTrianglePath.visible = isTheoreticalHistogramVisibleProperty.get();
       updateTrianglePosition( theoreticalAverageTrianglePath, average );
     }
 
@@ -543,7 +543,7 @@ define( function( require ) {
      */
     function updateHeightOfHistogram( rectanglesArray, binValues ) {
       var i;
-      var numberOfBins = model.numberOfRowsProperty.value + 1;
+      var numberOfBins = model.numberOfRowsProperty.get() + 1;
       for ( i = 0; i < numberOfBins; i++ ) {
         var barHeight = maxBarHeight * binValues[ i ];
         rectanglesArray[ i ].visible = ( barHeight > 0 ); // zero-height bars are invisible, see #87
@@ -557,7 +557,7 @@ define( function( require ) {
      */
     function updateHistogram( rectanglesArray, binValues ) {
       var i;
-      var numberOfBins = model.numberOfRowsProperty.value + 1;
+      var numberOfBins = model.numberOfRowsProperty.get() + 1;
       var xSpacing = bannerWidth / numberOfBins;
       // update ALL rectangles
       for ( i = 0; i < MAX_NUMBER_BINS; i++ ) {

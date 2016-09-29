@@ -23,13 +23,10 @@ define( function( require ) {
   var PegSoundGeneration = require( 'PLINKO_PROBABILITY/common/view/PegSoundGeneration' );
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var PlinkoProbabilityConstants = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityConstants' );
-  var PropertySet = require( 'AXON/PropertySet' );
+  var PlinkoProbabilityViewProperties = require( 'PLINKO_PROBABILITY/common/view/PlinkoProbabilityViewProperties' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var SoundToggleButton = require( 'SCENERY_PHET/buttons/SoundToggleButton' );
-
-  // constants
-  var HISTOGRAM_MODE_VALUES = [ 'counter', 'cylinder', 'fraction' ]; // values for histogramModeProperty
 
   /**
    * @param {PlinkoProbabilityCommonModel} model
@@ -48,18 +45,10 @@ define( function( require ) {
     ScreenView.call( this, options );
 
     // view-specific Properties
-    var viewProperties = new PropertySet( {
-      histogramMode: options.histogramMode,
-      expandedAccordionBox: true,
-      isTheoreticalHistogramVisible: false,
-      isSoundEnabled: false
+    var viewProperties = new PlinkoProbabilityViewProperties( {
+      histogramMode: options.histogramMode
     } );
     this.viewProperties = viewProperties; // @protected
-
-    // validate string values
-    viewProperties.histogramModeProperty.link( function( histogramMode ) {
-      assert && assert( _.contains( HISTOGRAM_MODE_VALUES, histogramMode ), 'invalid histogramMode: ' + histogramMode );
-    } );
 
     var hopper = new Hopper( {
       centerX: this.layoutBounds.maxX / 2 - 80,

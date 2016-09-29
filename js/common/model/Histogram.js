@@ -72,7 +72,7 @@ define( function( require ) {
 
       // temporarily stores the binCount for each bin in an empty array.
       var tempBins = [];
-      for ( var tempBinIndex = 0; tempBinIndex < ( this.numberOfRowsProperty.value + 1 ); tempBinIndex++ ) {
+      for ( var tempBinIndex = 0; tempBinIndex < ( this.numberOfRowsProperty.get() + 1 ); tempBinIndex++ ) {
         tempBins[ tempBinIndex ] = 0;
       }
 
@@ -80,11 +80,11 @@ define( function( require ) {
       for ( var ballIndex = 0; ballIndex < ballsOnScreen; ballIndex++ ) {
         var columnNumber = 0;
         // the path of the balls through the pegs of the galton board  is determined for the prepopulated balls only
-        for ( var rowNumber = 0; rowNumber <= this.numberOfRowsProperty.value; rowNumber++ ) {
+        for ( var rowNumber = 0; rowNumber <= this.numberOfRowsProperty.get(); rowNumber++ ) {
           var direction = ( phet.joist.random.nextBoolean() ? 'left' : 'right' );
 
           // increment the column number of the next row, but not for the last row
-          if ( rowNumber < this.numberOfRowsProperty.value ) {
+          if ( rowNumber < this.numberOfRowsProperty.get() ) {
             columnNumber += ( direction === 'left' ) ? 0 : 1;
           }
         }
@@ -94,7 +94,7 @@ define( function( require ) {
       }
 
       // takes values in temporary bin array and translates them into our bin array
-      for ( tempBinIndex = 0; tempBinIndex < ( this.numberOfRowsProperty.value + 1 ); tempBinIndex++ ) {
+      for ( tempBinIndex = 0; tempBinIndex < ( this.numberOfRowsProperty.get() + 1 ); tempBinIndex++ ) {
         this.bins[ tempBinIndex ] = {
           binCount: tempBins[ tempBinIndex ], // number of balls that will be in the bin (including those currently falling through the galton board)
           visibleBinCount: tempBins[ tempBinIndex ], // number of balls that are in the bin

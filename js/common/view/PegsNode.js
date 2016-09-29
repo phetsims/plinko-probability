@@ -130,7 +130,7 @@ define( function( require ) {
       }
 
       // compute values that remain constant in for loop
-      var pegScale = PlinkoProbabilityConstants.ROWS_RANGE.min / self.numberOfRowsProperty.value;
+      var pegScale = PlinkoProbabilityConstants.ROWS_RANGE.min / self.numberOfRowsProperty.get();
       var pegWidth = pegScale * self.pegImage.width;
       var pegHeight = pegScale * self.pegImage.height;
       var shadowWidth = pegScale * self.shadowImage.width;
@@ -140,7 +140,7 @@ define( function( require ) {
       var pegAngle = -( Math.PI / 4 ) + ( this.probabilityProperty.get() * Math.PI / 2 );
       
       // shadow offset, a bit below and to the right, determined empirically
-      var pegSpacing = GaltonBoard.getPegSpacing( self.numberOfRowsProperty.value );
+      var pegSpacing = GaltonBoard.getPegSpacing( self.numberOfRowsProperty.get() );
       var shadowOffset = self.modelViewTransform.modelToViewDelta( new Vector2( pegSpacing * 0.08, -pegSpacing * 0.24 ) );
 
       // galtonBoard.pegs contains all the model pegs (even pegs that that are currently invisible)

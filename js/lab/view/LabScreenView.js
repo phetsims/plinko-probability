@@ -108,7 +108,7 @@ define( function( require ) {
 
     // handle the coming and going of the balls in the model.
     model.balls.addItemAddedListener( function( addedBall ) {
-      switch( model.hopperModeProperty.value ) {
+      switch( model.hopperModeProperty.get() ) {
 
         case 'ball':
           // initiates sound to play when ball hits a peg
@@ -139,7 +139,7 @@ define( function( require ) {
           break;
 
         default:
-          throw new Error( 'invalid hopperMode: ' + model.hopperModeProperty.value );
+          throw new Error( 'invalid hopperMode: ' + model.hopperModeProperty.get() );
       }
     } );
 

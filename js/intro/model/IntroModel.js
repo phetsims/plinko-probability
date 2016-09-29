@@ -28,7 +28,8 @@ define( function( require ) {
     PlinkoProbabilityCommonModel.call( this );
 
     var bounds = PlinkoProbabilityConstants.HISTOGRAM_BOUNDS;
-    var binWidth = bounds.width / ( this.numberOfRows + 1 ); // the width of one bin is the total width divided by the number of columns
+    // the width of one bin is the total width divided by the number of columns
+    var binWidth = bounds.width / ( this.numberOfRowsProperty.get() + 1 );
     var cylinderWidth = 0.95 * binWidth; // there is a small gap between each cylinder
     var ellipseHeight = cylinderWidth * Math.sin( PERSPECTIVE_TILT ); // the height is the width times some perspective tilt
 
@@ -99,7 +100,7 @@ define( function( require ) {
      * @private
      */
     updateBallsToCreateNumber: function() {
-      switch( this.ballMode ) {
+      switch( this.ballModeProperty.get() ) {
 
         // add one ball to the queue
         case 'oneBall':
@@ -117,7 +118,7 @@ define( function( require ) {
           break;
 
         default:
-          throw new Error( 'invalid ballMode: ' + this.ballMode );
+          throw new Error( 'invalid ballMode: ' + this.ballModeProperty.get() );
       }
     },
 
@@ -129,7 +130,8 @@ define( function( require ) {
     addNewBall: function() {
 
       // create a new ball
-      var addedBall = new IntroBall( this.probability, this.numberOfRows, this.histogram.bins, this.cylinderInfo );
+      var addedBall = new IntroBall( this.probabilityProperty.get(), this.numberOfRowsProperty.get(),
+        this.histogram.bins, this.cylinderInfo );
 
       this.launchedBallsNumber++; // increment the number of launched balls
       this.ballsToCreateNumber--; // decrease the number of balls in the queue

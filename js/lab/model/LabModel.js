@@ -15,6 +15,7 @@ define( function( require ) {
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var PlinkoProbabilityCommonModel = require( 'PLINKO_PROBABILITY/common/model/PlinkoProbabilityCommonModel' );
   var PlinkoProbabilityQueryParameters = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityQueryParameters' );
+  var Property = require( 'AXON/Property' );
 
   // constants
   var MAX_BALLS = PlinkoProbabilityQueryParameters.MAX_BALLS_LAB || 9999; // max number of balls *per bin*
@@ -29,7 +30,7 @@ define( function( require ) {
     PlinkoProbabilityCommonModel.call( this );
 
     // @public
-    this.addProperty( 'isPlaying', false );
+    this.isPlayingProperty = new Property( false );
 
     this.hopperModeProperty.link( function( hopperMode ) {
 
@@ -54,6 +55,12 @@ define( function( require ) {
 
   return inherit( PlinkoProbabilityCommonModel, LabModel, {
 
+    // @public
+    reset: function() {
+      PlinkoProbabilityCommonModel.prototype.reset.call( this );
+      this.isPlayingProperty.reset();
+    },
+
     /**
      * @param {number} dt - time interval
      * @public
@@ -64,12 +71,12 @@ define( function( require ) {
       this.ballCreationTimeElapsed += dt;
 
       // if the play button is pressed and the interval is greater than some interval...
-      if ( this.isPlaying && this.ballCreationTimeElapsed > this.ballCreationTimeInterval ) {
+      if ( this.isPlayingProperty.get() && this.ballCreationTimeElapsed > this.ballCreationTimeInterval ) {
         this.addNewBall(); // add a new ball
         this.ballCreationTimeElapsed = 0; // reset the elapsed time
       }
 
-      switch ( this.hopperModeProperty.value ) {
+      switch ( this.hopperModeProperty.get() ) {
 
         case 'ball':
 
@@ -104,7 +111,7 @@ define( function( require ) {
           break;
 
         default:
-          throw new Error( 'invalid hopperMode: ' + this.hopperModeProperty.value );
+          throw new Error( 'invalid hopperMode: ' + this.hopperModeProperty.get() );
       }
     },
 
@@ -117,12 +124,12 @@ define( function( require ) {
 
       var self = this;
 
-      var addedBall = new LabBall( this.probability, this.numberOfRows, this.histogram.bins );
+      var addedBall = new LabBall( this.probabilityProperty.get(), this.numberOfRowsProperty.get(), this.histogram.bins );
       this.histogram.bins[ addedBall.binIndex ].binCount++; //update the bin count of the bins
       this.balls.push( addedBall ); // add the ball to the observable array
 
       if ( self.histogram.getMaximumActualBinCount() >= MAX_BALLS ) {
-        self.isBallCapReached = true;
+        self.isBallCapReachedProperty.set( true );
       }
 
       // ballOutOfPegsEmitter is emitted when the addedBall leaves the last peg on the Galton board.
@@ -222,9 +229,11 @@ define( function( require ) {
     getBinomialDistribution: function() {
       var binomialCoefficientsArray = [];
       var k;
+      var numberOfRows = this.numberOfRowsProperty.get();
       // let's not try to be clever and let's go forward with the brute force approach
-      for ( k = 0; k < this.numberOfRows + 1; k++ ) {
-        binomialCoefficientsArray.push( this.getBinomialProbability( this.numberOfRows, k, this.probability ) );
+      for ( k = 0; k < numberOfRows + 1; k++ ) {
+        binomialCoefficientsArray.push(
+          this.getBinomialProbability( numberOfRows, k, this.probabilityProperty.get() ) );
       }
       return binomialCoefficientsArray;
     },

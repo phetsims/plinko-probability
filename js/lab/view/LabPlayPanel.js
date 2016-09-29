@@ -91,13 +91,15 @@ define( function( require ) {
     // create the play button
     this.playButton = new PlayButton( {
       listener: function() {
-        if ( model.isBallCapReached ) {
+        if ( model.isBallCapReachedProperty.get() ) {
           model.isBallCapReachedProperty.notifyObserversStatic();
-        } else {
-          if ( ballModeProperty.value === 'continuous' ) {
+        }
+        else {
+          if ( ballModeProperty.get() === 'continuous' ) {
             self.togglePlayPauseButtonVisibility(); // alternates play/pause visual state of button
             model.isPlayingProperty.set( true ); //set isPlayingProperty to true signifying that balls are being dropped
-          } else {
+          }
+          else {
             model.addNewBall(); // if it is not continuous then we assume it is at 'oneBall'
           }
         }

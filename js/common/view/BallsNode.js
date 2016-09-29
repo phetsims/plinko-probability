@@ -75,7 +75,7 @@ define( function( require ) {
       this.balls.forEach( function( ball ) {
 
         // don't draw balls in bins (cylinders) when the bins aren't visible
-        if ( self.histogramModeProperty.value === 'cylinder' || ball.phase !== BallPhase.COLLECTED ) {
+        if ( self.histogramModeProperty.get() === 'cylinder' || ball.phase !== BallPhase.COLLECTED ) {
 
           var ballViewPositionX = self.modelViewTransform.modelToViewX( ball.position.x );
           var ballViewPositionY = self.modelViewTransform.modelToViewY( ball.position.y );
