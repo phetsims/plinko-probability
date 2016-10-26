@@ -64,8 +64,8 @@ define( function( require ) {
     } );
 
     // we call pre populate here because the histogram would be created by now
-    if ( PlinkoProbabilityQueryParameters.POPULATE_HISTOGRAM ) {
-      model.histogram.prepopulate( PlinkoProbabilityQueryParameters.POPULATE_HISTOGRAM );
+    if ( PlinkoProbabilityQueryParameters.histogramBallsLab > 0 ) {
+      model.histogram.prepopulate( PlinkoProbabilityQueryParameters.histogramBallsLab );
     }
 
     // Play panel, at top right

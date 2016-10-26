@@ -17,7 +17,7 @@ define( function( require ) {
   var PlinkoProbabilityQueryParameters = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityQueryParameters' );
 
   // constants
-  var MAX_BALLS = PlinkoProbabilityQueryParameters.MAX_BALLS_INTRO || 100;
+  var MAX_BALLS = PlinkoProbabilityQueryParameters.maxBallsIntro;
   var PERSPECTIVE_TILT = Math.PI / 1.4; // in radians
 
   /**

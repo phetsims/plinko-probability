@@ -18,7 +18,7 @@ define( function( require ) {
   var Property = require( 'AXON/Property' );
 
   // constants
-  var MAX_BALLS = PlinkoProbabilityQueryParameters.MAX_BALLS_LAB || 9999; // max number of balls *per bin*
+  var MAX_BALLS = PlinkoProbabilityQueryParameters.maxBallsLab; // max number of balls *per bin*
 
   /**
    * @constructor
