@@ -41,7 +41,7 @@ define( function( require ) {
       type: 'number',
       defaultValue: 0,
       isValidValue: function( value ) {
-        return value > 0 && Util.isInteger( value );
+        return value >= 0 && Util.isInteger( value );
       }
     },
 
