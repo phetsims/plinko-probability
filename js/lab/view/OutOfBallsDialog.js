@@ -26,8 +26,7 @@ define( function( require ) {
   function OutOfBallsDialog( options ) {
 
     options = _.extend( {
-      modal: true,
-      focusable: true // so it can be dismissed
+      modal: true
     }, options );
 
     var messageNode = new Text( outOfBallsString, {
