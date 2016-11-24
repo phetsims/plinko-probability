@@ -14,6 +14,8 @@ define( function( require ) {
   var LabModel = require( 'PLINKO_PROBABILITY/lab/model/LabModel' );
   var LabScreenView = require( 'PLINKO_PROBABILITY/lab/view/LabScreenView' );
   var Screen = require( 'JOIST/Screen' );
+  var Property = require( 'AXON/Property' );
+  var Color = require( 'SCENERY/util/Color' );
 
   // strings
   var screenLabString = require( 'string!PLINKO_PROBABILITY/screen.lab' );
@@ -29,7 +31,7 @@ define( function( require ) {
 
     var options = {
       name: screenLabString,
-      backgroundColor: PlinkoProbabilityConstants.BACKGROUND_COLOR,
+      backgroundColorProperty: new Property( Color.toColor( PlinkoProbabilityConstants.BACKGROUND_COLOR ) ),
       homeScreenIcon: new Image( labHomescreenImage ),
       navigationBarIcon: new Image( labNavbarImage )
     };
