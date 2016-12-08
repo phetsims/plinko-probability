@@ -3,7 +3,7 @@
 /**
  * Query parameters supported by this simulation.
  *
- * @author Denzell Barnett
+ * @author Denzell Barnett (Berea College)
  * @author Chris Malley (PixelZoom, Inc.)
  */
 define( function( require ) {

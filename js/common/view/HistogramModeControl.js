@@ -4,7 +4,7 @@
  * Controls the values of the 'histogram mode' Property, which determines the representation 
  * that is displayed at the output (bottom) of the Galton board.
  *
- * @author Denzell Barnett(Berea College)
+ * @author Denzell Barnett (Berea College)
  */
 define( function( require ) {
   'use strict';
