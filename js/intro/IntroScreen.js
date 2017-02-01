@@ -15,9 +15,8 @@ define( function( require ) {
   var IntroScreenView = require( 'PLINKO_PROBABILITY/intro/view/IntroScreenView' );
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var PlinkoProbabilityConstants = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityConstants' );
-  var Screen = require( 'JOIST/Screen' );
   var Property = require( 'AXON/Property' );
-  var Color = require( 'SCENERY/util/Color' );
+  var Screen = require( 'JOIST/Screen' );
 
   // strings
   var screenIntroString = require( 'string!PLINKO_PROBABILITY/screen.intro' );
@@ -33,7 +32,7 @@ define( function( require ) {
 
     var options = {
       name: screenIntroString,
-      backgroundColorProperty: new Property( Color.toColor( PlinkoProbabilityConstants.BACKGROUND_COLOR ) ),
+      backgroundColorProperty: new Property( PlinkoProbabilityConstants.BACKGROUND_COLOR ),
       homeScreenIcon: new Image( introHomescreenImage ),
       navigationBarIcon: new Image( introNavbarImage )
     };
