@@ -44,10 +44,10 @@ define( function( require ) {
 
     // validate string values
     this.ballModeProperty.link( function( ballMode ) {
-      assert && assert( _.contains( BALL_MODE_VALUES, ballMode ), 'invalid ballMode: ' + ballMode );
+      assert && assert( _.includes( BALL_MODE_VALUES, ballMode ), 'invalid ballMode: ' + ballMode );
     } );
     this.hopperModeProperty.link( function( hopperMode ) {
-      assert && assert( _.contains( HOPPER_MODE_VALUES, hopperMode ), 'invalid hopperMode: ' + hopperMode );
+      assert && assert( _.includes( HOPPER_MODE_VALUES, hopperMode ), 'invalid hopperMode: ' + hopperMode );
     } );
 
     this.ballCreationTimeElapsed = 0; // @public {number} - time elapsed since last ball creation

@@ -34,7 +34,7 @@ define( function( require ) {
 
     // validate string values
     this.histogramModeProperty.link( function( histogramMode ) {
-      assert && assert( _.contains( HISTOGRAM_MODE_VALUES, histogramMode ), 'invalid histogramMode: ' + histogramMode );
+      assert && assert( _.includes( HISTOGRAM_MODE_VALUES, histogramMode ), 'invalid histogramMode: ' + histogramMode );
     } );
   }
 
