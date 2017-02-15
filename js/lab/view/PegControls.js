@@ -39,8 +39,7 @@ define( function( require ) {
       align: 'center',
       fill: 'white',
       xMargin: 10,
-      yMargin: 8,
-      resize: false // prevent sliders from causing a resize when thumb is at min or max
+      yMargin: 8
     }, options );
 
     // major tick labels for slider that controls number of rows
@@ -99,7 +98,6 @@ define( function( require ) {
     } );
 
     var contentNode = new VBox( {
-      resize: false, // prevent sliders from causing a resize when thumb is at min or max
       align: 'center',
       spacing: 20,
       children: [ rowsControl, probabilityControl ]
