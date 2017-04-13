@@ -1,5 +1,5 @@
 {
-  "comment": "# plinko-probability 1.0.2 Thu Apr 13 2017 12:14:19 GMT-0600 (MDT)",
+  "comment": "# plinko-probability 1.0.2 Thu Apr 13 2017 16:39:37 GMT-0600 (MDT)",
   "assert": {
     "sha": "7d27130a4d27da15aa7f8a21bbfb9245288c1b44",
     "branch": "HEAD"
@@ -10,11 +10,11 @@
   },
   "brand": {
     "sha": "853b3b17a27619da1323e66ac18bb40bad17f784",
-    "branch": "plinko-probability-1.0"
+    "branch": "HEAD"
   },
   "chipper": {
     "sha": "07058555426e7ba2b63c2390c5dc3c19554e4c50",
-    "branch": "plinko-probability-1.0"
+    "branch": "HEAD"
   },
   "dot": {
     "sha": "394365987f8653dba5a82b9ceac29b9eb3e32be9",
@@ -34,10 +34,10 @@
   },
   "phetcommon": {
     "sha": "e9e5028b62601e8b95abd09ff0cbcee82d67ec82",
-    "branch": "plinko-probability-1.0"
+    "branch": "HEAD"
   },
   "plinko-probability": {
-    "sha": "f6bbd50ed9d19941bfaf57b34fd8c551098a7d02",
+    "sha": "026dd86bef14da384e020a6ac2840aba39709fcd",
     "branch": "1.0"
   },
   "query-string-machine": {
@@ -65,7 +65,7 @@
     "branch": "HEAD"
   },
   "vibe": {
-    "sha": "b422db9ca26db3273d4f827a96f1267a7fd738c7",
-    "branch": "HEAD"
+    "sha": "0b1c33f9387ddc9e8e48d54ba0500a1907307975",
+    "branch": "plinko-probability-1.0"
   }
 }
