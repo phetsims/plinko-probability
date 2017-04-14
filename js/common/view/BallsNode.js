@@ -69,7 +69,7 @@ define( function( require ) {
       if ( !this.ballImage ) { return; }
 
       // Adjust size of the balls based on the number of rows in the Galton board.
-      var scaleFactor = PlinkoProbabilityConstants.ROWS_RANGE.min / this.numberOfRowsProperty.get();
+      var scaleFactor = (PlinkoProbabilityConstants.ROWS_RANGE.min + 1) / (this.numberOfRowsProperty.get() + 1);
 
       var self = this;
       this.balls.forEach( function( ball ) {
