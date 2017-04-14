@@ -34,10 +34,13 @@ define( function( require ) {
 
     options = _.extend( {
       rotatePegs: true, // pegs have a flat surface whose orientation changes with probability
-      pegRadius: 19 // radius of pegs when the number of rows is the default value
+      pegRadius: 95 // radius of peg when the number of row is 1, radius of pegs
     }, options );
 
     var self = this;
+
+    // for the purposes of drawing the pegs, draw the largest possible peg (i.e. with the minimum number Of rows) in Node and use canvasNode to scale it down, ensuring always a high quality image.
+    var largestPegRadius = options.pegRadius / PlinkoProbabilityConstants.ROWS_RANGE.min;
 
     // @private
     this.options = options;
@@ -52,22 +55,22 @@ define( function( require ) {
     if ( options.rotatePegs ) {
 
       // flat surface pointing up
-      pegShape = new Shape().arc( 0, 0, options.pegRadius, -0.75 * Math.PI, -0.25 * Math.PI, true );
+      pegShape = new Shape().arc( 0, 0, largestPegRadius, -0.75 * Math.PI, -0.25 * Math.PI, true );
     }
     else {
-      pegShape = new Shape().circle( 0, 0, options.pegRadius );
+      pegShape = new Shape().circle( 0, 0, largestPegRadius );
     }
 
     var pegNode = new Path( pegShape, { fill: PlinkoProbabilityConstants.PEG_COLOR } );
 
-    var shadowNode = new Circle( 1.4 * options.pegRadius, {
+    var shadowNode = new Circle( 1.4 * largestPegRadius, {
       fill: new RadialGradient(
-        options.pegRadius * 0.3,
-        options.pegRadius * 0.5,
+        largestPegRadius * 0.3,
+        largestPegRadius * 0.5,
         0,
-        options.pegRadius * 0.1,
-        -options.pegRadius * 0.6,
-        options.pegRadius * 1.4
+        largestPegRadius * 0.1,
+        -largestPegRadius * 0.6,
+        largestPegRadius * 1.4
       )
         .addColorStop( 0, 'rgba(0,0,0,1)' )
         .addColorStop( 0.1809, 'rgba(3,3,3, 0.8191)' )
@@ -138,7 +141,7 @@ define( function( require ) {
 
       // probability 0.5 has the flat part of the peg facing up
       var pegAngle = -( Math.PI / 4 ) + ( this.probabilityProperty.get() * Math.PI / 2 );
-      
+
       // shadow offset, a bit below and to the right, determined empirically
       var pegSpacing = GaltonBoard.getPegSpacing( self.numberOfRowsProperty.get() );
       var shadowOffset = self.modelViewTransform.modelToViewDelta( new Vector2( pegSpacing * 0.08, -pegSpacing * 0.24 ) );
@@ -146,12 +149,12 @@ define( function( require ) {
       // galtonBoard.pegs contains all the model pegs (even pegs that that are currently invisible)
       this.galtonBoard.pegs.forEach( function( peg ) {
         if ( peg.isVisible ) {
-          
+
           var pegPosition = self.modelViewTransform.modelToViewPosition( peg.position );
           var shadowPosition = pegPosition.plus( shadowOffset );
 
           // shadow
-          context.drawImage( self.shadowImage, 
+          context.drawImage( self.shadowImage,
             shadowPosition.x - shadowWidth / 2, shadowPosition.y - shadowHeight / 2,
             shadowWidth, shadowHeight );
 
