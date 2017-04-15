@@ -69,7 +69,16 @@ define( function( require ) {
       if ( !this.ballImage ) { return; }
 
       // Adjust size of the balls based on the number of rows in the Galton board.
-      var scaleFactor = (PlinkoProbabilityConstants.ROWS_RANGE.min + 1) / (this.numberOfRowsProperty.get() + 1);
+      var scaleFactor;
+      var stopScalingRowNumber = 2;
+      // scale ball radius to be inversely proportional to (number of rows )
+      if ( this.numberOfRowsProperty.get() > stopScalingRowNumber ) {
+        scaleFactor = (PlinkoProbabilityConstants.ROWS_RANGE.min + 1) / (this.numberOfRowsProperty.get() + 1);
+      }
+      else {
+        // when the number of rows is less than 2, stop scaling up the ball radius
+        scaleFactor = (PlinkoProbabilityConstants.ROWS_RANGE.min + 1) / (stopScalingRowNumber + 2);
+      }
 
       var self = this;
       this.balls.forEach( function( ball ) {
