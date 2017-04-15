@@ -52,7 +52,9 @@ define( function( require ) {
     BINARY_PROBABILITY_RANGE: new RangeWithValue( 0, 1, 0.5 ),
 
     //TODO Bad things happen if ROWS_RANGE.min is !== 5. See https://github.com/phetsims/plinko-probability/issues/84
-    ROWS_RANGE: new RangeWithValue( 5, 26, 12 ),
+    ROWS_RANGE: new RangeWithValue( PlinkoProbabilityQueryParameters.minRow,
+      PlinkoProbabilityQueryParameters.maxRow,
+      PlinkoProbabilityQueryParameters.defaultRow ),
 
     // constants for the ball and the pegs
     BALL_COLOR: 'rgb(237,28,36)', // color of the Ball.

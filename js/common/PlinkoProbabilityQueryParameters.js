@@ -45,6 +45,32 @@ define( function( require ) {
       }
     },
 
+    // TODO: Bad things will happen if the minRow is set higher than maxRow
+    // minimum number of peg rows on lab screen
+    minRow: {
+      type: 'number',
+      defaultValue: 5,
+      isValidValue: function( value ) {
+        return value > 0 && Util.isInteger( value );
+      }
+    },
+    // maximum number of peg rows on lab screen
+    maxRow: {
+      type: 'number',
+      defaultValue: 26,
+      isValidValue: function( value ) {
+        return value > 0 && Util.isInteger( value );
+      }
+    },
+    // default number of peg rows on intro and lab screen
+    defaultRow: {
+      type: 'number',
+      defaultValue: 12,
+      isValidValue: function( value ) {
+        return value > 0 && Util.isInteger( value );
+      }
+    },
+
     // Uses 3D appearance for the Play button, see https://github.com/phetsims/plinko-probability/issues/26
     play3D: { type: 'flag' }
   } );
