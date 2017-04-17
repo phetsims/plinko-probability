@@ -16,7 +16,7 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
-  var SubSupText = require( 'SCENERY_PHET/SubSupText' );
+  var RichText = require( 'SCENERY_PHET/RichText' );
   var Text = require( 'SCENERY/nodes/Text' );
   var Util = require( 'DOT/Util' );
 
@@ -43,7 +43,7 @@ define( function( require ) {
     // @private
     this.options = options;
 
-    var leftHandSideOfEquationText = new SubSupText( leftHandSideOfEquation, {
+    var leftHandSideOfEquationText = new RichText( leftHandSideOfEquation, {
       font: options.leftHandSideFont,
       fill: options.leftHandSideFill,
       subScale: 0.5,
