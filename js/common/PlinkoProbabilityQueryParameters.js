@@ -49,7 +49,7 @@ define( function( require ) {
     // minimum number of peg rows on lab screen
     minRow: {
       type: 'number',
-      defaultValue: 5,
+      defaultValue: 1,
       isValidValue: function( value ) {
         return value > 0 && Util.isInteger( value );
       }

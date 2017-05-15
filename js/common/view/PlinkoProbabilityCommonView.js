@@ -50,7 +50,7 @@ define( function( require ) {
     } );
     this.viewProperties = viewProperties; // @protected
 
-    var hopper = new Hopper( {
+    var hopper = new Hopper( model.numberOfRowsProperty, {
       centerX: this.layoutBounds.maxX / 2 - 80,
       top: 10
     } );
