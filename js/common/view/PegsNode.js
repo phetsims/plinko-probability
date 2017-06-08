@@ -43,7 +43,6 @@ define( function( require ) {
     // This scaling is preserved for rows greater than 2.
     // When the number of rows is 1 and 2, an ad hoc scaling is used. See paintCanvas for details
 
-
     // for the purposes of drawing the pegs, draw the largest possible peg (i.e. with the minimum number Of rows) in Node and use canvasNode to scale it down, ensuring always a high quality image.
     var largestPegRadius = options.pegRadius / (PlinkoProbabilityConstants.ROWS_RANGE.min + 1);
 
@@ -138,23 +137,10 @@ define( function( require ) {
       }
 
       // compute values that remain constant in for loop
-      var pegScale;   // the pegScale from
-      var verticalPegOffset; // vertical offset for ad hoc scaling
-      var stopScalingRowNumber = 2;
 
       // scale peg radius to be inversely proportional to the number of bins
-      if ( this.numberOfRowsProperty.get() > stopScalingRowNumber ) {
-        pegScale = (PlinkoProbabilityConstants.ROWS_RANGE.min + 1) / (this.numberOfRowsProperty.get() + 1);
-        verticalPegOffset = 0;
-      }
-      else {
-
-        // when the number of rows is less than 2, stop scaling up the ball radius
-        pegScale = (PlinkoProbabilityConstants.ROWS_RANGE.min + 1) / (stopScalingRowNumber + 2);
-
-        // determine empirically
-        verticalPegOffset = 10 - 65 / this.numberOfRowsProperty.get();
-      }
+      var pegScale = (PlinkoProbabilityConstants.ROWS_RANGE.min + 1) /
+                     (this.numberOfRowsProperty.get() + 1);
 
       var pegWidth = pegScale * self.pegImage.width;
       var pegHeight = pegScale * self.pegImage.height;
@@ -165,8 +151,7 @@ define( function( require ) {
       var pegAngle = -( Math.PI / 4 ) + ( this.probabilityProperty.get() * Math.PI / 2 );
 
       // shadow offset, a bit below and to the right, determined empirically
-      var pegSpacing = GaltonBoard.getPegSpacing( Math.max( self.numberOfRowsProperty.get(), stopScalingRowNumber + 2 ) );
-
+      var pegSpacing = GaltonBoard.getPegSpacing( self.numberOfRowsProperty.get() );
       var shadowOffset = self.modelViewTransform.modelToViewDelta( new Vector2( pegSpacing * 0.08, -pegSpacing * 0.24 ) );
 
       // galtonBoard.pegs contains all the model pegs (even pegs that that are currently invisible)
@@ -178,12 +163,12 @@ define( function( require ) {
 
           // shadow
           context.drawImage( self.shadowImage,
-            shadowPosition.x - shadowWidth / 2, shadowPosition.y - shadowHeight / 2 + verticalPegOffset,
+            shadowPosition.x - shadowWidth / 2, shadowPosition.y - shadowHeight / 2,
             shadowWidth, shadowHeight );
 
           // rotated peg
           context.save();
-          context.translate( pegPosition.x, pegPosition.y + verticalPegOffset );
+          context.translate( pegPosition.x, pegPosition.y );
           context.rotate( pegAngle );
           context.drawImage( self.pegImage, -pegWidth / 2, -pegHeight / 2, pegWidth, pegHeight );
           context.restore();
