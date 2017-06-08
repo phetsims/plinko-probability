@@ -34,17 +34,17 @@ define( function( require ) {
 
     options = _.extend( {
       rotatePegs: true, // pegs have a flat surface whose orientation changes with probability
-      pegRadius: 100 // radius of peg when the number of row is 1, radius of pegs
+      pegRadius: 50 // radius of peg when the number of rows is 1
     }, options );
 
     var self = this;
 
-    // NOTE: the pegs are scales inversely proportional to the numberOfBins that is inversely proportional to the number of rows +1
-    // This scaling is preserved for rows greater than 2.
-    // When the number of rows is 1 and 2, an ad hoc scaling is used. See paintCanvas for details
+    // NOTE: the pegs are scales inversely proportional to the numberOfBins
+    // that is inversely proportional to the number of rows +1
 
-    // for the purposes of drawing the pegs, draw the largest possible peg (i.e. with the minimum number Of rows) in Node and use canvasNode to scale it down, ensuring always a high quality image.
-    var largestPegRadius = options.pegRadius / (PlinkoProbabilityConstants.ROWS_RANGE.min + 1);
+    // for the purposes of drawing the pegs, draw the largest possible peg (i.e. with the minimum number Of rows) in
+    // Node and use canvasNode to scale it down, ensuring always a high quality image.
+    var largestPegRadius = options.pegRadius * ( 2 / (PlinkoProbabilityConstants.ROWS_RANGE.min + 1));
 
     // @private
     this.options = options;
