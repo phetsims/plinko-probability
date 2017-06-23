@@ -1,5 +1,5 @@
 {
-  "comment": "# plinko-probability 1.1.0 Wed Jun 21 2017 12:16:33 GMT-0800 (Alaskan Daylight Time)",
+  "comment": "# plinko-probability 1.1.0 Fri Jun 23 2017 14:21:14 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "5c3f92048a9c2ffd6df8ede54fd64f1f7a7e4ef2",
     "branch": "HEAD"
@@ -37,7 +37,7 @@
     "branch": "HEAD"
   },
   "plinko-probability": {
-    "sha": "2032b42c33bbc7b37acd7ffecdaee67ec92831b2",
+    "sha": "ae768f7f89e3c9ca03200c3eb0331664ecae5823",
     "branch": "1.1"
   },
   "query-string-machine": {
@@ -49,8 +49,8 @@
     "branch": "HEAD"
   },
   "scenery-phet": {
-    "sha": "9f1ceac9326ba160b009692835d085a6a035f066",
-    "branch": "HEAD"
+    "sha": "739ecd30702eca5cf372509c8348e009530fd927",
+    "branch": "plinko-probability-1.1"
   },
   "sherpa": {
     "sha": "812fdf9e8222a204c371347f2a0615ef02d0f72e",
