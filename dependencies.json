@@ -53,15 +53,15 @@
     "branch": "HEAD"
   },
   "phet-io-wrappers": {
-    "sha": "772374f6792544774d7c1988710339eb3d0143c8",
-    "branch": "HEAD"
+    "sha": "0e4072208b9a85a2cd581e6e3ec2cd2d3688b52c",
+    "branch": "plinko-probability-1.1-phetio"
   },
   "phetcommon": {
     "sha": "29164892095a5d8f47687c3ed57dab5c3fe2d82b",
     "branch": "HEAD"
   },
   "plinko-probability": {
-    "sha": "7ab097ce606235ba6c48c1c3c4d19ed819f0c1db",
+    "sha": "5a14b7687e9e5d9fbe04956504930b9d4d375214",
     "branch": "1.1-phetio"
   },
   "query-string-machine": {
@@ -74,7 +74,7 @@
   },
   "scenery-phet": {
     "sha": "cbc9226cdd3537cd4bd0242fc498fee3341bafb2",
-    "branch": "plinko-probability-1.1-phetio"
+    "branch": "HEAD"
   },
   "sherpa": {
     "sha": "812fdf9e8222a204c371347f2a0615ef02d0f72e",
