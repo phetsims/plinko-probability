@@ -81,8 +81,8 @@ define( function( require ) {
     // play pause buttons
     PLAY_PAUSE_BUTTON_RADIUS: 30,
     PLAY_PAUSE_BUTTON_APPEARANCE_STRATEGY: PlinkoProbabilityQueryParameters.play3D ?
-                                           RoundButtonView.threeDAppearanceStrategy :
-                                           RoundButtonView.flatAppearanceStrategy // see issue #26
+                                           RoundButtonView.ThreeDAppearanceStrategy :
+                                           RoundButtonView.FlatAppearanceStrategy // see issue #26
   };
 
   plinkoProbability.register( 'PlinkoProbabilityConstants', PlinkoProbabilityConstants );
