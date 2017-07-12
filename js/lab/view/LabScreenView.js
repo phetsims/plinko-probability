@@ -143,6 +143,9 @@ define( function( require ) {
       }
     } );
 
+    // OutOfBallsDialog, created lazily because Dialog requires sim bounds during construction
+    var dialog = null;
+
     // no need to dispose of this link
     model.isBallCapReachedProperty.lazyLink( function( isBallCapReached ) {
 
@@ -150,7 +153,10 @@ define( function( require ) {
       if ( isBallCapReached ) {
 
         // pop up a dialog
-        new OutOfBallsDialog().show();
+        if ( !dialog ) {
+          dialog = new OutOfBallsDialog();
+        }
+        dialog.show();
 
         // sets the play button to active.
         playPanel.setPlayButtonVisible();
