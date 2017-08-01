@@ -92,7 +92,7 @@ define( function( require ) {
     this.playButton = new PlayButton( {
       listener: function() {
         if ( model.isBallCapReachedProperty.get() ) {
-          model.isBallCapReachedProperty.notifyObserversStatic();
+          model.isBallCapReachedProperty.notifyListenersStatic();
         }
         else {
           if ( ballModeProperty.get() === 'continuous' ) {
