@@ -20,7 +20,7 @@ define( function( require ) {
   var simOptions = {
     credits: {
       leadDesign: 'Michael Dubson, Amanda McGarry',
-      softwareDevelopment: 'Martin Veillette, Denzell Barnett,\nChris Malley (PixelZoom, Inc.), Guillermo Ramos-Macias',
+      softwareDevelopment: 'Martin Veillette, Denzell Barnett, Chris Malley (PixelZoom, Inc.), Guillermo Ramos-Macias',
       team: 'Karina K. Hensberry, Trish Loeblein, Ariel Paul, Kathy Perkins',
       qualityAssurance: 'Steele Dalton, Amanda Davis, Alex Dornan, Bryce Griebenow, Ben Roberts'
     }
