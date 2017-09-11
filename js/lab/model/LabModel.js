@@ -10,8 +10,8 @@ define( function( require ) {
 
   // modules
   var BallPhase = require( 'PLINKO_PROBABILITY/common/model/BallPhase' );
-  var LabBall = require( 'PLINKO_PROBABILITY/lab/model/LabBall' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var LabBall = require( 'PLINKO_PROBABILITY/lab/model/LabBall' );
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var PlinkoProbabilityCommonModel = require( 'PLINKO_PROBABILITY/common/model/PlinkoProbabilityCommonModel' );
   var PlinkoProbabilityQueryParameters = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityQueryParameters' );

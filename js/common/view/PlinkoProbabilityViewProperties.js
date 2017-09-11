@@ -14,8 +14,8 @@ define( function( require ) {
   var Property = require( 'AXON/Property' );
 
   // phet-io modules
-  var TString = require( 'ifphetio!PHET_IO/types/TString' );
   var TBoolean = require( 'ifphetio!PHET_IO/types/TBoolean' );
+  var TString = require( 'ifphetio!PHET_IO/types/TString' );
 
   // constants
   var HISTOGRAM_MODE_VALUES = [ 'counter', 'cylinder', 'fraction' ]; // values for histogramModeProperty

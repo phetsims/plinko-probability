@@ -16,8 +16,8 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Panel = require( 'SUN/Panel' );
-  var PlayButton = require( 'PLINKO_PROBABILITY/common/view/PlayButton' );
   var PauseButton = require( 'PLINKO_PROBABILITY/common/view/PauseButton' );
+  var PlayButton = require( 'PLINKO_PROBABILITY/common/view/PlayButton' );
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var PlinkoProbabilityConstants = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityConstants' );
   var VerticalAquaRadioButtonGroup = require( 'SUN/VerticalAquaRadioButtonGroup' );

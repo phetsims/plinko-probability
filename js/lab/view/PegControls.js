@@ -12,17 +12,17 @@ define( function( require ) {
   // modules
   var Dimension2 = require( 'DOT/Dimension2' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var NumberControl = require( 'SCENERY_PHET/NumberControl' );
   var Panel = require( 'SUN/Panel' );
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var PlinkoProbabilityConstants = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityConstants' );
-  var NumberControl = require( 'SCENERY_PHET/NumberControl' );
   var Text = require( 'SCENERY/nodes/Text' );
   var Util = require( 'DOT/Util' );
   var VBox = require( 'SCENERY/nodes/VBox' );
 
   // strings
-  var rowsString = require( 'string!PLINKO_PROBABILITY/rows' );
   var binaryProbabilityString = require( 'string!PLINKO_PROBABILITY/binaryProbability' );
+  var rowsString = require( 'string!PLINKO_PROBABILITY/rows' );
 
   // constants
   var SLIDER_TRACK_SIZE = new Dimension2( 170, 2 );

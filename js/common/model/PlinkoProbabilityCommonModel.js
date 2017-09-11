@@ -14,9 +14,9 @@ define( function( require ) {
   var Histogram = require( 'PLINKO_PROBABILITY/common/model/Histogram' );
   var inherit = require( 'PHET_CORE/inherit' );
   var ObservableArray = require( 'AXON/ObservableArray' );
-  var Property = require( 'AXON/Property' );
-  var PlinkoProbabilityConstants = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityConstants' );
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
+  var PlinkoProbabilityConstants = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityConstants' );
+  var Property = require( 'AXON/Property' );
 
   // phet-io modules
   var TString = require( 'ifphetio!PHET_IO/types/TString' );
