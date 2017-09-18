@@ -77,6 +77,15 @@ define( function( require ) {
 
   plinkoProbability.register( 'PlinkoProbabilityQueryParameters', PlinkoProbabilityQueryParameters );
 
+  // log the values of all sim-specific query parameters
+  if ( phet.log ) {
+    for ( var property in PlinkoProbabilityQueryParameters ) {
+      if ( PlinkoProbabilityQueryParameters.hasOwnProperty( property ) ) {
+        phet.log( property + '=' + PlinkoProbabilityQueryParameters[ property ] );
+      }
+    }
+  }
+
   return PlinkoProbabilityQueryParameters;
 } );
 
