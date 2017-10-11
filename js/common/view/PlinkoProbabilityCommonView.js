@@ -118,10 +118,10 @@ define( function( require ) {
     this.addChild( board );
     this.addChild( ballsNode );
     this.addChild( eraserButton );
-    this.addChild( soundToggleButton );
-    this.addChild( resetAllButton );
     this.addChild( histogramNode );
     this.addChild( hopper );
+    this.addChild( soundToggleButton );
+    this.addChild( resetAllButton );
 
     // Hide BallsNode when the hopper mode is not 'ball'.
     // unlink unnecessary since this instance exists for the lifetime of the sim.

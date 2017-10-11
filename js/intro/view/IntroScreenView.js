@@ -72,8 +72,8 @@ define( function( require ) {
     } );
 
     // rendering order
-    this.addChild( histogramModeControl );
     this.addChild( playPanel );
+    this.addChild( histogramModeControl );
     this.addChild( numberBallsDisplay );
     this.addChild( pegsNode );
     this.addChild( cylindersBackNode );
@@ -117,6 +117,10 @@ define( function( require ) {
         }
       } );
     } );
+
+    // a11y
+    // set tab order
+    this.accessibleOrder = [ playPanel, histogramModeControl, this.eraserButton ];
   }
 
   plinkoProbability.register( 'IntroScreenView', IntroScreenView );
