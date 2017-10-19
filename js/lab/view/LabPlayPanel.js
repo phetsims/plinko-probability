@@ -120,18 +120,18 @@ define( function( require ) {
       self.setPlayButtonVisible(); // show the play button
     } );
 
-    // create a separate node to hold the play and pause button
-    var playPlayPauseButton = new Node();
+    // @private - create a separate node to hold the play and pause button
+    this.playPlayPauseButton = new Node();
 
     // add the play and pause button
-    playPlayPauseButton.addChild( this.playButton );
-    playPlayPauseButton.addChild( this.pauseButton );
+    this.playPlayPauseButton.addChild( this.playButton );
+    this.playPlayPauseButton.addChild( this.pauseButton );
 
     // create the content of the panel, with the play pause button and the radio buttons
     var startVBox = new HBox( {
       spacing: 20,
       children: [
-        playPlayPauseButton,
+        this.playPlayPauseButton,
         ballModeRadioButtons
       ]
     } );
@@ -155,8 +155,10 @@ define( function( require ) {
      */
     togglePlayPauseButtonVisibility: function() {
       assert && assert( this.playButton.visible !== this.pauseButton.visible, 'the visibility of the play and pause buttons should alternate' );
-      this.playButton.visible = !this.playButton.visible;
-      this.pauseButton.visible = !this.pauseButton.visible;
+
+      var visibleButton = this.playButton.visible ? this.playButton : this.pauseButton;
+      var invisibleButton = this.playButton.visible ? this.pauseButton : this.playButton;
+      this.playPlayPauseButton.swapVisibility( visibleButton, invisibleButton );
     },
 
     /**
