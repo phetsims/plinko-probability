@@ -165,6 +165,9 @@ define( function( require ) {
         model.isPlayingProperty.set( false );
       }
     } );
+
+    // a11y
+    this.accessibleOrder = [ playPanel, pegControls, statisticsAccordionBox, hopperModeControl, histogramModeControl, this.eraserButton];
   }
 
   plinkoProbability.register( 'LabScreenView', LabScreenView );
