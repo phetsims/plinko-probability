@@ -14,12 +14,13 @@ define( function( require ) {
   var HBox = require( 'SCENERY/nodes/HBox' );
   var HStrut = require( 'SCENERY/nodes/HStrut' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Node = require( 'SCENERY/nodes/Node' );
   var Panel = require( 'SUN/Panel' );
   var PauseButton = require( 'PLINKO_PROBABILITY/common/view/PauseButton' );
   var PlayButton = require( 'PLINKO_PROBABILITY/common/view/PlayButton' );
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var PlinkoProbabilityConstants = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityConstants' );
+  var Property = require( 'AXON/Property' );
+  var ToggleNode = require( 'SUN/ToggleNode' );
   var VerticalAquaRadioButtonGroup = require( 'SUN/VerticalAquaRadioButtonGroup' );
 
   // constants
@@ -114,24 +115,22 @@ define( function( require ) {
       }
     } );
 
+    // @private {Property.<boolean>} - Property that tracks visibility of the play button for a ToggleNode
+    this.playButtonVisibleProperty = new Property( true );
+
+    var playPlayPauseButton = new ToggleNode( this.playButton, this.pauseButton, this.playButtonVisibleProperty );
+
     // link the ballModeProperty to the state of the playPauseButton
     ballModeProperty.link( function() {
       model.isPlayingProperty.set( false ); // if the radio buttons change then we would like to change the playing property
-      self.setPlayButtonVisible(); // show the play button
+      self.playButtonVisibleProperty.set( true );
     } );
-
-    // @private - create a separate node to hold the play and pause button
-    this.playPlayPauseButton = new Node();
-
-    // add the play and pause button
-    this.playPlayPauseButton.addChild( this.playButton );
-    this.playPlayPauseButton.addChild( this.pauseButton );
 
     // create the content of the panel, with the play pause button and the radio buttons
     var startVBox = new HBox( {
       spacing: 20,
       children: [
-        this.playPlayPauseButton,
+        playPlayPauseButton,
         ballModeRadioButtons
       ]
     } );
@@ -155,20 +154,7 @@ define( function( require ) {
      */
     togglePlayPauseButtonVisibility: function() {
       assert && assert( this.playButton.visible !== this.pauseButton.visible, 'the visibility of the play and pause buttons should alternate' );
-
-      var visibleButton = this.playButton.visible ? this.playButton : this.pauseButton;
-      var invisibleButton = this.playButton.visible ? this.pauseButton : this.playButton;
-      this.playPlayPauseButton.swapVisibility( visibleButton, invisibleButton );
-    },
-
-    /**
-     * Sets the visibility of the play pause button to play
-     *
-     * @public
-     */
-    setPlayButtonVisible: function() {
-      this.playButton.visible = true;
-      this.pauseButton.visible = false;
+      this.playButtonVisibleProperty.set( !this.playButtonVisibleProperty.get() );
     }
   } );
 } );
