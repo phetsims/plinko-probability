@@ -15,7 +15,7 @@ define( function( require ) {
   var PropertyIO = require( 'AXON/PropertyIO' );
 
   // phet-io modules
-  var TBoolean = require( 'ifphetio!PHET_IO/types/TBoolean' );
+  var BooleanIO = require( 'ifphetio!PHET_IO/types/BooleanIO' );
   var TString = require( 'ifphetio!PHET_IO/types/TString' );
 
   // constants
@@ -35,7 +35,7 @@ define( function( require ) {
     this.histogramModeProperty = new Property( options.histogramMode, { phetioType: PropertyIO( TString ) } );
     this.expandedAccordionBoxProperty = new Property( true );
     this.isTheoreticalHistogramVisibleProperty = new Property( false );
-    this.isSoundEnabledProperty = new Property( false, { phetioType: PropertyIO( TBoolean ) } );
+    this.isSoundEnabledProperty = new Property( false, { phetioType: PropertyIO( BooleanIO ) } );
 
     // validate string values
     this.histogramModeProperty.link( function( histogramMode ) {
