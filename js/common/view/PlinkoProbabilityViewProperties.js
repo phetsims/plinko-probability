@@ -12,6 +12,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var Property = require( 'AXON/Property' );
+  var TProperty = require( 'AXON/TProperty' );
 
   // phet-io modules
   var TBoolean = require( 'ifphetio!PHET_IO/types/TBoolean' );
@@ -31,10 +32,10 @@ define( function( require ) {
     }, options );
 
     // @public
-    this.histogramModeProperty = new Property( options.histogramMode, { phetioValueType: TString } );
+    this.histogramModeProperty = new Property( options.histogramMode, { phetioType: TProperty( TString ) } );
     this.expandedAccordionBoxProperty = new Property( true );
     this.isTheoreticalHistogramVisibleProperty = new Property( false );
-    this.isSoundEnabledProperty = new Property( false, {phetioValueType: TBoolean} );
+    this.isSoundEnabledProperty = new Property( false, { phetioType: TProperty( TBoolean ) } );
 
     // validate string values
     this.histogramModeProperty.link( function( histogramMode ) {
