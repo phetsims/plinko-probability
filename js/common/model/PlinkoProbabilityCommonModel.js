@@ -20,7 +20,7 @@ define( function( require ) {
   var PropertyIO = require( 'AXON/PropertyIO' );
 
   // phet-io modules
-  var TString = require( 'ifphetio!PHET_IO/types/TString' );
+  var StringIO = require( 'ifphetio!PHET_IO/types/StringIO' );
 
   // constants
   var BALL_MODE_VALUES = [ 'oneBall', 'tenBalls', 'allBalls', 'continuous' ]; // values for ballModeProperty
@@ -35,10 +35,10 @@ define( function( require ) {
     this.probabilityProperty = new Property( PlinkoProbabilityConstants.BINARY_PROBABILITY_RANGE.defaultValue );
 
     // @public {string} controls how many balls are dispensed when the 'play' button is pressed, see BALL_MODE_VALUES
-    this.ballModeProperty = new Property( 'oneBall', { phetioType: PropertyIO( TString ) } );
+    this.ballModeProperty = new Property( 'oneBall', { phetioType: PropertyIO( StringIO ) } );
 
     // {string} controls what comes out of the hopper above the Galton board, see HOPPER_MODE_VALUES
-    this.hopperModeProperty = new Property( 'ball', { phetioType: PropertyIO( TString ) } );
+    this.hopperModeProperty = new Property( 'ball', { phetioType: PropertyIO( StringIO ) } );
 
     // {boolean} is the maximum number of balls reached?
     this.isBallCapReachedProperty = new Property( false );

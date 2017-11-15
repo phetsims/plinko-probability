@@ -16,7 +16,7 @@ define( function( require ) {
 
   // phet-io modules
   var BooleanIO = require( 'ifphetio!PHET_IO/types/BooleanIO' );
-  var TString = require( 'ifphetio!PHET_IO/types/TString' );
+  var StringIO = require( 'ifphetio!PHET_IO/types/StringIO' );
 
   // constants
   var HISTOGRAM_MODE_VALUES = [ 'counter', 'cylinder', 'fraction' ]; // values for histogramModeProperty
@@ -32,7 +32,7 @@ define( function( require ) {
     }, options );
 
     // @public
-    this.histogramModeProperty = new Property( options.histogramMode, { phetioType: PropertyIO( TString ) } );
+    this.histogramModeProperty = new Property( options.histogramMode, { phetioType: PropertyIO( StringIO ) } );
     this.expandedAccordionBoxProperty = new Property( true );
     this.isTheoreticalHistogramVisibleProperty = new Property( false );
     this.isSoundEnabledProperty = new Property( false, { phetioType: PropertyIO( BooleanIO ) } );
