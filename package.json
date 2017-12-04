@@ -13,6 +13,12 @@
     "requirejsNamespace": "PLINKO_PROBABILITY",
     "phetLibs": [
       "vibe"
-    ]
+    ],
+    "runnable": true,
+    "supportedBrands": [
+      "phet"
+    ],
+    "accessible": true,
+    "simulation": true
   }
 }
