@@ -1,4 +1,4 @@
-// Copyright 2017, University of Colorado Boulder
+// Copyright -2017, University of Colorado Boulder
 
 /**
  * Canvas Node that renders all the scenery balls
