@@ -10,7 +10,7 @@ define( function( require ) {
 
   // modules
   var AccordionBox = require( 'SUN/AccordionBox' );
-  var CheckBox = require( 'SUN/CheckBox' );
+  var Checkbox = require( 'SUN/Checkbox' );
   var EquationNode = require( 'PLINKO_PROBABILITY/common/view/EquationNode' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var HistogramIcon = require( 'PLINKO_PROBABILITY/lab/view/HistogramIcon' );
@@ -119,7 +119,7 @@ define( function( require ) {
 
     // create the histogram icon with the text underneath it.
     var histogramIcon = new HistogramIcon();
-    var histogramCheckBoxIcon = new VBox( {
+    var histogramCheckboxIcon = new VBox( {
       align: 'center',
       spacing: 5,
       children: [
@@ -131,7 +131,7 @@ define( function( require ) {
       ]
     } );
 
-    var histogramCheckBox = new CheckBox( histogramCheckBoxIcon, isTheoreticalHistogramVisibleProperty );
+    var histogramCheckbox = new Checkbox( histogramCheckboxIcon, isTheoreticalHistogramVisibleProperty );
 
     var contentNode = new HBox( {
       spacing: 5,
@@ -156,7 +156,7 @@ define( function( require ) {
           children: [
             theoreticalAverageText,
             theoreticalStandardDeviationText,
-            histogramCheckBox
+            histogramCheckbox
           ]
         } )
       ]
