@@ -72,8 +72,7 @@ define( function( require ) {
       tickLabelSpacing: 1,
 
       // a11y
-      keyboardStep: 2,
-      shiftKeyboardStep: 1
+      keyboardStep: 2
     } );
 
     // major tick labels for slider that controls binary probability
