@@ -158,8 +158,8 @@ define( function( require ) {
         }
         dialog.show();
 
-        // sets the play button to active.
-        playPanel.setPlayButtonVisible();
+        // makes the play button visible
+        playPanel.playButtonVisibleProperty.set( true );
 
         // it is not playing anymore
         model.isPlayingProperty.set( false );

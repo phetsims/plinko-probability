@@ -10,6 +10,7 @@ define( function( require ) {
 
   // modules
   var BallNode = require( 'PLINKO_PROBABILITY/common/view/BallNode' );
+  var BooleanProperty = require( 'AXON/BooleanProperty' );
   var Circle = require( 'SCENERY/nodes/Circle' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var HStrut = require( 'SCENERY/nodes/HStrut' );
@@ -19,7 +20,6 @@ define( function( require ) {
   var PlayButton = require( 'PLINKO_PROBABILITY/common/view/PlayButton' );
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var PlinkoProbabilityConstants = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityConstants' );
-  var Property = require( 'AXON/Property' );
   var ToggleNode = require( 'SUN/ToggleNode' );
   var VerticalAquaRadioButtonGroup = require( 'SUN/VerticalAquaRadioButtonGroup' );
 
@@ -89,15 +89,18 @@ define( function( require ) {
       spacing: 13 // vertical spacing between radio buttons
     } );
 
+    // @public true makes the play button visible, false makes the pause button visible
+    this.playButtonVisibleProperty = new BooleanProperty( true );
+
     // create the play button
-    this.playButton = new PlayButton( {
+    var playButton = new PlayButton( {
       listener: function() {
         if ( model.isBallCapReachedProperty.get() ) {
           model.isBallCapReachedProperty.notifyListenersStatic();
         }
         else {
           if ( ballModeProperty.get() === 'continuous' ) {
-            self.togglePlayPauseButtonVisibility(); // alternates play/pause visual state of button
+            self.playButtonVisibleProperty.set( false ); // make the pause button visible
             model.isPlayingProperty.set( true ); //set isPlayingProperty to true signifying that balls are being dropped
           }
           else {
@@ -108,17 +111,14 @@ define( function( require ) {
     } );
 
     // create the pause button
-    this.pauseButton = new PauseButton( {
+    var pauseButton = new PauseButton( {
       listener: function() {
-        self.togglePlayPauseButtonVisibility(); // alternates play/pause visual state of button
+        self.playButtonVisibleProperty.set( true ); // make the play button visible
         model.isPlayingProperty.set( false ); // set isPlayingProperty to false signifying that no balls are being dropped
       }
     } );
 
-    // @private {Property.<boolean>} - Property that tracks visibility of the play button for a ToggleNode
-    this.playButtonVisibleProperty = new Property( true );
-
-    var playPlayPauseButton = new ToggleNode( this.playButton, this.pauseButton, this.playButtonVisibleProperty );
+    var playPlayPauseButton = new ToggleNode( playButton, pauseButton, this.playButtonVisibleProperty );
 
     // link the ballModeProperty to the state of the playPauseButton
     ballModeProperty.link( function() {
@@ -139,23 +139,12 @@ define( function( require ) {
 
     // Disables play button if maximum amount of balls are dropped
     isBallCapReachedProperty.lazyLink( function( isBallCapReached ) {
-      self.playButton.enabled = !isBallCapReached;
+      playButton.enabled = !isBallCapReached;
     } );
   }
 
   plinkoProbability.register( 'LabPlayPanel', LabPlayPanel );
 
-  return inherit( Panel, LabPlayPanel, {
-
-    /**
-     * Toggle the visibility of the play and pause button
-     *
-     * @public
-     */
-    togglePlayPauseButtonVisibility: function() {
-      assert && assert( this.playButton.visible !== this.pauseButton.visible, 'the visibility of the play and pause buttons should alternate' );
-      this.playButtonVisibleProperty.set( !this.playButtonVisibleProperty.get() );
-    }
-  } );
+  return inherit( Panel, LabPlayPanel );
 } );
 
