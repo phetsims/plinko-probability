@@ -43,10 +43,10 @@ define( function( require ) {
     var defaultBallRadius = modelViewTransform.modelToViewDeltaX(
       GaltonBoard.getPegSpacing( PlinkoProbabilityConstants.ROWS_RANGE.min ) * PlinkoProbabilityConstants.BALL_SIZE_FRACTION );
 
-    // Create an image of the ball, used for rendering all balls. This happens asynchronously.
+    // Renders the ball to a canvas, used for rendering all balls.
     var ballNode = new BallNode( defaultBallRadius );
-    ballNode.toImage( function( image ) {
-      self.ballImage = image; // @private
+    ballNode.toCanvas( function( canvas, x, y, width, height ) {
+      self.ballCanvas = canvas; // @private
       self.invalidatePaint(); // calls paintCanvas
     } );
 
@@ -66,7 +66,7 @@ define( function( require ) {
     paintCanvas: function( context ) {
 
       // image is created asynchronously by toImage, so it may not be available yet
-      if ( !this.ballImage ) { return; }
+      if ( !this.ballCanvas ) { return; }
 
       // Adjust size of the balls based on the number of rows in the Galton board.
       // scale ball radius to be inversely proportional to (number of bins )
@@ -88,7 +88,7 @@ define( function( require ) {
 
         // offset vertically the ball trajectory down such that they still give
         // the impression to hit the pegs
-        verticalOffset = (1 - fudgeFactor) * this.ballImage.height / 2;
+        verticalOffset = ( 1 - fudgeFactor ) * this.ballCanvas.height / 2;
       }
 
       var self = this;
@@ -100,11 +100,11 @@ define( function( require ) {
           var ballViewPositionX = self.modelViewTransform.modelToViewX( ball.position.x );
           var ballViewPositionY = self.modelViewTransform.modelToViewY( ball.position.y );
 
-          context.drawImage( self.ballImage,
-            ballViewPositionX - self.ballImage.width * scaleFactor / 2,
-            ballViewPositionY - self.ballImage.height * scaleFactor / 2 + verticalOffset,
-            self.ballImage.width * scaleFactor,
-            self.ballImage.height * scaleFactor );
+          context.drawImage( self.ballCanvas,
+            ballViewPositionX - self.ballCanvas.width * scaleFactor / 2,
+            ballViewPositionY - self.ballCanvas.height * scaleFactor / 2 + verticalOffset,
+            self.ballCanvas.width * scaleFactor,
+            self.ballCanvas.height * scaleFactor );
         }
       } );
     }

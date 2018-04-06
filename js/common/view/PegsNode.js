@@ -88,9 +88,9 @@ define( function( require ) {
         .addColorStop( 1, 'rgba(255,255,255, 0.00)' )
     } );
 
-    // Create an image of the peg. This happens asynchronously.
-    pegNode.toImage( function( image ) {
-      self.pegImage = image; // @private
+    // Renders the peg to a canvas.
+    pegNode.toCanvas( function( canvas, x, y, width, height ) {
+      self.pegCanvase = canvas; // @private
       self.invalidatePaint(); // calls paintCanvas
     } );
 
@@ -132,7 +132,7 @@ define( function( require ) {
       var self = this;
 
       // images are created asynchronously by toImage, so they may not be available yet
-      if ( !self.pegImage || !self.shadowImage ) {
+      if ( !self.pegCanvase || !self.shadowImage ) {
         return;
       }
 
@@ -142,8 +142,8 @@ define( function( require ) {
       var pegScale = (PlinkoProbabilityConstants.ROWS_RANGE.min + 1) /
                      (this.numberOfRowsProperty.get() + 1);
 
-      var pegWidth = pegScale * self.pegImage.width;
-      var pegHeight = pegScale * self.pegImage.height;
+      var pegWidth = pegScale * self.pegCanvase.width;
+      var pegHeight = pegScale * self.pegCanvase.height;
       var shadowWidth = pegScale * self.shadowImage.width;
       var shadowHeight = pegScale * self.shadowImage.height;
 
@@ -170,7 +170,7 @@ define( function( require ) {
           context.save();
           context.translate( pegPosition.x, pegPosition.y );
           context.rotate( pegAngle );
-          context.drawImage( self.pegImage, -pegWidth / 2, -pegHeight / 2, pegWidth, pegHeight );
+          context.drawImage( self.pegCanvase, -pegWidth / 2, -pegHeight / 2, pegWidth, pegHeight );
           context.restore();
         }
       } );
