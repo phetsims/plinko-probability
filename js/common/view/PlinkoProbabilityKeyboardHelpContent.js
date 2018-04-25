@@ -13,7 +13,6 @@ define( function( require ) {
   var HBox = require( 'SCENERY/nodes/HBox' );
   var inherit = require( 'PHET_CORE/inherit' );
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
-  var Panel = require( 'SUN/Panel' );
   var SliderControlsHelpContent = require( 'SCENERY_PHET/keyboard/help/SliderControlsHelpContent' );
 
   /**
@@ -25,19 +24,14 @@ define( function( require ) {
     var sliderControlsHelpContent = new SliderControlsHelpContent();
     var generalNavigationHelpContent = new GeneralNavigationHelpContent( { withGroupContent: true } );
 
-    var content = new HBox( {
+    HBox.call( this, {
       children: [ sliderControlsHelpContent, generalNavigationHelpContent ],
       align: 'top',
       spacing: 30
-    } );
-
-    Panel.call( this, content, {
-      stroke: null,
-      fill: 'rgb( 214, 237, 249 )'
     } );
   }
 
   plinkoProbability.register( 'PlinkoProbabilityKeyboardHelpContent', PlinkoProbabilityKeyboardHelpContent );
 
-  return inherit( Panel, PlinkoProbabilityKeyboardHelpContent );
+  return inherit( HBox, PlinkoProbabilityKeyboardHelpContent );
 } );
