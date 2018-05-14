@@ -20,7 +20,7 @@ define( function( require ) {
   var PlayButton = require( 'PLINKO_PROBABILITY/common/view/PlayButton' );
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var PlinkoProbabilityConstants = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityConstants' );
-  var ToggleNode = require( 'SUN/ToggleNode' );
+  var BooleanToggleNode = require( 'SUN/BooleanToggleNode' );
   var VerticalAquaRadioButtonGroup = require( 'SUN/VerticalAquaRadioButtonGroup' );
 
   // constants
@@ -118,7 +118,7 @@ define( function( require ) {
       }
     } );
 
-    var playPlayPauseButton = new ToggleNode( playButton, pauseButton, this.playButtonVisibleProperty );
+    var playPlayPauseButton = new BooleanToggleNode( playButton, pauseButton, this.playButtonVisibleProperty );
 
     // link the ballModeProperty to the state of the playPauseButton
     ballModeProperty.link( function() {
