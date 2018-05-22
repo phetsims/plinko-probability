@@ -9,18 +9,16 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var BooleanProperty = require( 'AXON/BooleanProperty' );
   var Emitter = require( 'AXON/Emitter' );
   var GaltonBoard = require( 'PLINKO_PROBABILITY/common/model/GaltonBoard' );
   var Histogram = require( 'PLINKO_PROBABILITY/common/model/Histogram' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var NumberProperty = require( 'AXON/NumberProperty' );
   var ObservableArray = require( 'AXON/ObservableArray' );
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var PlinkoProbabilityConstants = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityConstants' );
-  var Property = require( 'AXON/Property' );
-  var PropertyIO = require( 'AXON/PropertyIO' );
-
-  // phet-io modules
-  var StringIO = require( 'ifphetio!PHET_IO/types/StringIO' );
+  var StringProperty = require( 'AXON/StringProperty' );
 
   // constants
   var BALL_MODE_VALUES = [ 'oneBall', 'tenBalls', 'allBalls', 'continuous' ]; // values for ballModeProperty
@@ -32,25 +30,28 @@ define( function( require ) {
   function PlinkoProbabilityCommonModel() {
 
     // @public {number} this can be a number between 0 and 1
-    this.probabilityProperty = new Property( PlinkoProbabilityConstants.BINARY_PROBABILITY_RANGE.defaultValue );
+    this.probabilityProperty = new NumberProperty( PlinkoProbabilityConstants.BINARY_PROBABILITY_RANGE.defaultValue, {
+      range: PlinkoProbabilityConstants.BINARY_PROBABILITY_RANGE
+    } );
 
     // @public {string} controls how many balls are dispensed when the 'play' button is pressed
-    this.ballModeProperty = new Property( 'oneBall', {
-      validValues: BALL_MODE_VALUES,
-      phetioType: PropertyIO( StringIO )
+    this.ballModeProperty = new StringProperty( 'oneBall', {
+      validValues: BALL_MODE_VALUES
     } );
 
     // {string} controls what comes out of the hopper above the Galton board
-    this.hopperModeProperty = new Property( 'ball', {
-      validValues: HOPPER_MODE_VALUES,
-      phetioType: PropertyIO( StringIO )
+    this.hopperModeProperty = new StringProperty( 'ball', {
+      validValues: HOPPER_MODE_VALUES
     } );
 
     // {boolean} is the maximum number of balls reached?
-    this.isBallCapReachedProperty = new Property( false );
+    this.isBallCapReachedProperty = new BooleanProperty( false );
 
-    // {number} number of rows in the Galton board, must be an integer
-    this.numberOfRowsProperty = new Property( PlinkoProbabilityConstants.ROWS_RANGE.defaultValue );
+    // {number} number of rows in the Galton board
+    this.numberOfRowsProperty = new NumberProperty( PlinkoProbabilityConstants.ROWS_RANGE.defaultValue, {
+      range: PlinkoProbabilityConstants.ROWS_RANGE,
+      numberType: 'Integer'
+    } );
 
     this.ballCreationTimeElapsed = 0; // @public {number} - time elapsed since last ball creation
     this.balls = new ObservableArray(); // @public

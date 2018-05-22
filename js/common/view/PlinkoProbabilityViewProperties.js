@@ -9,14 +9,10 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var BooleanProperty = require( 'AXON/BooleanProperty' );
   var inherit = require( 'PHET_CORE/inherit' );
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
-  var Property = require( 'AXON/Property' );
-  var PropertyIO = require( 'AXON/PropertyIO' );
-
-  // phet-io modules
-  var BooleanIO = require( 'ifphetio!PHET_IO/types/BooleanIO' );
-  var StringIO = require( 'ifphetio!PHET_IO/types/StringIO' );
+  var StringProperty = require( 'AXON/StringProperty' );
 
   // constants
   var HISTOGRAM_MODE_VALUES = [ 'counter', 'cylinder', 'fraction' ]; // values for histogramModeProperty
@@ -32,15 +28,12 @@ define( function( require ) {
     }, options );
 
     // @public
-    this.histogramModeProperty = new Property( options.histogramMode, { phetioType: PropertyIO( StringIO ) } );
-    this.expandedAccordionBoxProperty = new Property( true );
-    this.isTheoreticalHistogramVisibleProperty = new Property( false );
-    this.isSoundEnabledProperty = new Property( false, { phetioType: PropertyIO( BooleanIO ) } );
-
-    // validate string values
-    this.histogramModeProperty.link( function( histogramMode ) {
-      assert && assert( _.includes( HISTOGRAM_MODE_VALUES, histogramMode ), 'invalid histogramMode: ' + histogramMode );
+    this.histogramModeProperty = new StringProperty( options.histogramMode, {
+      validValues: HISTOGRAM_MODE_VALUES
     } );
+    this.expandedAccordionBoxProperty = new BooleanProperty( true );
+    this.isTheoreticalHistogramVisibleProperty = new BooleanProperty( false );
+    this.isSoundEnabledProperty = new BooleanProperty( false );
   }
 
   plinkoProbability.register( 'PlinkoProbabilityViewProperties', PlinkoProbabilityViewProperties );

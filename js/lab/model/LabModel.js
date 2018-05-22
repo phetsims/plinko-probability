@@ -10,12 +10,12 @@ define( function( require ) {
 
   // modules
   var BallPhase = require( 'PLINKO_PROBABILITY/common/model/BallPhase' );
+  var BooleanProperty = require( 'AXON/BooleanProperty' );
   var inherit = require( 'PHET_CORE/inherit' );
   var LabBall = require( 'PLINKO_PROBABILITY/lab/model/LabBall' );
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var PlinkoProbabilityCommonModel = require( 'PLINKO_PROBABILITY/common/model/PlinkoProbabilityCommonModel' );
   var PlinkoProbabilityQueryParameters = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityQueryParameters' );
-  var Property = require( 'AXON/Property' );
 
   // constants
   var MAX_BALLS = PlinkoProbabilityQueryParameters.maxBallsLab; // max number of balls *per bin*
@@ -30,7 +30,7 @@ define( function( require ) {
     PlinkoProbabilityCommonModel.call( this );
 
     // @public
-    this.isPlayingProperty = new Property( false );
+    this.isPlayingProperty = new BooleanProperty( false );
 
     this.hopperModeProperty.link( function( hopperMode ) {
 
@@ -48,7 +48,8 @@ define( function( require ) {
       self.balls.clear(); // clear the balls
     } );
 
-    this.ballCreationTimeInterval = 0; // time we want to pass before we created a new ball
+    // @private time we want to pass before we created a new ball
+    this.ballCreationTimeInterval = 0;
   }
 
   plinkoProbability.register( 'LabModel', LabModel );
