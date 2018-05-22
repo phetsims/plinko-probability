@@ -34,25 +34,23 @@ define( function( require ) {
     // @public {number} this can be a number between 0 and 1
     this.probabilityProperty = new Property( PlinkoProbabilityConstants.BINARY_PROBABILITY_RANGE.defaultValue );
 
-    // @public {string} controls how many balls are dispensed when the 'play' button is pressed, see BALL_MODE_VALUES
-    this.ballModeProperty = new Property( 'oneBall', { phetioType: PropertyIO( StringIO ) } );
+    // @public {string} controls how many balls are dispensed when the 'play' button is pressed
+    this.ballModeProperty = new Property( 'oneBall', {
+      validValues: BALL_MODE_VALUES,
+      phetioType: PropertyIO( StringIO )
+    } );
 
-    // {string} controls what comes out of the hopper above the Galton board, see HOPPER_MODE_VALUES
-    this.hopperModeProperty = new Property( 'ball', { phetioType: PropertyIO( StringIO ) } );
+    // {string} controls what comes out of the hopper above the Galton board
+    this.hopperModeProperty = new Property( 'ball', {
+      validValues: HOPPER_MODE_VALUES,
+      phetioType: PropertyIO( StringIO )
+    } );
 
     // {boolean} is the maximum number of balls reached?
     this.isBallCapReachedProperty = new Property( false );
 
     // {number} number of rows in the Galton board, must be an integer
     this.numberOfRowsProperty = new Property( PlinkoProbabilityConstants.ROWS_RANGE.defaultValue );
-
-    // validate string values
-    this.ballModeProperty.link( function( ballMode ) {
-      assert && assert( _.includes( BALL_MODE_VALUES, ballMode ), 'invalid ballMode: ' + ballMode );
-    } );
-    this.hopperModeProperty.link( function( hopperMode ) {
-      assert && assert( _.includes( HOPPER_MODE_VALUES, hopperMode ), 'invalid hopperMode: ' + hopperMode );
-    } );
 
     this.ballCreationTimeElapsed = 0; // @public {number} - time elapsed since last ball creation
     this.balls = new ObservableArray(); // @public
