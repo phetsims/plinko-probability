@@ -28,12 +28,10 @@ define( function( require ) {
 
   /**
    * @param {LabModel} model
-   * @param {Property.<string>} ballModeProperty - see PlinkoProbabilityCommonModel
-   * @param {Property.<boolean>} isBallCapReachedProperty - describes maximum amount of balls
    * @param {Object} [options]
    * @constructor
    */
-  function LabPlayPanel( model, ballModeProperty, isBallCapReachedProperty, options ) {
+  function LabPlayPanel( model, options ) {
 
     var self = this;
 
@@ -80,8 +78,8 @@ define( function( require ) {
 
     // create the vertical radio group buttons for the one ball and continuous mode.
     var ballModeRadioButtons = new VerticalAquaRadioButtonGroup( [
-      { node: oneBall, property: ballModeProperty, value: 'oneBall' },
-      { node: continuous, property: ballModeProperty, value: 'continuous' }
+      { node: oneBall, property: model.ballModeProperty, value: 'oneBall' },
+      { node: continuous, property: model.ballModeProperty, value: 'continuous' }
     ], {
       radius: 8,
       touchAreaXDilation: 5,
@@ -99,7 +97,7 @@ define( function( require ) {
           model.isBallCapReachedProperty.notifyListenersStatic();
         }
         else {
-          if ( ballModeProperty.get() === 'continuous' ) {
+          if ( model.ballModeProperty.get() === 'continuous' ) {
             self.playButtonVisibleProperty.set( false ); // make the pause button visible
             model.isPlayingProperty.set( true ); //set isPlayingProperty to true signifying that balls are being dropped
           }
@@ -121,7 +119,7 @@ define( function( require ) {
     var playPlayPauseButton = new BooleanToggleNode( playButton, pauseButton, this.playButtonVisibleProperty );
 
     // link the ballModeProperty to the state of the playPauseButton
-    ballModeProperty.link( function() {
+    model.ballModeProperty.link( function() {
       model.isPlayingProperty.set( false ); // if the radio buttons change then we would like to change the playing property
       self.playButtonVisibleProperty.set( true );
     } );
@@ -138,7 +136,7 @@ define( function( require ) {
     Panel.call( this, startVBox, options );
 
     // Disables play button if maximum amount of balls are dropped
-    isBallCapReachedProperty.lazyLink( function( isBallCapReached ) {
+    model.isBallCapReachedProperty.lazyLink( function( isBallCapReached ) {
       playButton.enabled = !isBallCapReached;
     } );
   }

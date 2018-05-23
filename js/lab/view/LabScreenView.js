@@ -69,7 +69,7 @@ define( function( require ) {
     }
 
     // Play panel, at top right
-    var playPanel = new LabPlayPanel( model, model.ballModeProperty, model.isBallCapReachedProperty, {
+    var playPanel = new LabPlayPanel( model, {
       minWidth: PANEL_FIXED_WIDTH,
       maxWidth: PANEL_FIXED_WIDTH,
       right: this.layoutBounds.maxX - PlinkoProbabilityConstants.PANEL_RIGHT_PADDING,
