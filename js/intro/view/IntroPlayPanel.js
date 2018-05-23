@@ -24,7 +24,6 @@ define( function( require ) {
   var BALL_RADIUS = PlinkoProbabilityConstants.BALL_RADIUS;
 
   // strings
-  var allString = require( 'string!PLINKO_PROBABILITY/all' );
   var timesString = '\u00D7'; // multiplication Sign
 
   /**
@@ -59,7 +58,7 @@ define( function( require ) {
     } );
     var allBalls = new HBox( {
       spacing: BALL_RADIUS / 2,
-      children: [ new BallNode( BALL_RADIUS ), new Text( timesString + allString, fontOptions ) ]
+      children: [ new BallNode( BALL_RADIUS ), new Text( timesString + '100', fontOptions ) ]
     } );
 
     // Creation of radio button group for ball setting
