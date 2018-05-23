@@ -25,6 +25,8 @@ define( function( require ) {
    */
   function IntroModel() {
 
+    var self = this;
+
     PlinkoProbabilityCommonModel.call( this );
 
     var bounds = PlinkoProbabilityConstants.HISTOGRAM_BOUNDS;
@@ -44,6 +46,14 @@ define( function( require ) {
     // @private
     this.launchedBallsNumber = 0; // number of balls created
     this.ballsToCreateNumber = 0; // number of balls in the creation queue
+
+    // Stop dispensing balls when the ball mode is changed.
+    this.ballModeProperty.lazyLink( function( ballMode ) {
+      if ( self.ballsToCreateNumber > 0 ) {
+        self.ballsToCreateNumber = 0;
+        self.isBallCapReachedProperty.set( self.launchedBallsNumber >= MAX_BALLS );
+      }
+    } );
   }
 
   plinkoProbability.register( 'IntroModel', IntroModel );
