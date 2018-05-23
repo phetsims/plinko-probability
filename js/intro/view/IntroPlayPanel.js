@@ -18,6 +18,7 @@ define( function( require ) {
   var PlayButton = require( 'PLINKO_PROBABILITY/common/view/PlayButton' );
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var PlinkoProbabilityConstants = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityConstants' );
+  var PlinkoProbabilityQueryParameters = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityQueryParameters' );
   var Text = require( 'SCENERY/nodes/Text' );
   var VerticalAquaRadioButtonGroup = require( 'SUN/VerticalAquaRadioButtonGroup' );
 
@@ -54,16 +55,16 @@ define( function( require ) {
       spacing: BALL_RADIUS / 2,
       children: [ new BallNode( BALL_RADIUS ), new Text( MathSymbols.TIMES + '10', fontOptions ) ]
     } );
-    var allBalls = new HBox( {
+    var maxBalls = new HBox( {
       spacing: BALL_RADIUS / 2,
-      children: [ new BallNode( BALL_RADIUS ), new Text( MathSymbols.TIMES + '100', fontOptions ) ]
+      children: [ new BallNode( BALL_RADIUS ), new Text( MathSymbols.TIMES + PlinkoProbabilityQueryParameters.maxBallsIntro, fontOptions ) ]
     } );
 
     // Creation of radio button group for ball setting
     var ballModeRadioButtons = new VerticalAquaRadioButtonGroup( [
       { node: oneBall, property: ballModeProperty, value: 'oneBall' },
       { node: tenBalls, property: ballModeProperty, value: 'tenBalls' },
-      { node: allBalls, property: ballModeProperty, value: 'allBalls' }
+      { node: maxBalls, property: ballModeProperty, value: 'maxBalls' }
     ], {
       radius: 8,      // radius of radio button circle
       spacing: 10,     // vertical spacing between each radio button

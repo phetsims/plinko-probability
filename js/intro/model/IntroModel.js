@@ -113,7 +113,7 @@ define( function( require ) {
           break;
 
         // add max number of balls to the queue
-        case 'allBalls':
+        case 'maxBalls':
           this.ballsToCreateNumber += MAX_BALLS;
           break;
 

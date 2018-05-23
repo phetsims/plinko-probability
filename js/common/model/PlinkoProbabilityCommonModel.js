@@ -21,7 +21,7 @@ define( function( require ) {
   var StringProperty = require( 'AXON/StringProperty' );
 
   // constants
-  var BALL_MODE_VALUES = [ 'oneBall', 'tenBalls', 'allBalls', 'continuous' ]; // values for ballModeProperty
+  var BALL_MODE_VALUES = [ 'oneBall', 'tenBalls', 'maxBalls', 'continuous' ]; // values for ballModeProperty
   var HOPPER_MODE_VALUES = [ 'ball', 'path', 'none' ]; // values for hopperModeProperty
 
   /**
