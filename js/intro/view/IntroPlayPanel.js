@@ -13,6 +13,7 @@ define( function( require ) {
   var HBox = require( 'SCENERY/nodes/HBox' );
   var HStrut = require( 'SCENERY/nodes/HStrut' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var MathSymbols = require( 'SCENERY_PHET/MathSymbols' );
   var Panel = require( 'SUN/Panel' );
   var PlayButton = require( 'PLINKO_PROBABILITY/common/view/PlayButton' );
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
@@ -22,9 +23,6 @@ define( function( require ) {
 
   // constants
   var BALL_RADIUS = PlinkoProbabilityConstants.BALL_RADIUS;
-
-  // strings
-  var timesString = '\u00D7'; // multiplication Sign
 
   /**
    * @param {Function} updateBallsToCreateNumber - function that update the number of balls to be created
@@ -50,15 +48,15 @@ define( function( require ) {
     // Creation of radio button icons
     var oneBall = new HBox( {
       spacing: BALL_RADIUS / 2,
-      children: [ new BallNode( BALL_RADIUS ), new Text( timesString + '1', fontOptions ) ]
+      children: [ new BallNode( BALL_RADIUS ), new Text( MathSymbols.TIMES + '1', fontOptions ) ]
     } );
     var tenBalls = new HBox( {
       spacing: BALL_RADIUS / 2,
-      children: [ new BallNode( BALL_RADIUS ), new Text( timesString + '10', fontOptions ) ]
+      children: [ new BallNode( BALL_RADIUS ), new Text( MathSymbols.TIMES + '10', fontOptions ) ]
     } );
     var allBalls = new HBox( {
       spacing: BALL_RADIUS / 2,
-      children: [ new BallNode( BALL_RADIUS ), new Text( timesString + '100', fontOptions ) ]
+      children: [ new BallNode( BALL_RADIUS ), new Text( MathSymbols.TIMES + '100', fontOptions ) ]
     } );
 
     // Creation of radio button group for ball setting
