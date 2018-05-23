@@ -111,7 +111,8 @@ define( function( require ) {
     // sound toggle button at bottom right
     var soundToggleButton = new SoundToggleButton( viewProperties.isSoundEnabledProperty, {
       right: resetAllButton.left - 20,
-      centerY: resetAllButton.centerY
+      centerY: resetAllButton.centerY,
+      xMargin: 8
     } );
 
     // add children to the scene graph
