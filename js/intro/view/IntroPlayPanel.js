@@ -26,13 +26,11 @@ define( function( require ) {
   var BALL_RADIUS = PlinkoProbabilityConstants.BALL_RADIUS;
 
   /**
-   * @param {Function} updateBallsToCreateNumber - function that update the number of balls to be created
-   * @param {Property.<string>} ballModeProperty - see PlinkoProbabilityCommonModel
-   * @param {Property.<boolean>} isBallCapReachedProperty - describes maximum amount of balls
+   * @param {IntroModel} model
    * @param {Object} [options]
    * @constructor
    */
-  function IntroPlayPanel( updateBallsToCreateNumber, ballModeProperty, isBallCapReachedProperty, options ) {
+  function IntroPlayPanel( model, options ) {
 
     options = _.extend( {
       align: 'center',
@@ -62,9 +60,9 @@ define( function( require ) {
 
     // Creation of radio button group for ball setting
     var ballModeRadioButtons = new VerticalAquaRadioButtonGroup( [
-      { node: oneBall, property: ballModeProperty, value: 'oneBall' },
-      { node: tenBalls, property: ballModeProperty, value: 'tenBalls' },
-      { node: maxBalls, property: ballModeProperty, value: 'maxBalls' }
+      { node: oneBall, property: model.ballModeProperty, value: 'oneBall' },
+      { node: tenBalls, property: model.ballModeProperty, value: 'tenBalls' },
+      { node: maxBalls, property: model.ballModeProperty, value: 'maxBalls' }
     ], {
       radius: 8,      // radius of radio button circle
       spacing: 10,     // vertical spacing between each radio button
@@ -73,12 +71,12 @@ define( function( require ) {
 
     //Creation of play button
     var playButton = new PlayButton( {
-      listener: updateBallsToCreateNumber,
+      listener: model.updateBallsToCreateNumber.bind( model ),
       enabled: true
     } );
 
     // Disables play button if maximum amount of balls are dropped
-    isBallCapReachedProperty.lazyLink( function( isBallCapReached ) {
+    model.isBallCapReachedProperty.lazyLink( function( isBallCapReached ) {
       playButton.enabled = !isBallCapReached;
     } );
 

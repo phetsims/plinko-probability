@@ -58,7 +58,7 @@ define( function( require ) {
     } );
 
     // Play panel, at upper right
-    var playPanel = new IntroPlayPanel( model.updateBallsToCreateNumber.bind( model ), model.ballModeProperty, model.isBallCapReachedProperty, {
+    var playPanel = new IntroPlayPanel( model, {
       minWidth: MIN_PANEL_WIDTH,
       right: this.layoutBounds.maxX - PlinkoProbabilityConstants.PANEL_RIGHT_PADDING,
       top: 10
