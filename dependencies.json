@@ -1,5 +1,5 @@
 {
-  "comment": "# plinko-probability 1.1.2-phetio Tue Jun 05 2018 11:09:16 GMT-0600 (MDT)",
+  "comment": "# plinko-probability 1.1.5-phetiorc.1 Tue Jun 05 2018 11:12:36 GMT-0600 (MDT)",
   "assert": {
     "sha": "5c3f92048a9c2ffd6df8ede54fd64f1f7a7e4ef2",
     "branch": "HEAD"
@@ -61,7 +61,7 @@
     "branch": "HEAD"
   },
   "plinko-probability": {
-    "sha": "b6de8ae4aaaf95b19abab51faf19785c1556bcf8",
+    "sha": "03e355e915a24e4577a89e3baf8a33c11e4e700f",
     "branch": "1.1-phetio"
   },
   "query-string-machine": {
@@ -70,7 +70,7 @@
   },
   "scenery": {
     "sha": "932dbf9b923793d10c3c8482dea808489bf5f3fb",
-    "branch": "plinko-probability-1.1-phetio"
+    "branch": "HEAD"
   },
   "scenery-phet": {
     "sha": "cbc9226cdd3537cd4bd0242fc498fee3341bafb2",
