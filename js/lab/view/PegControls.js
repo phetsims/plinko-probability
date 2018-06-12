@@ -97,7 +97,7 @@ define( function( require ) {
       trackSize: SLIDER_TRACK_SIZE,
       majorTicks: probabilityMajorTicks,
       majorTickLength: 18,
-      tickLabelSpacing: 1,
+      tickLabelSpacing: 1
 
       // a11y
       // no need to delineate specific steps as the HSlider defaults evenly/cleanly divide
