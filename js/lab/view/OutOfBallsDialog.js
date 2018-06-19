@@ -25,7 +25,9 @@ define( function( require ) {
   function OutOfBallsDialog( options ) {
 
     options = _.extend( {
-      modal: true
+      xSpacing: 30,
+      topMargin: 25,
+      bottomMargin: 25
     }, options );
 
     var messageNode = new Text( outOfBallsString, {
