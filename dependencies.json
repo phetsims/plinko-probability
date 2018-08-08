@@ -1,5 +1,5 @@
 {
-  "comment": "# plinko-probability 1.1.6-phetiorc.1 Tue Jul 24 2018 21:31:06 GMT-0600 (MDT)",
+  "comment": "# plinko-probability 1.1.6-phetio Wed Aug 08 2018 14:20:16 GMT-0600 (MDT)",
   "assert": {
     "sha": "5c3f92048a9c2ffd6df8ede54fd64f1f7a7e4ef2",
     "branch": "HEAD"
@@ -61,7 +61,7 @@
     "branch": "HEAD"
   },
   "plinko-probability": {
-    "sha": "092ae7da231ce1f77655d59dba65570494d08aec",
+    "sha": "0eb7e744672006e7c7bb3f452e5b7cc6d4d56a71",
     "branch": "1.1-phetio"
   },
   "query-string-machine": {
