@@ -36,7 +36,6 @@ define( function( require ) {
     options = _.extend( {
       radioButtonOptions: { radius: 10 },
       spacing: 12, // vertical separation of the buttons
-      padding: 3, // horizontal padding
       touchAreaXDilation: 10
     }, options );
 
