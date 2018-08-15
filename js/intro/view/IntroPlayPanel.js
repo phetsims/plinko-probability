@@ -64,7 +64,7 @@ define( function( require ) {
       { node: tenBalls, property: model.ballModeProperty, value: 'tenBalls' },
       { node: maxBalls, property: model.ballModeProperty, value: 'maxBalls' }
     ], {
-      radius: 8,      // radius of radio button circle
+      radioButtonOptions: { radius: 8 },
       spacing: 10,     // vertical spacing between each radio button
       touchAreaXDilation: 5
     } );

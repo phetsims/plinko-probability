@@ -81,7 +81,7 @@ define( function( require ) {
       { node: oneBall, property: model.ballModeProperty, value: 'oneBall' },
       { node: continuous, property: model.ballModeProperty, value: 'continuous' }
     ], {
-      radius: 8,
+      radioButtonOptions: { radius: 8 },
       touchAreaXDilation: 5,
       align: 'left',
       spacing: 13 // vertical spacing between radio buttons
