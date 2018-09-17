@@ -16,8 +16,8 @@ define( function( require ) {
   var Sound = require( 'VIBE/Sound' );
 
   // audio
-  var bonk1Audio = require( 'audio!PLINKO_PROBABILITY/bonk-1-for-plinko.mp3' );
-  var bonk2Audio = require( 'audio!PLINKO_PROBABILITY/bonk-2-for-plinko.mp3' );
+  var bonk1Audio = require( 'sound!PLINKO_PROBABILITY/bonk-1-for-plinko.mp3' );
+  var bonk2Audio = require( 'sound!PLINKO_PROBABILITY/bonk-2-for-plinko.mp3' );
 
   /**
    * @param {Property.<boolean>} isSoundEnabledProperty
