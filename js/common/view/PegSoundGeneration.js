@@ -15,7 +15,7 @@ define( function( require ) {
   var PlinkoProbabilityConstants = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityConstants' );
   var Sound = require( 'VIBE/Sound' );
 
-  // audio
+  // sounds
   var bonk1Audio = require( 'sound!PLINKO_PROBABILITY/bonk-1-for-plinko.mp3' );
   var bonk2Audio = require( 'sound!PLINKO_PROBABILITY/bonk-2-for-plinko.mp3' );
 
