@@ -11,6 +11,7 @@ define( function( require ) {
   // modules
   var BallNode = require( 'PLINKO_PROBABILITY/common/view/BallNode' );
   var BooleanProperty = require( 'AXON/BooleanProperty' );
+  var BooleanToggleNode = require( 'SUN/BooleanToggleNode' );
   var Circle = require( 'SCENERY/nodes/Circle' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var HStrut = require( 'SCENERY/nodes/HStrut' );
@@ -20,7 +21,6 @@ define( function( require ) {
   var PlayButton = require( 'PLINKO_PROBABILITY/common/view/PlayButton' );
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   var PlinkoProbabilityConstants = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityConstants' );
-  var BooleanToggleNode = require( 'SUN/BooleanToggleNode' );
   var VerticalAquaRadioButtonGroup = require( 'SUN/VerticalAquaRadioButtonGroup' );
 
   // constants
