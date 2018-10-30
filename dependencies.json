@@ -1,5 +1,5 @@
 {
-  "comment": "# plinko-probability 1.1.8 Tue Oct 30 2018 14:48:12 GMT-0600 (MDT)",
+  "comment": "# plinko-probability 1.1.9-rc.1 Tue Oct 30 2018 16:42:26 GMT-0600 (MDT)",
   "assert": {
     "sha": "5c3f92048a9c2ffd6df8ede54fd64f1f7a7e4ef2",
     "branch": "HEAD"
@@ -22,7 +22,7 @@
   },
   "joist": {
     "sha": "ed3eae840f1c31edeafa841c38876a8e4adf25dc",
-    "branch": "plinko-probability-1.1"
+    "branch": "HEAD"
   },
   "kite": {
     "sha": "7d2df183bd47abec3c3f7da477eb9172556f04e8",
@@ -37,7 +37,7 @@
     "branch": "HEAD"
   },
   "plinko-probability": {
-    "sha": "3483fd07af236eb415efd73397180f4828f28146",
+    "sha": "11edd1a69f22f6993422600f841e75330c24ec98",
     "branch": "1.1"
   },
   "query-string-machine": {
