@@ -58,21 +58,29 @@ define( function( require ) {
 
     // control for number of rows
     var rowsControl = new NumberControl( rowsString, rowsProperty, PlinkoProbabilityConstants.ROWS_RANGE, {
+      delta: 1,
       layoutFunction: NumberControl.createLayoutFunction3( {
         ySpacing: 3
       } ),
-      titleFont: PlinkoProbabilityConstants.PANEL_FONT,
-      titleMaxWidth: SLIDER_TRACK_SIZE.width,
-      valueFont: PlinkoProbabilityConstants.PANEL_READOUT_FONT,
-      decimalPlaces: 0,
-      delta: 1,
-      trackSize: SLIDER_TRACK_SIZE,
-      majorTicks: rowsMajorTicks,
-      majorTickLength: 18,
-      tickLabelSpacing: 1,
 
-      // a11y
-      keyboardStep: 2
+      // subcomponent options
+      titleNodeOptions: {
+        font: PlinkoProbabilityConstants.PANEL_FONT,
+        maxWidth: SLIDER_TRACK_SIZE.width
+      },
+      numberDisplayOptions: {
+        font: PlinkoProbabilityConstants.PANEL_READOUT_FONT,
+        decimalPlaces: 0
+      },
+      sliderOptions: {
+        trackSize: SLIDER_TRACK_SIZE,
+        majorTicks: rowsMajorTicks,
+        majorTickLength: 18,
+        tickLabelSpacing: 1,
+
+        // a11y
+        keyboardStep: 2
+      }
     } );
 
     // major tick labels for slider that controls binary probability
@@ -89,19 +97,25 @@ define( function( require ) {
     // control for the binary probability
     var probabilityControl = new NumberControl( binaryProbabilityString, probabilityProperty, PlinkoProbabilityConstants.BINARY_PROBABILITY_RANGE, {
       layoutFunction: NumberControl.createLayoutFunction3(),
-      titleFont: PlinkoProbabilityConstants.PANEL_FONT,
-      titleMaxWidth: SLIDER_TRACK_SIZE.width,
-      valueFont: PlinkoProbabilityConstants.PANEL_READOUT_FONT,
-      decimalPlaces: 2,
       delta: 0.01,
-      trackSize: SLIDER_TRACK_SIZE,
-      majorTicks: probabilityMajorTicks,
-      majorTickLength: 18,
-      tickLabelSpacing: 1
+      titleNodeOptions: {
+        font: PlinkoProbabilityConstants.PANEL_FONT,
+        maxWidth: SLIDER_TRACK_SIZE.width
+      },
+      numberDisplayOptions: {
+        font: PlinkoProbabilityConstants.PANEL_READOUT_FONT,
+        decimalPlaces: 2
+      },
+      sliderOptions: {
+        trackSize: SLIDER_TRACK_SIZE,
+        majorTicks: probabilityMajorTicks,
+        majorTickLength: 18,
+        tickLabelSpacing: 1
 
-      // a11y
-      // no need to delineate specific steps as the HSlider defaults evenly/cleanly divide
-      // the range
+        // a11y
+        // no need to delineate specific steps as the HSlider defaults evenly/cleanly divide
+        // the range
+      }
     } );
 
     var contentNode = new VBox( {
