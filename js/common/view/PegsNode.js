@@ -1,4 +1,4 @@
-// Copyright -2018, University of Colorado Boulder
+// Copyright 2015-2018, University of Colorado Boulder
 
 /**
  * Renders a triangular lattice of pegs for a Galton board.
