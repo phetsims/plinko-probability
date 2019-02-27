@@ -37,7 +37,7 @@ define( function( require ) {
 
     this.phase = BallPhase.INITIAL; // @public (read-only), see BallPhase
 
-    this.ballHittingPegEmitter = new Emitter(); // @public
+    this.ballHittingPegEmitter = new Emitter( { validationEnabled: false } ); // @public
     this.ballOutOfPegsEmitter = new Emitter(); // @public 
     this.ballCollectedEmitter = new Emitter(); // @public
 
@@ -75,7 +75,7 @@ define( function( require ) {
 
     // the path of the balls through the pegs of the galton board  is determined
     for ( rowNumber = 0; rowNumber <= numberOfRows; rowNumber++ ) {
-      direction = ( phet.joist.random.nextDouble() > probability) ? 'left' : 'right';
+      direction = ( phet.joist.random.nextDouble() > probability ) ? 'left' : 'right';
       peg = {
         rowNumber: rowNumber, // an integer starting at zero
         positionX: getPegPositionX( rowNumber, columnNumber, numberOfRows ),
@@ -87,7 +87,7 @@ define( function( require ) {
 
       // increment the column number of the next row, but not for the last row
       if ( rowNumber < numberOfRows ) {
-        columnNumber += (direction === 'left') ? 0 : 1;
+        columnNumber += ( direction === 'left' ) ? 0 : 1;
       }
     }
 
@@ -117,7 +117,7 @@ define( function( require ) {
    * @public
    */
   var getPegPositionX = function( rowNumber, columnNumber, numberOfRows ) {
-    return (-rowNumber / 2 + columnNumber) / (numberOfRows + 1 );
+    return ( -rowNumber / 2 + columnNumber ) / ( numberOfRows + 1 );
   };
 
   /**
@@ -131,7 +131,7 @@ define( function( require ) {
    * @public
    */
   var getPegPositionY = function( rowNumber, columnNumber, numberOfRows ) {
-    return (-rowNumber - 2 * PlinkoProbabilityConstants.PEG_HEIGHT_FRACTION_OFFSET) / (numberOfRows + 1 );
+    return ( -rowNumber - 2 * PlinkoProbabilityConstants.PEG_HEIGHT_FRACTION_OFFSET ) / ( numberOfRows + 1 );
   };
 
   return inherit( Object, Ball, {
@@ -172,7 +172,7 @@ define( function( require ) {
           this.phase = BallPhase.FALLING; // switch the phase
           this.fallenRatio = 0; // reset the ratio
           this.updatePegPosition(); // update the peg position information
-          this.ballHittingPegEmitter.emit1( this.direction ); // can play a sound when ball hits peg;
+          this.ballHittingPegEmitter.emit( this.direction ); // can play a sound when ball hits peg;
         }
       }
       else if ( this.phase === BallPhase.FALLING ) { //ball is falling between pegs
@@ -184,7 +184,7 @@ define( function( require ) {
 
           if ( this.pegHistory.length > 1 ) { // if it is not the last peg
             this.updatePegPosition(); // update the next to last peg information
-            this.ballHittingPegEmitter.emit1( this.direction ); // can play a sound when ball hits peg;
+            this.ballHittingPegEmitter.emit( this.direction ); // can play a sound when ball hits peg;
           }
           else { // ball is at the top of the last peg
             this.phase = BallPhase.EXITED; // switch phases
@@ -225,7 +225,7 @@ define( function( require ) {
 
           // we only want this to move one peg distance down
           // set the position be at some point between the hopper and the first peg
-          this.position.setXY( 0, (1 - this.fallenRatio) );
+          this.position.setXY( 0, ( 1 - this.fallenRatio ) );
 
           // scale it so that it does not move too much
           this.position.multiplyScalar( this.pegSeparation );
@@ -238,7 +238,7 @@ define( function( require ) {
         case BallPhase.FALLING:
 
           // steer the ball to the left or right depending on this.direction
-          var shift = (this.direction === 'left') ? -0.5 : 0.5;
+          var shift = ( this.direction === 'left' ) ? -0.5 : 0.5;
 
           // mimic the fall as a parabolic motion
           this.position.setXY( shift * this.fallenRatio, -this.fallenRatio * this.fallenRatio );
