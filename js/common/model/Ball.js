@@ -37,9 +37,12 @@ define( function( require ) {
 
     this.phase = BallPhase.INITIAL; // @public (read-only), see BallPhase
 
-    this.ballHittingPegEmitter = new Emitter( { validationEnabled: false } ); // @public
-    this.ballOutOfPegsEmitter = new Emitter(); // @public 
-    this.ballCollectedEmitter = new Emitter(); // @public
+    // @public
+    this.ballHittingPegEmitter = new Emitter( {
+      validators: [ { validValues: [ 'left', 'right' ] } ]
+    } );
+    this.ballOutOfPegsEmitter = new Emitter();
+    this.ballCollectedEmitter = new Emitter();
 
     // rows and column
     /*
