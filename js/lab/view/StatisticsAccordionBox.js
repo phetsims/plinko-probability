@@ -81,12 +81,14 @@ define( function( require ) {
 
       // expand/collapse button
       expandedProperty: expandedAccordionBoxProperty,
-      buttonLength: 20,
       buttonAlign: 'right',
       buttonXMargin: 10,
       buttonYMargin: 10,
-      buttonTouchAreaXDilation: 10,
-      buttonTouchAreaYDilation: 10,
+      expandCollapseButtonOptions: {
+        sideLength: 20,
+        touchAreaXDilation: 10,
+        touchAreaYDilation: 10
+      },
 
       // content
       contentXMargin: 8,
