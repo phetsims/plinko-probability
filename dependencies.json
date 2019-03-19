@@ -1,5 +1,5 @@
 {
-  "comment": "# plinko-probability 1.1.9 Fri Mar 08 2019 14:00:27 GMT-0500 (EST)",
+  "comment": "# plinko-probability 1.1.9 Tue Mar 19 2019 17:12:26 GMT-0400 (EDT)",
   "assert": {
     "sha": "5c3f92048a9c2ffd6df8ede54fd64f1f7a7e4ef2",
     "branch": "HEAD"
@@ -10,11 +10,11 @@
   },
   "brand": {
     "sha": "8b8589cea89a71c428313bf69d6074740eec5be6",
-    "branch": "plinko-probability-1.1"
+    "branch": "HEAD"
   },
   "chipper": {
-    "sha": "e0d5e9e46778fd8873c629d5f4e5ad7509d0476f",
-    "branch": "HEAD"
+    "sha": "c04c69c65b1f1927378fc52cdd3884d6c3ad816c",
+    "branch": "plinko-probability-1.1"
   },
   "dot": {
     "sha": "6b4ec39c10d667cd64543e59184f0a2fff4fad6e",
@@ -22,7 +22,7 @@
   },
   "joist": {
     "sha": "b60cb5855f71500923ad7bc75e4d93d376062368",
-    "branch": "plinko-probability-1.1"
+    "branch": "HEAD"
   },
   "kite": {
     "sha": "7d2df183bd47abec3c3f7da477eb9172556f04e8",
@@ -36,8 +36,12 @@
     "sha": "7cfe0b12642bbd3adee24c7afa717ac8424154ad",
     "branch": "HEAD"
   },
+  "phetmarks": {
+    "sha": "4043203e455f544b1f0d4b7ce259c7c5f4e0582c",
+    "branch": "HEAD"
+  },
   "plinko-probability": {
-    "sha": "b458ebd44bfdfc55cfcee554fe4ea5c461ec24f5",
+    "sha": "36d044935fd2e7a42d9b5904e667f21532ae344f",
     "branch": "1.1"
   },
   "query-string-machine": {
@@ -67,9 +71,5 @@
   "vibe": {
     "sha": "6fad5c516016b7a2cdbd52c9f83085307cf60e28",
     "branch": "HEAD"
-  },
-  "phetmarks": {
-    "branch": "master",
-    "sha": "4043203e455f544b1f0d4b7ce259c7c5f4e0582c"
   }
 }
