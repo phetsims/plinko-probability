@@ -9,7 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var GeneralNavigationHelpContent = require( 'SCENERY_PHET/keyboard/help/GeneralNavigationHelpContent' );
+  var GeneralKeyboardHelpSection = require( 'SCENERY_PHET/keyboard/help/GeneralKeyboardHelpSection' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var inherit = require( 'PHET_CORE/inherit' );
   var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
@@ -22,7 +22,7 @@ define( function( require ) {
   function PlinkoProbabilityKeyboardHelpContent( ) {
 
     var sliderControlsHelpContent = new SliderControlsHelpContent();
-    var generalNavigationHelpContent = new GeneralNavigationHelpContent( { withGroupContent: true } );
+    var generalNavigationHelpContent = new GeneralKeyboardHelpSection( { withGroupContent: true } );
 
     HBox.call( this, {
       children: [ sliderControlsHelpContent, generalNavigationHelpContent ],
