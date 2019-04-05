@@ -22,10 +22,10 @@ define( function( require ) {
   function PlinkoProbabilityKeyboardHelpContent( ) {
 
     var sliderKeyboardHelpSection = new SliderKeyboardHelpSection();
-    var generalNavigationHelpContent = new GeneralKeyboardHelpSection( { withGroupContent: true } );
+    var generalNavigationHelpSection = new GeneralKeyboardHelpSection( { withGroupContent: true } );
 
     HBox.call( this, {
-      children: [ sliderKeyboardHelpSection, generalNavigationHelpContent ],
+      children: [ sliderKeyboardHelpSection, generalNavigationHelpSection ],
       align: 'top',
       spacing: 30
     } );
