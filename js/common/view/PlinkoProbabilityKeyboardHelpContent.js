@@ -5,33 +5,23 @@
  *
  * @author Michael Kauzmann (PhET Interaction Simulations)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var GeneralKeyboardHelpSection = require( 'SCENERY_PHET/keyboard/help/GeneralKeyboardHelpSection' );
-  var HBox = require( 'SCENERY/nodes/HBox' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
-  var SliderKeyboardHelpSection = require( 'SCENERY_PHET/keyboard/help/SliderKeyboardHelpSection' );
+  const GeneralKeyboardHelpSection = require( 'SCENERY_PHET/keyboard/help/GeneralKeyboardHelpSection' );
+  const plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
+  const SliderKeyboardHelpSection = require( 'SCENERY_PHET/keyboard/help/SliderKeyboardHelpSection' );
+  const TwoColumnKeyboardHelpContent = require( 'SCENERY_PHET/keyboard/help/TwoColumnKeyboardHelpContent' );
 
-  /**
-   * Constructor.
-   * @constructor
-   */
-  function PlinkoProbabilityKeyboardHelpContent( ) {
+  class PlinkoProbabilityKeyboardHelpContent extends TwoColumnKeyboardHelpContent {
+    constructor() {
+      const sliderKeyboardHelpSection = new SliderKeyboardHelpSection();
+      const generalNavigationHelpSection = new GeneralKeyboardHelpSection( { withGroupContent: true } );
 
-    var sliderKeyboardHelpSection = new SliderKeyboardHelpSection();
-    var generalNavigationHelpSection = new GeneralKeyboardHelpSection( { withGroupContent: true } );
-
-    HBox.call( this, {
-      children: [ sliderKeyboardHelpSection, generalNavigationHelpSection ],
-      align: 'top',
-      spacing: 30
-    } );
+      super( sliderKeyboardHelpSection, generalNavigationHelpSection );
+    }
   }
 
-  plinkoProbability.register( 'PlinkoProbabilityKeyboardHelpContent', PlinkoProbabilityKeyboardHelpContent );
-
-  return inherit( HBox, PlinkoProbabilityKeyboardHelpContent );
+  return plinkoProbability.register( 'PlinkoProbabilityKeyboardHelpContent', PlinkoProbabilityKeyboardHelpContent );
 } );
