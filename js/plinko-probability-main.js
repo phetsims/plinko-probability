@@ -11,14 +11,18 @@ define( function( require ) {
   // modules
   var IntroScreen = require( 'PLINKO_PROBABILITY/intro/IntroScreen' );
   var LabScreen = require( 'PLINKO_PROBABILITY/lab/LabScreen' );
-  var PlinkoProbabilityKeyboardHelpContent = require( 'PLINKO_PROBABILITY/common/view/PlinkoProbabilityKeyboardHelpContent' );
+  var SliderAndGeneralKeyboardHelpContent = require( 'SCENERY_PHET/keyboard/help/SliderAndGeneralKeyboardHelpContent' );
   var Sim = require( 'JOIST/Sim' );
   var SimLauncher = require( 'JOIST/SimLauncher' );
 
   // strings
   var plinkoProbabilityTitleString = require( 'string!PLINKO_PROBABILITY/plinko-probability.title' );
 
-  var keyboardHelpContent = new PlinkoProbabilityKeyboardHelpContent();
+  var keyboardHelpContent = new SliderAndGeneralKeyboardHelpContent( {
+    generalSectionOptions: {
+      withGroupContent: true
+    }
+  } );
 
   var simOptions = {
     credits: {
