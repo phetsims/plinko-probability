@@ -1,5 +1,5 @@
 {
-  "comment": "# plinko-probability 1.1.10 Thu Apr 04 2019 12:40:24 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# plinko-probability 1.1.10 Wed Apr 17 2019 15:58:34 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "5c3f92048a9c2ffd6df8ede54fd64f1f7a7e4ef2",
     "branch": "HEAD"
@@ -13,8 +13,8 @@
     "branch": "HEAD"
   },
   "chipper": {
-    "sha": "c04c69c65b1f1927378fc52cdd3884d6c3ad816c",
-    "branch": "HEAD"
+    "sha": "e4120dd08e11b59977c4362bbd05d43561df73a9",
+    "branch": "plinko-probability-1.1"
   },
   "dot": {
     "sha": "6b4ec39c10d667cd64543e59184f0a2fff4fad6e",
@@ -41,7 +41,7 @@
     "branch": "HEAD"
   },
   "plinko-probability": {
-    "sha": "28dceb6dbe53cddcf11834dd6ae5a5f7e674dacf",
+    "sha": "20db6fbb70daf7fbd8ddad728ee091d40abd616f",
     "branch": "1.1"
   },
   "query-string-machine": {
