@@ -59,10 +59,10 @@ define( function( require ) {
     } );
 
     // Creation of radio button group for ball setting
-    var ballModeRadioButtons = new VerticalAquaRadioButtonGroup( [
-      { node: oneBall, property: model.ballModeProperty, value: 'oneBall' },
-      { node: tenBalls, property: model.ballModeProperty, value: 'tenBalls' },
-      { node: maxBalls, property: model.ballModeProperty, value: 'maxBalls' }
+    var ballModeRadioButtons = new VerticalAquaRadioButtonGroup( model.ballModeProperty, [
+      { node: oneBall, value: 'oneBall' },
+      { node: tenBalls, value: 'tenBalls' },
+      { node: maxBalls, value: 'maxBalls' }
     ], {
       radioButtonOptions: { radius: 8 },
       spacing: 10,     // vertical spacing between each radio button

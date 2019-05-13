@@ -40,10 +40,10 @@ define( function( require ) {
     }, options );
 
     // create the radio buttons
-    var showRadioButtons = new VerticalAquaRadioButtonGroup( [
-      { node: new Text( ballString, LABEL_OPTIONS ), property: hopperModeProperty, value: 'ball' },
-      { node: new Text( pathString, LABEL_OPTIONS ), property: hopperModeProperty, value: 'path' },
-      { node: new Text( noneString, LABEL_OPTIONS ), property: hopperModeProperty, value: 'none' }
+    var showRadioButtons = new VerticalAquaRadioButtonGroup( hopperModeProperty, [
+      { node: new Text( ballString, LABEL_OPTIONS ), value: 'ball' },
+      { node: new Text( pathString, LABEL_OPTIONS ), value: 'path' },
+      { node: new Text( noneString, LABEL_OPTIONS ), value: 'none' }
     ], options );
 
     this.addChild( showRadioButtons );

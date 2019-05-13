@@ -77,9 +77,9 @@ define( function( require ) {
     } );
 
     // create the vertical radio group buttons for the one ball and continuous mode.
-    var ballModeRadioButtons = new VerticalAquaRadioButtonGroup( [
-      { node: oneBall, property: model.ballModeProperty, value: 'oneBall' },
-      { node: continuous, property: model.ballModeProperty, value: 'continuous' }
+    var ballModeRadioButtons = new VerticalAquaRadioButtonGroup( model.ballModeProperty, [
+      { node: oneBall, value: 'oneBall' },
+      { node: continuous, value: 'continuous' }
     ], {
       radioButtonOptions: { radius: 8 },
       touchAreaXDilation: 5,
