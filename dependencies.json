@@ -1,5 +1,5 @@
 {
-  "comment": "# plinko-probability 1.1.13 Wed Jul 10 2019 17:13:57 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# plinko-probability 1.1.13 Fri Jul 26 2019 16:55:05 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "5c3f92048a9c2ffd6df8ede54fd64f1f7a7e4ef2",
     "branch": "HEAD"
@@ -33,15 +33,15 @@
     "branch": "HEAD"
   },
   "phetcommon": {
-    "sha": "6dcf94425e28fca6d724840690e6f6e8eafa938f",
-    "branch": "HEAD"
+    "sha": "ef042137606410814bc1f977e1253c96359bcde9",
+    "branch": "plinko-probability-1.1"
   },
   "phetmarks": {
     "sha": "4043203e455f544b1f0d4b7ce259c7c5f4e0582c",
     "branch": "HEAD"
   },
   "plinko-probability": {
-    "sha": "2505f07fb1048623007904712ffd9de9a03c8a03",
+    "sha": "4bcb9817f6cc12577487d7e106a1e7a20454804b",
     "branch": "1.1"
   },
   "query-string-machine": {
