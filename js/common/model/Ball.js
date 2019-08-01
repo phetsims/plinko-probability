@@ -39,7 +39,7 @@ define( function( require ) {
 
     // @public
     this.ballHittingPegEmitter = new Emitter( {
-      validators: [ { validValues: [ 'left', 'right' ] } ]
+      parameters: [ { validValues: [ 'left', 'right' ] } ]
     } );
     this.ballOutOfPegsEmitter = new Emitter();
     this.ballCollectedEmitter = new Emitter();
