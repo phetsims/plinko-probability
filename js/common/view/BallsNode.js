@@ -5,17 +5,17 @@
  *
  * @author Martin Veillette (Berea College)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var BallNode = require( 'PLINKO_PROBABILITY/common/view/BallNode' );
-  var BallPhase = require( 'PLINKO_PROBABILITY/common/model/BallPhase' );
-  var CanvasNode = require( 'SCENERY/nodes/CanvasNode' );
-  var GaltonBoard = require( 'PLINKO_PROBABILITY/common/model/GaltonBoard' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
-  var PlinkoProbabilityConstants = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityConstants' );
+  const BallNode = require( 'PLINKO_PROBABILITY/common/view/BallNode' );
+  const BallPhase = require( 'PLINKO_PROBABILITY/common/model/BallPhase' );
+  const CanvasNode = require( 'SCENERY/nodes/CanvasNode' );
+  const GaltonBoard = require( 'PLINKO_PROBABILITY/common/model/GaltonBoard' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
+  const PlinkoProbabilityConstants = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityConstants' );
 
   /**
    * @param {Ball[]} balls - an array of model Ball

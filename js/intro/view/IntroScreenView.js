@@ -8,24 +8,24 @@
  * @author Denzell Barnett (Berea College)
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var CylindersBackNode = require( 'PLINKO_PROBABILITY/intro/view/CylindersBackNode' );
-  var CylindersFrontNode = require( 'PLINKO_PROBABILITY/intro/view/CylindersFrontNode' );
-  var HistogramModeControl = require( 'PLINKO_PROBABILITY/common/view/HistogramModeControl' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var IntroPlayPanel = require( 'PLINKO_PROBABILITY/intro/view/IntroPlayPanel' );
-  var NumberBallsDisplay = require( 'PLINKO_PROBABILITY/intro/view/NumberBallsDisplay' );
-  var PegsNode = require( 'PLINKO_PROBABILITY/common/view/PegsNode' );
-  var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
-  var PlinkoProbabilityCommonView = require( 'PLINKO_PROBABILITY/common/view/PlinkoProbabilityCommonView' );
-  var PlinkoProbabilityConstants = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityConstants' );
+  const CylindersBackNode = require( 'PLINKO_PROBABILITY/intro/view/CylindersBackNode' );
+  const CylindersFrontNode = require( 'PLINKO_PROBABILITY/intro/view/CylindersFrontNode' );
+  const HistogramModeControl = require( 'PLINKO_PROBABILITY/common/view/HistogramModeControl' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const IntroPlayPanel = require( 'PLINKO_PROBABILITY/intro/view/IntroPlayPanel' );
+  const NumberBallsDisplay = require( 'PLINKO_PROBABILITY/intro/view/NumberBallsDisplay' );
+  const PegsNode = require( 'PLINKO_PROBABILITY/common/view/PegsNode' );
+  const plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
+  const PlinkoProbabilityCommonView = require( 'PLINKO_PROBABILITY/common/view/PlinkoProbabilityCommonView' );
+  const PlinkoProbabilityConstants = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityConstants' );
 
   // images
-  var counterImage = require( 'image!PLINKO_PROBABILITY/counter.png' );
-  var cylinderImage = require( 'image!PLINKO_PROBABILITY/cylinder.png' );
+  const counterImage = require( 'image!PLINKO_PROBABILITY/counter.png' );
+  const cylinderImage = require( 'image!PLINKO_PROBABILITY/cylinder.png' );
 
   // constants
   var MIN_PANEL_WIDTH = 220; // see #77

@@ -6,16 +6,16 @@
  * @author Sam Reid
  * @author Martin Veillette
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Path = require( 'SCENERY/nodes/Path' );
-  var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
-  var PlinkoProbabilityConstants = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityConstants' );
-  var RoundPushButton = require( 'SUN/buttons/RoundPushButton' );
-  var Shape = require( 'KITE/Shape' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const Path = require( 'SCENERY/nodes/Path' );
+  const plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
+  const PlinkoProbabilityConstants = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityConstants' );
+  const RoundPushButton = require( 'SUN/buttons/RoundPushButton' );
+  const Shape = require( 'KITE/Shape' );
 
   /**
    * @param {Object} [options]

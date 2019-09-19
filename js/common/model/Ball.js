@@ -5,17 +5,17 @@
  *
  * @author Martin Veillette (Berea College)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var BallPhase = require( 'PLINKO_PROBABILITY/common/model/BallPhase' );
-  var Emitter = require( 'AXON/Emitter' );
-  var GaltonBoard = require( 'PLINKO_PROBABILITY/common/model/GaltonBoard' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
-  var PlinkoProbabilityConstants = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityConstants' );
-  var Vector2 = require( 'DOT/Vector2' );
+  const BallPhase = require( 'PLINKO_PROBABILITY/common/model/BallPhase' );
+  const Emitter = require( 'AXON/Emitter' );
+  const GaltonBoard = require( 'PLINKO_PROBABILITY/common/model/GaltonBoard' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
+  const PlinkoProbabilityConstants = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityConstants' );
+  const Vector2 = require( 'DOT/Vector2' );
 
   /**
    * @param {number} probability - number ranging from 0 to 1

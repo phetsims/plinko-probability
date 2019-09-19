@@ -5,23 +5,23 @@
  *
  * @author Martin Veillette (Berea College)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var BallNode = require( 'PLINKO_PROBABILITY/common/view/BallNode' );
-  var BooleanProperty = require( 'AXON/BooleanProperty' );
-  var BooleanToggleNode = require( 'SUN/BooleanToggleNode' );
-  var Circle = require( 'SCENERY/nodes/Circle' );
-  var HBox = require( 'SCENERY/nodes/HBox' );
-  var HStrut = require( 'SCENERY/nodes/HStrut' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Panel = require( 'SUN/Panel' );
-  var PauseButton = require( 'PLINKO_PROBABILITY/common/view/PauseButton' );
-  var PlayButton = require( 'PLINKO_PROBABILITY/common/view/PlayButton' );
-  var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
-  var PlinkoProbabilityConstants = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityConstants' );
-  var VerticalAquaRadioButtonGroup = require( 'SUN/VerticalAquaRadioButtonGroup' );
+  const BallNode = require( 'PLINKO_PROBABILITY/common/view/BallNode' );
+  const BooleanProperty = require( 'AXON/BooleanProperty' );
+  const BooleanToggleNode = require( 'SUN/BooleanToggleNode' );
+  const Circle = require( 'SCENERY/nodes/Circle' );
+  const HBox = require( 'SCENERY/nodes/HBox' );
+  const HStrut = require( 'SCENERY/nodes/HStrut' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const Panel = require( 'SUN/Panel' );
+  const PauseButton = require( 'PLINKO_PROBABILITY/common/view/PauseButton' );
+  const PlayButton = require( 'PLINKO_PROBABILITY/common/view/PlayButton' );
+  const plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
+  const PlinkoProbabilityConstants = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityConstants' );
+  const VerticalAquaRadioButtonGroup = require( 'SUN/VerticalAquaRadioButtonGroup' );
 
   // constants
   var BALL_RADIUS = PlinkoProbabilityConstants.BALL_RADIUS;

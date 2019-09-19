@@ -3,25 +3,25 @@
 /**
  * The 'Lab' screen
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var Image = require( 'SCENERY/nodes/Image' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var LabModel = require( 'PLINKO_PROBABILITY/lab/model/LabModel' );
-  var LabScreenView = require( 'PLINKO_PROBABILITY/lab/view/LabScreenView' );
-  var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
-  var PlinkoProbabilityConstants = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityConstants' );
-  var Property = require( 'AXON/Property' );
-  var Screen = require( 'JOIST/Screen' );
+  const Image = require( 'SCENERY/nodes/Image' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const LabModel = require( 'PLINKO_PROBABILITY/lab/model/LabModel' );
+  const LabScreenView = require( 'PLINKO_PROBABILITY/lab/view/LabScreenView' );
+  const plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
+  const PlinkoProbabilityConstants = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityConstants' );
+  const Property = require( 'AXON/Property' );
+  const Screen = require( 'JOIST/Screen' );
 
   // strings
-  var screenLabString = require( 'string!PLINKO_PROBABILITY/screen.lab' );
+  const screenLabString = require( 'string!PLINKO_PROBABILITY/screen.lab' );
 
   // image
-  var labHomescreenImage = require( 'image!PLINKO_PROBABILITY/lab-homescreen.png' );
-  var labNavbarImage = require( 'image!PLINKO_PROBABILITY/lab-navbar.png' );
+  const labHomescreenImage = require( 'image!PLINKO_PROBABILITY/lab-homescreen.png' );
+  const labNavbarImage = require( 'image!PLINKO_PROBABILITY/lab-navbar.png' );
 
   /**
    * @constructor

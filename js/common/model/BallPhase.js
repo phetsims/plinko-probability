@@ -5,11 +5,11 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
+  const plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
 
   var BallPhase = {
     INITIAL: 0,   // ball has left the hopper

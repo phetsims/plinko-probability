@@ -6,23 +6,23 @@
  * @author Martin Veillette (Berea College)
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var Dimension2 = require( 'DOT/Dimension2' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var NumberControl = require( 'SCENERY_PHET/NumberControl' );
-  var Panel = require( 'SUN/Panel' );
-  var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
-  var PlinkoProbabilityConstants = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityConstants' );
-  var Text = require( 'SCENERY/nodes/Text' );
-  var Util = require( 'DOT/Util' );
-  var VBox = require( 'SCENERY/nodes/VBox' );
+  const Dimension2 = require( 'DOT/Dimension2' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const NumberControl = require( 'SCENERY_PHET/NumberControl' );
+  const Panel = require( 'SUN/Panel' );
+  const plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
+  const PlinkoProbabilityConstants = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityConstants' );
+  const Text = require( 'SCENERY/nodes/Text' );
+  const Util = require( 'DOT/Util' );
+  const VBox = require( 'SCENERY/nodes/VBox' );
 
   // strings
-  var binaryProbabilityString = require( 'string!PLINKO_PROBABILITY/binaryProbability' );
-  var rowsString = require( 'string!PLINKO_PROBABILITY/rows' );
+  const binaryProbabilityString = require( 'string!PLINKO_PROBABILITY/binaryProbability' );
+  const rowsString = require( 'string!PLINKO_PROBABILITY/rows' );
 
   // constants
   var SLIDER_TRACK_SIZE = new Dimension2( 170, 2 );

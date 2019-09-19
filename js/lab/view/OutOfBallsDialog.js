@@ -5,18 +5,18 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var Dialog = require( 'SUN/Dialog' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
-  var Text = require( 'SCENERY/nodes/Text' );
+  const Dialog = require( 'SUN/Dialog' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  const plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
+  const Text = require( 'SCENERY/nodes/Text' );
 
   // strings
-  var outOfBallsString = require( 'string!PLINKO_PROBABILITY/outOfBalls' );
+  const outOfBallsString = require( 'string!PLINKO_PROBABILITY/outOfBalls' );
 
   /**
    * @param {Object} [options]

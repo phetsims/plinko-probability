@@ -6,18 +6,18 @@
  * @author Denzell Barnett (Berea College)
  * @author Martin Veillette (Berea College)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var inherit = require( 'PHET_CORE/inherit' );
-  var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
-  var PlinkoProbabilityConstants = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityConstants' );
-  var Sound = require( 'VIBE/Sound' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
+  const PlinkoProbabilityConstants = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityConstants' );
+  const Sound = require( 'VIBE/Sound' );
 
   // sounds
-  var bonk1Audio = require( 'sound!PLINKO_PROBABILITY/bonk-1-for-plinko.mp3' );
-  var bonk2Audio = require( 'sound!PLINKO_PROBABILITY/bonk-2-for-plinko.mp3' );
+  const bonk1Audio = require( 'sound!PLINKO_PROBABILITY/bonk-1-for-plinko.mp3' );
+  const bonk2Audio = require( 'sound!PLINKO_PROBABILITY/bonk-2-for-plinko.mp3' );
 
   /**
    * @param {Property.<boolean>} isSoundEnabledProperty

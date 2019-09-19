@@ -7,14 +7,14 @@
  *
  * @author Martin Veillette (Berea College)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var Ball = require( 'PLINKO_PROBABILITY/common/model/Ball' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
-  var PlinkoProbabilityConstants = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityConstants' );
+  const Ball = require( 'PLINKO_PROBABILITY/common/model/Ball' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
+  const PlinkoProbabilityConstants = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityConstants' );
 
   /**
    * @param {number} probability - number ranging from 0 to 1

@@ -5,25 +5,25 @@
  *
  * @author Martin Veillette (Berea College)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var Image = require( 'SCENERY/nodes/Image' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var IntroModel = require( 'PLINKO_PROBABILITY/intro/model/IntroModel' );
-  var IntroScreenView = require( 'PLINKO_PROBABILITY/intro/view/IntroScreenView' );
-  var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
-  var PlinkoProbabilityConstants = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityConstants' );
-  var Property = require( 'AXON/Property' );
-  var Screen = require( 'JOIST/Screen' );
+  const Image = require( 'SCENERY/nodes/Image' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const IntroModel = require( 'PLINKO_PROBABILITY/intro/model/IntroModel' );
+  const IntroScreenView = require( 'PLINKO_PROBABILITY/intro/view/IntroScreenView' );
+  const plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
+  const PlinkoProbabilityConstants = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityConstants' );
+  const Property = require( 'AXON/Property' );
+  const Screen = require( 'JOIST/Screen' );
 
   // strings
-  var screenIntroString = require( 'string!PLINKO_PROBABILITY/screen.intro' );
+  const screenIntroString = require( 'string!PLINKO_PROBABILITY/screen.intro' );
 
   // image
-  var introHomescreenImage = require( 'image!PLINKO_PROBABILITY/intro-homescreen.png' );
-  var introNavbarImage = require( 'image!PLINKO_PROBABILITY/intro-navbar.png' );
+  const introHomescreenImage = require( 'image!PLINKO_PROBABILITY/intro-homescreen.png' );
+  const introNavbarImage = require( 'image!PLINKO_PROBABILITY/intro-navbar.png' );
 
   /**
    * @constructor

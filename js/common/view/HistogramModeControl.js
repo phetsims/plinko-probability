@@ -6,14 +6,14 @@
  *
  * @author Denzell Barnett (Berea College)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var Image = require( 'SCENERY/nodes/Image' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
-  var RadioButtonGroup = require( 'SUN/buttons/RadioButtonGroup' );
+  const Image = require( 'SCENERY/nodes/Image' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
+  const RadioButtonGroup = require( 'SUN/buttons/RadioButtonGroup' );
 
   // constants
   var ICON_WIDTH = 35;

@@ -5,18 +5,18 @@
  *
  * @author Martin Veillette (Berea College)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var IntroScreen = require( 'PLINKO_PROBABILITY/intro/IntroScreen' );
-  var LabScreen = require( 'PLINKO_PROBABILITY/lab/LabScreen' );
-  var SliderAndGeneralKeyboardHelpContent = require( 'SCENERY_PHET/keyboard/help/SliderAndGeneralKeyboardHelpContent' );
-  var Sim = require( 'JOIST/Sim' );
-  var SimLauncher = require( 'JOIST/SimLauncher' );
+  const IntroScreen = require( 'PLINKO_PROBABILITY/intro/IntroScreen' );
+  const LabScreen = require( 'PLINKO_PROBABILITY/lab/LabScreen' );
+  const SliderAndGeneralKeyboardHelpContent = require( 'SCENERY_PHET/keyboard/help/SliderAndGeneralKeyboardHelpContent' );
+  const Sim = require( 'JOIST/Sim' );
+  const SimLauncher = require( 'JOIST/SimLauncher' );
 
   // strings
-  var plinkoProbabilityTitleString = require( 'string!PLINKO_PROBABILITY/plinko-probability.title' );
+  const plinkoProbabilityTitleString = require( 'string!PLINKO_PROBABILITY/plinko-probability.title' );
 
   var keyboardHelpContent = new SliderAndGeneralKeyboardHelpContent( {
     generalSectionOptions: {

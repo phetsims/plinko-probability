@@ -8,28 +8,28 @@
  * @author Denzell Barnett (Berea College)
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var HistogramModeControl = require( 'PLINKO_PROBABILITY/common/view/HistogramModeControl' );
-  var HopperModeControl = require( 'PLINKO_PROBABILITY/lab/view/HopperModeControl' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var LabPlayPanel = require( 'PLINKO_PROBABILITY/lab/view/LabPlayPanel' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var OutOfBallsDialog = require( 'PLINKO_PROBABILITY/lab/view/OutOfBallsDialog' );
-  var PegControls = require( 'PLINKO_PROBABILITY/lab/view/PegControls' );
-  var PegsNode = require( 'PLINKO_PROBABILITY/common/view/PegsNode' );
-  var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
-  var PlinkoProbabilityCommonView = require( 'PLINKO_PROBABILITY/common/view/PlinkoProbabilityCommonView' );
-  var PlinkoProbabilityConstants = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityConstants' );
-  var PlinkoProbabilityQueryParameters = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityQueryParameters' );
-  var StatisticsAccordionBox = require( 'PLINKO_PROBABILITY/lab/view/StatisticsAccordionBox' );
-  var TrajectoryPath = require( 'PLINKO_PROBABILITY/lab/view/TrajectoryPath' );
+  const HistogramModeControl = require( 'PLINKO_PROBABILITY/common/view/HistogramModeControl' );
+  const HopperModeControl = require( 'PLINKO_PROBABILITY/lab/view/HopperModeControl' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const LabPlayPanel = require( 'PLINKO_PROBABILITY/lab/view/LabPlayPanel' );
+  const Node = require( 'SCENERY/nodes/Node' );
+  const OutOfBallsDialog = require( 'PLINKO_PROBABILITY/lab/view/OutOfBallsDialog' );
+  const PegControls = require( 'PLINKO_PROBABILITY/lab/view/PegControls' );
+  const PegsNode = require( 'PLINKO_PROBABILITY/common/view/PegsNode' );
+  const plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
+  const PlinkoProbabilityCommonView = require( 'PLINKO_PROBABILITY/common/view/PlinkoProbabilityCommonView' );
+  const PlinkoProbabilityConstants = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityConstants' );
+  const PlinkoProbabilityQueryParameters = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityQueryParameters' );
+  const StatisticsAccordionBox = require( 'PLINKO_PROBABILITY/lab/view/StatisticsAccordionBox' );
+  const TrajectoryPath = require( 'PLINKO_PROBABILITY/lab/view/TrajectoryPath' );
 
   // images
-  var counterImage = require( 'image!PLINKO_PROBABILITY/counter.png' );
-  var fractionImage = require( 'image!PLINKO_PROBABILITY/fraction.png' );
+  const counterImage = require( 'image!PLINKO_PROBABILITY/counter.png' );
+  const fractionImage = require( 'image!PLINKO_PROBABILITY/fraction.png' );
 
   // constants
   var PANEL_FIXED_WIDTH = 220; // determined empirically

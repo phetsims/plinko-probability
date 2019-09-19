@@ -8,25 +8,25 @@
  * @author Denzell Barnett (Berea College)
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var BallsNode = require( 'PLINKO_PROBABILITY/common/view/BallsNode' );
-  var Board = require( 'PLINKO_PROBABILITY/common/view/Board' );
-  var Bounds2 = require( 'DOT/Bounds2' );
-  var EraserButton = require( 'SCENERY_PHET/buttons/EraserButton' );
-  var HistogramNode = require( 'PLINKO_PROBABILITY/common/view/HistogramNode' );
-  var Hopper = require( 'PLINKO_PROBABILITY/common/view/Hopper' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
-  var PegSoundGeneration = require( 'PLINKO_PROBABILITY/common/view/PegSoundGeneration' );
-  var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
-  var PlinkoProbabilityConstants = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityConstants' );
-  var PlinkoProbabilityViewProperties = require( 'PLINKO_PROBABILITY/common/view/PlinkoProbabilityViewProperties' );
-  var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
-  var ScreenView = require( 'JOIST/ScreenView' );
-  var SoundToggleButton = require( 'SCENERY_PHET/buttons/SoundToggleButton' );
+  const BallsNode = require( 'PLINKO_PROBABILITY/common/view/BallsNode' );
+  const Board = require( 'PLINKO_PROBABILITY/common/view/Board' );
+  const Bounds2 = require( 'DOT/Bounds2' );
+  const EraserButton = require( 'SCENERY_PHET/buttons/EraserButton' );
+  const HistogramNode = require( 'PLINKO_PROBABILITY/common/view/HistogramNode' );
+  const Hopper = require( 'PLINKO_PROBABILITY/common/view/Hopper' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
+  const PegSoundGeneration = require( 'PLINKO_PROBABILITY/common/view/PegSoundGeneration' );
+  const plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
+  const PlinkoProbabilityConstants = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityConstants' );
+  const PlinkoProbabilityViewProperties = require( 'PLINKO_PROBABILITY/common/view/PlinkoProbabilityViewProperties' );
+  const ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
+  const ScreenView = require( 'JOIST/ScreenView' );
+  const SoundToggleButton = require( 'SCENERY_PHET/buttons/SoundToggleButton' );
 
   /**
    * @param {PlinkoProbabilityCommonModel} model

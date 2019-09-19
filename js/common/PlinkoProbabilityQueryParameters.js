@@ -6,12 +6,12 @@
  * @author Denzell Barnett (Berea College)
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
-  var Util = require( 'DOT/Util' );
+  const plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
+  const Util = require( 'DOT/Util' );
 
   var PlinkoProbabilityQueryParameters = QueryStringMachine.getAll( {
 

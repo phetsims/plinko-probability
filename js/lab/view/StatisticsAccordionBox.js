@@ -5,30 +5,30 @@
  *
  * @author Martin Veillette (Berea College)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var AccordionBox = require( 'SUN/AccordionBox' );
-  var Checkbox = require( 'SUN/Checkbox' );
-  var EquationNode = require( 'PLINKO_PROBABILITY/common/view/EquationNode' );
-  var HBox = require( 'SCENERY/nodes/HBox' );
-  var HistogramIcon = require( 'PLINKO_PROBABILITY/lab/view/HistogramIcon' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
-  var PlinkoProbabilityConstants = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityConstants' );
-  var Property = require( 'AXON/Property' );
-  var Text = require( 'SCENERY/nodes/Text' );
-  var VBox = require( 'SCENERY/nodes/VBox' );
+  const AccordionBox = require( 'SUN/AccordionBox' );
+  const Checkbox = require( 'SUN/Checkbox' );
+  const EquationNode = require( 'PLINKO_PROBABILITY/common/view/EquationNode' );
+  const HBox = require( 'SCENERY/nodes/HBox' );
+  const HistogramIcon = require( 'PLINKO_PROBABILITY/lab/view/HistogramIcon' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
+  const PlinkoProbabilityConstants = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityConstants' );
+  const Property = require( 'AXON/Property' );
+  const Text = require( 'SCENERY/nodes/Text' );
+  const VBox = require( 'SCENERY/nodes/VBox' );
 
   // strings
-  var idealString = require( 'string!PLINKO_PROBABILITY/ideal' );
-  var muString = require( 'string!PLINKO_PROBABILITY/mu' );
-  var nString = require( 'string!PLINKO_PROBABILITY/n' );
-  var sigmaString = require( 'string!PLINKO_PROBABILITY/sigma' );
-  var sMeanString = require( 'string!PLINKO_PROBABILITY/sMean' );
-  var sString = require( 'string!PLINKO_PROBABILITY/s' );
-  var xBarString = require( 'string!PLINKO_PROBABILITY/xBar' );
+  const idealString = require( 'string!PLINKO_PROBABILITY/ideal' );
+  const muString = require( 'string!PLINKO_PROBABILITY/mu' );
+  const nString = require( 'string!PLINKO_PROBABILITY/n' );
+  const sigmaString = require( 'string!PLINKO_PROBABILITY/sigma' );
+  const sMeanString = require( 'string!PLINKO_PROBABILITY/sMean' );
+  const sString = require( 'string!PLINKO_PROBABILITY/s' );
+  const xBarString = require( 'string!PLINKO_PROBABILITY/xBar' );
 
   // constants
   var CONTENT_Y_SPACING = 10; // vertical spacing of elements in the accordion box's content

@@ -5,21 +5,21 @@
  *
  * @author Martin Veillette (Berea College)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // imports
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
-  var Text = require( 'SCENERY/nodes/Text' );
-  var VerticalAquaRadioButtonGroup = require( 'SUN/VerticalAquaRadioButtonGroup' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const Node = require( 'SCENERY/nodes/Node' );
+  const PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  const plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
+  const Text = require( 'SCENERY/nodes/Text' );
+  const VerticalAquaRadioButtonGroup = require( 'SUN/VerticalAquaRadioButtonGroup' );
 
   // strings
-  var ballString = require( 'string!PLINKO_PROBABILITY/ball' );
-  var noneString = require( 'string!PLINKO_PROBABILITY/none' );
-  var pathString = require( 'string!PLINKO_PROBABILITY/path' );
+  const ballString = require( 'string!PLINKO_PROBABILITY/ball' );
+  const noneString = require( 'string!PLINKO_PROBABILITY/none' );
+  const pathString = require( 'string!PLINKO_PROBABILITY/path' );
 
   // constants
   var LABEL_OPTIONS = { font: new PhetFont( 20 ), maxWidth: 175 };

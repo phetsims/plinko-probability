@@ -6,18 +6,18 @@
  * @author Martin Veillette (Berea College)
  */
 
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var EquationNode = require( 'PLINKO_PROBABILITY/common/view/EquationNode' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Panel = require( 'SUN/Panel' );
-  var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
-  var PlinkoProbabilityConstants = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityConstants' );
+  const EquationNode = require( 'PLINKO_PROBABILITY/common/view/EquationNode' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const Panel = require( 'SUN/Panel' );
+  const plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
+  const PlinkoProbabilityConstants = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityConstants' );
 
   // strings
-  var nString = require( 'string!PLINKO_PROBABILITY/n' );
+  const nString = require( 'string!PLINKO_PROBABILITY/n' );
 
   /**
    * @param {Histogram} histogram

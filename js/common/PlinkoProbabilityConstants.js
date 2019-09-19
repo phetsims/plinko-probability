@@ -5,17 +5,17 @@
  *
  * @author Martin Veillette (Berea College)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var Bounds2 = require( 'DOT/Bounds2' );
-  var Color = require( 'SCENERY/util/Color' );
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  var plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
-  var PlinkoProbabilityQueryParameters = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityQueryParameters' );
-  var RangeWithValue = require( 'DOT/RangeWithValue' );
-  var RoundButtonView = require( 'SUN/buttons/RoundButtonView' );
+  const Bounds2 = require( 'DOT/Bounds2' );
+  const Color = require( 'SCENERY/util/Color' );
+  const PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  const plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
+  const PlinkoProbabilityQueryParameters = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityQueryParameters' );
+  const RangeWithValue = require( 'DOT/RangeWithValue' );
+  const RoundButtonView = require( 'SUN/buttons/RoundButtonView' );
 
   var PlinkoProbabilityConstants = {
 
