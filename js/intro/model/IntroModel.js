@@ -17,23 +17,23 @@ define( require => {
   const PlinkoProbabilityQueryParameters = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityQueryParameters' );
 
   // constants
-  var MAX_BALLS = PlinkoProbabilityQueryParameters.maxBallsIntro;
-  var PERSPECTIVE_TILT = Math.PI / 1.4; // in radians
+  const MAX_BALLS = PlinkoProbabilityQueryParameters.maxBallsIntro;
+  const PERSPECTIVE_TILT = Math.PI / 1.4; // in radians
 
   /**
    * @constructor
    */
   function IntroModel() {
 
-    var self = this;
+    const self = this;
 
     PlinkoProbabilityCommonModel.call( this );
 
-    var bounds = PlinkoProbabilityConstants.HISTOGRAM_BOUNDS;
+    const bounds = PlinkoProbabilityConstants.HISTOGRAM_BOUNDS;
     // the width of one bin is the total width divided by the number of columns
-    var binWidth = bounds.width / ( this.numberOfRowsProperty.get() + 1 );
-    var cylinderWidth = 0.95 * binWidth; // there is a small gap between each cylinder
-    var ellipseHeight = cylinderWidth * Math.sin( PERSPECTIVE_TILT ); // the height is the width times some perspective tilt
+    const binWidth = bounds.width / ( this.numberOfRowsProperty.get() + 1 );
+    const cylinderWidth = 0.95 * binWidth; // there is a small gap between each cylinder
+    const ellipseHeight = cylinderWidth * Math.sin( PERSPECTIVE_TILT ); // the height is the width times some perspective tilt
 
     this.cylinderInfo = { // @public (read-only)
       cylinderWidth: cylinderWidth,
@@ -80,10 +80,10 @@ define( require => {
       }
 
       // Move balls
-      var ballsMoved = false;
-      var dtCapped = Math.min( 0.1, dt * 5 ); // Cap the dt so that the balls don't make a big jump
+      let ballsMoved = false;
+      const dtCapped = Math.min( 0.1, dt * 5 ); // Cap the dt so that the balls don't make a big jump
       this.balls.forEach( function( ball ) {
-        var ballMoved = ball.step( dtCapped );
+        const ballMoved = ball.step( dtCapped );
         ballsMoved = ( ballMoved || ballsMoved );
       } );
 
@@ -140,7 +140,7 @@ define( require => {
     addNewBall: function() {
 
       // create a new ball
-      var addedBall = new IntroBall( this.probabilityProperty.get(), this.numberOfRowsProperty.get(),
+      const addedBall = new IntroBall( this.probabilityProperty.get(), this.numberOfRowsProperty.get(),
         this.histogram.bins, this.cylinderInfo );
 
       this.launchedBallsNumber++; // increment the number of launched balls
@@ -157,7 +157,7 @@ define( require => {
       this.balls.push( addedBall );
 
       // ballOutOfPegsEmitter is emitted when the addedBall leaves the last peg on the Galton board.
-      var self = this;
+      const self = this;
       addedBall.ballOutOfPegsEmitter.addListener( function ballOutOfPegsListener() {
         self.histogram.addBallToHistogram( addedBall );
         addedBall.ballOutOfPegsEmitter.removeListener( ballOutOfPegsListener );

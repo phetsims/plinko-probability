@@ -15,7 +15,7 @@ define( require => {
   const StringProperty = require( 'AXON/StringProperty' );
 
   // constants
-  var HISTOGRAM_MODE_VALUES = [ 'counter', 'cylinder', 'fraction' ]; // values for histogramModeProperty
+  const HISTOGRAM_MODE_VALUES = [ 'counter', 'cylinder', 'fraction' ]; // values for histogramModeProperty
 
   /**
    * @param {Object} [options]

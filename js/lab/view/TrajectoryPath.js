@@ -23,17 +23,17 @@ define( require => {
    */
   function TrajectoryPath( ball, modelViewTransform ) {
 
-    var pathOptions = {
+    const pathOptions = {
       stroke: PlinkoProbabilityConstants.BALL_COLOR,
       lineWidth: 2
     };
 
     // The trajectory path will be some vertical distance above the pegs.
     // create a vertical offset that is a fraction of the peg separation.
-    var verticalOffset = ball.pegSeparation / 2;
+    const verticalOffset = ball.pegSeparation / 2;
 
     // create the shape of the trajectory
-    var shape = new Shape();
+    const shape = new Shape();
 
     // starting point of the shape is above the first peg plus some vertical offset.
     shape.moveTo(

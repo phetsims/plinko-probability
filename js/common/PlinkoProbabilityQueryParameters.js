@@ -13,7 +13,7 @@ define( require => {
   const plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   const Util = require( 'DOT/Util' );
 
-  var PlinkoProbabilityQueryParameters = QueryStringMachine.getAll( {
+  const PlinkoProbabilityQueryParameters = QueryStringMachine.getAll( {
 
     // Maximum number of balls in the Intro screen, e.g. maxBallsIntro=150
     // Used to test overflow of bins.

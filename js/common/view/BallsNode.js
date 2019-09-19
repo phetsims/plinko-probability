@@ -31,7 +31,7 @@ define( require => {
 
     CanvasNode.call( this, options );
 
-    var self = this;
+    const self = this;
 
     // @private
     this.balls = balls;
@@ -40,11 +40,11 @@ define( require => {
     this.modelViewTransform = modelViewTransform;
 
     // set the default ball radius using the largest possible radius, that is the minimum number of rows.
-    var defaultBallRadius = modelViewTransform.modelToViewDeltaX(
+    const defaultBallRadius = modelViewTransform.modelToViewDeltaX(
       GaltonBoard.getPegSpacing( PlinkoProbabilityConstants.ROWS_RANGE.min ) * PlinkoProbabilityConstants.BALL_SIZE_FRACTION );
 
     // Renders the ball to a canvas, used for rendering all balls.
-    var ballNode = new BallNode( defaultBallRadius );
+    const ballNode = new BallNode( defaultBallRadius );
     ballNode.toCanvas( function( canvas, x, y, width, height ) {
       self.ballCanvas = canvas; // @private
       self.invalidatePaint(); // calls paintCanvas
@@ -71,10 +71,10 @@ define( require => {
       // Adjust size of the balls based on the number of rows in the Galton board.
       // scale ball radius to be inversely proportional to (number of bins )
 
-      var scaleFactor = (PlinkoProbabilityConstants.ROWS_RANGE.min + 1) / (this.numberOfRowsProperty.get() + 1);
+      let scaleFactor = (PlinkoProbabilityConstants.ROWS_RANGE.min + 1) / (this.numberOfRowsProperty.get() + 1);
 
-      var verticalOffset = 0;
-      var stopScalingRowNumber = 3;
+      let verticalOffset = 0;
+      const stopScalingRowNumber = 3;
       // when the number of rows is less than 3, scaling up the ball radius
       // differently
       if ( this.numberOfRowsProperty.get() <= stopScalingRowNumber ) {
@@ -82,7 +82,7 @@ define( require => {
         // some ad hoc fudge factor to suppress even more the size of the
         // ball when the number of rows is low
         // (3/4 when row =1, 4/5 when row =2 and 5/6 when row =3)
-        var fudgeFactor = ((this.numberOfRowsProperty.get() - 1) + 3) /
+        const fudgeFactor = ((this.numberOfRowsProperty.get() - 1) + 3) /
                           ((this.numberOfRowsProperty.get() - 1) + 4);
         scaleFactor = scaleFactor * fudgeFactor;
 
@@ -91,14 +91,14 @@ define( require => {
         verticalOffset = ( 1 - fudgeFactor ) * this.ballCanvas.height / 2;
       }
 
-      var self = this;
+      const self = this;
       this.balls.forEach( function( ball ) {
 
         // don't draw balls in bins (cylinders) when the bins aren't visible
         if ( self.histogramModeProperty.get() === 'cylinder' || ball.phase !== BallPhase.COLLECTED ) {
 
-          var ballViewPositionX = self.modelViewTransform.modelToViewX( ball.position.x );
-          var ballViewPositionY = self.modelViewTransform.modelToViewY( ball.position.y );
+          const ballViewPositionX = self.modelViewTransform.modelToViewX( ball.position.x );
+          const ballViewPositionY = self.modelViewTransform.modelToViewY( ball.position.y );
 
           context.drawImage( self.ballCanvas,
             ballViewPositionX - self.ballCanvas.width * scaleFactor / 2,

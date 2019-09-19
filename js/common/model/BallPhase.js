@@ -11,7 +11,7 @@ define( require => {
   // modules
   const plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
 
-  var BallPhase = {
+  const BallPhase = {
     INITIAL: 0,   // ball has left the hopper
     FALLING: 1,   // ball is falling within bounds of board
     EXITED: 2,    // ball has exited the lower bounds of board and entered a bin

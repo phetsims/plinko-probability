@@ -23,14 +23,14 @@ define( require => {
     // @public
     this.bounds = PlinkoProbabilityConstants.GALTON_BOARD_BOUNDS;
 
-    var rowNumber; // {number} a non negative integer
-    var columnNumber; // {number} a non negative  integer
+    let rowNumber; // {number} a non negative integer
+    let columnNumber; // {number} a non negative  integer
     this.pegs = []; // @public (read-only)
 
     // creates all the pegs (up to the maximum number of possible rows)
     for ( rowNumber = 0; rowNumber <= PlinkoProbabilityConstants.ROWS_RANGE.max; rowNumber++ ) {
       for ( columnNumber = 0; columnNumber <= rowNumber; columnNumber++ ) {
-        var peg = {
+        const peg = {
           rowNumber: rowNumber, // an integer starting at zero
           columnNumber: columnNumber // an integer starting at zero
         };
@@ -40,7 +40,7 @@ define( require => {
 
     // link the numberOrRows to adjust the spacing between pegs (and size)
     // link is present for the lifetime of the sum
-    var self = this;
+    const self = this;
     numberOfRowsProperty.link( function( numberOfRows ) {
 
       self.pegs.forEach( function( peg ) {

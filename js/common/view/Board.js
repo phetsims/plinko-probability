@@ -21,10 +21,10 @@ define( require => {
   const Shape = require( 'KITE/Shape' );
 
   // constants
-  var RIGHT_SHADOW_WIDTH = 10;
-  var BOTTOM_SHADOW_HEIGHT = 10;
-  var SHADOW_X_OFFSET = 4;
-  var SHADOW_Y_OFFSET = 4;
+  const RIGHT_SHADOW_WIDTH = 10;
+  const BOTTOM_SHADOW_HEIGHT = 10;
+  const SHADOW_X_OFFSET = 4;
+  const SHADOW_Y_OFFSET = 4;
 
   /**
    * @param {Object} [options]
@@ -41,17 +41,17 @@ define( require => {
     this.size = options.size;
 
     // local vars to improve readability
-    var width = options.size.width;
-    var height = options.size.height;
+    const width = options.size.width;
+    const height = options.size.height;
 
     // triangular shape of the board, origin at top center
-    var boardShape = new Shape().moveTo( 0, 0 )
+    const boardShape = new Shape().moveTo( 0, 0 )
       .lineTo( width / 2, height )
       .lineTo( -width / 2, height )
       .close();
 
     // board face
-    var faceGradient = new LinearGradient( -width / 2, 0, width / 2, 0 )
+    const faceGradient = new LinearGradient( -width / 2, 0, width / 2, 0 )
       .addColorStop( 0.0112, '#FBEFD0' )
       .addColorStop( 0.1742, '#FADBA2' )
       .addColorStop( 0.2978, '#FAE3B0' )
@@ -59,32 +59,32 @@ define( require => {
       .addColorStop( 0.6573, '#F0D3A1' )
       .addColorStop( 0.7809, '#FBEED2' )
       .addColorStop( 0.9607, '#F9E2BA' );
-    var faceNode = new Path( boardShape, {
+    const faceNode = new Path( boardShape, {
       fill: faceGradient
     } );
 
     // bottom shadow, a rectangle below the triangle
-    var bottomShadowGradient = new LinearGradient( 0, 0, 0, BOTTOM_SHADOW_HEIGHT )
+    const bottomShadowGradient = new LinearGradient( 0, 0, 0, BOTTOM_SHADOW_HEIGHT )
       .addColorStop( 0.00, options.shadowFill )
       .addColorStop( 0.20, options.shadowFill )
       .addColorStop( 1.00, PlinkoProbabilityConstants.BACKGROUND_COLOR );
-    var bottomShadowNode = new Rectangle( 0, 0, faceNode.width + 8, BOTTOM_SHADOW_HEIGHT, 5, 50, {
+    const bottomShadowNode = new Rectangle( 0, 0, faceNode.width + 8, BOTTOM_SHADOW_HEIGHT, 5, 50, {
       fill: bottomShadowGradient,
       left: faceNode.left + SHADOW_X_OFFSET,
       top: faceNode.bottom
     } );
 
     // right shadow, a diagonal strip along the right edge of the triangle
-    var rightShadowShape = new Shape().moveTo( 0, 0 )
+    const rightShadowShape = new Shape().moveTo( 0, 0 )
       .lineTo( RIGHT_SHADOW_WIDTH, 0 )
       .lineTo( width / 2 + RIGHT_SHADOW_WIDTH, height )
       .lineTo( width / 2, height )
       .close();
-    var rightShadowGradient = new LinearGradient( 0, 0, RIGHT_SHADOW_WIDTH / 2, -RIGHT_SHADOW_WIDTH /2 )
+    const rightShadowGradient = new LinearGradient( 0, 0, RIGHT_SHADOW_WIDTH / 2, -RIGHT_SHADOW_WIDTH /2 )
       .addColorStop( 0.00, options.shadowFill )
       .addColorStop( 0.20, options.shadowFill )
       .addColorStop( 1.00, PlinkoProbabilityConstants.BACKGROUND_COLOR );
-    var rightShadowNode = new Path( rightShadowShape, {
+    const rightShadowNode = new Path( rightShadowShape, {
       fill: rightShadowGradient,
       left: faceNode.centerX + SHADOW_X_OFFSET,
       top: faceNode.top + SHADOW_Y_OFFSET

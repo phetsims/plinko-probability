@@ -28,7 +28,7 @@ define( require => {
    */
   function LabScreen() {
 
-    var options = {
+    const options = {
       name: screenLabString,
       backgroundColorProperty: new Property( PlinkoProbabilityConstants.BACKGROUND_COLOR ),
       homeScreenIcon: new Image( labHomescreenImage ),

@@ -31,14 +31,14 @@ define( require => {
     }, options );
 
     // pause symbol is sized relative to the radius
-    var barWidth = options.radius * 0.2;
-    var barHeight = options.radius;
+    const barWidth = options.radius * 0.2;
+    const barHeight = options.radius;
 
-    var iconShape = new Shape()
+    const iconShape = new Shape()
       .rect( 0, 0, barWidth, barHeight )
       .rect( 2 * barWidth, 0, barWidth, barHeight );
 
-    var iconNode = new Path( iconShape, {
+    const iconNode = new Path( iconShape, {
       fill: options.iconColor
     } );
 

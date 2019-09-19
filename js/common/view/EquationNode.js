@@ -43,19 +43,19 @@ define( require => {
     // @private
     this.options = options;
 
-    var leftHandSideOfEquationText = new RichText( leftHandSideOfEquation, {
+    const leftHandSideOfEquationText = new RichText( leftHandSideOfEquation, {
       font: options.leftHandSideFont,
       fill: options.leftHandSideFill,
       subScale: 0.5,
       maxWidth: options.leftHandSideMaxWidth
     } );
 
-    var equalSignText = new Text( ' = ', {
+    const equalSignText = new Text( ' = ', {
       font: options.leftHandSideFont,
       fill: options.leftHandSideFill
     } );
 
-    var rightHandSideOfEquationText = new Text( this.roundNumber( rightHandSideOfEquation ), {
+    const rightHandSideOfEquationText = new Text( this.roundNumber( rightHandSideOfEquation ), {
       font: options.rightHandSideFont,
       fill: options.rightHandSideFill
     } );
@@ -63,10 +63,10 @@ define( require => {
     // @private
     this.rightHandSideOfEquationText = rightHandSideOfEquationText;
 
-    var hStrut = new HStrut( options.positionOfEqualSign );
+    const hStrut = new HStrut( options.positionOfEqualSign );
 
     // create the mutable Equation, the right hand side is mutable
-    var mutableEquationText = new Node( {
+    const mutableEquationText = new Node( {
       children: [
         hStrut,
         leftHandSideOfEquationText,
@@ -120,9 +120,9 @@ define( require => {
       // 0.00011 -> 0.000
 
       // number = mantissa times 10^(exponent) where the mantissa is between 1 and 10 (or -1 to -10)
-      var exponent = Math.floor( Util.log10( Math.abs( number ) ) );
+      const exponent = Math.floor( Util.log10( Math.abs( number ) ) );
 
-      var decimalPlaces;
+      let decimalPlaces;
       if ( exponent >= this.options.maxDecimalPlaces ) {
         decimalPlaces = 0;
       }

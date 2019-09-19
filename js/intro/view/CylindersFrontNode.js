@@ -18,7 +18,7 @@ define( require => {
   const Shape = require( 'KITE/Shape' );
 
   // constants
-  var BOUNDS = PlinkoProbabilityConstants.HISTOGRAM_BOUNDS;
+  const BOUNDS = PlinkoProbabilityConstants.HISTOGRAM_BOUNDS;
 
   /**
    * @param {Property.<number>} numberOfRowsProperty
@@ -30,16 +30,16 @@ define( require => {
 
     Node.call( this );
 
-    var self = this;
+    const self = this;
 
     // convenience variable for placing the object inn the view
-    var ellipseWidth = modelViewTransform.modelToViewDeltaX( cylinderInfo.cylinderWidth );
-    var ellipseHeight = Math.abs( modelViewTransform.modelToViewDeltaY( cylinderInfo.ellipseHeight ) );
-    var cylinderHeight = Math.abs( modelViewTransform.modelToViewDeltaY( cylinderInfo.cylinderHeight ) );
-    var verticalOffset = -modelViewTransform.modelToViewDeltaY( cylinderInfo.verticalOffset );
+    const ellipseWidth = modelViewTransform.modelToViewDeltaX( cylinderInfo.cylinderWidth );
+    const ellipseHeight = Math.abs( modelViewTransform.modelToViewDeltaY( cylinderInfo.ellipseHeight ) );
+    const cylinderHeight = Math.abs( modelViewTransform.modelToViewDeltaY( cylinderInfo.cylinderHeight ) );
+    const verticalOffset = -modelViewTransform.modelToViewDeltaY( cylinderInfo.verticalOffset );
 
     // create side shape of the cylinder
-    var sideShape = new Shape();
+    const sideShape = new Shape();
     sideShape.moveTo( -ellipseWidth / 2, 0 )
       .lineTo( -ellipseWidth / 2, cylinderHeight )
       .ellipticalArc( 0, 0, ellipseWidth / 2, ellipseHeight / 2, 0, Math.PI, 0, true )
@@ -48,21 +48,21 @@ define( require => {
       .close();
 
     // create the linear fill gradient for the cylinder
-    var sideFill = new LinearGradient( -ellipseWidth / 2, 0, ellipseWidth / 2, 0 ).addColorStop( 0.0, PlinkoProbabilityConstants.CYLINDER_BASE_COLOR.colorUtilsDarker( 0.7 ) ).addColorStop( 0.5, PlinkoProbabilityConstants.CYLINDER_BASE_COLOR ).addColorStop( 1, PlinkoProbabilityConstants.CYLINDER_BASE_COLOR.colorUtilsBrighter( 0.5 ) );
+    const sideFill = new LinearGradient( -ellipseWidth / 2, 0, ellipseWidth / 2, 0 ).addColorStop( 0.0, PlinkoProbabilityConstants.CYLINDER_BASE_COLOR.colorUtilsDarker( 0.7 ) ).addColorStop( 0.5, PlinkoProbabilityConstants.CYLINDER_BASE_COLOR ).addColorStop( 1, PlinkoProbabilityConstants.CYLINDER_BASE_COLOR.colorUtilsBrighter( 0.5 ) );
 
-    var sideLayerNode = new Node();
+    const sideLayerNode = new Node();
     this.addChild( sideLayerNode );
 
     // link is present for the lifetime of the sim
     numberOfRowsProperty.link( function( numberOfRows ) {
-      var numberOfTicks = numberOfRows + 1;
-      for ( var i = 0; i < numberOfTicks; i++ ) {
-        var binCenterX = self.getBinCenterX( i, numberOfTicks );
-        var x = modelViewTransform.modelToViewX( binCenterX );
-        var y = modelViewTransform.modelToViewY( cylinderInfo.top );
+      const numberOfTicks = numberOfRows + 1;
+      for ( let i = 0; i < numberOfTicks; i++ ) {
+        const binCenterX = self.getBinCenterX( i, numberOfTicks );
+        const x = modelViewTransform.modelToViewX( binCenterX );
+        const y = modelViewTransform.modelToViewY( cylinderInfo.top );
 
         // create and add the path for side of the cylinder
-        var side = new Path( sideShape, {
+        const side = new Path( sideShape, {
           fill: sideFill,
           stroke: PlinkoProbabilityConstants.SIDE_CYLINDER_STROKE_COLOR,
           centerX: x,

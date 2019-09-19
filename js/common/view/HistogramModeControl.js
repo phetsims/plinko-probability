@@ -16,7 +16,7 @@ define( require => {
   const RadioButtonGroup = require( 'SUN/buttons/RadioButtonGroup' );
 
   // constants
-  var ICON_WIDTH = 35;
+  const ICON_WIDTH = 35;
 
   /**
    * @param {Property.<string>} histogramModeProperty - see PlinkoProbabilityCommonView
@@ -41,10 +41,10 @@ define( require => {
     }, options );
 
     // create the icons for the radio buttons
-    var topNode = new Image( topImage );
+    const topNode = new Image( topImage );
     topNode.scale( ICON_WIDTH / topNode.width );
 
-    var bottomNode = new Image( bottomImage );
+    const bottomNode = new Image( bottomImage );
     bottomNode.scale( ICON_WIDTH / bottomNode.width );
 
     RadioButtonGroup.call( this, histogramModeProperty, [

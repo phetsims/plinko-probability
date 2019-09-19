@@ -32,10 +32,10 @@ define( require => {
     }, options );
 
     // Add the bins
-    for ( var i = 0; i < options.binNumber; i++ ) {
+    for ( let i = 0; i < options.binNumber; i++ ) {
 
-      var height = 4 * options.binHeightMax * ( i + 1 ) / options.binNumber * ( 1 - ( i ) / options.binNumber );
-      var rectangle = new Rectangle( i * options.binWidth, -height, options.binWidth, height, {
+      const height = 4 * options.binHeightMax * ( i + 1 ) / options.binNumber * ( 1 - ( i ) / options.binNumber );
+      const rectangle = new Rectangle( i * options.binWidth, -height, options.binWidth, height, {
         fill: options.binFill,
         lineWidth: options.binLineWidth,
         stroke: options.binStroke

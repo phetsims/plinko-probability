@@ -30,7 +30,7 @@ define( require => {
    */
   function IntroScreen() {
 
-    var options = {
+    const options = {
       name: screenIntroString,
       backgroundColorProperty: new Property( PlinkoProbabilityConstants.BACKGROUND_COLOR ),
       homeScreenIcon: new Image( introHomescreenImage ),

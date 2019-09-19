@@ -18,14 +18,14 @@ define( require => {
   const PlinkoProbabilityQueryParameters = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityQueryParameters' );
 
   // constants
-  var MAX_BALLS = PlinkoProbabilityQueryParameters.maxBallsLab; // max number of balls *per bin*
+  const MAX_BALLS = PlinkoProbabilityQueryParameters.maxBallsLab; // max number of balls *per bin*
 
   /**
    * @constructor
    */
   function LabModel() {
 
-    var self = this;
+    const self = this;
 
     PlinkoProbabilityCommonModel.call( this );
 
@@ -85,7 +85,7 @@ define( require => {
           var ballsMoved = false;
           var dtCapped = Math.min( 0.090, dt * 10 ); // Cap the dt so that the balls don't make a big jump
           this.balls.forEach( function( ball ) {
-            var ballMoved = ball.step( dtCapped );
+            const ballMoved = ball.step( dtCapped );
             ballsMoved = ( ballMoved || ballsMoved );
           } );
 
@@ -123,9 +123,9 @@ define( require => {
      */
     addNewBall: function() {
 
-      var self = this;
+      const self = this;
 
-      var addedBall = new LabBall( this.probabilityProperty.get(), this.numberOfRowsProperty.get(), this.histogram.bins );
+      const addedBall = new LabBall( this.probabilityProperty.get(), this.numberOfRowsProperty.get(), this.histogram.bins );
       this.histogram.bins[ addedBall.binIndex ].binCount++; //update the bin count of the bins
       this.balls.push( addedBall ); // add the ball to the observable array
 
@@ -141,9 +141,9 @@ define( require => {
 
       // when the ball lands remove the one that came before it
       addedBall.ballCollectedEmitter.addListener( function removeBallListener() {
-        var previousBallIndex = self.balls.indexOf( addedBall ) - 1; // gets the index of the ball before
+        const previousBallIndex = self.balls.indexOf( addedBall ) - 1; // gets the index of the ball before
         if ( previousBallIndex > -1 ) {
-          var previousBall = self.balls.get( previousBallIndex ); // gets the last ball object
+          const previousBall = self.balls.get( previousBallIndex ); // gets the last ball object
           self.balls.remove( previousBall ); //removes the previous ball
         }
         addedBall.ballCollectedEmitter.removeListener( removeBallListener );
@@ -190,8 +190,8 @@ define( require => {
     getBinomialCoefficient: function( n, k ) {
 
       // (n)*(n-1)*(n-2)..(n-k+1) divided by (k)*(k-1)*(k-2)...*2*1
-      var coefficient = 1;
-      var i;
+      let coefficient = 1;
+      let i;
       for ( i = n - k + 1; i <= n; i++ ) {
         coefficient *= i;
       }
@@ -214,8 +214,8 @@ define( require => {
      */
     getBinomialProbability: function( n, k, p ) {
       assert && assert( k <= n, 'the bin number, k, ranges from 0 to n' );
-      var binomialCoefficient = this.getBinomialCoefficient( n, k );
-      var statisticalWeight = Math.pow( p, k ) * Math.pow( 1 - p, n - k );
+      const binomialCoefficient = this.getBinomialCoefficient( n, k );
+      const statisticalWeight = Math.pow( p, k ) * Math.pow( 1 - p, n - k );
       return binomialCoefficient * statisticalWeight;
     },
 
@@ -228,9 +228,9 @@ define( require => {
      * @private
      */
     getBinomialDistribution: function() {
-      var binomialCoefficientsArray = [];
-      var k;
-      var numberOfRows = this.numberOfRowsProperty.get();
+      const binomialCoefficientsArray = [];
+      let k;
+      const numberOfRows = this.numberOfRowsProperty.get();
       // let's not try to be clever and let's go forward with the brute force approach
       for ( k = 0; k < numberOfRows + 1; k++ ) {
         binomialCoefficientsArray.push(
@@ -248,9 +248,9 @@ define( require => {
      * @public
      */
     getNormalizedBinomialDistribution: function() {
-      var binomialCoefficientsArray = this.getBinomialDistribution();
-      var maxCoefficient = _.max( binomialCoefficientsArray );
-      var normalizedArray = binomialCoefficientsArray.map( function( num ) {
+      const binomialCoefficientsArray = this.getBinomialDistribution();
+      const maxCoefficient = _.max( binomialCoefficientsArray );
+      const normalizedArray = binomialCoefficientsArray.map( function( num ) {
         return num / maxCoefficient;
       } ); // fraction is smaller than one
       return normalizedArray;

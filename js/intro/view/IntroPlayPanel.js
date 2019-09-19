@@ -23,7 +23,7 @@ define( require => {
   const VerticalAquaRadioButtonGroup = require( 'SUN/VerticalAquaRadioButtonGroup' );
 
   // constants
-  var BALL_RADIUS = PlinkoProbabilityConstants.BALL_RADIUS;
+  const BALL_RADIUS = PlinkoProbabilityConstants.BALL_RADIUS;
 
   /**
    * @param {IntroModel} model
@@ -42,24 +42,24 @@ define( require => {
       titleToControlsVerticalSpace: 5
     }, options );
 
-    var fontOptions = { font: PlinkoProbabilityConstants.PANEL_FONT, maxWidth: 190 };
+    const fontOptions = { font: PlinkoProbabilityConstants.PANEL_FONT, maxWidth: 190 };
 
     // Creation of radio button icons
-    var oneBall = new HBox( {
+    const oneBall = new HBox( {
       spacing: BALL_RADIUS / 2,
       children: [ new BallNode( BALL_RADIUS ), new Text( MathSymbols.TIMES + '1', fontOptions ) ]
     } );
-    var tenBalls = new HBox( {
+    const tenBalls = new HBox( {
       spacing: BALL_RADIUS / 2,
       children: [ new BallNode( BALL_RADIUS ), new Text( MathSymbols.TIMES + '10', fontOptions ) ]
     } );
-    var maxBalls = new HBox( {
+    const maxBalls = new HBox( {
       spacing: BALL_RADIUS / 2,
       children: [ new BallNode( BALL_RADIUS ), new Text( MathSymbols.TIMES + PlinkoProbabilityQueryParameters.maxBallsIntro, fontOptions ) ]
     } );
 
     // Creation of radio button group for ball setting
-    var ballModeRadioButtons = new VerticalAquaRadioButtonGroup( model.ballModeProperty, [
+    const ballModeRadioButtons = new VerticalAquaRadioButtonGroup( model.ballModeProperty, [
       { node: oneBall, value: 'oneBall' },
       { node: tenBalls, value: 'tenBalls' },
       { node: maxBalls, value: 'maxBalls' }
@@ -70,7 +70,7 @@ define( require => {
     } );
 
     //Creation of play button
-    var playButton = new PlayButton( {
+    const playButton = new PlayButton( {
       listener: model.updateBallsToCreateNumber.bind( model ),
       enabled: true
     } );
@@ -81,7 +81,7 @@ define( require => {
     } );
 
     //Creation of play button panel box
-    var playAndRadioButtonBox = new HBox( {
+    const playAndRadioButtonBox = new HBox( {
       spacing: 0,
       children: [
         new HStrut( 20 ),     // spacing between left panel margin and play button

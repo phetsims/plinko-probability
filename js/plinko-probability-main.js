@@ -18,13 +18,13 @@ define( require => {
   // strings
   const plinkoProbabilityTitleString = require( 'string!PLINKO_PROBABILITY/plinko-probability.title' );
 
-  var keyboardHelpContent = new SliderAndGeneralKeyboardHelpContent( {
+  const keyboardHelpContent = new SliderAndGeneralKeyboardHelpContent( {
     generalSectionOptions: {
       withGroupContent: true
     }
   } );
 
-  var simOptions = {
+  const simOptions = {
     credits: {
       leadDesign: 'Michael Dubson, Amanda McGarry',
       softwareDevelopment: 'Martin Veillette, Denzell Barnett, Chris Malley (PixelZoom, Inc.), Guillermo Ramos-Macias',
@@ -35,7 +35,7 @@ define( require => {
   };
 
   SimLauncher.launch( function() {
-    var sim = new Sim( plinkoProbabilityTitleString, [ new IntroScreen(), new LabScreen() ], simOptions );
+    const sim = new Sim( plinkoProbabilityTitleString, [ new IntroScreen(), new LabScreen() ], simOptions );
     sim.start();
   } );
 } );

@@ -45,40 +45,40 @@ define( require => {
     ScreenView.call( this, options );
 
     // view-specific Properties
-    var viewProperties = new PlinkoProbabilityViewProperties( {
+    const viewProperties = new PlinkoProbabilityViewProperties( {
       histogramMode: options.histogramMode
     } );
     this.viewProperties = viewProperties; // @protected
 
-    var hopper = new Hopper( model.numberOfRowsProperty, {
+    const hopper = new Hopper( model.numberOfRowsProperty, {
       centerX: this.layoutBounds.maxX / 2 - 80,
       top: 10
     } );
 
-    var board = new Board( {
+    const board = new Board( {
       x: hopper.centerX,
       top: hopper.bottom + 10
     } );
 
     // create the model view transform based on the triangular board of the galton board (excluding the dropped shadow)
-    var viewTriangularBoardBounds = new Bounds2( board.left, board.top, board.left + board.size.width, board.top + board.size.height );
-    var modelTriangularBoardBounds = model.galtonBoard.bounds;
-    var modelViewTransform = ModelViewTransform2.createRectangleInvertedYMapping( modelTriangularBoardBounds, viewTriangularBoardBounds );
+    const viewTriangularBoardBounds = new Bounds2( board.left, board.top, board.left + board.size.width, board.top + board.size.height );
+    const modelTriangularBoardBounds = model.galtonBoard.bounds;
+    const modelViewTransform = ModelViewTransform2.createRectangleInvertedYMapping( modelTriangularBoardBounds, viewTriangularBoardBounds );
 
     // @protected
     this.viewTriangularBoardBounds = viewTriangularBoardBounds;
     this.modelViewTransform = modelViewTransform;
 
-    var histogramModelBounds = PlinkoProbabilityConstants.HISTOGRAM_BOUNDS;
-    var ballModelBounds = model.galtonBoard.bounds.union( histogramModelBounds );
-    var ballViewBounds = this.modelViewTransform.modelToViewBounds( ballModelBounds ).dilated( 20 );
+    const histogramModelBounds = PlinkoProbabilityConstants.HISTOGRAM_BOUNDS;
+    const ballModelBounds = model.galtonBoard.bounds.union( histogramModelBounds );
+    const ballViewBounds = this.modelViewTransform.modelToViewBounds( ballModelBounds ).dilated( 20 );
 
     // renders all the balls
-    var ballsNode = new BallsNode( model.balls, model.numberOfRowsProperty, viewProperties.histogramModeProperty, modelViewTransform, {
+    const ballsNode = new BallsNode( model.balls, model.numberOfRowsProperty, viewProperties.histogramModeProperty, modelViewTransform, {
       canvasBounds: ballViewBounds
     } );
 
-    var histogramNode = new HistogramNode(
+    const histogramNode = new HistogramNode(
       viewProperties.histogramModeProperty,
       model,
       modelViewTransform,
@@ -86,7 +86,7 @@ define( require => {
     );
     this.histogramNode = histogramNode;
 
-    var eraserButton = new EraserButton( {
+    const eraserButton = new EraserButton( {
       iconWidth: 22,
       scale: 1.4,
       listener: function() { model.erase(); },
@@ -98,8 +98,8 @@ define( require => {
     this.pegSoundGeneration = new PegSoundGeneration( viewProperties.isSoundEnabledProperty );
 
     // Reset All Button at bottom right
-    var self = this;
-    var resetAllButton = new ResetAllButton( {
+    const self = this;
+    const resetAllButton = new ResetAllButton( {
       listener: function() {
         model.reset();
         self.reset();
@@ -109,7 +109,7 @@ define( require => {
     } );
 
     // sound toggle button at bottom right
-    var soundToggleButton = new SoundToggleButton( viewProperties.isSoundEnabledProperty, {
+    const soundToggleButton = new SoundToggleButton( viewProperties.isSoundEnabledProperty, {
       right: resetAllButton.left - 20,
       centerY: resetAllButton.centerY,
       xMargin: 8

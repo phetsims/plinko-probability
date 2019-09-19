@@ -21,8 +21,8 @@ define( require => {
   const StringProperty = require( 'AXON/StringProperty' );
 
   // constants
-  var BALL_MODE_VALUES = [ 'oneBall', 'tenBalls', 'maxBalls', 'continuous' ]; // values for ballModeProperty
-  var HOPPER_MODE_VALUES = [ 'ball', 'path', 'none' ]; // values for hopperModeProperty
+  const BALL_MODE_VALUES = [ 'oneBall', 'tenBalls', 'maxBalls', 'continuous' ]; // values for ballModeProperty
+  const HOPPER_MODE_VALUES = [ 'ball', 'path', 'none' ]; // values for hopperModeProperty
 
   /**
    * @constructor
@@ -62,7 +62,7 @@ define( require => {
     // See https://github.com/phetsims/plinko-probability/issues/62 for details.
     this.ballsMovedEmitter = new Emitter();
 
-    var eraseThis = this.erase.bind( this );
+    const eraseThis = this.erase.bind( this );
     this.probabilityProperty.link( eraseThis );
     this.numberOfRowsProperty.link( eraseThis );
   }

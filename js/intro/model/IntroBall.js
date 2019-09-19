@@ -30,7 +30,7 @@ define( require => {
     Ball.call( this, probability, numberOfRows, bins );
 
     // let's find the ball horizontal orientation of the top ball within a cylinder
-    var lastBallBinOrientation = bins[ this.binIndex ].orientation;
+    const lastBallBinOrientation = bins[ this.binIndex ].orientation;
 
     // @public (read-only) the ball's orientation within the bin
     // Values are: -1 (left), 0 (center), 1 (right) or null (no ball are present)
@@ -57,13 +57,13 @@ define( require => {
     }
 
     // {number} describes number of rows in the ball stack within a bin, starting at 1
-    var binStackLevel = 2 * Math.floor( this.binCount / 3 ) + ( ( this.binCount % 3 === 0 ) ? 0 : 1 ); // number of balls per stack goes as (2,1,2,1,2...
+    const binStackLevel = 2 * Math.floor( this.binCount / 3 ) + ( ( this.binCount % 3 === 0 ) ? 0 : 1 ); // number of balls per stack goes as (2,1,2,1,2...
 
     // {number} describes lowest point of cylinder that a ball will reach (bottom of the cylinder)
-    var yMinimum = cylinderInfo.top - cylinderInfo.verticalOffset - cylinderInfo.ellipseHeight - cylinderInfo.cylinderHeight;
+    const yMinimum = cylinderInfo.top - cylinderInfo.verticalOffset - cylinderInfo.ellipseHeight - cylinderInfo.cylinderHeight;
 
     // {number} describes the height difference between two balls in two adjacent rows in a ball stack
-    var deltaY = this.ballRadius + Math.sqrt( Math.pow( 2 * this.ballRadius, 2 ) - Math.pow( ( cylinderInfo.cylinderWidth / 2 ) - this.ballRadius, 2 ) );
+    const deltaY = this.ballRadius + Math.sqrt( Math.pow( 2 * this.ballRadius, 2 ) - Math.pow( ( cylinderInfo.cylinderWidth / 2 ) - this.ballRadius, 2 ) );
 
     // @public {number} describes final vertical offset of ball within a bin {number}
     // This field is owned by the supertype, but set here because it depends on other things computed in Ball.

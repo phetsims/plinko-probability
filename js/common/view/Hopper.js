@@ -26,7 +26,7 @@ define( require => {
 
     Node.call( this );
 
-    var self = this;
+    const self = this;
 
     options = _.extend( {
       topWidth: 70,
@@ -39,23 +39,23 @@ define( require => {
       rimHighLightFill: 'rgb(255,255,255)'
     }, options );
 
-    var extraSpace = 12;
+    const extraSpace = 12;
 
     // create horizontal gradients for the hopper and the rim
-    var hopperRectangleGradient = new LinearGradient( -options.topWidth / 2, 0, options.topWidth / 2, 0 ).addColorStop( 0, options.hopperFill ).addColorStop( 0.47, options.hopperHighLightFill ).addColorStop( 1, options.hopperFill );
-    var rimRectangleGradient = new LinearGradient( -options.bottomWidth / 2, 0, options.bottomWidth / 2, 0 ).addColorStop( 0, options.rimFill ).addColorStop( 0.47, options.rimHighLightFill ).addColorStop( 1, options.rimFill );
+    const hopperRectangleGradient = new LinearGradient( -options.topWidth / 2, 0, options.topWidth / 2, 0 ).addColorStop( 0, options.hopperFill ).addColorStop( 0.47, options.hopperHighLightFill ).addColorStop( 1, options.hopperFill );
+    const rimRectangleGradient = new LinearGradient( -options.bottomWidth / 2, 0, options.bottomWidth / 2, 0 ).addColorStop( 0, options.rimFill ).addColorStop( 0.47, options.rimHighLightFill ).addColorStop( 1, options.rimFill );
 
 
     // present for the lifetime of the simulation
     numberOfRowsProperty.link( function( numberOfRows ) {
       self.removeAllChildren();
       // create the truncated pyramidal shape of the hopper
-      var hopperShape = new Shape();
+      const hopperShape = new Shape();
 
       // create a small rim at the bottom the hopper
-      var rimShape = new Shape();
+      const rimShape = new Shape();
 
-      var bottomWidth = options.bottomWidth * 11 / (5+Math.min( 6, numberOfRows ));
+      const bottomWidth = options.bottomWidth * 11 / (5+Math.min( 6, numberOfRows ));
       hopperShape.moveTo( 0, 0 )
         .lineTo( -bottomWidth / 2, 0 )
         .lineTo( -bottomWidth / 2 - extraSpace, -options.hopperThickness )
@@ -71,8 +71,8 @@ define( require => {
         .close();
 
       // add the hopper and the rim.
-      var hopperPath = new Path( hopperShape, { fill: hopperRectangleGradient } );
-      var rimPath = new Path( rimShape, { fill: rimRectangleGradient } );
+      const hopperPath = new Path( hopperShape, { fill: hopperRectangleGradient } );
+      const rimPath = new Path( rimShape, { fill: rimRectangleGradient } );
       self.addChild( hopperPath );
       self.addChild( rimPath );
 

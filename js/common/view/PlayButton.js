@@ -31,16 +31,16 @@ define( require => {
     }, options );
 
     // triangle is sized relative to the radius
-    var triangleHeight = options.radius;
-    var triangleWidth = options.radius * 0.8;
+    const triangleHeight = options.radius;
+    const triangleWidth = options.radius * 0.8;
 
-    var triangleShape = new Shape()
+    const triangleShape = new Shape()
       .moveTo( 0, triangleHeight / 2 )
       .lineTo( triangleWidth, 0 )
       .lineTo( 0, -triangleHeight / 2 )
       .close();
 
-    var triangleNode = new Path( triangleShape, {
+    const triangleNode = new Path( triangleShape, {
       fill: options.iconColor
     } );
 

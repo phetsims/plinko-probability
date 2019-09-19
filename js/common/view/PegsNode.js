@@ -37,14 +37,14 @@ define( require => {
       pegRadius: 50 // radius of peg when the number of rows is 1
     }, options );
 
-    var self = this;
+    const self = this;
 
     // NOTE: the pegs are scales inversely proportional to the numberOfBins
     // that is inversely proportional to the number of rows +1
 
     // for the purposes of drawing the pegs, draw the largest possible peg (i.e. with the minimum number Of rows) in
     // Node and use canvasNode to scale it down, ensuring always a high quality image.
-    var largestPegRadius = options.pegRadius * ( 2 / (PlinkoProbabilityConstants.ROWS_RANGE.min + 1));
+    const largestPegRadius = options.pegRadius * ( 2 / (PlinkoProbabilityConstants.ROWS_RANGE.min + 1));
 
     // @private
     this.options = options;
@@ -55,7 +55,7 @@ define( require => {
 
     CanvasNode.call( this, options );
 
-    var pegShape;
+    let pegShape;
     if ( options.rotatePegs ) {
 
       // flat surface pointing up
@@ -65,9 +65,9 @@ define( require => {
       pegShape = new Shape().circle( 0, 0, largestPegRadius );
     }
 
-    var pegNode = new Path( pegShape, { fill: PlinkoProbabilityConstants.PEG_COLOR } );
+    const pegNode = new Path( pegShape, { fill: PlinkoProbabilityConstants.PEG_COLOR } );
 
-    var shadowNode = new Circle( 1.4 * largestPegRadius, {
+    const shadowNode = new Circle( 1.4 * largestPegRadius, {
       fill: new RadialGradient(
         largestPegRadius * 0.3,
         largestPegRadius * 0.5,
@@ -129,7 +129,7 @@ define( require => {
      */
     paintCanvas: function( context ) {
 
-      var self = this;
+      const self = this;
 
       // images are created asynchronously by toImage, so they may not be available yet
       if ( !self.pegCanvase || !self.shadowImage ) {
@@ -139,27 +139,27 @@ define( require => {
       // compute values that remain constant in for loop
 
       // scale peg radius to be inversely proportional to the number of bins
-      var pegScale = (PlinkoProbabilityConstants.ROWS_RANGE.min + 1) /
+      const pegScale = (PlinkoProbabilityConstants.ROWS_RANGE.min + 1) /
                      (this.numberOfRowsProperty.get() + 1);
 
-      var pegWidth = pegScale * self.pegCanvase.width;
-      var pegHeight = pegScale * self.pegCanvase.height;
-      var shadowWidth = pegScale * self.shadowImage.width;
-      var shadowHeight = pegScale * self.shadowImage.height;
+      const pegWidth = pegScale * self.pegCanvase.width;
+      const pegHeight = pegScale * self.pegCanvase.height;
+      const shadowWidth = pegScale * self.shadowImage.width;
+      const shadowHeight = pegScale * self.shadowImage.height;
 
       // probability 0.5 has the flat part of the peg facing up
-      var pegAngle = -( Math.PI / 4 ) + ( this.probabilityProperty.get() * Math.PI / 2 );
+      const pegAngle = -( Math.PI / 4 ) + ( this.probabilityProperty.get() * Math.PI / 2 );
 
       // shadow offset, a bit below and to the right, determined empirically
-      var pegSpacing = GaltonBoard.getPegSpacing( self.numberOfRowsProperty.get() );
-      var shadowOffset = self.modelViewTransform.modelToViewDelta( new Vector2( pegSpacing * 0.08, -pegSpacing * 0.24 ) );
+      const pegSpacing = GaltonBoard.getPegSpacing( self.numberOfRowsProperty.get() );
+      const shadowOffset = self.modelViewTransform.modelToViewDelta( new Vector2( pegSpacing * 0.08, -pegSpacing * 0.24 ) );
 
       // galtonBoard.pegs contains all the model pegs (even pegs that that are currently invisible)
       this.galtonBoard.pegs.forEach( function( peg ) {
         if ( peg.isVisible ) {
 
-          var pegPosition = self.modelViewTransform.modelToViewPosition( peg.position );
-          var shadowPosition = pegPosition.plus( shadowOffset );
+          const pegPosition = self.modelViewTransform.modelToViewPosition( peg.position );
+          const shadowPosition = pegPosition.plus( shadowOffset );
 
           // shadow
           context.drawImage( self.shadowImage,

@@ -17,7 +17,7 @@ define( require => {
   const RangeWithValue = require( 'DOT/RangeWithValue' );
   const RoundButtonView = require( 'SUN/buttons/RoundButtonView' );
 
-  var PlinkoProbabilityConstants = {
+  const PlinkoProbabilityConstants = {
 
     BACKGROUND_COLOR: 'rgb(186,231,249)',
 

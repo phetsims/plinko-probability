@@ -22,7 +22,7 @@ define( require => {
   const pathString = require( 'string!PLINKO_PROBABILITY/path' );
 
   // constants
-  var LABEL_OPTIONS = { font: new PhetFont( 20 ), maxWidth: 175 };
+  const LABEL_OPTIONS = { font: new PhetFont( 20 ), maxWidth: 175 };
 
   /**
    * @param {Property.<string>} hopperModeProperty - see PlinkoProbabilityCommonModel
@@ -40,7 +40,7 @@ define( require => {
     }, options );
 
     // create the radio buttons
-    var showRadioButtons = new VerticalAquaRadioButtonGroup( hopperModeProperty, [
+    const showRadioButtons = new VerticalAquaRadioButtonGroup( hopperModeProperty, [
       { node: new Text( ballString, LABEL_OPTIONS ), value: 'ball' },
       { node: new Text( pathString, LABEL_OPTIONS ), value: 'path' },
       { node: new Text( noneString, LABEL_OPTIONS ), value: 'none' }

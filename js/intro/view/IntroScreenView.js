@@ -28,7 +28,7 @@ define( require => {
   const cylinderImage = require( 'image!PLINKO_PROBABILITY/cylinder.png' );
 
   // constants
-  var MIN_PANEL_WIDTH = 220; // see #77
+  const MIN_PANEL_WIDTH = 220; // see #77
 
   /**
    * Creates view for intro tab
@@ -37,35 +37,35 @@ define( require => {
    */
   function IntroScreenView( model ) {
 
-    var self = this;
+    const self = this;
 
     PlinkoProbabilityCommonView.call( this, model );
 
     // pegs on the Galton board
-    var pegsNode = new PegsNode( model.galtonBoard, model.numberOfRowsProperty, model.probabilityProperty, this.modelViewTransform, {
+    const pegsNode = new PegsNode( model.galtonBoard, model.numberOfRowsProperty, model.probabilityProperty, this.modelViewTransform, {
       rotatePegs: false, // pegs do not rotate as probability changes, so they do not have a flat surface
       canvasBounds: this.viewTriangularBoardBounds
     } );
 
     // cylinders (bins) below the board
-    var cylindersBackNode = new CylindersBackNode( model.numberOfRowsProperty, this.modelViewTransform, model.cylinderInfo );
-    var cylindersFrontNode = new CylindersFrontNode( model.numberOfRowsProperty, this.modelViewTransform, model.cylinderInfo );
+    const cylindersBackNode = new CylindersBackNode( model.numberOfRowsProperty, this.modelViewTransform, model.cylinderInfo );
+    const cylindersFrontNode = new CylindersFrontNode( model.numberOfRowsProperty, this.modelViewTransform, model.cylinderInfo );
 
     // Histogram mode radio buttons, above the eraser button
-    var histogramModeControl = new HistogramModeControl( this.viewProperties.histogramModeProperty, 'counter', counterImage, 'cylinder', cylinderImage, {
+    const histogramModeControl = new HistogramModeControl( this.viewProperties.histogramModeProperty, 'counter', counterImage, 'cylinder', cylinderImage, {
       bottom: this.eraserButton.top - 16,
       left: this.eraserButton.left
     } );
 
     // Play panel, at upper right
-    var playPanel = new IntroPlayPanel( model, {
+    const playPanel = new IntroPlayPanel( model, {
       minWidth: MIN_PANEL_WIDTH,
       right: this.layoutBounds.maxX - PlinkoProbabilityConstants.PANEL_RIGHT_PADDING,
       top: 10
     } );
 
     // Number of balls panel, at right, top aligned with cylinders
-    var numberBallsDisplay = new NumberBallsDisplay( model.histogram, {
+    const numberBallsDisplay = new NumberBallsDisplay( model.histogram, {
       minWidth: MIN_PANEL_WIDTH,
       top: 360, // hack to align with StatisticsAccordionBox in LabScreenView, see #77
       right: playPanel.right
@@ -104,7 +104,7 @@ define( require => {
     model.balls.addItemAddedListener( function( addedBall ) {
       
       // play sound when ball hits a peg
-      var ballHittingPegListener = function( direction ) {
+      const ballHittingPegListener = function( direction ) {
         self.pegSoundGeneration.playBallHittingPegSound( direction );
       };
       

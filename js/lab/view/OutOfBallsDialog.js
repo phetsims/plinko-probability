@@ -30,7 +30,7 @@ define( require => {
       bottomMargin: 25
     }, options );
 
-    var messageNode = new Text( outOfBallsString, {
+    const messageNode = new Text( outOfBallsString, {
       font: new PhetFont( 25 ),
       maxWidth: 350
     } );

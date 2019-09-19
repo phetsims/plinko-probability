@@ -31,10 +31,10 @@ define( require => {
   const xBarString = require( 'string!PLINKO_PROBABILITY/xBar' );
 
   // constants
-  var CONTENT_Y_SPACING = 10; // vertical spacing of elements in the accordion box's content
+  const CONTENT_Y_SPACING = 10; // vertical spacing of elements in the accordion box's content
 
   // options for the title of the panel
-  var OPTIONS_TITLE = {
+  const OPTIONS_TITLE = {
     leftHandSideFont: PlinkoProbabilityConstants.TEXT_FONT_BOLD,
     leftHandSideFill: PlinkoProbabilityConstants.SAMPLE_FONT_COLOR,
     rightHandSideFont: PlinkoProbabilityConstants.TEXT_FONT_BOLD,
@@ -43,7 +43,7 @@ define( require => {
   };
 
   // options for sample statistics
-  var OPTIONS_SAMPLE = {
+  const OPTIONS_SAMPLE = {
     leftHandSideFont: PlinkoProbabilityConstants.TEXT_FONT,
     leftHandSideFill: PlinkoProbabilityConstants.SAMPLE_FONT_COLOR,
     rightHandSideFont: PlinkoProbabilityConstants.TEXT_FONT,
@@ -51,7 +51,7 @@ define( require => {
   };
 
   // options for the theoretical statistics
-  var OPTIONS_THEORETICAL = {
+  const OPTIONS_THEORETICAL = {
     leftHandSideFont: PlinkoProbabilityConstants.TEXT_FONT,
     leftHandSideFill: PlinkoProbabilityConstants.THEORETICAL_FONT_COLOR,
     rightHandSideFont: PlinkoProbabilityConstants.TEXT_FONT,
@@ -67,7 +67,7 @@ define( require => {
    */
   function StatisticsAccordionBox( model, isTheoreticalHistogramVisibleProperty, expandedAccordionBoxProperty, options ) {
 
-    var numberLandedBallsText = new EquationNode( nString, 0, OPTIONS_TITLE );
+    const numberLandedBallsText = new EquationNode( nString, 0, OPTIONS_TITLE );
 
     options = _.extend( {
 
@@ -97,11 +97,11 @@ define( require => {
     }, options );
 
     // create the EquationNode(s) that will populate the panel
-    var sampleAverageText = new EquationNode( xBarString, 0, OPTIONS_SAMPLE );
-    var sampleStandardDeviationText = new EquationNode( sString, 0, OPTIONS_SAMPLE );
-    var sampleStandardDeviationOfMeanText = new EquationNode( sMeanString, 0, OPTIONS_SAMPLE );
-    var theoreticalAverageText = new EquationNode( muString, 0, OPTIONS_THEORETICAL );
-    var theoreticalStandardDeviationText = new EquationNode( sigmaString, 0, OPTIONS_THEORETICAL );
+    const sampleAverageText = new EquationNode( xBarString, 0, OPTIONS_SAMPLE );
+    const sampleStandardDeviationText = new EquationNode( sString, 0, OPTIONS_SAMPLE );
+    const sampleStandardDeviationOfMeanText = new EquationNode( sMeanString, 0, OPTIONS_SAMPLE );
+    const theoreticalAverageText = new EquationNode( muString, 0, OPTIONS_THEORETICAL );
+    const theoreticalStandardDeviationText = new EquationNode( sigmaString, 0, OPTIONS_THEORETICAL );
 
     // link is present for the life of the simulation, no need to dispose
     Property.multilink( [ model.numberOfRowsProperty, model.probabilityProperty ], function( numberOfRows, probability ) {
@@ -120,8 +120,8 @@ define( require => {
     } );
 
     // create the histogram icon with the text underneath it.
-    var histogramIcon = new HistogramIcon();
-    var histogramCheckboxIcon = new VBox( {
+    const histogramIcon = new HistogramIcon();
+    const histogramCheckboxIcon = new VBox( {
       align: 'center',
       spacing: 5,
       children: [
@@ -133,9 +133,9 @@ define( require => {
       ]
     } );
 
-    var histogramCheckbox = new Checkbox( histogramCheckboxIcon, isTheoreticalHistogramVisibleProperty );
+    const histogramCheckbox = new Checkbox( histogramCheckboxIcon, isTheoreticalHistogramVisibleProperty );
 
-    var contentNode = new HBox( {
+    const contentNode = new HBox( {
       spacing: 5,
       align: 'top',
       children: [

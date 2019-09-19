@@ -71,10 +71,10 @@ define( require => {
     this.finalBinHorizontalOffset = 0; // @public describes final horizontal offset of ball within a bin {number}
     this.finalBinVerticalOffset = 0;  // @public describes final vertical offset of ball within a bin {number}
 
-    var direction;  // 'left', 'right'
-    var rowNumber;
-    var columnNumber = 0;
-    var peg; // {Object}
+    let direction;  // 'left', 'right'
+    let rowNumber;
+    let columnNumber = 0;
+    let peg; // {Object}
 
     // the path of the balls through the pegs of the galton board  is determined
     for ( rowNumber = 0; rowNumber <= numberOfRows; rowNumber++ ) {
@@ -198,7 +198,7 @@ define( require => {
       }
       else if ( this.phase === BallPhase.EXITED ) { // the ball has exited and it is making its way to the bin
         // the position at which the balls will eventually land
-        var finalPosition = this.finalBinVerticalOffset + this.pegSeparation * PlinkoProbabilityConstants.PEG_HEIGHT_FRACTION_OFFSET;
+        const finalPosition = this.finalBinVerticalOffset + this.pegSeparation * PlinkoProbabilityConstants.PEG_HEIGHT_FRACTION_OFFSET;
         if ( this.position.y > finalPosition ) { // if it has not fallen to its final position
 
           // The change in the fallen ratio needs to be scaled by the peg separation so that it matches the speed everywhere else.
@@ -302,7 +302,7 @@ define( require => {
      * @private
      */
     initializePegPosition: function() {
-      var peg = this.pegHistory[ 0 ]; // get the first peg from the peg history
+      const peg = this.pegHistory[ 0 ]; // get the first peg from the peg history
       this.row = peg.rowNumber; // 0 is the left most
       this.pegPositionX = peg.positionX; // x position of the peg based on the column, row, and number of of rows
       this.pegPositionY = peg.positionY; // y position of the peg based on the column, row, and number of of rows
@@ -313,7 +313,7 @@ define( require => {
      * @private
      */
     updatePegPosition: function() {
-      var peg = this.pegHistory.shift();
+      const peg = this.pegHistory.shift();
       this.row = peg.rowNumber; // 0 is the leftmost
       this.pegPositionX = peg.positionX; // x position of the peg based on the column, row, and number of of rows
       this.pegPositionY = peg.positionY; // y position of the peg based on the column, row, and number of of rows

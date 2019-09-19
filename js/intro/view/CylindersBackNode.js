@@ -19,7 +19,7 @@ define( require => {
   const Shape = require( 'KITE/Shape' );
 
   // constants
-  var BOUNDS = PlinkoProbabilityConstants.HISTOGRAM_BOUNDS;
+  const BOUNDS = PlinkoProbabilityConstants.HISTOGRAM_BOUNDS;
 
   /**
    * @param {Property.<number>} numberOfRowsProperty
@@ -31,27 +31,27 @@ define( require => {
 
     Node.call( this );
 
-    var self = this;
+    const self = this;
 
     // convenience variables
-    var ellipseWidth = modelViewTransform.modelToViewDeltaX( cylinderInfo.cylinderWidth );
-    var ellipseHeight = Math.abs( modelViewTransform.modelToViewDeltaY( cylinderInfo.ellipseHeight ) );
-    var verticalOffset = -modelViewTransform.modelToViewDeltaY( cylinderInfo.verticalOffset );
+    const ellipseWidth = modelViewTransform.modelToViewDeltaX( cylinderInfo.cylinderWidth );
+    const ellipseHeight = Math.abs( modelViewTransform.modelToViewDeltaY( cylinderInfo.ellipseHeight ) );
+    const verticalOffset = -modelViewTransform.modelToViewDeltaY( cylinderInfo.verticalOffset );
 
     // create the shape for the top of the cylinder
-    var topShape = Shape.ellipse( 0, 0, ellipseWidth / 2, ellipseHeight / 2 );
+    const topShape = Shape.ellipse( 0, 0, ellipseWidth / 2, ellipseHeight / 2 );
 
     // link present for the lifetime of the sim, no need to dispose
     numberOfRowsProperty.link( function( numberOfRows ) {
       assert && assert( Number.isInteger( numberOfRows ), 'numberOfRows must be an integer' );
 
-      var numberOfCylinders = numberOfRows + 1;
-      for ( var i = 0; i < numberOfCylinders; i++ ) {
+      const numberOfCylinders = numberOfRows + 1;
+      for ( let i = 0; i < numberOfCylinders; i++ ) {
         // create and add the top of the cylinders containers
-        var binCenterX = self.getBinCenterX( i, numberOfCylinders );
-        var x = modelViewTransform.modelToViewX( binCenterX );          // x-coordinate of bin in model units
-        var y = modelViewTransform.modelToViewY( cylinderInfo.top );    // y-coordinate of bin in model units
-        var top = new Path( topShape, {
+        const binCenterX = self.getBinCenterX( i, numberOfCylinders );
+        const x = modelViewTransform.modelToViewX( binCenterX );          // x-coordinate of bin in model units
+        const y = modelViewTransform.modelToViewY( cylinderInfo.top );    // y-coordinate of bin in model units
+        const top = new Path( topShape, {
           fill: PlinkoProbabilityConstants.TOP_CYLINDER_FILL_COLOR,
           stroke: PlinkoProbabilityConstants.TOP_CYLINDER_STROKE_COLOR,
           centerX: x,

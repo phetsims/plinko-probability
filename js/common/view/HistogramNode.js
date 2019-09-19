@@ -27,33 +27,33 @@ define( require => {
   // constants
   //----------------------------------------------------------------------------------------
 
-  var MAX_NUMBER_BINS = PlinkoProbabilityConstants.ROWS_RANGE.max + 1; /// there is one more bin than rows;
+  const MAX_NUMBER_BINS = PlinkoProbabilityConstants.ROWS_RANGE.max + 1; /// there is one more bin than rows;
 
   // background of histogram
-  var GRID_BACKGROUND_FILL = 'white';
-  var GRID_BACKGROUND_LINE_WIDTH = 0.5;
-  var GRID_BACKGROUND_STROKE = 'gray';
+  const GRID_BACKGROUND_FILL = 'white';
+  const GRID_BACKGROUND_LINE_WIDTH = 0.5;
+  const GRID_BACKGROUND_STROKE = 'gray';
 
   // banner on top of histogram
-  var BANNER_HEIGHT = 20;
-  var BANNER_BACKGROUND_COLOR = new Color( 46, 49, 146 );
+  const BANNER_HEIGHT = 20;
+  const BANNER_BACKGROUND_COLOR = new Color( 46, 49, 146 );
 
   // X and Y labels of the histogram
-  var Y_AXIS_LABEL_FONT = new PhetFont( { size: 20, weight: 'bolder' } );
-  var X_AXIS_LABEL_FONT = new PhetFont( { size: 16, weight: 'bold' } );
-  var X_AXIS_LABEL_COLOR = 'black'; // space between end of axis and label
-  var Y_AXIS_LABEL_COLOR = 'black'; // space between end of axis and label
+  const Y_AXIS_LABEL_FONT = new PhetFont( { size: 20, weight: 'bolder' } );
+  const X_AXIS_LABEL_FONT = new PhetFont( { size: 16, weight: 'bold' } );
+  const X_AXIS_LABEL_COLOR = 'black'; // space between end of axis and label
+  const Y_AXIS_LABEL_COLOR = 'black'; // space between end of axis and label
 
   // fonts
-  var LARGE_FONT = new PhetFont( { size: 16 } );
-  var NORMAL_FONT = new PhetFont( 14 );
-  var SMALL_FONT = new PhetFont( { size: 12 } );
-  var TINY_FONT = new PhetFont( { size: 10 } );
-  var TINY_TINY_FONT = new PhetFont( { size: 8 } );
+  const LARGE_FONT = new PhetFont( { size: 16 } );
+  const NORMAL_FONT = new PhetFont( 14 );
+  const SMALL_FONT = new PhetFont( { size: 12 } );
+  const TINY_FONT = new PhetFont( { size: 10 } );
+  const TINY_TINY_FONT = new PhetFont( { size: 8 } );
 
   // ticks
-  var MAJOR_TICK_COLOR = 'black';
-  var MAJOR_TICK_FONT = new PhetFont( { size: 16 } );
+  const MAJOR_TICK_COLOR = 'black';
+  const MAJOR_TICK_FONT = new PhetFont( { size: 16 } );
 
   // strings
   const binString = require( 'string!PLINKO_PROBABILITY/bin' );
@@ -61,11 +61,11 @@ define( require => {
   const fractionString = require( 'string!PLINKO_PROBABILITY/fraction' );
 
   // triangle (for average indicators)
-  var TRIANGLE_HEIGHT = 20;
-  var TRIANGLE_WIDTH = 20;
+  const TRIANGLE_HEIGHT = 20;
+  const TRIANGLE_WIDTH = 20;
 
   // model histogram bounds
-  var HISTOGRAM_BOUNDS = PlinkoProbabilityConstants.HISTOGRAM_BOUNDS;
+  const HISTOGRAM_BOUNDS = PlinkoProbabilityConstants.HISTOGRAM_BOUNDS;
 
   /**
    * Constructor for Histogram Node
@@ -108,16 +108,16 @@ define( require => {
     Node.call( this );
 
     // position of the axis
-    var axisCenterX = modelViewTransform.modelToViewX( histogram.getCenterX() );
-    var axisBottom = modelViewTransform.modelToViewY( histogram.getMinY() );
+    const axisCenterX = modelViewTransform.modelToViewX( histogram.getCenterX() );
+    const axisBottom = modelViewTransform.modelToViewY( histogram.getMinY() );
 
     // create layer to store tick labels
-    var tickLabelsLayer = new Node();
+    const tickLabelsLayer = new Node();
     this.addChild( tickLabelsLayer );
-    var tickLabels = [];
+    const tickLabels = [];
 
     // top position for tick labels
-    var topTickTextPosition = axisBottom + 5;
+    const topTickTextPosition = axisBottom + 5;
 
     // create and add ALL the tick labels (including some that may not be visible at present time)
     for ( var binIndex = 0; binIndex < MAX_NUMBER_BINS; binIndex++ ) {
@@ -130,10 +130,10 @@ define( require => {
     tickLabelsLayer.setChildren( tickLabels );
 
     // bottom position of the tick labels
-    var bottomTickTextPosition = tickLabels[ 0 ].bottom;
+    const bottomTickTextPosition = tickLabels[ 0 ].bottom;
 
     //  create and add the main label for the x axis
-    var xLabelNode = new Text( binString, {
+    const xLabelNode = new Text( binString, {
       font: X_AXIS_LABEL_FONT,
       fill: X_AXIS_LABEL_COLOR,
       centerX: axisCenterX,
@@ -144,7 +144,7 @@ define( require => {
     // no need to unlink present for the lifetime of the sim
     // update the visibility of the tick labels and their x positions
     numberOfRowsProperty.link( function( numberOfRows ) {
-      var numberOfBins = numberOfRows + 1;
+      const numberOfBins = numberOfRows + 1;
       for ( binIndex = 0; binIndex < MAX_NUMBER_BINS; binIndex++ ) {
         // update the visibility of all the labels
         tickLabels[ binIndex ].visible = (binIndex < numberOfBins );
@@ -176,14 +176,14 @@ define( require => {
 
     Node.call( this );
 
-    var axisLeft = modelViewTransform.modelToViewX( histogram.getMinX() );
+    const axisLeft = modelViewTransform.modelToViewX( histogram.getMinX() );
 
     //Sets max width of y-axis label to histogram height.
-    var histogramHeight = Math.abs( modelViewTransform.modelToViewDeltaY( HISTOGRAM_BOUNDS.height ) );
-    var histogramCenterY = modelViewTransform.modelToViewY( HISTOGRAM_BOUNDS.centerY );
+    const histogramHeight = Math.abs( modelViewTransform.modelToViewDeltaY( HISTOGRAM_BOUNDS.height ) );
+    const histogramCenterY = modelViewTransform.modelToViewY( HISTOGRAM_BOUNDS.centerY );
 
     // create and add the Y axis label
-    var yLabelNode = new Text( '', {
+    const yLabelNode = new Text( '', {
       font: Y_AXIS_LABEL_FONT,
       fill: Y_AXIS_LABEL_COLOR,
       centerY: histogramCenterY,
@@ -251,27 +251,27 @@ define( require => {
 
     Node.call( this );
 
-    var minX = modelViewTransform.modelToViewX( HISTOGRAM_BOUNDS.minX );
-    var minY = modelViewTransform.modelToViewY( HISTOGRAM_BOUNDS.maxY );
-    var maxX = modelViewTransform.modelToViewX( HISTOGRAM_BOUNDS.maxX );
-    var maxY = modelViewTransform.modelToViewY( HISTOGRAM_BOUNDS.maxY ) + BANNER_HEIGHT;
+    const minX = modelViewTransform.modelToViewX( HISTOGRAM_BOUNDS.minX );
+    const minY = modelViewTransform.modelToViewY( HISTOGRAM_BOUNDS.maxY );
+    const maxX = modelViewTransform.modelToViewX( HISTOGRAM_BOUNDS.maxX );
+    const maxY = modelViewTransform.modelToViewY( HISTOGRAM_BOUNDS.maxY ) + BANNER_HEIGHT;
 
-    var bannerWidth = maxX - minX;
+    const bannerWidth = maxX - minX;
 
-    var bannerBackgroundNode = new Rectangle( minX, minY, bannerWidth, BANNER_HEIGHT, {
+    const bannerBackgroundNode = new Rectangle( minX, minY, bannerWidth, BANNER_HEIGHT, {
       fill: BANNER_BACKGROUND_COLOR,
       lineWidth: GRID_BACKGROUND_LINE_WIDTH,
       stroke: GRID_BACKGROUND_STROKE
     } );
     this.addChild( bannerBackgroundNode );
 
-    var linesLayerNode = new Node();
-    var labelsLayerNode = new Node();
+    const linesLayerNode = new Node();
+    const labelsLayerNode = new Node();
     this.addChild( linesLayerNode );
     this.addChild( labelsLayerNode );
 
-    var labelsTextArray = [];
-    var verticalLinesArray = [];
+    const labelsTextArray = [];
+    const verticalLinesArray = [];
 
     // create and add an array of bin value (set initially to zero) and vertical line separator
     for ( var binIndex = 0; binIndex < MAX_NUMBER_BINS; binIndex++ ) {
@@ -286,10 +286,10 @@ define( require => {
      * @param {number} numberOfRows
      */
     function updateBanner( numberOfRows ) {
-      var numberOfBins = numberOfRows + 1;
+      const numberOfBins = numberOfRows + 1;
       // start on bin 1 rather than zero since the left side of the '0th' bin is the y-axis
       for ( var binIndex = 1; binIndex < numberOfBins; binIndex++ ) {
-        var x = modelViewTransform.modelToViewX( histogram.getBinLeft( binIndex, numberOfBins ) );
+        const x = modelViewTransform.modelToViewX( histogram.getBinLeft( binIndex, numberOfBins ) );
         verticalLinesArray[ binIndex ].setLine(
           x,
           minY,
@@ -309,11 +309,11 @@ define( require => {
      */
     function updateTextBanner( numberOfRows, histogramMode ) {
 
-      var numberOfBins = numberOfRows + 1;
+      const numberOfBins = numberOfRows + 1;
 
-      var getHistogramBin;
-      var font;
-      var maxBinCount;
+      let getHistogramBin;
+      let font;
+      let maxBinCount;
 
       switch( histogramMode ) {
         case 'fraction':
@@ -355,8 +355,8 @@ define( require => {
 
         if ( binIndex < numberOfBins ) {
           labelsTextArray[ binIndex ].visible = true;
-          var binCenterX = modelViewTransform.modelToViewX( histogram.getBinCenterX( binIndex, numberOfBins ) );
-          var binValue = getHistogramBin( binIndex ); // a number
+          const binCenterX = modelViewTransform.modelToViewX( histogram.getBinCenterX( binIndex, numberOfBins ) );
+          let binValue = getHistogramBin( binIndex ); // a number
 
           if ( histogramMode === 'fraction' ) {
             // set the appropriate number of decimal places if in fraction mode,
@@ -413,31 +413,31 @@ define( require => {
     // get the coordinate of the histogram bar nodes
     // the HISTOGRAM_BOUNDS include the banner on top (
     // but not the Y and X labels are outside of HISTOGRAM_BOUNDS
-    var minX = modelViewTransform.modelToViewX( HISTOGRAM_BOUNDS.minX );
-    var minY = modelViewTransform.modelToViewY( HISTOGRAM_BOUNDS.maxY );
-    var maxX = modelViewTransform.modelToViewX( HISTOGRAM_BOUNDS.maxX );
-    var maxY = modelViewTransform.modelToViewY( HISTOGRAM_BOUNDS.minY );
+    const minX = modelViewTransform.modelToViewX( HISTOGRAM_BOUNDS.minX );
+    const minY = modelViewTransform.modelToViewY( HISTOGRAM_BOUNDS.maxY );
+    const maxX = modelViewTransform.modelToViewX( HISTOGRAM_BOUNDS.maxX );
+    const maxY = modelViewTransform.modelToViewY( HISTOGRAM_BOUNDS.minY );
 
     // convenience variables
-    var bannerWidth = maxX - minX; // in view coordinates
-    var maxBarHeight = maxY - minY - BANNER_HEIGHT - 3; // in view coordinates, (-5) allows for small white space above bar so bar doesn't touch banner
+    const bannerWidth = maxX - minX; // in view coordinates
+    const maxBarHeight = maxY - minY - BANNER_HEIGHT - 3; // in view coordinates, (-5) allows for small white space above bar so bar doesn't touch banner
     assert && assert( maxBarHeight > 0, 'the Height of the bar must be larger than zero' );
 
     // create and add (on a separate layer) the two histograms
-    var sampleHistogramNode = new Node();
-    var theoreticalHistogramNode = new Node();
+    const sampleHistogramNode = new Node();
+    const theoreticalHistogramNode = new Node();
     this.addChild( sampleHistogramNode );
     this.addChild( theoreticalHistogramNode );
 
     // the rectangles that make up each histogram are stored in an array
-    var sampleHistogramRectanglesArray = [];
-    var theoreticalHistogramRectanglesArray = [];
+    const sampleHistogramRectanglesArray = [];
+    const theoreticalHistogramRectanglesArray = [];
 
     // create and add the two arrays of rectangles
     // initialize the height, fill and strokes of the rectangle, set visibility to false
-    for ( var i = 0; i < MAX_NUMBER_BINS; i++ ) {
+    for ( let i = 0; i < MAX_NUMBER_BINS; i++ ) {
       // creates rectangles with a nominal height of 1, so that scenery doesn't throw a fit
-      var nominalSampleHistogramRectangle = new Rectangle( 0, 0, bannerWidth, 1, {
+      const nominalSampleHistogramRectangle = new Rectangle( 0, 0, bannerWidth, 1, {
         fill: PlinkoProbabilityConstants.HISTOGRAM_BAR_COLOR_FILL,
         stroke: PlinkoProbabilityConstants.HISTOGRAM_BAR_COLOR_STROKE,
         lineWidth: 2,
@@ -445,7 +445,7 @@ define( require => {
       } );
       // create nominal rectangles
       // height of rectangles will be updated through an update function
-      var nominalTheoreticalHistogramRectangle = new Rectangle( 0, 0, bannerWidth, 1, {
+      const nominalTheoreticalHistogramRectangle = new Rectangle( 0, 0, bannerWidth, 1, {
         stroke: PlinkoProbabilityConstants.BINOMIAL_DISTRIBUTION_BAR_COLOR_STROKE,
         lineWidth: 2,
         visible: false
@@ -457,18 +457,18 @@ define( require => {
     theoreticalHistogramNode.setChildren( theoreticalHistogramRectanglesArray );
 
     // create triangle shape for the indicator of sample average and theoretical average
-    var triangleShape = new Shape().moveTo( 0, maxY )
+    const triangleShape = new Shape().moveTo( 0, maxY )
       .lineToRelative( -TRIANGLE_WIDTH / 2, TRIANGLE_HEIGHT )
       .lineToRelative( TRIANGLE_WIDTH, 0 )
       .close();
 
     // create and add triangle indicators for the sample and theoretical averages
-    var sampleAverageTrianglePath = new Path( triangleShape, {
+    const sampleAverageTrianglePath = new Path( triangleShape, {
       fill: PlinkoProbabilityConstants.HISTOGRAM_BAR_COLOR_FILL,
       stroke: PlinkoProbabilityConstants.HISTOGRAM_BAR_COLOR_STROKE,
       lineWidth: 2
     } );
-    var theoreticalAverageTrianglePath = new Path( triangleShape, {
+    const theoreticalAverageTrianglePath = new Path( triangleShape, {
       stroke: PlinkoProbabilityConstants.BINOMIAL_DISTRIBUTION_BAR_COLOR_STROKE,
       fill: 'rgba(0,0,0,0)', // transparent
       lineWidth: 2
@@ -509,7 +509,7 @@ define( require => {
      * @param {number} average
      */
     function updateTrianglePosition( path, average ) {
-      var numberOfBins = model.numberOfRowsProperty.get() + 1;
+      const numberOfBins = model.numberOfRowsProperty.get() + 1;
       path.centerX = modelViewTransform.modelToViewX( histogram.getValuePosition( average, numberOfBins ) );
     }
 
@@ -518,7 +518,7 @@ define( require => {
      * the theoretical average value
      */
     function updateTheoreticalAverageTriangle() {
-      var average = model.getTheoreticalAverage( model.numberOfRowsProperty.get(), model.probabilityProperty.get() );
+      const average = model.getTheoreticalAverage( model.numberOfRowsProperty.get(), model.probabilityProperty.get() );
       theoreticalAverageTrianglePath.visible = isTheoreticalHistogramVisibleProperty.get();
       updateTrianglePosition( theoreticalAverageTrianglePath, average );
     }
@@ -528,7 +528,7 @@ define( require => {
      *  on the sample average of the histogram bins
      */
     function updateSampleAverageTriangle() {
-      var average = model.histogram.average;
+      const average = model.histogram.average;
       // set to invisible if none of the balls have landed
       sampleAverageTrianglePath.visible = (model.histogram.landedBallsNumber > 0);
       // update the position of the triangle for the sample distribution;
@@ -542,10 +542,10 @@ define( require => {
      * @param {Array.<number>} binValues
      */
     function updateHeightOfHistogram( rectanglesArray, binValues ) {
-      var i;
-      var numberOfBins = model.numberOfRowsProperty.get() + 1;
+      let i;
+      const numberOfBins = model.numberOfRowsProperty.get() + 1;
       for ( i = 0; i < numberOfBins; i++ ) {
-        var barHeight = maxBarHeight * binValues[ i ];
+        const barHeight = maxBarHeight * binValues[ i ];
         rectanglesArray[ i ].visible = ( barHeight > 0 ); // zero-height bars are invisible, see #87
         rectanglesArray[ i ].setRectHeightFromBottom( barHeight );
       }
@@ -556,14 +556,14 @@ define( require => {
      * @param {Array.<number>} binValues
      */
     function updateHistogram( rectanglesArray, binValues ) {
-      var i;
-      var numberOfBins = model.numberOfRowsProperty.get() + 1;
-      var xSpacing = bannerWidth / numberOfBins;
+      let i;
+      const numberOfBins = model.numberOfRowsProperty.get() + 1;
+      const xSpacing = bannerWidth / numberOfBins;
       // update ALL rectangles
       for ( i = 0; i < MAX_NUMBER_BINS; i++ ) {
         if ( i < numberOfBins ) {
 
-          var barHeight = maxBarHeight * binValues[ i ];
+          const barHeight = maxBarHeight * binValues[ i ];
 
           // zero-height bars are invisible, see #87
           rectanglesArray[ i ].visible = ( barHeight > 0 );

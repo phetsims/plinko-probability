@@ -16,7 +16,7 @@ define( require => {
   const PlinkoProbabilityConstants = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityConstants' );
 
   // constants
-  var BOUNDS = PlinkoProbabilityConstants.HISTOGRAM_BOUNDS;
+  const BOUNDS = PlinkoProbabilityConstants.HISTOGRAM_BOUNDS;
 
   /**
    * @param {Property.<number>} numberOfRowsProperty
@@ -42,7 +42,7 @@ define( require => {
     this.histogramUpdatedEmitter = new Emitter(); // @public
 
     // link is present for the lifetime of the sim
-    var self = this;
+    const self = this;
     numberOfRowsProperty.link( function() {
       self.reset(); // if the number of rows change then reset the histogram
     } );
@@ -71,17 +71,17 @@ define( require => {
     prepopulate: function( ballsOnScreen ) {
 
       // temporarily stores the binCount for each bin in an empty array.
-      var tempBins = [];
+      const tempBins = [];
       for ( var tempBinIndex = 0; tempBinIndex < ( this.numberOfRowsProperty.get() + 1 ); tempBinIndex++ ) {
         tempBins[ tempBinIndex ] = 0;
       }
 
       // determines probability of balls falling through galton board
-      for ( var ballIndex = 0; ballIndex < ballsOnScreen; ballIndex++ ) {
-        var columnNumber = 0;
+      for ( let ballIndex = 0; ballIndex < ballsOnScreen; ballIndex++ ) {
+        let columnNumber = 0;
         // the path of the balls through the pegs of the galton board  is determined for the prepopulated balls only
-        for ( var rowNumber = 0; rowNumber <= this.numberOfRowsProperty.get(); rowNumber++ ) {
-          var direction = ( phet.joist.random.nextBoolean() ? 'left' : 'right' );
+        for ( let rowNumber = 0; rowNumber <= this.numberOfRowsProperty.get(); rowNumber++ ) {
+          const direction = ( phet.joist.random.nextBoolean() ? 'left' : 'right' );
 
           // increment the column number of the next row, but not for the last row
           if ( rowNumber < this.numberOfRowsProperty.get() ) {
@@ -114,9 +114,9 @@ define( require => {
      */
     setBinsToZero: function() {
       this.bins = []; // reset the bin array to an empty array
-      var binInfo;
-      var maxBins = PlinkoProbabilityConstants.ROWS_RANGE.max + 1;
-      for ( var i = 0; i < maxBins; i++ ) {
+      let binInfo;
+      const maxBins = PlinkoProbabilityConstants.ROWS_RANGE.max + 1;
+      for ( let i = 0; i < maxBins; i++ ) {
         binInfo = {
           binCount: 0, // number of balls that will be in the bin (including those currently falling through the galton board)
           visibleBinCount: 0, // number of balls that are in the bin
@@ -147,7 +147,7 @@ define( require => {
       this.landedBallsNumber++;
 
       // convenience variable
-      var N = this.landedBallsNumber;
+      const N = this.landedBallsNumber;
 
       this.average = ( ( N - 1 ) * this.average + binIndex ) / N;
       this.sumOfSquares += binIndex * binIndex;
@@ -170,9 +170,9 @@ define( require => {
      */
     initializeStatistics: function() {
 
-      var totalNumberOfBalls = 0;
-      var sum = 0;
-      var sumOfSquares = 0;
+      let totalNumberOfBalls = 0;
+      let sum = 0;
+      let sumOfSquares = 0;
 
       this.bins.forEach( function( bin, binIndex ) {
         totalNumberOfBalls += bin.binCount;
@@ -253,10 +253,10 @@ define( require => {
      * @public
      */
     getNormalizedSampleDistribution: function() {
-      var maxCount = this.getMaximumBinCount();
+      const maxCount = this.getMaximumBinCount();
       // we don't want to divide by zero; if maxCount is zero, then bin.visibleCount is zero anyway.
-      var divisionFactor = Math.max( maxCount, 1 );
-      var normalizedArray = this.bins.map( function( bin ) {
+      const divisionFactor = Math.max( maxCount, 1 );
+      const normalizedArray = this.bins.map( function( bin ) {
         return bin.visibleBinCount / divisionFactor;
       } );
       return normalizedArray;
@@ -270,7 +270,7 @@ define( require => {
      * @public
      */
     getMaximumActualBinCount: function() {
-      var maxCount = 0;
+      let maxCount = 0;
       this.bins.forEach( function( binElement ) {
         maxCount = Math.max( maxCount, binElement.binCount );
       } );
@@ -285,7 +285,7 @@ define( require => {
      * @public
      */
     getMaximumBinCount: function() {
-      var maxCount = 0;
+      let maxCount = 0;
       this.bins.forEach( function( binElement ) {
         maxCount = Math.max( maxCount, binElement.visibleBinCount );
       } );

@@ -32,7 +32,7 @@ define( require => {
   const fractionImage = require( 'image!PLINKO_PROBABILITY/fraction.png' );
 
   // constants
-  var PANEL_FIXED_WIDTH = 220; // determined empirically
+  const PANEL_FIXED_WIDTH = 220; // determined empirically
 
   /**
    * @param {LabModel} model
@@ -40,25 +40,25 @@ define( require => {
    */
   function LabScreenView( model ) {
 
-    var self = this;
+    const self = this;
 
     PlinkoProbabilityCommonView.call( this, model, {
       histogramMode: 'counter'
     } );
 
     // pegs on the Galton board
-    var pegsNode = new PegsNode( model.galtonBoard, model.numberOfRowsProperty, model.probabilityProperty, this.modelViewTransform, {
+    const pegsNode = new PegsNode( model.galtonBoard, model.numberOfRowsProperty, model.probabilityProperty, this.modelViewTransform, {
       canvasBounds: this.viewTriangularBoardBounds
     } );
 
     // radio buttons to right of the hopper
-    var hopperModeControl = new HopperModeControl( model.hopperModeProperty, {
+    const hopperModeControl = new HopperModeControl( model.hopperModeProperty, {
       left: this.hopper.right + 47,
       top: this.hopper.top
     } );
 
     // radio buttons that can toggle between 'fraction and 'counter' mode
-    var histogramModeControl = new HistogramModeControl( this.viewProperties.histogramModeProperty, 'counter', counterImage, 'fraction', fractionImage, {
+    const histogramModeControl = new HistogramModeControl( this.viewProperties.histogramModeProperty, 'counter', counterImage, 'fraction', fractionImage, {
       bottom: this.eraserButton.top - 16,
       left: this.eraserButton.left
     } );
@@ -69,7 +69,7 @@ define( require => {
     }
 
     // Play panel, at top right
-    var playPanel = new LabPlayPanel( model, {
+    const playPanel = new LabPlayPanel( model, {
       minWidth: PANEL_FIXED_WIDTH,
       maxWidth: PANEL_FIXED_WIDTH,
       right: this.layoutBounds.maxX - PlinkoProbabilityConstants.PANEL_RIGHT_PADDING,
@@ -77,7 +77,7 @@ define( require => {
     } );
 
     // controls that modify the pegs in the galton board, below the Play panel
-    var pegControls = new PegControls( model.numberOfRowsProperty, model.probabilityProperty, {
+    const pegControls = new PegControls( model.numberOfRowsProperty, model.probabilityProperty, {
       minWidth: PANEL_FIXED_WIDTH,
       maxWidth: PANEL_FIXED_WIDTH,
       top: playPanel.bottom + PlinkoProbabilityConstants.PANEL_VERTICAL_SPACING,
@@ -85,7 +85,7 @@ define( require => {
     } );
 
     // statistics panel, below peg controls
-    var statisticsAccordionBox = new StatisticsAccordionBox( model,
+    const statisticsAccordionBox = new StatisticsAccordionBox( model,
       this.viewProperties.isTheoreticalHistogramVisibleProperty,
       this.viewProperties.expandedAccordionBoxProperty, {
         minWidth: PANEL_FIXED_WIDTH,
@@ -95,7 +95,7 @@ define( require => {
       } );
 
     // create pathsLayer to keep all the TrajectoryPath
-    var pathsLayer = new Node( { layerSplit: true } );
+    const pathsLayer = new Node( { layerSplit: true } );
 
     // rendering order
     this.addChild( histogramModeControl );
@@ -144,7 +144,7 @@ define( require => {
     } );
 
     // OutOfBallsDialog, created lazily because Dialog requires sim bounds during construction
-    var dialog = null;
+    let dialog = null;
 
     // no need to dispose of this link
     model.isBallCapReachedProperty.lazyLink( function( isBallCapReached ) {

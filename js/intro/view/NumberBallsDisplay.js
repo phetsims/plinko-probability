@@ -32,7 +32,7 @@ define( require => {
       yMargin: 7.5
     }, options );
 
-    var optionsTitle = {
+    const optionsTitle = {
       leftHandSideFont: PlinkoProbabilityConstants.TEXT_FONT_BOLD,
       leftHandSideFill: PlinkoProbabilityConstants.SAMPLE_FONT_COLOR,
       rightHandSideFont: PlinkoProbabilityConstants.TEXT_FONT_BOLD,
@@ -40,7 +40,7 @@ define( require => {
       maxDecimalPlaces: 0
     };
 
-    var numberLandedBallsText = new EquationNode( nString, 0, optionsTitle );
+    const numberLandedBallsText = new EquationNode( nString, 0, optionsTitle );
 
     histogram.histogramUpdatedEmitter.addListener( function() {
       numberLandedBallsText.setRightHandSideOfEquation( histogram.landedBallsNumber );

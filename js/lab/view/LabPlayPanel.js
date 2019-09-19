@@ -24,7 +24,7 @@ define( require => {
   const VerticalAquaRadioButtonGroup = require( 'SUN/VerticalAquaRadioButtonGroup' );
 
   // constants
-  var BALL_RADIUS = PlinkoProbabilityConstants.BALL_RADIUS;
+  const BALL_RADIUS = PlinkoProbabilityConstants.BALL_RADIUS;
 
   /**
    * @param {LabModel} model
@@ -33,7 +33,7 @@ define( require => {
    */
   function LabPlayPanel( model, options ) {
 
-    var self = this;
+    const self = this;
 
     options = _.extend( {
       align: 'center',
@@ -46,10 +46,10 @@ define( require => {
     }, options );
 
     // create the icon for oneBall mode, a representation for a ball
-    var oneBall = new BallNode( BALL_RADIUS );
+    const oneBall = new BallNode( BALL_RADIUS );
 
     // create an ellipsis (the punctuation mark, not the geometrical shape)
-    var threeDots = new HBox( {
+    const threeDots = new HBox( {
       spacing: 2,
       children: [
         new HStrut( BALL_RADIUS ),
@@ -60,10 +60,10 @@ define( require => {
     } );
 
     // the ball size is not necessarily twice the radius
-    var ballWidth = new BallNode( BALL_RADIUS ).width;
+    const ballWidth = new BallNode( BALL_RADIUS ).width;
 
     // create the icon for the continuous mode
-    var continuous = new HBox( {
+    const continuous = new HBox( {
       align: 'bottom',
       spacing: -ballWidth / 2, // negative spacing
       children: [
@@ -77,7 +77,7 @@ define( require => {
     } );
 
     // create the vertical radio group buttons for the one ball and continuous mode.
-    var ballModeRadioButtons = new VerticalAquaRadioButtonGroup( model.ballModeProperty, [
+    const ballModeRadioButtons = new VerticalAquaRadioButtonGroup( model.ballModeProperty, [
       { node: oneBall, value: 'oneBall' },
       { node: continuous, value: 'continuous' }
     ], {
@@ -91,7 +91,7 @@ define( require => {
     this.playButtonVisibleProperty = new BooleanProperty( true );
 
     // create the play button
-    var playButton = new PlayButton( {
+    const playButton = new PlayButton( {
       listener: function() {
         if ( model.isBallCapReachedProperty.get() ) {
           model.isBallCapReachedProperty.notifyListenersStatic();
@@ -109,14 +109,14 @@ define( require => {
     } );
 
     // create the pause button
-    var pauseButton = new PauseButton( {
+    const pauseButton = new PauseButton( {
       listener: function() {
         self.playButtonVisibleProperty.set( true ); // make the play button visible
         model.isPlayingProperty.set( false ); // set isPlayingProperty to false signifying that no balls are being dropped
       }
     } );
 
-    var playPlayPauseButton = new BooleanToggleNode( playButton, pauseButton, this.playButtonVisibleProperty );
+    const playPlayPauseButton = new BooleanToggleNode( playButton, pauseButton, this.playButtonVisibleProperty );
 
     // link the ballModeProperty to the state of the playPauseButton
     model.ballModeProperty.link( function() {
@@ -125,7 +125,7 @@ define( require => {
     } );
 
     // create the content of the panel, with the play pause button and the radio buttons
-    var startVBox = new HBox( {
+    const startVBox = new HBox( {
       spacing: 20,
       children: [
         playPlayPauseButton,

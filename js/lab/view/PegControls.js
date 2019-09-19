@@ -25,7 +25,7 @@ define( require => {
   const rowsString = require( 'string!PLINKO_PROBABILITY/rows' );
 
   // constants
-  var SLIDER_TRACK_SIZE = new Dimension2( 170, 2 );
+  const SLIDER_TRACK_SIZE = new Dimension2( 170, 2 );
 
   /**
    * @param {Property.<number>} rowsProperty
@@ -45,10 +45,10 @@ define( require => {
     // major tick labels for slider that controls number of rows
     assert && assert( Util.isInteger( PlinkoProbabilityConstants.ROWS_RANGE.min ), 'integer required: ' + PlinkoProbabilityConstants.ROWS_RANGE.min );
     assert && assert( Util.isInteger( PlinkoProbabilityConstants.ROWS_RANGE.max ), 'integer required: ' + PlinkoProbabilityConstants.ROWS_RANGE.max );
-    var tickLabelOptions = {
+    const tickLabelOptions = {
       font: PlinkoProbabilityConstants.MAJOR_TICK_FONT
     };
-    var rowsMajorTicks = [ {
+    const rowsMajorTicks = [ {
       value: PlinkoProbabilityConstants.ROWS_RANGE.min,
       label: new Text( PlinkoProbabilityConstants.ROWS_RANGE.min, tickLabelOptions )
     }, {
@@ -57,7 +57,7 @@ define( require => {
     } ];
 
     // control for number of rows
-    var rowsControl = new NumberControl( rowsString, rowsProperty, PlinkoProbabilityConstants.ROWS_RANGE, {
+    const rowsControl = new NumberControl( rowsString, rowsProperty, PlinkoProbabilityConstants.ROWS_RANGE, {
       delta: 1,
       layoutFunction: NumberControl.createLayoutFunction3( {
         ySpacing: 3
@@ -86,7 +86,7 @@ define( require => {
     // major tick labels for slider that controls binary probability
     assert && assert( Util.isInteger( PlinkoProbabilityConstants.BINARY_PROBABILITY_RANGE.min ), 'integer required: ' + PlinkoProbabilityConstants.BINARY_PROBABILITY_RANGE.min );
     assert && assert( Util.isInteger( PlinkoProbabilityConstants.BINARY_PROBABILITY_RANGE.max ), 'integer required: ' + PlinkoProbabilityConstants.BINARY_PROBABILITY_RANGE.max );
-    var probabilityMajorTicks = [ {
+    const probabilityMajorTicks = [ {
       value: PlinkoProbabilityConstants.BINARY_PROBABILITY_RANGE.min,
       label: new Text( PlinkoProbabilityConstants.BINARY_PROBABILITY_RANGE.min, tickLabelOptions )
     }, {
@@ -95,7 +95,7 @@ define( require => {
     } ];
 
     // control for the binary probability
-    var probabilityControl = new NumberControl( binaryProbabilityString, probabilityProperty, PlinkoProbabilityConstants.BINARY_PROBABILITY_RANGE, {
+    const probabilityControl = new NumberControl( binaryProbabilityString, probabilityProperty, PlinkoProbabilityConstants.BINARY_PROBABILITY_RANGE, {
       layoutFunction: NumberControl.createLayoutFunction3(),
       delta: 0.01,
       titleNodeOptions: {
@@ -118,7 +118,7 @@ define( require => {
       }
     } );
 
-    var contentNode = new VBox( {
+    const contentNode = new VBox( {
       align: 'center',
       spacing: 20,
       children: [ rowsControl, probabilityControl ]
