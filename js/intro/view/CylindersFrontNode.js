@@ -1,4 +1,4 @@
-// Copyright 2015-2016, University of Colorado Boulder
+// Copyright 2015-2019, University of Colorado Boulder
 
 /**
  * View representation of the front cylinders (the side part of the cylinder) used within the Plinko Probability Simulation
