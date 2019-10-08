@@ -31,7 +31,7 @@ define( require => {
     TEXT_FONT: new PhetFont( { size: 18 } ), // default font for text
     TEXT_FONT_BOLD: new PhetFont( { size: 22, weight: 'bold' } ), // default font for bold font (N=)
 
-    CHECK_BOX_TEXT_FONT: new PhetFont( { size: 16 } ),
+    CHECKBOX_TEXT_FONT: new PhetFont( { size: 16 } ),
     MAJOR_TICK_FONT: new PhetFont( { size: 16 } ),
 
     // panels
