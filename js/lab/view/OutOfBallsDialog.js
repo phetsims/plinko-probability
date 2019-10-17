@@ -11,6 +11,7 @@ define( require => {
   // modules
   const Dialog = require( 'SUN/Dialog' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const PhetFont = require( 'SCENERY_PHET/PhetFont' );
   const plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   const Text = require( 'SCENERY/nodes/Text' );
@@ -24,7 +25,7 @@ define( require => {
    */
   function OutOfBallsDialog( options ) {
 
-    options = _.extend( {
+    options = merge( {
       xSpacing: 30,
       topMargin: 25,
       bottomMargin: 25

@@ -10,6 +10,7 @@ define( require => {
 
   // modules
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   const Rectangle = require( 'SCENERY/nodes/Rectangle' );
@@ -22,7 +23,7 @@ define( require => {
 
     Node.call( this );
 
-    options = _.extend( {
+    options = merge( {
       binNumber: 5,
       binWidth: 6,
       binHeightMax: 10,

@@ -15,6 +15,7 @@ define( require => {
   const Circle = require( 'SCENERY/nodes/Circle' );
   const GaltonBoard = require( 'PLINKO_PROBABILITY/common/model/GaltonBoard' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const Path = require( 'SCENERY/nodes/Path' );
   const plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   const PlinkoProbabilityConstants = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityConstants' );
@@ -32,7 +33,7 @@ define( require => {
    */
   function PegsNode( galtonBoard, numberOfRowsProperty, probabilityProperty, modelViewTransform, options ) {
 
-    options = _.extend( {
+    options = merge( {
       rotatePegs: true, // pegs have a flat surface whose orientation changes with probability
       pegRadius: 50 // radius of peg when the number of rows is 1
     }, options );

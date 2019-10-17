@@ -13,6 +13,7 @@ define( require => {
   // modules
   const HStrut = require( 'SCENERY/nodes/HStrut' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const PhetFont = require( 'SCENERY_PHET/PhetFont' );
   const plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
@@ -30,7 +31,7 @@ define( require => {
 
     Node.call( this );
 
-    options = _.extend( {
+    options = merge( {
       leftHandSideFont: new PhetFont( 16 ),
       rightHandSideFont: new PhetFont( 16 ),
       leftHandSideFill: 'blue',

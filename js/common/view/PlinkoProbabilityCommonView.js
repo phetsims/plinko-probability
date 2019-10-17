@@ -19,6 +19,7 @@ define( require => {
   const HistogramNode = require( 'PLINKO_PROBABILITY/common/view/HistogramNode' );
   const Hopper = require( 'PLINKO_PROBABILITY/common/view/Hopper' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   const PegSoundGeneration = require( 'PLINKO_PROBABILITY/common/view/PegSoundGeneration' );
   const plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
@@ -35,7 +36,7 @@ define( require => {
    */
   function PlinkoProbabilityCommonView( model, options ) {
 
-    options = _.extend( {
+    options = merge( {
       layoutBounds: new Bounds2( 0, 0, 1024, 618 ),
       histogramMode: 'cylinder' // {string} see HISTOGRAM_MODE_VALUES
     }, options );

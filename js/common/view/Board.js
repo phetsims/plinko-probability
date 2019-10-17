@@ -13,6 +13,7 @@ define( require => {
   const Dimension2 = require( 'DOT/Dimension2' );
   const inherit = require( 'PHET_CORE/inherit' );
   const LinearGradient = require( 'SCENERY/util/LinearGradient' );
+  const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Path = require( 'SCENERY/nodes/Path' );
   const plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
@@ -32,7 +33,7 @@ define( require => {
    */
   function Board( options ) {
 
-    options = _.extend( {
+    options = merge( {
       size: new Dimension2( 600, 300 ), // triangle base width x height
       shadowFill: 'rgb(136,136,136)'
     }, options );

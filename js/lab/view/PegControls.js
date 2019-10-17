@@ -12,6 +12,7 @@ define( require => {
   // modules
   const Dimension2 = require( 'DOT/Dimension2' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const NumberControl = require( 'SCENERY_PHET/NumberControl' );
   const Panel = require( 'SUN/Panel' );
   const plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
@@ -35,7 +36,7 @@ define( require => {
    */
   function PegControls( rowsProperty, probabilityProperty, options ) {
 
-    options = _.extend( {
+    options = merge( {
       align: 'center',
       fill: 'white',
       xMargin: 10,

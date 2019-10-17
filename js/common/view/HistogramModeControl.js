@@ -12,6 +12,7 @@ define( require => {
   // modules
   const Image = require( 'SCENERY/nodes/Image' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   const RadioButtonGroup = require( 'SUN/buttons/RadioButtonGroup' );
 
@@ -29,7 +30,7 @@ define( require => {
    */
   function HistogramModeControl( histogramModeProperty, topValue, topImage, bottomValue, bottomImage, options ) {
 
-    options = _.extend( {
+    options = merge( {
       spacing: 5, // vertical separation of the buttons
       cornerRadius: 10,
       baseColor: 'white',

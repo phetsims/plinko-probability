@@ -10,6 +10,7 @@ define( require => {
 
   // imports
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const PhetFont = require( 'SCENERY_PHET/PhetFont' );
   const plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
@@ -33,7 +34,7 @@ define( require => {
 
     Node.call( this );
 
-    options = _.extend( {
+    options = merge( {
       radioButtonOptions: { radius: 10 },
       spacing: 12, // vertical separation of the buttons
       touchAreaXDilation: 10

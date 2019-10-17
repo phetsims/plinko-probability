@@ -12,6 +12,7 @@ define( require => {
   // modules
   const EquationNode = require( 'PLINKO_PROBABILITY/common/view/EquationNode' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const Panel = require( 'SUN/Panel' );
   const plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   const PlinkoProbabilityConstants = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityConstants' );
@@ -26,7 +27,7 @@ define( require => {
    */
   function NumberBallsDisplay( histogram, options ) {
 
-    options = _.extend( {
+    options = merge( {
       minWidth: 214, // left border of panel is aligned with the left border of the play panel.
       align: 'left',
       yMargin: 7.5

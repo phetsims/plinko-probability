@@ -11,6 +11,7 @@ define( require => {
   // modules
   const BooleanProperty = require( 'AXON/BooleanProperty' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   const StringProperty = require( 'AXON/StringProperty' );
 
@@ -23,7 +24,7 @@ define( require => {
    */
   function PlinkoProbabilityViewProperties( options ) {
 
-    options = _.extend( {
+    options = merge( {
       histogramMode: 'cylinder' // {string} see HISTOGRAM_MODE_VALUES
     }, options );
 

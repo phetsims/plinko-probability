@@ -15,6 +15,7 @@ define( require => {
   const HBox = require( 'SCENERY/nodes/HBox' );
   const HistogramIcon = require( 'PLINKO_PROBABILITY/lab/view/HistogramIcon' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   const PlinkoProbabilityConstants = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityConstants' );
   const Property = require( 'AXON/Property' );
@@ -69,7 +70,7 @@ define( require => {
 
     const numberLandedBallsText = new EquationNode( nString, 0, OPTIONS_TITLE );
 
-    options = _.extend( {
+    options = merge( {
 
       fill: PlinkoProbabilityConstants.PANEL_BACKGROUND_COLOR,
       cornerRadius: 10,

@@ -16,6 +16,7 @@ define( require => {
   const HBox = require( 'SCENERY/nodes/HBox' );
   const HStrut = require( 'SCENERY/nodes/HStrut' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const Panel = require( 'SUN/Panel' );
   const PauseButton = require( 'PLINKO_PROBABILITY/common/view/PauseButton' );
   const PlayButton = require( 'PLINKO_PROBABILITY/common/view/PlayButton' );
@@ -35,7 +36,7 @@ define( require => {
 
     const self = this;
 
-    options = _.extend( {
+    options = merge( {
       align: 'center',
       xMargin: 10,
       yMargin: 10,

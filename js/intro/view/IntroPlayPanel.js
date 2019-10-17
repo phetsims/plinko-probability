@@ -14,6 +14,7 @@ define( require => {
   const HStrut = require( 'SCENERY/nodes/HStrut' );
   const inherit = require( 'PHET_CORE/inherit' );
   const MathSymbols = require( 'SCENERY_PHET/MathSymbols' );
+  const merge = require( 'PHET_CORE/merge' );
   const Panel = require( 'SUN/Panel' );
   const PlayButton = require( 'PLINKO_PROBABILITY/common/view/PlayButton' );
   const plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
@@ -32,7 +33,7 @@ define( require => {
    */
   function IntroPlayPanel( model, options ) {
 
-    options = _.extend( {
+    options = merge( {
       align: 'center',
       xMargin: 7,
       yMargin: 15,
