@@ -1,5 +1,5 @@
 {
-  "comment": "# plinko-probability 1.1.18-rc.2 Thu Oct 24 2019 01:59:57 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# plinko-probability 1.1.18 Mon Oct 28 2019 14:54:42 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "5c3f92048a9c2ffd6df8ede54fd64f1f7a7e4ef2",
     "branch": "HEAD"
@@ -41,7 +41,7 @@
     "branch": "HEAD"
   },
   "plinko-probability": {
-    "sha": "3cb8ca46e413883f6b067a45261af479e84d5ac4",
+    "sha": "cdb80ce54a28f5323424d760cc296473cf0ca63a",
     "branch": "1.1"
   },
   "query-string-machine": {
