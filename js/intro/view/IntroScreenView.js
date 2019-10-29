@@ -120,7 +120,7 @@ define( require => {
 
     // a11y
     // set tab order
-    this.playAreaNode.accessibleOrder = [ playPanel, histogramModeControl, this.eraserButton ];
+    this.pdomPlayAreaNode.accessibleOrder = [ playPanel, histogramModeControl, this.eraserButton ];
   }
 
   plinkoProbability.register( 'IntroScreenView', IntroScreenView );

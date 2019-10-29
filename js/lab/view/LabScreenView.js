@@ -167,7 +167,7 @@ define( require => {
     } );
 
     // a11y
-    this.playAreaNode.accessibleOrder = [ playPanel, pegControls, statisticsAccordionBox, hopperModeControl, histogramModeControl, this.eraserButton];
+    this.pdomPlayAreaNode.accessibleOrder = [ playPanel, pegControls, statisticsAccordionBox, hopperModeControl, histogramModeControl, this.eraserButton];
   }
 
   plinkoProbability.register( 'LabScreenView', LabScreenView );
