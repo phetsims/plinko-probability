@@ -18,7 +18,7 @@ define( require => {
   const plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   const PlinkoProbabilityConstants = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityConstants' );
   const Text = require( 'SCENERY/nodes/Text' );
-  const Util = require( 'DOT/Util' );
+  const Utils = require( 'DOT/Utils' );
   const VBox = require( 'SCENERY/nodes/VBox' );
 
   // strings
@@ -44,8 +44,8 @@ define( require => {
     }, options );
 
     // major tick labels for slider that controls number of rows
-    assert && assert( Util.isInteger( PlinkoProbabilityConstants.ROWS_RANGE.min ), 'integer required: ' + PlinkoProbabilityConstants.ROWS_RANGE.min );
-    assert && assert( Util.isInteger( PlinkoProbabilityConstants.ROWS_RANGE.max ), 'integer required: ' + PlinkoProbabilityConstants.ROWS_RANGE.max );
+    assert && assert( Utils.isInteger( PlinkoProbabilityConstants.ROWS_RANGE.min ), 'integer required: ' + PlinkoProbabilityConstants.ROWS_RANGE.min );
+    assert && assert( Utils.isInteger( PlinkoProbabilityConstants.ROWS_RANGE.max ), 'integer required: ' + PlinkoProbabilityConstants.ROWS_RANGE.max );
     const tickLabelOptions = {
       font: PlinkoProbabilityConstants.MAJOR_TICK_FONT
     };
@@ -85,8 +85,8 @@ define( require => {
     } );
 
     // major tick labels for slider that controls binary probability
-    assert && assert( Util.isInteger( PlinkoProbabilityConstants.BINARY_PROBABILITY_RANGE.min ), 'integer required: ' + PlinkoProbabilityConstants.BINARY_PROBABILITY_RANGE.min );
-    assert && assert( Util.isInteger( PlinkoProbabilityConstants.BINARY_PROBABILITY_RANGE.max ), 'integer required: ' + PlinkoProbabilityConstants.BINARY_PROBABILITY_RANGE.max );
+    assert && assert( Utils.isInteger( PlinkoProbabilityConstants.BINARY_PROBABILITY_RANGE.min ), 'integer required: ' + PlinkoProbabilityConstants.BINARY_PROBABILITY_RANGE.min );
+    assert && assert( Utils.isInteger( PlinkoProbabilityConstants.BINARY_PROBABILITY_RANGE.max ), 'integer required: ' + PlinkoProbabilityConstants.BINARY_PROBABILITY_RANGE.max );
     const probabilityMajorTicks = [ {
       value: PlinkoProbabilityConstants.BINARY_PROBABILITY_RANGE.min,
       label: new Text( PlinkoProbabilityConstants.BINARY_PROBABILITY_RANGE.min, tickLabelOptions )

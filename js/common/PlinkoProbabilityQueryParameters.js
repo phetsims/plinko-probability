@@ -11,7 +11,7 @@ define( require => {
 
   // modules
   const plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
-  const Util = require( 'DOT/Util' );
+  const Utils = require( 'DOT/Utils' );
 
   const PlinkoProbabilityQueryParameters = QueryStringMachine.getAll( {
 
@@ -21,7 +21,7 @@ define( require => {
       type: 'number',
       defaultValue: 100,
       isValidValue: function( value ) {
-        return value > 0 && Util.isInteger( value );
+        return value > 0 && Utils.isInteger( value );
       }
     },
 
@@ -31,7 +31,7 @@ define( require => {
       type: 'number',
       defaultValue: 9999,
       isValidValue: function( value ) {
-        return value > 0 && Util.isInteger( value );
+        return value > 0 && Utils.isInteger( value );
       }
     },
 
@@ -41,7 +41,7 @@ define( require => {
       type: 'number',
       defaultValue: 0,
       isValidValue: function( value ) {
-        return value >= 0 && Util.isInteger( value );
+        return value >= 0 && Utils.isInteger( value );
       }
     },
 
@@ -51,7 +51,7 @@ define( require => {
       type: 'number',
       defaultValue: 1,
       isValidValue: function( value ) {
-        return value > 0 && Util.isInteger( value );
+        return value > 0 && Utils.isInteger( value );
       }
     },
     // maximum number of peg rows on lab screen
@@ -59,7 +59,7 @@ define( require => {
       type: 'number',
       defaultValue: 26,
       isValidValue: function( value ) {
-        return value > 0 && Util.isInteger( value );
+        return value > 0 && Utils.isInteger( value );
       }
     },
     // default number of peg rows on intro and lab screen
@@ -67,7 +67,7 @@ define( require => {
       type: 'number',
       defaultValue: 12,
       isValidValue: function( value ) {
-        return value > 0 && Util.isInteger( value );
+        return value > 0 && Utils.isInteger( value );
       }
     },
 

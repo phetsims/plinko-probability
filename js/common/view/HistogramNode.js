@@ -21,7 +21,7 @@ define( require => {
   const Rectangle = require( 'SCENERY/nodes/Rectangle' );
   const Shape = require( 'KITE/Shape' );
   const Text = require( 'SCENERY/nodes/Text' );
-  const Util = require( 'DOT/Util' );
+  const Utils = require( 'DOT/Utils' );
 
   //----------------------------------------------------------------------------------------
   // constants
@@ -361,7 +361,7 @@ define( require => {
           if ( histogramMode === 'fraction' ) {
             // set the appropriate number of decimal places if in fraction mode,
             // if the number of bins is large, the width of the bin does not allow as many decimal places
-            binValue = (numberOfBins > 16) ? Util.toFixed( binValue, 2 ) : Util.toFixed( binValue, 3 );
+            binValue = (numberOfBins > 16) ? Utils.toFixed( binValue, 2 ) : Utils.toFixed( binValue, 3 );
           }
 
           // update position, fontsize and text of the bins

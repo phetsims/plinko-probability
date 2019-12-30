@@ -19,7 +19,7 @@ define( require => {
   const plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   const RichText = require( 'SCENERY/nodes/RichText' );
   const Text = require( 'SCENERY/nodes/Text' );
-  const Util = require( 'DOT/Util' );
+  const Utils = require( 'DOT/Utils' );
 
   /**
    * @param {string} leftHandSideOfEquation - the string that should appear on the left hand side of the equation
@@ -121,7 +121,7 @@ define( require => {
       // 0.00011 -> 0.000
 
       // number = mantissa times 10^(exponent) where the mantissa is between 1 and 10 (or -1 to -10)
-      const exponent = Math.floor( Util.log10( Math.abs( number ) ) );
+      const exponent = Math.floor( Utils.log10( Math.abs( number ) ) );
 
       let decimalPlaces;
       if ( exponent >= this.options.maxDecimalPlaces ) {
@@ -134,7 +134,7 @@ define( require => {
         decimalPlaces = this.options.maxDecimalPlaces;
       }
 
-      return Util.toFixed( number, decimalPlaces );
+      return Utils.toFixed( number, decimalPlaces );
     }
   } );
 } )
