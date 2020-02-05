@@ -17,20 +17,18 @@ define( require => {
   const plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   const PlinkoProbabilityConstants = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityConstants' );
 
-  // TODO: If the options must contain a field should it be renamed to 'config'?
   /**
    * @param {Ball[]} balls - an array of model Ball
    * @param {Property.<number>} numberOfRowsProperty - number of rows
    * @param {Property.<string>} histogramModeProperty - see PlinkoProbabilityCommonView
    * @param {ModelViewTransform2} modelViewTransform - model to view transform
-   * @param {Object} [options] - must contain a canvasBounds attribute of type Bounds2
+   * @param {Object} config - must contain a canvasBounds attribute of type Bounds2
    * @constructor
    */
-  function BallsNode( balls, numberOfRowsProperty, histogramModeProperty, modelViewTransform, options ) {
+  function BallsNode( balls, numberOfRowsProperty, histogramModeProperty, modelViewTransform, config ) {
 
-    assert && assert( options && options.hasOwnProperty( 'canvasBounds' ), 'No canvasBounds specified.' );
-
-    CanvasNode.call( this, options );
+    assert && assert( config && config.hasOwnProperty( 'canvasBounds' ), 'No canvasBounds specified.' );
+    CanvasNode.call( this, config );
 
     const self = this;
 
