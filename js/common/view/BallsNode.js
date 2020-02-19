@@ -14,8 +14,10 @@ define( require => {
   const CanvasNode = require( 'SCENERY/nodes/CanvasNode' );
   const GaltonBoard = require( 'PLINKO_PROBABILITY/common/model/GaltonBoard' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
   const PlinkoProbabilityConstants = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityConstants' );
+  const required = require( 'PHET_CORE/required' );
 
   /**
    * @param {Ball[]} balls - an array of model Ball
@@ -26,8 +28,12 @@ define( require => {
    * @constructor
    */
   function BallsNode( balls, numberOfRowsProperty, histogramModeProperty, modelViewTransform, config ) {
+    config = merge( {
 
-    assert && assert( config && config.hasOwnProperty( 'canvasBounds' ), 'No canvasBounds specified.' );
+      // {Bounds2}
+      canvasBounds: required( config.canvasBounds )
+    }, config );
+
     CanvasNode.call( this, config );
 
     const self = this;
