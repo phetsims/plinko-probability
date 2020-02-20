@@ -67,7 +67,7 @@ define( require => {
     ], {
       radioButtonOptions: { radius: 8 },
       spacing: 10,     // vertical spacing between each radio button
-      touchAreaDilation: 5
+      touchAreaXDilation: 5
     } );
 
     //Creation of play button

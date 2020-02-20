@@ -83,7 +83,7 @@ define( require => {
       { node: continuous, value: 'continuous' }
     ], {
       radioButtonOptions: { radius: 8 },
-      touchAreaDilation: 5,
+      touchAreaXDilation: 5,
       align: 'left',
       spacing: 13 // vertical spacing between radio buttons
     } );
