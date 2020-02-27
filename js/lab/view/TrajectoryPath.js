@@ -5,51 +5,47 @@
  *
  * @author Martin Veillette (Berea College)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const inherit = require( 'PHET_CORE/inherit' );
-  const Path = require( 'SCENERY/nodes/Path' );
-  const plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
-  const PlinkoProbabilityConstants = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityConstants' );
-  const Shape = require( 'KITE/Shape' );
+import Shape from '../../../../kite/js/Shape.js';
+import inherit from '../../../../phet-core/js/inherit.js';
+import Path from '../../../../scenery/js/nodes/Path.js';
+import PlinkoProbabilityConstants from '../../common/PlinkoProbabilityConstants.js';
+import plinkoProbability from '../../plinkoProbability.js';
 
-  /**
-   * Constructor for trajectory path of a ball falling through the galton board
-   * @param {Ball} ball - model of the ball
-   * @param {ModelViewTransform2} modelViewTransform - the coordinate transform between model coordinates and view coordinates
-   * @constructor
-   */
-  function TrajectoryPath( ball, modelViewTransform ) {
+/**
+ * Constructor for trajectory path of a ball falling through the galton board
+ * @param {Ball} ball - model of the ball
+ * @param {ModelViewTransform2} modelViewTransform - the coordinate transform between model coordinates and view coordinates
+ * @constructor
+ */
+function TrajectoryPath( ball, modelViewTransform ) {
 
-    const pathOptions = {
-      stroke: PlinkoProbabilityConstants.BALL_COLOR,
-      lineWidth: 2
-    };
+  const pathOptions = {
+    stroke: PlinkoProbabilityConstants.BALL_COLOR,
+    lineWidth: 2
+  };
 
-    // The trajectory path will be some vertical distance above the pegs.
-    // create a vertical offset that is a fraction of the peg separation.
-    const verticalOffset = ball.pegSeparation / 2;
+  // The trajectory path will be some vertical distance above the pegs.
+  // create a vertical offset that is a fraction of the peg separation.
+  const verticalOffset = ball.pegSeparation / 2;
 
-    // create the shape of the trajectory
-    const shape = new Shape();
+  // create the shape of the trajectory
+  const shape = new Shape();
 
-    // starting point of the shape is above the first peg plus some vertical offset.
-    shape.moveTo(
-      ball.pegHistory[ 0 ].positionX,
-      ball.pegHistory[ 0 ].positionY + ball.pegSeparation );
+  // starting point of the shape is above the first peg plus some vertical offset.
+  shape.moveTo(
+    ball.pegHistory[ 0 ].positionX,
+    ball.pegHistory[ 0 ].positionY + ball.pegSeparation );
 
-    // add linear segments to the shape.
-    ball.pegHistory.forEach( function( peg ) {
-      shape.lineTo( peg.positionX, peg.positionY + verticalOffset );
-    } );
+  // add linear segments to the shape.
+  ball.pegHistory.forEach( function( peg ) {
+    shape.lineTo( peg.positionX, peg.positionY + verticalOffset );
+  } );
 
-    Path.call( this, modelViewTransform.modelToViewShape( shape ), pathOptions );
-  }
+  Path.call( this, modelViewTransform.modelToViewShape( shape ), pathOptions );
+}
 
-  plinkoProbability.register( 'TrajectoryPath', TrajectoryPath );
+plinkoProbability.register( 'TrajectoryPath', TrajectoryPath );
 
-  return inherit( Path, TrajectoryPath );
-} );
-
+inherit( Path, TrajectoryPath );
+export default TrajectoryPath;

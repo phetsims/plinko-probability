@@ -5,98 +5,95 @@
  *
  * @author Martin Veillette (Berea College)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const BallNode = require( 'PLINKO_PROBABILITY/common/view/BallNode' );
-  const HBox = require( 'SCENERY/nodes/HBox' );
-  const HStrut = require( 'SCENERY/nodes/HStrut' );
-  const inherit = require( 'PHET_CORE/inherit' );
-  const MathSymbols = require( 'SCENERY_PHET/MathSymbols' );
-  const merge = require( 'PHET_CORE/merge' );
-  const Panel = require( 'SUN/Panel' );
-  const PlayButton = require( 'PLINKO_PROBABILITY/common/view/PlayButton' );
-  const plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
-  const PlinkoProbabilityConstants = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityConstants' );
-  const PlinkoProbabilityQueryParameters = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityQueryParameters' );
-  const Text = require( 'SCENERY/nodes/Text' );
-  const VerticalAquaRadioButtonGroup = require( 'SUN/VerticalAquaRadioButtonGroup' );
+import inherit from '../../../../phet-core/js/inherit.js';
+import merge from '../../../../phet-core/js/merge.js';
+import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
+import HBox from '../../../../scenery/js/nodes/HBox.js';
+import HStrut from '../../../../scenery/js/nodes/HStrut.js';
+import Text from '../../../../scenery/js/nodes/Text.js';
+import Panel from '../../../../sun/js/Panel.js';
+import VerticalAquaRadioButtonGroup from '../../../../sun/js/VerticalAquaRadioButtonGroup.js';
+import PlinkoProbabilityConstants from '../../common/PlinkoProbabilityConstants.js';
+import PlinkoProbabilityQueryParameters from '../../common/PlinkoProbabilityQueryParameters.js';
+import BallNode from '../../common/view/BallNode.js';
+import PlayButton from '../../common/view/PlayButton.js';
+import plinkoProbability from '../../plinkoProbability.js';
 
-  // constants
-  const BALL_RADIUS = PlinkoProbabilityConstants.BALL_RADIUS;
+// constants
+const BALL_RADIUS = PlinkoProbabilityConstants.BALL_RADIUS;
 
-  /**
-   * @param {IntroModel} model
-   * @param {Object} [options]
-   * @constructor
-   */
-  function IntroPlayPanel( model, options ) {
+/**
+ * @param {IntroModel} model
+ * @param {Object} [options]
+ * @constructor
+ */
+function IntroPlayPanel( model, options ) {
 
-    options = merge( {
-      align: 'center',
-      xMargin: 7,
-      yMargin: 15,
-      stroke: 'black',
-      lineWidth: 1,
-      minWidth: 0.1,
-      titleToControlsVerticalSpace: 5
-    }, options );
+  options = merge( {
+    align: 'center',
+    xMargin: 7,
+    yMargin: 15,
+    stroke: 'black',
+    lineWidth: 1,
+    minWidth: 0.1,
+    titleToControlsVerticalSpace: 5
+  }, options );
 
-    const fontOptions = { font: PlinkoProbabilityConstants.PANEL_FONT, maxWidth: 190 };
+  const fontOptions = { font: PlinkoProbabilityConstants.PANEL_FONT, maxWidth: 190 };
 
-    // Creation of radio button icons
-    const oneBall = new HBox( {
-      spacing: BALL_RADIUS / 2,
-      children: [ new BallNode( BALL_RADIUS ), new Text( MathSymbols.TIMES + '1', fontOptions ) ]
-    } );
-    const tenBalls = new HBox( {
-      spacing: BALL_RADIUS / 2,
-      children: [ new BallNode( BALL_RADIUS ), new Text( MathSymbols.TIMES + '10', fontOptions ) ]
-    } );
-    const maxBalls = new HBox( {
-      spacing: BALL_RADIUS / 2,
-      children: [ new BallNode( BALL_RADIUS ), new Text( MathSymbols.TIMES + PlinkoProbabilityQueryParameters.maxBallsIntro, fontOptions ) ]
-    } );
+  // Creation of radio button icons
+  const oneBall = new HBox( {
+    spacing: BALL_RADIUS / 2,
+    children: [ new BallNode( BALL_RADIUS ), new Text( MathSymbols.TIMES + '1', fontOptions ) ]
+  } );
+  const tenBalls = new HBox( {
+    spacing: BALL_RADIUS / 2,
+    children: [ new BallNode( BALL_RADIUS ), new Text( MathSymbols.TIMES + '10', fontOptions ) ]
+  } );
+  const maxBalls = new HBox( {
+    spacing: BALL_RADIUS / 2,
+    children: [ new BallNode( BALL_RADIUS ), new Text( MathSymbols.TIMES + PlinkoProbabilityQueryParameters.maxBallsIntro, fontOptions ) ]
+  } );
 
-    // Creation of radio button group for ball setting
-    const ballModeRadioButtons = new VerticalAquaRadioButtonGroup( model.ballModeProperty, [
-      { node: oneBall, value: 'oneBall' },
-      { node: tenBalls, value: 'tenBalls' },
-      { node: maxBalls, value: 'maxBalls' }
-    ], {
-      radioButtonOptions: { radius: 8 },
-      spacing: 10,     // vertical spacing between each radio button
-      touchAreaXDilation: 5
-    } );
+  // Creation of radio button group for ball setting
+  const ballModeRadioButtons = new VerticalAquaRadioButtonGroup( model.ballModeProperty, [
+    { node: oneBall, value: 'oneBall' },
+    { node: tenBalls, value: 'tenBalls' },
+    { node: maxBalls, value: 'maxBalls' }
+  ], {
+    radioButtonOptions: { radius: 8 },
+    spacing: 10,     // vertical spacing between each radio button
+    touchAreaXDilation: 5
+  } );
 
-    //Creation of play button
-    const playButton = new PlayButton( {
-      listener: model.updateBallsToCreateNumber.bind( model ),
-      enabled: true
-    } );
+  //Creation of play button
+  const playButton = new PlayButton( {
+    listener: model.updateBallsToCreateNumber.bind( model ),
+    enabled: true
+  } );
 
-    // Disables play button if maximum amount of balls are dropped
-    model.isBallCapReachedProperty.lazyLink( function( isBallCapReached ) {
-      playButton.enabled = !isBallCapReached;
-    } );
+  // Disables play button if maximum amount of balls are dropped
+  model.isBallCapReachedProperty.lazyLink( function( isBallCapReached ) {
+    playButton.enabled = !isBallCapReached;
+  } );
 
-    //Creation of play button panel box
-    const playAndRadioButtonBox = new HBox( {
-      spacing: 0,
-      children: [
-        new HStrut( 20 ),     // spacing between left panel margin and play button
-        playButton,
-        new HStrut( 25 ),     // spacing between play button and radio buttons
-        ballModeRadioButtons,
-        new HStrut( 10 )      // spacing between radio buttons and right margin
-      ]
-    } );
+  //Creation of play button panel box
+  const playAndRadioButtonBox = new HBox( {
+    spacing: 0,
+    children: [
+      new HStrut( 20 ),     // spacing between left panel margin and play button
+      playButton,
+      new HStrut( 25 ),     // spacing between play button and radio buttons
+      ballModeRadioButtons,
+      new HStrut( 10 )      // spacing between radio buttons and right margin
+    ]
+  } );
 
-    Panel.call( this, playAndRadioButtonBox, options );
-  }
+  Panel.call( this, playAndRadioButtonBox, options );
+}
 
-  plinkoProbability.register( 'IntroPlayPanel', IntroPlayPanel );
+plinkoProbability.register( 'IntroPlayPanel', IntroPlayPanel );
 
-  return inherit( Panel, IntroPlayPanel );
-} );
+inherit( Panel, IntroPlayPanel );
+export default IntroPlayPanel;

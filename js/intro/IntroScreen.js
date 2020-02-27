@@ -5,45 +5,42 @@
  *
  * @author Martin Veillette (Berea College)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const Image = require( 'SCENERY/nodes/Image' );
-  const inherit = require( 'PHET_CORE/inherit' );
-  const IntroModel = require( 'PLINKO_PROBABILITY/intro/model/IntroModel' );
-  const IntroScreenView = require( 'PLINKO_PROBABILITY/intro/view/IntroScreenView' );
-  const plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
-  const PlinkoProbabilityConstants = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityConstants' );
-  const Property = require( 'AXON/Property' );
-  const Screen = require( 'JOIST/Screen' );
+import Property from '../../../axon/js/Property.js';
+import Screen from '../../../joist/js/Screen.js';
+import inherit from '../../../phet-core/js/inherit.js';
+import Image from '../../../scenery/js/nodes/Image.js';
+import introHomescreenImage from '../../images/intro-homescreen_png.js';
+import introNavbarImage from '../../images/intro-navbar_png.js';
+import PlinkoProbabilityConstants from '../common/PlinkoProbabilityConstants.js';
+import plinkoProbabilityStrings from '../plinko-probability-strings.js';
+import plinkoProbability from '../plinkoProbability.js';
+import IntroModel from './model/IntroModel.js';
+import IntroScreenView from './view/IntroScreenView.js';
 
-  // strings
-  const screenIntroString = require( 'string!PLINKO_PROBABILITY/screen.intro' );
+const screenIntroString = plinkoProbabilityStrings.screen.intro;
 
-  // image
-  const introHomescreenImage = require( 'image!PLINKO_PROBABILITY/intro-homescreen.png' );
-  const introNavbarImage = require( 'image!PLINKO_PROBABILITY/intro-navbar.png' );
+// image
 
-  /**
-   * @constructor
-   */
-  function IntroScreen() {
+/**
+ * @constructor
+ */
+function IntroScreen() {
 
-    const options = {
-      name: screenIntroString,
-      backgroundColorProperty: new Property( PlinkoProbabilityConstants.BACKGROUND_COLOR ),
-      homeScreenIcon: new Image( introHomescreenImage ),
-      navigationBarIcon: new Image( introNavbarImage )
-    };
+  const options = {
+    name: screenIntroString,
+    backgroundColorProperty: new Property( PlinkoProbabilityConstants.BACKGROUND_COLOR ),
+    homeScreenIcon: new Image( introHomescreenImage ),
+    navigationBarIcon: new Image( introNavbarImage )
+  };
 
-    Screen.call( this,
-      function() { return new IntroModel(); },
-      function( model ) { return new IntroScreenView( model ); },
-      options );
-  }
+  Screen.call( this,
+    function() { return new IntroModel(); },
+    function( model ) { return new IntroScreenView( model ); },
+    options );
+}
 
-  plinkoProbability.register( 'IntroScreen', IntroScreen );
+plinkoProbability.register( 'IntroScreen', IntroScreen );
 
-  return inherit( Screen, IntroScreen );
-} );
+inherit( Screen, IntroScreen );
+export default IntroScreen;

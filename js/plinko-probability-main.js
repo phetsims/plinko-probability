@@ -5,37 +5,34 @@
  *
  * @author Martin Veillette (Berea College)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const IntroScreen = require( 'PLINKO_PROBABILITY/intro/IntroScreen' );
-  const LabScreen = require( 'PLINKO_PROBABILITY/lab/LabScreen' );
-  const SliderAndGeneralKeyboardHelpContent = require( 'SCENERY_PHET/keyboard/help/SliderAndGeneralKeyboardHelpContent' );
-  const Sim = require( 'JOIST/Sim' );
-  const SimLauncher = require( 'JOIST/SimLauncher' );
+import Sim from '../../joist/js/Sim.js';
+import SimLauncher from '../../joist/js/SimLauncher.js';
+import SliderAndGeneralKeyboardHelpContent
+  from '../../scenery-phet/js/keyboard/help/SliderAndGeneralKeyboardHelpContent.js';
+import IntroScreen from './intro/IntroScreen.js';
+import LabScreen from './lab/LabScreen.js';
+import plinkoProbabilityStrings from './plinko-probability-strings.js';
 
-  // strings
-  const plinkoProbabilityTitleString = require( 'string!PLINKO_PROBABILITY/plinko-probability.title' );
+const plinkoProbabilityTitleString = plinkoProbabilityStrings[ 'plinko-probability' ].title;
 
-  const keyboardHelpContent = new SliderAndGeneralKeyboardHelpContent( {
-    generalSectionOptions: {
-      withGroupContent: true
-    }
-  } );
+const keyboardHelpContent = new SliderAndGeneralKeyboardHelpContent( {
+  generalSectionOptions: {
+    withGroupContent: true
+  }
+} );
 
-  const simOptions = {
-    credits: {
-      leadDesign: 'Michael Dubson, Amanda McGarry',
-      softwareDevelopment: 'Martin Veillette, Denzell Barnett, Chris Malley (PixelZoom, Inc.), Guillermo Ramos-Macias',
-      team: 'Karina K. Hensberry, Trish Loeblein, Ariel Paul, Kathy Perkins',
-      qualityAssurance: 'Steele Dalton, Amanda Davis, Alex Dornan, Bryce Griebenow, Ben Roberts'
-    },
-    keyboardHelpNode: keyboardHelpContent
-  };
+const simOptions = {
+  credits: {
+    leadDesign: 'Michael Dubson, Amanda McGarry',
+    softwareDevelopment: 'Martin Veillette, Denzell Barnett, Chris Malley (PixelZoom, Inc.), Guillermo Ramos-Macias',
+    team: 'Karina K. Hensberry, Trish Loeblein, Ariel Paul, Kathy Perkins',
+    qualityAssurance: 'Steele Dalton, Amanda Davis, Alex Dornan, Bryce Griebenow, Ben Roberts'
+  },
+  keyboardHelpNode: keyboardHelpContent
+};
 
-  SimLauncher.launch( function() {
-    const sim = new Sim( plinkoProbabilityTitleString, [ new IntroScreen(), new LabScreen() ], simOptions );
-    sim.start();
-  } );
+SimLauncher.launch( function() {
+  const sim = new Sim( plinkoProbabilityTitleString, [ new IntroScreen(), new LabScreen() ], simOptions );
+  sim.start();
 } );

@@ -5,51 +5,47 @@
  *
  * @author Martin Veillette (Berea College)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const inherit = require( 'PHET_CORE/inherit' );
-  const merge = require( 'PHET_CORE/merge' );
-  const Node = require( 'SCENERY/nodes/Node' );
-  const plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
-  const Rectangle = require( 'SCENERY/nodes/Rectangle' );
+import inherit from '../../../../phet-core/js/inherit.js';
+import merge from '../../../../phet-core/js/merge.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
+import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
+import plinkoProbability from '../../plinkoProbability.js';
 
-  /**
-   * @param {Object} [options]
-   * @constructor
-   */
-  function HistogramIcon( options ) {
+/**
+ * @param {Object} [options]
+ * @constructor
+ */
+function HistogramIcon( options ) {
 
-    Node.call( this );
+  Node.call( this );
 
-    options = merge( {
-      binNumber: 5,
-      binWidth: 6,
-      binHeightMax: 10,
-      binStroke: 'blue',
-      binLineWidth: 1,
-      binFill: null
-    }, options );
+  options = merge( {
+    binNumber: 5,
+    binWidth: 6,
+    binHeightMax: 10,
+    binStroke: 'blue',
+    binLineWidth: 1,
+    binFill: null
+  }, options );
 
-    // Add the bins
-    for ( let i = 0; i < options.binNumber; i++ ) {
+  // Add the bins
+  for ( let i = 0; i < options.binNumber; i++ ) {
 
-      const height = 4 * options.binHeightMax * ( i + 1 ) / options.binNumber * ( 1 - ( i ) / options.binNumber );
-      const rectangle = new Rectangle( i * options.binWidth, -height, options.binWidth, height, {
-        fill: options.binFill,
-        lineWidth: options.binLineWidth,
-        stroke: options.binStroke
-      } );
-      this.addChild( rectangle );
-    }
-
-    // Pass options through to the parent class.
-    this.mutate( options );
+    const height = 4 * options.binHeightMax * ( i + 1 ) / options.binNumber * ( 1 - ( i ) / options.binNumber );
+    const rectangle = new Rectangle( i * options.binWidth, -height, options.binWidth, height, {
+      fill: options.binFill,
+      lineWidth: options.binLineWidth,
+      stroke: options.binStroke
+    } );
+    this.addChild( rectangle );
   }
 
-  plinkoProbability.register( 'HistogramIcon', HistogramIcon );
+  // Pass options through to the parent class.
+  this.mutate( options );
+}
 
-  return inherit( Node, HistogramIcon );
-} );
+plinkoProbability.register( 'HistogramIcon', HistogramIcon );
 
+inherit( Node, HistogramIcon );
+export default HistogramIcon;

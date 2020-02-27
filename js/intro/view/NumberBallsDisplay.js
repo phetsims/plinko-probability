@@ -6,51 +6,47 @@
  * @author Martin Veillette (Berea College)
  */
 
-define( require => {
-  'use strict';
+import inherit from '../../../../phet-core/js/inherit.js';
+import merge from '../../../../phet-core/js/merge.js';
+import Panel from '../../../../sun/js/Panel.js';
+import PlinkoProbabilityConstants from '../../common/PlinkoProbabilityConstants.js';
+import EquationNode from '../../common/view/EquationNode.js';
+import plinkoProbabilityStrings from '../../plinko-probability-strings.js';
+import plinkoProbability from '../../plinkoProbability.js';
 
-  // modules
-  const EquationNode = require( 'PLINKO_PROBABILITY/common/view/EquationNode' );
-  const inherit = require( 'PHET_CORE/inherit' );
-  const merge = require( 'PHET_CORE/merge' );
-  const Panel = require( 'SUN/Panel' );
-  const plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
-  const PlinkoProbabilityConstants = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityConstants' );
+const nString = plinkoProbabilityStrings.n;
 
-  // strings
-  const nString = require( 'string!PLINKO_PROBABILITY/n' );
+/**
+ * @param {Histogram} histogram
+ * @param {Object} [options]
+ * @constructor
+ */
+function NumberBallsDisplay( histogram, options ) {
 
-  /**
-   * @param {Histogram} histogram
-   * @param {Object} [options]
-   * @constructor
-   */
-  function NumberBallsDisplay( histogram, options ) {
+  options = merge( {
+    minWidth: 214, // left border of panel is aligned with the left border of the play panel.
+    align: 'left',
+    yMargin: 7.5
+  }, options );
 
-    options = merge( {
-      minWidth: 214, // left border of panel is aligned with the left border of the play panel.
-      align: 'left',
-      yMargin: 7.5
-    }, options );
+  const optionsTitle = {
+    leftHandSideFont: PlinkoProbabilityConstants.TEXT_FONT_BOLD,
+    leftHandSideFill: PlinkoProbabilityConstants.SAMPLE_FONT_COLOR,
+    rightHandSideFont: PlinkoProbabilityConstants.TEXT_FONT_BOLD,
+    rightHandSideFill: PlinkoProbabilityConstants.SAMPLE_FONT_COLOR,
+    maxDecimalPlaces: 0
+  };
 
-    const optionsTitle = {
-      leftHandSideFont: PlinkoProbabilityConstants.TEXT_FONT_BOLD,
-      leftHandSideFill: PlinkoProbabilityConstants.SAMPLE_FONT_COLOR,
-      rightHandSideFont: PlinkoProbabilityConstants.TEXT_FONT_BOLD,
-      rightHandSideFill: PlinkoProbabilityConstants.SAMPLE_FONT_COLOR,
-      maxDecimalPlaces: 0
-    };
+  const numberLandedBallsText = new EquationNode( nString, 0, optionsTitle );
 
-    const numberLandedBallsText = new EquationNode( nString, 0, optionsTitle );
+  histogram.histogramUpdatedEmitter.addListener( function() {
+    numberLandedBallsText.setRightHandSideOfEquation( histogram.landedBallsNumber );
+  } );
 
-    histogram.histogramUpdatedEmitter.addListener( function() {
-      numberLandedBallsText.setRightHandSideOfEquation( histogram.landedBallsNumber );
-    } );
+  Panel.call( this, numberLandedBallsText, options );
+}
 
-    Panel.call( this, numberLandedBallsText, options );
-  }
+plinkoProbability.register( 'NumberBallsDisplay', NumberBallsDisplay );
 
-  plinkoProbability.register( 'NumberBallsDisplay', NumberBallsDisplay );
-
-  return inherit( Panel, NumberBallsDisplay );
-} );
+inherit( Panel, NumberBallsDisplay );
+export default NumberBallsDisplay;

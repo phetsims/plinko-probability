@@ -6,50 +6,47 @@
  * @author Sam Reid
  * @author Martin Veillette
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const inherit = require( 'PHET_CORE/inherit' );
-  const merge = require( 'PHET_CORE/merge' );
-  const Path = require( 'SCENERY/nodes/Path' );
-  const plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
-  const PlinkoProbabilityConstants = require( 'PLINKO_PROBABILITY/common/PlinkoProbabilityConstants' );
-  const RoundPushButton = require( 'SUN/buttons/RoundPushButton' );
-  const Shape = require( 'KITE/Shape' );
+import Shape from '../../../../kite/js/Shape.js';
+import inherit from '../../../../phet-core/js/inherit.js';
+import merge from '../../../../phet-core/js/merge.js';
+import Path from '../../../../scenery/js/nodes/Path.js';
+import RoundPushButton from '../../../../sun/js/buttons/RoundPushButton.js';
+import plinkoProbability from '../../plinkoProbability.js';
+import PlinkoProbabilityConstants from '../PlinkoProbabilityConstants.js';
 
-  /**
-   * @param {Object} [options]
-   * @constructor
-   */
-  function PauseButton( options ) {
+/**
+ * @param {Object} [options]
+ * @constructor
+ */
+function PauseButton( options ) {
 
-    options = merge( {
-      radius: PlinkoProbabilityConstants.PLAY_PAUSE_BUTTON_RADIUS,
-      baseColor: 'red',
-      iconColor: 'black',
-      buttonAppearanceStrategy: PlinkoProbabilityConstants.PLAY_PAUSE_BUTTON_APPEARANCE_STRATEGY
-    }, options );
+  options = merge( {
+    radius: PlinkoProbabilityConstants.PLAY_PAUSE_BUTTON_RADIUS,
+    baseColor: 'red',
+    iconColor: 'black',
+    buttonAppearanceStrategy: PlinkoProbabilityConstants.PLAY_PAUSE_BUTTON_APPEARANCE_STRATEGY
+  }, options );
 
-    // pause symbol is sized relative to the radius
-    const barWidth = options.radius * 0.2;
-    const barHeight = options.radius;
+  // pause symbol is sized relative to the radius
+  const barWidth = options.radius * 0.2;
+  const barHeight = options.radius;
 
-    const iconShape = new Shape()
-      .rect( 0, 0, barWidth, barHeight )
-      .rect( 2 * barWidth, 0, barWidth, barHeight );
+  const iconShape = new Shape()
+    .rect( 0, 0, barWidth, barHeight )
+    .rect( 2 * barWidth, 0, barWidth, barHeight );
 
-    const iconNode = new Path( iconShape, {
-      fill: options.iconColor
-    } );
+  const iconNode = new Path( iconShape, {
+    fill: options.iconColor
+  } );
 
-    assert && assert( !options.content );
-    options.content = iconNode;
-    
-    RoundPushButton.call( this, options );
-  }
+  assert && assert( !options.content );
+  options.content = iconNode;
 
-  plinkoProbability.register( 'PauseButton', PauseButton );
+  RoundPushButton.call( this, options );
+}
 
-  return inherit( RoundPushButton, PauseButton );
-} );
+plinkoProbability.register( 'PauseButton', PauseButton );
+
+inherit( RoundPushButton, PauseButton );
+export default PauseButton;

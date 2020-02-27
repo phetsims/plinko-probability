@@ -5,53 +5,49 @@
  *
  * @author Martin Veillette (Berea College)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const inherit = require( 'PHET_CORE/inherit' );
-  const merge = require( 'PHET_CORE/merge' );
-  const Node = require( 'SCENERY/nodes/Node' );
-  const PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  const plinkoProbability = require( 'PLINKO_PROBABILITY/plinkoProbability' );
-  const Text = require( 'SCENERY/nodes/Text' );
-  const VerticalAquaRadioButtonGroup = require( 'SUN/VerticalAquaRadioButtonGroup' );
+import inherit from '../../../../phet-core/js/inherit.js';
+import merge from '../../../../phet-core/js/merge.js';
+import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
+import Text from '../../../../scenery/js/nodes/Text.js';
+import VerticalAquaRadioButtonGroup from '../../../../sun/js/VerticalAquaRadioButtonGroup.js';
+import plinkoProbabilityStrings from '../../plinko-probability-strings.js';
+import plinkoProbability from '../../plinkoProbability.js';
 
-  // strings
-  const ballString = require( 'string!PLINKO_PROBABILITY/ball' );
-  const noneString = require( 'string!PLINKO_PROBABILITY/none' );
-  const pathString = require( 'string!PLINKO_PROBABILITY/path' );
+const ballString = plinkoProbabilityStrings.ball;
+const noneString = plinkoProbabilityStrings.none;
+const pathString = plinkoProbabilityStrings.path;
 
-  // constants
-  const LABEL_OPTIONS = { font: new PhetFont( 20 ), maxWidth: 175 };
+// constants
+const LABEL_OPTIONS = { font: new PhetFont( 20 ), maxWidth: 175 };
 
-  /**
-   * @param {Property.<string>} hopperModeProperty - see PlinkoProbabilityCommonModel
-   * @param {Object} [options]
-   * @constructor
-   */
-  function HopperModeControl( hopperModeProperty, options ) {
+/**
+ * @param {Property.<string>} hopperModeProperty - see PlinkoProbabilityCommonModel
+ * @param {Object} [options]
+ * @constructor
+ */
+function HopperModeControl( hopperModeProperty, options ) {
 
-    Node.call( this );
+  Node.call( this );
 
-    options = merge( {
-      radioButtonOptions: { radius: 10 },
-      spacing: 12, // vertical separation of the buttons
-      touchAreaXDilation: 10
-    }, options );
+  options = merge( {
+    radioButtonOptions: { radius: 10 },
+    spacing: 12, // vertical separation of the buttons
+    touchAreaXDilation: 10
+  }, options );
 
-    // create the radio buttons
-    const showRadioButtons = new VerticalAquaRadioButtonGroup( hopperModeProperty, [
-      { node: new Text( ballString, LABEL_OPTIONS ), value: 'ball' },
-      { node: new Text( pathString, LABEL_OPTIONS ), value: 'path' },
-      { node: new Text( noneString, LABEL_OPTIONS ), value: 'none' }
-    ], options );
+  // create the radio buttons
+  const showRadioButtons = new VerticalAquaRadioButtonGroup( hopperModeProperty, [
+    { node: new Text( ballString, LABEL_OPTIONS ), value: 'ball' },
+    { node: new Text( pathString, LABEL_OPTIONS ), value: 'path' },
+    { node: new Text( noneString, LABEL_OPTIONS ), value: 'none' }
+  ], options );
 
-    this.addChild( showRadioButtons );
-  }
+  this.addChild( showRadioButtons );
+}
 
-  plinkoProbability.register( 'HopperModeControl', HopperModeControl );
+plinkoProbability.register( 'HopperModeControl', HopperModeControl );
 
-  return inherit( Node, HopperModeControl );
-} );
-
+inherit( Node, HopperModeControl );
+export default HopperModeControl;
