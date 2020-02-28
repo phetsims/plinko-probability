@@ -1,4 +1,4 @@
-// Copyright 2015-2019, University of Colorado Boulder
+// Copyright 2015-2020, University of Colorado Boulder
 
 /**
  * Controls the values of the 'histogram mode' Property, which determines the representation
