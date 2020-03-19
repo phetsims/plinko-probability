@@ -67,7 +67,9 @@ function PegControls( rowsProperty, probabilityProperty, options ) {
       maxWidth: SLIDER_TRACK_SIZE.width
     },
     numberDisplayOptions: {
-      font: PlinkoProbabilityConstants.PANEL_READOUT_FONT,
+      textOptions: {
+        font: PlinkoProbabilityConstants.PANEL_READOUT_FONT
+      },
       decimalPlaces: 0
     },
     sliderOptions: {
@@ -101,7 +103,9 @@ function PegControls( rowsProperty, probabilityProperty, options ) {
       maxWidth: SLIDER_TRACK_SIZE.width
     },
     numberDisplayOptions: {
-      font: PlinkoProbabilityConstants.PANEL_READOUT_FONT,
+      textOptions: {
+        font: PlinkoProbabilityConstants.PANEL_READOUT_FONT
+      },
       decimalPlaces: 2
     },
     sliderOptions: {
