@@ -11,7 +11,7 @@ import merge from '../../../../phet-core/js/merge.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import Dialog from '../../../../sun/js/Dialog.js';
-import plinkoProbabilityStrings from '../../plinko-probability-strings.js';
+import plinkoProbabilityStrings from '../../plinkoProbabilityStrings.js';
 import plinkoProbability from '../../plinkoProbability.js';
 
 const outOfBallsString = plinkoProbabilityStrings.outOfBalls;

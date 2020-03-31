@@ -16,7 +16,7 @@ import Text from '../../../../scenery/js/nodes/Text.js';
 import VBox from '../../../../scenery/js/nodes/VBox.js';
 import Panel from '../../../../sun/js/Panel.js';
 import PlinkoProbabilityConstants from '../../common/PlinkoProbabilityConstants.js';
-import plinkoProbabilityStrings from '../../plinko-probability-strings.js';
+import plinkoProbabilityStrings from '../../plinkoProbabilityStrings.js';
 import plinkoProbability from '../../plinkoProbability.js';
 
 const binaryProbabilityString = plinkoProbabilityStrings.binaryProbability;

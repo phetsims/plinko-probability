@@ -17,7 +17,7 @@ import Path from '../../../../scenery/js/nodes/Path.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import Color from '../../../../scenery/js/util/Color.js';
-import plinkoProbabilityStrings from '../../plinko-probability-strings.js';
+import plinkoProbabilityStrings from '../../plinkoProbabilityStrings.js';
 import plinkoProbability from '../../plinkoProbability.js';
 import PlinkoProbabilityConstants from '../PlinkoProbabilityConstants.js';
 

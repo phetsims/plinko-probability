@@ -16,7 +16,7 @@ import AccordionBox from '../../../../sun/js/AccordionBox.js';
 import Checkbox from '../../../../sun/js/Checkbox.js';
 import PlinkoProbabilityConstants from '../../common/PlinkoProbabilityConstants.js';
 import EquationNode from '../../common/view/EquationNode.js';
-import plinkoProbabilityStrings from '../../plinko-probability-strings.js';
+import plinkoProbabilityStrings from '../../plinkoProbabilityStrings.js';
 import plinkoProbability from '../../plinkoProbability.js';
 import HistogramIcon from './HistogramIcon.js';
 

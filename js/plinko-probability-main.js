@@ -12,7 +12,7 @@ import SliderAndGeneralKeyboardHelpContent
   from '../../scenery-phet/js/keyboard/help/SliderAndGeneralKeyboardHelpContent.js';
 import IntroScreen from './intro/IntroScreen.js';
 import LabScreen from './lab/LabScreen.js';
-import plinkoProbabilityStrings from './plinko-probability-strings.js';
+import plinkoProbabilityStrings from './plinkoProbabilityStrings.js';
 
 const plinkoProbabilityTitleString = plinkoProbabilityStrings[ 'plinko-probability' ].title;
 

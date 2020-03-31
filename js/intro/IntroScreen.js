@@ -13,7 +13,7 @@ import Image from '../../../scenery/js/nodes/Image.js';
 import introHomescreenImage from '../../images/intro-homescreen_png.js';
 import introNavbarImage from '../../images/intro-navbar_png.js';
 import PlinkoProbabilityConstants from '../common/PlinkoProbabilityConstants.js';
-import plinkoProbabilityStrings from '../plinko-probability-strings.js';
+import plinkoProbabilityStrings from '../plinkoProbabilityStrings.js';
 import plinkoProbability from '../plinkoProbability.js';
 import IntroModel from './model/IntroModel.js';
 import IntroScreenView from './view/IntroScreenView.js';

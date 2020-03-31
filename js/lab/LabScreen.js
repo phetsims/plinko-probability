@@ -11,7 +11,7 @@ import Image from '../../../scenery/js/nodes/Image.js';
 import labHomescreenImage from '../../images/lab-homescreen_png.js';
 import labNavbarImage from '../../images/lab-navbar_png.js';
 import PlinkoProbabilityConstants from '../common/PlinkoProbabilityConstants.js';
-import plinkoProbabilityStrings from '../plinko-probability-strings.js';
+import plinkoProbabilityStrings from '../plinkoProbabilityStrings.js';
 import plinkoProbability from '../plinkoProbability.js';
 import LabModel from './model/LabModel.js';
 import LabScreenView from './view/LabScreenView.js';
