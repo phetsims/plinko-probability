@@ -161,7 +161,7 @@ function LabScreenView( model ) {
     }
   } );
 
-  // a11y
+  // pdom
   this.pdomPlayAreaNode.accessibleOrder = [ playPanel, pegControls, statisticsAccordionBox, hopperModeControl, histogramModeControl, this.eraserButton ];
 }
 

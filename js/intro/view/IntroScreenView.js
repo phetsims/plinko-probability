@@ -113,7 +113,7 @@ function IntroScreenView( model ) {
     } );
   } );
 
-  // a11y
+  // pdom
   // set tab order
   this.pdomPlayAreaNode.accessibleOrder = [ playPanel, histogramModeControl, this.eraserButton ];
 }

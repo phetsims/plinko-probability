@@ -78,7 +78,7 @@ function PegControls( rowsProperty, probabilityProperty, options ) {
       majorTickLength: 18,
       tickLabelSpacing: 1,
 
-      // a11y
+      // pdom
       keyboardStep: 2
     }
   } );
@@ -114,7 +114,7 @@ function PegControls( rowsProperty, probabilityProperty, options ) {
       majorTickLength: 18,
       tickLabelSpacing: 1
 
-      // a11y
+      // pdom
       // no need to delineate specific steps as the HSlider defaults evenly/cleanly divide
       // the range
     }
