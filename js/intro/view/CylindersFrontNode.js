@@ -73,7 +73,7 @@ function CylindersFrontNode( numberOfRowsProperty, modelViewTransform, cylinderI
 
 plinkoProbability.register( 'CylindersFrontNode', CylindersFrontNode );
 
-export default inherit( Node, CylindersFrontNode, {
+inherit( Node, CylindersFrontNode, {
 
     /**
      * Function that returns the center x coordinate of a bin with index binIndex
@@ -90,3 +90,5 @@ export default inherit( Node, CylindersFrontNode, {
     }
   }
 );
+
+export default CylindersFrontNode;

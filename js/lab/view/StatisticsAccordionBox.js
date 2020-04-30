@@ -167,10 +167,12 @@ function StatisticsAccordionBox( model, isTheoreticalHistogramVisibleProperty, e
 
 plinkoProbability.register( 'StatisticsAccordionBox', StatisticsAccordionBox );
 
-export default inherit( AccordionBox, StatisticsAccordionBox, {
+inherit( AccordionBox, StatisticsAccordionBox, {
 
   // @public
   reset: function() {
     this.expandedProperty.reset();
   }
 } );
+
+export default StatisticsAccordionBox;

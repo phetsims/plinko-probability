@@ -84,7 +84,7 @@ function EquationNode( leftHandSideOfEquation, rightHandSideOfEquation, options 
 
 plinkoProbability.register( 'EquationNode', EquationNode );
 
-export default inherit( Node, EquationNode, {
+inherit( Node, EquationNode, {
 
   /**
    * Update the value of the right side of the equation (a number)
@@ -134,3 +134,5 @@ export default inherit( Node, EquationNode, {
     return Utils.toFixed( number, decimalPlaces );
   }
 } );
+
+export default EquationNode;

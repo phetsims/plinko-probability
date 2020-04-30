@@ -58,7 +58,7 @@ function BallsNode( balls, numberOfRowsProperty, histogramModeProperty, modelVie
 
 plinkoProbability.register( 'BallsNode', BallsNode );
 
-export default inherit( CanvasNode, BallsNode, {
+inherit( CanvasNode, BallsNode, {
 
   /**
    * @param {CanvasRenderingContext2D} context
@@ -111,3 +111,5 @@ export default inherit( CanvasNode, BallsNode, {
     } );
   }
 } );
+
+export default BallsNode;

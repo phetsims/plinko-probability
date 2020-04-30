@@ -61,7 +61,7 @@ function CylindersBackNode( numberOfRowsProperty, modelViewTransform, cylinderIn
 
 plinkoProbability.register( 'CylindersBackNode', CylindersBackNode );
 
-export default inherit( Node, CylindersBackNode, {
+inherit( Node, CylindersBackNode, {
 
   /**
    * Function that returns the center x coordinate of a bin with index binIndex
@@ -77,3 +77,5 @@ export default inherit( Node, CylindersBackNode, {
     return ( ( binIndex + 1 / 2 ) / numberOfBins ) * BOUNDS.width + BOUNDS.minX;
   }
 } );
+
+export default CylindersBackNode;

@@ -36,7 +36,7 @@ function PlinkoProbabilityViewProperties( options ) {
 
 plinkoProbability.register( 'PlinkoProbabilityViewProperties', PlinkoProbabilityViewProperties );
 
-export default inherit( Object, PlinkoProbabilityViewProperties, {
+inherit( Object, PlinkoProbabilityViewProperties, {
 
   // @public
   reset: function() {
@@ -46,3 +46,5 @@ export default inherit( Object, PlinkoProbabilityViewProperties, {
     this.isSoundEnabledProperty.reset();
   }
 } );
+
+export default PlinkoProbabilityViewProperties;

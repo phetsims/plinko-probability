@@ -81,7 +81,7 @@ var isPegVisible = function( rowNumber, numberOfRows ) {
   return ( rowNumber < numberOfRows );
 };
 
-export default inherit( Object, GaltonBoard, {}, {
+inherit( Object, GaltonBoard, {}, {
 
   /**
    * Gets the horizontal spacing between two pegs on the same row on the Galton board.
@@ -95,3 +95,5 @@ export default inherit( Object, GaltonBoard, {}, {
     return PlinkoProbabilityConstants.GALTON_BOARD_BOUNDS.width / ( numberOfRows + 1 );
   }
 } );
+
+export default GaltonBoard;

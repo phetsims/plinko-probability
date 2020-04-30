@@ -31,7 +31,7 @@ function PegSoundGeneration( isSoundEnabledProperty ) {
 
 plinkoProbability.register( 'PegSoundGeneration', PegSoundGeneration );
 
-export default inherit( Object, PegSoundGeneration, {
+inherit( Object, PegSoundGeneration, {
 
   // @public
   reset: function() {
@@ -65,3 +65,5 @@ export default inherit( Object, PegSoundGeneration, {
     }
   }
 } );
+
+export default PegSoundGeneration;

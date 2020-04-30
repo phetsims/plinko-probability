@@ -55,7 +55,7 @@ function IntroModel() {
 
 plinkoProbability.register( 'IntroModel', IntroModel );
 
-export default inherit( PlinkoProbabilityCommonModel, IntroModel, {
+inherit( PlinkoProbabilityCommonModel, IntroModel, {
 
   /**
    * Time step function that is responsible for updating the position and status of the balls.
@@ -161,3 +161,5 @@ export default inherit( PlinkoProbabilityCommonModel, IntroModel, {
     } );
   }
 } );
+
+export default IntroModel;

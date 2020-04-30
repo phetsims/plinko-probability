@@ -134,7 +134,7 @@ var getPegPositionY = function( rowNumber, columnNumber, numberOfRows ) {
   return ( -rowNumber - 2 * PlinkoProbabilityConstants.PEG_HEIGHT_FRACTION_OFFSET ) / ( numberOfRows + 1 );
 };
 
-export default inherit( Object, Ball, {
+inherit( Object, Ball, {
 
   /**
    * @param {number} dt - time interval
@@ -317,3 +317,5 @@ export default inherit( Object, Ball, {
     this.direction = peg.direction; // whether the ball went left or right
   }
 } );
+
+export default Ball;

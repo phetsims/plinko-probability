@@ -66,7 +66,7 @@ function PlinkoProbabilityCommonModel() {
 
 plinkoProbability.register( 'PlinkoProbabilityCommonModel', PlinkoProbabilityCommonModel );
 
-export default inherit( Object, PlinkoProbabilityCommonModel, {
+inherit( Object, PlinkoProbabilityCommonModel, {
 
   /**
    * Called when the 'Reset All' button is pressed.
@@ -95,3 +95,5 @@ export default inherit( Object, PlinkoProbabilityCommonModel, {
     this.ballsMovedEmitter.emit();
   }
 } );
+
+export default PlinkoProbabilityCommonModel;

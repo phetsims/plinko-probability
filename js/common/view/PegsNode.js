@@ -118,7 +118,7 @@ function PegsNode( galtonBoard, numberOfRowsProperty, probabilityProperty, model
 
 plinkoProbability.register( 'PegsNode', PegsNode );
 
-export default inherit( CanvasNode, PegsNode, {
+inherit( CanvasNode, PegsNode, {
 
   /**
    * @param {CanvasRenderingContext2D} context
@@ -174,3 +174,5 @@ export default inherit( CanvasNode, PegsNode, {
     } );
   }
 } );
+
+export default PegsNode;

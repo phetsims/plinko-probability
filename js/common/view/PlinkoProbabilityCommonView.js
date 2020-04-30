@@ -150,7 +150,7 @@ function PlinkoProbabilityCommonView( model, options ) {
 
 plinkoProbability.register( 'PlinkoProbabilityCommonView', PlinkoProbabilityCommonView );
 
-export default inherit( ScreenView, PlinkoProbabilityCommonView, {
+inherit( ScreenView, PlinkoProbabilityCommonView, {
 
   /**
    * @param dt
@@ -174,3 +174,5 @@ export default inherit( ScreenView, PlinkoProbabilityCommonView, {
     this.pegSoundGeneration.reset();
   }
 } );
+
+export default PlinkoProbabilityCommonView;

@@ -47,7 +47,7 @@ function Histogram( numberOfRowsProperty ) {
 
 plinkoProbability.register( 'Histogram', Histogram );
 
-export default inherit( Object, Histogram, {
+inherit( Object, Histogram, {
 
   /**
    * sets all the binCounts to 0 and resets the statistics
@@ -361,3 +361,5 @@ export default inherit( Object, Histogram, {
     return ( ( value + 1 / 2 ) / numberOfBins ) * BOUNDS.width + BOUNDS.minX;
   }
 } );
+
+export default Histogram;

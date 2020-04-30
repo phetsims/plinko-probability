@@ -51,7 +51,7 @@ function LabModel() {
 
 plinkoProbability.register( 'LabModel', LabModel );
 
-export default inherit( PlinkoProbabilityCommonModel, LabModel, {
+inherit( PlinkoProbabilityCommonModel, LabModel, {
 
   // @public
   reset: function() {
@@ -253,3 +253,5 @@ export default inherit( PlinkoProbabilityCommonModel, LabModel, {
     return normalizedArray;
   }
 } );
+
+export default LabModel;
