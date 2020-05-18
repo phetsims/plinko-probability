@@ -3,7 +3,7 @@
 /**
  * Ball model for lab tab in Plinko Probability
  * This ball inherits from the common ball model
- * This sets the vertical location in which the ball should disappear
+ * This sets the vertical position in which the ball should disappear
  *
  * @author Martin Veillette (Berea College)
  */

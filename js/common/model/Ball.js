@@ -146,7 +146,7 @@ inherit( Object, Ball, {
   },
 
   /**
-   * Updates the peg information (rowNumber, columnNumber, and location) used for determining ball position
+   * Updates the peg information (rowNumber, columnNumber, and position) used for determining ball position
    * check and changes the phase of the ball.
    * Plays a sounds when the ball hits a peg
    * Emits when the ball has exited so that it can be added to statistics
