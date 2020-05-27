@@ -8,13 +8,14 @@
 
 import Property from '../../../axon/js/Property.js';
 import Screen from '../../../joist/js/Screen.js';
+import ScreenIcon from '../../../joist/js/ScreenIcon.js';
 import inherit from '../../../phet-core/js/inherit.js';
 import Image from '../../../scenery/js/nodes/Image.js';
 import introHomescreenImage from '../../images/intro-homescreen_png.js';
 import introNavbarImage from '../../images/intro-navbar_png.js';
 import PlinkoProbabilityConstants from '../common/PlinkoProbabilityConstants.js';
-import plinkoProbabilityStrings from '../plinkoProbabilityStrings.js';
 import plinkoProbability from '../plinkoProbability.js';
+import plinkoProbabilityStrings from '../plinkoProbabilityStrings.js';
 import IntroModel from './model/IntroModel.js';
 import IntroScreenView from './view/IntroScreenView.js';
 
@@ -30,7 +31,10 @@ function IntroScreen() {
   const options = {
     name: screenIntroString,
     backgroundColorProperty: new Property( PlinkoProbabilityConstants.BACKGROUND_COLOR ),
-    homeScreenIcon: new Image( introHomescreenImage ),
+    homeScreenIcon: new ScreenIcon( new Image( introHomescreenImage ), {
+      maxIconWidthProportion: 1,
+      maxIconHeightProportion: 1
+    } ),
     navigationBarIcon: new Image( introNavbarImage )
   };
 
