@@ -14,8 +14,6 @@ import bonk2Audio from '../../../sounds/bonk-2-for-plinko_mp3.js';
 import plinkoProbability from '../../plinkoProbability.js';
 import PlinkoProbabilityConstants from '../PlinkoProbabilityConstants.js';
 
-// sounds
-
 /**
  * @param {Property.<boolean>} isSoundEnabledProperty
  * @constructor
