@@ -35,7 +35,10 @@ function IntroScreen() {
       maxIconWidthProportion: 1,
       maxIconHeightProportion: 1
     } ),
-    navigationBarIcon: new Image( introNavbarImage )
+    navigationBarIcon: new ScreenIcon( new Image( introNavbarImage ), {
+      maxIconWidthProportion: 1,
+      maxIconHeightProportion: 1
+    } )
   };
 
   Screen.call( this,

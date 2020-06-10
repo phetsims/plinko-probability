@@ -33,7 +33,10 @@ function LabScreen() {
       maxIconWidthProportion: 1,
       maxIconHeightProportion: 1
     } ),
-    navigationBarIcon: new Image( labNavbarImage )
+    navigationBarIcon: new ScreenIcon( new Image( labNavbarImage ), {
+      maxIconWidthProportion: 1,
+      maxIconHeightProportion: 1
+    } )
   };
 
   Screen.call( this,
