@@ -34,7 +34,6 @@ import PlinkoProbabilityViewProperties from './PlinkoProbabilityViewProperties.j
 function PlinkoProbabilityCommonView( model, options ) {
 
   options = merge( {
-    layoutBounds: new Bounds2( 0, 0, 1024, 618 ),
     histogramMode: 'cylinder' // {string} see HISTOGRAM_MODE_VALUES
   }, options );
 
