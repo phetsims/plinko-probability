@@ -23,13 +23,13 @@ const outOfBallsString = plinkoProbabilityStrings.outOfBalls;
 function OutOfBallsDialog( options ) {
 
   options = merge( {
-    xSpacing: 30,
-    topMargin: 25,
-    bottomMargin: 25
+    xSpacing: 45,
+    topMargin: 33,
+    bottomMargin: 33
   }, options );
 
   const messageNode = new Text( outOfBallsString, {
-    font: new PhetFont( 25 ),
+    font: new PhetFont( 33 ),
     maxWidth: 350
   } );
 
