@@ -81,8 +81,8 @@ function LabScreenView( model ) {
 
   // statistics panel, below peg controls
   const statisticsAccordionBox = new StatisticsAccordionBox( model,
-    this.viewProperties.isTheoreticalHistogramVisibleProperty,
-    this.viewProperties.expandedAccordionBoxProperty, {
+    this.viewProperties.isTheoreticalHistogramVisibleProperty, {
+    expandedProperty: this.viewProperties.expandedAccordionBoxProperty,
       minWidth: PANEL_FIXED_WIDTH,
       maxWidth: PANEL_FIXED_WIDTH,
       top: pegControls.bottom + PlinkoProbabilityConstants.PANEL_VERTICAL_SPACING,

@@ -7,7 +7,6 @@
  */
 
 import Property from '../../../../axon/js/Property.js';
-import inherit from '../../../../phet-core/js/inherit.js';
 import merge from '../../../../phet-core/js/merge.js';
 import HBox from '../../../../scenery/js/nodes/HBox.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
@@ -16,8 +15,8 @@ import AccordionBox from '../../../../sun/js/AccordionBox.js';
 import Checkbox from '../../../../sun/js/Checkbox.js';
 import PlinkoProbabilityConstants from '../../common/PlinkoProbabilityConstants.js';
 import EquationNode from '../../common/view/EquationNode.js';
-import plinkoProbabilityStrings from '../../plinkoProbabilityStrings.js';
 import plinkoProbability from '../../plinkoProbability.js';
+import plinkoProbabilityStrings from '../../plinkoProbabilityStrings.js';
 import HistogramIcon from './HistogramIcon.js';
 
 const idealString = plinkoProbabilityStrings.ideal;
@@ -56,123 +55,116 @@ const OPTIONS_THEORETICAL = {
   rightHandSideFill: PlinkoProbabilityConstants.THEORETICAL_FONT_COLOR
 };
 
-/**
- * @param {LabModel} model
- * @param {Property.<boolean>} isTheoreticalHistogramVisibleProperty
- * @param {Property.<boolean>} expandedAccordionBoxProperty
- * @param {Object} [options]
- * @constructor
- */
-function StatisticsAccordionBox( model, isTheoreticalHistogramVisibleProperty, expandedAccordionBoxProperty, options ) {
+class StatisticsAccordionBox extends AccordionBox {
 
-  const numberLandedBallsText = new EquationNode( nString, 0, OPTIONS_TITLE );
+  /**
+   * @param {LabModel} model
+   * @param {Property.<boolean>} isTheoreticalHistogramVisibleProperty
+   * @param {Object} [options]
+   */
+  constructor( model, isTheoreticalHistogramVisibleProperty, options ) {
 
-  options = merge( {
+    const numberLandedBallsText = new EquationNode( nString, 0, OPTIONS_TITLE );
 
-    fill: PlinkoProbabilityConstants.PANEL_BACKGROUND_COLOR,
-    cornerRadius: 10,
+    options = merge( {
 
-    // title
-    titleNode: numberLandedBallsText,
-    titleAlignX: 'left',
-    titleXMargin: 5,
+      fill: PlinkoProbabilityConstants.PANEL_BACKGROUND_COLOR,
+      cornerRadius: 10,
 
-    // expand/collapse button
-    expandedProperty: expandedAccordionBoxProperty,
-    buttonAlign: 'right',
-    buttonXMargin: 10,
-    buttonYMargin: 10,
-    expandCollapseButtonOptions: {
-      sideLength: 20,
-      touchAreaXDilation: 10,
-      touchAreaYDilation: 10
-    },
+      // title
+      titleNode: numberLandedBallsText,
+      titleAlignX: 'left',
+      titleXMargin: 5,
 
-    // content
-    contentXMargin: 8,
-    contentYMargin: 10
+      // expand/collapse button
+      buttonAlign: 'right',
+      buttonXMargin: 10,
+      buttonYMargin: 10,
+      expandCollapseButtonOptions: {
+        sideLength: 20,
+        touchAreaXDilation: 10,
+        touchAreaYDilation: 10
+      },
 
-  }, options );
+      // content
+      contentXMargin: 8,
+      contentYMargin: 10
 
-  // create the EquationNode(s) that will populate the panel
-  const sampleAverageText = new EquationNode( xBarString, 0, OPTIONS_SAMPLE );
-  const sampleStandardDeviationText = new EquationNode( sString, 0, OPTIONS_SAMPLE );
-  const sampleStandardDeviationOfMeanText = new EquationNode( sMeanString, 0, OPTIONS_SAMPLE );
-  const theoreticalAverageText = new EquationNode( muString, 0, OPTIONS_THEORETICAL );
-  const theoreticalStandardDeviationText = new EquationNode( sigmaString, 0, OPTIONS_THEORETICAL );
+    }, options );
 
-  // link is present for the life of the simulation, no need to dispose
-  Property.multilink( [ model.numberOfRowsProperty, model.probabilityProperty ], function( numberOfRows, probability ) {
-    assert && assert( Number.isInteger( numberOfRows ), 'the number of rows must be an integer' );
-    theoreticalAverageText.setRightHandSideOfEquation( model.getTheoreticalAverage( numberOfRows, probability ) );
-    theoreticalStandardDeviationText.setRightHandSideOfEquation( model.getTheoreticalStandardDeviation( numberOfRows, probability ) );
-  } );
+    // create the EquationNode(s) that will populate the panel
+    const sampleAverageText = new EquationNode( xBarString, 0, OPTIONS_SAMPLE );
+    const sampleStandardDeviationText = new EquationNode( sString, 0, OPTIONS_SAMPLE );
+    const sampleStandardDeviationOfMeanText = new EquationNode( sMeanString, 0, OPTIONS_SAMPLE );
+    const theoreticalAverageText = new EquationNode( muString, 0, OPTIONS_THEORETICAL );
+    const theoreticalStandardDeviationText = new EquationNode( sigmaString, 0, OPTIONS_THEORETICAL );
 
-  // update the statistics display after a ball landed in the bins.
-  // no need to remove Listener, present for the lifetime of the simulation
-  model.histogram.histogramUpdatedEmitter.addListener( function() {
-    numberLandedBallsText.setRightHandSideOfEquation( model.histogram.landedBallsNumber );
-    sampleAverageText.setRightHandSideOfEquation( model.histogram.average );
-    sampleStandardDeviationText.setRightHandSideOfEquation( model.histogram.standardDeviation );
-    sampleStandardDeviationOfMeanText.setRightHandSideOfEquation( model.histogram.standardDeviationOfMean );
-  } );
+    // link is present for the life of the simulation, no need to dispose
+    Property.multilink(
+      [ model.numberOfRowsProperty, model.probabilityProperty ],
+      ( numberOfRows, probability ) => {
+        assert && assert( Number.isInteger( numberOfRows ), 'the number of rows must be an integer' );
+        theoreticalAverageText.setRightHandSideOfEquation( model.getTheoreticalAverage( numberOfRows, probability ) );
+        theoreticalStandardDeviationText.setRightHandSideOfEquation( model.getTheoreticalStandardDeviation( numberOfRows, probability ) );
+      } );
 
-  // create the histogram icon with the text underneath it.
-  const histogramIcon = new HistogramIcon();
-  const histogramCheckboxIcon = new VBox( {
-    align: 'center',
-    spacing: 5,
-    children: [
-      histogramIcon,
-      new Text( idealString, {
-        font: PlinkoProbabilityConstants.PANEL_READOUT_FONT,
-        maxWidth: 1.5 * histogramIcon.width // i18n, determined empirically
-      } )
-    ]
-  } );
+    // update the statistics display after a ball landed in the bins.
+    // no need to remove Listener, present for the lifetime of the simulation
+    model.histogram.histogramUpdatedEmitter.addListener( () => {
+      numberLandedBallsText.setRightHandSideOfEquation( model.histogram.landedBallsNumber );
+      sampleAverageText.setRightHandSideOfEquation( model.histogram.average );
+      sampleStandardDeviationText.setRightHandSideOfEquation( model.histogram.standardDeviation );
+      sampleStandardDeviationOfMeanText.setRightHandSideOfEquation( model.histogram.standardDeviationOfMean );
+    } );
 
-  const histogramCheckbox = new Checkbox( histogramCheckboxIcon, isTheoreticalHistogramVisibleProperty );
+    // create the histogram icon with the text underneath it.
+    const histogramIcon = new HistogramIcon();
+    const histogramCheckboxIcon = new VBox( {
+      align: 'center',
+      spacing: 5,
+      children: [
+        histogramIcon,
+        new Text( idealString, {
+          font: PlinkoProbabilityConstants.PANEL_READOUT_FONT,
+          maxWidth: 1.5 * histogramIcon.width // i18n, determined empirically
+        } )
+      ]
+    } );
 
-  const contentNode = new HBox( {
-    spacing: 5,
-    align: 'top',
-    children: [
+    const histogramCheckbox = new Checkbox( histogramCheckboxIcon, isTheoreticalHistogramVisibleProperty );
 
-      // left side of the accordion box
-      new VBox( {
-        align: 'right',
-        spacing: CONTENT_Y_SPACING,
-        children: [
-          sampleAverageText,
-          sampleStandardDeviationText,
-          sampleStandardDeviationOfMeanText
-        ]
-      } ),
+    const contentNode = new HBox( {
+      spacing: 5,
+      align: 'top',
+      children: [
 
-      // right side of the accordion box
-      new VBox( {
-        align: 'right',
-        spacing: CONTENT_Y_SPACING,
-        children: [
-          theoreticalAverageText,
-          theoreticalStandardDeviationText,
-          histogramCheckbox
-        ]
-      } )
-    ]
-  } );
+        // left side of the accordion box
+        new VBox( {
+          align: 'right',
+          spacing: CONTENT_Y_SPACING,
+          children: [
+            sampleAverageText,
+            sampleStandardDeviationText,
+            sampleStandardDeviationOfMeanText
+          ]
+        } ),
 
-  AccordionBox.call( this, contentNode, options );
+        // right side of the accordion box
+        new VBox( {
+          align: 'right',
+          spacing: CONTENT_Y_SPACING,
+          children: [
+            theoreticalAverageText,
+            theoreticalStandardDeviationText,
+            histogramCheckbox
+          ]
+        } )
+      ]
+    } );
+
+    super( contentNode, options );
+  }
 }
 
 plinkoProbability.register( 'StatisticsAccordionBox', StatisticsAccordionBox );
-
-inherit( AccordionBox, StatisticsAccordionBox, {
-
-  // @public
-  reset: function() {
-    this.expandedProperty.reset();
-  }
-} );
-
 export default StatisticsAccordionBox;
