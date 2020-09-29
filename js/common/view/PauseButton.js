@@ -8,45 +8,44 @@
  */
 
 import Shape from '../../../../kite/js/Shape.js';
-import inherit from '../../../../phet-core/js/inherit.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
 import RoundPushButton from '../../../../sun/js/buttons/RoundPushButton.js';
 import plinkoProbability from '../../plinkoProbability.js';
 import PlinkoProbabilityConstants from '../PlinkoProbabilityConstants.js';
 
-/**
- * @param {Object} [options]
- * @constructor
- */
-function PauseButton( options ) {
+class PauseButton extends RoundPushButton {
 
-  options = merge( {
-    radius: PlinkoProbabilityConstants.PLAY_PAUSE_BUTTON_RADIUS,
-    baseColor: 'red',
-    iconColor: 'black',
-    buttonAppearanceStrategy: PlinkoProbabilityConstants.PLAY_PAUSE_BUTTON_APPEARANCE_STRATEGY
-  }, options );
+  /**
+   * @param {Object} [options]
+   */
+  constructor( options ) {
 
-  // pause symbol is sized relative to the radius
-  const barWidth = options.radius * 0.2;
-  const barHeight = options.radius;
+    options = merge( {
+      radius: PlinkoProbabilityConstants.PLAY_PAUSE_BUTTON_RADIUS,
+      baseColor: 'red',
+      iconColor: 'black',
+      buttonAppearanceStrategy: PlinkoProbabilityConstants.PLAY_PAUSE_BUTTON_APPEARANCE_STRATEGY
+    }, options );
 
-  const iconShape = new Shape()
-    .rect( 0, 0, barWidth, barHeight )
-    .rect( 2 * barWidth, 0, barWidth, barHeight );
+    // pause symbol is sized relative to the radius
+    const barWidth = options.radius * 0.2;
+    const barHeight = options.radius;
 
-  const iconNode = new Path( iconShape, {
-    fill: options.iconColor
-  } );
+    const iconShape = new Shape()
+      .rect( 0, 0, barWidth, barHeight )
+      .rect( 2 * barWidth, 0, barWidth, barHeight );
 
-  assert && assert( !options.content );
-  options.content = iconNode;
+    const iconNode = new Path( iconShape, {
+      fill: options.iconColor
+    } );
 
-  RoundPushButton.call( this, options );
+    assert && assert( !options.content, 'PauseButton sets content' );
+    options.content = iconNode;
+
+    super( options );
+  }
 }
 
 plinkoProbability.register( 'PauseButton', PauseButton );
-
-inherit( RoundPushButton, PauseButton );
 export default PauseButton;

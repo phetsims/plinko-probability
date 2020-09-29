@@ -8,50 +8,49 @@
  */
 
 import Shape from '../../../../kite/js/Shape.js';
-import inherit from '../../../../phet-core/js/inherit.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
 import RoundPushButton from '../../../../sun/js/buttons/RoundPushButton.js';
 import plinkoProbability from '../../plinkoProbability.js';
 import PlinkoProbabilityConstants from '../PlinkoProbabilityConstants.js';
 
-/**
- * @param {Object} [options]
- * @constructor
- */
-function PlayButton( options ) {
+class PlayButton extends RoundPushButton {
 
-  options = merge( {
-    radius: PlinkoProbabilityConstants.PLAY_PAUSE_BUTTON_RADIUS,
-    baseColor: 'rgb( 0, 224, 121 )', // light green
-    iconColor: 'black',
-    buttonAppearanceStrategy: PlinkoProbabilityConstants.PLAY_PAUSE_BUTTON_APPEARANCE_STRATEGY
-  }, options );
+  /**
+   * @param {Object} [options]
+   */
+  constructor( options ) {
 
-  // triangle is sized relative to the radius
-  const triangleHeight = options.radius;
-  const triangleWidth = options.radius * 0.8;
+    options = merge( {
+      radius: PlinkoProbabilityConstants.PLAY_PAUSE_BUTTON_RADIUS,
+      baseColor: 'rgb( 0, 224, 121 )', // light green
+      iconColor: 'black',
+      buttonAppearanceStrategy: PlinkoProbabilityConstants.PLAY_PAUSE_BUTTON_APPEARANCE_STRATEGY
+    }, options );
 
-  const triangleShape = new Shape()
-    .moveTo( 0, triangleHeight / 2 )
-    .lineTo( triangleWidth, 0 )
-    .lineTo( 0, -triangleHeight / 2 )
-    .close();
+    // triangle is sized relative to the radius
+    const triangleHeight = options.radius;
+    const triangleWidth = options.radius * 0.8;
 
-  const triangleNode = new Path( triangleShape, {
-    fill: options.iconColor
-  } );
+    const triangleShape = new Shape()
+      .moveTo( 0, triangleHeight / 2 )
+      .lineTo( triangleWidth, 0 )
+      .lineTo( 0, -triangleHeight / 2 )
+      .close();
 
-  // move to right slightly, since we don't want it exactly centered
-  options.xContentOffset = 0.1 * triangleNode.width;
+    const triangleNode = new Path( triangleShape, {
+      fill: options.iconColor
+    } );
 
-  assert && assert( !options.content );
-  options.content = triangleNode;
+    // move to right slightly, since we don't want it exactly centered
+    options.xContentOffset = 0.1 * triangleNode.width;
 
-  RoundPushButton.call( this, options );
+    assert && assert( !options.content, 'PlayButton sets content' );
+    options.content = triangleNode;
+
+    super( options );
+  }
 }
 
 plinkoProbability.register( 'PlayButton', PlayButton );
-
-inherit( RoundPushButton, PlayButton );
 export default PlayButton;
