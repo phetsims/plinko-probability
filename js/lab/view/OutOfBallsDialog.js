@@ -6,37 +6,34 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import inherit from '../../../../phet-core/js/inherit.js';
 import merge from '../../../../phet-core/js/merge.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import Dialog from '../../../../sun/js/Dialog.js';
-import plinkoProbabilityStrings from '../../plinkoProbabilityStrings.js';
 import plinkoProbability from '../../plinkoProbability.js';
+import plinkoProbabilityStrings from '../../plinkoProbabilityStrings.js';
 
-const outOfBallsString = plinkoProbabilityStrings.outOfBalls;
+class OutOfBallsDialog extends Dialog {
 
-/**
- * @param {Object} [options]
- * @constructor
- */
-function OutOfBallsDialog( options ) {
+  /**
+   * @param {Object} [options]
+   */
+  constructor( options ) {
 
-  options = merge( {
-    xSpacing: 45,
-    topMargin: 33,
-    bottomMargin: 33
-  }, options );
+    options = merge( {
+      xSpacing: 45,
+      topMargin: 33,
+      bottomMargin: 33
+    }, options );
 
-  const messageNode = new Text( outOfBallsString, {
-    font: new PhetFont( 33 ),
-    maxWidth: 350
-  } );
+    const messageNode = new Text( plinkoProbabilityStrings.outOfBalls, {
+      font: new PhetFont( 33 ),
+      maxWidth: 350
+    } );
 
-  Dialog.call( this, messageNode, options );
+    super( messageNode, options );
+  }
 }
 
 plinkoProbability.register( 'OutOfBallsDialog', OutOfBallsDialog );
-
-inherit( Dialog, OutOfBallsDialog );
 export default OutOfBallsDialog;
