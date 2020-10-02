@@ -6,7 +6,6 @@
  * @author Martin Veillette (Berea College)
  */
 
-import inherit from '../../../../phet-core/js/inherit.js';
 import merge from '../../../../phet-core/js/merge.js';
 import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
 import HBox from '../../../../scenery/js/nodes/HBox.js';
@@ -23,77 +22,77 @@ import plinkoProbability from '../../plinkoProbability.js';
 // constants
 const BALL_RADIUS = PlinkoProbabilityConstants.BALL_RADIUS;
 
-/**
- * @param {IntroModel} model
- * @param {Object} [options]
- * @constructor
- */
-function IntroPlayPanel( model, options ) {
+class IntroPlayPanel extends Panel {
 
-  options = merge( {
-    align: 'center',
-    xMargin: 7,
-    yMargin: 15,
-    stroke: 'black',
-    lineWidth: 1,
-    minWidth: 0.1,
-    titleToControlsVerticalSpace: 5
-  }, options );
+  /**
+   * @param {IntroModel} model
+   * @param {Object} [options]
+   */
+  constructor( model, options ) {
 
-  const fontOptions = { font: PlinkoProbabilityConstants.PANEL_FONT, maxWidth: 190 };
+    options = merge( {
+      align: 'center',
+      xMargin: 7,
+      yMargin: 15,
+      stroke: 'black',
+      lineWidth: 1,
+      minWidth: 0.1,
+      titleToControlsVerticalSpace: 5
+    }, options );
 
-  // Creation of radio button icons
-  const oneBall = new HBox( {
-    spacing: BALL_RADIUS / 2,
-    children: [ new BallNode( BALL_RADIUS ), new Text( MathSymbols.TIMES + '1', fontOptions ) ]
-  } );
-  const tenBalls = new HBox( {
-    spacing: BALL_RADIUS / 2,
-    children: [ new BallNode( BALL_RADIUS ), new Text( MathSymbols.TIMES + '10', fontOptions ) ]
-  } );
-  const maxBalls = new HBox( {
-    spacing: BALL_RADIUS / 2,
-    children: [ new BallNode( BALL_RADIUS ), new Text( MathSymbols.TIMES + PlinkoProbabilityQueryParameters.maxBallsIntro, fontOptions ) ]
-  } );
+    const fontOptions = { font: PlinkoProbabilityConstants.PANEL_FONT, maxWidth: 190 };
 
-  // Creation of radio button group for ball setting
-  const ballModeRadioButtons = new VerticalAquaRadioButtonGroup( model.ballModeProperty, [
-    { node: oneBall, value: 'oneBall' },
-    { node: tenBalls, value: 'tenBalls' },
-    { node: maxBalls, value: 'maxBalls' }
-  ], {
-    radioButtonOptions: { radius: 8 },
-    spacing: 10,     // vertical spacing between each radio button
-    touchAreaXDilation: 5
-  } );
+    // Creation of radio button icons
+    const oneBall = new HBox( {
+      spacing: BALL_RADIUS / 2,
+      children: [ new BallNode( BALL_RADIUS ), new Text( MathSymbols.TIMES + '1', fontOptions ) ]
+    } );
+    const tenBalls = new HBox( {
+      spacing: BALL_RADIUS / 2,
+      children: [ new BallNode( BALL_RADIUS ), new Text( MathSymbols.TIMES + '10', fontOptions ) ]
+    } );
+    const maxBalls = new HBox( {
+      spacing: BALL_RADIUS / 2,
+      children: [ new BallNode( BALL_RADIUS ), new Text( MathSymbols.TIMES + PlinkoProbabilityQueryParameters.maxBallsIntro, fontOptions ) ]
+    } );
 
-  //Creation of play button
-  const playButton = new PlayButton( {
-    listener: model.updateBallsToCreateNumber.bind( model ),
-    enabled: true
-  } );
+    // Creation of radio button group for ball setting
+    const ballModeRadioButtons = new VerticalAquaRadioButtonGroup( model.ballModeProperty, [
+      { node: oneBall, value: 'oneBall' },
+      { node: tenBalls, value: 'tenBalls' },
+      { node: maxBalls, value: 'maxBalls' }
+    ], {
+      radioButtonOptions: { radius: 8 },
+      spacing: 10,     // vertical spacing between each radio button
+      touchAreaXDilation: 5
+    } );
 
-  // Disables play button if maximum amount of balls are dropped
-  model.isBallCapReachedProperty.lazyLink( function( isBallCapReached ) {
-    playButton.enabled = !isBallCapReached;
-  } );
+    //Creation of play button
+    const playButton = new PlayButton( {
+      listener: model.updateBallsToCreateNumber.bind( model ),
+      enabled: true
+    } );
 
-  //Creation of play button panel box
-  const playAndRadioButtonBox = new HBox( {
-    spacing: 0,
-    children: [
-      new HStrut( 20 ),     // spacing between left panel margin and play button
-      playButton,
-      new HStrut( 25 ),     // spacing between play button and radio buttons
-      ballModeRadioButtons,
-      new HStrut( 10 )      // spacing between radio buttons and right margin
-    ]
-  } );
+    // Disables play button if maximum amount of balls are dropped
+    model.isBallCapReachedProperty.lazyLink( function( isBallCapReached ) {
+      playButton.enabled = !isBallCapReached;
+    } );
 
-  Panel.call( this, playAndRadioButtonBox, options );
+    //Creation of play button panel box
+    const playAndRadioButtonBox = new HBox( {
+      spacing: 0,
+      children: [
+        new HStrut( 20 ),     // spacing between left panel margin and play button
+        playButton,
+        new HStrut( 25 ),     // spacing between play button and radio buttons
+        ballModeRadioButtons,
+        new HStrut( 10 )      // spacing between radio buttons and right margin
+      ]
+    } );
+
+    super( playAndRadioButtonBox, options );
+  }
 }
 
 plinkoProbability.register( 'IntroPlayPanel', IntroPlayPanel );
-
-inherit( Panel, IntroPlayPanel );
 export default IntroPlayPanel;
