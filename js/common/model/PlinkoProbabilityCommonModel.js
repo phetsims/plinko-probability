@@ -9,7 +9,7 @@
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Emitter from '../../../../axon/js/Emitter.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
-import ObservableArray from '../../../../axon/js/ObservableArray.js';
+import createObservableArray from '../../../../axon/js/createObservableArray.js';
 import StringProperty from '../../../../axon/js/StringProperty.js';
 import inherit from '../../../../phet-core/js/inherit.js';
 import plinkoProbability from '../../plinkoProbability.js';
@@ -51,7 +51,7 @@ function PlinkoProbabilityCommonModel() {
   } );
 
   this.ballCreationTimeElapsed = 0; // @public {number} - time elapsed since last ball creation
-  this.balls = new ObservableArray(); // @public
+  this.balls = createObservableArray(); // @public
   this.galtonBoard = new GaltonBoard( this.numberOfRowsProperty ); // @public
   this.histogram = new Histogram( this.numberOfRowsProperty ); // @public
 
