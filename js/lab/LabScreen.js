@@ -11,6 +11,7 @@ import Image from '../../../scenery/js/nodes/Image.js';
 import labHomescreenImage from '../../images/lab-homescreen_png.js';
 import labNavbarImage from '../../images/lab-navbar_png.js';
 import PlinkoProbabilityConstants from '../common/PlinkoProbabilityConstants.js';
+import PlinkoProbabilityKeyboardHelpContent from '../common/view/PlinkoProbabilityKeyboardHelpContent.js';
 import plinkoProbability from '../plinkoProbability.js';
 import plinkoProbabilityStrings from '../plinkoProbabilityStrings.js';
 import LabModel from './model/LabModel.js';
@@ -29,7 +30,8 @@ class LabScreen extends Screen {
       navigationBarIcon: new ScreenIcon( new Image( labNavbarImage ), {
         maxIconWidthProportion: 1,
         maxIconHeightProportion: 1
-      } )
+      } ),
+      keyboardHelpNode: new PlinkoProbabilityKeyboardHelpContent()
     };
 
     super(

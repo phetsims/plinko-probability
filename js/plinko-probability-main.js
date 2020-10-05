@@ -8,18 +8,11 @@
 
 import Sim from '../../joist/js/Sim.js';
 import simLauncher from '../../joist/js/simLauncher.js';
-import SliderAndGeneralKeyboardHelpContent from '../../scenery-phet/js/keyboard/help/SliderAndGeneralKeyboardHelpContent.js';
 import IntroScreen from './intro/IntroScreen.js';
 import LabScreen from './lab/LabScreen.js';
 import plinkoProbabilityStrings from './plinkoProbabilityStrings.js';
 
 const plinkoProbabilityTitleString = plinkoProbabilityStrings[ 'plinko-probability' ].title;
-
-const keyboardHelpContent = new SliderAndGeneralKeyboardHelpContent( {
-  generalSectionOptions: {
-    withGroupContent: true
-  }
-} );
 
 const simOptions = {
   credits: {
@@ -28,7 +21,7 @@ const simOptions = {
     team: 'Karina K. Hensberry, Trish Loeblein, Ariel Paul, Kathy Perkins',
     qualityAssurance: 'Steele Dalton, Amanda Davis, Alex Dornan, Bryce Griebenow, Ben Roberts'
   },
-  keyboardHelpNode: keyboardHelpContent
+  hasKeyboardHelpContent: true
 };
 
 simLauncher.launch( function() {

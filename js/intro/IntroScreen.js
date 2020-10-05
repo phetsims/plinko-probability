@@ -13,6 +13,7 @@ import Image from '../../../scenery/js/nodes/Image.js';
 import introHomescreenImage from '../../images/intro-homescreen_png.js';
 import introNavbarImage from '../../images/intro-navbar_png.js';
 import PlinkoProbabilityConstants from '../common/PlinkoProbabilityConstants.js';
+import PlinkoProbabilityKeyboardHelpContent from '../common/view/PlinkoProbabilityKeyboardHelpContent.js';
 import plinkoProbability from '../plinkoProbability.js';
 import plinkoProbabilityStrings from '../plinkoProbabilityStrings.js';
 import IntroModel from './model/IntroModel.js';
@@ -31,7 +32,8 @@ class IntroScreen extends Screen {
       navigationBarIcon: new ScreenIcon( new Image( introNavbarImage ), {
         maxIconWidthProportion: 1,
         maxIconHeightProportion: 1
-      } )
+      } ),
+      keyboardHelpNode: new PlinkoProbabilityKeyboardHelpContent()
     };
 
     super(
