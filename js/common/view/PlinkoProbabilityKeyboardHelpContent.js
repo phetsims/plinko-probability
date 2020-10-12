@@ -10,13 +10,7 @@ import SliderAndGeneralKeyboardHelpContent from '../../../../scenery-phet/js/key
 import plinkoProbability from '../../plinkoProbability.js';
 
 class PlinkoProbabilityKeyboardHelpContent extends SliderAndGeneralKeyboardHelpContent {
-  constructor() {
-    super( {
-      generalSectionOptions: {
-        withGroupContent: true
-      }
-    } );
-  }
+  constructor() { super(); }
 }
 
 plinkoProbability.register( 'PlinkoProbabilityKeyboardHelpContent', PlinkoProbabilityKeyboardHelpContent );
