@@ -9,7 +9,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import inherit from '../../../../phet-core/js/inherit.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import counterImage from '../../../images/counter_png.js';
 import fractionImage from '../../../images/fraction_png.js';
@@ -29,143 +28,142 @@ import TrajectoryPath from './TrajectoryPath.js';
 // constants
 const PANEL_FIXED_WIDTH = 220; // determined empirically
 
-/**
- * @param {LabModel} model
- * @constructor
- */
-function LabScreenView( model ) {
+class LabScreenView extends PlinkoProbabilityCommonView {
 
-  const self = this;
+  /**
+   * @param {LabModel} model
+   */
+  constructor( model ) {
 
-  PlinkoProbabilityCommonView.call( this, model, {
-    histogramMode: 'counter'
-  } );
+    super( model, {
+      histogramMode: 'counter'
+    } );
+    const self = this;
 
-  // pegs on the Galton board
-  const pegsNode = new PegsNode( model.galtonBoard, model.numberOfRowsProperty, model.probabilityProperty, this.modelViewTransform, {
-    canvasBounds: this.viewTriangularBoardBounds
-  } );
+    // pegs on the Galton board
+    const pegsNode = new PegsNode( model.galtonBoard, model.numberOfRowsProperty, model.probabilityProperty, this.modelViewTransform, {
+      canvasBounds: this.viewTriangularBoardBounds
+    } );
 
-  // radio buttons to right of the hopper
-  const hopperModeControl = new HopperModeControl( model.hopperModeProperty, {
-    left: this.hopper.right + 47,
-    top: this.hopper.top
-  } );
+    // radio buttons to right of the hopper
+    const hopperModeControl = new HopperModeControl( model.hopperModeProperty, {
+      left: this.hopper.right + 47,
+      top: this.hopper.top
+    } );
 
-  // radio buttons that can toggle between 'fraction and 'counter' mode
-  const histogramModeControl = new HistogramModeControl( this.viewProperties.histogramModeProperty, 'counter', counterImage, 'fraction', fractionImage, {
-    bottom: this.eraserButton.top - 16,
-    left: this.eraserButton.left
-  } );
+    // radio buttons that can toggle between 'fraction and 'counter' mode
+    const histogramModeControl = new HistogramModeControl( this.viewProperties.histogramModeProperty, 'counter', counterImage, 'fraction', fractionImage, {
+      bottom: this.eraserButton.top - 16,
+      left: this.eraserButton.left
+    } );
 
-  // we call pre populate here because the histogram would be created by now
-  if ( PlinkoProbabilityQueryParameters.histogramBallsLab > 0 ) {
-    model.histogram.prepopulate( PlinkoProbabilityQueryParameters.histogramBallsLab );
-  }
+    // we call pre populate here because the histogram would be created by now
+    if ( PlinkoProbabilityQueryParameters.histogramBallsLab > 0 ) {
+      model.histogram.prepopulate( PlinkoProbabilityQueryParameters.histogramBallsLab );
+    }
 
-  // Play panel, at top right
-  const playPanel = new LabPlayPanel( model, {
-    minWidth: PANEL_FIXED_WIDTH,
-    maxWidth: PANEL_FIXED_WIDTH,
-    right: this.layoutBounds.maxX - PlinkoProbabilityConstants.PANEL_RIGHT_PADDING,
-    top: 10
-  } );
-
-  // controls that modify the pegs in the galton board, below the Play panel
-  const pegControls = new PegControls( model.numberOfRowsProperty, model.probabilityProperty, {
-    minWidth: PANEL_FIXED_WIDTH,
-    maxWidth: PANEL_FIXED_WIDTH,
-    top: playPanel.bottom + PlinkoProbabilityConstants.PANEL_VERTICAL_SPACING,
-    right: playPanel.right
-  } );
-
-  // statistics panel, below peg controls
-  const statisticsAccordionBox = new StatisticsAccordionBox( model,
-    this.viewProperties.isTheoreticalHistogramVisibleProperty, {
-    expandedProperty: this.viewProperties.expandedAccordionBoxProperty,
+    // Play panel, at top right
+    const playPanel = new LabPlayPanel( model, {
       minWidth: PANEL_FIXED_WIDTH,
       maxWidth: PANEL_FIXED_WIDTH,
-      top: pegControls.bottom + PlinkoProbabilityConstants.PANEL_VERTICAL_SPACING,
+      right: this.layoutBounds.maxX - PlinkoProbabilityConstants.PANEL_RIGHT_PADDING,
+      top: 10
+    } );
+
+    // controls that modify the pegs in the galton board, below the Play panel
+    const pegControls = new PegControls( model.numberOfRowsProperty, model.probabilityProperty, {
+      minWidth: PANEL_FIXED_WIDTH,
+      maxWidth: PANEL_FIXED_WIDTH,
+      top: playPanel.bottom + PlinkoProbabilityConstants.PANEL_VERTICAL_SPACING,
       right: playPanel.right
     } );
 
-  // create pathsLayer to keep all the TrajectoryPath
-  const pathsLayer = new Node( { layerSplit: true } );
+    // statistics panel, below peg controls
+    const statisticsAccordionBox = new StatisticsAccordionBox( model,
+      this.viewProperties.isTheoreticalHistogramVisibleProperty, {
+        expandedProperty: this.viewProperties.expandedAccordionBoxProperty,
+        minWidth: PANEL_FIXED_WIDTH,
+        maxWidth: PANEL_FIXED_WIDTH,
+        top: pegControls.bottom + PlinkoProbabilityConstants.PANEL_VERTICAL_SPACING,
+        right: playPanel.right
+      } );
 
-  // rendering order
-  this.addChild( histogramModeControl );
-  this.addChild( hopperModeControl );
-  this.addChild( playPanel );
-  this.addChild( pegControls );
-  this.addChild( statisticsAccordionBox );
-  this.addChild( pegsNode );
-  this.addChild( pathsLayer );
+    // create pathsLayer to keep all the TrajectoryPath
+    const pathsLayer = new Node( { layerSplit: true } );
 
-  // handle the coming and going of the balls in the model.
-  model.balls.addItemAddedListener( function( addedBall ) {
-    switch( model.hopperModeProperty.get() ) {
+    // rendering order
+    this.addChild( histogramModeControl );
+    this.addChild( hopperModeControl );
+    this.addChild( playPanel );
+    this.addChild( pegControls );
+    this.addChild( statisticsAccordionBox );
+    this.addChild( pegsNode );
+    this.addChild( pathsLayer );
 
-      case 'ball':
-        // initiates sound to play when ball hits a peg
-        var ballHittingPegListener = function( direction ) {
-          self.pegSoundGeneration.playBallHittingPegSound( direction );
-        };
-        addedBall.ballHittingPegEmitter.addListener( ballHittingPegListener );
-        model.balls.addItemRemovedListener( function removalListener( removedBall ) {
-          if ( removedBall === addedBall ) {
-            addedBall.ballHittingPegEmitter.removeListener( ballHittingPegListener );
-            model.balls.removeItemRemovedListener( removalListener );
-          }
-        } );
-        break;
+    // handle the coming and going of the balls in the model.
+    model.balls.addItemAddedListener( function( addedBall ) {
+      switch( model.hopperModeProperty.get() ) {
 
-      case 'path':
-        var addedTrajectoryPath = new TrajectoryPath( addedBall, self.modelViewTransform );
-        pathsLayer.addChild( addedTrajectoryPath );
-        model.balls.addItemRemovedListener( function removalListener( removedBall ) {
-          if ( removedBall === addedBall ) {
-            pathsLayer.removeChild( addedTrajectoryPath );
-            model.balls.removeItemRemovedListener( removalListener );
-          }
-        } );
-        break;
+        case 'ball':
+          // initiates sound to play when ball hits a peg
+          var ballHittingPegListener = function( direction ) {
+            self.pegSoundGeneration.playBallHittingPegSound( direction );
+          };
+          addedBall.ballHittingPegEmitter.addListener( ballHittingPegListener );
+          model.balls.addItemRemovedListener( function removalListener( removedBall ) {
+            if ( removedBall === addedBall ) {
+              addedBall.ballHittingPegEmitter.removeListener( ballHittingPegListener );
+              model.balls.removeItemRemovedListener( removalListener );
+            }
+          } );
+          break;
 
-      case 'none':
-        break;
+        case 'path':
+          var addedTrajectoryPath = new TrajectoryPath( addedBall, self.modelViewTransform );
+          pathsLayer.addChild( addedTrajectoryPath );
+          model.balls.addItemRemovedListener( function removalListener( removedBall ) {
+            if ( removedBall === addedBall ) {
+              pathsLayer.removeChild( addedTrajectoryPath );
+              model.balls.removeItemRemovedListener( removalListener );
+            }
+          } );
+          break;
 
-      default:
-        throw new Error( 'invalid hopperMode: ' + model.hopperModeProperty.get() );
-    }
-  } );
+        case 'none':
+          break;
 
-  // OutOfBallsDialog, created lazily because Dialog requires sim bounds during construction
-  let dialog = null;
-
-  // no need to dispose of this link
-  model.isBallCapReachedProperty.lazyLink( function( isBallCapReached ) {
-
-    // when the max number of balls is reached...
-    if ( isBallCapReached ) {
-
-      // pop up a dialog
-      if ( !dialog ) {
-        dialog = new OutOfBallsDialog();
+        default:
+          throw new Error( 'invalid hopperMode: ' + model.hopperModeProperty.get() );
       }
-      dialog.show();
+    } );
 
-      // makes the play button visible
-      playPanel.playButtonVisibleProperty.set( true );
+    // OutOfBallsDialog, created lazily because Dialog requires sim bounds during construction
+    let dialog = null;
 
-      // it is not playing anymore
-      model.isPlayingProperty.set( false );
-    }
-  } );
+    // no need to dispose of this link
+    model.isBallCapReachedProperty.lazyLink( function( isBallCapReached ) {
 
-  // pdom
-  this.pdomPlayAreaNode.accessibleOrder = [ playPanel, pegControls, statisticsAccordionBox, hopperModeControl, histogramModeControl, this.eraserButton ];
+      // when the max number of balls is reached...
+      if ( isBallCapReached ) {
+
+        // pop up a dialog
+        if ( !dialog ) {
+          dialog = new OutOfBallsDialog();
+        }
+        dialog.show();
+
+        // makes the play button visible
+        playPanel.playButtonVisibleProperty.set( true );
+
+        // it is not playing anymore
+        model.isPlayingProperty.set( false );
+      }
+    } );
+
+    // pdom
+    this.pdomPlayAreaNode.accessibleOrder = [ playPanel, pegControls, statisticsAccordionBox, hopperModeControl, histogramModeControl, this.eraserButton ];
+  }
 }
 
 plinkoProbability.register( 'LabScreenView', LabScreenView );
-
-inherit( PlinkoProbabilityCommonView, LabScreenView );
 export default LabScreenView;
