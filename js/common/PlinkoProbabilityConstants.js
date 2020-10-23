@@ -10,7 +10,7 @@ import Bounds2 from '../../../dot/js/Bounds2.js';
 import RangeWithValue from '../../../dot/js/RangeWithValue.js';
 import PhetFont from '../../../scenery-phet/js/PhetFont.js';
 import Color from '../../../scenery/js/util/Color.js';
-import RoundButtonView from '../../../sun/js/buttons/RoundButtonView.js';
+import RoundButton from '../../../sun/js/buttons/RoundButton.js';
 import plinkoProbability from '../plinkoProbability.js';
 import PlinkoProbabilityQueryParameters from './PlinkoProbabilityQueryParameters.js';
 
@@ -78,8 +78,8 @@ const PlinkoProbabilityConstants = {
   // play pause buttons
   PLAY_PAUSE_BUTTON_RADIUS: 30,
   PLAY_PAUSE_BUTTON_APPEARANCE_STRATEGY: PlinkoProbabilityQueryParameters.play3D ?
-                                         RoundButtonView.ThreeDAppearanceStrategy :
-                                         RoundButtonView.FlatAppearanceStrategy // see issue #26
+                                         RoundButton.ThreeDAppearanceStrategy :
+                                         RoundButton.FlatAppearanceStrategy // see issue #26
 };
 
 plinkoProbability.register( 'PlinkoProbabilityConstants', PlinkoProbabilityConstants );
