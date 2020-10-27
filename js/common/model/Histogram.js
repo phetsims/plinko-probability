@@ -8,56 +8,51 @@
  */
 
 import Emitter from '../../../../axon/js/Emitter.js';
-import inherit from '../../../../phet-core/js/inherit.js';
 import plinkoProbability from '../../plinkoProbability.js';
 import PlinkoProbabilityConstants from '../PlinkoProbabilityConstants.js';
 
 // constants
 const BOUNDS = PlinkoProbabilityConstants.HISTOGRAM_BOUNDS;
 
-/**
- * @param {Property.<number>} numberOfRowsProperty
- * @constructor
- */
-function Histogram( numberOfRowsProperty ) {
+class Histogram {
+  /**
+   * @param {Property.<number>} numberOfRowsProperty
+   */
+  constructor( numberOfRowsProperty ) {
 
-  this.bins = []; // @public {Object[]}
-  this.average = 0; // @public (read-only)
-  this.standardDeviation = 0; // @public (read-only)
-  this.standardDeviationOfMean = 0; // @public (read-only)
-  this.landedBallsNumber = 0; // @public (read-only)
+    this.bins = []; // @public {Object[]}
+    this.average = 0; // @public (read-only)
+    this.standardDeviation = 0; // @public (read-only)
+    this.standardDeviationOfMean = 0; // @public (read-only)
+    this.landedBallsNumber = 0; // @public (read-only)
 
-  // convenience variables
-  this.sumOfSquares = 0; // @private
-  this.variance = 0; // @private
-  this.numberOfRowsProperty = numberOfRowsProperty; // @private
+    // convenience variables
+    this.sumOfSquares = 0; // @private
+    this.variance = 0; // @private
+    this.numberOfRowsProperty = numberOfRowsProperty; // @private
 
-  // initialized all the bins to zero.
-  this.setBinsToZero();
+    // initialized all the bins to zero.
+    this.setBinsToZero();
 
-  // emitters;
-  this.histogramUpdatedEmitter = new Emitter(); // @public
+    // emitters;
+    this.histogramUpdatedEmitter = new Emitter(); // @public
 
-  // link is present for the lifetime of the sim
-  const self = this;
-  numberOfRowsProperty.link( function() {
-    self.reset(); // if the number of rows change then reset the histogram
-  } );
-}
+    // link is present for the lifetime of the sim
+    numberOfRowsProperty.link( () => {
+      this.reset(); // if the number of rows change then reset the histogram
+    } );
+  }
 
-plinkoProbability.register( 'Histogram', Histogram );
-
-inherit( Object, Histogram, {
 
   /**
    * sets all the binCounts to 0 and resets the statistics
    * @public
    */
-  reset: function() {
+  reset() {
     this.setBinsToZero();
     this.resetStatistics();
     this.histogramUpdatedEmitter.emit();
-  },
+  }
 
   /**
    * Used in the "ballsOnScreen" query parameter to set an initial amount of balls within the histogram.
@@ -65,11 +60,11 @@ inherit( Object, Histogram, {
    * @param ballsOnScreen {number} - user inputted query parameter for the amount of balls the histogram is initialized with
    * @public
    */
-  prepopulate: function( ballsOnScreen ) {
+  prepopulate( ballsOnScreen ) {
 
     // temporarily stores the binCount for each bin in an empty array.
     const tempBins = [];
-    for ( var tempBinIndex = 0; tempBinIndex < ( this.numberOfRowsProperty.get() + 1 ); tempBinIndex++ ) {
+    for ( let tempBinIndex = 0; tempBinIndex < ( this.numberOfRowsProperty.get() + 1 ); tempBinIndex++ ) {
       tempBins[ tempBinIndex ] = 0;
     }
 
@@ -91,7 +86,7 @@ inherit( Object, Histogram, {
     }
 
     // takes values in temporary bin array and translates them into our bin array
-    for ( tempBinIndex = 0; tempBinIndex < ( this.numberOfRowsProperty.get() + 1 ); tempBinIndex++ ) {
+    for ( let tempBinIndex = 0; tempBinIndex < ( this.numberOfRowsProperty.get() + 1 ); tempBinIndex++ ) {
       this.bins[ tempBinIndex ] = {
         binCount: tempBins[ tempBinIndex ], // number of balls that will be in the bin (including those currently falling through the galton board)
         visibleBinCount: tempBins[ tempBinIndex ], // number of balls that are in the bin
@@ -102,14 +97,14 @@ inherit( Object, Histogram, {
     // now we update the view and generate our statistics
     this.initializeStatistics();
     this.histogramUpdatedEmitter.emit();
-  },
+  }
 
   /**
    * Sets the value of all bins in the histogram to zero.
    *
    * @private
    */
-  setBinsToZero: function() {
+  setBinsToZero() {
     this.bins = []; // reset the bin array to an empty array
     let binInfo;
     const maxBins = PlinkoProbabilityConstants.ROWS_RANGE.max + 1;
@@ -121,7 +116,7 @@ inherit( Object, Histogram, {
       };
       this.bins.push( binInfo );
     }
-  },
+  }
 
   /**
    * Updates the array elements for the number of balls in a bin and the horizontal final position of the last ball.
@@ -129,10 +124,10 @@ inherit( Object, Histogram, {
    * @param {Ball} ball
    * @public
    */
-  updateBinCountAndOrientation: function( ball ) {
+  updateBinCountAndOrientation( ball ) {
     this.bins[ ball.binIndex ].binCount++;
     this.bins[ ball.binIndex ].orientation = ball.binOrientation;
-  },
+  }
 
   /**
    * Update the histogram statistic due to adding one ball in bin 'binIndex'
@@ -140,7 +135,7 @@ inherit( Object, Histogram, {
    * @param {number} binIndex - the bin index associated with the landed ball.
    * @private
    */
-  updateStatistics: function( binIndex ) {
+  updateStatistics( binIndex ) {
     this.landedBallsNumber++;
 
     // convenience variable
@@ -160,19 +155,19 @@ inherit( Object, Histogram, {
       this.standardDeviation = 0;
       this.standardDeviationOfMean = 0;
     }
-  },
+  }
 
   /**
    * Initializes statistics based on what's in the bins.
    * @private
    */
-  initializeStatistics: function() {
+  initializeStatistics() {
 
     let totalNumberOfBalls = 0;
     let sum = 0;
     let sumOfSquares = 0;
 
-    this.bins.forEach( function( bin, binIndex ) {
+    this.bins.forEach( ( bin, binIndex ) => {
       totalNumberOfBalls += bin.binCount;
       sum += bin.binCount * binIndex;
       sumOfSquares += bin.binCount * binIndex * binIndex;
@@ -184,21 +179,21 @@ inherit( Object, Histogram, {
     this.variance = ( sumOfSquares - ( this.average * this.average * totalNumberOfBalls ) ) / ( totalNumberOfBalls - 1 );
     this.standardDeviation = Math.sqrt( this.variance );
     this.standardDeviationOfMean = this.standardDeviation / Math.sqrt( totalNumberOfBalls );
-  },
+  }
 
   /**
    * Resets all the statistics data to zero
    *
    * @private
    */
-  resetStatistics: function() {
+  resetStatistics() {
     this.landedBallsNumber = 0;
     this.average = 0;
     this.sumOfSquares = 0;
     this.variance = 0;
     this.standardDeviation = 0;
     this.standardDeviationOfMean = 0;
-  },
+  }
 
   /**
    * Add an additional ball to the appropriate bin and update all the relevant statistics
@@ -206,11 +201,11 @@ inherit( Object, Histogram, {
    * @param {Ball} ball
    * @public
    */
-  addBallToHistogram: function( ball ) {
+  addBallToHistogram( ball ) {
     this.bins[ ball.binIndex ].visibleBinCount++;
     this.updateStatistics( ball.binIndex );
     this.histogramUpdatedEmitter.emit();
-  },
+  }
 
   /**
    * Function that returns the number of counts in a bin
@@ -220,9 +215,9 @@ inherit( Object, Histogram, {
    * @returns {number}
    * @public
    */
-  getBinCount: function( binIndex ) {
+  getBinCount( binIndex ) {
     return this.bins[ binIndex ].visibleBinCount; // an integer
-  },
+  }
 
   /**
    * Function that returns the fractional occupation of a bin
@@ -232,7 +227,7 @@ inherit( Object, Histogram, {
    * @returns {number}
    * @public
    */
-  getFractionalBinCount: function( binIndex ) {
+  getFractionalBinCount( binIndex ) {
     if ( this.landedBallsNumber > 0 ) {
       return this.bins[ binIndex ].visibleBinCount / this.landedBallsNumber; // fraction is smaller than one
     }
@@ -240,7 +235,7 @@ inherit( Object, Histogram, {
       // no balls are present
       return 0;
     }
-  },
+  }
 
   /**
    * Function that returns an array of the fractional 'normalized 'occupation of a bin, i.e.
@@ -251,15 +246,13 @@ inherit( Object, Histogram, {
    * @returns {Array.<number>}
    * @public
    */
-  getNormalizedSampleDistribution: function() {
+  getNormalizedSampleDistribution() {
     const maxCount = this.getMaximumBinCount();
     // we don't want to divide by zero; if maxCount is zero, then bin.visibleCount is zero anyway.
     const divisionFactor = Math.max( maxCount, 1 );
-    const normalizedArray = this.bins.map( function( bin ) {
-      return bin.visibleBinCount / divisionFactor;
-    } );
+    const normalizedArray = this.bins.map( bin => bin.visibleBinCount / divisionFactor );
     return normalizedArray;
-  },
+  }
 
   /**
    * Function that returns the maximum value of all the balls in the bins
@@ -268,13 +261,13 @@ inherit( Object, Histogram, {
    * @returns {number}
    * @public
    */
-  getMaximumActualBinCount: function() {
+  getMaximumActualBinCount() {
     let maxCount = 0;
-    this.bins.forEach( function( binElement ) {
+    this.bins.forEach( binElement => {
       maxCount = Math.max( maxCount, binElement.binCount );
     } );
     return maxCount;
-  },
+  }
 
   /**
    * Function that returns the maximum visible value of the balls in the bins
@@ -283,13 +276,13 @@ inherit( Object, Histogram, {
    * @returns {number}
    * @public
    */
-  getMaximumBinCount: function() {
+  getMaximumBinCount() {
     let maxCount = 0;
-    this.bins.forEach( function( binElement ) {
+    this.bins.forEach( binElement => {
       maxCount = Math.max( maxCount, binElement.visibleBinCount );
     } );
     return maxCount;
-  },
+  }
 
   /**
    * Function that returns the center x coordinate of a bin with index binIndex
@@ -299,10 +292,10 @@ inherit( Object, Histogram, {
    * @returns {number}
    * @public
    */
-  getBinCenterX: function( binIndex, numberOfBins ) {
+  getBinCenterX( binIndex, numberOfBins ) {
     assert && assert( binIndex < numberOfBins, 'The binIndex must be smaller than the total number of bins' );
     return ( ( binIndex + 1 / 2 ) / numberOfBins ) * BOUNDS.width + BOUNDS.minX;
-  },
+  }
 
   /**
    * Function that returns the left position of a bin
@@ -312,10 +305,10 @@ inherit( Object, Histogram, {
    * @returns {number}
    * @public
    */
-  getBinLeft: function( binIndex, numberOfBins ) {
+  getBinLeft( binIndex, numberOfBins ) {
     assert && assert( binIndex < numberOfBins, 'The binIndex must be smaller than the total number of bins' );
     return ( binIndex / numberOfBins ) * BOUNDS.width + BOUNDS.minX;
-  },
+  }
 
   /**
    * Function that returns the minimum X value, i.e. the leftmost position of all the bins
@@ -323,9 +316,9 @@ inherit( Object, Histogram, {
    * @returns {number}
    * @public
    */
-  getMinX: function() {
+  getMinX() {
     return BOUNDS.minX;
-  },
+  }
 
   /**
    * Function that returns the center X value of the bins, i.e. the center position of all the bins
@@ -333,9 +326,9 @@ inherit( Object, Histogram, {
    * @returns {number}
    * @public
    */
-  getCenterX: function() {
+  getCenterX() {
     return BOUNDS.centerX;
-  },
+  }
 
   /**
    * Function that returns the minimum Y value, i.e. the bottom position of all the bins
@@ -343,9 +336,9 @@ inherit( Object, Histogram, {
    * @public
    * @returns {number}
    */
-  getMinY: function() {
+  getMinY() {
     return BOUNDS.minY;
-  },
+  }
 
   /**
    * Function that returns the x position (in model coordinates) associated with
@@ -356,10 +349,12 @@ inherit( Object, Histogram, {
    * @returns {number}
    * @public
    */
-  getValuePosition: function( value, numberOfBins ) {
+  getValuePosition( value, numberOfBins ) {
     assert && assert( value < numberOfBins && value >= 0, 'the average should range from 0 and the max number of bins -1' );
     return ( ( value + 1 / 2 ) / numberOfBins ) * BOUNDS.width + BOUNDS.minX;
   }
-} );
+}
+
+plinkoProbability.register( 'Histogram', Histogram );
 
 export default Histogram;

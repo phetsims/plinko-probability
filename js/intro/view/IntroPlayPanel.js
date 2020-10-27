@@ -74,7 +74,7 @@ class IntroPlayPanel extends Panel {
     } );
 
     // Disables play button if maximum amount of balls are dropped
-    model.isBallCapReachedProperty.lazyLink( function( isBallCapReached ) {
+    model.isBallCapReachedProperty.lazyLink( isBallCapReached => {
       playButton.enabled = !isBallCapReached;
     } );
 

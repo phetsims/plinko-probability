@@ -35,8 +35,8 @@ class LabScreen extends Screen {
     };
 
     super(
-      function() { return new LabModel(); },
-      function( model ) { return new LabScreenView( model ); },
+      () => new LabModel(),
+      model => new LabScreenView( model ),
       options
     );
   }

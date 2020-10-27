@@ -6,7 +6,6 @@
  * @author Martin Veillette (Berea College)
  */
 
-import inherit from '../../../../phet-core/js/inherit.js';
 import merge from '../../../../phet-core/js/merge.js';
 import required from '../../../../phet-core/js/required.js';
 import CanvasNode from '../../../../scenery/js/nodes/CanvasNode.js';
@@ -16,56 +15,52 @@ import GaltonBoard from '../model/GaltonBoard.js';
 import PlinkoProbabilityConstants from '../PlinkoProbabilityConstants.js';
 import BallNode from './BallNode.js';
 
-/**
- * @param {Ball[]} balls - an array of model Ball
- * @param {Property.<number>} numberOfRowsProperty - number of rows
- * @param {Property.<string>} histogramModeProperty - see PlinkoProbabilityCommonView
- * @param {ModelViewTransform2} modelViewTransform - model to view transform
- * @param {Object} config - must contain a canvasBounds attribute of type Bounds2
- * @constructor
- */
-function BallsNode( balls, numberOfRowsProperty, histogramModeProperty, modelViewTransform, config ) {
-  config = merge( {
+class BallsNode extends CanvasNode {
+  /**
+   * @param {Ball[]} balls - an array of model Ball
+   * @param {Property.<number>} numberOfRowsProperty - number of rows
+   * @param {Property.<string>} histogramModeProperty - see PlinkoProbabilityCommonView
+   * @param {ModelViewTransform2} modelViewTransform - model to view transform
+   * @param {Object} config - must contain a canvasBounds attribute of type Bounds2
+   */
+  constructor( balls, numberOfRowsProperty, histogramModeProperty, modelViewTransform, config ) {
+    config = merge( {
 
-    // {Bounds2}
-    canvasBounds: required( config.canvasBounds )
-  }, config );
+      // {Bounds2}
+      canvasBounds: required( config.canvasBounds )
+    }, config );
 
-  CanvasNode.call( this, config );
+    super( config );
 
-  const self = this;
 
-  // @private
-  this.balls = balls;
-  this.numberOfRowsProperty = numberOfRowsProperty;
-  this.histogramModeProperty = histogramModeProperty;
-  this.modelViewTransform = modelViewTransform;
+    // @private
+    this.balls = balls;
+    this.numberOfRowsProperty = numberOfRowsProperty;
+    this.histogramModeProperty = histogramModeProperty;
+    this.modelViewTransform = modelViewTransform;
 
-  // set the default ball radius using the largest possible radius, that is the minimum number of rows.
-  const defaultBallRadius = modelViewTransform.modelToViewDeltaX(
-    GaltonBoard.getPegSpacing( PlinkoProbabilityConstants.ROWS_RANGE.min ) * PlinkoProbabilityConstants.BALL_SIZE_FRACTION );
+    // set the default ball radius using the largest possible radius, that is the minimum number of rows.
+    const defaultBallRadius = modelViewTransform.modelToViewDeltaX(
+      GaltonBoard.getPegSpacing( PlinkoProbabilityConstants.ROWS_RANGE.min ) * PlinkoProbabilityConstants.BALL_SIZE_FRACTION );
 
-  // Renders the ball to a canvas, used for rendering all balls.
-  const ballNode = new BallNode( defaultBallRadius );
-  ballNode.toCanvas( function( canvas, x, y, width, height ) {
-    self.ballCanvas = canvas; // @private
-    self.invalidatePaint(); // calls paintCanvas
-  } );
+    // Renders the ball to a canvas, used for rendering all balls.
+    const ballNode = new BallNode( defaultBallRadius );
+    ballNode.toCanvas( ( canvas, x, y, width, height ) => {
+      this.ballCanvas = canvas; // @private
+      this.invalidatePaint(); // calls paintCanvas
+    } );
 
-  // calls paintCanvas
-  this.invalidatePaint();
-}
+    // calls paintCanvas
+    this.invalidatePaint();
+  }
 
-plinkoProbability.register( 'BallsNode', BallsNode );
-
-inherit( CanvasNode, BallsNode, {
 
   /**
    * @param {CanvasRenderingContext2D} context
    * @override
    * @private
    */
-  paintCanvas: function( context ) {
+  paintCanvas( context ) {
 
     // image is created asynchronously by toImage, so it may not be available yet
     if ( !this.ballCanvas ) { return; }
@@ -93,23 +88,24 @@ inherit( CanvasNode, BallsNode, {
       verticalOffset = ( 1 - fudgeFactor ) * this.ballCanvas.height / 2;
     }
 
-    const self = this;
-    this.balls.forEach( function( ball ) {
+    this.balls.forEach( ball => {
 
       // don't draw balls in bins (cylinders) when the bins aren't visible
-      if ( self.histogramModeProperty.get() === 'cylinder' || ball.phase !== BallPhase.COLLECTED ) {
+      if ( this.histogramModeProperty.get() === 'cylinder' || ball.phase !== BallPhase.COLLECTED ) {
 
-        const ballViewPositionX = self.modelViewTransform.modelToViewX( ball.position.x );
-        const ballViewPositionY = self.modelViewTransform.modelToViewY( ball.position.y );
+        const ballViewPositionX = this.modelViewTransform.modelToViewX( ball.position.x );
+        const ballViewPositionY = this.modelViewTransform.modelToViewY( ball.position.y );
 
-        context.drawImage( self.ballCanvas,
-          ballViewPositionX - self.ballCanvas.width * scaleFactor / 2,
-          ballViewPositionY - self.ballCanvas.height * scaleFactor / 2 + verticalOffset,
-          self.ballCanvas.width * scaleFactor,
-          self.ballCanvas.height * scaleFactor );
+        context.drawImage( this.ballCanvas,
+          ballViewPositionX - this.ballCanvas.width * scaleFactor / 2,
+          ballViewPositionY - this.ballCanvas.height * scaleFactor / 2 + verticalOffset,
+          this.ballCanvas.width * scaleFactor,
+          this.ballCanvas.height * scaleFactor );
       }
     } );
   }
-} );
+}
+
+plinkoProbability.register( 'BallsNode', BallsNode );
 
 export default BallsNode;

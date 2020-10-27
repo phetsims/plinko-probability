@@ -7,42 +7,38 @@
  * @author Martin Veillette (Berea College)
  */
 
-import inherit from '../../../../phet-core/js/inherit.js';
 import Sound from '../../../../vibe/js/Sound.js';
 import bonk1Audio from '../../../sounds/bonk-1-for-plinko_mp3.js';
 import bonk2Audio from '../../../sounds/bonk-2-for-plinko_mp3.js';
 import plinkoProbability from '../../plinkoProbability.js';
 import PlinkoProbabilityConstants from '../PlinkoProbabilityConstants.js';
 
-/**
- * @param {Property.<boolean>} isSoundEnabledProperty
- * @constructor
- */
-function PegSoundGeneration( isSoundEnabledProperty ) {
+class PegSoundGeneration {
+  /**
+   * @param {Property.<boolean>} isSoundEnabledProperty
+   */
+  constructor( isSoundEnabledProperty ) {
 
-  // Audio for ball hitting pegs
-  this.bonk1Sound = new Sound( bonk1Audio );  // @private
-  this.bonk2Sound = new Sound( bonk2Audio );  // @private
-  this.soundTimeElapsed = 0;  // @private - number used to keep track of the last sound playing
-  this.isSoundEnabledProperty = isSoundEnabledProperty; // @private
-}
+    // Audio for ball hitting pegs
+    this.bonk1Sound = new Sound( bonk1Audio );  // @private
+    this.bonk2Sound = new Sound( bonk2Audio );  // @private
+    this.soundTimeElapsed = 0;  // @private - number used to keep track of the last sound playing
+    this.isSoundEnabledProperty = isSoundEnabledProperty; // @private
+  }
 
-plinkoProbability.register( 'PegSoundGeneration', PegSoundGeneration );
-
-inherit( Object, PegSoundGeneration, {
 
   // @public
-  reset: function() {
+  reset() {
     this.soundTimeElapsed = 0;
-  },
+  }
 
   /**
    * @param {number} dt - change in time
    * @public
    */
-  step: function( dt ) {
+  step( dt ) {
     this.soundTimeElapsed += dt;
-  },
+  }
 
   /**
    * Play sound that depends on the direction of the ball
@@ -50,7 +46,7 @@ inherit( Object, PegSoundGeneration, {
    * @param {string} direction - acceptable values are 'left' and 'right'
    * @public
    */
-  playBallHittingPegSound: function( direction ) {
+  playBallHittingPegSound( direction ) {
 
     assert && assert( direction === 'left' || direction === 'right', 'direction should be left or right' );
 
@@ -62,6 +58,8 @@ inherit( Object, PegSoundGeneration, {
       this.soundTimeElapsed = 0; // reset the time elapsed since last sound to zero
     }
   }
-} );
+}
+
+plinkoProbability.register( 'PegSoundGeneration', PegSoundGeneration );
 
 export default PegSoundGeneration;

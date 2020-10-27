@@ -17,9 +17,7 @@ const PlinkoProbabilityQueryParameters = QueryStringMachine.getAll( {
   maxBallsIntro: {
     type: 'number',
     defaultValue: 100,
-    isValidValue: function( value ) {
-      return value > 0 && Utils.isInteger( value );
-    }
+    isValidValue: value => value > 0 && Utils.isInteger( value )
   },
 
   // Maximum number of balls that can be in any 1 bin in the Lab screen, e.g. maxBallsLab=10
@@ -27,9 +25,7 @@ const PlinkoProbabilityQueryParameters = QueryStringMachine.getAll( {
   maxBallsLab: {
     type: 'number',
     defaultValue: 9999,
-    isValidValue: function( value ) {
-      return value > 0 && Utils.isInteger( value );
-    }
+    isValidValue: value => value > 0 && Utils.isInteger( value )
   },
 
   // Number of balls to put in the Lab screen histogram at startup, e.g. populateHistogram=20
@@ -37,9 +33,7 @@ const PlinkoProbabilityQueryParameters = QueryStringMachine.getAll( {
   histogramBallsLab: {
     type: 'number',
     defaultValue: 0,
-    isValidValue: function( value ) {
-      return value >= 0 && Utils.isInteger( value );
-    }
+    isValidValue: value => value >= 0 && Utils.isInteger( value )
   },
 
   // TODO: Bad things will happen if the minRow is set higher than maxRow
@@ -47,25 +41,19 @@ const PlinkoProbabilityQueryParameters = QueryStringMachine.getAll( {
   minRow: {
     type: 'number',
     defaultValue: 1,
-    isValidValue: function( value ) {
-      return value > 0 && Utils.isInteger( value );
-    }
+    isValidValue: value => value > 0 && Utils.isInteger( value )
   },
   // maximum number of peg rows on lab screen
   maxRow: {
     type: 'number',
     defaultValue: 26,
-    isValidValue: function( value ) {
-      return value > 0 && Utils.isInteger( value );
-    }
+    isValidValue: value => value > 0 && Utils.isInteger( value )
   },
   // default number of peg rows on intro and lab screen
   defaultRow: {
     type: 'number',
     defaultValue: 12,
-    isValidValue: function( value ) {
-      return value > 0 && Utils.isInteger( value );
-    }
+    isValidValue: value => value > 0 && Utils.isInteger( value )
   },
 
   // Uses 3D appearance for the Play button, see https://github.com/phetsims/plinko-probability/issues/26

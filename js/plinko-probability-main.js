@@ -24,7 +24,7 @@ const simOptions = {
   hasKeyboardHelpContent: true
 };
 
-simLauncher.launch( function() {
+simLauncher.launch( () => {
   const sim = new Sim( plinkoProbabilityTitleString, [ new IntroScreen(), new LabScreen() ], simOptions );
   sim.start();
 } );

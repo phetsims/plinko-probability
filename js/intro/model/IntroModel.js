@@ -6,7 +6,6 @@
  * @author Martin Veillette (Berea College)
  */
 
-import inherit from '../../../../phet-core/js/inherit.js';
 import PlinkoProbabilityCommonModel from '../../common/model/PlinkoProbabilityCommonModel.js';
 import PlinkoProbabilityConstants from '../../common/PlinkoProbabilityConstants.js';
 import PlinkoProbabilityQueryParameters from '../../common/PlinkoProbabilityQueryParameters.js';
@@ -17,45 +16,39 @@ import IntroBall from './IntroBall.js';
 const MAX_BALLS = PlinkoProbabilityQueryParameters.maxBallsIntro;
 const PERSPECTIVE_TILT = Math.PI / 1.4; // in radians
 
-/**
- * @constructor
- */
-function IntroModel() {
+class IntroModel extends PlinkoProbabilityCommonModel {
+  /**
+   */
+  constructor() {
+    super();
 
-  const self = this;
+    const bounds = PlinkoProbabilityConstants.HISTOGRAM_BOUNDS;
+    // the width of one bin is the total width divided by the number of columns
+    const binWidth = bounds.width / ( this.numberOfRowsProperty.get() + 1 );
+    const cylinderWidth = 0.95 * binWidth; // there is a small gap between each cylinder
+    const ellipseHeight = cylinderWidth * Math.sin( PERSPECTIVE_TILT ); // the height is the width times some perspective tilt
 
-  PlinkoProbabilityCommonModel.call( this );
+    this.cylinderInfo = { // @public (read-only)
+      cylinderWidth: cylinderWidth,
+      cylinderHeight: bounds.height * 0.87, // we want the cylinders to be shorter than the histogram
+      ellipseHeight: ellipseHeight, // the height of the ellipse
+      verticalOffset: 0.035, // gap between pegboard and cylinders
+      top: bounds.maxY // the top of the cylinders
+    };
 
-  const bounds = PlinkoProbabilityConstants.HISTOGRAM_BOUNDS;
-  // the width of one bin is the total width divided by the number of columns
-  const binWidth = bounds.width / ( this.numberOfRowsProperty.get() + 1 );
-  const cylinderWidth = 0.95 * binWidth; // there is a small gap between each cylinder
-  const ellipseHeight = cylinderWidth * Math.sin( PERSPECTIVE_TILT ); // the height is the width times some perspective tilt
+    // @private
+    this.launchedBallsNumber = 0; // number of balls created
+    this.ballsToCreateNumber = 0; // number of balls in the creation queue
 
-  this.cylinderInfo = { // @public (read-only)
-    cylinderWidth: cylinderWidth,
-    cylinderHeight: bounds.height * 0.87, // we want the cylinders to be shorter than the histogram
-    ellipseHeight: ellipseHeight, // the height of the ellipse
-    verticalOffset: 0.035, // gap between pegboard and cylinders
-    top: bounds.maxY // the top of the cylinders
-  };
+    // Stop dispensing balls when the ball mode is changed.
+    this.ballModeProperty.lazyLink( ballMode => {
+      if ( this.ballsToCreateNumber > 0 ) {
+        this.ballsToCreateNumber = 0;
+        this.isBallCapReachedProperty.set( this.launchedBallsNumber >= MAX_BALLS );
+      }
+    } );
+  }
 
-  // @private
-  this.launchedBallsNumber = 0; // number of balls created
-  this.ballsToCreateNumber = 0; // number of balls in the creation queue
-
-  // Stop dispensing balls when the ball mode is changed.
-  this.ballModeProperty.lazyLink( function( ballMode ) {
-    if ( self.ballsToCreateNumber > 0 ) {
-      self.ballsToCreateNumber = 0;
-      self.isBallCapReachedProperty.set( self.launchedBallsNumber >= MAX_BALLS );
-    }
-  } );
-}
-
-plinkoProbability.register( 'IntroModel', IntroModel );
-
-inherit( PlinkoProbabilityCommonModel, IntroModel, {
 
   /**
    * Time step function that is responsible for updating the position and status of the balls.
@@ -63,7 +56,7 @@ inherit( PlinkoProbabilityCommonModel, IntroModel, {
    * @param {number} dt - time interval
    * @public
    */
-  step: function( dt ) {
+  step( dt ) {
 
     // Keep track of the time elapsed since the last ball was created
     this.ballCreationTimeElapsed += dt;
@@ -79,7 +72,7 @@ inherit( PlinkoProbabilityCommonModel, IntroModel, {
     // Move balls
     let ballsMoved = false;
     const dtCapped = Math.min( 0.1, dt * 5 ); // Cap the dt so that the balls don't make a big jump
-    this.balls.forEach( function( ball ) {
+    this.balls.forEach( ball => {
       const ballMoved = ball.step( dtCapped );
       ballsMoved = ( ballMoved || ballsMoved );
     } );
@@ -88,17 +81,17 @@ inherit( PlinkoProbabilityCommonModel, IntroModel, {
     if ( ballsMoved ) {
       this.ballsMovedEmitter.emit();
     }
-  },
+  }
 
   /**
    * @override
    * @public
    */
-  erase: function() {
-    PlinkoProbabilityCommonModel.prototype.erase.call( this );
+  erase() {
+    super.erase();
     this.ballsToCreateNumber = 0;
     this.launchedBallsNumber = 0;
-  },
+  }
 
   /**
    * This function updates the number of balls to be launched which depends on the status of ballMode.
@@ -106,7 +99,7 @@ inherit( PlinkoProbabilityCommonModel, IntroModel, {
    *
    * @private
    */
-  updateBallsToCreateNumber: function() {
+  updateBallsToCreateNumber() {
     switch( this.ballModeProperty.get() ) {
 
       // add one ball to the queue
@@ -127,14 +120,14 @@ inherit( PlinkoProbabilityCommonModel, IntroModel, {
       default:
         throw new Error( 'invalid ballMode: ' + this.ballModeProperty.get() );
     }
-  },
+  }
 
   /**
    * Add a new Ball to the model
    *
    * @private
    */
-  addNewBall: function() {
+  addNewBall() {
 
     // create a new ball
     const addedBall = new IntroBall( this.probabilityProperty.get(), this.numberOfRowsProperty.get(),
@@ -154,12 +147,14 @@ inherit( PlinkoProbabilityCommonModel, IntroModel, {
     this.balls.push( addedBall );
 
     // ballOutOfPegsEmitter is emitted when the addedBall leaves the last peg on the Galton board.
-    const self = this;
-    addedBall.ballOutOfPegsEmitter.addListener( function ballOutOfPegsListener() {
-      self.histogram.addBallToHistogram( addedBall );
+    const ballOutOfPegsListener = () => {
+      this.histogram.addBallToHistogram( addedBall );
       addedBall.ballOutOfPegsEmitter.removeListener( ballOutOfPegsListener );
-    } );
+    };
+    addedBall.ballOutOfPegsEmitter.addListener( ballOutOfPegsListener );
   }
-} );
+}
+
+plinkoProbability.register( 'IntroModel', IntroModel );
 
 export default IntroModel;

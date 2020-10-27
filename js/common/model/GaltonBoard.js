@@ -7,48 +7,60 @@
  */
 
 import Vector2 from '../../../../dot/js/Vector2.js';
-import inherit from '../../../../phet-core/js/inherit.js';
 import plinkoProbability from '../../plinkoProbability.js';
 import PlinkoProbabilityConstants from '../PlinkoProbabilityConstants.js';
 
-/**
- * @param {Property.<number>} numberOfRowsProperty - number of rows of pegs
- * @constructor
- */
-function GaltonBoard( numberOfRowsProperty ) {
+class GaltonBoard {
+  /**
+   * @param {Property.<number>} numberOfRowsProperty - number of rows of pegs
+   */
+  constructor( numberOfRowsProperty ) {
 
-  // @public
-  this.bounds = PlinkoProbabilityConstants.GALTON_BOARD_BOUNDS;
+    // @public
+    this.bounds = PlinkoProbabilityConstants.GALTON_BOARD_BOUNDS;
 
-  let rowNumber; // {number} a non negative integer
-  let columnNumber; // {number} a non negative  integer
-  this.pegs = []; // @public (read-only)
+    let rowNumber; // {number} a non negative integer
+    let columnNumber; // {number} a non negative  integer
+    this.pegs = []; // @public (read-only)
 
-  // creates all the pegs (up to the maximum number of possible rows)
-  for ( rowNumber = 0; rowNumber <= PlinkoProbabilityConstants.ROWS_RANGE.max; rowNumber++ ) {
-    for ( columnNumber = 0; columnNumber <= rowNumber; columnNumber++ ) {
-      const peg = {
-        rowNumber: rowNumber, // an integer starting at zero
-        columnNumber: columnNumber // an integer starting at zero
-      };
-      this.pegs.push( peg );
+    // creates all the pegs (up to the maximum number of possible rows)
+    for ( rowNumber = 0; rowNumber <= PlinkoProbabilityConstants.ROWS_RANGE.max; rowNumber++ ) {
+      for ( columnNumber = 0; columnNumber <= rowNumber; columnNumber++ ) {
+        const peg = {
+          rowNumber: rowNumber, // an integer starting at zero
+          columnNumber: columnNumber // an integer starting at zero
+        };
+        this.pegs.push( peg );
+      }
     }
+
+    // link the numberOrRows to adjust the spacing between pegs (and size)
+    // link is present for the lifetime of the sum
+    numberOfRowsProperty.link( numberOfRows => {
+
+      this.pegs.forEach( peg => {
+        // for performance reasons, we don't throw out the pegs, we simply update their visibility
+        peg.isVisible = isPegVisible( peg.rowNumber, numberOfRows );
+        if ( peg.isVisible ) {
+          // update the position of the pegs on the Galton Board.
+          peg.position = getPegPosition( peg.rowNumber, peg.columnNumber, numberOfRows );
+        }
+      } );
+    } );
   }
 
-  // link the numberOrRows to adjust the spacing between pegs (and size)
-  // link is present for the lifetime of the sum
-  const self = this;
-  numberOfRowsProperty.link( function( numberOfRows ) {
 
-    self.pegs.forEach( function( peg ) {
-      // for performance reasons, we don't throw out the pegs, we simply update their visibility
-      peg.isVisible = isPegVisible( peg.rowNumber, numberOfRows );
-      if ( peg.isVisible ) {
-        // update the position of the pegs on the Galton Board.
-        peg.position = getPegPosition( peg.rowNumber, peg.columnNumber, numberOfRows );
-      }
-    } );
-  } );
+  /**
+   * Gets the horizontal spacing between two pegs on the same row on the Galton board.
+   *
+   * @param {number} numberOfRows
+   * @returns {number}
+   * @public
+   * @static
+   */
+  static getPegSpacing( numberOfRows ) {
+    return PlinkoProbabilityConstants.GALTON_BOARD_BOUNDS.width / ( numberOfRows + 1 );
+  }
 }
 
 plinkoProbability.register( 'GaltonBoard', GaltonBoard );
@@ -62,12 +74,10 @@ plinkoProbability.register( 'GaltonBoard', GaltonBoard );
  * @returns {Vector2}
  * @public
  */
-var getPegPosition = function( rowNumber, columnNumber, numberOfRows ) {
-  return new Vector2(
-    -rowNumber / 2 + columnNumber,
-    -rowNumber - 2 * PlinkoProbabilityConstants.PEG_HEIGHT_FRACTION_OFFSET )
-    .divideScalar( numberOfRows + 1 );
-};
+const getPegPosition = ( rowNumber, columnNumber, numberOfRows ) => new Vector2(
+  -rowNumber / 2 + columnNumber,
+  -rowNumber - 2 * PlinkoProbabilityConstants.PEG_HEIGHT_FRACTION_OFFSET )
+  .divideScalar( numberOfRows + 1 );
 
 /**
  * Is the specified peg visible?
@@ -77,23 +87,6 @@ var getPegPosition = function( rowNumber, columnNumber, numberOfRows ) {
  * @returns {boolean}
  * @public
  */
-var isPegVisible = function( rowNumber, numberOfRows ) {
-  return ( rowNumber < numberOfRows );
-};
-
-inherit( Object, GaltonBoard, {}, {
-
-  /**
-   * Gets the horizontal spacing between two pegs on the same row on the Galton board.
-   *
-   * @param {number} numberOfRows
-   * @returns {number}
-   * @public
-   * @static
-   */
-  getPegSpacing: function( numberOfRows ) {
-    return PlinkoProbabilityConstants.GALTON_BOARD_BOUNDS.width / ( numberOfRows + 1 );
-  }
-} );
+const isPegVisible = ( rowNumber, numberOfRows ) => rowNumber < numberOfRows;
 
 export default GaltonBoard;

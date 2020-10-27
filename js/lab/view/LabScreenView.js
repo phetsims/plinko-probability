@@ -38,8 +38,6 @@ class LabScreenView extends PlinkoProbabilityCommonView {
     super( model, {
       histogramMode: 'counter'
     } );
-    const self = this;
-
     // pegs on the Galton board
     const pegsNode = new PegsNode( model.galtonBoard, model.numberOfRowsProperty, model.probabilityProperty, this.modelViewTransform, {
       canvasBounds: this.viewTriangularBoardBounds
@@ -101,33 +99,38 @@ class LabScreenView extends PlinkoProbabilityCommonView {
     this.addChild( pathsLayer );
 
     // handle the coming and going of the balls in the model.
-    model.balls.addItemAddedListener( function( addedBall ) {
+    model.balls.addItemAddedListener( addedBall => {
+      let removalListener;
       switch( model.hopperModeProperty.get() ) {
 
-        case 'ball':
+        case 'ball': {
           // initiates sound to play when ball hits a peg
-          var ballHittingPegListener = function( direction ) {
-            self.pegSoundGeneration.playBallHittingPegSound( direction );
+          const ballHittingPegListener = direction => {
+            this.pegSoundGeneration.playBallHittingPegSound( direction );
           };
           addedBall.ballHittingPegEmitter.addListener( ballHittingPegListener );
-          model.balls.addItemRemovedListener( function removalListener( removedBall ) {
+          removalListener = removedBall => {
             if ( removedBall === addedBall ) {
               addedBall.ballHittingPegEmitter.removeListener( ballHittingPegListener );
               model.balls.removeItemRemovedListener( removalListener );
             }
-          } );
+          };
+          model.balls.addItemRemovedListener( removalListener );
           break;
+        }
 
-        case 'path':
-          var addedTrajectoryPath = new TrajectoryPath( addedBall, self.modelViewTransform );
+        case 'path': {
+          const addedTrajectoryPath = new TrajectoryPath( addedBall, this.modelViewTransform );
           pathsLayer.addChild( addedTrajectoryPath );
-          model.balls.addItemRemovedListener( function removalListener( removedBall ) {
+          removalListener = removedBall => {
             if ( removedBall === addedBall ) {
               pathsLayer.removeChild( addedTrajectoryPath );
               model.balls.removeItemRemovedListener( removalListener );
             }
-          } );
+          };
+          model.balls.addItemRemovedListener( removalListener );
           break;
+        }
 
         case 'none':
           break;
@@ -141,7 +144,7 @@ class LabScreenView extends PlinkoProbabilityCommonView {
     let dialog = null;
 
     // no need to dispose of this link
-    model.isBallCapReachedProperty.lazyLink( function( isBallCapReached ) {
+    model.isBallCapReachedProperty.lazyLink( isBallCapReached => {
 
       // when the max number of balls is reached...
       if ( isBallCapReached ) {

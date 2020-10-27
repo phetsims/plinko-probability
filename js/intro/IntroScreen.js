@@ -37,8 +37,8 @@ class IntroScreen extends Screen {
     };
 
     super(
-      function() { return new IntroModel(); },
-      function( model ) { return new IntroScreenView( model ); },
+      () => new IntroModel(),
+      model => new IntroScreenView( model ),
       options
     );
   }

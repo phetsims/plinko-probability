@@ -33,8 +33,6 @@ class IntroScreenView extends PlinkoProbabilityCommonView {
   constructor( model ) {
 
     super( model );
-    const self = this;
-
     // pegs on the Galton board
     const pegsNode = new PegsNode( model.galtonBoard, model.numberOfRowsProperty, model.probabilityProperty, this.modelViewTransform, {
       rotatePegs: false, // pegs do not rotate as probability changes, so they do not have a flat surface
@@ -76,16 +74,16 @@ class IntroScreenView extends PlinkoProbabilityCommonView {
 
     // link the histogram radio buttons to toggle the visibility of the histogram and cylinders
     // link is present fot the lifetime of the sim
-    this.viewProperties.histogramModeProperty.link( function( histogramMode ) {
-      self.ballsNode.invalidatePaint();
+    this.viewProperties.histogramModeProperty.link( histogramMode => {
+      this.ballsNode.invalidatePaint();
       switch( histogramMode ) {
         case 'counter':
-          self.histogramNode.visible = true;
+          this.histogramNode.visible = true;
           cylindersBackNode.visible = false;
           cylindersFrontNode.visible = false;
           break;
         case 'cylinder':
-          self.histogramNode.visible = false;
+          this.histogramNode.visible = false;
           cylindersBackNode.visible = true;
           cylindersFrontNode.visible = true;
           break;
@@ -95,11 +93,11 @@ class IntroScreenView extends PlinkoProbabilityCommonView {
     } );
 
     // handle the coming and going of the model Balls
-    model.balls.addItemAddedListener( function( addedBall ) {
+    model.balls.addItemAddedListener( addedBall => {
 
       // play sound when ball hits a peg
-      const ballHittingPegListener = function( direction ) {
-        self.pegSoundGeneration.playBallHittingPegSound( direction );
+      const ballHittingPegListener = direction => {
+        this.pegSoundGeneration.playBallHittingPegSound( direction );
       };
 
       addedBall.ballHittingPegEmitter.addListener( ballHittingPegListener );

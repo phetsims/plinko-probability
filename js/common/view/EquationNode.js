@@ -9,7 +9,6 @@
  */
 
 import Utils from '../../../../dot/js/Utils.js';
-import inherit from '../../../../phet-core/js/inherit.js';
 import merge from '../../../../phet-core/js/merge.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import HStrut from '../../../../scenery/js/nodes/HStrut.js';
@@ -18,73 +17,70 @@ import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import plinkoProbability from '../../plinkoProbability.js';
 
-/**
- * @param {string} leftHandSideOfEquation - the string that should appear on the left hand side of the equation
- * @param {number} rightHandSideOfEquation - the value (number) that should appear on the right hand side
- * @param {Object} [options]
- * @constructor
- */
-function EquationNode( leftHandSideOfEquation, rightHandSideOfEquation, options ) {
+class EquationNode extends Node {
+  /**
+   * @param {string} leftHandSideOfEquation - the string that should appear on the left hand side of the equation
+   * @param {number} rightHandSideOfEquation - the value (number) that should appear on the right hand side
+   * @param {Object} [options]
+   */
+  constructor( leftHandSideOfEquation, rightHandSideOfEquation, options ) {
 
-  Node.call( this );
+    super();
 
-  options = merge( {
-    leftHandSideFont: new PhetFont( 16 ),
-    rightHandSideFont: new PhetFont( 16 ),
-    leftHandSideFill: 'blue',
-    rightHandSideFill: 'blue',
-    positionOfEqualSign: 30,// position of the equal sign, (the left hand side is defined as zero).
-    maxDecimalPlaces: 3,
-    leftHandSideMaxWidth: 45  // maximum width of left hand side of equation
-  }, options );
+    options = merge( {
+      leftHandSideFont: new PhetFont( 16 ),
+      rightHandSideFont: new PhetFont( 16 ),
+      leftHandSideFill: 'blue',
+      rightHandSideFill: 'blue',
+      positionOfEqualSign: 30,// position of the equal sign, (the left hand side is defined as zero).
+      maxDecimalPlaces: 3,
+      leftHandSideMaxWidth: 45  // maximum width of left hand side of equation
+    }, options );
 
-  // @private
-  this.options = options;
+    // @private
+    this.options = options;
 
-  const leftHandSideOfEquationText = new RichText( leftHandSideOfEquation, {
-    font: options.leftHandSideFont,
-    fill: options.leftHandSideFill,
-    subScale: 0.5,
-    maxWidth: options.leftHandSideMaxWidth
-  } );
+    const leftHandSideOfEquationText = new RichText( leftHandSideOfEquation, {
+      font: options.leftHandSideFont,
+      fill: options.leftHandSideFill,
+      subScale: 0.5,
+      maxWidth: options.leftHandSideMaxWidth
+    } );
 
-  const equalSignText = new Text( ' = ', {
-    font: options.leftHandSideFont,
-    fill: options.leftHandSideFill
-  } );
+    const equalSignText = new Text( ' = ', {
+      font: options.leftHandSideFont,
+      fill: options.leftHandSideFill
+    } );
 
-  const rightHandSideOfEquationText = new Text( this.roundNumber( rightHandSideOfEquation ), {
-    font: options.rightHandSideFont,
-    fill: options.rightHandSideFill
-  } );
+    const rightHandSideOfEquationText = new Text( this.roundNumber( rightHandSideOfEquation ), {
+      font: options.rightHandSideFont,
+      fill: options.rightHandSideFill
+    } );
 
-  // @private
-  this.rightHandSideOfEquationText = rightHandSideOfEquationText;
+    // @private
+    this.rightHandSideOfEquationText = rightHandSideOfEquationText;
 
-  const hStrut = new HStrut( options.positionOfEqualSign );
+    const hStrut = new HStrut( options.positionOfEqualSign );
 
-  // create the mutable Equation, the right hand side is mutable
-  const mutableEquationText = new Node( {
-    children: [
-      hStrut,
-      leftHandSideOfEquationText,
-      equalSignText,
-      rightHandSideOfEquationText
-    ]
-  } );
+    // create the mutable Equation, the right hand side is mutable
+    const mutableEquationText = new Node( {
+      children: [
+        hStrut,
+        leftHandSideOfEquationText,
+        equalSignText,
+        rightHandSideOfEquationText
+      ]
+    } );
 
-  // in general, we align the equation with respect to the equal sign (that's aesthetically pleasing)
-  // but we don't want to to enforce this rule if the left hand side of the equation is too long.
-  leftHandSideOfEquationText.right = options.positionOfEqualSign;
-  equalSignText.left = leftHandSideOfEquationText.right;
-  rightHandSideOfEquationText.left = equalSignText.right;
+    // in general, we align the equation with respect to the equal sign (that's aesthetically pleasing)
+    // but we don't want to to enforce this rule if the left hand side of the equation is too long.
+    leftHandSideOfEquationText.right = options.positionOfEqualSign;
+    equalSignText.left = leftHandSideOfEquationText.right;
+    rightHandSideOfEquationText.left = equalSignText.right;
 
-  this.addChild( mutableEquationText );
-}
+    this.addChild( mutableEquationText );
+  }
 
-plinkoProbability.register( 'EquationNode', EquationNode );
-
-inherit( Node, EquationNode, {
 
   /**
    * Update the value of the right side of the equation (a number)
@@ -92,9 +88,9 @@ inherit( Node, EquationNode, {
    * @param {number} value
    * @public
    */
-  setRightHandSideOfEquation: function( value ) {
+  setRightHandSideOfEquation( value ) {
     this.rightHandSideOfEquationText.text = this.roundNumber( value );
-  },
+  }
 
   /**
    * Function that returns (for numbers smaller than ten) a number (as a string)  with a fixed number of decimal places
@@ -104,7 +100,7 @@ inherit( Node, EquationNode, {
    * @returns {string}
    * @private
    */
-  roundNumber: function( number ) {
+  roundNumber( number ) {
 
     // eg. if maxDecimalPlaces =3
     // 9999.11 -> 9999  (number larger than 10^3) are rounded to unity
@@ -133,6 +129,8 @@ inherit( Node, EquationNode, {
 
     return Utils.toFixed( number, decimalPlaces );
   }
-} );
+}
+
+plinkoProbability.register( 'EquationNode', EquationNode );
 
 export default EquationNode;

@@ -8,142 +8,110 @@
 
 import Emitter from '../../../../axon/js/Emitter.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import inherit from '../../../../phet-core/js/inherit.js';
 import plinkoProbability from '../../plinkoProbability.js';
 import PlinkoProbabilityConstants from '../PlinkoProbabilityConstants.js';
 import BallPhase from './BallPhase.js';
 import GaltonBoard from './GaltonBoard.js';
 
-/**
- * @param {number} probability - number ranging from 0 to 1
- * @param {number} numberOfRows - an integer
- * @param {Array.<Object>} bins
- * @constructor
- */
-function Ball( probability, numberOfRows, bins ) {
-
-  // position vector
-  this.position = new Vector2( 0, 0 ); // @public (read-only)
-
-  this.probability = probability; // @private (read-only)
-  this.numberOfRows = numberOfRows; // @private (read-only)
-
-  this.pegSeparation = GaltonBoard.getPegSpacing( numberOfRows ); // @public (read-only)
-
-  this.ballRadius = this.pegSeparation * PlinkoProbabilityConstants.BALL_SIZE_FRACTION;  // @public (read-only)
-
-  this.phase = BallPhase.INITIAL; // @public (read-only), see BallPhase
-
-  // @public
-  this.ballHittingPegEmitter = new Emitter( {
-    parameters: [ { validValues: [ 'left', 'right' ] } ]
-  } );
-  this.ballOutOfPegsEmitter = new Emitter();
-  this.ballCollectedEmitter = new Emitter();
-
-  // rows and column
-  /*
-   * the pegs are assigned a row and column ( the columns are left aligned)
-   * the row and column numbers start at zero
-   * they are arranged in the following manner
-   *
-   *   X
-   *   X X
-   *   X X X
-   *   X X X X
+class Ball {
+  /**
+   * @param {number} probability - number ranging from 0 to 1
+   * @param {number} numberOfRows - an integer
+   * @param {Array.<Object>} bins
    */
+  constructor( probability, numberOfRows, bins ) {
 
-  // 0 is the topmost
-  this.row = 0; // @private
+    // position vector
+    this.position = new Vector2( 0, 0 ); // @public (read-only)
 
-  // the direction in which the ball is going 'left','right'
-  this.direction = 'left';  // @public (read-only)
+    this.probability = probability; // @private (read-only)
+    this.numberOfRows = numberOfRows; // @private (read-only)
 
-  // 0 is the top of the current peg, 1 is the top of the next peg
-  this.fallenRatio = 0; // @private
+    this.pegSeparation = GaltonBoard.getPegSpacing( numberOfRows ); // @public (read-only)
 
-  // contains the pegs which the ball will touch
-  this.pegHistory = []; // @public (read-only) {Array.<Object>}
+    this.ballRadius = this.pegSeparation * PlinkoProbabilityConstants.BALL_SIZE_FRACTION;  // @public (read-only)
 
-  this.finalBinHorizontalOffset = 0; // @public describes final horizontal offset of ball within a bin {number}
-  this.finalBinVerticalOffset = 0;  // @public describes final vertical offset of ball within a bin {number}
+    this.phase = BallPhase.INITIAL; // @public (read-only), see BallPhase
 
-  let direction;  // 'left', 'right'
-  let rowNumber;
-  let columnNumber = 0;
-  let peg; // {Object}
+    // @public
+    this.ballHittingPegEmitter = new Emitter( {
+      parameters: [ { validValues: [ 'left', 'right' ] } ]
+    } );
+    this.ballOutOfPegsEmitter = new Emitter();
+    this.ballCollectedEmitter = new Emitter();
 
-  // the path of the balls through the pegs of the galton board  is determined
-  for ( rowNumber = 0; rowNumber <= numberOfRows; rowNumber++ ) {
-    direction = ( phet.joist.random.nextDouble() > probability ) ? 'left' : 'right';
-    peg = {
-      rowNumber: rowNumber, // an integer starting at zero
-      positionX: getPegPositionX( rowNumber, columnNumber, numberOfRows ),
-      positionY: getPegPositionY( rowNumber, columnNumber, numberOfRows ),
-      direction: direction // direction to the next peg
-    };
+    // rows and column
+    /*
+     * the pegs are assigned a row and column ( the columns are left aligned)
+     * the row and column numbers start at zero
+     * they are arranged in the following manner
+     *
+     *   X
+     *   X X
+     *   X X X
+     *   X X X X
+     */
 
-    this.pegHistory.push( peg );
+    // 0 is the topmost
+    this.row = 0; // @private
 
-    // increment the column number of the next row, but not for the last row
-    if ( rowNumber < numberOfRows ) {
-      columnNumber += ( direction === 'left' ) ? 0 : 1;
+    // the direction in which the ball is going 'left','right'
+    this.direction = 'left';  // @public (read-only)
+
+    // 0 is the top of the current peg, 1 is the top of the next peg
+    this.fallenRatio = 0; // @private
+
+    // contains the pegs which the ball will touch
+    this.pegHistory = []; // @public (read-only) {Array.<Object>}
+
+    this.finalBinHorizontalOffset = 0; // @public describes final horizontal offset of ball within a bin {number}
+    this.finalBinVerticalOffset = 0;  // @public describes final vertical offset of ball within a bin {number}
+
+    let direction;  // 'left', 'right'
+    let rowNumber;
+    let columnNumber = 0;
+    let peg; // {Object}
+
+    // the path of the balls through the pegs of the galton board  is determined
+    for ( rowNumber = 0; rowNumber <= numberOfRows; rowNumber++ ) {
+      direction = ( phet.joist.random.nextDouble() > probability ) ? 'left' : 'right';
+      peg = {
+        rowNumber: rowNumber, // an integer starting at zero
+        positionX: getPegPositionX( rowNumber, columnNumber, numberOfRows ),
+        positionY: getPegPositionY( rowNumber, columnNumber, numberOfRows ),
+        direction: direction // direction to the next peg
+      };
+
+      this.pegHistory.push( peg );
+
+      // increment the column number of the next row, but not for the last row
+      if ( rowNumber < numberOfRows ) {
+        columnNumber += ( direction === 'left' ) ? 0 : 1;
+      }
     }
+
+    // @public (read-only)
+    // bin position of the ball {number}
+    this.binIndex = columnNumber;
+
+    // @public (read-only)
+    // binCount {number} indicates the number of balls in a specific cylinder
+    this.binCount = bins[ columnNumber ].binCount;
+
+    // increment the number of balls in this index by one
+    this.binCount++;
+
   }
 
-  // @public (read-only)
-  // bin position of the ball {number}
-  this.binIndex = columnNumber;
-
-  // @public (read-only)
-  // binCount {number} indicates the number of balls in a specific cylinder
-  this.binCount = bins[ columnNumber ].binCount;
-
-  // increment the number of balls in this index by one
-  this.binCount++;
-
-}
-
-plinkoProbability.register( 'Ball', Ball );
-
-/**
- * Function that returns the X position of a peg with index rowNumber and column Number
- * The position is given in the model view (with respect to the galton board)
- *
- * @param {number} rowNumber
- * @param {number} columnNumber
- * @param {number} numberOfRows
- * @returns {number}
- * @public
- */
-var getPegPositionX = function( rowNumber, columnNumber, numberOfRows ) {
-  return ( -rowNumber / 2 + columnNumber ) / ( numberOfRows + 1 );
-};
-
-/**
- * Function that returns the Y position of a peg with index rowNumber and column Number
- * The position is given in the model view (with respect to the galton board)
- *
- * @param {number} rowNumber
- * @param {number} columnNumber
- * @param {number} numberOfRows
- * @returns {number}
- * @public
- */
-var getPegPositionY = function( rowNumber, columnNumber, numberOfRows ) {
-  return ( -rowNumber - 2 * PlinkoProbabilityConstants.PEG_HEIGHT_FRACTION_OFFSET ) / ( numberOfRows + 1 );
-};
-
-inherit( Object, Ball, {
 
   /**
    * @param {number} dt - time interval
    * @returns {boolean} true if the ball moved, false if it didn't move
    * @public
    */
-  step: function( dt ) {
+  step( dt ) {
     return this.ballStep( dt );
-  },
+  }
 
   /**
    * Updates the peg information (rowNumber, columnNumber, and position) used for determining ball position
@@ -157,7 +125,7 @@ inherit( Object, Ball, {
    * @returns {boolean} true if the ball moved, false if it didn't move
    * @private
    */
-  ballStep: function( df ) {
+  ballStep( df ) {
 
     if ( this.phase === BallPhase.COLLECTED ) {
       // do nothing, the ball is at rest in a bin
@@ -211,13 +179,13 @@ inherit( Object, Ball, {
     // update the position of the ball
     this.updatePosition();
     return true;
-  },
+  }
 
   /**
    * Updates the position of the ball depending on the phase.
    * @private
    */
-  updatePosition: function() {
+  updatePosition() {
     switch( this.phase ) {
 
       // ball left the hopper
@@ -235,10 +203,10 @@ inherit( Object, Ball, {
         break;
 
       // ball is falling through the pegs
-      case BallPhase.FALLING:
+      case BallPhase.FALLING: {
 
         // steer the ball to the left or right depending on this.direction
-        var shift = ( this.direction === 'left' ) ? -0.5 : 0.5;
+        const shift = ( this.direction === 'left' ) ? -0.5 : 0.5;
 
         // mimic the fall as a parabolic motion
         this.position.setXY( shift * this.fallenRatio, -this.fallenRatio * this.fallenRatio );
@@ -253,6 +221,7 @@ inherit( Object, Ball, {
         }
         this.position.addXY( this.pegPositionX, this.pegPositionY );
         break;
+      }
 
       // the ball is exiting the pegs and making its way to the bin
       case BallPhase.EXITED:
@@ -272,7 +241,7 @@ inherit( Object, Ball, {
 
     // add a vertical offset, such that the balls do not reach the pegs but are over the pegs.
     this.position.addXY( 0, this.pegSeparation * PlinkoProbabilityConstants.PEG_HEIGHT_FRACTION_OFFSET );
-  },
+  }
 
   /**
    * Sends the trigger to update statistics and land.
@@ -282,7 +251,7 @@ inherit( Object, Ball, {
    *
    * @public
    */
-  updateStatisticsAndLand: function() {
+  updateStatisticsAndLand() {
     if ( this.phase === BallPhase.INITIAL ) {
 
       // send triggers
@@ -292,30 +261,56 @@ inherit( Object, Ball, {
       // change phase to indicate that ball has landed in bin
       this.phase = BallPhase.COLLECTED;
     }
-  },
+  }
 
   /**
    * Initializes the peg position.
    * @private
    */
-  initializePegPosition: function() {
+  initializePegPosition() {
     const peg = this.pegHistory[ 0 ]; // get the first peg from the peg history
     this.row = peg.rowNumber; // 0 is the left most
     this.pegPositionX = peg.positionX; // x position of the peg based on the column, row, and number of of rows
     this.pegPositionY = peg.positionY; // y position of the peg based on the column, row, and number of of rows
-  },
+  }
 
   /**
    * Updates the peg position.
    * @private
    */
-  updatePegPosition: function() {
+  updatePegPosition() {
     const peg = this.pegHistory.shift();
     this.row = peg.rowNumber; // 0 is the leftmost
     this.pegPositionX = peg.positionX; // x position of the peg based on the column, row, and number of of rows
     this.pegPositionY = peg.positionY; // y position of the peg based on the column, row, and number of of rows
     this.direction = peg.direction; // whether the ball went left or right
   }
-} );
+}
+
+plinkoProbability.register( 'Ball', Ball );
+
+/**
+ * Function that returns the X position of a peg with index rowNumber and column Number
+ * The position is given in the model view (with respect to the galton board)
+ *
+ * @param {number} rowNumber
+ * @param {number} columnNumber
+ * @param {number} numberOfRows
+ * @returns {number}
+ * @public
+ */
+const getPegPositionX = ( rowNumber, columnNumber, numberOfRows ) => ( -rowNumber / 2 + columnNumber ) / ( numberOfRows + 1 );
+
+/**
+ * Function that returns the Y position of a peg with index rowNumber and column Number
+ * The position is given in the model view (with respect to the galton board)
+ *
+ * @param {number} rowNumber
+ * @param {number} columnNumber
+ * @param {number} numberOfRows
+ * @returns {number}
+ * @public
+ */
+const getPegPositionY = ( rowNumber, columnNumber, numberOfRows ) => ( -rowNumber - 2 * PlinkoProbabilityConstants.PEG_HEIGHT_FRACTION_OFFSET ) / ( numberOfRows + 1 );
 
 export default Ball;

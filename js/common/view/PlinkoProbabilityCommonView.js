@@ -84,7 +84,7 @@ class PlinkoProbabilityCommonView extends ScreenView {
     const eraserButton = new EraserButton( {
       iconWidth: 22,
       scale: 1.4,
-      listener: function() { model.erase(); },
+      listener: () => { model.erase(); },
       bottom: this.layoutBounds.maxY - 55,
       left: 40
     } );
@@ -93,11 +93,10 @@ class PlinkoProbabilityCommonView extends ScreenView {
     this.pegSoundGeneration = new PegSoundGeneration( viewProperties.isSoundEnabledProperty );
 
     // Reset All Button at bottom right
-    const self = this;
     const resetAllButton = new ResetAllButton( {
-      listener: function() {
+      listener: () => {
         model.reset();
-        self.reset();
+        this.reset();
       },
       right: this.layoutBounds.maxX - PlinkoProbabilityConstants.PANEL_RIGHT_PADDING,
       bottom: this.layoutBounds.maxY - 10
@@ -121,13 +120,13 @@ class PlinkoProbabilityCommonView extends ScreenView {
 
     // Hide BallsNode when the hopper mode is not 'ball'.
     // unlink unnecessary since this instance exists for the lifetime of the sim.
-    model.hopperModeProperty.link( function( hopperMode ) {
+    model.hopperModeProperty.link( hopperMode => {
       ballsNode.visible = ( hopperMode === 'ball' );
     } );
 
     // When switching to show bins, repaint the balls.
     // unlink unnecessary since this instance exists for the lifetime of the sim.
-    viewProperties.histogramModeProperty.link( function( histogramMode ) {
+    viewProperties.histogramModeProperty.link( histogramMode => {
       if ( histogramMode === 'cylinder' ) {
         ballsNode.invalidatePaint();
       }
@@ -135,7 +134,7 @@ class PlinkoProbabilityCommonView extends ScreenView {
 
     // Repaint ballsNode when balls have moved.
     // See https://github.com/phetsims/plinko-probability/issues/62
-    model.ballsMovedEmitter.addListener( function() {
+    model.ballsMovedEmitter.addListener( () => {
       ballsNode.invalidatePaint();
     } );
 

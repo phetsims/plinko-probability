@@ -88,7 +88,7 @@ class LabPlayPanel extends Panel {
 
     // create the play button
     const playButton = new PlayButton( {
-      listener: function() {
+      listener: () => {
         if ( model.isBallCapReachedProperty.get() ) {
           model.isBallCapReachedProperty.notifyListenersStatic();
         }
@@ -106,7 +106,7 @@ class LabPlayPanel extends Panel {
 
     // create the pause button
     const pauseButton = new PauseButton( {
-      listener: function() {
+      listener: () => {
         playButtonVisibleProperty.set( true ); // make the play button visible
         model.isPlayingProperty.set( false ); // set isPlayingProperty to false signifying that no balls are being dropped
       }
@@ -115,7 +115,7 @@ class LabPlayPanel extends Panel {
     const playPlayPauseButton = new BooleanToggleNode( playButton, pauseButton, playButtonVisibleProperty );
 
     // link the ballModeProperty to the state of the playPauseButton
-    model.ballModeProperty.link( function() {
+    model.ballModeProperty.link( () => {
       model.isPlayingProperty.set( false ); // if the radio buttons change then we would like to change the playing property
       playButtonVisibleProperty.set( true );
     } );
@@ -135,7 +135,7 @@ class LabPlayPanel extends Panel {
     this.playButtonVisibleProperty = playButtonVisibleProperty;
 
     // Disables play button if maximum amount of balls are dropped
-    model.isBallCapReachedProperty.lazyLink( function( isBallCapReached ) {
+    model.isBallCapReachedProperty.lazyLink( isBallCapReached => {
       playButton.enabled = !isBallCapReached;
     } );
   }
