@@ -23,6 +23,8 @@ class PlayButton extends RoundPushButton {
 
     options = merge( {
       radius: PlinkoProbabilityConstants.PLAY_PAUSE_BUTTON_RADIUS,
+      xMargin: 15,
+      yMargin: 15,
       baseColor: 'rgb( 0, 224, 121 )', // light green
       iconColor: 'black',
       buttonAppearanceStrategy: PlinkoProbabilityConstants.PLAY_PAUSE_BUTTON_APPEARANCE_STRATEGY
