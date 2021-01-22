@@ -7,6 +7,7 @@
  */
 
 import Emitter from '../../../../axon/js/Emitter.js';
+import dotRandom from '../../../../dot/js/dotRandom.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import plinkoProbability from '../../plinkoProbability.js';
 import PlinkoProbabilityConstants from '../PlinkoProbabilityConstants.js';
@@ -74,7 +75,7 @@ class Ball {
 
     // the path of the balls through the pegs of the galton board  is determined
     for ( rowNumber = 0; rowNumber <= numberOfRows; rowNumber++ ) {
-      direction = ( phet.joist.random.nextDouble() > probability ) ? 'left' : 'right';
+      direction = ( dotRandom.nextDouble() > probability ) ? 'left' : 'right';
       peg = {
         rowNumber: rowNumber, // an integer starting at zero
         positionX: getPegPositionX( rowNumber, columnNumber, numberOfRows ),

@@ -8,6 +8,7 @@
  */
 
 import Emitter from '../../../../axon/js/Emitter.js';
+import dotRandom from '../../../../dot/js/dotRandom.js';
 import plinkoProbability from '../../plinkoProbability.js';
 import PlinkoProbabilityConstants from '../PlinkoProbabilityConstants.js';
 
@@ -73,7 +74,7 @@ class Histogram {
       let columnNumber = 0;
       // the path of the balls through the pegs of the galton board  is determined for the prepopulated balls only
       for ( let rowNumber = 0; rowNumber <= this.numberOfRowsProperty.get(); rowNumber++ ) {
-        const direction = ( phet.joist.random.nextBoolean() ? 'left' : 'right' );
+        const direction = ( dotRandom.nextBoolean() ? 'left' : 'right' );
 
         // increment the column number of the next row, but not for the last row
         if ( rowNumber < this.numberOfRowsProperty.get() ) {

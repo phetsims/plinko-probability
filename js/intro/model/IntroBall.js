@@ -11,6 +11,7 @@
  * @author Martin Veillette (Berea College)
  */
 
+import dotRandom from '../../../../dot/js/dotRandom.js';
 import Ball from '../../common/model/Ball.js';
 import plinkoProbability from '../../plinkoProbability.js';
 
@@ -40,7 +41,7 @@ class IntroBall extends Ball {
 
       // Ball makes probabilistic decision whether to end in left or right horizontal position in the bin
       case 1:
-        this.binOrientation = ( phet.joist.random.nextBoolean() ? 1 : -1 );
+        this.binOrientation = ( dotRandom.nextBoolean() ? 1 : -1 );
         break;
 
       // the ball must take the opposite orientation than the last ball
