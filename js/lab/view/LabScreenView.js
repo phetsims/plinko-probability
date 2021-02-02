@@ -164,7 +164,7 @@ class LabScreenView extends PlinkoProbabilityCommonView {
     } );
 
     // pdom
-    this.pdomPlayAreaNode.accessibleOrder = [ playPanel, pegControls, statisticsAccordionBox, hopperModeControl, histogramModeControl, this.eraserButton ];
+    this.pdomPlayAreaNode.pdomOrder = [ playPanel, pegControls, statisticsAccordionBox, hopperModeControl, histogramModeControl, this.eraserButton ];
   }
 }
 

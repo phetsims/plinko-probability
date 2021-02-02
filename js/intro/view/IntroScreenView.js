@@ -112,7 +112,7 @@ class IntroScreenView extends PlinkoProbabilityCommonView {
 
     // pdom
     // set tab order
-    this.pdomPlayAreaNode.accessibleOrder = [ playPanel, histogramModeControl, this.eraserButton ];
+    this.pdomPlayAreaNode.pdomOrder = [ playPanel, histogramModeControl, this.eraserButton ];
   }
 }
 
