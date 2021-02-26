@@ -32,7 +32,7 @@ class EquationNode extends Node {
       rightHandSideFont: new PhetFont( 16 ),
       leftHandSideFill: 'blue',
       rightHandSideFill: 'blue',
-      positionOfEqualSign: 30,// position of the equal sign, (the left hand side is defined as zero).
+      positionOfEqualSign: 30, // position of the equal sign, (the left hand side is defined as zero).
       maxDecimalPlaces: 3,
       leftHandSideMaxWidth: 45  // maximum width of left hand side of equation
     }, options );
