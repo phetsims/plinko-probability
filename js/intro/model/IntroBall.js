@@ -50,7 +50,7 @@ class IntroBall extends Ball {
         break;
 
       default:
-        throw new Error( 'invalid binOrientation: ' + this.binOrientation );
+        throw new Error( `invalid binOrientation: ${this.binOrientation}` );
     }
 
     // {number} describes number of rows in the ball stack within a bin, starting at 1

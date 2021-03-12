@@ -45,11 +45,11 @@ class IntroPlayPanel extends Panel {
     // Creation of radio button icons
     const oneBall = new HBox( {
       spacing: BALL_RADIUS / 2,
-      children: [ new BallNode( BALL_RADIUS ), new Text( MathSymbols.TIMES + '1', fontOptions ) ]
+      children: [ new BallNode( BALL_RADIUS ), new Text( `${MathSymbols.TIMES}1`, fontOptions ) ]
     } );
     const tenBalls = new HBox( {
       spacing: BALL_RADIUS / 2,
-      children: [ new BallNode( BALL_RADIUS ), new Text( MathSymbols.TIMES + '10', fontOptions ) ]
+      children: [ new BallNode( BALL_RADIUS ), new Text( `${MathSymbols.TIMES}10`, fontOptions ) ]
     } );
     const maxBalls = new HBox( {
       spacing: BALL_RADIUS / 2,

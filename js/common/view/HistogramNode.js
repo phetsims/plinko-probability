@@ -200,7 +200,7 @@ class YAxisNode extends Node {
           // do nothing
           break;
         default:
-          throw new Error( 'invalid histogramMode: ' + histogramMode );
+          throw new Error( `invalid histogramMode: ${histogramMode}` );
       }
       yLabelNode.centerY = histogramCenterY; // center y-label text based on content
     } );
@@ -339,7 +339,7 @@ class XBannerNode extends Node {
           return; // if we are on a cylinder there is no text to update
 
         default:
-          throw new Error( 'invalid histogramMode: ' + histogramMode );
+          throw new Error( `invalid histogramMode: ${histogramMode}` );
       }
 
       // we loop over all the bins

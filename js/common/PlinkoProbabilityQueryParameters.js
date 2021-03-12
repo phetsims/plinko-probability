@@ -62,6 +62,6 @@ const PlinkoProbabilityQueryParameters = QueryStringMachine.getAll( {
 plinkoProbability.register( 'PlinkoProbabilityQueryParameters', PlinkoProbabilityQueryParameters );
 
 // log the values of all sim-specific query parameters
-phet.log && phet.log( 'query parameters: ' + JSON.stringify( PlinkoProbabilityQueryParameters, null, 2 ) );
+phet.log && phet.log( `query parameters: ${JSON.stringify( PlinkoProbabilityQueryParameters, null, 2 )}` );
 
 export default PlinkoProbabilityQueryParameters;

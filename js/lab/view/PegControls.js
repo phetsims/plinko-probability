@@ -40,8 +40,8 @@ class PegControls extends Panel {
     }, options );
 
     // major tick labels for slider that controls number of rows
-    assert && assert( Number.isInteger( PlinkoProbabilityConstants.ROWS_RANGE.min ), 'integer required: ' + PlinkoProbabilityConstants.ROWS_RANGE.min );
-    assert && assert( Number.isInteger( PlinkoProbabilityConstants.ROWS_RANGE.max ), 'integer required: ' + PlinkoProbabilityConstants.ROWS_RANGE.max );
+    assert && assert( Number.isInteger( PlinkoProbabilityConstants.ROWS_RANGE.min ), `integer required: ${PlinkoProbabilityConstants.ROWS_RANGE.min}` );
+    assert && assert( Number.isInteger( PlinkoProbabilityConstants.ROWS_RANGE.max ), `integer required: ${PlinkoProbabilityConstants.ROWS_RANGE.max}` );
     const tickLabelOptions = {
       font: PlinkoProbabilityConstants.MAJOR_TICK_FONT
     };
@@ -83,8 +83,8 @@ class PegControls extends Panel {
     } );
 
     // major tick labels for slider that controls binary probability
-    assert && assert( Number.isInteger( PlinkoProbabilityConstants.BINARY_PROBABILITY_RANGE.min ), 'integer required: ' + PlinkoProbabilityConstants.BINARY_PROBABILITY_RANGE.min );
-    assert && assert( Number.isInteger( PlinkoProbabilityConstants.BINARY_PROBABILITY_RANGE.max ), 'integer required: ' + PlinkoProbabilityConstants.BINARY_PROBABILITY_RANGE.max );
+    assert && assert( Number.isInteger( PlinkoProbabilityConstants.BINARY_PROBABILITY_RANGE.min ), `integer required: ${PlinkoProbabilityConstants.BINARY_PROBABILITY_RANGE.min}` );
+    assert && assert( Number.isInteger( PlinkoProbabilityConstants.BINARY_PROBABILITY_RANGE.max ), `integer required: ${PlinkoProbabilityConstants.BINARY_PROBABILITY_RANGE.max}` );
     const probabilityMajorTicks = [ {
       value: PlinkoProbabilityConstants.BINARY_PROBABILITY_RANGE.min,
       label: new Text( PlinkoProbabilityConstants.BINARY_PROBABILITY_RANGE.min, tickLabelOptions )

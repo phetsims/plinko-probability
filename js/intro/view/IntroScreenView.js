@@ -88,7 +88,7 @@ class IntroScreenView extends PlinkoProbabilityCommonView {
           cylindersFrontNode.visible = true;
           break;
         default:
-          throw new Error( 'unsupported histogramMode: ' + histogramMode );
+          throw new Error( `unsupported histogramMode: ${histogramMode}` );
       }
     } );
 

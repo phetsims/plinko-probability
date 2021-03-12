@@ -136,7 +136,7 @@ class LabScreenView extends PlinkoProbabilityCommonView {
           break;
 
         default:
-          throw new Error( 'invalid hopperMode: ' + model.hopperModeProperty.get() );
+          throw new Error( `invalid hopperMode: ${model.hopperModeProperty.get()}` );
       }
     } );
 

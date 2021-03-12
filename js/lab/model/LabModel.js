@@ -105,7 +105,7 @@ class LabModel extends PlinkoProbabilityCommonModel {
         break;
 
       default:
-        throw new Error( 'invalid hopperMode: ' + this.hopperModeProperty.get() );
+        throw new Error( `invalid hopperMode: ${this.hopperModeProperty.get()}` );
     }
   }
 

@@ -118,7 +118,7 @@ class IntroModel extends PlinkoProbabilityCommonModel {
         break;
 
       default:
-        throw new Error( 'invalid ballMode: ' + this.ballModeProperty.get() );
+        throw new Error( `invalid ballMode: ${this.ballModeProperty.get()}` );
     }
   }
 

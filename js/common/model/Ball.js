@@ -237,7 +237,7 @@ class Ball {
         break;
 
       default:
-        throw new Error( 'invalid phase: ' + this.phase );
+        throw new Error( `invalid phase: ${this.phase}` );
     }
 
     // add a vertical offset, such that the balls do not reach the pegs but are over the pegs.
