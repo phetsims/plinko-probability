@@ -41,7 +41,7 @@
     "branch": "HEAD"
   },
   "plinko-probability": {
-    "sha": "90e7e37d3e0c49f88a4d1b7b73b217f189b7f1f1",
+    "sha": "be72b0340b01dc0c909e000fddb8da1c8f39d829",
     "branch": "1.1"
   },
   "query-string-machine": {
@@ -49,7 +49,7 @@
     "branch": "HEAD"
   },
   "scenery": {
-    "sha": "cceee030e978f056bac0c4b2716f9e7fe2f58802",
+    "sha": "0eed087113e02531ff54bde2ecf75cf52399b4ad",
     "branch": "plinko-probability-1.1"
   },
   "scenery-phet": {
