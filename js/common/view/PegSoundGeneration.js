@@ -8,8 +8,8 @@
  */
 
 import Sound from '../../../../vibe/js/Sound.js';
-import bonk1Audio from '../../../sounds/bonk-1-for-plinko_mp3.js';
-import bonk2Audio from '../../../sounds/bonk-2-for-plinko_mp3.js';
+import bonk1Sound from '../../../sounds/bonk-1-for-plinko_mp3.js';
+import bonk2Sound from '../../../sounds/bonk-2-for-plinko_mp3.js';
 import plinkoProbability from '../../plinkoProbability.js';
 import PlinkoProbabilityConstants from '../PlinkoProbabilityConstants.js';
 
@@ -20,8 +20,8 @@ class PegSoundGeneration {
   constructor( isSoundEnabledProperty ) {
 
     // Audio for ball hitting pegs
-    this.bonk1Sound = new Sound( bonk1Audio );  // @private
-    this.bonk2Sound = new Sound( bonk2Audio );  // @private
+    this.bonk1Sound = new Sound( bonk1Sound );  // @private
+    this.bonk2Sound = new Sound( bonk2Sound );  // @private
     this.soundTimeElapsed = 0;  // @private - number used to keep track of the last sound playing
     this.isSoundEnabledProperty = isSoundEnabledProperty; // @private
   }
