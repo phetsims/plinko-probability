@@ -3,7 +3,7 @@
 /**
  * Pause button for stopping the sim.
  *
- * @author Sam Reid
+ * @author Sam Reid (PhET Interactive Simulations)
  * @author Martin Veillette
  */
 

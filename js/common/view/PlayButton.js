@@ -3,7 +3,7 @@
 /**
  * Play button for starting an action
  *
- * @author Sam Reid
+ * @author Sam Reid (PhET Interactive Simulations)
  * @author Martin Veillette (Berea College)
  */
 
