@@ -8,7 +8,7 @@
 
 import merge from '../../../../phet-core/js/merge.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import Text from '../../../../scenery/js/nodes/Text.js';
+import { Text } from '../../../../scenery/js/imports.js';
 import Dialog from '../../../../sun/js/Dialog.js';
 import plinkoProbability from '../../plinkoProbability.js';
 import plinkoProbabilityStrings from '../../plinkoProbabilityStrings.js';

@@ -11,10 +11,10 @@
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Shape from '../../../../kite/js/Shape.js';
 import merge from '../../../../phet-core/js/merge.js';
-import CanvasNode from '../../../../scenery/js/nodes/CanvasNode.js';
-import Circle from '../../../../scenery/js/nodes/Circle.js';
-import Path from '../../../../scenery/js/nodes/Path.js';
-import RadialGradient from '../../../../scenery/js/util/RadialGradient.js';
+import { CanvasNode } from '../../../../scenery/js/imports.js';
+import { Circle } from '../../../../scenery/js/imports.js';
+import { Path } from '../../../../scenery/js/imports.js';
+import { RadialGradient } from '../../../../scenery/js/imports.js';
 import plinkoProbability from '../../plinkoProbability.js';
 import GaltonBoard from '../model/GaltonBoard.js';
 import PlinkoProbabilityConstants from '../PlinkoProbabilityConstants.js';

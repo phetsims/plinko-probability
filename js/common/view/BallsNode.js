@@ -8,7 +8,7 @@
 
 import merge from '../../../../phet-core/js/merge.js';
 import required from '../../../../phet-core/js/required.js';
-import CanvasNode from '../../../../scenery/js/nodes/CanvasNode.js';
+import { CanvasNode } from '../../../../scenery/js/imports.js';
 import plinkoProbability from '../../plinkoProbability.js';
 import BallPhase from '../model/BallPhase.js';
 import GaltonBoard from '../model/GaltonBoard.js';

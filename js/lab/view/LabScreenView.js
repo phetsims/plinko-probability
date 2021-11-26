@@ -9,7 +9,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Node from '../../../../scenery/js/nodes/Node.js';
+import { Node } from '../../../../scenery/js/imports.js';
 import counterImage from '../../../images/counter_png.js';
 import fractionImage from '../../../images/fraction_png.js';
 import PlinkoProbabilityConstants from '../../common/PlinkoProbabilityConstants.js';
