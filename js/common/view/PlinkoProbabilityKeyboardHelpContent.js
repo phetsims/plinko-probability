@@ -6,10 +6,10 @@
  * @author Michael Kauzmann (PhET Interactive Simulations)
  */
 
-import SliderAndGeneralKeyboardHelpContent from '../../../../scenery-phet/js/keyboard/help/SliderAndGeneralKeyboardHelpContent.js';
+import SliderControlsAndBasicActionsKeyboardHelpContent from '../../../../scenery-phet/js/keyboard/help/SliderControlsAndBasicActionsKeyboardHelpContent.js';
 import plinkoProbability from '../../plinkoProbability.js';
 
-class PlinkoProbabilityKeyboardHelpContent extends SliderAndGeneralKeyboardHelpContent {
+class PlinkoProbabilityKeyboardHelpContent extends SliderControlsAndBasicActionsKeyboardHelpContent {
   constructor() { super(); }
 }
 
