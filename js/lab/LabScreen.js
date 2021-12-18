@@ -8,8 +8,8 @@ import Property from '../../../axon/js/Property.js';
 import Screen from '../../../joist/js/Screen.js';
 import ScreenIcon from '../../../joist/js/ScreenIcon.js';
 import { Image } from '../../../scenery/js/imports.js';
-import labHomescreenImage from '../../images/lab-homescreen_png.js';
-import labNavbarImage from '../../images/lab-navbar_png.js';
+import labHomescreen_png from '../../images/labHomescreen_png.js';
+import labNavbar_png from '../../images/labNavbar_png.js';
 import PlinkoProbabilityConstants from '../common/PlinkoProbabilityConstants.js';
 import PlinkoProbabilityKeyboardHelpContent from '../common/view/PlinkoProbabilityKeyboardHelpContent.js';
 import plinkoProbability from '../plinkoProbability.js';
@@ -23,11 +23,11 @@ class LabScreen extends Screen {
     const options = {
       name: plinkoProbabilityStrings.screen.lab,
       backgroundColorProperty: new Property( PlinkoProbabilityConstants.BACKGROUND_COLOR ),
-      homeScreenIcon: new ScreenIcon( new Image( labHomescreenImage ), {
+      homeScreenIcon: new ScreenIcon( new Image( labHomescreen_png ), {
         maxIconWidthProportion: 1,
         maxIconHeightProportion: 1
       } ),
-      navigationBarIcon: new ScreenIcon( new Image( labNavbarImage ), {
+      navigationBarIcon: new ScreenIcon( new Image( labNavbar_png ), {
         maxIconWidthProportion: 1,
         maxIconHeightProportion: 1
       } ),

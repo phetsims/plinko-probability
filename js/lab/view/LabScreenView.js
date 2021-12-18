@@ -10,8 +10,8 @@
  */
 
 import { Node } from '../../../../scenery/js/imports.js';
-import counterImage from '../../../images/counter_png.js';
-import fractionImage from '../../../images/fraction_png.js';
+import counter_png from '../../../images/counter_png.js';
+import fraction_png from '../../../images/fraction_png.js';
 import PlinkoProbabilityConstants from '../../common/PlinkoProbabilityConstants.js';
 import PlinkoProbabilityQueryParameters from '../../common/PlinkoProbabilityQueryParameters.js';
 import HistogramModeControl from '../../common/view/HistogramModeControl.js';
@@ -50,7 +50,7 @@ class LabScreenView extends PlinkoProbabilityCommonView {
     } );
 
     // radio buttons that can toggle between 'fraction and 'counter' mode
-    const histogramModeControl = new HistogramModeControl( this.viewProperties.histogramModeProperty, 'counter', counterImage, 'fraction', fractionImage, {
+    const histogramModeControl = new HistogramModeControl( this.viewProperties.histogramModeProperty, 'counter', counter_png, 'fraction', fraction_png, {
       bottom: this.eraserButton.top - 16,
       left: this.eraserButton.left
     } );

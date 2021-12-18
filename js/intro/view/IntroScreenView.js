@@ -9,8 +9,8 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import counterImage from '../../../images/counter_png.js';
-import cylinderImage from '../../../images/cylinder_png.js';
+import counter_png from '../../../images/counter_png.js';
+import cylinder_png from '../../../images/cylinder_png.js';
 import PlinkoProbabilityConstants from '../../common/PlinkoProbabilityConstants.js';
 import HistogramModeControl from '../../common/view/HistogramModeControl.js';
 import PegsNode from '../../common/view/PegsNode.js';
@@ -44,7 +44,7 @@ class IntroScreenView extends PlinkoProbabilityCommonView {
     const cylindersFrontNode = new CylindersFrontNode( model.numberOfRowsProperty, this.modelViewTransform, model.cylinderInfo );
 
     // Histogram mode radio buttons, above the eraser button
-    const histogramModeControl = new HistogramModeControl( this.viewProperties.histogramModeProperty, 'counter', counterImage, 'cylinder', cylinderImage, {
+    const histogramModeControl = new HistogramModeControl( this.viewProperties.histogramModeProperty, 'counter', counter_png, 'cylinder', cylinder_png, {
       bottom: this.eraserButton.top - 16,
       left: this.eraserButton.left
     } );
