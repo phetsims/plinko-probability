@@ -9,28 +9,28 @@ import plinkoProbability from './plinkoProbability.js';
 
 type StringsType = {
   'plinko-probability': {
-    'title': string
-  },
+    'title': string;
+  };
   'screen': {
-    'lab': string,
-    'intro': string
-  },
-  'fraction': string,
-  'count': string,
-  'bin': string,
-  'rows': string,
-  'binaryProbability': string,
-  'n': string,
-  's': string,
-  'sMean': string,
-  'ball': string,
-  'path': string,
-  'none': string,
-  'ideal': string,
-  'outOfBalls': string,
-  'mu': string,
-  'sigma': string,
-  'xBar': string
+    'lab': string;
+    'intro': string;
+  };
+  'fraction': string;
+  'count': string;
+  'bin': string;
+  'rows': string;
+  'binaryProbability': string;
+  'n': string;
+  's': string;
+  'sMean': string;
+  'ball': string;
+  'path': string;
+  'none': string;
+  'ideal': string;
+  'outOfBalls': string;
+  'mu': string;
+  'sigma': string;
+  'xBar': string;
 };
 
 const plinkoProbabilityStrings = getStringModule( 'PLINKO_PROBABILITY' ) as StringsType;
