@@ -6,7 +6,7 @@
  * @author Martin Veillette (Berea College)
  */
 
-import Property from '../../../../axon/js/Property.js';
+import Multilink from '../../../../axon/js/Multilink.js';
 import Utils from '../../../../dot/js/Utils.js';
 import { Shape } from '../../../../kite/js/imports.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
@@ -375,7 +375,7 @@ class XBannerNode extends Node {
     } );
 
     // no need to unlink, present for the lifetime of the sim
-    Property.multilink( [ numberOfRowsProperty, histogramModeProperty ], ( numberOfRows, histogramMode ) => {
+    Multilink.multilink( [ numberOfRowsProperty, histogramModeProperty ], ( numberOfRows, histogramMode ) => {
       updateBanner( numberOfRows ); // update the placement of the vertical line separators
       updateTextBanner( numberOfRows, histogramMode ); // update the text content of each bins
     } );
@@ -471,7 +471,7 @@ class HistogramBarNode extends Node {
     updateSampleAverageTriangle();
 
     // no need to unlink , present for the lifetime of the sim
-    Property.multilink( [ model.numberOfRowsProperty, model.probabilityProperty, isTheoreticalHistogramVisibleProperty ],
+    Multilink.multilink( [ model.numberOfRowsProperty, model.probabilityProperty, isTheoreticalHistogramVisibleProperty ],
       ( numberOfRows, probability, isTheoreticalHistogramVisible ) => {
         // update the sample histogram
         updateHistogram( sampleHistogramRectanglesArray, model.histogram.getNormalizedSampleDistribution() );

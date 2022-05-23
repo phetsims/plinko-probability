@@ -6,7 +6,7 @@
  * @author Martin Veillette (Berea College)
  */
 
-import Property from '../../../../axon/js/Property.js';
+import Multilink from '../../../../axon/js/Multilink.js';
 import merge from '../../../../phet-core/js/merge.js';
 import { HBox } from '../../../../scenery/js/imports.js';
 import { Text } from '../../../../scenery/js/imports.js';
@@ -100,7 +100,7 @@ class StatisticsAccordionBox extends AccordionBox {
     const theoreticalStandardDeviationText = new EquationNode( sigmaString, 0, OPTIONS_THEORETICAL );
 
     // link is present for the life of the simulation, no need to dispose
-    Property.multilink(
+    Multilink.multilink(
       [ model.numberOfRowsProperty, model.probabilityProperty ],
       ( numberOfRows, probability ) => {
         assert && assert( Number.isInteger( numberOfRows ), 'the number of rows must be an integer' );
