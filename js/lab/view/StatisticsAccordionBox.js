@@ -1,4 +1,4 @@
-// Copyright 2014-2021, University of Colorado Boulder
+// Copyright 2014-2022, University of Colorado Boulder
 
 /**
  * Accordion Box that displays statistics associated with the histogram in Plinko Probability Simulation lab tab
