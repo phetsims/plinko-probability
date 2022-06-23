@@ -131,7 +131,7 @@ class StatisticsAccordionBox extends AccordionBox {
       ]
     } );
 
-    const histogramCheckbox = new Checkbox( histogramCheckboxIcon, isTheoreticalHistogramVisibleProperty );
+    const histogramCheckbox = new Checkbox( isTheoreticalHistogramVisibleProperty, histogramCheckboxIcon );
 
     const contentNode = new HBox( {
       spacing: 5,
