@@ -112,7 +112,7 @@ class LabPlayPanel extends Panel {
       }
     } );
 
-    const playPlayPauseButton = new BooleanToggleNode( playButton, pauseButton, playButtonVisibleProperty );
+    const playPlayPauseButton = new BooleanToggleNode( playButtonVisibleProperty, playButton, pauseButton );
 
     // link the ballModeProperty to the state of the playPauseButton
     model.ballModeProperty.link( () => {
