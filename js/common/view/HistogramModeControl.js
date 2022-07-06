@@ -29,13 +29,15 @@ class HistogramModeControl extends RectangularRadioButtonGroup {
 
     options = merge( {
       spacing: 5, // vertical separation of the buttons
-      cornerRadius: 10,
-      baseColor: 'white',
-      buttonContentXMargin: 5,
-      buttonContentYMargin: 5,
-      selectedStroke: 'black',
-      deselectedLineWidth: 1,
-      selectedLineWidth: 2
+      radioButtonOptions: {
+        cornerRadius: 10,
+        baseColor: 'white',
+        xMargin: 5,
+        yMargin: 5,
+        selectedStroke: 'black',
+        deselectedLineWidth: 1,
+        selectedLineWidth: 2
+      }
     }, options );
 
     // create the icons for the radio buttons
