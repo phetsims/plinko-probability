@@ -7,9 +7,7 @@
  */
 
 import { Shape } from '../../../../kite/js/imports.js';
-import { Node } from '../../../../scenery/js/imports.js';
-import { Path } from '../../../../scenery/js/imports.js';
-import { LinearGradient } from '../../../../scenery/js/imports.js';
+import { LinearGradient, Node, Path } from '../../../../scenery/js/imports.js';
 import PlinkoProbabilityConstants from '../../common/PlinkoProbabilityConstants.js';
 import plinkoProbability from '../../plinkoProbability.js';
 
