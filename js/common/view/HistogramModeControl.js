@@ -34,9 +34,11 @@ class HistogramModeControl extends RectangularRadioButtonGroup {
         baseColor: 'white',
         xMargin: 5,
         yMargin: 5,
-        selectedStroke: 'black',
-        deselectedLineWidth: 1,
-        selectedLineWidth: 2
+        buttonAppearanceStrategyOptions: {
+          selectedStroke: 'black',
+          deselectedLineWidth: 1,
+          selectedLineWidth: 2
+        }
       }
     }, options );
 
