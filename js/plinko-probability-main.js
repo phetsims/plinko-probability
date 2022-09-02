@@ -12,7 +12,7 @@ import IntroScreen from './intro/IntroScreen.js';
 import LabScreen from './lab/LabScreen.js';
 import plinkoProbabilityStrings from './plinkoProbabilityStrings.js';
 
-const plinkoProbabilityTitleString = plinkoProbabilityStrings[ 'plinko-probability' ].title;
+const plinkoProbabilityTitleStringProperty = plinkoProbabilityStrings[ 'plinko-probability' ].titleStringProperty;
 
 const simOptions = {
   credits: {
@@ -25,6 +25,6 @@ const simOptions = {
 };
 
 simLauncher.launch( () => {
-  const sim = new Sim( plinkoProbabilityTitleString, [ new IntroScreen(), new LabScreen() ], simOptions );
+  const sim = new Sim( plinkoProbabilityTitleStringProperty, [ new IntroScreen(), new LabScreen() ], simOptions );
   sim.start();
 } );
