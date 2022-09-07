@@ -14,10 +14,10 @@ import { Text, VBox } from '../../../../scenery/js/imports.js';
 import Panel from '../../../../sun/js/Panel.js';
 import PlinkoProbabilityConstants from '../../common/PlinkoProbabilityConstants.js';
 import plinkoProbability from '../../plinkoProbability.js';
-import plinkoProbabilityStrings from '../../plinkoProbabilityStrings.js';
+import PlinkoProbabilityStrings from '../../PlinkoProbabilityStrings.js';
 
-const binaryProbabilityString = plinkoProbabilityStrings.binaryProbability;
-const rowsString = plinkoProbabilityStrings.rows;
+const binaryProbabilityString = PlinkoProbabilityStrings.binaryProbability;
+const rowsString = PlinkoProbabilityStrings.rows;
 
 // constants
 const SLIDER_TRACK_SIZE = new Dimension2( 170, 2 );

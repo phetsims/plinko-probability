@@ -11,11 +11,11 @@ import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import { Node, Text } from '../../../../scenery/js/imports.js';
 import VerticalAquaRadioButtonGroup from '../../../../sun/js/VerticalAquaRadioButtonGroup.js';
 import plinkoProbability from '../../plinkoProbability.js';
-import plinkoProbabilityStrings from '../../plinkoProbabilityStrings.js';
+import PlinkoProbabilityStrings from '../../PlinkoProbabilityStrings.js';
 
-const ballString = plinkoProbabilityStrings.ball;
-const noneString = plinkoProbabilityStrings.none;
-const pathString = plinkoProbabilityStrings.path;
+const ballString = PlinkoProbabilityStrings.ball;
+const noneString = PlinkoProbabilityStrings.none;
+const pathString = PlinkoProbabilityStrings.path;
 
 // constants
 const LABEL_OPTIONS = { font: new PhetFont( 20 ), maxWidth: 175 };

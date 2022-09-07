@@ -53,8 +53,8 @@ type StringsType = {
   'xBarStringProperty': TReadOnlyProperty<string>;
 };
 
-const plinkoProbabilityStrings = getStringModule( 'PLINKO_PROBABILITY' ) as StringsType;
+const PlinkoProbabilityStrings = getStringModule( 'PLINKO_PROBABILITY' ) as StringsType;
 
-plinkoProbability.register( 'plinkoProbabilityStrings', plinkoProbabilityStrings );
+plinkoProbability.register( 'PlinkoProbabilityStrings', PlinkoProbabilityStrings );
 
-export default plinkoProbabilityStrings;
+export default PlinkoProbabilityStrings;

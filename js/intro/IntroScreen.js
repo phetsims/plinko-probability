@@ -15,7 +15,7 @@ import introNavbar_png from '../../images/introNavbar_png.js';
 import PlinkoProbabilityConstants from '../common/PlinkoProbabilityConstants.js';
 import PlinkoProbabilityKeyboardHelpContent from '../common/view/PlinkoProbabilityKeyboardHelpContent.js';
 import plinkoProbability from '../plinkoProbability.js';
-import plinkoProbabilityStrings from '../plinkoProbabilityStrings.js';
+import PlinkoProbabilityStrings from '../PlinkoProbabilityStrings.js';
 import IntroModel from './model/IntroModel.js';
 import IntroScreenView from './view/IntroScreenView.js';
 
@@ -23,7 +23,7 @@ class IntroScreen extends Screen {
   constructor() {
 
     const options = {
-      name: plinkoProbabilityStrings.screen.intro,
+      name: PlinkoProbabilityStrings.screen.intro,
       backgroundColorProperty: new Property( PlinkoProbabilityConstants.BACKGROUND_COLOR ),
       homeScreenIcon: new ScreenIcon( new Image( introHomescreen_png ), {
         maxIconWidthProportion: 1,

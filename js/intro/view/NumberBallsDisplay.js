@@ -11,7 +11,7 @@ import Panel from '../../../../sun/js/Panel.js';
 import PlinkoProbabilityConstants from '../../common/PlinkoProbabilityConstants.js';
 import EquationNode from '../../common/view/EquationNode.js';
 import plinkoProbability from '../../plinkoProbability.js';
-import plinkoProbabilityStrings from '../../plinkoProbabilityStrings.js';
+import PlinkoProbabilityStrings from '../../PlinkoProbabilityStrings.js';
 
 class NumberBallsDisplay extends Panel {
 
@@ -35,7 +35,7 @@ class NumberBallsDisplay extends Panel {
       maxDecimalPlaces: 0
     };
 
-    const numberLandedBallsText = new EquationNode( plinkoProbabilityStrings.n, 0, optionsTitle );
+    const numberLandedBallsText = new EquationNode( PlinkoProbabilityStrings.n, 0, optionsTitle );
 
     histogram.histogramUpdatedEmitter.addListener( () => {
       numberLandedBallsText.setRightHandSideOfEquation( histogram.landedBallsNumber );

@@ -11,7 +11,7 @@ import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import { Text } from '../../../../scenery/js/imports.js';
 import Dialog from '../../../../sun/js/Dialog.js';
 import plinkoProbability from '../../plinkoProbability.js';
-import plinkoProbabilityStrings from '../../plinkoProbabilityStrings.js';
+import PlinkoProbabilityStrings from '../../PlinkoProbabilityStrings.js';
 
 class OutOfBallsDialog extends Dialog {
 
@@ -26,7 +26,7 @@ class OutOfBallsDialog extends Dialog {
       bottomMargin: 33
     }, options );
 
-    const messageNode = new Text( plinkoProbabilityStrings.outOfBalls, {
+    const messageNode = new Text( PlinkoProbabilityStrings.outOfBalls, {
       font: new PhetFont( 33 ),
       maxWidth: 350
     } );

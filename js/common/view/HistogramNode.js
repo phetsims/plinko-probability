@@ -12,7 +12,7 @@ import { Shape } from '../../../../kite/js/imports.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import { Color, Line, Node, Path, Rectangle, Text } from '../../../../scenery/js/imports.js';
 import plinkoProbability from '../../plinkoProbability.js';
-import plinkoProbabilityStrings from '../../plinkoProbabilityStrings.js';
+import PlinkoProbabilityStrings from '../../PlinkoProbabilityStrings.js';
 import PlinkoProbabilityConstants from '../PlinkoProbabilityConstants.js';
 
 //----------------------------------------------------------------------------------------
@@ -47,9 +47,9 @@ const TINY_TINY_FONT = new PhetFont( { size: 8 } );
 const MAJOR_TICK_COLOR = 'black';
 const MAJOR_TICK_FONT = new PhetFont( { size: 16 } );
 
-const binString = plinkoProbabilityStrings.bin;
-const countString = plinkoProbabilityStrings.count;
-const fractionString = plinkoProbabilityStrings.fraction;
+const binString = PlinkoProbabilityStrings.bin;
+const countString = PlinkoProbabilityStrings.count;
+const fractionString = PlinkoProbabilityStrings.fraction;
 
 // triangle (for average indicators)
 const TRIANGLE_HEIGHT = 20;

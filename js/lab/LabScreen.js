@@ -13,7 +13,7 @@ import labNavbar_png from '../../images/labNavbar_png.js';
 import PlinkoProbabilityConstants from '../common/PlinkoProbabilityConstants.js';
 import PlinkoProbabilityKeyboardHelpContent from '../common/view/PlinkoProbabilityKeyboardHelpContent.js';
 import plinkoProbability from '../plinkoProbability.js';
-import plinkoProbabilityStrings from '../plinkoProbabilityStrings.js';
+import PlinkoProbabilityStrings from '../PlinkoProbabilityStrings.js';
 import LabModel from './model/LabModel.js';
 import LabScreenView from './view/LabScreenView.js';
 
@@ -21,7 +21,7 @@ class LabScreen extends Screen {
   constructor() {
 
     const options = {
-      name: plinkoProbabilityStrings.screen.lab,
+      name: PlinkoProbabilityStrings.screen.lab,
       backgroundColorProperty: new Property( PlinkoProbabilityConstants.BACKGROUND_COLOR ),
       homeScreenIcon: new ScreenIcon( new Image( labHomescreen_png ), {
         maxIconWidthProportion: 1,

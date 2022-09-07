@@ -14,16 +14,16 @@ import Checkbox from '../../../../sun/js/Checkbox.js';
 import PlinkoProbabilityConstants from '../../common/PlinkoProbabilityConstants.js';
 import EquationNode from '../../common/view/EquationNode.js';
 import plinkoProbability from '../../plinkoProbability.js';
-import plinkoProbabilityStrings from '../../plinkoProbabilityStrings.js';
+import PlinkoProbabilityStrings from '../../PlinkoProbabilityStrings.js';
 import HistogramIcon from './HistogramIcon.js';
 
-const idealString = plinkoProbabilityStrings.ideal;
-const muString = plinkoProbabilityStrings.mu;
-const nString = plinkoProbabilityStrings.n;
-const sigmaString = plinkoProbabilityStrings.sigma;
-const sMeanString = plinkoProbabilityStrings.sMean;
-const sString = plinkoProbabilityStrings.s;
-const xBarString = plinkoProbabilityStrings.xBar;
+const idealString = PlinkoProbabilityStrings.ideal;
+const muString = PlinkoProbabilityStrings.mu;
+const nString = PlinkoProbabilityStrings.n;
+const sigmaString = PlinkoProbabilityStrings.sigma;
+const sMeanString = PlinkoProbabilityStrings.sMean;
+const sString = PlinkoProbabilityStrings.s;
+const xBarString = PlinkoProbabilityStrings.xBar;
 
 // constants
 const CONTENT_Y_SPACING = 10; // vertical spacing of elements in the accordion box's content

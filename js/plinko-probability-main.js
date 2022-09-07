@@ -10,9 +10,9 @@ import Sim from '../../joist/js/Sim.js';
 import simLauncher from '../../joist/js/simLauncher.js';
 import IntroScreen from './intro/IntroScreen.js';
 import LabScreen from './lab/LabScreen.js';
-import plinkoProbabilityStrings from './plinkoProbabilityStrings.js';
+import PlinkoProbabilityStrings from './PlinkoProbabilityStrings.js';
 
-const plinkoProbabilityTitleStringProperty = plinkoProbabilityStrings[ 'plinko-probability' ].titleStringProperty;
+const plinkoProbabilityTitleStringProperty = PlinkoProbabilityStrings[ 'plinko-probability' ].titleStringProperty;
 
 const simOptions = {
   credits: {
