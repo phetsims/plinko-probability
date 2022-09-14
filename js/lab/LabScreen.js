@@ -21,7 +21,7 @@ class LabScreen extends Screen {
   constructor() {
 
     const options = {
-      name: PlinkoProbabilityStrings.screen.lab,
+      name: PlinkoProbabilityStrings.screen.labStringProperty,
       backgroundColorProperty: new Property( PlinkoProbabilityConstants.BACKGROUND_COLOR ),
       homeScreenIcon: new ScreenIcon( new Image( labHomescreen_png ), {
         maxIconWidthProportion: 1,

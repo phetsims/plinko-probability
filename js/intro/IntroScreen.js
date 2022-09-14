@@ -23,7 +23,7 @@ class IntroScreen extends Screen {
   constructor() {
 
     const options = {
-      name: PlinkoProbabilityStrings.screen.intro,
+      name: PlinkoProbabilityStrings.screen.introStringProperty,
       backgroundColorProperty: new Property( PlinkoProbabilityConstants.BACKGROUND_COLOR ),
       homeScreenIcon: new ScreenIcon( new Image( introHomescreen_png ), {
         maxIconWidthProportion: 1,
