@@ -5,52 +5,52 @@
  */
 /* eslint-disable */
 import getStringModule from '../../chipper/js/getStringModule.js';
-import TReadOnlyProperty from '../../axon/js/TReadOnlyProperty.js';
+import LinkableProperty from '../../axon/js/LinkableProperty.js';
 import plinkoProbability from './plinkoProbability.js';
 
 type StringsType = {
   'plinko-probability': {
     'title': string;
-    'titleStringProperty': TReadOnlyProperty<string>;
+    'titleStringProperty': LinkableProperty<string>;
   };
   'screen': {
     'lab': string;
-    'labStringProperty': TReadOnlyProperty<string>;
+    'labStringProperty': LinkableProperty<string>;
     'intro': string;
-    'introStringProperty': TReadOnlyProperty<string>;
+    'introStringProperty': LinkableProperty<string>;
   };
   'fraction': string;
-  'fractionStringProperty': TReadOnlyProperty<string>;
+  'fractionStringProperty': LinkableProperty<string>;
   'count': string;
-  'countStringProperty': TReadOnlyProperty<string>;
+  'countStringProperty': LinkableProperty<string>;
   'bin': string;
-  'binStringProperty': TReadOnlyProperty<string>;
+  'binStringProperty': LinkableProperty<string>;
   'rows': string;
-  'rowsStringProperty': TReadOnlyProperty<string>;
+  'rowsStringProperty': LinkableProperty<string>;
   'binaryProbability': string;
-  'binaryProbabilityStringProperty': TReadOnlyProperty<string>;
+  'binaryProbabilityStringProperty': LinkableProperty<string>;
   'n': string;
-  'nStringProperty': TReadOnlyProperty<string>;
+  'nStringProperty': LinkableProperty<string>;
   's': string;
-  'sStringProperty': TReadOnlyProperty<string>;
+  'sStringProperty': LinkableProperty<string>;
   'sMean': string;
-  'sMeanStringProperty': TReadOnlyProperty<string>;
+  'sMeanStringProperty': LinkableProperty<string>;
   'ball': string;
-  'ballStringProperty': TReadOnlyProperty<string>;
+  'ballStringProperty': LinkableProperty<string>;
   'path': string;
-  'pathStringProperty': TReadOnlyProperty<string>;
+  'pathStringProperty': LinkableProperty<string>;
   'none': string;
-  'noneStringProperty': TReadOnlyProperty<string>;
+  'noneStringProperty': LinkableProperty<string>;
   'ideal': string;
-  'idealStringProperty': TReadOnlyProperty<string>;
+  'idealStringProperty': LinkableProperty<string>;
   'outOfBalls': string;
-  'outOfBallsStringProperty': TReadOnlyProperty<string>;
+  'outOfBallsStringProperty': LinkableProperty<string>;
   'mu': string;
-  'muStringProperty': TReadOnlyProperty<string>;
+  'muStringProperty': LinkableProperty<string>;
   'sigma': string;
-  'sigmaStringProperty': TReadOnlyProperty<string>;
+  'sigmaStringProperty': LinkableProperty<string>;
   'xBar': string;
-  'xBarStringProperty': TReadOnlyProperty<string>;
+  'xBarStringProperty': LinkableProperty<string>;
 };
 
 const PlinkoProbabilityStrings = getStringModule( 'PLINKO_PROBABILITY' ) as StringsType;
