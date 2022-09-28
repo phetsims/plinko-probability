@@ -40,7 +40,6 @@ class LabPlayPanel extends Panel {
     }, options );
 
     // create the icon for oneBall mode, a representation for a ball
-    const oneBall = new BallNode( BALL_RADIUS );
 
     // create an ellipsis (the punctuation mark, not the geometrical shape)
     const threeDots = new HBox( {
@@ -56,24 +55,23 @@ class LabPlayPanel extends Panel {
     // the ball size is not necessarily twice the radius
     const ballWidth = new BallNode( BALL_RADIUS ).width;
 
-    // create the icon for the continuous mode
-    const continuous = new HBox( {
-      align: 'bottom',
-      spacing: -ballWidth / 2, // negative spacing
-      children: [
-        new BallNode( BALL_RADIUS ),
-        new BallNode( BALL_RADIUS ),
-        new BallNode( BALL_RADIUS ),
-        new BallNode( BALL_RADIUS ),
-        new BallNode( BALL_RADIUS ),
-        threeDots
-      ]
-    } );
-
     // create the vertical radio group buttons for the one ball and continuous mode.
-    const ballModeRadioButtons = new VerticalAquaRadioButtonGroup( model.ballModeProperty, [
-      { node: oneBall, value: 'oneBall' },
-      { node: continuous, value: 'continuous' }
+    const ballModeRadioButtons = new VerticalAquaRadioButtonGroup( model.ballModeProperty, [ {
+      createNode: tandem => new BallNode( BALL_RADIUS ), value: 'oneBall'
+    }, {
+      createNode: tandem => new HBox( {
+        align: 'bottom',
+        spacing: -ballWidth / 2, // negative spacing
+        children: [
+          new BallNode( BALL_RADIUS ),
+          new BallNode( BALL_RADIUS ),
+          new BallNode( BALL_RADIUS ),
+          new BallNode( BALL_RADIUS ),
+          new BallNode( BALL_RADIUS ),
+          threeDots
+        ]
+      } ), value: 'continuous'
+    }
     ], {
       radioButtonOptions: { radius: 8 },
       touchAreaXDilation: 5,

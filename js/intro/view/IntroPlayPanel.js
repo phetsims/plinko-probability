@@ -40,25 +40,26 @@ class IntroPlayPanel extends Panel {
 
     const fontOptions = { font: PlinkoProbabilityConstants.PANEL_FONT, maxWidth: 190 };
 
-    // Creation of radio button icons
-    const oneBall = new HBox( {
-      spacing: BALL_RADIUS / 2,
-      children: [ new BallNode( BALL_RADIUS ), new Text( `${MathSymbols.TIMES}1`, fontOptions ) ]
-    } );
-    const tenBalls = new HBox( {
-      spacing: BALL_RADIUS / 2,
-      children: [ new BallNode( BALL_RADIUS ), new Text( `${MathSymbols.TIMES}10`, fontOptions ) ]
-    } );
-    const maxBalls = new HBox( {
-      spacing: BALL_RADIUS / 2,
-      children: [ new BallNode( BALL_RADIUS ), new Text( MathSymbols.TIMES + PlinkoProbabilityQueryParameters.maxBallsIntro, fontOptions ) ]
-    } );
-
     // Creation of radio button group for ball setting
     const ballModeRadioButtons = new VerticalAquaRadioButtonGroup( model.ballModeProperty, [
-      { node: oneBall, value: 'oneBall' },
-      { node: tenBalls, value: 'tenBalls' },
-      { node: maxBalls, value: 'maxBalls' }
+      {
+        createNode: tandem => new HBox( {
+          spacing: BALL_RADIUS / 2,
+          children: [ new BallNode( BALL_RADIUS ), new Text( `${MathSymbols.TIMES}1`, fontOptions ) ]
+        } ), value: 'oneBall'
+      },
+      {
+        createNode: tandem => new HBox( {
+          spacing: BALL_RADIUS / 2,
+          children: [ new BallNode( BALL_RADIUS ), new Text( `${MathSymbols.TIMES}10`, fontOptions ) ]
+        } ), value: 'tenBalls'
+      },
+      {
+        createNode: tandem => new HBox( {
+          spacing: BALL_RADIUS / 2,
+          children: [ new BallNode( BALL_RADIUS ), new Text( MathSymbols.TIMES + PlinkoProbabilityQueryParameters.maxBallsIntro, fontOptions ) ]
+        } ), value: 'maxBalls'
+      }
     ], {
       radioButtonOptions: { radius: 8 },
       spacing: 10,     // vertical spacing between each radio button
