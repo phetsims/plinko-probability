@@ -31,7 +31,7 @@ class LabScreen extends Screen {
         maxIconWidthProportion: 1,
         maxIconHeightProportion: 1
       } ),
-      keyboardHelpNode: new PlinkoProbabilityKeyboardHelpContent()
+      createKeyboardHelpNode: () => new PlinkoProbabilityKeyboardHelpContent()
     };
 
     super(
