@@ -20,8 +20,7 @@ const simOptions = {
     softwareDevelopment: 'Martin Veillette, Denzell Barnett, Chris Malley (PixelZoom, Inc.), Guillermo Ramos-Macias',
     team: 'Karina K. Hensberry, Trish Loeblein, Ariel Paul, Kathy Perkins',
     qualityAssurance: 'Steele Dalton, Amanda Davis, Alex Dornan, Bryce Griebenow, Ben Roberts'
-  },
-  hasKeyboardHelpContent: true
+  }
 };
 
 simLauncher.launch( () => {
