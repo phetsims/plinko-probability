@@ -13,7 +13,7 @@
     "branch": "HEAD"
   },
   "chipper": {
-    "sha": "cb234f78a2a93035620acfe41b0164891a9ca139",
+    "sha": "6c4ba1bd33de02fbbcb5c8ec9f028adf81ab2876",
     "branch": "HEAD"
   },
   "dot": {
@@ -41,7 +41,7 @@
     "branch": "HEAD"
   },
   "plinko-probability": {
-    "sha": "b8fb9afc11a3c2b94bdda0e26472b45730bda9cd",
+    "sha": "25b34d858bb33656ccff17f8ec12f7f552479c7d",
     "branch": "1.1"
   },
   "query-string-machine": {
