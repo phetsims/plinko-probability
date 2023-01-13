@@ -37,9 +37,9 @@ class HopperModeControl extends Node {
 
     // create the radio buttons
     const showRadioButtons = new VerticalAquaRadioButtonGroup( hopperModeProperty, [
-      { createNode: tandem => new Text( ballString, LABEL_OPTIONS ), value: 'ball' },
-      { createNode: tandem => new Text( pathString, LABEL_OPTIONS ), value: 'path' },
-      { createNode: tandem => new Text( noneString, LABEL_OPTIONS ), value: 'none' }
+      { createNode: () => new Text( ballString, LABEL_OPTIONS ), value: 'ball' },
+      { createNode: () => new Text( pathString, LABEL_OPTIONS ), value: 'path' },
+      { createNode: () => new Text( noneString, LABEL_OPTIONS ), value: 'none' }
     ], options );
 
     this.addChild( showRadioButtons );

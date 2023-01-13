@@ -43,19 +43,19 @@ class IntroPlayPanel extends Panel {
     // Creation of radio button group for ball setting
     const ballModeRadioButtons = new VerticalAquaRadioButtonGroup( model.ballModeProperty, [
       {
-        createNode: tandem => new HBox( {
+        createNode: () => new HBox( {
           spacing: BALL_RADIUS / 2,
           children: [ new BallNode( BALL_RADIUS ), new Text( `${MathSymbols.TIMES}1`, fontOptions ) ]
         } ), value: 'oneBall'
       },
       {
-        createNode: tandem => new HBox( {
+        createNode: () => new HBox( {
           spacing: BALL_RADIUS / 2,
           children: [ new BallNode( BALL_RADIUS ), new Text( `${MathSymbols.TIMES}10`, fontOptions ) ]
         } ), value: 'tenBalls'
       },
       {
-        createNode: tandem => new HBox( {
+        createNode: () => new HBox( {
           spacing: BALL_RADIUS / 2,
           children: [ new BallNode( BALL_RADIUS ), new Text( MathSymbols.TIMES + PlinkoProbabilityQueryParameters.maxBallsIntro, fontOptions ) ]
         } ), value: 'maxBalls'

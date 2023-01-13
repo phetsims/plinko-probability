@@ -50,8 +50,8 @@ class HistogramModeControl extends RectangularRadioButtonGroup {
     bottomNode.scale( ICON_WIDTH / bottomNode.width );
 
     super( histogramModeProperty, [
-      { value: topValue, createNode: tandem => topNode },
-      { value: bottomValue, createNode: tandem => bottomNode }
+      { value: topValue, createNode: () => topNode },
+      { value: bottomValue, createNode: () => bottomNode }
     ], options );
   }
 }

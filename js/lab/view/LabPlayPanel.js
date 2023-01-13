@@ -57,9 +57,9 @@ class LabPlayPanel extends Panel {
 
     // create the vertical radio group buttons for the one ball and continuous mode.
     const ballModeRadioButtons = new VerticalAquaRadioButtonGroup( model.ballModeProperty, [ {
-      createNode: tandem => new BallNode( BALL_RADIUS ), value: 'oneBall'
+      createNode: () => new BallNode( BALL_RADIUS ), value: 'oneBall'
     }, {
-      createNode: tandem => new HBox( {
+      createNode: () => new HBox( {
         align: 'bottom',
         spacing: -ballWidth / 2, // negative spacing
         children: [
