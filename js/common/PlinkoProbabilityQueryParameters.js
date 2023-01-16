@@ -35,7 +35,7 @@ const PlinkoProbabilityQueryParameters = QueryStringMachine.getAll( {
     isValidValue: value => value >= 0 && Number.isInteger( value )
   },
 
-  // TODO: Bad things will happen if the minRow is set higher than maxRow
+  // TODO: Bad things will happen if the minRow is set higher than maxRow, https://github.com/phetsims/plinko-probability/issues/84
   // minimum number of peg rows on lab screen
   minRow: {
     type: 'number',
