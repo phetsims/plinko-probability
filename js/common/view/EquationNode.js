@@ -86,7 +86,7 @@ class EquationNode extends Node {
    * @public
    */
   setRightHandSideOfEquation( value ) {
-    this.rightHandSideOfEquationText.text = this.roundNumber( value );
+    this.rightHandSideOfEquationText.string = this.roundNumber( value );
   }
 
   /**

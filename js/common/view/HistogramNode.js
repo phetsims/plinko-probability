@@ -186,10 +186,10 @@ class YAxisNode extends Node {
     histogramModeProperty.link( histogramMode => {
       switch( histogramMode ) {
         case 'fraction':
-          yLabelNode.text = fractionString;
+          yLabelNode.string = fractionString;
           break;
         case 'counter':
-          yLabelNode.text = countString;
+          yLabelNode.string = countString;
           break;
         case 'cylinder':
           // do nothing
@@ -352,7 +352,7 @@ class XBannerNode extends Node {
           }
 
           // update position, fontsize and text of the bins
-          labelsTextArray[ binIndex ].text = binValue;
+          labelsTextArray[ binIndex ].string = binValue;
           labelsTextArray[ binIndex ].setFont( font );
           labelsTextArray[ binIndex ].centerX = binCenterX;
         }
