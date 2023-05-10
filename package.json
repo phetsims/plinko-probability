@@ -13,6 +13,10 @@
     "requirejsNamespace": "PLINKO_PROBABILITY",
     "phetLibs": [
       "vibe"
+    ],
+    "screenNameKeys": [
+      "PLINKO_PROBABILITY/screen.intro",
+      "PLINKO_PROBABILITY/screen.lab"
     ]
   }
 }
