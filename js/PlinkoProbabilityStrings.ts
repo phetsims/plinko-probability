@@ -5,52 +5,52 @@
  */
 /* eslint-disable */
 import getStringModule from '../../chipper/js/getStringModule.js';
-import LinkableProperty from '../../axon/js/LinkableProperty.js';
+import type LocalizedStringProperty from '../../chipper/js/LocalizedStringProperty.js';
 import plinkoProbability from './plinkoProbability.js';
 
 type StringsType = {
   'plinko-probability': {
     'title': string;
-    'titleStringProperty': LinkableProperty<string>;
+    'titleStringProperty': LocalizedStringProperty;
   };
   'screen': {
     'lab': string;
-    'labStringProperty': LinkableProperty<string>;
+    'labStringProperty': LocalizedStringProperty;
     'intro': string;
-    'introStringProperty': LinkableProperty<string>;
+    'introStringProperty': LocalizedStringProperty;
   };
   'fraction': string;
-  'fractionStringProperty': LinkableProperty<string>;
+  'fractionStringProperty': LocalizedStringProperty;
   'count': string;
-  'countStringProperty': LinkableProperty<string>;
+  'countStringProperty': LocalizedStringProperty;
   'bin': string;
-  'binStringProperty': LinkableProperty<string>;
+  'binStringProperty': LocalizedStringProperty;
   'rows': string;
-  'rowsStringProperty': LinkableProperty<string>;
+  'rowsStringProperty': LocalizedStringProperty;
   'binaryProbability': string;
-  'binaryProbabilityStringProperty': LinkableProperty<string>;
+  'binaryProbabilityStringProperty': LocalizedStringProperty;
   'n': string;
-  'nStringProperty': LinkableProperty<string>;
+  'nStringProperty': LocalizedStringProperty;
   's': string;
-  'sStringProperty': LinkableProperty<string>;
+  'sStringProperty': LocalizedStringProperty;
   'sMean': string;
-  'sMeanStringProperty': LinkableProperty<string>;
+  'sMeanStringProperty': LocalizedStringProperty;
   'ball': string;
-  'ballStringProperty': LinkableProperty<string>;
+  'ballStringProperty': LocalizedStringProperty;
   'path': string;
-  'pathStringProperty': LinkableProperty<string>;
+  'pathStringProperty': LocalizedStringProperty;
   'none': string;
-  'noneStringProperty': LinkableProperty<string>;
+  'noneStringProperty': LocalizedStringProperty;
   'ideal': string;
-  'idealStringProperty': LinkableProperty<string>;
+  'idealStringProperty': LocalizedStringProperty;
   'outOfBalls': string;
-  'outOfBallsStringProperty': LinkableProperty<string>;
+  'outOfBallsStringProperty': LocalizedStringProperty;
   'mu': string;
-  'muStringProperty': LinkableProperty<string>;
+  'muStringProperty': LocalizedStringProperty;
   'sigma': string;
-  'sigmaStringProperty': LinkableProperty<string>;
+  'sigmaStringProperty': LocalizedStringProperty;
   'xBar': string;
-  'xBarStringProperty': LinkableProperty<string>;
+  'xBarStringProperty': LocalizedStringProperty;
 };
 
 const PlinkoProbabilityStrings = getStringModule( 'PLINKO_PROBABILITY' ) as StringsType;
