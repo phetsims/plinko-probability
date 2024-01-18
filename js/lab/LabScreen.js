@@ -2,6 +2,8 @@
 
 /**
  * The 'Lab' screen
+ *
+ * @author Martin Veillette (Berea College)
  */
 
 import Property from '../../../axon/js/Property.js';

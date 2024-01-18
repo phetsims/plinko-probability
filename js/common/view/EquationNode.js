@@ -5,7 +5,7 @@
  * The left hand side of the equation can make use of <sup> and <sub> html tags
  * The numerical value can be updated through a public method.
  *
- * Martin Veillette (Berea College)
+ * @author Martin Veillette (Berea College)
  */
 
 import Utils from '../../../../dot/js/Utils.js';
