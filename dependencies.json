@@ -13,7 +13,7 @@
     "branch": "HEAD"
   },
   "chipper": {
-    "sha": "a4eb72384dfda1d5aa65901db814e30ace7e8d8b",
+    "sha": "8d02be57d4ed9bfc4bf8e827159b1000a1f799ee",
     "branch": "HEAD"
   },
   "dot": {
@@ -21,7 +21,7 @@
     "branch": "HEAD"
   },
   "joist": {
-    "sha": "2db96797e3974fd85332e923a655da5bb413fed6",
+    "sha": "a4a238d2e3308c5927df625a2a55ea4233ef7b2d",
     "branch": "HEAD"
   },
   "kite": {
@@ -41,7 +41,7 @@
     "branch": "HEAD"
   },
   "plinko-probability": {
-    "sha": "1bacf7836eb9f68e4e32c2b486b8894bd8858f68",
+    "sha": "22110423bc43084600cf4e1325c580bad516f2c6",
     "branch": "1.1"
   },
   "query-string-machine": {
