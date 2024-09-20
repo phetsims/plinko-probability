@@ -36,7 +36,7 @@
         ],
         "parserOptions": {
           "project": [
-            "../plinko-probability/tsconfig.json"
+            "../chipper/tsconfig/eslint-all/tsconfig.json"
           ]
         }
       }
