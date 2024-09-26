@@ -26,8 +26,5 @@
       "PLINKO_PROBABILITY/screen.intro",
       "PLINKO_PROBABILITY/screen.lab"
     ]
-  },
-  "eslintConfig": {
-    "extends": "../chipper/eslint/sim_eslintrc.js"
   }
 }
