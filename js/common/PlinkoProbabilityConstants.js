@@ -9,7 +9,7 @@
 import Bounds2 from '../../../dot/js/Bounds2.js';
 import RangeWithValue from '../../../dot/js/RangeWithValue.js';
 import PhetFont from '../../../scenery-phet/js/PhetFont.js';
-import { Color } from '../../../scenery/js/imports.js';
+import Color from '../../../scenery/js/util/Color.js';
 import ButtonNode from '../../../sun/js/buttons/ButtonNode.js';
 import { ThreeDAppearanceStrategy } from '../../../sun/js/buttons/RoundButton.js';
 import plinkoProbability from '../plinkoProbability.js';
