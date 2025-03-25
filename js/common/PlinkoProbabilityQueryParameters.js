@@ -7,6 +7,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import { QueryStringMachine } from '../../../query-string-machine/js/QueryStringMachineModule.js';
 import plinkoProbability from '../plinkoProbability.js';
 
 const PlinkoProbabilityQueryParameters = QueryStringMachine.getAll( {
