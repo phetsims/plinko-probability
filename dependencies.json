@@ -33,7 +33,7 @@
     "branch": "HEAD"
   },
   "phetcommon": {
-    "sha": "b93e60d73e297e1f5b7520e2b56f5fd9ce56b542",
+    "sha": "267d7ee53314f20074a207bbc9cb32fb115cb223",
     "branch": "HEAD"
   },
   "phetmarks": {
@@ -41,7 +41,7 @@
     "branch": "HEAD"
   },
   "plinko-probability": {
-    "sha": "39f350287f72b539e931c6569b42378b4f6b7332",
+    "sha": "7b62835f00b4706d156bd6d578b5b97385fa479b",
     "branch": "1.1"
   },
   "query-string-machine": {
