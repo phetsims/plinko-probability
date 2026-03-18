@@ -21,7 +21,7 @@
     "branch": "HEAD"
   },
   "joist": {
-    "sha": "aafaabc005eec8a841784710f90c5d0259d025ad",
+    "sha": "5a2740dfc0dbac0e7058984d0b422ccdd49930ed",
     "branch": "HEAD"
   },
   "kite": {
@@ -41,7 +41,7 @@
     "branch": "HEAD"
   },
   "plinko-probability": {
-    "sha": "c0d66b01ce29f6692fb193c260fcaeb5632c27c5",
+    "sha": "e00b01b16e9e29daf0cc810bfd6e40536af55628",
     "branch": "1.1"
   },
   "query-string-machine": {
