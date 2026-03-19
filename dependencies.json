@@ -9,7 +9,7 @@
     "branch": "HEAD"
   },
   "brand": {
-    "sha": "0b1b056374d110be548f5afd479b1bac8937c941",
+    "sha": "adbee2b3b584f190a14b2ff81c66ba891b01adf8",
     "branch": "HEAD"
   },
   "chipper": {
@@ -41,7 +41,7 @@
     "branch": "HEAD"
   },
   "plinko-probability": {
-    "sha": "92ef2692a38b86e2789b1260423779e5c515b8ec",
+    "sha": "5d68bb0830bc56cbe1bd428ce9a368a78674d0a3",
     "branch": "1.1"
   },
   "query-string-machine": {
