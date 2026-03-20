@@ -9,7 +9,6 @@
 import PlinkoProbabilityCommonModel from '../../common/model/PlinkoProbabilityCommonModel.js';
 import PlinkoProbabilityConstants from '../../common/PlinkoProbabilityConstants.js';
 import PlinkoProbabilityQueryParameters from '../../common/PlinkoProbabilityQueryParameters.js';
-import plinkoProbability from '../../plinkoProbability.js';
 import IntroBall from './IntroBall.js';
 
 // constants
@@ -154,7 +153,5 @@ class IntroModel extends PlinkoProbabilityCommonModel {
     addedBall.ballOutOfPegsEmitter.addListener( ballOutOfPegsListener );
   }
 }
-
-plinkoProbability.register( 'IntroModel', IntroModel );
 
 export default IntroModel;

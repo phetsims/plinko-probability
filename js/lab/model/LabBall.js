@@ -10,7 +10,6 @@
 
 import Ball from '../../common/model/Ball.js';
 import PlinkoProbabilityConstants from '../../common/PlinkoProbabilityConstants.js';
-import plinkoProbability from '../../plinkoProbability.js';
 
 class LabBall extends Ball {
   /**
@@ -28,7 +27,5 @@ class LabBall extends Ball {
     this.finalBinVerticalOffset = PlinkoProbabilityConstants.HISTOGRAM_BOUNDS.maxY - 6 * this.ballRadius;
   }
 }
-
-plinkoProbability.register( 'LabBall', LabBall );
 
 export default LabBall;

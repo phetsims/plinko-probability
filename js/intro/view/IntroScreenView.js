@@ -15,7 +15,6 @@ import PlinkoProbabilityConstants from '../../common/PlinkoProbabilityConstants.
 import HistogramModeControl from '../../common/view/HistogramModeControl.js';
 import PegsNode from '../../common/view/PegsNode.js';
 import PlinkoProbabilityCommonView from '../../common/view/PlinkoProbabilityCommonView.js';
-import plinkoProbability from '../../plinkoProbability.js';
 import CylindersBackNode from './CylindersBackNode.js';
 import CylindersFrontNode from './CylindersFrontNode.js';
 import IntroPlayPanel from './IntroPlayPanel.js';
@@ -115,5 +114,4 @@ class IntroScreenView extends PlinkoProbabilityCommonView {
   }
 }
 
-plinkoProbability.register( 'IntroScreenView', IntroScreenView );
 export default IntroScreenView;

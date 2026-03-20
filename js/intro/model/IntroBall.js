@@ -13,7 +13,6 @@
 
 import dotRandom from '../../../../dot/js/dotRandom.js';
 import Ball from '../../common/model/Ball.js';
-import plinkoProbability from '../../plinkoProbability.js';
 
 class IntroBall extends Ball {
   /**
@@ -71,7 +70,5 @@ class IntroBall extends Ball {
     this.finalBinHorizontalOffset = ( this.binOrientation * ( ( cylinderInfo.cylinderWidth / 2 ) - this.ballRadius ) );
   }
 }
-
-plinkoProbability.register( 'IntroBall', IntroBall );
 
 export default IntroBall;

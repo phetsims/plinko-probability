@@ -17,7 +17,6 @@ import PlinkoProbabilityConstants from '../../common/PlinkoProbabilityConstants.
 import PlinkoProbabilityQueryParameters from '../../common/PlinkoProbabilityQueryParameters.js';
 import BallNode from '../../common/view/BallNode.js';
 import PlayButton from '../../common/view/PlayButton.js';
-import plinkoProbability from '../../plinkoProbability.js';
 
 // constants
 const BALL_RADIUS = PlinkoProbabilityConstants.BALL_RADIUS;
@@ -95,5 +94,4 @@ class IntroPlayPanel extends Panel {
   }
 }
 
-plinkoProbability.register( 'IntroPlayPanel', IntroPlayPanel );
 export default IntroPlayPanel;

@@ -16,7 +16,6 @@ import Path from '../../../../scenery/js/nodes/Path.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import Color from '../../../../scenery/js/util/Color.js';
-import plinkoProbability from '../../plinkoProbability.js';
 import PlinkoProbabilityStrings from '../../PlinkoProbabilityStrings.js';
 import PlinkoProbabilityConstants from '../PlinkoProbabilityConstants.js';
 
@@ -84,8 +83,6 @@ class HistogramNode extends Node {
   }
 }
 
-plinkoProbability.register( 'HistogramNode', HistogramNode );
-
 //----------------------------------------------------------------------------------------
 // x-axis (horizontal)
 //----------------------------------------------------------------------------------------
@@ -152,8 +149,6 @@ class XAxisNode extends Node {
   }
 }
 
-plinkoProbability.register( 'XAxisNode', XAxisNode );
-
 //----------------------------------------------------------------------------------------
 //  y-axis (vertical)
 //----------------------------------------------------------------------------------------
@@ -207,8 +202,6 @@ class YAxisNode extends Node {
   }
 }
 
-plinkoProbability.register( 'YAxisNode', YAxisNode );
-
 //----------------------------------------------------------------------------------------
 // 2D Background
 //----------------------------------------------------------------------------------------
@@ -225,8 +218,6 @@ class BackgroundNode extends Rectangle {
     } );
   }
 }
-
-plinkoProbability.register( 'BackgroundNode', BackgroundNode );
 
 //----------------------------------------------------------------------------------------
 //  X Banner
@@ -383,8 +374,6 @@ class XBannerNode extends Node {
     updateTextBanner( numberOfRowsProperty.get(), histogramModeProperty.get() );
   }
 }
-
-plinkoProbability.register( 'XBannerNode', XBannerNode );
 
 //----------------------------------------------------------------------------------------
 //  Histogram Bars
@@ -575,7 +564,5 @@ class HistogramBarNode extends Node {
     }
   }
 }
-
-plinkoProbability.register( 'HistogramBarNode', HistogramBarNode );
 
 export default HistogramNode;

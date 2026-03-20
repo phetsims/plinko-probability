@@ -15,7 +15,6 @@ import CanvasNode from '../../../../scenery/js/nodes/CanvasNode.js';
 import Circle from '../../../../scenery/js/nodes/Circle.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
 import RadialGradient from '../../../../scenery/js/util/RadialGradient.js';
-import plinkoProbability from '../../plinkoProbability.js';
 import GaltonBoard from '../model/GaltonBoard.js';
 import PlinkoProbabilityConstants from '../PlinkoProbabilityConstants.js';
 
@@ -166,7 +165,5 @@ class PegsNode extends CanvasNode {
     } );
   }
 }
-
-plinkoProbability.register( 'PegsNode', PegsNode );
 
 export default PegsNode;

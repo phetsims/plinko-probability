@@ -12,7 +12,6 @@ import Shape from '../../../../kite/js/Shape.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
 import PlinkoProbabilityConstants from '../../common/PlinkoProbabilityConstants.js';
-import plinkoProbability from '../../plinkoProbability.js';
 
 // constants
 const BOUNDS = PlinkoProbabilityConstants.HISTOGRAM_BOUNDS;
@@ -72,7 +71,5 @@ class CylindersBackNode extends Node {
     return ( ( binIndex + 1 / 2 ) / numberOfBins ) * BOUNDS.width + BOUNDS.minX;
   }
 }
-
-plinkoProbability.register( 'CylindersBackNode', CylindersBackNode );
 
 export default CylindersBackNode;

@@ -7,7 +7,6 @@
  */
 
 import Vector2 from '../../../../dot/js/Vector2.js';
-import plinkoProbability from '../../plinkoProbability.js';
 import PlinkoProbabilityConstants from '../PlinkoProbabilityConstants.js';
 
 class GaltonBoard {
@@ -62,8 +61,6 @@ class GaltonBoard {
     return PlinkoProbabilityConstants.GALTON_BOARD_BOUNDS.width / ( numberOfRows + 1 );
   }
 }
-
-plinkoProbability.register( 'GaltonBoard', GaltonBoard );
 
 /**
  * Gets the x and y coordinates of a peg, in reference to the galton board.

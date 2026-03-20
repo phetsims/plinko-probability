@@ -15,7 +15,6 @@ import HStrut from '../../../../scenery/js/nodes/HStrut.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
-import plinkoProbability from '../../plinkoProbability.js';
 
 class EquationNode extends Node {
   /**
@@ -130,7 +129,5 @@ class EquationNode extends Node {
     return Utils.toFixed( number, decimalPlaces );
   }
 }
-
-plinkoProbability.register( 'EquationNode', EquationNode );
 
 export default EquationNode;

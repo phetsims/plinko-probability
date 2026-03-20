@@ -58,6 +58,4 @@ type StringsType = {
 
 const PlinkoProbabilityStrings = getStringModule( 'PLINKO_PROBABILITY' ) as StringsType;
 
-plinkoProbability.register( 'PlinkoProbabilityStrings', PlinkoProbabilityStrings );
-
 export default PlinkoProbabilityStrings;

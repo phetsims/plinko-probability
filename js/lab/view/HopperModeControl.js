@@ -11,7 +11,6 @@ import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import VerticalAquaRadioButtonGroup from '../../../../sun/js/VerticalAquaRadioButtonGroup.js';
-import plinkoProbability from '../../plinkoProbability.js';
 import PlinkoProbabilityStrings from '../../PlinkoProbabilityStrings.js';
 
 const ballString = PlinkoProbabilityStrings.ball;
@@ -46,7 +45,5 @@ class HopperModeControl extends Node {
     this.addChild( showRadioButtons );
   }
 }
-
-plinkoProbability.register( 'HopperModeControl', HopperModeControl );
 
 export default HopperModeControl;

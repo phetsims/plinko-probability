@@ -9,7 +9,6 @@
 import Shape from '../../../../kite/js/Shape.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
 import PlinkoProbabilityConstants from '../../common/PlinkoProbabilityConstants.js';
-import plinkoProbability from '../../plinkoProbability.js';
 
 class TrajectoryPath extends Path {
   /**
@@ -44,7 +43,5 @@ class TrajectoryPath extends Path {
     super( modelViewTransform.modelToViewShape( shape ), pathOptions );
   }
 }
-
-plinkoProbability.register( 'TrajectoryPath', TrajectoryPath );
 
 export default TrajectoryPath;

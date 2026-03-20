@@ -14,7 +14,6 @@ import introHomescreen_png from '../../images/introHomescreen_png.js';
 import introNavbar_png from '../../images/introNavbar_png.js';
 import PlinkoProbabilityConstants from '../common/PlinkoProbabilityConstants.js';
 import PlinkoProbabilityKeyboardHelpContent from '../common/view/PlinkoProbabilityKeyboardHelpContent.js';
-import plinkoProbability from '../plinkoProbability.js';
 import PlinkoProbabilityStrings from '../PlinkoProbabilityStrings.js';
 import IntroModel from './model/IntroModel.js';
 import IntroScreenView from './view/IntroScreenView.js';
@@ -44,5 +43,4 @@ class IntroScreen extends Screen {
   }
 }
 
-plinkoProbability.register( 'IntroScreen', IntroScreen );
 export default IntroScreen;

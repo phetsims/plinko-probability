@@ -15,7 +15,6 @@ import AccordionBox from '../../../../sun/js/AccordionBox.js';
 import Checkbox from '../../../../sun/js/Checkbox.js';
 import PlinkoProbabilityConstants from '../../common/PlinkoProbabilityConstants.js';
 import EquationNode from '../../common/view/EquationNode.js';
-import plinkoProbability from '../../plinkoProbability.js';
 import PlinkoProbabilityStrings from '../../PlinkoProbabilityStrings.js';
 import HistogramIcon from './HistogramIcon.js';
 
@@ -166,5 +165,4 @@ class StatisticsAccordionBox extends AccordionBox {
   }
 }
 
-plinkoProbability.register( 'StatisticsAccordionBox', StatisticsAccordionBox );
 export default StatisticsAccordionBox;

@@ -14,7 +14,6 @@ import labHomescreen_png from '../../images/labHomescreen_png.js';
 import labNavbar_png from '../../images/labNavbar_png.js';
 import PlinkoProbabilityConstants from '../common/PlinkoProbabilityConstants.js';
 import PlinkoProbabilityKeyboardHelpContent from '../common/view/PlinkoProbabilityKeyboardHelpContent.js';
-import plinkoProbability from '../plinkoProbability.js';
 import PlinkoProbabilityStrings from '../PlinkoProbabilityStrings.js';
 import LabModel from './model/LabModel.js';
 import LabScreenView from './view/LabScreenView.js';
@@ -44,5 +43,4 @@ class LabScreen extends Screen {
   }
 }
 
-plinkoProbability.register( 'LabScreen', LabScreen );
 export default LabScreen;

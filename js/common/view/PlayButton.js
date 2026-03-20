@@ -11,7 +11,6 @@ import Shape from '../../../../kite/js/Shape.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
 import RoundPushButton from '../../../../sun/js/buttons/RoundPushButton.js';
-import plinkoProbability from '../../plinkoProbability.js';
 import PlinkoProbabilityConstants from '../PlinkoProbabilityConstants.js';
 
 class PlayButton extends RoundPushButton {
@@ -54,5 +53,4 @@ class PlayButton extends RoundPushButton {
   }
 }
 
-plinkoProbability.register( 'PlayButton', PlayButton );
 export default PlayButton;

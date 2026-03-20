@@ -10,7 +10,6 @@
 import merge from '../../../../phet-core/js/merge.js';
 import Image from '../../../../scenery/js/nodes/Image.js';
 import RectangularRadioButtonGroup from '../../../../sun/js/buttons/RectangularRadioButtonGroup.js';
-import plinkoProbability from '../../plinkoProbability.js';
 
 // constants
 const ICON_WIDTH = 35;
@@ -56,5 +55,4 @@ class HistogramModeControl extends RectangularRadioButtonGroup {
   }
 }
 
-plinkoProbability.register( 'HistogramModeControl', HistogramModeControl );
 export default HistogramModeControl;

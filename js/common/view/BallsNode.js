@@ -9,7 +9,6 @@
 import merge from '../../../../phet-core/js/merge.js';
 import required from '../../../../phet-core/js/required.js';
 import CanvasNode from '../../../../scenery/js/nodes/CanvasNode.js';
-import plinkoProbability from '../../plinkoProbability.js';
 import BallPhase from '../model/BallPhase.js';
 import GaltonBoard from '../model/GaltonBoard.js';
 import PlinkoProbabilityConstants from '../PlinkoProbabilityConstants.js';
@@ -105,7 +104,5 @@ class BallsNode extends CanvasNode {
     } );
   }
 }
-
-plinkoProbability.register( 'BallsNode', BallsNode );
 
 export default BallsNode;

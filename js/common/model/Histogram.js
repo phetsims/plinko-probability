@@ -9,7 +9,6 @@
 
 import Emitter from '../../../../axon/js/Emitter.js';
 import dotRandom from '../../../../dot/js/dotRandom.js';
-import plinkoProbability from '../../plinkoProbability.js';
 import PlinkoProbabilityConstants from '../PlinkoProbabilityConstants.js';
 
 // constants
@@ -355,7 +354,5 @@ class Histogram {
     return ( ( value + 1 / 2 ) / numberOfBins ) * BOUNDS.width + BOUNDS.minX;
   }
 }
-
-plinkoProbability.register( 'Histogram', Histogram );
 
 export default Histogram;

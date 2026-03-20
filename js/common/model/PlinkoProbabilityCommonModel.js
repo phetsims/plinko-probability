@@ -11,7 +11,6 @@ import createObservableArray from '../../../../axon/js/createObservableArray.js'
 import Emitter from '../../../../axon/js/Emitter.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import StringProperty from '../../../../axon/js/StringProperty.js';
-import plinkoProbability from '../../plinkoProbability.js';
 import PlinkoProbabilityConstants from '../PlinkoProbabilityConstants.js';
 import GaltonBoard from './GaltonBoard.js';
 import Histogram from './Histogram.js';
@@ -91,7 +90,5 @@ class PlinkoProbabilityCommonModel {
     this.ballsMovedEmitter.emit();
   }
 }
-
-plinkoProbability.register( 'PlinkoProbabilityCommonModel', PlinkoProbabilityCommonModel );
 
 export default PlinkoProbabilityCommonModel;

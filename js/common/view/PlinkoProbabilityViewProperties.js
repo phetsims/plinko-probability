@@ -9,7 +9,6 @@
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import StringProperty from '../../../../axon/js/StringProperty.js';
 import merge from '../../../../phet-core/js/merge.js';
-import plinkoProbability from '../../plinkoProbability.js';
 
 // constants
 const HISTOGRAM_MODE_VALUES = [ 'counter', 'cylinder', 'fraction' ]; // values for histogramModeProperty
@@ -42,7 +41,5 @@ class PlinkoProbabilityViewProperties {
     this.isSoundEnabledProperty.reset();
   }
 }
-
-plinkoProbability.register( 'PlinkoProbabilityViewProperties', PlinkoProbabilityViewProperties );
 
 export default PlinkoProbabilityViewProperties;

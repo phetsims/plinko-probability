@@ -9,7 +9,6 @@
 import Emitter from '../../../../axon/js/Emitter.js';
 import dotRandom from '../../../../dot/js/dotRandom.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import plinkoProbability from '../../plinkoProbability.js';
 import PlinkoProbabilityConstants from '../PlinkoProbabilityConstants.js';
 import BallPhase from './BallPhase.js';
 import GaltonBoard from './GaltonBoard.js';
@@ -287,8 +286,6 @@ class Ball {
     this.direction = peg.direction; // whether the ball went left or right
   }
 }
-
-plinkoProbability.register( 'Ball', Ball );
 
 /**
  * Function that returns the X position of a peg with index rowNumber and column Number

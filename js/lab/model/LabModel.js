@@ -10,7 +10,6 @@ import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import BallPhase from '../../common/model/BallPhase.js';
 import PlinkoProbabilityCommonModel from '../../common/model/PlinkoProbabilityCommonModel.js';
 import PlinkoProbabilityQueryParameters from '../../common/PlinkoProbabilityQueryParameters.js';
-import plinkoProbability from '../../plinkoProbability.js';
 import LabBall from './LabBall.js';
 
 // constants
@@ -246,7 +245,5 @@ class LabModel extends PlinkoProbabilityCommonModel {
     return normalizedArray;
   }
 }
-
-plinkoProbability.register( 'LabModel', LabModel );
 
 export default LabModel;

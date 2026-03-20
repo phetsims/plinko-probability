@@ -7,7 +7,6 @@
  */
 
 import ShadedSphereNode from '../../../../scenery-phet/js/ShadedSphereNode.js';
-import plinkoProbability from '../../plinkoProbability.js';
 import PlinkoProbabilityConstants from '../PlinkoProbabilityConstants.js';
 
 class BallNode extends ShadedSphereNode {
@@ -23,5 +22,4 @@ class BallNode extends ShadedSphereNode {
   }
 }
 
-plinkoProbability.register( 'BallNode', BallNode );
 export default BallNode;

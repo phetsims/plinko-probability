@@ -17,7 +17,6 @@ import PlinkoProbabilityQueryParameters from '../../common/PlinkoProbabilityQuer
 import HistogramModeControl from '../../common/view/HistogramModeControl.js';
 import PegsNode from '../../common/view/PegsNode.js';
 import PlinkoProbabilityCommonView from '../../common/view/PlinkoProbabilityCommonView.js';
-import plinkoProbability from '../../plinkoProbability.js';
 import HopperModeControl from './HopperModeControl.js';
 import LabPlayPanel from './LabPlayPanel.js';
 import OutOfBallsDialog from './OutOfBallsDialog.js';
@@ -168,5 +167,4 @@ class LabScreenView extends PlinkoProbabilityCommonView {
   }
 }
 
-plinkoProbability.register( 'LabScreenView', LabScreenView );
 export default LabScreenView;

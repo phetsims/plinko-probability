@@ -10,7 +10,6 @@
 import Sound from '../../../../vibe/js/Sound.js';
 import bonk1ForPlinko_mp3 from '../../../sounds/bonk1ForPlinko_mp3.js';
 import bonk2ForPlinko_mp3 from '../../../sounds/bonk2ForPlinko_mp3.js';
-import plinkoProbability from '../../plinkoProbability.js';
 import PlinkoProbabilityConstants from '../PlinkoProbabilityConstants.js';
 
 class PegSoundGeneration {
@@ -59,7 +58,5 @@ class PegSoundGeneration {
     }
   }
 }
-
-plinkoProbability.register( 'PegSoundGeneration', PegSoundGeneration );
 
 export default PegSoundGeneration;

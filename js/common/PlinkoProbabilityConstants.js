@@ -12,7 +12,6 @@ import PhetFont from '../../../scenery-phet/js/PhetFont.js';
 import Color from '../../../scenery/js/util/Color.js';
 import ButtonNode from '../../../sun/js/buttons/ButtonNode.js';
 import { ThreeDAppearanceStrategy } from '../../../sun/js/buttons/RoundButton.js';
-import plinkoProbability from '../plinkoProbability.js';
 import PlinkoProbabilityQueryParameters from './PlinkoProbabilityQueryParameters.js';
 
 const PlinkoProbabilityConstants = {
@@ -82,7 +81,5 @@ const PlinkoProbabilityConstants = {
                                          ThreeDAppearanceStrategy :
                                          ButtonNode.FlatAppearanceStrategy // see issue #26
 };
-
-plinkoProbability.register( 'PlinkoProbabilityConstants', PlinkoProbabilityConstants );
 
 export default PlinkoProbabilityConstants;

@@ -14,7 +14,6 @@ import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import Panel from '../../../../sun/js/Panel.js';
 import PlinkoProbabilityConstants from '../../common/PlinkoProbabilityConstants.js';
-import plinkoProbability from '../../plinkoProbability.js';
 import PlinkoProbabilityStrings from '../../PlinkoProbabilityStrings.js';
 
 const binaryProbabilityString = PlinkoProbabilityStrings.binaryProbability;
@@ -129,5 +128,4 @@ class PegControls extends Panel {
   }
 }
 
-plinkoProbability.register( 'PegControls', PegControls );
 export default PegControls;

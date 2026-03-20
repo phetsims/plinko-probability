@@ -11,7 +11,6 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
 import LinearGradient from '../../../../scenery/js/util/LinearGradient.js';
 import PlinkoProbabilityConstants from '../../common/PlinkoProbabilityConstants.js';
-import plinkoProbability from '../../plinkoProbability.js';
 
 // constants
 const BOUNDS = PlinkoProbabilityConstants.HISTOGRAM_BOUNDS;
@@ -84,7 +83,5 @@ class CylindersFrontNode extends Node {
     return ( ( binIndex + 1 / 2 ) / numberOfBins ) * BOUNDS.width + BOUNDS.minX;
   }
 }
-
-plinkoProbability.register( 'CylindersFrontNode', CylindersFrontNode );
 
 export default CylindersFrontNode;

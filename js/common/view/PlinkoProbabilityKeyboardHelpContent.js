@@ -7,11 +7,9 @@
  */
 
 import SliderControlsAndBasicActionsKeyboardHelpContent from '../../../../scenery-phet/js/keyboard/help/SliderControlsAndBasicActionsKeyboardHelpContent.js';
-import plinkoProbability from '../../plinkoProbability.js';
 
 class PlinkoProbabilityKeyboardHelpContent extends SliderControlsAndBasicActionsKeyboardHelpContent {
   constructor() { super(); }
 }
 
-plinkoProbability.register( 'PlinkoProbabilityKeyboardHelpContent', PlinkoProbabilityKeyboardHelpContent );
 export default PlinkoProbabilityKeyboardHelpContent;

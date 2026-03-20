@@ -8,7 +8,6 @@
  */
 
 import { QueryStringMachine } from '../../../query-string-machine/js/QueryStringMachineModule.js';
-import plinkoProbability from '../plinkoProbability.js';
 
 const PlinkoProbabilityQueryParameters = QueryStringMachine.getAll( {
 
@@ -59,8 +58,6 @@ const PlinkoProbabilityQueryParameters = QueryStringMachine.getAll( {
   // Uses 3D appearance for the Play button, see https://github.com/phetsims/plinko-probability/issues/26
   play3D: { type: 'flag' }
 } );
-
-plinkoProbability.register( 'PlinkoProbabilityQueryParameters', PlinkoProbabilityQueryParameters );
 
 // log the values of all sim-specific query parameters
 phet.log && phet.log( `query parameters: ${JSON.stringify( PlinkoProbabilityQueryParameters, null, 2 )}` );

@@ -16,7 +16,6 @@ import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransfo
 import EraserButton from '../../../../scenery-phet/js/buttons/EraserButton.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
 import SoundToggleButton from '../../../../scenery-phet/js/buttons/SoundToggleButton.js';
-import plinkoProbability from '../../plinkoProbability.js';
 import PlinkoProbabilityConstants from '../PlinkoProbabilityConstants.js';
 import BallsNode from './BallsNode.js';
 import Board from './Board.js';
@@ -167,5 +166,4 @@ class PlinkoProbabilityCommonView extends ScreenView {
   }
 }
 
-plinkoProbability.register( 'PlinkoProbabilityCommonView', PlinkoProbabilityCommonView );
 export default PlinkoProbabilityCommonView;
