@@ -1,4 +1,4 @@
-// Copyright 2015-2020, University of Colorado Boulder
+// Copyright 2015-2026, University of Colorado Boulder
 
 /**
  * Scenery node that represents a ball.
